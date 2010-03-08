@@ -1,0 +1,69 @@
+# -*- mode: muttrc; -*-
+# vim:ft=muttrc
+
+  set abort_nosubject=ask-no      # Prompt to abort emails with no subject.
+unset abort_unmodified            # Don't abort unmodified emails.
+set   alias_file=~/.mutt/aliases  # Address aliases
+unset arrow_cursor                # Dont use arrow to show cur line in index
+  set ascii_chars                 # Dont Use graphic chars in tree
+  set askcc                       # Prompt for CC when composing
+unset auto_tag                    # Don't apply cmds to all tagged msgs
+  set certificate_file="~/.mutt/certificates"   # Store trusted certificates
+  set charset=utf-8               # Use UTF8.
+unset confirmappend               # Dont prompt when adding to a mailbox
+  set delete                      # Delete flagged msgs without prompt
+  set copy                        # Save sent emails.
+  set edit_headers                # Display msg headers in edtor during compose
+  set followup_to                 # Set a Mail-Followup-To header on each mail sent to a list.
+unset force_name                  # Do not force me to save outgoing mail by username
+  set help                        # Show help line
+  set honor_followup_to=yes       # If an email has a Mail-Followup-To header then use it when replying.
+  set mail_check=60               # Check mailboxes for new mail every X secs.
+#  set maildir_mtime               # Use maildir-mtime patch to sort folders by date of most recent mail.
+  set markers                     # Show + at begining of wrapped lines
+unset mark_old                    # Keep msgs flagged as new until actually read
+unset metoo                       # Dont mail to me when replying
+  set mime_forward=ask-yes        # Forward msgs as an attachment but ask for confirmation.
+  set move                        # Move read msgs from spoolfile
+  set pager_context=1             # When viewing next page of info, retain last line of previous page
+  set pager_index_lines=10        # You can see the pager and X lines of the index at the same time
+  set pager_stop                  # Dont move to next msg when paging paet end/start of msg.
+  set prompt_after                # Show "press key to exit" msgs.
+  set quit=ask-yes                # Prompt to quit Mutt
+  set read_inc=100                # Read counter ticks every X msgs.
+unset recall                      # Don't ask about postponed msgs when composing
+unset reply_self                  # If replying to a msg sent by me then send to the original recipients
+  set smart_wrap                  # Smart wrapping in pager
+  set sort_browser=reverse-date   # Initially show mail folders with most recent new mail at top.
+  set status_on_top               # Put status line at top of screen
+  set tilde                       # Indicate empty lines in the pager
+  set timeout=15                  # Number of seconds (if no user input) before mutt checks for new mail in cur mailbox
+  set tmpdir=/tmp                 # Temp files are stored in public.
+  set wrapmargin=10               # Margin on right when smartwrapping.
+  set write_inc=100               # Write counter ticks every X msgs.
+  set xterm_set_titles=no         # Don't show Mutt title in console title bar.
+
+# Foreign language versions of re: Needed for correct threading
+set reply_regexp="^((RE|Re|re|re|r?f|aw|antw.?|[Aa]ntwort|Sv|sv|SV):[ \t]*)*"
+
+set followup_to                     # Set a Mail-Followup-To header on each mail sent to a list.
+set honor_followup_to=yes           # If an email has a Mail-Followup-To header then use it when replying.
+
+set sort = 'threads'
+set sort_aux = 'last-date-received'
+
+set envelope_from               # Make the envelope From: the same as the From: header
+set use_from                    # Generate a From: header
+
+alternates colbell@users.sourceforge.net|col@squirrelsql.org|col@baibell.org|colin.bell@jobfutures.com.au|cbell@tickitsystems.com.au
+
+# For bad Microsoft mailers lookup mime.types for all
+# extensions dentifed as application/octet-stream.
+# Don't use this, use entry in .mailcap instead
+# mime_lookup application/octet-stream
+
+# Automatically view the following message types using .mailcap entries.
+auto_view text/html text/enriched
+
+#alternative_order text/plain text/enriched text application/postscript image/*
+alternative_order text/plain text/enriched text

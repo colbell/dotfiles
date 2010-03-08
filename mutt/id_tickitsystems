@@ -1,0 +1,29 @@
+# -*- mode: muttrc; -*-
+# vim:ft=muttrc 
+
+set realname='Colin Bell'
+set from='cbell@tickitsystems.com.au'
+
+set header_cache="~/.mutt/cache/cbell_at_tickitsystems_dot_com_dot_au/headers"
+set message_cachedir="~/.mutt/cache/cbell_at_tickitsystems_dot_com_dot_au/bodies"
+
+set folder="~/muttmail/cbell_at_tickitsystems_dot_com_dot_au"
+set mask="!^\\.[^.]"
+set spoolfile = "+INBOX"
+set mbox="~/muttmail/cbell_at_tickitsystems_dot_com_dot_au/INBOX"
+set postponed="=[Gmail].Drafts"
+set record=""
+
+mailboxes /var/mail/cbell `echo $HOME/muttmail/cbell_at_tickitsystems_dot_com_dot_au/IN*`
+
+set smtp_url="smtps://cbell@tickitsystems.com.au@smtp.gmail.com"
+
+# Sort order for folders.
+folder-hook IN$                       set sort=threads
+folder-hook .*Gmail.*Sent.*           set sort=reverse-date-sent
+
+
+folder-hook .*Gmail.*Spam   'push "<limit>~N<enter>"'
+
+folder-hook .                     unmy_hdr Reply-To:
+folder-hook =IN-tickit-support    my_hdr Reply-To: support@tickitsystems.com.au

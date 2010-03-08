@@ -1,0 +1,46 @@
+# -*- mode: muttrc; -*-
+# vim:ft=muttrc
+
+# Fancy (and pointless) headers on outgoing email.
+my_hdr X-Operating-System: `uname -sr`
+my_hdr X-Editor: `emacs -nw -no-init-file -no-site-file --version | head -n 1`
+
+# Which headers to display.
+ignore *                                              # Ignore all
+unignore from: date: subject: to: cc: reply-to:       # The most important ones
+unignore sender:
+unignore priority: importance:                        # MS Outlook cals it importance
+unignore organization organisation                    # Because I'm curious
+unignore user-agent: x-agent: x-posting-agent:        # Mail client
+unignore x-mailer: x-newsreader: x-mailing-list:
+unignore x-editor                                     # Text editor used
+unignore x-operating-system:
+unignore x-message-flag
+unignore newsgroups: posted-and-mailed: posted-to:    # cc from newsgroups
+unignore x-also-posted-to: x-newsgroups: x-posted-to
+unignore resent- x-resent                             # Was msg resent
+unignore x-spam-flag
+unignore x-spam-level
+#unignore x-spam-score
+unignore x-spam-status
+unignore x-virus-scanned
+unignore followup-to: mail-followup-to:
+unignore auto-submitted                               # ?
+unignore x-pgp-key
+unignore Received-SPF
+
+# Sequence headers.
+unhdr_order *
+hdr_order \
+From: Reply-To: \
+To: Cc: newsgroups: posted-to: x-newsgroups: x-posted-to: \
+Subject: Date: \
+x-message-flag: \
+Message-Id: In-Reply-To: References: \
+User-Agent: X-Editor: X-Mailer: \
+X-Newsreader: X-Posting-Agent: \
+x-operating-system: \
+X-Resent- \
+Resent- \
+followup-to: mail-followup-to: \
+auto-submitted

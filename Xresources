@@ -1,0 +1,48 @@
+!!! .Xresources file !!!
+! Comments start with !, C style #define statements can be used only if
+! this file is processed with xrdb -merge $HOME/.Xresources
+
+!Emacs.background: white
+!Emacs.foreground: black
+!Emacs.background: black
+!Emacs.foreground: white
+!Emacs.cursorColor: red
+Emacs.cursorBlink: true
+Emacs.verticalScrollBars: off
+!Emacs.font: Andale Mono-10
+!emacs.font:terminus-12
+!Emacs.font: DejaVu Sans Mono-8
+!Emacs.font: Bitstream Vera Sans Mono-11
+Emacs.font: Inconsolata-9
+Emacs.FontBackend: xft
+Xft.antialias: 1
+
+URxvt.scrollstyle:      plain
+URxvt.secondaryScroll:  true
+URxvt.background:       #000000
+URxvt.foreground:       gray90
+URxvt.color7:           gray90
+URxvt.colorBD:          #ffffff
+URxvt.colorIT:          green
+URxvt.cursorColor:      #e0e080
+URxvt.throughColor:     #8080f0
+!URxvt.highlightColor:   #f0f0f0
+URxvt.underlineColor:   yellow
+URxvt.saveLines:        8192
+URxvt.visualBell:       true
+URxvt.pastableTabs:     false
+
+xterm*background: white
+xterm*foreground: black
+xterm*faceName:  Bitstream Vera Sans Mono-10
+!xterm*faceName:  Inconsolata-11
+XTerm*eightBitInput: false
+XTerm*metaSendsEscape: true
+XTerm*loginShell: true
+XTerm*cursorBlink: true
+!xterm*VT100*font:  -efont-fixed-medium-r-*-*-16-*-*-*-*-*-iso10646-*
+!xterm*VT100*font2: -efont-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-*
+!xterm*VT100*font3: -efont-fixed-medium-r-*-*-12-*-*-*-*-*-iso10646-*
+!xterm*VT100*font4: -efont-fixed-medium-r-*-*-14-*-*-*-*-*-iso10646-*
+!xterm*VT100*font5: -efont-fixed-medium-r-*-*-16-*-*-*-*-*-iso10646-*
+!xterm*VT100*font6: -efont-fixed-medium-r-*-*-24-*-*-*-*-*-iso10646-*

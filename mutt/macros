@@ -1,0 +1,33 @@
+# -*- mode: muttrc; -*-
+# vim:ft=muttrc 
+
+# View the mailhops for a message
+macro pager \e2 ":unset weed\n|~/bin/mailhops|less -c\n:set weed\n" "Show trace of mail routing"
+
+# Multiple mailbox search
+macro index \e3 <change-folder>=vfolder<enter><shell-escape>'mairix '
+
+macro index   <left>   "c?"
+
+# Replace urlview with w3m. Within w3m press : to see all links
+macro index \cb <pipe-entry>'w3m'<enter> 'Follow links in w3m'
+macro pager \cb <pipe-entry>'w3m'<enter> 'Follow links in w3m'
+
+# Add an email address to the ABook addressbook
+macro pager ,a  |'abook --add-email'\n
+
+macro pager \e\e0    ":set pager_index_lines=10\n:macro pager I \\e\\e1 toggle\\ pager_index_lines\n" "internal function"
+macro pager \e\e1    ":set pager_index_lines=0\n:macro pager I \\e\\e0 toggle\\ pager_index_lines\n" "internal function"
+macro pager ,f       "\e\e1" "toggle pager_index_lines"
+
+# Limit to new and flagged messages.
+macro index ,n    '<limit>~N|~O|~F<enter>'
+macro pager ,n    '<limit>~N|~O|~F<enter>'
+
+# Spam
+macro index ,s <save-message>=[Gmail].Spam<enter>
+macro pager ,s <save-message>=[Gmail].Spam<enter>
+
+# Not only mark the thread as read and position to the next new/unread message
+# but also display that message which the default keybinding doesn't do.
+macro pager \cr <read-thread><display-message>

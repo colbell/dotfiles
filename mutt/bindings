@@ -1,0 +1,16 @@
+# -*- mode: muttrc; -*-
+# vim:ft=muttrc
+
+bind  pager   <left>   exit
+bind  pager   <right>  view-attachments
+
+bind  attach  <left>   exit
+bind  attach  <right>  view-attach
+
+bind  index   <right>  display-message
+
+bind  browser <right>  select-entry
+bind  browser <left>   exit
+
+bind index    "{"      previous-thread
+bind index    "}"      next-thread

@@ -1,0 +1,99 @@
+# -*- mode: conf; -*-
+[general]
+
+# This specifies where offlineimap is to store its metadata.
+# This directory will be created if it does not already exist.
+metadata = ~/.offlineimap
+
+# Comma separated list of account names.
+accounts = col@baibell.org
+
+# Offlineimap can synchronize more the one account at a time.  If you
+# want to enable this feature, set the below value to something
+# greater than 1.  To force it to synchronize only one account at a
+# time, set it to 1.
+maxsyncaccounts = 1
+
+# You can specify one or more user interface modules for OfflineIMAP
+# to use.  OfflineIMAP will try the first in the list, and if it
+# fails, the second, and so forth.
+#
+# The pre-defined options are:
+# Tk.Blinkenlights -- A graphical interface, shows LEDs and a single log
+# Tk.VerboseUI -- A graphical interface, shows logs per thread
+# Curses.Blinkenlights -- A text-based (terminal) interface similar to
+# Tk.Blinkenlights
+# TTY.TTYUI -- a text-based (terminal) interface
+# Noninteractive.Basic -- Noninteractive interface suitable for cronning
+# Noninteractive.Quiet -- Noninteractive interface, generates no output
+#                         except for errors.
+#
+# You can override this with a command-line option -u.
+#ui = Tk.Blinkenlights,
+#ui = Tk.VerboseUI,
+ui = Curses.Blinkenlights, TTY.TTYUI,
+     Noninteractive.Basic, Noninteractive.Quiet
+
+#########################################################################
+[Account col@baibell.org]
+
+# You can have offlineimap continue running indefinately, automatically
+# syncing your mail periodically.  If you want that, specify how
+# frequently to do that (in minutes) here.  You can also specify
+# fractional minutes (ie, 3.25).
+autorefresh = 30
+
+# You can tell offlineimap to do a number of quicker synchronizations
+# between full updates.  A quick synchronization only synchronizes
+# if a Maildir folder has changed, or if an IMAP folder has received
+# new messages or had messages deleted.  It does not update if the
+# only changes were to IMAP flags.  Specify 0 to never do quick updates,
+# -1 to always do quick updates, or a positive integer to do that many
+# quick updates between each full synchronization (requires autorefresh).
+# quick = 10
+
+localrepository = colbaibell-local
+remoterepository = colbaibell-remote
+
+[Repository colbaibell-local]
+type = Maildir
+localfolders = ~/Maildir/colbaibell.org
+
+[Repository colbaibell-remote]
+type = IMAP
+remotehost = imap.gmail.com
+remoteuser = col@baibell.org
+ssl = yes
+
+maxconnections = 1
+
+# Remove leading INBOX from all mailbox names.
+nametrans = lambda foldername: re.sub('^INBOX\.', '', foldername)
+
+#########################################################################
+# [Account col@baibell.org.imap]
+
+# # You can have offlineimap continue running indefinately, automatically
+# # syncing your mail periodically.  If you want that, specify how
+# # frequently to do that (in minutes) here.  You can also specify
+# # fractional minutes (ie, 3.25).
+# autorefresh = 60
+
+# localrepository = colbaibell.imap-local
+# remoterepository = colbaibell.imap-remote
+
+# [Repository colbaibell.imap-local]
+# type = IMAP
+# remotehost = localhost
+# remoteuser = colbell
+
+# [Repository colbaibell.imap-remote]
+# type = IMAP
+# remotehost = imap.gmail.com
+# remoteuser = col@baibell.org
+# ssl = yes
+
+# # Remove leading INBOX from all mailbox names.
+# nametrans = lambda foldername: re.sub('^INBOX\.', '', foldername)
+
+

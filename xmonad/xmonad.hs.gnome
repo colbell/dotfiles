@@ -1,0 +1,94 @@
+-- -*- mode: haskell; -*-
+import XMonad hiding ( (|||) )
+
+import qualified XMonad.StackSet as W
+import qualified Data.Map as M
+import qualified XMonad.StackSet as W
+
+import XMonad.Actions.DwmPromote
+import XMonad.Actions.WindowGo
+import XMonad.Actions.UpdatePointer
+
+import XMonad.Config.Gnome
+
+import XMonad.Hooks.FadeInactive
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.SetWMName
+
+import XMonad.Layout.LayoutCombinators
+import XMonad.Layout.Named
+import XMonad.Layout.Tabbed
+
+import XMonad.Prompt
+import XMonad.Prompt.RunOrRaise
+import XMonad.Prompt.Man
+import XMonad.Prompt.AppLauncher as AL
+import XMonad.Prompt.Man
+import XMonad.Prompt.Shell
+--import XMonad.Prompt.Ssh
+import XMonad.Prompt.Window
+
+import XMonad.Util.EZConfig(additionalKeys)
+--import XMonad.Util.Run(spawnPipe)
+
+import Data.List ( stripPrefix )
+import Data.Maybe
+import Control.Applicative
+import Prelude hiding ( mod )
+import System.Cmd
+import System.Environment
+import System.Process
+import System.IO
+
+myLayout = avoidStruts $ named "myTiled" tiled ||| named "myTabbed" simpleTabbed ||| named "myMirrorTiled" mirrorTiled ||| Full
+  where
+     tiled       = Tall nmaster delta ratio
+     nmaster     = 1
+     ratio       = 1/2
+     delta       = 3/100
+     mirrorTiled = Mirror tiled
+
+myManageHook :: [ManageHook]
+myManageHook =
+    [ resource  =? "Do"       --> doIgnore
+    , className =? "Gimp"     --> doFloat
+    , resource  =? "gnome-do" --> doIgnore
+    , isFullscreen            --> doFullFloat]
+
+myLogHook :: X ()
+myLogHook = fadeInactiveLogHook fadeAmount
+    where fadeAmount = 0.8
+
+main = xmonad $ gnomeConfig
+       { modMask            = mod4Mask
+       , borderWidth        = 1
+       , normalBorderColor  = "#cccccc"
+--       , focusedBorderColor = "#cd8b00"
+       , focusedBorderColor = "#ff0000"
+
+       , layoutHook         = myLayout
+       , terminal           = "uxterm"    -- just used for prompts
+       , manageHook         = manageHook gnomeConfig <+> composeAll myManageHook
+       , logHook            = myLogHook
+       }
+       `additionalKeys`
+       [ ((mod4Mask , xK_Return),              dwmpromote)
+       , ((mod4Mask .|. shiftMask, xK_Return), spawn "gnome-terminal")
+
+       , ((mod4Mask, xK_p),                 spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
+       , ((mod4Mask .|. shiftMask, xK_p),   gnomeRun)
+
+       , ((mod4Mask .|. controlMask, xK_b), sendMessage $ JumpToLayout "myTabbed")
+       , ((mod4Mask .|. controlMask, xK_t), sendMessage $ JumpToLayout "myTiled")
+
+       , ((mod4Mask .|. shiftMask, xK_z),   spawn "gnome-screensaver-command --lock")
+       , ((mod4Mask, xK_Print),             spawn "scrot -e 'mv $f /tmp'")
+   
+       , ((mod4Mask .|. controlMask, xK_e), runOrRaiseNext "emacs" (className =? "Emacs"))
+       , ((mod4Mask, xK_x),                 runOrRaisePrompt defaultXPConfig)
+       , ((mod4Mask, xK_F1),                manPrompt defaultXPConfig)
+       , ((mod4Mask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
+
+       , ((mod4Mask, xK_End),               kill)
+       ]

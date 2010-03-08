@@ -1,0 +1,24 @@
+Config { font = "xft:DejaVu Vera Sans Mono-8"
+       , bgColor = "191919"
+       , fgColor = "grey"
+       , position = Static { xpos = 0, ypos = 0, width = 1680, height = 18 }
+       , lowerOnStart = False
+       , commands = [ Run Weather "EPWR" ["-t","<tempC>°C, <fc=#009aaa>rh</fc> <rh>% (<fc=#009aaa><hour></fc>)"] 18000
+                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+                    , Run Date "%a %b %_d %l:%M" "date" 10
+		    , Run Com "date" [] "mydate_1" 10
+		    , Run Com "/home/tener/bin/my-date" [] "mydate_2" 10
+                    , Run StdinReader
+		    , Run Com "cpufreq-info" ["-c", "0", "-mf"] "cpu0" 20
+		    , Run Com "cpufreq-info" ["-c", "1", "-mf"] "cpu1" 20
+		    , Run PipeReader "/home/tener/var/xmobar.pipe" "pipe"
+		    , Run Com "/home/tener/bin/essid" [] "essid" 20
+		    , Run Com "/home/tener/bin/hwaddr" [] "hwaddr" 20
+		    , Run Battery [] 100
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ |%battery%| <fc=#0eff05>%hwaddr%</fc>|%essid%|<fc=#0eff05>%cpu0%</fc>|%cpu%|%memory% <fc=#ee009a>ⴲ</fc> %swap% | %EPWR% | <fc=#ee9a00>[%mydate_2%]</fc>" 
+       }
