@@ -7,7 +7,7 @@ metadata = ~/.offlineimap
 
 # Comma separated list of account names.
 #accounts = cbell@tickitsystems.com.au
-accounts = tickitimap
+accounts = cbell@tickitsystems.com.au
 
 # Offlineimap can synchronize more the one account at a time.  If you
 # want to enable this feature, set the below value to something
@@ -45,14 +45,14 @@ ui = Curses.Blinkenlights, TTY.TTYUI,
 # fractional minutes (ie, 3.25).
 autorefresh = 5
 
-localrepository = cbell_at_tickitsystems_dot_com_dot_au-local
-remoterepository = cbell_at_tickitsystems_dot_com_dot_au-remote
+localrepository = cbelltickit-local
+remoterepository = cbelltickit-remote
 
-[Repository cbell_at_tickitsystems_dot_com_dot_au-local]
+[Repository cbelltickit-local]
 type = Maildir
-localfolders = ~/muttmail/cbell_at_tickitsystems_dot_com_dot_au
+localfolders = ~/Maildir/cbelltickit
 
-[Repository cbell_at_tickitsystems_dot_com_dot_au-remote]
+[Repository cbelltickit-remote]
 type = IMAP
 remotehost = imap.gmail.com
 remoteuser = cbell@tickitsystems.com.au
@@ -60,31 +60,3 @@ ssl = yes
 
 # Remove leading INBOX from all mailbox names.
 nametrans = lambda foldername: re.sub('^INBOX\.', '', foldername)
-
-#########################################################################
-[Account tickitimap]
-
-# You can have offlineimap continue running indefinately, automatically
-# syncing your mail periodically.  If you want that, specify how
-# frequently to do that (in minutes) here.  You can also specify
-# fractional minutes (ie, 3.25).
-autorefresh = 5
-
-localrepository = tickitimap-local
-remoterepository = tickitimap-remote
-
-[Repository tickitimap-local]
-type = IMAP
-remotehost = localhost
-remoteuser = cbell
-
-[Repository tickitimap-remote]
-type = IMAP
-remotehost = imap.gmail.com
-remoteuser = cbell@tickitsystems.com.au
-ssl = yes
-
-# Remove leading INBOX from all mailbox names.
-#nametrans = lambda foldername: re.sub('^INBOX\.', '', foldername)
-
-

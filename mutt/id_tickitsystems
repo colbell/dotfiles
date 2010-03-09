@@ -7,14 +7,14 @@ set from='cbell@tickitsystems.com.au'
 set header_cache="~/.mutt/cache/cbell_at_tickitsystems_dot_com_dot_au/headers"
 set message_cachedir="~/.mutt/cache/cbell_at_tickitsystems_dot_com_dot_au/bodies"
 
-set folder="~/muttmail/cbell_at_tickitsystems_dot_com_dot_au"
+set folder="~/Maildir/cbelltickit"
 set mask="!^\\.[^.]"
 set spoolfile = "+INBOX"
-set mbox="~/muttmail/cbell_at_tickitsystems_dot_com_dot_au/INBOX"
+set mbox="~/Maildir/cbelltickit"
 set postponed="=[Gmail].Drafts"
 set record=""
 
-mailboxes /var/mail/cbell `echo $HOME/muttmail/cbell_at_tickitsystems_dot_com_dot_au/IN*`
+mailboxes /var/mail/cbell `echo $HOME/Maildir/cbelltickit/IN*`
 
 set smtp_url="smtps://cbell@tickitsystems.com.au@smtp.gmail.com"
 

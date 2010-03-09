@@ -3,86 +3,43 @@
 #
 # vim:ft=muttrc
 
-# Colour settings for mutt.
-# Based on Jeff Coveys: http://jeffcovey.net/tmp/muttcolors.html
-#
+color attachment brightblue default
+color hdrdefault magenta default
+color indicator black cyan
+color markers brightred default
+color normal default default
+color quoted green default
+color signature magenta default
+color status white blue
+color tilde blue default
+color tree blue default
 
-#
-# color terminals:
-# (default, white, black, green, magenta, blue, cyan, yellow, red)
-# (bright...)
-# (color1,color2,...,colorN-1)
-#
-#     object     foreground     background
-#
-color normal     brightwhite    default   # normal text
-#color normal     white          default   # normal text
-#color indicator  default        blue      # actual message
-color indicator  blue        white      # actual message
-color tree       blue           default   # thread arrows
-#color status     default        default   # status line
-color status     brightgreen blue
-color error      brightred      default   # errors
-color message    brightyellow   default   # info messages
-color signature  cyan           default   # signature
-color attachment brightred      default   # MIME attachments
-color search     brightyellow   red       # search matches
-color tilde      white          default   # ~ at bottom of msg
-#color tilde      brightmagenta  default   # ~ at bottom of msg
-color markers    red            default   # + at beginning of wrapped lines
-color hdrdefault cyan           default   # default header lines
-#color hdrdefault blue           default   # default header lines
-color bold       red            default   # hiliting bold patterns in body
-color underline  green          default   # hiliting underlined patterns in body
-color quoted     brightyellow   default   # quoted text
-color quoted1    red            default
-color quoted2    brightblue     default
-color quoted3    green          default
-color quoted4    cyan           default
-color quoted5    blue           default
-color quoted6    magenta        default
-color quoted7    red            default
-color quoted8    white          default
-color quoted9    brightred      default
-#
-#     object     foreground backg.   RegExp
-#
-color header     green   default    "^date:"
-color header     yellow default    "^from:"
-color header     yellow default    "^subject:"
-#color header     red    default    "^to:"
-#color header     red    default    "^cc:"
-color header     green  default    "^to:"
-color header     green  default    "^cc:"
+# links
+color body brightblue default '[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+'
+#  color body brightblue default '(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+'
+color body cyan       default    "((ftp|http|https)://|(file|mailto|news):|www\\.)[-a-z0-9_.:]*[a-z0-9](/[^][{} \t\n\r\"<>()]*[^][{} \t\n\r\"<>().,:!])?/?"
 
-# URLs.
-color body       cyan       default    "((ftp|http|https)://|(file|mailto|news):|www\\.)[-a-z0-9_.:]*[a-z0-9](/[^][{} \t\n\r\"<>()]*[^][{} \t\n\r\"<>().,:!])?/?"
-color body       cyan       default    "[-a-z_0-9.+]+@[-a-z_0-9.]+"
+# quotes
+color body blue default " *^[A-Za-z0-9]*[>|#:}].*"
+color body green default " *^[>|#:}] *[A-Za-z0-9]*[>|#:}].*"
 
-color body       yellow     default    "^ +.*> "
-color body       yellow     default    "(:|;)(-|^)*(\\)|\\()"
-color body       red        default    "(-|=)(-|=)+"
-color body       red        default    "\\|"
-#color body       brightyellow default  "^[ A-Z,\\.?'\"!]{3,}"
-color body       yellow     default    "^[0-9]*\\."
-color body       yellow     default    "(\\[|\\])"
+# diffs
+color body red default '^-.*'
+color body blue default '^\+.*'
+color body magenta default '^@.*'
+color body yellow default '^Modified: .*'
+color body yellow default '^==================================================
 
-# (default, white, black, green, magenta, blue, cyan, yellow, red)
-# Scoring
-#color index      default    default    "~n 0"
-#color index      default    default    "~n 1"
-#color index      magenta    default    "~n 2"
-#color index      cyan       default    "~n 3"
-#color index      blue       default    "~n 4"
-#color index      yellow     default    "~n 5"
-#color index      brightred  default    "~n 6-"
+# *Bold*  -- will not work if split over lines
+color body red default "\\*+[A-Za-z']+([ \n][A-Za-z']+)*\\*+"
+# _Underlined_ -- will not work if split over lines
+color body red default " _[A-Za-z']+([ \n][A-Za-z']+)*_"
+# /Italics/  -- will not work if split over lines
+color body red default " /[A-Za-z']+([ \n][A-Za-z']+)*/"
 
-#color index      red        default     ~F         # Flagged
+#color index      brightwhite      default
 color index      brightred  default     ~F         # Flagged
 color index      green      default   ~N         # New
 color index      yellow     default   ~O         # Old
 color index      default    magenta   ~T         # Tagged
-color index      black      red       ~D         # Deleted
-color index      magenta     default   ~fcol@baibell.org
-#color index      brightyellow black   ~tcol@squirrelsql.org
-
+color index      default    red       ~D         # Deleted

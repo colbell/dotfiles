@@ -15,7 +15,7 @@
 #
 #     object     foreground     background
 #
-color normal     brightwhite    black   # normal text
+color normal     brightwhite    default   # normal text
 #color normal     white          default   # normal text
 #color indicator  default        blue      # actual message
 color indicator  blue        white      # actual message
@@ -77,12 +77,12 @@ color body       yellow     default    "(\\[|\\])"
 #color index      yellow     default    "~n 5"
 #color index      brightred  default    "~n 6-"
 
-#color index      red        black     ~F         # Flagged
-color index      brightred  black     ~F         # Flagged
+#color index      red        default     ~F         # Flagged
+color index      brightred  default     ~F         # Flagged
 color index      green      default   ~N         # New
 color index      yellow     default   ~O         # Old
 color index      default    magenta   ~T         # Tagged
 color index      black      red       ~D         # Deleted
-color index      magenta     black   ~fcol@baibell.org
+color index      magenta     default   ~fcol@baibell.org
 #color index      brightyellow black   ~tcol@squirrelsql.org
 
