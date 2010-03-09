@@ -4,26 +4,28 @@
 set realname='Colin Bell'
 set from='cbell@tickitsystems.com.au'
 
-set header_cache="~/.mutt/cache/cbell_at_tickitsystems_dot_com_dot_au/headers"
-set message_cachedir="~/.mutt/cache/cbell_at_tickitsystems_dot_com_dot_au/bodies"
+set header_cache="~/.mutt/cache/cbelltickit/headers"
+set message_cachedir="~/.mutt/cache/cbelltickit/bodies"
 
 set folder="~/Maildir/cbelltickit"
 set mask="!^\\.[^.]"
 set spoolfile = "+INBOX"
-set mbox="~/Maildir/cbelltickit"
-set postponed="=[Gmail].Drafts"
+set mbox="~/Maildir/cbelltickit/INBOX"
+set postponed="+.Drafts"
 set record=""
 
-mailboxes /var/mail/cbell `echo $HOME/Maildir/cbelltickit/IN*`
+mailboxes /var/mail/cbell `echo $HOME/Maildir/cbelltickit/*`
 
 set smtp_url="smtps://cbell@tickitsystems.com.au@smtp.gmail.com"
 
 # Sort order for folders.
-folder-hook IN$                       set sort=threads
+folder-hook IN.                       set sort=threads
 folder-hook .*Gmail.*Sent.*           set sort=reverse-date-sent
 
 
 folder-hook .*Gmail.*Spam   'push "<limit>~N<enter>"'
+
+folder-hook IN.         'push "<limit>~N|~O|~F|~P<enter>"'
 
 folder-hook .                     unmy_hdr Reply-To:
 folder-hook =IN-tickit-support    my_hdr Reply-To: support@tickitsystems.com.au

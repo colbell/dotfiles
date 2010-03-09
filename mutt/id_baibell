@@ -4,8 +4,8 @@
 set realname='Colin Noel Bell'
 set from='col@baibell.org'
 
-set header_cache="~/.mutt/cache/col_at_baibell_dot_org/headers"
-set message_cachedir="~/.mutt/cache/col_at_baibell_dot_org/bodies"
+set header_cache="~/.mutt/cache/colbaibell/headers"
+set message_cachedir="~/.mutt/cache/colbaibell/bodies"
 
 set folder="~/Maildir/colbaibell.org"
 set mask="!^\\.[^.]"

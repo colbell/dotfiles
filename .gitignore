@@ -5,3 +5,7 @@
 /xmonad/xmonad.errors
 /xmonad/xmonad.o
 /mutt/muttrc
+/w3m/cookie
+/w3m/history
+/w3m/w3mcache*
+/w3m/w3msrc*
