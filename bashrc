@@ -120,4 +120,4 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-if [[ -s /home/cbell/.rvm/scripts/rvm ]] ; then source /home/cbell/.rvm/scripts/rvm ; fi
+if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
