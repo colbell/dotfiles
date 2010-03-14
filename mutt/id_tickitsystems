@@ -1,5 +1,5 @@
 # -*- mode: muttrc; -*-
-# vim:ft=muttrc 
+# vim:ft=muttrc
 
 set realname='Colin Bell'
 set from='cbell@tickitsystems.com.au'
@@ -25,8 +25,9 @@ folder-hook .*Gmail.*Sent.*           set sort=reverse-date-sent
 
 folder-hook .*Gmail.*Spam   'push "<limit>~N<enter>"'
 
-folder-hook INBOX           'push "<limit>~N|~O|~F<enter>"'
-folder-hook IN.             'push "<limit>~N|~O|~F|~P<enter>"'
+folder-hook IN.                            'push "<limit>~N|~O|~F<enter>"'
+folder-hook cbell@tickitondemand.com.au   'push "<limit>~N|~O|~F<enter>"'
+#folder-hook IN.             'push "<limit>~N|~O|~F|~P<enter>"'
 
 folder-hook .                     unmy_hdr Reply-To:
 folder-hook =IN-tickit-support    my_hdr Reply-To: support@tickitsystems.com.au
