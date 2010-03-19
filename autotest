@@ -1,5 +1,7 @@
 # -*- ruby -*-
 
+require 'redgreen/autotest'
+
 # require 'autotest/autoupdate'
 # require 'autotest/camping'
 # require 'autotest/cctray'
@@ -17,7 +19,7 @@
 # require 'autotest/once'
 # require 'autotest/pretty'
 # require 'autotest/rcov'
-require 'autotest/redgreen'
+#require 'autotest/redgreen'
 # require 'autotest/restart'
 # require 'autotest/screen'
 # require 'autotest/shame'
