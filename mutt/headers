@@ -24,6 +24,7 @@ unignore x-spam-level
 #unignore x-spam-score
 unignore x-spam-status
 unignore x-virus-scanned
+unignore x-virus-status
 unignore followup-to: mail-followup-to:
 unignore auto-submitted                               # ?
 unignore x-pgp-key

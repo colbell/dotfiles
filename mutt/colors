@@ -14,14 +14,27 @@ color status white blue
 color tilde blue default
 color tree blue default
 
+color header     green   default    "^date:"
+color header     yellow default    "^from:"
+color header     yellow default    "^subject:"
+#color header     red    default    "^to:"
+#color header     red    default    "^cc:"
+color header     green  default    "^to:"
+color header     green  default    "^cc:"
+
 # links
 color body brightblue default '[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+'
 #  color body brightblue default '(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+'
-color body cyan       default    "((ftp|http|https)://|(file|mailto|news):|www\\.)[-a-z0-9_.:]*[a-z0-9](/[^][{} \t\n\r\"<>()]*[^][{} \t\n\r\"<>().,:!])?/?"
+color body brightblue      default    "((ftp|http|https)://|(file|mailto|news):|www\\.)[-a-z0-9_.:]*[a-z0-9](/[^][{} \t\n\r\"<>()]*[^][{} \t\n\r\"<>().,:!])?/?"
 
 # quotes
 color body blue default " *^[A-Za-z0-9]*[>|#:}].*"
 color body green default " *^[>|#:}] *[A-Za-z0-9]*[>|#:}].*"
+
+color body       yellow     default    "^ +.*> "
+color body       yellow     default    "(:|;)(-|^)*(\\)|\\()"
+color body       red        default    "(-|=)(-|=)+"
+color body       red        default    "\\|"
 
 # diffs
 color body red default '^-.*'
@@ -39,7 +52,7 @@ color body red default " /[A-Za-z']+([ \n][A-Za-z']+)*/"
 
 #color index      brightwhite      default
 color index      brightred  default     ~F         # Flagged
-color index      green      default   ~N         # New
-color index      yellow     default   ~O         # Old
-color index      default    magenta   ~T         # Tagged
-color index      default    red       ~D         # Deleted
+color index      green      default     ~N         # New
+color index      yellow     default     ~O         # Old
+color index      default    magenta     ~T         # Tagged
+color index      default    red         ~D         # Deleted
