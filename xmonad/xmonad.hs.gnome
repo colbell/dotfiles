@@ -59,7 +59,7 @@ myManageHook =
 
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
-    where fadeAmount = 0.6
+    where fadeAmount = 0.8
 
 main = xmonad $ gnomeConfig
        { modMask            = mod4Mask
