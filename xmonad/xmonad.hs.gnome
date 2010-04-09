@@ -59,13 +59,12 @@ myManageHook =
 
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
-    where fadeAmount = 0.8
+    where fadeAmount = 0.6
 
 main = xmonad $ gnomeConfig
        { modMask            = mod4Mask
-       , borderWidth        = 1
+       , borderWidth        = 0
        , normalBorderColor  = "#cccccc"
---       , focusedBorderColor = "#cd8b00"
        , focusedBorderColor = "#ff0000"
 
        , layoutHook         = myLayout
