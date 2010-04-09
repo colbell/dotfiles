@@ -11,6 +11,7 @@ import XMonad.Actions.UpdatePointer
 
 import XMonad.Config.Gnome
 
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -68,6 +69,7 @@ main = xmonad $ gnomeConfig
        , focusedBorderColor = "#ff0000"
 
        , layoutHook         = myLayout
+       , startupHook        = ewmhDesktopsStartup >> setWMName "LG3D"
        , terminal           = "uxterm"    -- just used for prompts
        , manageHook         = manageHook gnomeConfig <+> composeAll myManageHook
        , logHook            = myLogHook
