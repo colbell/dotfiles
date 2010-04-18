@@ -14,5 +14,5 @@ source ~/.mutt/hooks                       # Hooks
 source ~/.mutt/format-lines                # Format lines
 
 # Show version on startup
-push V
+push "V"
 
