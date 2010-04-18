@@ -1,6 +1,8 @@
 # -*- mode: muttrc; -*-
 # vim:ft=muttrc 
 
+macro   index   <F10>   "!muttprofile\n:source ~/.mutt/profile.active\n" "Call muttprofile and load profile"
+
 # View the mailhops for a message
 macro pager \e2 ":unset weed\n|~/bin/mailhops|less -c\n:set weed\n" "Show trace of mail routing"
 
