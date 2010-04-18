@@ -1,0 +1,1 @@
+audio/wav; /usr/bin/play '%s'
