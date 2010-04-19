@@ -14,13 +14,12 @@ color status white blue
 color tilde blue default
 color tree blue default
 
-color header     green   default    "^date:"
-color header     yellow default    "^from:"
-color header     yellow default    "^subject:"
-#color header     red    default    "^to:"
-#color header     red    default    "^cc:"
-color header     green  default    "^to:"
-color header     green  default    "^cc:"
+color header     brightgreen  default    "^date:"
+color header     red          default    "^from:"
+color header     red          default    "^subject:"
+color header     brightgreen  default    "^to:"
+color header     brightgreen  default    "^cc:"
+color header     blue         default    "^user-agent:|x-editor|x-operating-system|x-agent|x-posting-agent|x-mailer|x-newsreader"
 
 # links
 color body brightblue default '[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+'

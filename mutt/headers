@@ -21,7 +21,7 @@ unignore x-also-posted-to: x-newsgroups: x-posted-to
 unignore resent- x-resent                             # Was msg resent
 unignore x-spam-flag
 unignore x-spam-level
-#unignore x-spam-score
+unignore x-spam-score
 unignore x-spam-status
 unignore x-virus-scanned
 unignore x-virus-status
