@@ -57,13 +57,13 @@ myManageHook =
     , resource  =? "gnome-do" --> doIgnore
     , isFullscreen            --> doFullFloat]
 
-myLogHook :: X ()
-myLogHook = fadeInactiveLogHook fadeAmount
-    where fadeAmount = 0.8
+--myLogHook :: X ()
+-- myLogHook = fadeInactiveLogHook fadeAmount
+--     where fadeAmount = 0.8
 
 main = xmonad $ gnomeConfig
        { modMask            = mod4Mask
-       , borderWidth        = 0
+       , borderWidth        = 1
        , normalBorderColor  = "#cccccc"
        , focusedBorderColor = "#ff0000"
 
@@ -71,7 +71,7 @@ main = xmonad $ gnomeConfig
        , startupHook        = ewmhDesktopsStartup >> setWMName "LG3D"
        , terminal           = "uxterm"    -- just used for prompts
        , manageHook         = manageHook gnomeConfig <+> composeAll myManageHook
-       , logHook            = myLogHook
+--       , logHook            = myLogHook
        }
        `additionalKeys`
        [ ((mod4Mask , xK_Return),              dwmpromote)
