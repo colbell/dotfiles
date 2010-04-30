@@ -1,5 +1,5 @@
 # -*- mode: muttrc; -*-
-# vim:ft=muttrc 
+# vim:ft=muttrc
 
 macro   index   <F10>   "!muttprofile\n:source ~/.mutt/profile.active\n" "Call muttprofile and load profile"
 
