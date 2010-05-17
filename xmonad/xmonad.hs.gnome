@@ -91,5 +91,5 @@ main = xmonad $ gnomeConfig
        , ((mod4Mask, xK_F1),                manPrompt defaultXPConfig)
        , ((mod4Mask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
 
-       , ((mod4Mask, xK_End),               kill)
+       , ((mod1Mask, xK_F4),                kill)
        ]
