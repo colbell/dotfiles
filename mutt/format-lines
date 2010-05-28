@@ -20,8 +20,8 @@ set forward_format="Fwd: %s"    # Msg when forwarding
 #
 # %4C                  Message number
 # %Z                   Message Status Flags
-# %[(%y/%m/%d %H:%M)   Sent Date/Time in local time
-# %((%y/%m/%d %H:%M))  Received time in local time
+# %d                   Message date in senders local time
+# %D                   Message date in my local time
 # %-15.15F             From
 # (%5l)                Number of lines in msg
 # (%6c)                Number of characters in msg
@@ -31,5 +31,6 @@ set forward_format="Fwd: %s"    # Msg when forwarding
 #set index_format="%4C %Z %[(%y/%m/%d %H:%M)] %((%y/%m/%d %H:%M)) %-15.15F (%5l) (%6c) %?H?[%H] ? %3M %s"
 #set index_format="%4C %Z %[(%y/%m/%d %H:%M)] %((%y/%m/%d %H:%M)) %-15.15F (%5l) (%6c) %3M %s"
 #set index_format="%4C %Z %[(%y/%m/%d %H:%M)] %((%y/%m/%d %H:%M)) %-15.15F (%6c) %3M %s"
-set index_format="%4C %Z %[(%y/%m/%d %H:%M)] %-15.15F (%6c) %3M %s"
+#set index_format="%4C %Z %[(%y/%m/%d %H:%M)] %-15.15F (%6c) %3M %s"
+set index_format="%4C %Z  %d  %D  %-15.15F (%6c) %3M %s"
 

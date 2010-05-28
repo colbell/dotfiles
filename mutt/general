@@ -11,6 +11,7 @@ unset auto_tag                    # Don't apply cmds to all tagged msgs
   set certificate_file="~/.mutt/certificates"   # Store trusted certificates
   set charset=utf-8               # Use UTF8.
 unset confirmappend               # Dont prompt when adding to a mailbox
+  set date_format="%e-%b-%y %H:%M:%S"               
   set delete                      # Delete flagged msgs without prompt
   set copy                        # Save sent emails.
   set edit_headers                # Display msg headers in edtor during compose
