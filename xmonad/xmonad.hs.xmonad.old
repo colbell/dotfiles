@@ -7,31 +7,24 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
-
 import XMonad.Layout.Grid
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.Named
 import XMonad.Layout.Tabbed
 import XMonad.Layout.TwoPane
-
 import XMonad.Prompt
-import XMonad.Prompt.AppLauncher as AL
 import XMonad.Prompt.Man
-import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.Shell
 import XMonad.Prompt.Ssh
-import XMonad.Prompt.Window
-
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.Run(spawnPipe)
+
 
 startupHook' = setWMName "LG3D"
  
 myManageHook = composeAll [
-    resource  =? "Do"        --> doIgnore,
-    resource  =? "gnome-do"  --> doIgnore,
-    className =? "Gimp"      --> doFloat,
-    className =? "MPlayer"   --> doFloat,
+    className =? "Gimp" --> doFloat,
+    className =? "MPlayer"        --> doFloat,
     className =? "Vncviewer" --> doFloat
                ]
 
@@ -68,12 +61,5 @@ main = do
            , ((mod4Mask .|. controlMask, xK_m), sendMessage $ JumpToLayout "myMirrorTiled")
            , ((mod4Mask .|. controlMask, xK_t), sendMessage $ JumpToLayout "myTiled")
            , ((mod4Mask .|. controlMask, xK_2), sendMessage $ JumpToLayout "my2Pane")
-           , ((mod4Mask .|. shiftMask, xK_p),   gnomeRun)
-           , ((mod4Mask, xK_x),                 runOrRaisePrompt defaultXPConfig)
-           , ((mod4Mask, xK_F1),                manPrompt defaultXPConfig)
-           , ((mod4Mask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
-
-           , ((mod1Mask, xK_F4),                kill)
-
            ]
 
