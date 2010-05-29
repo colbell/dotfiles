@@ -15,6 +15,9 @@ Emacs.verticalScrollBars: off
 !Emacs.font: Bitstream Vera Sans Mono-11
 Emacs.font: Inconsolata-11
 Emacs.FontBackend: xft
+Emacs.menuBar: off
+Emacs.toolBar: -1
+
 Xft.antialias: 1
 
 URxvt.scrollstyle:      plain
