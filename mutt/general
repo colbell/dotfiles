@@ -5,13 +5,13 @@
 unset abort_unmodified            # Don't abort unmodified emails.
 set   alias_file=~/.mutt/aliases  # Address aliases
 unset arrow_cursor                # Dont use arrow to show cur line in index
-  set ascii_chars                 # Dont Use graphic chars in tree
+unset ascii_chars                 # Use graphic chars in tree
   set askcc                       # Prompt for CC when composing
 unset auto_tag                    # Don't apply cmds to all tagged msgs
   set certificate_file="~/.mutt/certificates"   # Store trusted certificates
   set charset=utf-8               # Use UTF8.
 unset confirmappend               # Dont prompt when adding to a mailbox
-  set date_format="%e-%b-%y %H:%M:%S"               
+  set date_format="%e-%b-%y %H:%M:%S"  # d/mon/yy hh:mm:ss
   set delete                      # Delete flagged msgs without prompt
   set copy                        # Save sent emails.
   set edit_headers                # Display msg headers in edtor during compose
@@ -20,7 +20,6 @@ unset force_name                  # Do not force me to save outgoing mail by use
   set help                        # Show help line
   set honor_followup_to=yes       # If an email has a Mail-Followup-To header then use it when replying.
   set mail_check=60               # Check mailboxes for new mail every X secs.
-#  set maildir_mtime               # Use maildir-mtime patch to sort folders by date of most recent mail.
   set markers                     # Show + at begining of wrapped lines
 unset mark_old                    # Keep msgs flagged as new until actually read
 unset metoo                       # Dont mail to me when replying
