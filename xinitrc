@@ -11,8 +11,8 @@ gnome-keyring-daemon
 #xscreensaver -no-splash &
 
 #xsetroot -solid midnightblue
-xsetroot -solid DarkGoldenrod
-#xsetroot -solid '#5f0f1f'
+#xsetroot -solid DarkGoldenrod
+xsetroot -solid '#5f0f1f'
 
 sleep 3
 if [ -x /usr/bin/gnome-power-manager ] ; then
