@@ -4,16 +4,14 @@ Config { font = "xft:Verdana-8"
        , position = TopW L 90
        , lowerOnStart = False
        , commands = [ Run Weather "YSSY" ["-t","<station>: <tempC>C - rh <rh>%","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
-                    , Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-                    , Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
-    		    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
-                    , Run CpuFreq ["-t","Freq: <cpu0> | <cpu1> GHz","-L","0","-H","2","-l","green","-n","orange","-h","red"] 50
+    		    , Run Date "%_d %b %H:%M:%S" "date" 10
                     , Run StdinReader
+                    , Run Com "sh" ["~/bin/mpd.sh"] "mpd" 100
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% | %cpu% | %cpufreq% | %memory% * %swap% | %eth0% - %wlan0% }{ <fc=#ee9a00>%date%</fc>| %YSSY%"
+       , template = "%StdinReader% | %cpu% | %memory% * %swap% }{ %mpd% <fc=#ee9a00>%date%</fc>| %YSSY%"
        }
