@@ -1,4 +1,4 @@
-Config { font = "xft:Sans-8"
+Config { font = "xft:Verdana-8"
        , bgColor = "black"
        , fgColor = "grey"
        , position = TopW L 90
@@ -9,10 +9,11 @@ Config { font = "xft:Sans-8"
                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
-                    , Run Com "uname" ["-s","-r"] "" 36000
     		    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                    , Run CpuFreq ["-t","Freq: <cpu0> | <cpu1> GHz","-L","0","-H","2","-l","green","-n","orange","-h","red"] 50
+                    , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% * %swap% | %eth0% - %wlan0% }{ <fc=#ee9a00>%date%</fc>| %YSSY%"
+       , template = "%StdinReader% | %cpu% | %cpufreq% | %memory% * %swap% | %eth0% - %wlan0% }{ <fc=#ee9a00>%date%</fc>| %YSSY%"
        }
