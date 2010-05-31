@@ -2,6 +2,12 @@
 ! Comments start with !, C style #define statements can be used only if
 ! this file is processed with xrdb -merge $HOME/.Xresources
 
+Xft.antialias: 1
+Xft.dpi: 96
+Xft.hinting: 1
+Xft.hintstyle: hintfull
+Xft.rgba: rgb
+
 !Emacs.background: white
 !Emacs.foreground: black
 !Emacs.background: black
@@ -17,8 +23,6 @@ Emacs.font: Inconsolata-11
 Emacs.FontBackend: xft
 Emacs.menuBar: off
 Emacs.toolBar: -1
-
-Xft.antialias: 1
 
 URxvt.scrollstyle:      plain
 URxvt.secondaryScroll:  true
@@ -37,8 +41,8 @@ URxvt.pastableTabs:     false
 
 xterm*background: white
 xterm*foreground: black
-!xterm*faceName:  Bitstream Vera Sans Mono-10
-xterm*faceName:  Inconsolata-11
+!XTerm*faceName:  Bitstream Vera Sans Mono-10
+XTerm*faceName:  Inconsolata-11
 XTerm*eightBitInput: false
 XTerm*metaSendsEscape: true
 XTerm*loginShell: true
