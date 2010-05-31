@@ -2,7 +2,6 @@
 import System.IO
 import XMonad hiding ( (|||) )
 import XMonad.Actions.DwmPromote
-import XMonad.Config.Gnome
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -59,20 +58,21 @@ main = do
        } `additionalKeys` keys'
        where
 
-  keys' =  [ ((mod4Mask .|. controlMask, xK_n), manPrompt defaultXPConfig)
-           , ((mod4Mask .|. controlMask, xK_s), sshPrompt defaultXPConfig)
-           , ((mod4Mask , xK_Return), dwmpromote)
-           , ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
+  keys' =  [ ((mod4Mask , xK_Return),           dwmpromote)
+           , ((mod4Mask .|. shiftMask, xK_z),   spawn "xscreensaver-command -lock")
+           , ((mod4Mask, xK_Print),             spawn "scrot -e 'mv $f /tmp'")
+
            , ((mod4Mask .|. controlMask, xK_b), sendMessage $ JumpToLayout "myTabbed")
            , ((mod4Mask .|. controlMask, xK_f), sendMessage $ JumpToLayout "Full")
            , ((mod4Mask .|. controlMask, xK_g), sendMessage $ JumpToLayout "Grid")
            , ((mod4Mask .|. controlMask, xK_m), sendMessage $ JumpToLayout "myMirrorTiled")
            , ((mod4Mask .|. controlMask, xK_t), sendMessage $ JumpToLayout "myTiled")
            , ((mod4Mask .|. controlMask, xK_2), sendMessage $ JumpToLayout "my2Pane")
-           , ((mod4Mask .|. shiftMask, xK_p),   gnomeRun)
+
            , ((mod4Mask, xK_x),                 runOrRaisePrompt defaultXPConfig)
            , ((mod4Mask, xK_F1),                manPrompt defaultXPConfig)
            , ((mod4Mask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
+
            , ((mod4Mask, xK_b),                 sendMessage ToggleStruts)
            , ((mod1Mask, xK_F4),                kill)
 
