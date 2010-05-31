@@ -37,8 +37,8 @@ URxvt.pastableTabs:     false
 
 xterm*background: white
 xterm*foreground: black
-xterm*faceName:  Bitstream Vera Sans Mono-9
-!xterm*faceName:  Inconsolata-11
+!xterm*faceName:  Bitstream Vera Sans Mono-10
+xterm*faceName:  Inconsolata-11
 XTerm*eightBitInput: false
 XTerm*metaSendsEscape: true
 XTerm*loginShell: true
