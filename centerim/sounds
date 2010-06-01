@@ -10,9 +10,7 @@
 # <event>	can be: msg, sms, url, online, offline, email
 # <command>	command line to be executed to play a sound
 
-*	msg	play /usr/share/centerim/msg.wav
-*	url	play /usr/share/centerim/url.wav
-*	email	play /usr/share/centerim/email.wav
-*	online	play /usr/share/centerim/online.wav
-*	offline	play /usr/share/centerim/offline.wav
-*	sms	play /usr/share/centerim/sms.wav
+*	msg	!spk1
+*	url	!spk2
+*	sms	!spk3
+*	email	!spk5
