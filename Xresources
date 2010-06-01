@@ -24,20 +24,19 @@ Emacs.FontBackend: xft
 Emacs.menuBar: off
 Emacs.toolBar: -1
 
-URxvt.scrollstyle:      plain
-URxvt.secondaryScroll:  true
-URxvt.background:       #000000
-URxvt.foreground:       gray90
-URxvt.color7:           gray90
-URxvt.colorBD:          #ffffff
-URxvt.colorIT:          green
-URxvt.cursorColor:      #e0e080
-URxvt.throughColor:     #8080f0
-!URxvt.highlightColor:   #f0f0f0
-URxvt.underlineColor:   yellow
-URxvt.saveLines:        8192
-URxvt.visualBell:       true
-URxvt.pastableTabs:     false
+URxvt.termName: rxvt
+URxvt.transparent: true
+URxvt.scrollBar: false
+URxvt.savelines: 500
+URxvt.urlLauncher: firefox
+URxvt.cursorBlink: true
+URxvt.fading: 45%
+urxvt.shading: 10
+urxvt.background: rgba:0000/0000/0000/dddd
+urxvt.foreground: grey80
+urxvt.tintcolor: #262626
+!URxvt.font: xft:Bitstream Vera Sans Mono-10.5
+URxvt.font: xft:Inconsolata-10
 
 xterm*background: white
 xterm*foreground: black
