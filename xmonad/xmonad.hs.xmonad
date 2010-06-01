@@ -60,7 +60,7 @@ main = do
 
   keys' =  [ ((mod4Mask , xK_Return),           dwmpromote)
            , ((mod4Mask .|. shiftMask, xK_z),   spawn "xscreensaver-command -lock")
-           , ((mod4Mask, xK_Print),             spawn "scrot -e 'mv $f /tmp'")
+           , ((mod4Mask, xK_Print),             spawn "sleep 0.2;scrot -d5 -s 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'eog $f'")
 
            , ((mod4Mask .|. controlMask, xK_b), sendMessage $ JumpToLayout "myTabbed")
            , ((mod4Mask .|. controlMask, xK_f), sendMessage $ JumpToLayout "Full")
