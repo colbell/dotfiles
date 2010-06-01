@@ -1,0 +1,5 @@
+include "/usr/share/themes/Human-Clearlooks/gtk-2.0/gtkrc"
+
+widget_class "*" style "user-font"
+
+gtk-font-name="Georgia 9"
