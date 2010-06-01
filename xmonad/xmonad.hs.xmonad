@@ -24,7 +24,7 @@ import XMonad.Prompt.Window
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.Run(spawnPipe)
 
-startupHook' = setWMName "LG3D"
+myStartupHook = setWMName "LG3D"
  
 myManageHook = composeAll [
     resource  =? "Do"        --> doIgnore,
@@ -52,7 +52,7 @@ main = do
                      ppOutput = hPutStrLn xmproc
                    , ppTitle = xmobarColor "green" "" . shorten 80
                    },
-
+         startupHook        = myStartupHook,
          borderWidth        = 3,
          modMask            = mod4Mask
        } `additionalKeys` keys'
