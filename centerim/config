@@ -1,3 +1,4 @@
+hideoffline
 emacs
 showopenedchats
 mailcheck
@@ -12,6 +13,7 @@ logonline
 smtp	localhost:25
 browser	google-chrome
 ptp	0-0
+group2
 protocolormode
 sort_by_status_and_name
 left_panel_width	87
