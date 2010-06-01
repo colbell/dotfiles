@@ -1,7 +1,11 @@
 -- -*- mode: haskell; -*-
 import System.IO
+
 import XMonad hiding ( (|||) )
+
+import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
+
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -75,6 +79,9 @@ main = do
 
            , ((mod4Mask, xK_b),                 sendMessage ToggleStruts)
            , ((mod1Mask, xK_F4),                kill)
+
+           , ((mod4Mask, xK_Left),              prevWS)
+           , ((mod4Mask, xK_Right),             nextWS)
 
            -- multimedia keys
            --
