@@ -3,6 +3,8 @@ import System.IO
 
 import XMonad hiding ( (|||) )
 
+import qualified XMonad.StackSet as W
+
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
 
@@ -26,13 +28,16 @@ import XMonad.Prompt.Ssh
 import XMonad.Prompt.Window
 
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.Scratchpad (scratchpadSpawnAction, scratchpadManageHookDefault, scratchpadFilterOutWorkspace)
+import XMonad.Util.Scratchpad
 
-myStartupHook = setWMName "LG3D"
+scratchpads =
+        [
+         NS "htop" "xterm -name htop -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+        ] where role = stringProperty "WM_WINDOW_ROLE"
 
-myManageHook :: ManageHook
-myManageHook = scratchpadManageHookDefault <+> (composeAll . concat $ [[
+myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDefault <+> (composeAll . concat $ [[
     resource  =? "Do"        --> doIgnore,
     resource  =? "gnome-do"  --> doIgnore,
     className =? "Gimp"      --> doFloat,
@@ -40,7 +45,9 @@ myManageHook = scratchpadManageHookDefault <+> (composeAll . concat $ [[
     className =? "Vncviewer" --> doFloat
                ]])
 
-myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" simpleTabbed ||| named "myMirrorTiled" mirrorTiled ||| Full ||| Grid ||| named "my2Pane" twoPane
+myStartupHook = setWMName "LG3D"
+
+myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" (tabbed shrinkText tConfig) ||| named "myMirrorTiled" mirrorTiled ||| Full ||| Grid ||| named "my2Pane" twoPane
   where
      tiled       = Tall nmaster delta ratio
      twoPane     = TwoPane delta ratio
@@ -48,6 +55,7 @@ myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" simpleTabbe
      ratio       = 1/2
      delta       = 3/100
      mirrorTiled = Mirror tiled
+     tConfig     = defaultTheme { inactiveTextColor = "#FF0000" , activeTextColor = "#00FF00"}
 
 main = do
   xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar"
@@ -75,11 +83,11 @@ main = do
            , ((mod4Mask .|. controlMask, xK_t), sendMessage $ JumpToLayout "myTiled")
            , ((mod4Mask .|. controlMask, xK_2), sendMessage $ JumpToLayout "my2Pane")
 
-           , ((mod4Mask, xK_x),                 runOrRaisePrompt defaultXPConfig)
            , ((mod4Mask, xK_F1),                manPrompt defaultXPConfig)
            , ((mod4Mask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
 
            , ((mod4Mask, xK_F8),                scratchpadSpawnAction defaultConfig)
+           , ((mod4Mask, xK_F9),                namedScratchpadAction scratchpads "htop")
 
            , ((mod4Mask, xK_b),                 sendMessage ToggleStruts)
            , ((mod1Mask, xK_F4),                kill)
