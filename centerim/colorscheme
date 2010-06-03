@@ -9,8 +9,8 @@ main_menu	green/transparent
 main_selected	black/white
 main_highlight	yellow/transparent	
 main_frame	blue/transparent	bold
-main_history_incoming	yellow/transparent	bold
-main_history_outgoing	cyan/transparent
+main_history_incoming	red/transparent
+main_history_outgoing	blue/transparent
 clist_icq	green/transparent
 clist_yahoo	magenta/transparent
 clist_infocard	white/transparent
