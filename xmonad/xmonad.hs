@@ -36,7 +36,7 @@ scratchpads =
         [
          NS "htop" "xterm -name htop -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
          , NS "emacs-org" "emacs -name emacs-org ~/Documents/org/work.org" (title =? "emacs-org") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
-         , NS "thunar-home" "thunar --name thunar-home" (title =? "thunar-home") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+         , NS "thunar" "thunar" (className =? "Thunar") (nonFloating)
         ] where role = stringProperty "WM_WINDOW_ROLE"
 
 myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDefault <+> (composeAll . concat $ [[
@@ -92,7 +92,7 @@ main = do
            , ((mod4Mask, xK_F7),                namedScratchpadAction scratchpads "emacs-org")
            , ((mod4Mask, xK_F8),                scratchpadSpawnAction defaultConfig)
            , ((mod4Mask, xK_F9),                namedScratchpadAction scratchpads "htop")
-           , ((mod4Mask, xK_F10),               namedScratchpadAction scratchpads "thunar-home")
+           , ((mod4Mask, xK_F10),               namedScratchpadAction scratchpads "thunar")
 
            , ((mod4Mask, xK_b),                 sendMessage ToggleStruts)
            , ((mod1Mask, xK_F4),                kill)
