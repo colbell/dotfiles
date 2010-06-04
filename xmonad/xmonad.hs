@@ -49,7 +49,9 @@ myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDef
 
 myStartupHook = setWMName "LG3D"
 
-myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" (tabbed shrinkText tConfig) ||| named "myMirrorTiled" mirrorTiled ||| Full ||| Grid ||| named "my2Pane" twoPane
+-- myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" (tabbed shrinkText tConfig) ||| named "myMirrorTiled" mirrorTiled ||| Full ||| Grid ||| named "my2Pane" twoPane
+
+myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" (tabbed shrinkText tConfig) ||| named "myMirrorTiled" mirrorTiled ||| Full
   where
      tiled       = Tall nmaster delta ratio
      twoPane     = TwoPane delta ratio
@@ -81,10 +83,10 @@ main = do
 
            , ((mod4Mask .|. controlMask, xK_b), sendMessage $ JumpToLayout "myTabbed")
            , ((mod4Mask .|. controlMask, xK_f), sendMessage $ JumpToLayout "Full")
-           , ((mod4Mask .|. controlMask, xK_g), sendMessage $ JumpToLayout "Grid")
+--           , ((mod4Mask .|. controlMask, xK_g), sendMessage $ JumpToLayout "Grid")
            , ((mod4Mask .|. controlMask, xK_m), sendMessage $ JumpToLayout "myMirrorTiled")
            , ((mod4Mask .|. controlMask, xK_t), sendMessage $ JumpToLayout "myTiled")
-           , ((mod4Mask .|. controlMask, xK_2), sendMessage $ JumpToLayout "my2Pane")
+--           , ((mod4Mask .|. controlMask, xK_2), sendMessage $ JumpToLayout "my2Pane")
 
            , ((mod4Mask, xK_F1),                manPrompt defaultXPConfig)
            , ((mod4Mask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
