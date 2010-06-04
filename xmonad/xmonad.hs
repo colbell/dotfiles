@@ -47,6 +47,8 @@ myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDef
     className =? "Vncviewer" --> doFloat
                ]])
 
+myWorkSpaces    = ["1-office", "2-emacs" ,"3-shell", "4-web", "5-fm", "6", "7", "8", "9-keep"]
+
 myStartupHook = setWMName "LG3D"
 
 -- myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" (tabbed shrinkText tConfig) ||| named "myMirrorTiled" mirrorTiled ||| Full ||| Grid ||| named "my2Pane" twoPane
@@ -66,6 +68,7 @@ main = do
   xmonad $ defaultConfig {
          manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig,
          layoutHook = myLayout,
+         workspaces= myWorkSpaces,
          logHook = dynamicLogWithPP $ xmobarPP {
                      ppOutput = hPutStrLn xmproc
                    , ppTitle = xmobarColor "green" "" . shorten 80
