@@ -4,8 +4,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-export HISTFILESIZE=5000
-export HISTSIZE=5000
+export HISTFILESIZE=1000
+export HISTSIZE=1000
 
 # Make sure that all terminal sessions append to history file.
 shopt -s histappend
