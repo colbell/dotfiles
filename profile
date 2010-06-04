@@ -9,22 +9,12 @@
 # the default umask is set in /etc/profile
 #umask 022
 
-#if [ -f "$HOME/.bashrc" ]; then
-#  . "$HOME/.bashrc"
-#fi
-
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
 	. "$HOME/.bashrc"
     fi
-fi
-
-# Add Plan 9 to path
-if [ -d "/usr/local/plan9" ] ; then
-   export PLAN9=/usr/local/plan9
-   export PATH=$PATH:$PLAN9/bin
 fi
 
 # set PATH so it includes user's private bin if it exists
@@ -35,8 +25,11 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+# set PATH so it includes local private bin if it exists
+if [ -d "$HOME/localbin" ] ; then
+    PATH="$HOME/localbin:$PATH"
+fi
+
 if [ -d "/var/lib/gems/1.8/bin" ] ; then
    export PATH=$PATH:"/var/lib/gems/1.8/bin"
 fi
-
-
