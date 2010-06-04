@@ -35,7 +35,7 @@ import XMonad.Util.Scratchpad
 scratchpads =
         [
          NS "htop" "xterm -name htop -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
-         , NS "emacs-org" "emacs -name emacs-org ~/Documents/org/work.org" (title =? "emacs-org") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+         , NS "emacs-org" "emacs --name emacs-org ~/Documents/org/work.org" (title =? "emacs-org") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
          , NS "thunar" "thunar" (className =? "Thunar") (nonFloating)
         ] where role = stringProperty "WM_WINDOW_ROLE"
 
