@@ -13,9 +13,13 @@ if [ -x /usr/bin/trayer ] ; then
  #trayer --edge left --align center --SetDockType true --SetPartialStrut true  --expand true --widthtype request --transparent true --heighttype request &
 fi
 
-gnome-keyring-daemon
+if [ -x /usr/bin/xscreensaver ] ; then
+  xscreensaver -no-splash &
+fi
 
-#xscreensaver -no-splash &
+if [ -x /usr/bin/gnome-keyring-daemon ] ; then
+  gnome-keyring-daemon
+fi
 
 #xsetroot -solid midnightblue
 #xsetroot -solid DarkGoldenrod
