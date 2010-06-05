@@ -18,16 +18,16 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    if [ -d "$HOME/bin/gittools/bin" ] ; then
-      PATH="$HOME/bin/gittools/bin:$PATH"
+if [ -d "$HOME/.bin" ] ; then
+    if [ -d "$HOME/.bin/gittools/bin" ] ; then
+      PATH="$HOME/.bin/gittools/bin:$PATH"
     fi
-    PATH="$HOME/bin:$PATH"
+    PATH="$HOME/.bin:$PATH"
 fi
 
 # set PATH so it includes local private bin if it exists
-if [ -d "$HOME/localbin" ] ; then
-    PATH="$HOME/localbin:$PATH"
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
 fi
 
 if [ -d "/var/lib/gems/1.8/bin" ] ; then
