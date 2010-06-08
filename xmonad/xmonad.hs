@@ -13,11 +13,9 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 
-import XMonad.Layout.Grid
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.Named
 import XMonad.Layout.Tabbed
-import XMonad.Layout.TwoPane
 
 import XMonad.Prompt
 import XMonad.Prompt.AppLauncher as AL
@@ -39,7 +37,8 @@ scratchpads =
          , NS "thunar" "thunar" (className =? "Thunar") (nonFloating)
         ] where role = stringProperty "WM_WINDOW_ROLE"
 
-myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDefault <+> (composeAll . concat $ [[
+myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDefault
+               <+> (composeAll . concat $ [[
     resource  =? "Do"        --> doIgnore,
     resource  =? "gnome-do"  --> doIgnore,
     className =? "Gimp"      --> doFloat,
@@ -53,10 +52,11 @@ myStartupHook = setWMName "LG3D"
 
 -- myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" (tabbed shrinkText tConfig) ||| named "myMirrorTiled" mirrorTiled ||| Full ||| Grid ||| named "my2Pane" twoPane
 
-myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" (tabbed shrinkText tConfig) ||| named "myMirrorTiled" mirrorTiled ||| Full
+myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" (tabbed shrinkText tConfig) |||
+            named "myMirrorTiled" mirrorTiled ||| Full
   where
      tiled       = Tall nmaster delta ratio
-     twoPane     = TwoPane delta ratio
+--     twoPane     = TwoPane delta ratio
      nmaster     = 1
      ratio       = 1/2
      delta       = 3/100
@@ -81,18 +81,20 @@ main = do
        where
 
   keys' =  [ ((mod4Mask , xK_Return),           dwmpromote)
-           , ((mod4Mask .|. shiftMask, xK_z),   spawn "xscreensaver-command -lock")
-           , ((mod4Mask, xK_Print),             spawn "sleep 0.2;scrot -d5 -s 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'eog $f'")
+
+           , ((mod4Mask .|. shiftMask, xK_z),       spawn "xscreensaver-command -lock")
+           , ((mod4Mask, xK_Print),                 spawn "sleep 0.2;scrot -d2 -s 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
+           , ((mod4Mask .|. shiftMask, xK_Print),   spawn "sleep 0.2;scrot -d2 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
+           , ((mod4Mask .|. controlMask, xK_Print), spawn "sleep 0.2;scrot -d2 -m 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
 
            , ((mod4Mask .|. controlMask, xK_b), sendMessage $ JumpToLayout "myTabbed")
            , ((mod4Mask .|. controlMask, xK_f), sendMessage $ JumpToLayout "Full")
---           , ((mod4Mask .|. controlMask, xK_g), sendMessage $ JumpToLayout "Grid")
            , ((mod4Mask .|. controlMask, xK_m), sendMessage $ JumpToLayout "myMirrorTiled")
            , ((mod4Mask .|. controlMask, xK_t), sendMessage $ JumpToLayout "myTiled")
---           , ((mod4Mask .|. controlMask, xK_2), sendMessage $ JumpToLayout "my2Pane")
 
            , ((mod4Mask, xK_F1),                manPrompt defaultXPConfig)
            , ((mod4Mask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
+           , ((mod4Mask .|. shiftMask, xK_g),   windowPromptBring defaultXPConfig { autoComplete = Just 500000 } )
 
            , ((mod4Mask, xK_F7),                namedScratchpadAction scratchpads "emacs-org")
            , ((mod4Mask, xK_F8),                scratchpadSpawnAction defaultConfig)
