@@ -32,19 +32,3 @@ folder-hook cbell@tickitondemand.com.au   'push "<limit>~N|~O|~F<enter>"'
 
 folder-hook .                     unmy_hdr Reply-To:
 folder-hook =IN-tickit-support    my_hdr Reply-To: support@tickitsystems.com.au
-
-# source "/etc/t-prot/Muttrc"                # for the t-prot script
-# source ~/.mutt/aliases                     # Groups
-# source ~/.mutt/cmds                        # Commands that Mutt executes
-# source ~/.mutt/general                     # General stuff
-# source ~/.mutt/lists                       # Mailing list definitions
-# source ~/.mutt/headers                     # Header display info
-# source ~/.mutt/colors                      # Color scheme
-# source ~/.mutt/bindings                    # Key bindings
-# source ~/.mutt/macros                      # macros
-# source ~/.mutt/hooks                       # Hooks
-# source ~/.mutt/format-lines                # Format lines
-
-# # Show version on startup
-# push V
-
