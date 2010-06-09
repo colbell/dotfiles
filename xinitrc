@@ -16,17 +16,17 @@ if [ -x /usr/bin/trayer ] ; then
  #trayer --edge left --align center --SetDockType true --SetPartialStrut true  --expand true --widthtype request --transparent true --heighttype request &
 fi
 
-if [ -x /usr/bin/xscreensaver ] ; then
-  xscreensaver -no-splash &
+#if [ -x /usr/bin/xscreensaver ] ; then
+#  xscreensaver -no-splash &
+#fi
+
+if [ -x /usr/bin/gnome-settings-daemon ] ; then
+  gnome-settings-daemon &
 fi
 
 if [ -x /usr/bin/gnome-keyring-daemon ] ; then
-  gnome-keyring-daemon
+  gnome-keyring-daemon &
 fi
-
-#xsetroot -solid midnightblue
-#xsetroot -solid DarkGoldenrod
-xsetroot -solid '#5f0f1f'
 
 sleep 3
 if [ -x /usr/bin/gnome-power-manager ] ; then
@@ -47,5 +47,9 @@ if [ $host = olethros ] ; then
   xrandr --auto --output VGA1 --mode 1920x1080 --right-of HDMI1
   xrandr --output HDMI1 --primary
 fi
+
+#xsetroot -solid midnightblue
+#xsetroot -solid DarkGoldenrod
+#xsetroot -solid '#5f0f1f'
 
 exec xmonad
