@@ -28,6 +28,10 @@ if [ -x /usr/bin/gnome-keyring-daemon ] ; then
   gnome-keyring-daemon &
 fi
 
+if [ -x /usr/bin/gnome-volume-control-applet ] ; then
+  gnome-volume-control-applet &
+fi
+
 sleep 3
 if [ -x /usr/bin/gnome-power-manager ] ; then
    gnome-power-manager &
