@@ -13,5 +13,5 @@ Config { font = "xft:Verdana-8"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% | %cpu% | %memory% * %swap% }{ %mpd% | %YSSY%"
+       , template = "%StdinReader% | %cpu% | %memory% * %swap% }{ %mpd% |  <fc=#ee9a00>%date%</fc> | %YSSY%"
        }
