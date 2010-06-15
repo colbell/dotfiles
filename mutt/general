@@ -5,7 +5,7 @@
 unset abort_unmodified            # Don't abort unmodified emails.
 set   alias_file=~/.mutt/aliases  # Address aliases
 unset arrow_cursor                # Dont use arrow to show cur line in index
-unset ascii_chars                 # Use graphic chars in tree
+  set ascii_chars                 # Don't use graphic chars in tree
   set askcc                       # Prompt for CC when composing
 unset auto_tag                    # Don't apply cmds to all tagged msgs
   set certificate_file="~/.mutt/certificates"   # Store trusted certificates
