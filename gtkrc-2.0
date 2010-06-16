@@ -1,4 +1,0 @@
-include "/usr/share/themes/Human-Clearlooks/gtk-2.0/gtkrc"
-
-gtk-font-name="Georgia 9"
-gtk-icon-theme-name="Tango"
