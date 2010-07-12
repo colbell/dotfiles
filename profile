@@ -9,6 +9,10 @@
 # the default umask is set in /etc/profile
 #umask 022
 
+#if [ -d "/var/lib/gems/1.8/bin" ] ; then
+#   export PATH=$PATH:"/var/lib/gems/1.8/bin"
+#fi
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
@@ -24,12 +28,10 @@ if [ -d "$HOME/.bin" ] ; then
     fi
     PATH="$HOME/.bin:$PATH"
 fi
-
-# set PATH so it includes local private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [ -d "/var/lib/gems/1.8/bin" ] ; then
-   export PATH=$PATH:"/var/lib/gems/1.8/bin"
+if [ -d "$HOME/android-sdk-linux_86/tools" ] ; then
+    PATH="$PATH:$HOME/android-sdk-linux_86/tools"
 fi
