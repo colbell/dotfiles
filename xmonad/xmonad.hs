@@ -15,6 +15,7 @@ import XMonad.Hooks.SetWMName
 
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.Named
+import XMonad.Layout.ShowWName
 import XMonad.Layout.Tabbed
 
 import XMonad.Prompt
@@ -67,7 +68,7 @@ main = do
   xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar"
   xmonad $ defaultConfig {
          manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig,
-         layoutHook = myLayout,
+         layoutHook = showWName myLayout,
          workspaces= myWorkSpaces,
          logHook = dynamicLogWithPP $ xmobarPP {
                      ppOutput = hPutStrLn xmproc
