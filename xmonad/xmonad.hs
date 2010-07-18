@@ -30,6 +30,7 @@ import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.Scratchpad
+import XMonad.Util.WorkspaceCompare
 
 scratchpads =
         [
@@ -72,6 +73,8 @@ main = do
          workspaces= myWorkSpaces,
          logHook = dynamicLogWithPP $ xmobarPP {
                      ppOutput = hPutStrLn xmproc
+                   , ppSort = getSortByXineramaRule
+--                   , ppSort = getSortByXineramaPhysicalRule
                    , ppTitle = xmobarColor "green" "" . shorten 80
                    },
          startupHook        = myStartupHook,
