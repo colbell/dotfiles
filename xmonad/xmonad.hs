@@ -7,6 +7,7 @@ import qualified XMonad.StackSet as W
 
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
+import XMonad.Actions.GridSelect
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -99,6 +100,7 @@ main = do
            , ((mod4Mask, xK_F1),                manPrompt defaultXPConfig)
            , ((mod4Mask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
            , ((mod4Mask .|. shiftMask, xK_g),   windowPromptBring defaultXPConfig { autoComplete = Just 500000 } )
+           , ((mod4Mask, xK_s),                 goToSelected defaultGSConfig)
 
            , ((mod4Mask, xK_F7),                namedScratchpadAction scratchpads "emacs-org")
            , ((mod4Mask, xK_F8),                scratchpadSpawnAction defaultConfig)
