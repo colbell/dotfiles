@@ -49,9 +49,11 @@ myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDef
     className =? "Vncviewer" --> doFloat
                ]])
 
-myWorkSpaces    = ["1-office", "2-emacs" ,"3-shell", "4-web", "5-fm", "6", "7", "8", "9-keep"]
+myWorkSpaces = ["1-office", "2-emacs" ,"3-shell", "4-web", "5-fm", "6", "7", "8", "9-keep"]
 
 myStartupHook = setWMName "LG3D"
+
+myModMask = mod4Mask
 
 -- myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" (tabbed shrinkText tConfig) ||| named "myMirrorTiled" mirrorTiled ||| Full ||| Grid ||| named "my2Pane" twoPane
 
@@ -80,38 +82,39 @@ main = do
                    },
          startupHook        = myStartupHook,
          borderWidth        = 3,
-         modMask            = mod4Mask,
+         modMask            = myModMask,
          focusedBorderColor = "DarkOrange"
        } `additionalKeys` keys'
        where
 
-  keys' =  [ ((mod4Mask , xK_Return),           dwmpromote)
+  keys' =  [ ((myModMask , xK_Return),           dwmpromote)
+           , ((myModMask .|. shiftMask, xK_Return), spawn "gnome-terminal")
 
-           , ((mod4Mask .|. shiftMask, xK_z),       spawn "xscreensaver-command -lock")
-           , ((mod4Mask, xK_Print),                 spawn "sleep 0.2;scrot -d2 -s 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
-           , ((mod4Mask .|. shiftMask, xK_Print),   spawn "sleep 0.2;scrot -d2 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
-           , ((mod4Mask .|. controlMask, xK_Print), spawn "sleep 0.2;scrot -d2 -m 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
+           , ((myModMask .|. shiftMask, xK_z),       spawn "xscreensaver-command -lock")
+           , ((myModMask, xK_Print),                 spawn "sleep 0.2;scrot -d2 -s 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
+           , ((myModMask .|. shiftMask, xK_Print),   spawn "sleep 0.2;scrot -d2 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
+           , ((myModMask .|. controlMask, xK_Print), spawn "sleep 0.2;scrot -d2 -m 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
 
-           , ((mod4Mask .|. controlMask, xK_b), sendMessage $ JumpToLayout "myTabbed")
-           , ((mod4Mask .|. controlMask, xK_f), sendMessage $ JumpToLayout "Full")
-           , ((mod4Mask .|. controlMask, xK_m), sendMessage $ JumpToLayout "myMirrorTiled")
-           , ((mod4Mask .|. controlMask, xK_t), sendMessage $ JumpToLayout "myTiled")
+           , ((myModMask .|. controlMask, xK_b), sendMessage $ JumpToLayout "myTabbed")
+           , ((myModMask .|. controlMask, xK_f), sendMessage $ JumpToLayout "Full")
+           , ((myModMask .|. controlMask, xK_m), sendMessage $ JumpToLayout "myMirrorTiled")
+           , ((myModMask .|. controlMask, xK_t), sendMessage $ JumpToLayout "myTiled")
 
-           , ((mod4Mask, xK_F1),                manPrompt defaultXPConfig)
-           , ((mod4Mask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
-           , ((mod4Mask .|. shiftMask, xK_g),   windowPromptBring defaultXPConfig { autoComplete = Just 500000 } )
-           , ((mod4Mask, xK_s),                 goToSelected defaultGSConfig)
+           , ((myModMask, xK_F1),                manPrompt defaultXPConfig)
+           , ((myModMask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
+           , ((myModMask .|. shiftMask, xK_g),   windowPromptBring defaultXPConfig { autoComplete = Just 500000 } )
+           , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
 
-           , ((mod4Mask, xK_F7),                namedScratchpadAction scratchpads "emacs-org")
-           , ((mod4Mask, xK_F8),                scratchpadSpawnAction defaultConfig)
-           , ((mod4Mask, xK_F9),                namedScratchpadAction scratchpads "htop")
-           , ((mod4Mask, xK_F10),               namedScratchpadAction scratchpads "thunar")
+           , ((myModMask, xK_F7),                namedScratchpadAction scratchpads "emacs-org")
+           , ((myModMask, xK_F8),                scratchpadSpawnAction defaultConfig)
+           , ((myModMask, xK_F9),                namedScratchpadAction scratchpads "htop")
+           , ((myModMask, xK_F10),               namedScratchpadAction scratchpads "thunar")
 
-           , ((mod4Mask, xK_b),                 sendMessage ToggleStruts)
-           , ((mod1Mask, xK_F4),                kill)
+           , ((myModMask, xK_b),                 sendMessage ToggleStruts)
+           , ((mod1Mask, xK_F4),                 kill)
 
-           , ((mod4Mask, xK_Left),              prevWS)
-           , ((mod4Mask, xK_Right),             nextWS)
+           , ((myModMask, xK_Left),              prevWS)
+           , ((myModMask, xK_Right),             nextWS)
 
            -- multimedia keys
            --
