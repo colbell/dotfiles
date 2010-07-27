@@ -49,7 +49,7 @@ myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDef
     className =? "MPlayer"      --> doFloat,
     className =? "Vncviewer"    --> doFloat,
     className =? "stalonetray"  --> doIgnore,
-    className  =? "trayer"      --> doIgnore
+    className =? "trayer"      --> doIgnore
                ]])
 
 myWorkSpaces = ["1-office", "2-emacs" ,"3-shell", "4-web", "5-fm", "6", "7", "8", "9-keep"]
@@ -95,7 +95,7 @@ main = do
   keys' =  [ ((myModMask , xK_Return),               dwmpromote)
            , ((myModMask .|. shiftMask, xK_Return),  spawn "gnome-terminal")
 
-           , ((myModMask .|. shiftMask, xK_z),       spawn "xscreensaver-command -lock")
+           , ((myModMask .|. shiftMask, xK_z),       spawn "gnome-screensaver-command -l")
            , ((myModMask, xK_Print),                 spawn "sleep 0.2;scrot -d2 -s 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
            , ((myModMask .|. shiftMask, xK_Print),   spawn "sleep 0.2;scrot -d2 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
            , ((myModMask .|. controlMask, xK_Print), spawn "sleep 0.2;scrot -d2 -m 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
