@@ -8,6 +8,7 @@ import qualified XMonad.StackSet as W
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
 import XMonad.Actions.GridSelect
+import XMonad.Actions.WindowMenu
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -37,7 +38,7 @@ scratchpads =
         [
          NS "htop" "xterm -name htop -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
          , NS "emacs-org" "emacs --name emacs-org ~/Documents/org/work.org" (title =? "emacs-org") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
-         , NS "thunar" "thunar" (className =? "Thunar") (nonFloating)
+         , NS "nautilus" "Nautilus" (className =? "Nautilus") (nonFloating)
         ] where role = stringProperty "WM_WINDOW_ROLE"
 
 myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDefault
@@ -51,6 +52,7 @@ myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDef
 
 myWorkSpaces = ["1-office", "2-emacs" ,"3-shell", "4-web", "5-fm", "6", "7", "8", "9-keep"]
 
+-- Workaround for Java grey screen issues.
 myStartupHook = setWMName "LG3D"
 
 myModMask = mod4Mask
@@ -87,8 +89,8 @@ main = do
        } `additionalKeys` keys'
        where
 
-  keys' =  [ ((myModMask , xK_Return),           dwmpromote)
-           , ((myModMask .|. shiftMask, xK_Return), spawn "gnome-terminal")
+  keys' =  [ ((myModMask , xK_Return),               dwmpromote)
+           , ((myModMask .|. shiftMask, xK_Return),  spawn "gnome-terminal")
 
            , ((myModMask .|. shiftMask, xK_z),       spawn "xscreensaver-command -lock")
            , ((myModMask, xK_Print),                 spawn "sleep 0.2;scrot -d2 -s 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
@@ -104,11 +106,12 @@ main = do
            , ((myModMask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
            , ((myModMask .|. shiftMask, xK_g),   windowPromptBring defaultXPConfig { autoComplete = Just 500000 } )
            , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
+           , ((myModMask, xK_o ),                windowMenu)
 
            , ((myModMask, xK_F7),                namedScratchpadAction scratchpads "emacs-org")
            , ((myModMask, xK_F8),                scratchpadSpawnAction defaultConfig)
            , ((myModMask, xK_F9),                namedScratchpadAction scratchpads "htop")
-           , ((myModMask, xK_F10),               namedScratchpadAction scratchpads "thunar")
+           , ((myModMask, xK_F10),               namedScratchpadAction scratchpads "nautilus")
 
            , ((myModMask, xK_b),                 sendMessage ToggleStruts)
            , ((mod1Mask, xK_F4),                 kill)
