@@ -43,11 +43,13 @@ scratchpads =
 
 myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDefault
                <+> (composeAll . concat $ [[
-    resource  =? "Do"        --> doIgnore,
-    resource  =? "gnome-do"  --> doIgnore,
-    className =? "Gimp"      --> doFloat,
-    className =? "MPlayer"   --> doFloat,
-    className =? "Vncviewer" --> doFloat
+    resource  =? "Do"           --> doIgnore,
+    resource  =? "gnome-do"     --> doIgnore,
+    className =? "Gimp"         --> doFloat,
+    className =? "MPlayer"      --> doFloat,
+    className =? "Vncviewer"    --> doFloat,
+    className =? "stalonetray"  --> doIgnore,
+    className  =? "trayer"      --> doIgnore
                ]])
 
 myWorkSpaces = ["1-office", "2-emacs" ,"3-shell", "4-web", "5-fm", "6", "7", "8", "9-keep"]
@@ -86,6 +88,7 @@ main = do
          borderWidth        = 3,
          modMask            = myModMask,
          focusedBorderColor = "DarkOrange"
+--         defaultGaps        = [(16,0,0,0)]  --stanalontray
        } `additionalKeys` keys'
        where
 
