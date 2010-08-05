@@ -121,3 +121,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
+
+if [ -f $rvm_scripts_path/rvm-completion.rb ]; then
+  complete -C $rvm_scripts_path/rvm-completion.rb -o default rvm
+fi
