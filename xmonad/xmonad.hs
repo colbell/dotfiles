@@ -61,8 +61,8 @@ myModMask = mod4Mask
 
 -- myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" (tabbed shrinkText tConfig) ||| named "myMirrorTiled" mirrorTiled ||| Full ||| Grid ||| named "my2Pane" twoPane
 
-myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" (tabbed shrinkText tConfig) |||
-            named "myMirrorTiled" mirrorTiled ||| Full
+myLayout =  avoidStruts $ named "tile" tiled ||| named "tab" (tabbed shrinkText tConfig) |||
+            named "mTile" mirrorTiled ||| Full
   where
      tiled       = Tall nmaster delta ratio
 --     twoPane     = TwoPane delta ratio
@@ -99,11 +99,10 @@ main = do
            , ((myModMask, xK_Print),                 spawn "sleep 0.2;scrot -d2 -s 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
            , ((myModMask .|. shiftMask, xK_Print),   spawn "sleep 0.2;scrot -d2 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
            , ((myModMask .|. controlMask, xK_Print), spawn "sleep 0.2;scrot -d2 -m 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
-
-           , ((myModMask .|. controlMask, xK_b), sendMessage $ JumpToLayout "myTabbed")
-           , ((myModMask .|. controlMask, xK_f), sendMessage $ JumpToLayout "Full")
-           , ((myModMask .|. controlMask, xK_m), sendMessage $ JumpToLayout "myMirrorTiled")
-           , ((myModMask .|. controlMask, xK_t), sendMessage $ JumpToLayout "myTiled")
+           , ((mod4Mask .|. controlMask, xK_b), sendMessage $ JumpToLayout "tab")
+           , ((mod4Mask .|. controlMask, xK_f), sendMessage $ JumpToLayout "Full")
+           , ((mod4Mask .|. controlMask, xK_m), sendMessage $ JumpToLayout "Tile")
+           , ((mod4Mask .|. controlMask, xK_t), sendMessage $ JumpToLayout "mTile")
 
            , ((myModMask, xK_F1),                manPrompt defaultXPConfig)
            , ((myModMask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
