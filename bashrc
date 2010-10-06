@@ -109,9 +109,9 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # Emacs setup.
-if [ -f ~/.bashrc_emacs ]; then
-    .  ~/.bashrc_emacs
-fi
+#if [ -f ~/.bashrc_emacs ]; then
+#    .  ~/.bashrc_emacs
+#fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
