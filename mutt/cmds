@@ -6,7 +6,7 @@
 set ispell="/usr/bin/aspell --mode=email check"
 
 # Edit cmd for composing emails
-set editor="emacsclient -c +999999 %s"
+set editor="ec -c +999999 %s"
 #set editor="vim  -c 'set tw=72 expandtab ft=mail' +/^\$"
 #set editor="vim  -c 'set tw=72 expandtab ft=mail'"
 #set editor="emacs -nw "
