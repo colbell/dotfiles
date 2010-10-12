@@ -1,5 +1,9 @@
 [ui]
-username = Colin Noel Bell
+username = Colin Noel Bell <col@baibell.org>
 
 [extensions]
 prompt = ~/.bin/hg-prompt/prompt.py
+bookmarks =
+
+[bookmarks]
+track.current = True
