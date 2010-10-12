@@ -85,12 +85,20 @@ function parse_git_dirty {
 function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[git: \1$(parse_git_dirty)]/"
 }
-export PS1='\u@\h \[\033[1;34m\]\w\[\033[0m\]$(parse_git_branch)$ '
+
+hg_ps1() {
+  #hg prompt "{[+{incoming|count}]-->}{root|basename}{/{branch}}{-->[+{outgoing|count}]}{status}" 2> /dev/null
+  hg prompt "[hg: {{branch}}{status}]" 2> /dev/null
+}
+#export PS1="$(hg_ps1) $PS1"
+
+export PS1='\u@\h \[\033[1;34m\]\w\[\033[0m\] $(parse_git_branch)$(hg_ps1)'
 
 if [ -x ~/.rvm/bin/rvm-prompt ]; then
-  export PS1="[\$(~/.rvm/bin/rvm-prompt)] $PS1"
+  export PS1="$PS1 [\$(~/.rvm/bin/rvm-prompt)]"
 fi
 
+export PS1="$PS1 $"
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
