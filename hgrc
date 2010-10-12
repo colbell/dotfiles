@@ -1,2 +1,5 @@
 [ui]
 username = Colin Noel Bell
+
+[extensions]
+prompt = ~/.bin/hg-prompt/prompt.py
