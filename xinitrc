@@ -29,9 +29,9 @@ if [ -x /usr/bin/gnome-settings-daemon ] ; then
   gnome-settings-daemon &
 fi
 
-if [ -x /usr/bin/gnome-screensaver ] ; then
-  gnome-screensaver &
-fi
+#if [ -x /usr/bin/gnome-screensaver ] ; then
+#  gnome-screensaver &
+#fi
 
 if [ -x /usr/bin/gnome-keyring-daemon ] ; then
   gnome-keyring-daemon &
@@ -60,14 +60,14 @@ if [ $host = olethros ] ; then
   xrandr --output HDMI1 --primary
 fi
 
-if [ $host = teleute ] ; then
-  xrandr --newmode "1680x1050_60.00"  146.25  1680 1784 1960 2240  1050 1053 1059 1089 -hsync +vsync
-  xrandr --addmode CRT1 1680x1050_60.00
-  #xrandr --auto --output LVDS --mode 1280x768
-  xrandr --auto --output LVDS --mode 1280x800
-  xrandr --auto --output CRT1 --mode 1680x1050_60.00 --right-of LVDS
-  xrandr --output LVDS --primary
-fi
+#if [ $host = teleute ] ; then
+#  xrandr --newmode "1680x1050_60.00"  146.25  1680 1784 1960 2240  1050 1053 1059 1089 -hsync +vsync
+#  xrandr --addmode CRT1 1680x1050_60.00
+#  #xrandr --auto --output LVDS --mode 1280x768
+#  xrandr --auto --output LVDS --mode 1280x800
+#  xrandr --auto --output CRT1 --mode 1680x1050_60.00 --right-of LVDS
+#  xrandr --output LVDS --primary
+#fi
 
 #xsetroot -solid midnightblue
 #xsetroot -solid DarkGoldenrod
