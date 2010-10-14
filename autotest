@@ -1,6 +1,6 @@
 # -*- ruby -*-
 
-require 'redgreen/autotest'
+#require 'redgreen/autotest'
 
 # require 'autotest/autoupdate'
 # require 'autotest/camping'
