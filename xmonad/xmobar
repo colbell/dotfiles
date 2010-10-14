@@ -8,11 +8,11 @@ Config { font = "xft:Verdana-8"
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
     		    , Run Date "%_d %b %H:%M" "date" 300
-                    , Run Com "date" ["-u", "+\"%_d %b %H:%M UTC\""] "utcdate" 300
+                    , Run Com "sh" ["date", "-u", "+\"%_d %b %H:%M UTC\""] "utcdate" 300
                     , Run StdinReader
                     , Run Com "sh" ["~/.bin/mpd.sh"] "mpd" 100
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% | %cpu% | %memory% * %swap% }{ %mpd% | <fc=#ee9a00>%utcdate%</fc> | <fc=#ee9a00>%date%</fc> | %YSSY%"
+       , template = "%StdinReader% | %cpu% | %memory% * %swap% }{<fc=#ee9a00>%date%</fc> | %YSSY%"
        }
