@@ -35,11 +35,10 @@ import XMonad.Util.Scratchpad
 import XMonad.Util.WorkspaceCompare
 
 scratchpads =
-        [
-         NS "htop" "xterm -name htop -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
-         , NS "emacs-org" "emacs --name emacs-org ~/Documents/org/work.org" (title =? "emacs-org") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
-         , NS "nautilus" "Nautilus" (className =? "Nautilus") (nonFloating)
-        ] where role = stringProperty "WM_WINDOW_ROLE"
+    [
+     NS "htop" "xterm -name htop -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+    , NS "nautilus" "Nautilus" (className =? "Nautilus") (nonFloating)
+    ] where role = stringProperty "WM_WINDOW_ROLE"
 
 myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDefault
                <+> (composeAll . concat $ [[
@@ -110,7 +109,6 @@ main = do
            , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
            , ((myModMask, xK_o ),                windowMenu)
 
-           , ((myModMask, xK_F7),                namedScratchpadAction scratchpads "emacs-org")
            , ((myModMask, xK_F8),                scratchpadSpawnAction defaultConfig)
            , ((myModMask, xK_F9),                namedScratchpadAction scratchpads "htop")
            , ((myModMask, xK_F10),               namedScratchpadAction scratchpads "nautilus")
