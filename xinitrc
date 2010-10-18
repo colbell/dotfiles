@@ -2,6 +2,10 @@
 
 host=`hostname`
 
+if [ $host = teleute ] ; then
+  xrandr --output LVDS --primary
+fi
+
 #if [ -x /usr/bin/trayer ] ; then
   #margin=1680
   #if [ $host = delirium ] ; then
