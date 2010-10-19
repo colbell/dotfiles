@@ -9,6 +9,7 @@ import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
 import XMonad.Actions.GridSelect
 import XMonad.Actions.WindowMenu
+import XMonad.Actions.UpdatePointer
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -53,12 +54,22 @@ myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDef
 
 myWorkSpaces = ["1-office", "2-emacs" ,"3-shell", "4-web", "5-fm", "6", "7", "8", "9-keep"]
 
+myLogHook h = do
+  dynamicLogWithPP $ oxyPP h
+
+oxyPP :: Handle -> PP
+oxyPP h = defaultPP {
+                 ppOutput = hPutStrLn h
+               , ppSort = getSortByXineramaRule
+--             , ppSort = getSortByXineramaPhysicalRule
+               , ppTitle = xmobarColor "green" "" . shorten 80            
+          }
+
 -- Workaround for Java grey screen issues.
 myStartupHook = setWMName "LG3D"
 
+-- Use Wimdoze key
 myModMask = mod4Mask
-
--- myLayout =  avoidStruts $ named "myTiled" tiled ||| named "myTabbed" (tabbed shrinkText tConfig) ||| named "myMirrorTiled" mirrorTiled ||| Full ||| Grid ||| named "my2Pane" twoPane
 
 myLayout =  avoidStruts $ named "tile" tiled ||| named "tab" (tabbed shrinkText tConfig) |||
             named "mTile" mirrorTiled ||| Full
@@ -74,15 +85,11 @@ myLayout =  avoidStruts $ named "tile" tiled ||| named "tab" (tabbed shrinkText 
 main = do
   xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar"
   xmonad $ defaultConfig {
-         manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig,
-         layoutHook = showWName myLayout,
-         workspaces= myWorkSpaces,
-         logHook = dynamicLogWithPP $ xmobarPP {
-                     ppOutput = hPutStrLn xmproc
-                   , ppSort = getSortByXineramaRule
---                   , ppSort = getSortByXineramaPhysicalRule
-                   , ppTitle = xmobarColor "green" "" . shorten 80
-                   },
+         manageHook         = manageDocks <+> myManageHook <+> manageHook defaultConfig,
+         layoutHook         = showWName myLayout,
+         workspaces         = myWorkSpaces,
+         logHook            = myLogHook xmproc
+                              >> updatePointer (Relative 0.5 0.5),
          startupHook        = myStartupHook,
          borderWidth        = 3,
          modMask            = myModMask,
@@ -95,9 +102,16 @@ main = do
            , ((myModMask .|. shiftMask, xK_Return),  spawn "gnome-terminal")
 
            , ((myModMask .|. shiftMask, xK_z),       spawn "gnome-screensaver-command -l")
+
+           -- Print Screen - Interactively select window or rectangle
            , ((myModMask, xK_Print),                 spawn "sleep 0.2;scrot -d2 -s 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
+
+           -- Print Screen - Current screen
            , ((myModMask .|. shiftMask, xK_Print),   spawn "sleep 0.2;scrot -d2 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
+
+           -- Print Screen - All screens
            , ((myModMask .|. controlMask, xK_Print), spawn "sleep 0.2;scrot -d2 -m 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
+
            , ((mod4Mask .|. controlMask, xK_b), sendMessage $ JumpToLayout "tab")
            , ((mod4Mask .|. controlMask, xK_f), sendMessage $ JumpToLayout "Full")
            , ((mod4Mask .|. controlMask, xK_m), sendMessage $ JumpToLayout "Tile")
@@ -126,4 +140,3 @@ main = do
            -- XF86AudioRaiseVolume
            --, ((0            , 0x1008ff13), spawn "aumix -v +2")
            ]
-
