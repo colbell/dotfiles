@@ -62,7 +62,7 @@ oxyPP h = defaultPP {
                  ppOutput = hPutStrLn h
                , ppSort = getSortByXineramaRule
 --             , ppSort = getSortByXineramaPhysicalRule
-               , ppTitle = xmobarColor "green" "" . shorten 80            
+               , ppTitle = xmobarColor "green" "" . shorten 80
           }
 
 -- Workaround for Java grey screen issues.
