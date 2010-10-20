@@ -87,8 +87,8 @@ function parse_git_branch {
 }
 
 hg_ps1() {
-  hg prompt "[hg: {[+{incoming|count}]-->}{root|basename}{/{branch}}{-->[+{outgoing|count}]}{status}]" 2> /dev/null
-  #hg prompt "[hg: {{branch}}{status}]" 2> /dev/null
+  #hg prompt "[hg: {[+{incoming|count}]-->}{root|basename}{/{branch}}{-->[+{outgoing|count}]}{status}]" 2> /dev/null
+  hg prompt "[hg: {{branch}}{status}]" 2> /dev/null
 }
 #export PS1="$(hg_ps1) $PS1"
 
