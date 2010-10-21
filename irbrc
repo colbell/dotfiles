@@ -5,6 +5,7 @@ require 'rubygems'
 require 'pp'
 
 IRB.conf[:AUTO_INDENT]=true
+IRB.conf[:SAVE_HISTORY]=1024
 
 #Wirble.init
 #Wirble.colorize
@@ -16,5 +17,6 @@ class Object
   end
 end
 
-
-
+def irb_verbosity_toggle
+  irb_context.echo ? irb_context.echo = false : irb_context.echo = true
+end
