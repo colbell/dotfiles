@@ -59,8 +59,11 @@ if [ -x /usr/bin/ubuntuone-launch ] ; then
 fi
 
 if [ $host = olethros ] ; then
+  xrandr --newmode "1680x1050_60.00"  146.25  1680 1784 1960 2240  1050 1053 1059 1089 -hsync +vsync
+  xrandr --addmode VGA1 1680x1050_60.00
   xrandr --auto --output HDMI1 --mode 1920x1080
-  xrandr --auto --output VGA1 --mode 1920x1080 --right-of HDMI1
+#  xrandr --auto --output VGA1 --mode 1920x1080 --right-of HDMI1
+  xrandr --auto --output VGA1 --mode 1680x1050_60.00 --right-of HDMI1
   xrandr --output HDMI1 --primary
 fi
 
