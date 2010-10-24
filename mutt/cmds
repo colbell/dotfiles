@@ -19,4 +19,5 @@ set editor="ec -c +999999 %s"
 # use LBDB for email addresses
 #set query_command="lbdbq %s"
 
-set query_command = "ruby -I ~/src/tumm/lib ~/src/tumm/bin/tumm search '%s'"
+#set query_command = "ruby -I ~/src/tumm/lib ~/src/tumm/bin/tumm search '%s'"
+set query_command = "bitsa search '%s'"
