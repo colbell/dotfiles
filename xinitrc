@@ -6,25 +6,6 @@ if [ $host = teleute ] ; then
   xrandr --output LVDS --primary
 fi
 
-#if [ -x /usr/bin/trayer ] ; then
-  #margin=1680
-  #if [ $host = delirium ] ; then
-  #  margin=1280
-  #fi
-  #if [ $host = olethros ] ; then
-  #  margin=1920
-  #fi
-
- #trayer --edge top --margin $margin --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --transparent true --tint 0x000000 --height 13 &
- #trayer --edge top --margin 1680 --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --transparent true --tint 0x191970 --height 12 &
- #trayer --edge left --align center --SetDockType true --SetPartialStrut true  --expand true --widthtype request --transparent true --heighttype request &
-#fi
-
-if [ -x /usr/bin/stalonetray ] ; then
-  stalonetray -i 16 --icon-gravity E --max-geometry 12x1 --geometry 12x1-0+0 -bg '#000000' --sticky --skip-taskbar &
-  #stalonetray -i 16 --icon-gravity E -bg '#000000' --sticky --skip-taskbar &
-fi
-
 #if [ -x /usr/bin/xscreensaver ] ; then
 #  xscreensaver -no-splash &
 #fi
@@ -76,8 +57,24 @@ fi
 #  xrandr --output LVDS --primary
 #fi
 
+if [ -x /usr/bin/trayer ] ; then
+  margin=1680
+  if [ $host = delirium ] ; then
+   margin=1280
+  fi
+
+ trayer --edge top --margin $margin --align right --SetDockType true --SetPartialStrut true  --expand true --width 6 --tint 0xFFFFFF --height 16 &
+ #trayer --edge top --margin 1680 --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --transparent true --tint 0x191970 --height 12 &
+fi
+
 #xsetroot -solid midnightblue
 #xsetroot -solid DarkGoldenrod
 #xsetroot -solid '#5f0f1f'
+
+
+# if [ -x /usr/bin/stalonetray ] ; then
+#   stalonetray -i 16 --icon-gravity E --max-geometry 12x1 --geometry 12x1-0+0 -bg '#000000' --sticky --skip-taskbar &
+#   #stalonetray -i 16 --icon-gravity E -bg '#000000' --sticky --skip-taskbar &
+# fi
 
 exec xmonad

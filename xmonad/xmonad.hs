@@ -68,7 +68,7 @@ oxyPP h = defaultPP {
 -- Workaround for Java grey screen issues.
 myStartupHook = setWMName "LG3D"
 
--- Use Wimdoze key
+-- Use Windoze key
 myModMask = mod4Mask
 
 myLayout =  avoidStruts $ named "tile" tiled ||| named "tab" (tabbed shrinkText tConfig) |||
