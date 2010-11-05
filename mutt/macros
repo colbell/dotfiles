@@ -7,7 +7,11 @@ macro   index   <F10>   "!muttprofile\n:source ~/.mutt/profile.active\n" "Call m
 macro pager \e2 ":unset weed\n|~/bin/mailhops|less -c\n:set weed\n" "Show trace of mail routing"
 
 # Multiple mailbox search
-macro index \e3 <change-folder>=vfolder<enter><shell-escape>'mairix '
+#macro index \e3 <change-folder>=vfolder<enter><shell-escape>'mairix '
+# first macro does the search according to user query, second macro jumps to result list
+macro index <F8> "<shell-escape>mu find -c -l ~/Maildir/search "  "mu find"
+macro index <F9> "<change-folder-readonly>~/Maildir/search" "display mu find
+
 
 macro index   <left>   "c?"
 

@@ -50,7 +50,7 @@ remoterepository = cbelltickit-remote
 
 [Repository cbelltickit-local]
 type = Maildir
-localfolders = ~/Maildir/cbelltickit
+localfolders = ~/Maildir/tickit/
 
 [Repository cbelltickit-remote]
 type = IMAP
