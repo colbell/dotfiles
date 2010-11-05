@@ -44,6 +44,11 @@ case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
 
+host=`hostname`
+if [ $host = olethros ] ; then
+  export MAILDIR=~/Maildir/tickit
+fi
+
 # Colored man pages
 export LESS_TERMCAP_mb=$'\E[01;31m' # begin blinking
 export LESS_TERMCAP_md=$'\E[01;38;5;74m' # begin bold
