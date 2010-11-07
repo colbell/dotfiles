@@ -58,13 +58,9 @@ fi
 #fi
 
 if [ -x /usr/bin/trayer ] ; then
-  margin=1680
-  if [ $host = delirium ] ; then
-   margin=1280
-  fi
-
- trayer --edge top --margin $margin --align right --SetDockType true --SetPartialStrut true  --expand true --width 6 --tint 0xFFFFFF --height 16 &
- #trayer --edge top --margin 1680 --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --transparent true --tint 0x191970 --height 12 &
+  #margin=1680
+  trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 6 --tint 0xFFFFFF --height 16 &
+  #trayer --edge top --margin 1680 --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --transparent true --tint 0x191970 --height 12 &
 fi
 
 #xsetroot -solid midnightblue
