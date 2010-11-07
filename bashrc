@@ -23,7 +23,7 @@ export HISTCONTROL=ignoreboth
 #export LIBXCB_ALLOW_SLOPPY_LOCK=1
 
 # need to install ncurses-term
-#export TERM=xterm-256color 
+#export TERM=xterm-256color
 
 export BROWSER=w3m
 
@@ -47,6 +47,8 @@ esac
 host=`hostname`
 if [ $host = olethros ] ; then
   export MAILDIR=~/Maildir/tickit
+elif [ $host = teleute ] ; then
+  export MAILDIR=~/Maildir/colbaibell.org
 fi
 
 # Colored man pages
