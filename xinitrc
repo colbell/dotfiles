@@ -14,9 +14,9 @@ if [ -x /usr/bin/gnome-settings-daemon ] ; then
   gnome-settings-daemon &
 fi
 
-#if [ -x /usr/bin/gnome-screensaver ] ; then
-#  gnome-screensaver &
-#fi
+if [ -x /usr/bin/gnome-screensaver ] ; then
+  gnome-screensaver &
+fi
 
 if [ -x /usr/bin/gnome-keyring-daemon ] ; then
   gnome-keyring-daemon &
