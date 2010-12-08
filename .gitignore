@@ -14,3 +14,6 @@
 /centerim/j*
 /centerim/pid
 /bin/hg-prompt/prompt.pyc
+/w3m/.arrived
+/w3m/.cookie
+/w3m/.sessions
