@@ -1,6 +1,6 @@
 ;; mode:-*-emacs-lisp-*-
 
-(setq mail-self-blind t)
+;;(setq mail-self-blind t)
 
 (setq wl-summary-showto-folder-regexp ".*")
 (setq wl-summary-from-function 'wl-summary-default-from)
