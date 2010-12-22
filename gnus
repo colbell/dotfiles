@@ -1,11 +1,9 @@
 ;; mode:-*-emacs-lisp-*-
 
-(setq nnml-directory "~/gmail")
-(setq message-directory "~/gmail")
-
 ;;(setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\”]\”[#’()]")
 
-(require 'pgg)
+(require 'pgg)   ;; encryption
+(require 'nnir)  ;; IMAP searaching
 
 ;; Performance
 (setq gnus-read-active-file nil)
@@ -14,7 +12,7 @@
                                   (nnimap-address "imap.gmail.com")
                                   (nnimap-server-port 993)
                                   (nnimap-stream ssl)
-                                  ))
+                                  (nnir-search-engine imap)))
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
@@ -49,10 +47,7 @@
                gnus-sum-thread-tree-vertical "│")
 
 (setq gnus-visible-headers "From:\\|Subject:\\|Date:\\|Organization:\\|To:\\|Cc:\\|Reply-To:\\|Message-Id:\\|List-ID\\|X-Mailer:\\|X-Editor\\|User-Agent:"
-      ;; message-fill-column nil
       message-kill-buffer-on-exit t
-      ;;gnus-treat-display-smileys nil
-      gnus-treat-display-face nil
       mm-inline-large-images t)
 
 
