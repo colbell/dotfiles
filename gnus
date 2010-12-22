@@ -1,12 +1,17 @@
 ;; mode:-*-emacs-lisp-*-
 
-;;(setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\”]\”[#’()]")
+(setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\”]\”[#’()]")
 
 (require 'pgg)   ;; encryption
 (require 'nnir)  ;; IMAP searaching
 
+(setq gnus-extra-headers '(To Cc Newsgroups List-ID X-BeenThere))
+(setq nnmail-extra-headers '(To Cc Newsgroups List-ID X-BeenThere))
+
+(setq gnus-treat-fill-long-lines t)
+
 ;; Performance
-(setq gnus-read-active-file nil)
+;;(setq gnus-read-active-file nil)
 
 (setq gnus-select-method `(nnimap "gmail"
                                   (nnimap-address "imap.gmail.com")
