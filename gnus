@@ -68,7 +68,7 @@
           smtpmail-smtp-server "smtp.gmail.com"
           smtpmail-local-domain "tickitsystems.com"
           user-full-name "Colin Bell"
-          user-mail-address "cbell@tickitsystems.com"
+          user-mail-address "cbell@tickitsystems.com.au"
           smtpmail-smtp-service 587)
   (setq message-send-mail-function 'smtpmail-send-it
         smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
