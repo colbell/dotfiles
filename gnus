@@ -8,7 +8,7 @@
 (setq gnus-extra-headers '(To Cc Newsgroups List-ID X-BeenThere))
 (setq nnmail-extra-headers '(To Cc Newsgroups List-ID X-BeenThere))
 
-(setq gnus-treat-fill-long-lines t)
+;;(setq gnus-treat-fill-long-lines t)
 
 ;; Performance
 ;;(setq gnus-read-active-file nil)
