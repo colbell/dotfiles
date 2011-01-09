@@ -55,7 +55,7 @@
         gnus-sum-thread-tree-leaf-with-other "|-> "
         gnus-sum-thread-tree-single-leaf     "\-> "))
 
-(setq gnus-visible-headers "From:\\|Subject:\\|Date:\\|Organization:\\|To:\\|Cc:\\|Reply-To:\\|Message-Id:\\|List-ID\\|X-Mailer:\\|X-Editor\\|User-Agent:"
+(setq gnus-visible-headers "From:\\|Subject:\\|Date:\\|Organization:\\|To:\\|Cc:\\|Reply-To:\\|Message-Id:\\|List-ID\\|X-Mailer:\\|X-Editor\\|User-Agent:\\|X-Country"
       message-kill-buffer-on-exit t
       mm-inline-large-images t)
 
@@ -79,3 +79,7 @@
         user-full-name "Colin Bell"
         user-mail-address "col@baibell.org"
         smtpmail-smtp-service 587))
+
+
+(require 'gnus-mst-show-country)
+(add-hook 'gnus-article-prepare-hook 'gnus-article-mst-show-country)
