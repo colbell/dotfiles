@@ -39,6 +39,11 @@
                gnus-thread-sort-functions '(gnus-thread-sort-by-date))
 
 
+
+(setq gnus-buttonized-mime-types
+      '("multipart/alternative" "multipart/signed"))
+
+
 (if window-system
     (setq gnus-sum-thread-tree-indent "  "
           gnus-sum-thread-tree-root "● "
