@@ -1,4 +1,13 @@
 -- -*- mode: haskell; -*-
+
+-- TODO:
+-- * Take a look at https://github.com/davidbeckingsale/xmonad-config/blob/master/xmonad.hs
+-- * Decide on dzen/conky/xmobar etc.
+-- * Need a key to select from all windowsin workspace (like <Win>S but just for workspace). Then
+--   get rid of tabbed layout
+-- * Investigate urgencyhook
+-- * mySWNConfig isn't working
+
 import System.IO
 
 import XMonad hiding ( (|||) )
@@ -54,6 +63,8 @@ myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDef
 
 myWorkSpaces = ["1-office", "2-emacs" ,"3-shell", "4-web", "5-fm", "6", "7", "8", "9-keep"]
 
+
+-- Log Hook
 myLogHook h = do
   dynamicLogWithPP $ oxyPP h
 
@@ -62,7 +73,7 @@ oxyPP h = defaultPP {
                  ppOutput = hPutStrLn h
                , ppSort = getSortByXineramaRule
 --             , ppSort = getSortByXineramaPhysicalRule
-               , ppTitle = xmobarColor "green" "" . shorten 80
+               , ppTitle = xmobarColor myTitleFgColor myBgColor . shorten 120
           }
 
 -- Workaround for Java grey screen issues.
@@ -70,6 +81,36 @@ myStartupHook = setWMName "LG3D"
 
 -- Use Windoze key
 myModMask = mod4Mask
+
+-- Colors
+
+--- Main Colours
+myFgColor = "#DCDCCC"
+myBgColor = "#3f3f3f"
+myHighlightedFgColor = myFgColor
+myHighlightedBgColor = "#7F9F7F"
+
+--- Borders
+myActiveBorderColor = myCurrentWsBgColor
+myInactiveBorderColor = "#262626"
+myBorderWidth = 2
+
+--- Ws Stuff
+myCurrentWsFgColor = myHighlightedFgColor
+myCurrentWsBgColor = myHighlightedBgColor
+myVisibleWsFgColor = myBgColor
+myVisibleWsBgColor = "#CCDC90"
+myHiddenWsFgColor = myHighlightedFgColor
+myHiddenEmptyWsFgColor = "#8F8F8F"
+myUrgentWsBgColor = "#DCA3A3"
+myTitleFgColor = myFgColor
+
+
+--- Urgency
+myUrgencyHintFgColor = "red"
+myUrgencyHintBgColor = "blue"
+
+-- Layout
 
 myLayout =  avoidStruts $ named "tile" tiled ||| named "tab" (tabbed shrinkText tConfig) |||
             named "mTile" mirrorTiled ||| Full
@@ -82,18 +123,27 @@ myLayout =  avoidStruts $ named "tile" tiled ||| named "tab" (tabbed shrinkText 
      mirrorTiled = Mirror tiled
      tConfig     = defaultTheme { inactiveTextColor = "#FF0000" , activeTextColor = "#00FF00"}
 
+
+-- FIXME: This isn't working
+mySWNConfig = defaultSWNConfig {
+                swn_color   = myFgColor
+              , swn_bgcolor = myBgColor}
+
+
 main = do
   xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar"
   xmonad $ defaultConfig {
          manageHook         = manageDocks <+> myManageHook <+> manageHook defaultConfig,
-         layoutHook         = showWName myLayout,
+         layoutHook         = showWName' mySWNConfig $ myLayout,
          workspaces         = myWorkSpaces,
          logHook            = myLogHook xmproc
                               >> updatePointer (Relative 0.5 0.5),
          startupHook        = myStartupHook,
-         borderWidth        = 3,
+         borderWidth        = 2,
          modMask            = myModMask,
-         focusedBorderColor = "DarkOrange"
+         -- focusedBorderColor = "DarkOrange"
+        normalBorderColor  = myInactiveBorderColor,
+        focusedBorderColor = myActiveBorderColor
 --         defaultGaps        = [(16,0,0,0)]  --stanalontray
        } `additionalKeys` keys'
        where
