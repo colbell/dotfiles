@@ -1,6 +1,6 @@
 Config { font = "xft:Verdana-8"
-       , bgColor = "black"
-       , fgColor = "grey"
+       , bgColor = "#3f3f3f"
+       , fgColor = "#DCDCCC"
        , position = TopW L 90
        , lowerOnStart = False
        , commands = [ Run Weather "YSSY" ["-t","<station>: <tempC>C - rh <rh>%","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
@@ -14,5 +14,5 @@ Config { font = "xft:Verdana-8"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% | %cpu% | %memory% * %swap% }{<fc=#ee9a00>%date%</fc> | %YSSY%"
+       , template = "%StdinReader% | %cpu% | %memory% * %swap% }{%date% | %YSSY%"
        }
