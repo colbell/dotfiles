@@ -3,10 +3,7 @@
 -- TODO:
 -- * Take a look at https://github.com/davidbeckingsale/xmonad-config/blob/master/xmonad.hs
 -- * Decide on dzen/conky/xmobar etc.
--- * Need a key to select from all windows in current workspace (like <Win>S but just for
---   workspace). Then get rid of tabbed layout.
 -- * Investigate urgencyhook
--- * mySWNConfig isn't working
 -- * Use zenburn like colors
 
 import System.IO
@@ -29,7 +26,6 @@ import XMonad.Hooks.SetWMName
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.Named
 import XMonad.Layout.ShowWName
-import XMonad.Layout.Tabbed
 
 import XMonad.Prompt
 import XMonad.Prompt.AppLauncher as AL
@@ -45,15 +41,14 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.Scratchpad
 import XMonad.Util.WorkspaceCompare
 
-scratchpads =
-    [
-     NS "htop" "xterm -name htop -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+scratchpads = [
+      NS "htop" "xterm -name htop -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
     , NS "nautilus" "Nautilus" (className =? "Nautilus") (nonFloating)
     ] where role = stringProperty "WM_WINDOW_ROLE"
 
 myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDefault
                <+> (composeAll . concat $ [[
-                                    resource   =? "Do"           --> doIgnore
+                                     resource   =? "Do"           --> doIgnore
                                    , resource  =? "gnome-do"     --> doIgnore
                                    , className =? "Gimp"         --> doFloat
                                    , className =? "MPlayer"      --> doFloat
@@ -62,35 +57,31 @@ myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDef
                                    , className =? "trayer"       --> doIgnore
                                    ]])
 
-myWorkSpaces = ["1-office ", "2-emacs " ,"3-shell ", "4-web ", "5-fm ", "6 ", "7 ", "8 ", "9-keep "]
+myWorkSpaces = [" 1-office ", " 2-emacs " ," 3-shell ", " 4-web ", " 5-fm ", " 6 ", " 7 ", " 8 ", " 9-keep "]
 
 
--- Log Hook
 myLogHook h = do
   dynamicLogWithPP $ oxyPP h
 
 oxyPP :: Handle -> PP
 oxyPP h = defaultPP {
             ppOutput = hPutStrLn h
-          , ppSep = xmobarColor "" myHighlightedBgColor "|"
           , ppWsSep = ""
           , ppCurrent = xmobarColor myCurrentWsFgColor myCurrentWsBgColor
           , ppVisible = xmobarColor myVisibleWsFgColor myVisibleWsBgColor
           , ppHidden = xmobarColor myHiddenWsFgColor ""
           , ppHiddenNoWindows = xmobarColor myHiddenEmptyWsFgColor ""
           , ppUrgent = xmobarColor "" myUrgentWsBgColor
-          , ppSort = getSortByXineramaRule
+          , ppSort = getSortByTag --getSortByXineramaRule
           --             , ppSort = getSortByXineramaPhysicalRule
           , ppTitle = xmobarColor myTitleFgColor myBgColor . shorten 120
           }
 
--- Workaround for Java grey screen issues.
-myStartupHook = setWMName "LG3D"
 
--- Use Windoze key
-myModMask = mod4Mask
+myStartupHook = setWMName "LG3D"   -- Workaround for Java grey screen issues.
+myModMask = mod4Mask               -- Use Windoze key.
 
--- Colors
+
 myFgColor = "#DCDCCC"
 myBgColor = "#3f3f3f"
 myHighlightedFgColor = myFgColor
@@ -99,8 +90,8 @@ myActiveBorderColor = myCurrentWsBgColor
 myInactiveBorderColor = "#262626"
 myCurrentWsFgColor = myHighlightedFgColor
 myCurrentWsBgColor = myHighlightedBgColor
-myVisibleWsFgColor = myBgColor
-myVisibleWsBgColor = "#CCDC90"
+myVisibleWsFgColor = myFgColor
+myVisibleWsBgColor = "#506070"
 myHiddenWsFgColor = myHighlightedFgColor
 myHiddenEmptyWsFgColor = "#8F8F8F"
 myUrgentWsBgColor = "#DCA3A3"
@@ -108,21 +99,17 @@ myTitleFgColor = myFgColor
 myUrgencyHintFgColor = "red"
 myUrgencyHintBgColor = "blue"
 
--- Layout
 
-myLayout =  avoidStruts $ named "tile" tiled ||| named "tab" (tabbed shrinkText tConfig) |||
-            named "mTile" mirrorTiled ||| Full
+myLayout =  avoidStruts $ named "tile" tiled ||| named "mTile" mirrorTiled ||| Full
   where
      tiled       = Tall nmaster delta ratio
---     twoPane     = TwoPane delta ratio
      nmaster     = 1
      ratio       = 1/2
      delta       = 3/100
      mirrorTiled = Mirror tiled
-     tConfig     = defaultTheme { inactiveTextColor = myVisibleWsFgColor, inactiveColor = myVisibleWsBgColor, activeTextColor = myCurrentWsFgColor, activeColor = myCurrentWsBgColor}
 
 
--- FIXME: This isn't working
+-- Configure showWName
 mySWNConfig = defaultSWNConfig {
                 swn_color   = myFgColor
               , swn_bgcolor = myBgColor}
@@ -156,11 +143,6 @@ main = do
 
                   -- Print Screen - All screens
                   , ((myModMask .|. controlMask, xK_Print), spawn "sleep 0.2;scrot -d2 -m 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
-
-                  , ((mod4Mask .|. controlMask, xK_b), sendMessage $ JumpToLayout "tab")
-                  , ((mod4Mask .|. controlMask, xK_f), sendMessage $ JumpToLayout "Full")
-                  , ((mod4Mask .|. controlMask, xK_m), sendMessage $ JumpToLayout "Tile")
-                  , ((mod4Mask .|. controlMask, xK_t), sendMessage $ JumpToLayout "mTile")
 
                   , ((myModMask, xK_F1),                manPrompt defaultXPConfig)
                   , ((myModMask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
