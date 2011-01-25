@@ -94,7 +94,7 @@
 (defun oxy-unicode-threads-heavy ()
   (interactive)
   (setq gnus-summary-line-format "%8{%4k│%}%9{%U%R%z%}%8{│%}%8{%-10&user-date; | %}%*%(%-23,23f%)%7{║%} %6{%B%} %s\n"
-        gnus-summary-dummy-line-format "    %8{│%}   %(%8{│%}                       %7{║%}%) %6{┏○%}  %S\n"
+        gnus-summary-dummy-line-format "    %8{│%}   %(%8{│%}                                          %7{║%}%) %6{┏○%}  %S\n"
         gnus-sum-thread-tree-indent " "
         gnus-sum-thread-tree-root "┏● "
         gnus-sum-thread-tree-false-root " ○ "
