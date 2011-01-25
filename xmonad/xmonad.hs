@@ -81,6 +81,7 @@ oxyPP h = defaultPP {
 myStartupHook = setWMName "LG3D"   -- Workaround for Java grey screen issues.
 myModMask = mod4Mask               -- Use Windoze key.
 
+myFont = "Inconsolata-10"
 
 myFgColor = "#DCDCCC"
 myBgColor = "#3f3f3f"
@@ -150,6 +151,7 @@ main = do
                   , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
                   , ((myModMask, xK_o ),                windowMenu)
 
+                  , ((myModMask, xK_p),                 spawn "dmenu_run -nb '#3F3F3F' -nf '#DCDCCC' -sb '#7F9F7F' -sf '#DCDCCC'")
                   , ((myModMask, xK_F8),                scratchpadSpawnAction defaultConfig)
                   , ((myModMask, xK_F9),                namedScratchpadAction scratchpads "htop")
                   , ((myModMask, xK_F10),               namedScratchpadAction scratchpads "nautilus")
