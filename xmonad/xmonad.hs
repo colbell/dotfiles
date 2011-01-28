@@ -3,6 +3,7 @@
 -- TODO:
 -- * Take a look at https://github.com/davidbeckingsale/xmonad-config/blob/master/xmonad.hs
 -- * Decide on dzen/conky/xmobar etc.
+--   http://dzen.geekmode.org/dwiki/doku.php?id=dzen:dzen-and-xmonad
 -- * Investigate urgencyhook
 -- * Use zenburn like colors
 
@@ -25,6 +26,7 @@ import XMonad.Hooks.SetWMName
 
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.Named
+import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
 
 import XMonad.Prompt
@@ -79,6 +81,7 @@ oxyPP h = defaultPP {
 
 
 myStartupHook = setWMName "LG3D"   -- Workaround for Java grey screen issues.
+
 myModMask = mod4Mask               -- Use Windoze key.
 
 myFont = "Inconsolata-10"
@@ -100,8 +103,7 @@ myTitleFgColor = myFgColor
 myUrgencyHintFgColor = "red"
 myUrgencyHintBgColor = "blue"
 
-
-myLayout =  avoidStruts $ named "tile" tiled ||| named "mTile" mirrorTiled ||| Full
+myLayout =  avoidStruts $ named "tile" tiled ||| named "mTile" mirrorTiled ||| noBorders Full
   where
      tiled       = Tall nmaster delta ratio
      nmaster     = 1
