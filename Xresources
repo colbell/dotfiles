@@ -25,17 +25,28 @@ Emacs.menuBar: off
 Emacs.toolBar: -1
 
 URxvt.termName: rxvt
-URxvt.transparent: true
 URxvt.scrollBar: false
 URxvt.savelines: 500
 URxvt.urlLauncher: firefox
 URxvt.cursorBlink: true
-URxvt.fading: 45%
-urxvt.shading: 10
-urxvt.background: rgba:0000/0000/0000/dddd
-urxvt.foreground: grey80
-urxvt.tintcolor: #262626
-!URxvt.font: xft:Bitstream Vera Sans Mono-10.5
+URxvt.cursorColor:  #dc74d1
+URxvt.pointerColor: #dc74d1
+URxvt.background:   #0e0e0e
+URxvt.foreground:   #4ad5e1
+URxvt.color0:       #000000
+URxvt.color8:       #8b8f93
+URxvt.color1:       #dc74d1
+URxvt.color9:       #dc74d1
+URxvt.color2:       #0eb8c7
+URxvt.color10:      #0eb8c7
+URxvt.color3:       #dfe37e
+URxvt.color11:      #dfe37e
+URxvt.color5:       #9e88f0
+URxvt.color13:      #9e88f0
+URxvt.color6:       #73f7ff
+URxvt.color14:      #73f7ff
+URxvt.color7:       #e1dddd
+URxvt.color15:      #e1dddd
 URxvt.font: xft:Inconsolata-11
 
 xterm*background: white
