@@ -103,7 +103,7 @@ myTitleFgColor = myFgColor
 myUrgencyHintFgColor = "red"
 myUrgencyHintBgColor = "blue"
 
-myLayout =  avoidStruts $ named "tile" tiled ||| named "mTile" mirrorTiled ||| noBorders Full
+myLayout = smartBorders $ avoidStruts $ named "tile" tiled ||| named "mTile" mirrorTiled ||| noBorders Full
   where
      tiled       = Tall nmaster delta ratio
      nmaster     = 1
