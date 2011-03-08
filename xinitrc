@@ -37,27 +37,29 @@ fi
 #fi
 
 # This must be started before seahorse-daemon.
-# eval $(gnome-keyring-daemon)
-# export GNOME-KEYRING-SOCKET
-# export GNOME-KEYRING-PID
+eval $(gnome-keyring-daemon)
+export GNOME_KEYRING_CONTROL
+export GNOME_KEYRING_PID
+export SSH_AUTH_SOCKET
 
+if [ -x /usr/bin/gnome-panel ] ; then
+  gnome-panel &
+fi
 if [ -x /usr/bin/gnome-power-manager ] ; then
    gnome-power-manager &
 fi
-
-gnome-panel &
-
 if [ -x /usr/bin/nm-applet ] ; then
   nm-applet --sm-disable &
 fi
-
+if [ -x /usr/bin/seahorse-daemon ] ; then
+  seahorse-daemon &
+fi
 if [ -x /usr/bin/ubuntuone-launch ] ; then
   ubuntuone-launch &
 fi
-
-#seahorse-daemon &
-
-update-notifier --startup-delay=60 &
+if [ -x /usr/bin/update-notifier ] ; then
+  update-notifier --startup-delay=60 &
+fi
 
 
 #if [ $host = teleute ] ; then
