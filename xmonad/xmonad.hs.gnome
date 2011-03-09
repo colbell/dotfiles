@@ -7,7 +7,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Util.EZConfig(additionalKeys)
 
 myStartupHook = setWMName "LG3D"   -- Workaround for Java grey screen issues.
-myModMask     = mod4Mask            -- Use Windoze key.
+myModMask     = mod4Mask           -- Use Windoze key.
 
 main = do
   xmonad $ gnomeConfig {
@@ -19,4 +19,7 @@ main = do
       where
         keys' =  [ ((myModMask , xK_Return),               dwmpromote)
                  , ((myModMask .|. shiftMask, xK_Return),  spawn "gnome-terminal")
+
+                 -- Without this Gnome dometimes swallows <WIN>p and turns off second monitor.
+                 , ((myModMask, xK_p), spawn "dmenu_run -nb '#3F3F3F' -nf '#DCDCCC' -sb '#7F9F7F' -sf '#DCDCCC'")
                  ]
