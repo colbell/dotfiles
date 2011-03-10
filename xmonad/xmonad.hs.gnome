@@ -12,6 +12,7 @@ import XMonad.Config.Gnome
 import XMonad.Hooks.SetWMName
 
 import XMonad.Layout.NoBorders
+import XMonad.Layout.ShowWName
 
 import XMonad.Prompt
 import XMonad.Prompt.Man
@@ -29,13 +30,26 @@ scratchpads = [
     , NS "nautilus" "Nautilus" (className =? "Nautilus") (nonFloating)
     ] where role = stringProperty "WM_WINDOW_ROLE"
 
+myFgColor = "#DCDCCC"
+myBgColor = "#3f3f3f"
+myActiveBorderColor = myCurrentWsBgColor
+myInactiveBorderColor = "#262626"
+myHighlightedBgColor = "#7F9F7F"
+myCurrentWsBgColor = myHighlightedBgColor
+
+mySWNConfig = defaultSWNConfig {
+                swn_color   = myFgColor
+              , swn_bgcolor = myBgColor}
+
 main = do
   xmonad $ gnomeConfig {
                startupHook        = myStartupHook
              , terminal           = "xterm"
              , borderWidth        = 1
              , modMask            = myModMask
-             , layoutHook         = smartBorders (layoutHook gnomeConfig)
+             , layoutHook         = showWName' mySWNConfig $ smartBorders (layoutHook gnomeConfig)
+             , normalBorderColor  = myInactiveBorderColor
+             , focusedBorderColor = myActiveBorderColor
              } `additionalKeys` keys'
       where
         keys' =  [ ((myModMask , xK_Return),               dwmpromote)
