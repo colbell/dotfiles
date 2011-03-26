@@ -45,7 +45,7 @@ main = do
   xmonad $ gnomeConfig {
                startupHook        = myStartupHook
              , terminal           = "xterm"
-             , borderWidth        = 1
+             , borderWidth        = 2
              , modMask            = myModMask
              , layoutHook         = showWName' mySWNConfig $ smartBorders (layoutHook gnomeConfig)
              , normalBorderColor  = myInactiveBorderColor
