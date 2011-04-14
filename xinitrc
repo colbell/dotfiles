@@ -1,8 +1,6 @@
 #! /bin/sh
 
-if [ -f $HOME/.Xresources] ; then
-  xrdb -merge $HOME/.Xresources
-fi
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 
 host=`hostname`
 
