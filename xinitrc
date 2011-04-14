@@ -1,4 +1,4 @@
-j#! /bin/sh
+#! /bin/sh
 
 host=`hostname`
 
