@@ -1,5 +1,9 @@
 #! /bin/sh
 
+if [ -f $HOME/.Xresources] ; then
+  xrdb -merge $HOME/.Xresources
+fi
+
 host=`hostname`
 
 if [ -x /usr/bin/gnome-settings-daemon ] ; then
