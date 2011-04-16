@@ -2,6 +2,9 @@
 
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 
+xsetroot -cursor_name left_ptr
+xsetroot -solid '#80a0af'
+
 host=`hostname`
 
 if [ -x /usr/bin/gnome-settings-daemon ] ; then
@@ -25,6 +28,12 @@ if [ $host = olethros ] ; then
   xrandr --output HDMI1 --primary
 fi
 
+if [ $host = tux ] ; then
+  xrandr --auto --output VBOX0 --mode 1280x800
+  xrandr --auto --output VBOX1 --mode 1024x768 --left-of VBOX0
+  xrandr --output VBOX1 --primary
+fi
+
 #if [ -x /usr/bin/xscreensaver ] ; then
 #  xscreensaver -no-splash &
 #fi
@@ -42,10 +51,10 @@ fi
 #fi
 
 # This must be started before seahorse-daemon.
-eval $(gnome-keyring-daemon)
-export GNOME_KEYRING_CONTROL
-export GNOME_KEYRING_PID
-export SSH_AUTH_SOCKET
+# eval $(gnome-keyring-daemon)
+# export GNOME_KEYRING_CONTROL
+# export GNOME_KEYRING_PID
+# export SSH_AUTH_SOCKET
 
 if [ -x /usr/bin/gnome-panel ] ; then
   gnome-panel &
@@ -91,6 +100,10 @@ fi
 #   stalonetray -i 16 --icon-gravity E --max-geometry 12x1 --geometry 12x1-0+0 -bg '#000000' --sticky --skip-taskbar &
 #   #stalonetray -i 16 --icon-gravity E -bg '#000000' --sticky --skip-taskbar &
 # fi
+
+FG='#a8a3f7' 
+BG='#3f3c6d'
+while true ; do date ; sleep 60 ; done | dzen2 -e '' -x 400 -w $off -ta r -fg $FG -bg $BG -p &
 
 dbus-launch --exit-with-session xmonad
 #exec xmonad
