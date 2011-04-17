@@ -3,7 +3,12 @@
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 
 xsetroot -cursor_name left_ptr
-xsetroot -solid '#80a0af'
+#xsetroot -solid '#80a0af'
+#xsetroot -solid midnightblue
+#xsetroot -solid DarkGoldenrod
+#xsetroot -solid '#5f0f1f'
+xsetroot -solid '#dcdccc'
+xsetroot -solid '#3f3f3f'
 
 host=`hostname`
 
@@ -32,6 +37,15 @@ if [ $host = tux ] ; then
   xrandr --auto --output VBOX0 --mode 1280x800
   xrandr --auto --output VBOX1 --mode 1024x768 --left-of VBOX0
   xrandr --output VBOX1 --primary
+
+  if [ -x /usr/bin/trayer ] ; then
+     trayer --edge top  --align right --monitor 0 --SetDockType true --SetPartialStrut true  --expand true --widthtype request --tint 0xFFFFFF --height 16 &
+     #trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 6 --tint 0xFFFFFF --height 16 &
+  fi
+fi
+
+if [ -x /usr/bin/dropboxd ] ; then
+  dropboxd&
 fi
 
 #if [ -x /usr/bin/xscreensaver ] ; then
@@ -91,9 +105,6 @@ fi
  # #trayer --edge top --margin 1680 --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --transparent true --tint 0x191970 --height 12 &
 #fi
 
-#xsetroot -solid midnightblue
-#xsetroot -solid DarkGoldenrod
-#xsetroot -solid '#5f0f1f'
 
 
 # if [ -x /usr/bin/stalonetray ] ; then
