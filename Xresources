@@ -49,8 +49,8 @@ URxvt.color7:       #e1dddd
 URxvt.color15:      #e1dddd
 URxvt.font: xft:Inconsolata-11
 
-xterm*background: white
-xterm*foreground: black
+xterm*background: black
+xterm*foreground: white
 !XTerm*faceName:  Bitstream Vera Sans Mono-10
 XTerm*faceName:  Inconsolata-11
 XTerm*eightBitInput: false
