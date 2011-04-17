@@ -43,6 +43,10 @@ if [ $host = tux ] ; then
     if [ -x /usr/bin/xscreensaver ] ; then
       xscreensaver -no-splash &
     fi
+
+    if [ -x /usr/bin/batterymon ] ; then
+      batterymon &
+    fi
   fi
 fi
 
