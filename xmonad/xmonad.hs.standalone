@@ -136,7 +136,7 @@ main = do
          keys' =  [ ((myModMask , xK_Return),               dwmpromote)
                   -- , ((myModMask .|. shiftMask, xK_Return),  spawn "gnome-terminal")
 
-                  , ((myModMask .|. shiftMask, xK_z),       spawn "gnome-screensaver-command -l")
+                  , ((myModMask .|. shiftMask, xK_z),       spawn "xscreensaver-command --lock")
 
                   -- Print Screen - Interactively select window or rectangle
                   , ((myModMask, xK_Print),                 spawn "sleep 0.2;scrot -d2 -s 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
