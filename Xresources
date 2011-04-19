@@ -24,41 +24,71 @@ Emacs.FontBackend: xft
 !Emacs.menuBar: off
 Emacs.toolBar: -1
 
-URxvt.font:         xft:Inconsolata-10
-URxvt.background:   #2b2b2b
-URxvt.foreground:   #dedede
-URxvt.scrollBar:    false
-URxvt.savelines:    10000
-URxvt.scrollstyle:  rxvt
-! black
-URxvt*color0  : #2E3436
-URxvt*color8  : #555753
-! red
-URxvt*color1  : #CC0000
-URxvt*color9  : #EF2929
-! green
-URxvt*color2  : #4E9A06
-URxvt*color10 : #8AE234
-! yellow
-URxvt*color3  : #C4A000
-URxvt*color11 : #FCE94F
-! blue
-URxvt*color4  : #3465A4
-URxvt*color12 : #729FCF
-! magenta
-URxvt*color5  : #75507B
-URxvt*color13 : #AD7FA8
-! cyan
-URxvt*color6  : #06989A
-URxvt*color14 : #34E2E2
-! white
-URxvt*color7  : #D3D7CF
-URxvt*color15 : #EEEEEC
 
-xterm*background: #2b2b2b
-xterm*foreground: #dedede
+URxvt.font:         xft:Inconsolata-10
+URxvt*inheritPixmap: true
+URxvt.internalBorder: 0
+URxvt.jumpScroll: true
+! URxvt.loginShell: true
+URxvt.perl-ext-common: default,matcher,searchable-scrollback
+URxvt.pointerBlank: true
+URxvt.saveLines: 4000
+URxvt.secondaryScroll: true
+URxvt.scrollBar: false
+URxvt.scrollTtyKeypress: true
+URxvt.scrollWithBuffer: true
+URxvt*urlLauncher: /usr/bin/firefox
+! Zenburn color-scheme
+urxvt*background:  #3f3f3f
+urxvt*foreground:  #dcdccc
+! black + red
+!urxvt*color0:     #3f3f3f
+urxvt*color0:      #1E2320
+urxvt*color1:      #705050
+! green + yellow
+urxvt*color2:      #60b48a
+urxvt*color3:      #dfaf8f
+! blue + purple
+urxvt*color4:      #506070
+urxvt*color5:      #dc8cc3
+! cyan + white
+urxvt*color6:      #8cd0d3
+urxvt*color7:      #dcdccc
+! bright-black + bright-red
+urxvt*color8:      #709080
+urxvt*color9:      #dca3a3
+! bright-green + bright-yellow
+urxvt*color10:     #c3bf9f
+urxvt*color11:     #f0dfaf
+! bright-blue + bright-purple
+urxvt*color12:     #94bff3
+urxvt*color13:     #ec93d3
+! bright-cyan + bright-white
+urxvt*color14:     #93e0e3
+urxvt*color15:     #ffffff
+
+
 XTerm*faceName:  Inconsolata-11
 XTerm*eightBitInput: false
 XTerm*metaSendsEscape: true
 XTerm*loginShell: true
 XTerm*cursorBlink: true
+! Zenburn
+xterm*background:  #3f3f3f
+xterm*foreground:  #dcdccc
+xterm*color0:      #1E2320
+xterm*color1:      #705050
+xterm*color2:      #60b48a
+xterm*color3:      #dfaf8f
+xterm*color4:      #506070
+xterm*color5:      #dc8cc3
+xterm*color6:      #8cd0d3
+xterm*color7:      #dcdccc
+xterm*color8:      #709080
+xterm*color9:      #dca3a3
+xterm*color10:     #c3bf9f
+xterm*color11:     #f0dfaf
+xterm*color12:     #94bff3
+xterm*color13:     #ec93d3
+xterm*color14:     #93e0e3
+xterm*color15:     #ffffff
