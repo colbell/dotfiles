@@ -53,7 +53,7 @@ main = do
              } `additionalKeys` keys'
       where
         keys' =  [ ((myModMask , xK_Return),               dwmpromote)
-                 , ((myModMask .|. shiftMask, xK_Return),  spawn "gnome-terminal")
+                 , ((myModMask .|. shiftMask, xK_Return),  spawn "urxvt")
                  , ((myModMask .|. shiftMask, xK_z),       spawn "gnome-screensaver-command -l")
                  , ((mod1Mask, xK_F4),                     kill)
 

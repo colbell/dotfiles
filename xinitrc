@@ -120,9 +120,9 @@ fi
 #   #stalonetray -i 16 --icon-gravity E -bg '#000000' --sticky --skip-taskbar &
 # fi
 
-FG='#a8a3f7' 
-BG='#3f3c6d'
-while true ; do date ; sleep 60 ; done | dzen2 -e '' -x 400 -w $off -ta r -fg $FG -bg $BG -p &
+# FG='#a8a3f7' 
+# BG='#3f3c6d'
+# while true ; do date ; sleep 60 ; done | dzen2 -e '' -x 400 -w $off -ta r -fg $FG -bg $BG -p &
 
 dbus-launch --exit-with-session xmonad
 #exec xmonad
