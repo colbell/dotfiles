@@ -24,42 +24,41 @@ Emacs.FontBackend: xft
 !Emacs.menuBar: off
 Emacs.toolBar: -1
 
-URxvt.termName: rxvt
-URxvt.scrollBar: false
-URxvt.savelines: 500
-URxvt.urlLauncher: firefox
-URxvt.cursorBlink: true
-URxvt.cursorColor:  #dc74d1
-URxvt.pointerColor: #dc74d1
-URxvt.background:   #0e0e0e
-URxvt.foreground:   #4ad5e1
-URxvt.color0:       #000000
-URxvt.color8:       #8b8f93
-URxvt.color1:       #dc74d1
-URxvt.color9:       #dc74d1
-URxvt.color2:       #0eb8c7
-URxvt.color10:      #0eb8c7
-URxvt.color3:       #dfe37e
-URxvt.color11:      #dfe37e
-URxvt.color5:       #9e88f0
-URxvt.color13:      #9e88f0
-URxvt.color6:       #73f7ff
-URxvt.color14:      #73f7ff
-URxvt.color7:       #e1dddd
-URxvt.color15:      #e1dddd
-URxvt.font: xft:Inconsolata-11
+URxvt.font:         xft:Inconsolata-10
+URxvt.background:   #2b2b2b
+URxvt.foreground:   #dedede
+URxvt.scrollBar:    false
+URxvt.savelines:    10000
+URxvt.scrollstyle:  rxvt
+! black
+URxvt*color0  : #2E3436
+URxvt*color8  : #555753
+! red
+URxvt*color1  : #CC0000
+URxvt*color9  : #EF2929
+! green
+URxvt*color2  : #4E9A06
+URxvt*color10 : #8AE234
+! yellow
+URxvt*color3  : #C4A000
+URxvt*color11 : #FCE94F
+! blue
+URxvt*color4  : #3465A4
+URxvt*color12 : #729FCF
+! magenta
+URxvt*color5  : #75507B
+URxvt*color13 : #AD7FA8
+! cyan
+URxvt*color6  : #06989A
+URxvt*color14 : #34E2E2
+! white
+URxvt*color7  : #D3D7CF
+URxvt*color15 : #EEEEEC
 
-xterm*background: black
-xterm*foreground: white
-!XTerm*faceName:  Bitstream Vera Sans Mono-10
+xterm*background: #2b2b2b
+xterm*foreground: #dedede
 XTerm*faceName:  Inconsolata-11
 XTerm*eightBitInput: false
 XTerm*metaSendsEscape: true
 XTerm*loginShell: true
 XTerm*cursorBlink: true
-!xterm*VT100*font:  -efont-fixed-medium-r-*-*-16-*-*-*-*-*-iso10646-*
-!xterm*VT100*font2: -efont-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-*
-!xterm*VT100*font3: -efont-fixed-medium-r-*-*-12-*-*-*-*-*-iso10646-*
-!xterm*VT100*font4: -efont-fixed-medium-r-*-*-14-*-*-*-*-*-iso10646-*
-!xterm*VT100*font5: -efont-fixed-medium-r-*-*-16-*-*-*-*-*-iso10646-*
-!xterm*VT100*font6: -efont-fixed-medium-r-*-*-24-*-*-*-*-*-iso10646-*
