@@ -29,6 +29,7 @@ URxvt.font:         xft:Inconsolata-10
 URxvt*inheritPixmap: true
 URxvt.internalBorder: 0
 URxvt.jumpScroll: true
+URxvt.cursorBlink: true
 ! URxvt.loginShell: true
 URxvt.perl-ext-common: default,matcher,searchable-scrollback
 URxvt.pointerBlank: true
