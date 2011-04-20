@@ -26,7 +26,7 @@ Emacs.toolBar: -1
 
 
 URxvt.font:         xft:Inconsolata-10
-URxvt*inheritPixmap: true
+URxvt.transparent:   false
 URxvt.internalBorder: 0
 URxvt.borderLess: false
 URxvt.jumpScroll: true
