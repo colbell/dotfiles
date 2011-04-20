@@ -28,6 +28,7 @@ Emacs.toolBar: -1
 URxvt.font:         xft:Inconsolata-10
 URxvt*inheritPixmap: true
 URxvt.internalBorder: 0
+URxvt.borderLess: false
 URxvt.jumpScroll: true
 URxvt.cursorBlink: true
 ! URxvt.loginShell: true
@@ -36,6 +37,7 @@ URxvt.pointerBlank: true
 URxvt.saveLines: 4000
 URxvt.secondaryScroll: true
 URxvt.scrollBar: false
+URxvt.scrollBar_right: false
 URxvt.scrollTtyKeypress: true
 URxvt.scrollWithBuffer: true
 URxvt*urlLauncher: /usr/bin/firefox
