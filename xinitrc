@@ -42,13 +42,13 @@ fi
 if [ $host = tux || $host = arch ] ; then
   if [ -x /usr/bin/trayer ] ; then
      trayer --edge top  --align right --monitor 0 --SetDockType true --SetPartialStrut true  --expand true --widthtype request --tint 0xFFFFFF --height 16 &
-    if [ -x /usr/bin/xscreensaver ] ; then
-      xscreensaver -no-splash &
-    fi
+  fi
+  if [ -x /usr/bin/xscreensaver ] ; then
+    xscreensaver -no-splash &
+  fi
 
-    if [ -x /usr/bin/batterymon ] ; then
-      batterymon &
-    fi
+  if [ -x /usr/bin/batterymon ] ; then
+    batterymon &
   fi
 fi
 
