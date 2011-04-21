@@ -18,7 +18,7 @@ fi
 
 sleep 1
 
-if [ $host = teleute] ; then
+if [ $host = teleute g ] ; then
   xrandr --newmode "1680x1050_60.00"  146.25  1680 1784 1960 2240  1050 1053 1059 1089 -hsync +vsync
   xrandr --addmode VGA-0 1680x1050_60.00
   xrandr --auto --output VGA-0 --mode 1680x1050_60.00 --right-of LVDS
@@ -40,16 +40,16 @@ if [ $host = tux ] ; then
 fi
 
 if [ $host = tux || $host = arch ] ; then
-  if [ -x /usr/bin/trayer ] ; then
-     trayer --edge top  --align right --monitor 0 --SetDockType true --SetPartialStrut true  --expand true --widthtype request --tint 0xFFFFFF --height 16 &
-  fi
+  #if [ -x /usr/bin/trayer ] ; then
+     #trayer --edge top  --align right --monitor 0 --SetDockType true --SetPartialStrut true  --expand true --widthtype request --tint 0xFFFFFF --height 16 &
+  #fi
   if [ -x /usr/bin/xscreensaver ] ; then
     xscreensaver -no-splash &
   fi
 
-  if [ -x /usr/bin/batterymon ] ; then
-    batterymon &
-  fi
+  #if [ -x /usr/bin/batterymon ] ; then
+    #batterymon &
+  #fi
 fi
 
 if [ -x /usr/bin/dropboxd ] ; then
@@ -124,5 +124,12 @@ fi
 # BG='#3f3c6d'
 # while true ; do date ; sleep 60 ; done | dzen2 -e '' -x 400 -w $off -ta r -fg $FG -bg $BG -p &
 
-dbus-launch --exit-with-session xmonad
+DEFAULT_SESSION=xmonad
+
+case $1 in
+  awesome) dbus-launch --exit-with-session awesome ;;
+  *) dbus-launch --exit-with-session $DEFAULT_SESSION ;;
+esac
+
+#exec awesome
 #exec xmonad
