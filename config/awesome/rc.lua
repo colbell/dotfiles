@@ -10,6 +10,9 @@ require("naughty")
 -- widget library
 require("vicious")
 
+-- expose effect
+require("revelation")
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
@@ -281,7 +284,8 @@ globalkeys = awful.util.table.join(
               end),
     awful.key({ modkey }, "b", function ()
               mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
-           end)
+           end),
+    awful.key({ modkey }, "e", revelation.revelation)
  )
 
 clientkeys = awful.util.table.join(
