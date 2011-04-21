@@ -19,3 +19,10 @@
 /w3m/.sessions
 /w3m/.textarea/
 /xmonad/xmonad.hs
+/config/autostart/*
+/config/chromium/*
+/config/gtk-2.0/*
+/config/menus/*
+/config/monitors.xml
+/config/user-dirs.dirs
+/config/user-dirs.locale
