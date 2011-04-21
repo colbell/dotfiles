@@ -109,6 +109,27 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 netwidget = widget({type = "textbox"})
 vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 down_kb}</span> <span color="#7F9F7F">${eth0 up_kb}</span>')
 
+--Create a weather widget
+weatherwidget = widget({ type = "textbox" })
+weatherwidget.text = awful.util.pread("weather -i YSSY --headers=Temperature --quiet -m | awk '{print $2, $3}'")
+weathertimer = timer({ timeout = 900 }) 
+weathertimer:add_signal("timeout", function() 
+                                      weatherwidget.text = awful.util.pread("weather -i YSSY --headers=Temperature --quiet -m | awk '{print $2, $3}' &")
+                                   end)
+
+weathertimer:start()
+weatherwidget:add_signal(
+"mouse::enter", function() 
+                   weather = naughty.notify({title="Weather",text=awful.util.pread("weather -i YSSY -m")})
+                                         end)
+weatherwidget:add_signal(
+  "mouse::leave", function() 
+    naughty.destroy(weather) 
+  end)
+
+-- I added some spacing because on my computer it is right next to my clock.
+awful.widget.layout.margins[weatherwidget] = { right = 5 } 
+
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
 
@@ -184,9 +205,10 @@ for s = 1, screen.count() do
             layout = awful.widget.layout.horizontal.leftright
         },
         mylayoutbox[s],
+        s == 1 and mysystray or nil,
         mytextclock,
         netwidget,
-        s == 1 and mysystray or nil,
+        weatherwidget,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
