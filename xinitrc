@@ -124,7 +124,7 @@ fi
 # BG='#3f3c6d'
 # while true ; do date ; sleep 60 ; done | dzen2 -e '' -x 400 -w $off -ta r -fg $FG -bg $BG -p &
 
-DEFAULT_SESSION=xmonad
+DEFAULT_SESSION=awesome
 
 case $1 in
   awesome) dbus-launch --exit-with-session awesome ;;
