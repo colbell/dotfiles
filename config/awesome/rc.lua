@@ -285,8 +285,35 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "b", function ()
               mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
            end),
-    awful.key({ modkey }, "e", revelation.revelation)
- )
+    awful.key({ modkey }, "e", revelation.revelation),
+    awful.key({ modkey }, "F1", function ()
+        awful.prompt.run({ prompt = "Manual: " }, mypromptbox[mouse.screen].widget,
+            --  Use GNU Emacs for manual page display
+            --  function (page) awful.util.spawn("emacsclient --eval '(manual-entry \"'" .. page .. "'\")'", false) end,
+            --  Use the KDE Help Center for manual page display
+            --  function (page) awful.util.spawn("khelpcenter man:" .. page, false) end,
+            --  Use the terminal emulator for manual page display
+            function (page) awful.util.spawn("xterm -e man " .. page, false) end,
+            function(cmd, cur_pos, ncomp)
+               local pages = {}
+               local m = 'IFS=: && find $(manpath||echo "$MANPATH") -type f -printf "%f\n"| cut -d. -f1'
+               local c, err = io.popen(m)
+               if c then while true do
+                     local manpage = c:read("*line")
+                     if not manpage then break end
+                     if manpage:find("^" .. cmd:sub(1, cur_pos)) then
+                        table.insert(pages, manpage)
+                     end
+                  end
+                  c:close()
+               else io.stderr:write(err) end
+               if #cmd == 0 then return cmd, cur_pos end
+               if #pages == 0 then return end
+               while ncomp > #pages do ncomp = ncomp - #pages end
+               return pages[ncomp], cur_pos
+            end)
+     end)
+)
 
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
