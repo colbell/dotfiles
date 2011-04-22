@@ -26,3 +26,6 @@
 /config/monitors.xml
 /config/user-dirs.dirs
 /config/user-dirs.locale
+/config/Trolltech.conf
+/config/vlc/vlc-qt-interface.conf
+/config/vlc/vlcrc
