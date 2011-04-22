@@ -8,7 +8,7 @@ xsetroot -cursor_name left_ptr
 #xsetroot -solid DarkGoldenrod
 #xsetroot -solid '#5f0f1f'
 #xsetroot -solid '#dcdccc'
-xsetroot -solid '#3f3f3f'
+#xsetroot -solid '#3f3f3f'
 
 host=`hostname`
 
