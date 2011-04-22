@@ -10,6 +10,9 @@ require("naughty")
 -- widget library
 require("vicious")
 
+-- scratchpads.
+require("scratch")
+
 -- expose effect
 require("revelation")
 
@@ -272,6 +275,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
+    -- Popup terminal
+    awful.key({ modkey }, "F11", function () scratch.drop("urxvt -e htop", "top") end),
+    awful.key({ modkey }, "F12", function () scratch.drop("urxvt", "top") end),
+
     -- Prompt
     --awful.key({ modkey },            "p",     function () mypromptbox[mouse.screen]:run() end),
     awful.key({ modkey },            "p",     function ()
@@ -319,7 +326,7 @@ globalkeys = awful.util.table.join(
      awful.key({ "Mod1" }, "Escape", function ()
         -- If you want to always position the menu on the same place set coordinates
         awful.menu.menu_keys.down = { "Down", "Alt_L" }
-        local cmenu = awful.menu.clients({width=245}, { keygrabber=true, coords={x=525, y=330} })
+        local cmenu = awful.menu.clients({width=245}, { keygrabber=true }) --, coords={x=525, y=330} })
      end),
      awful.key({ modkey }, "F1", function ()
          awful.prompt.run({ prompt = "Manual: " }, mypromptbox[mouse.screen].widget,
