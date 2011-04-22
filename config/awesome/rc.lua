@@ -33,7 +33,7 @@ modkey = "Mod4"
 layouts =
 {
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
     -- awful.layout.suit.fair,
@@ -50,7 +50,7 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-   names  = {"1:main", "2:emacs", "3;cmd", "4:www", "5:fm", "6:virt", "7", "8", "9"},
+   names  = {"1", "2", "3", "4", "5", "6", "7", "8", "9"},
    layout = {layouts[1], layouts[2], layouts[3], layouts[4], layouts[5], layouts[6], layouts[7], layouts[8], layouts[9] }
 }
 for s = 1, screen.count() do
@@ -273,46 +273,81 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     -- Prompt
-    awful.key({ modkey },            "p",     function () mypromptbox[mouse.screen]:run() end),
+    --awful.key({ modkey },            "p",     function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey },            "p",     function ()
+    awful.util.spawn("dmenu_run -i -p 'Run command:' -nb '" .. 
+ 		beautiful.bg_normal .. "' -nf '" .. beautiful.fg_normal .. 
+		"' -sb '" .. beautiful.bg_focus .. 
+		"' -sf '" .. beautiful.fg_focus .. "'") 
+	end),
 
-    awful.key({ modkey }, "x",
-              function ()
-                  awful.prompt.run({ prompt = "Run Lua code: " },
-                  mypromptbox[mouse.screen].widget,
-                  awful.util.eval, nil,
-                  awful.util.getdir("cache") .. "/history_eval")
-              end),
-    awful.key({ modkey }, "b", function ()
-              mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
-           end),
-    awful.key({ modkey }, "e", revelation.revelation),
-    awful.key({ modkey }, "F1", function ()
-        awful.prompt.run({ prompt = "Manual: " }, mypromptbox[mouse.screen].widget,
-            --  Use GNU Emacs for manual page display
-            --  function (page) awful.util.spawn("emacsclient --eval '(manual-entry \"'" .. page .. "'\")'", false) end,
-            --  Use the KDE Help Center for manual page display
-            --  function (page) awful.util.spawn("khelpcenter man:" .. page, false) end,
-            --  Use the terminal emulator for manual page display
-            function (page) awful.util.spawn("xterm -e man " .. page, false) end,
-            function(cmd, cur_pos, ncomp)
-               local pages = {}
-               local m = 'IFS=: && find $(manpath||echo "$MANPATH") -type f -printf "%f\n"| cut -d. -f1'
-               local c, err = io.popen(m)
-               if c then while true do
-                     local manpage = c:read("*line")
-                     if not manpage then break end
-                     if manpage:find("^" .. cmd:sub(1, cur_pos)) then
-                        table.insert(pages, manpage)
-                     end
-                  end
-                  c:close()
-               else io.stderr:write(err) end
-               if #cmd == 0 then return cmd, cur_pos end
-               if #pages == 0 then return end
-               while ncomp > #pages do ncomp = ncomp - #pages end
-               return pages[ncomp], cur_pos
-            end)
-     end)
+    -- Run or raise applications with dmenu
+    awful.key({ modkey }, "r",
+    function ()
+        local f_reader = io.popen( "dmenu_path | dmenu -b -nb '".. beautiful.bg_normal .."' -nf '".. beautiful.fg_normal .."' -sb '#955'")
+        local command = assert(f_reader:read('*a'))
+        f_reader:close()
+        if command == "" then return end
+    
+        -- Check throught the clients if the class match the command
+        local lower_command=string.lower(command)
+        for k, c in pairs(client.get()) do
+            local class=string.lower(c.class)
+            if string.match(class, lower_command) then
+                for i, v in ipairs(c:tags()) do
+                    awful.tag.viewonly(v)
+                    c:raise()
+                    c.minimized = false
+                    return
+                end
+            end
+        end
+        awful.util.spawn(command)
+     end),
+    
+     awful.key({ modkey }, "x",
+    	   function ()
+    	       awful.prompt.run({ prompt = "Run Lua code: " },
+    	       mypromptbox[mouse.screen].widget,
+    	       awful.util.eval, nil,
+    	       awful.util.getdir("cache") .. "/history_eval")
+    	   end),
+     awful.key({ modkey }, "b", function ()
+    	   mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+    	end),
+     awful.key({ modkey }, "e", revelation.revelation),
+     awful.key({ "Mod1" }, "Escape", function ()
+        -- If you want to always position the menu on the same place set coordinates
+        awful.menu.menu_keys.down = { "Down", "Alt_L" }
+        local cmenu = awful.menu.clients({width=245}, { keygrabber=true, coords={x=525, y=330} })
+     end),
+     awful.key({ modkey }, "F1", function ()
+         awful.prompt.run({ prompt = "Manual: " }, mypromptbox[mouse.screen].widget,
+    	 --  Use GNU Emacs for manual page display
+    	 --  function (page) awful.util.spawn("emacsclient --eval '(manual-entry \"'" .. page .. "'\")'", false) end,
+    	 --  Use the KDE Help Center for manual page display
+    	 --  function (page) awful.util.spawn("khelpcenter man:" .. page, false) end,
+    	 --  Use the terminal emulator for manual page display
+    	 function (page) awful.util.spawn("xterm -e man " .. page, false) end,
+    	 function(cmd, cur_pos, ncomp)
+    	    local pages = {}
+    	    local m = 'IFS=: && find $(manpath||echo "$MANPATH") -type f -printf "%f\n"| cut -d. -f1'
+    	    local c, err = io.popen(m)
+    	    if c then while true do
+    		  local manpage = c:read("*line")
+    		  if not manpage then break end
+    		  if manpage:find("^" .. cmd:sub(1, cur_pos)) then
+    		     table.insert(pages, manpage)
+    		  end
+    	       end
+    	       c:close()
+    	    else io.stderr:write(err) end
+    	    if #cmd == 0 then return cmd, cur_pos end
+    	    if #pages == 0 then return end
+    	    while ncomp > #pages do ncomp = ncomp - #pages end
+    	    return pages[ncomp], cur_pos
+    	 end)
+      end)
 )
 
 clientkeys = awful.util.table.join(
