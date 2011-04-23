@@ -1,3 +1,7 @@
+-- shifty to make awesome tags work like xmonad
+-- example at
+-- https://github.com/dunz0r/awesome-configs
+
 -- Standard awesome library
 require("awful")
 require("awful.autofocus")
@@ -331,11 +335,12 @@ globalkeys = awful.util.table.join(
      awful.key({ modkey }, "F1", function ()
          awful.prompt.run({ prompt = "Manual: " }, mypromptbox[mouse.screen].widget,
     	 --  Use GNU Emacs for manual page display
-    	 --  function (page) awful.util.spawn("emacsclient --eval '(manual-entry \"'" .. page .. "'\")'", false) end,
+    	 -- function (page) awful.util.spawn("emacsclient --eval '(manual-entry \"'" .. page .. "'\")'", false) end,
+    	 function (page) awful.util.spawn("emacsclient -c -a '' --eval '(manual-entry \"'" .. page .. "'\")'", false) end,
     	 --  Use the KDE Help Center for manual page display
     	 --  function (page) awful.util.spawn("khelpcenter man:" .. page, false) end,
     	 --  Use the terminal emulator for manual page display
-    	 function (page) awful.util.spawn("xterm -e man " .. page, false) end,
+    	 -- function (page) awful.util.spawn("xterm -e man " .. page, false) end,
     	 function(cmd, cur_pos, ncomp)
     	    local pages = {}
     	    local m = 'IFS=: && find $(manpath||echo "$MANPATH") -type f -printf "%f\n"| cut -d. -f1'
