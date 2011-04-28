@@ -289,7 +289,7 @@ globalkeys = awful.util.table.join(
     awful.util.spawn("dmenu_run -i -p 'Run command:' -nb '" .. 
  		beautiful.bg_normal .. "' -nf '" .. beautiful.fg_normal .. 
 		"' -sb '" .. beautiful.bg_focus .. 
-		"' -sf '" .. beautiful.fg_focus .. "'") 
+		"' -sf '" .. beautiful.fg_focus .. "' -sb '#955'") 
 	end),
 
     -- Run or raise applications with dmenu
