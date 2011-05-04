@@ -2,7 +2,7 @@
 
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 
-xsetroot -cursor_name left_ptr
+#xsetroot -cursor_name left_ptr
 #xsetroot -solid '#80a0af'
 #xsetroot -solid midnightblue
 #xsetroot -solid DarkGoldenrod
@@ -18,7 +18,7 @@ fi
 
 sleep 1
 
-if [ $host = teleute g ] ; then
+if [ $host = teleute ] ; then
   xrandr --newmode "1680x1050_60.00"  146.25  1680 1784 1960 2240  1050 1053 1059 1089 -hsync +vsync
   xrandr --addmode VGA-0 1680x1050_60.00
   xrandr --auto --output VGA-0 --mode 1680x1050_60.00 --right-of LVDS

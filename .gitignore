@@ -31,3 +31,5 @@
 /config/vlc/vlcrc
 /config/Wuala.cfg
 /config/enchant/*
+/config/Thunar/*
+/config/oxygen-gtk/argb-apps.conf
