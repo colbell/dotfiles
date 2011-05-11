@@ -115,6 +115,18 @@ xterm*|rxvt*)
     ;;
 esac
 
+# From http://archlinux.me/crouse/2011/05/10/bash-some-bashrc-functions/
+hs() {
+  history | grep ${1} | uniq --skip-fields=1 | sort -biz | uniq --skip-fields=2
+}
+clock ()
+{
+  while true;do clear;echo “===========”;date +”%r”;echo “===========”;sleep 1;done
+}
+
+#######################################################################
+
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
