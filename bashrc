@@ -147,7 +147,7 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 if [ -f $rvm_scripts_path/rvm-completion.rb ]; then
   complete -C $rvm_scripts_path/rvm-completion.rb -o default rvm

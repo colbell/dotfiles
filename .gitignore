@@ -19,3 +19,17 @@
 /w3m/.sessions
 /w3m/.textarea/
 /xmonad/xmonad.hs
+/config/autostart/*
+/config/chromium/*
+/config/gtk-2.0/*
+/config/menus/*
+/config/monitors.xml
+/config/user-dirs.dirs
+/config/user-dirs.locale
+/config/Trolltech.conf
+/config/vlc/vlc-qt-interface.conf
+/config/vlc/vlcrc
+/config/Wuala.cfg
+/config/enchant/*
+/config/Thunar/*
+/config/oxygen-gtk/argb-apps.conf
