@@ -125,9 +125,13 @@ fi
 # while true ; do date ; sleep 60 ; done | dzen2 -e '' -x 400 -w $off -ta r -fg $FG -bg $BG -p &
 
 DEFAULT_SESSION=awesome
+if [ $host = olethros ] ; then
+  DEFAULT_SESSION=xmonad
+fi
 
 case $1 in
   awesome) dbus-launch --exit-with-session awesome ;;
+  xmonad) dbus-launch --exit-with-session xmonad ;;
   *) dbus-launch --exit-with-session $DEFAULT_SESSION ;;
 esac
 
