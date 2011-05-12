@@ -16,10 +16,10 @@ Xft.rgba: rgb
 Emacs.cursorBlink: true
 Emacs.verticalScrollBars: off
 !Emacs.font: Andale Mono-10
-!emacs.font:terminus-12
+!Emacs.font:terminus-10
 !Emacs.font: DejaVu Sans Mono-8
 !Emacs.font: Bitstream Vera Sans Mono-11
-Emacs.font: Inconsolata-10
+Emacs.font: Inconsolata-11
 Emacs.FontBackend: xft
 !Emacs.menuBar: off
 Emacs.toolBar: -1
