@@ -51,6 +51,10 @@ if [ -x /usr/bin/dropboxd ] ; then
   dropboxd&
 fi
 
+if [ -x /usr/bin/ssh-agent ] ; then
+  eval `ssh-agent`
+fi
+
 #if [ -x /usr/bin/xscreensaver ] ; then
 #  xscreensaver -no-splash &
 #fi
@@ -73,9 +77,9 @@ fi
 # export GNOME_KEYRING_PID
 # export SSH_AUTH_SOCKET
 
-if [ -x /usr/bin/gnome-panel ] ; then
-  gnome-panel &
-fi
+#if [ -x /usr/bin/gnome-panel ] ; then
+#  gnome-panel &
+#fi
 if [ -x /usr/bin/gnome-power-manager ] ; then
    gnome-power-manager &
 fi
@@ -120,9 +124,9 @@ fi
 # while true ; do date ; sleep 60 ; done | dzen2 -e '' -x 400 -w $off -ta r -fg $FG -bg $BG -p &
 
 DEFAULT_SESSION=awesome
-if [ $host = olethros ] ; then
-  DEFAULT_SESSION=xmonad
-fi
+# if [ $host = olethros ] ; then
+   DEFAULT_SESSION=xmonad
+# fi
 
 case $1 in
   awesome) dbus-launch --exit-with-session awesome ;;
