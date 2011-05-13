@@ -47,6 +47,10 @@ if [ -x /usr/bin/dropboxd ] ; then
   dropboxd&
 fi
 
+if [ -x /usr/bin/ssh-agent ] ; then
+  eval `ssh-agent`
+fi
+
 #if [ -x /usr/bin/xscreensaver ] ; then
 #  xscreensaver -no-splash &
 #fi
