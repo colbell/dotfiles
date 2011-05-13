@@ -124,6 +124,7 @@ main = do
                manageHook         = manageDocks <+> myManageHook <+> manageHook defaultConfig
              , layoutHook         = showWName' mySWNConfig $ myLayout
              , workspaces         = myWorkSpaces
+             , terminal           = "xterm"
              , logHook            = myLogHook xmproc
                                     >> updatePointer (Relative 0.5 0.5)
              , startupHook        = myStartupHook
