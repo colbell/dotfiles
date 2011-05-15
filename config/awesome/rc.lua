@@ -24,7 +24,13 @@ require("revelation")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+--beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+
+local f = io.open("/usr/share/awesome/themes/lunar/theme.lua")
+io.close(f)
+if f then
+  beautiful.init("/usr/share/awesome/themes/lunar/theme.lua")
+end
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
