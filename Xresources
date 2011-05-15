@@ -26,14 +26,14 @@ Emacs.toolBar: -1
 
 
 URxvt.urgentOnBell:     true
-URxvt.font:             xft:Inconsolata-10
+URxvt.font:             xft:Inconsolata-11
 URxvt.transparent:      false
 URxvt.internalBorder:   0
 URxvt.externalBorder:   0
 URxvt.borderLess:       false
 URxvt.jumpScroll:       true
 URxvt.cursorBlink:      true
-URxvt.loginShell:       true
+URxvt.loginShell:       false
 URxvt.perl-ext-common:  default,matcher,searchable-scrollback
 URxvt.pointerBlank:     true
 URxvt.saveLines:        4000
@@ -42,7 +42,7 @@ URxvt.scrollBar:        false
 URxvt.scrollBar_right:  false
 URxvt.scrollTtyKeypress: true
 URxvt.scrollWithBuffer: true
-URxvt*urlLauncher:      /usr/bin/firefox
+URxvt*urlLauncher:      /usr/bin/chromium
 
 ! urxvt Zenburn color-scheme
 urxvt*background:  #3f3f3f
