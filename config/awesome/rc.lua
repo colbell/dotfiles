@@ -22,9 +22,20 @@ require("scratch")
 -- expose effect
 require("revelation")
 
--- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+local f = io.open("/usr/share/awesome/themes/lunar/theme.lua")
+io.close(f)
+if f then
+  beautiful.init("/usr/share/awesome/themes/lunar/theme.lua")
+else
+  f = io.open("/usr/share/awesome/themes/lunar/theme.lua")
+  io.close(f)
+  if f then
+    beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+  end
+end
+
+-- {{{ Variable definitions
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -218,9 +229,9 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         s == 1 and mysystray or nil,
-        mytextclock,
-        netwidget,
-        weatherwidget,
+        s == 1 and mytextclock or nil,
+        s == 1 and netwidget or nil,
+        s == 1 and weatherwidget or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
