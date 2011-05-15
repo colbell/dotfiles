@@ -24,13 +24,13 @@ require("revelation")
 
 -- Themes define colours, icons, and wallpapers
 local f = io.open("/usr/share/awesome/themes/lunar/theme.lua")
-io.close(f)
 if f then
+  io.close(f)
   beautiful.init("/usr/share/awesome/themes/lunar/theme.lua")
 else
-  f = io.open("/usr/share/awesome/themes/lunar/theme.lua")
-  io.close(f)
+  f = io.open("/usr/share/awesome/themes/zenburn/theme.lua")
   if f then
+    io.close(f)
     beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
   end
 end
