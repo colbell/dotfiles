@@ -100,6 +100,11 @@ if [ -x /usr/bin/wicd-client ] ; then
   wicd-client &
 fi
 
+if [ -x /usr/bin/wuala ] ; then
+  wuala --startTrading &
+fi
+
+
 
 #if [ $host = teleute ] ; then
 #  xrandr --newmode "1680x1050_60.00"  146.25  1680 1784 1960 2240  1050 1053 1059 1089 -hsync +vsync
