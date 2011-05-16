@@ -49,6 +49,8 @@ fi
 
 if [ -x /usr/bin/dropboxd ] ; then
   dropboxd&
+elif [ -x /usr/bin/dropbox ] ; then
+  dropbox start&
 fi
 
 if [ -x /usr/bin/ssh-agent ] ; then
@@ -115,11 +117,11 @@ fi
 #  xrandr --output LVDS --primary
 #fi
 
-#if [ -x /usr/bin/trayer ] ; then
+if [ -x /usr/bin/trayer ] ; then
  # #margin=1680
- # trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 6 --tint 0xFFFFFF --height 16 &
+ trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 6 --tint 0xFFFFFF --height 16 &
  # #trayer --edge top --margin 1680 --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --transparent true --tint 0x191970 --height 12 &
-#fi
+fi
 
 
 
