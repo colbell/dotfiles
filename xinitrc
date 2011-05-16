@@ -78,9 +78,9 @@ fi
 if [ -x /usr/bin/nm-applet ] ; then
   nm-applet --sm-disable &
 fi
-if [ -x /usr/bin/seahorse-daemon ] ; then
-  seahorse-daemon &
-fi
+# if [ -x /usr/bin/seahorse-daemon ] ; then
+#   seahorse-daemon &
+# fi
 if [ -x /usr/bin/ubuntuone-launch ] ; then
   ubuntuone-launch &
 fi
@@ -116,9 +116,9 @@ fi
 # while true ; do date ; sleep 60 ; done | dzen2 -e '' -x 400 -w $off -ta r -fg $FG -bg $BG -p &
 
 DEFAULT_SESSION=awesome
-# if [ $host = olethros ] ; then
-   DEFAULT_SESSION=xmonad
-# fi
+if [ $host = olethros ] ; then
+  DEFAULT_SESSION=xmonad
+fi
 
 case $1 in
   awesome) dbus-launch --exit-with-session awesome ;;
