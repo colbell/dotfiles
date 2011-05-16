@@ -22,9 +22,20 @@ require("scratch")
 -- expose effect
 require("revelation")
 
--- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+local f = io.open("/usr/share/awesome/themes/lunar/theme.lua")
+if f then
+  io.close(f)
+  beautiful.init("/usr/share/awesome/themes/lunar/theme.lua")
+else
+  f = io.open("/usr/share/awesome/themes/zenburn/theme.lua")
+  if f then
+    io.close(f)
+    beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+  end
+end
+
+-- {{{ Variable definitions
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -218,9 +229,9 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         s == 1 and mysystray or nil,
-        mytextclock,
-        netwidget,
-        weatherwidget,
+        s == 1 and mytextclock or nil,
+        s == 1 and netwidget or nil,
+        s == 1 and weatherwidget or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
@@ -373,6 +384,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
+    awful.key({ modkey, "Shift"   }, "z",      function () awful.util.spawn("xscreensaver-command --lock") end),
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
@@ -455,7 +467,7 @@ awful.rules.rules = {
 -- Signal function to execute when a new client appears.
 client.add_signal("manage", function (c, startup)
     -- Add a titlebar
-     awful.titlebar.add(c, { modkey = modkey })
+    awful.titlebar.add(c, { modkey = modkey })
 
     -- Enable sloppy focus
     c:add_signal("mouse::enter", function(c)
