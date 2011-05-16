@@ -3,16 +3,16 @@
 ;;  make sure we can see the [Gmail email folders.
 (setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\”]\”[#’()]")
 
-(require 'pgg)   ;; encryption
-(require 'nnir)  ;; IMAP searaching
+;;(require 'pgg)   ;; encryption
+;;(require 'nnir)  ;; IMAP searaching
 
 (setq gnus-extra-headers '(To Cc Newsgroups List-ID X-BeenThere))
-(setq nnmail-extra-headers '(To Cc Newsgroups List-ID X-BeenThere))
+;;(setq nnmail-extra-headers '(To Cc Newsgroups List-ID X-BeenThere))
 
-;;(setq gnus-treat-fill-long-lines t)
+;;;;(setq gnus-treat-fill-long-lines t)
 
 ;; Performance
-;;(setq gnus-read-active-file nil)
+;;;;(setq gnus-read-active-file nil)
 
 (setq gnus-select-method `(nnimap "gmail"
                                   (nnimap-address "imap.gmail.com")
@@ -20,14 +20,14 @@
                                   (nnimap-stream ssl)
                                   (nnir-search-engine imap)))
 
-(add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+;; (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
 
 (setq gnus-summary-line-format "%U%R%1{ %}%2{%-10&user-date;%} %4k %1{ %}%0{%-24,24n%}%1{ %} %B%s\n"
       gnus-show-threads t
       gnus-thread-hide-subtree t)
-;; gnus-thread-sort-functions '((not gnus-thread-sort-by-number) (not gnus-thread-sort-by-date))
-;; gnus-article-sort-functions '((not gnus-article-sort-by-number) (not gnus-article-sort-by-date)))
+;; ;; gnus-thread-sort-functions '((not gnus-thread-sort-by-number) (not gnus-thread-sort-by-date))
+;; ;; gnus-article-sort-functions '((not gnus-article-sort-by-number) (not gnus-article-sort-by-date)))
 
 (setq  gnus-treat-hide-citation t
        gnus-cited-lines-visible '(3 . 6))
@@ -43,21 +43,21 @@
       '("multipart/alternative" "multipart/signed"))
 
 
-;; (if window-system
-;;     (setq gnus-sum-thread-tree-indent "  "
-;;           gnus-sum-thread-tree-root "● "
-;;           gnus-sum-thread-tree-false-root "◯ "
-;;           gnus-sum-thread-tree-single-indent "◎ "
-;;           gnus-sum-thread-tree-vertical        "│"
-;;           gnus-sum-thread-tree-leaf-with-other "├─► "
-;;           gnus-sum-thread-tree-single-leaf     "╰─► ")
-;;   (setq gnus-sum-thread-tree-indent "  "
-;;         gnus-sum-thread-tree-root "* "
-;;         gnus-sum-thread-tree-false-root "O "
-;;         gnus-sum-thread-tree-single-indent "* "
-;;         gnus-sum-thread-tree-vertical        "|"
-;;         gnus-sum-thread-tree-leaf-with-other "|-> "
-;;         gnus-sum-thread-tree-single-leaf     "\-> "))
+;; ;; (if window-system
+;; ;;     (setq gnus-sum-thread-tree-indent "  "
+;; ;;           gnus-sum-thread-tree-root "● "
+;; ;;           gnus-sum-thread-tree-false-root "◯ "
+;; ;;           gnus-sum-thread-tree-single-indent "◎ "
+;; ;;           gnus-sum-thread-tree-vertical        "│"
+;; ;;           gnus-sum-thread-tree-leaf-with-other "├─► "
+;; ;;           gnus-sum-thread-tree-single-leaf     "╰─► ")
+;; ;;   (setq gnus-sum-thread-tree-indent "  "
+;; ;;         gnus-sum-thread-tree-root "* "
+;; ;;         gnus-sum-thread-tree-false-root "O "
+;; ;;         gnus-sum-thread-tree-single-indent "* "
+;; ;;         gnus-sum-thread-tree-vertical        "|"
+;; ;;         gnus-sum-thread-tree-leaf-with-other "|-> "
+;; ;;         gnus-sum-thread-tree-single-leaf     "\-> "))
 
 (setq gnus-summary-make-false-root 'dummy)
 (setq gnus-summary-make-false-root-always nil)
@@ -131,5 +131,5 @@
         smtpmail-smtp-service 587))
 
 
-(require 'gnus-mst-show-country)
-(add-hook 'gnus-article-prepare-hook 'gnus-article-mst-show-country)
+;; (require 'gnus-mst-show-country)
+;; (add-hook 'gnus-article-prepare-hook 'gnus-article-mst-show-country)
