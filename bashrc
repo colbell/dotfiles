@@ -148,7 +148,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
-if [ -f $rvm_scripts_path/rvm-completion.rb ]; then
-  complete -C $rvm_scripts_path/rvm-completion.rb -o default rvm
-fi
+# if [ -f $rvm_scripts_path/rvm-completion.rb ]; then
+#   complete -C $rvm_scripts_path/rvm-completion.rb -o default rvm
+# fi
+[[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion
