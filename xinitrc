@@ -106,6 +106,10 @@ if [ -x /usr/bin/wuala ] ; then
   wuala --startTrading &
 fi
 
+if [ -x /usr/bin/conky ] ; then
+  conky &
+fi
+
 
 
 #if [ $host = teleute ] ; then
