@@ -10,6 +10,8 @@ fi
 
 # alias whence='type -a'                        # where, of a sort
 
+alias openports='netstat --all --numeric --programs --inet'
+
 alias h='history'
 
 # some more ls aliases
