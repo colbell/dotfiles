@@ -144,9 +144,9 @@ if [ $host = olethros ] ; then
 fi
 
 case $1 in
-  awesome) dbus-launch --exit-with-session awesome ;;
-  xmonad) dbus-launch --exit-with-session xmonad ;;
-  *) dbus-launch --exit-with-session $DEFAULT_SESSION ;;
+  awesome) ck-launch-session dbus-launch --exit-with-session awesome ;;
+  xmonad) ck-launch-session dbus-launch --exit-with-session xmonad ;;
+  *) ck-launch-session dbus-launch --exit-with-session $DEFAULT_SESSION ;;
 esac
 
 #exec awesome
