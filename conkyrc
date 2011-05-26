@@ -19,71 +19,43 @@ background no
 # Use Xft?
 use_xft yes
 
-# Xft font when Xft is enabled
 #xftfont Bitstream Vera Sans Mono:size=8
 xftfont Terminus:size=8
-
-# Text alpha when using Xft
 xftalpha 0.8
 
 # Print everything to console?
 # out_to_console no
 
-# mail spool
 mail_spool $HOME/Maildir
 
-# Update interval in seconds
 update_interval 2.0
 
-# This is the number of times Conky will update before quitting.
 # Set to zero to run forever.
 total_run_times 0
-
-# Create own window instead of using desktop (required in nautilus)
-own_window no
 
 # Use double buffering (reduces flicker, may not work for everyone)
 double_buffer yes
 
-# Minimum size of text area
+# own_window no
+# own_window_class Conky
+# own_window_type desktop
+
 minimum_size 1000 5
-
-# Draw shades?
 draw_shades yes
-
-# Draw outlines?
 draw_outline no
-
-# Draw borders around text
 draw_borders no
-
-# Stippled borders?
 stippled_borders 8
-
-# border width
 border_width 1
-
-# Default colors and also border colors
+uppercase no
 default_color white
 default_shade_color black
 default_outline_color white
-
-# Text alignment, other possible values are commented
 alignment top_left
-#alignment top_right
-#alignment bottom_left
-#alignment bottom_right
-
-# Gap between borders of screen and text
-# same thing as passing -x at command line
-gap_x 450
+gap_x 50
 gap_y 1
 
 # Subtract file system buffers from used memory?
 no_buffers yes
-
-# set to yes if you want all text to be in uppercase
-uppercase no
 
 # number of cpu samples to average
 # set to 1 to disable averaging
@@ -100,7 +72,7 @@ override_utf8_locale no
 top_cpu_separate false
 
 # Add spaces to keep things from moving about?  This only affects certain objects.
-use_spacer right
+#use_spacer right
 #Note: doesn't work in conky 1.2 =(
 
 
