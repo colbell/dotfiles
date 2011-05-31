@@ -15,22 +15,15 @@ background no
 #font *mintsmild.se*
 #font -*-*-*-*-*-*-34-*-*-*-*-*-*-*
 
-
-# Use Xft?
 use_xft yes
 
 #xftfont Bitstream Vera Sans Mono:size=8
 xftfont Terminus:size=8
 xftalpha 0.8
 
-# Print everything to console?
-# out_to_console no
-
 mail_spool $HOME/Maildir
 
 update_interval 2.0
-
-# Set to zero to run forever.
 total_run_times 0
 
 # Use double buffering (reduces flicker, may not work for everyone)
