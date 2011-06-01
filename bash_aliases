@@ -44,3 +44,5 @@ alias grep='grep --color=auto'
 #alias ecx='emacsclient -c'
 
 alias em='emacs -nw'
+
+alias bex='bundle exec'
