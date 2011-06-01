@@ -149,10 +149,8 @@ ${color slate grey}HOME:  ${color }${fs_free /home}/${fs_size /home}
 ${fs_bar 3,100 /home}
 ${if_existing /sys/class/net/eth0/operstate up}
 ${color slate grey}NET eth0:
-${color}Up: ${color }${upspeed eth0} k/s
-${upspeedgraph eth0 20,130 000000 ffffff}
-${color}Down: ${color}${downspeed eth0}k/s${color}
-${downspeedgraph eth0 20,130 000000 ffffff}
+${color white}${upspeedgraph eth0 20,130 000000 ffffff} ${color green}${upspeed eth0} k/s
+${color white}${downspeedgraph eth0 20,130 000000 ffffff} ${color red}${downspeed eth0} k/s
 ${color red}Downloaded: $color${totaldown eth0} ${color green}Uploaded: $color${totalup eth0}
 ${endif}
 ${if_existing /sys/class/net/wlan0/operstate up}
