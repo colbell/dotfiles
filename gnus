@@ -110,7 +110,7 @@
       mm-inline-large-images t)
 
 
-(if (string-equal system-name "olethros")
+(if (string-equal system-name "arch")
     (setq message-send-mail-function 'smtpmail-send-it
           smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
           smtpmail-auth-credentials '(("smtp.gmail.com" 587 "cbell@tickitsystems.com.au" nil))
