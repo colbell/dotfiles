@@ -138,6 +138,9 @@ fi
 # BG='#3f3c6d'
 # while true ; do date ; sleep 60 ; done | dzen2 -e '' -x 400 -w $off -ta r -fg $FG -bg $BG -p &
 
+# Java/awesome fix
+_JAVA_AWT_WM_NONREPARENTING=1; export _JAVA_AWT_WM_NONREPARENTING
+
 DEFAULT_SESSION=awesome
 if [ $host = olethros ] ; then
   DEFAULT_SESSION=xmonad
