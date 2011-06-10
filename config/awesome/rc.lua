@@ -51,7 +51,7 @@ layouts =
     awful.layout.suit.max,
     --awful.layout.suit.max.fullscreen,
     --awful.layout.suit.magnifier,
-	awful.layout.suit.floating,
+    awful.layout.suit.floating,
 }
 -- }}}
 
@@ -84,8 +84,8 @@ function theme_menu()
    local f = io.popen(cmd)
 
    for l in f:lines() do
-	  local item = { l, function () theme_load(l) end }
-	  table.insert(mythememenu, item)
+     local item = { l, function () theme_load(l) end }
+     table.insert(mythememenu, item)
    end
 
    f:close()
@@ -104,16 +104,15 @@ myawesomemenu = {
 
 mycommons = { }
 
-mymainmenu = awful.menu({ items = { 
-                                    { "Zenix", zenix.menu.Zenix_menu.Zenix, "/usr/share/awesome/themes/zenix/zenix-menu-icon.gif" },
-                                    { "Terminal", "/usr/bin/sakura", "/usr/share/icons/hicolor/48x48/apps/xfce-terminal.png" },
-				    { "File Manager", "/usr/bin/pcmanfm", "/usr/share/icons/gnome-dust/32x32/apps/redhat-filemanager.png" },
-				    { "awesome", myawesomemenu, "/usr/share/awesome/themes/zenix/awesome-icon.png" },
-				    { "Logout", awesome.quit,"/usr/local/share/icons/bullet_black.png" },
-				    { "Shutdown", "sudo shutdown -h now","/usr/local/share/icons/shutdown.png" },
-				    { "Reboot", "sudo reboot","/usr/local/share/icons/reboot.png" },
-                                  }
-                        })
+mymainmenu = awful.menu({ items = {
+  { "Zenix", zenix.menu.Zenix_menu.Zenix, "/usr/share/awesome/themes/zenix/zenix-menu-icon.gif" },
+  { "Terminal", "/usr/bin/sakura", "/usr/share/icons/hicolor/48x48/apps/xfce-terminal.png" },
+  { "File Manager", "/usr/bin/pcmanfm", "/usr/share/icons/gnome-dust/32x32/apps/redhat-filemanager.png" },
+  { "awesome", myawesomemenu, "/usr/share/awesome/themes/zenix/awesome-icon.png" },
+  { "Logout", awesome.quit,"/usr/local/share/icons/bullet_black.png" },
+  { "Shutdown", "sudo shutdown -h now","/usr/local/share/icons/shutdown.png" },
+  { "Reboot", "sudo reboot","/usr/local/share/icons/reboot.png" },
+}})
 
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
@@ -257,21 +256,21 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
-	-- Popup terminal
-    awful.key({ modkey }, "F11", function () scratch.drop("urxvt -e htop", "top") end),
-    awful.key({ modkey }, "F12", function () scratch.drop("urxvt", "top") end),
-    
-	-- Zenix Xkill
+        -- Popup terminal
+    awful.key({ modkey }, "F11", function () scratch.drop(terminal .. " -e htop", "top") end),
+    awful.key({ modkey }, "F12", function () scratch.drop(terminal, "top") end),
+
+        -- Zenix Xkill
     awful.key({ modkey, "Ctrl"    }, "x",     function () awful.util.spawn("/usr/bin/xkill") end),
 
 
     -- Prompt
     --awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
-    awful.key({ modkey },            "p",     function ()
-	                awful.util.spawn("dmenu_run -i -p 'Run command:' -nb '" ..
-		                 beautiful.bg_normal .. "' -nf '" .. beautiful.fg_normal ..
-                         "' -sb '" .. beautiful.bg_focus ..
-                         "' -sf '" .. beautiful.fg_focus .. "' -sb '#955'")
+    awful.key({ modkey }, "p",     function ()
+                 awful.util.spawn("dmenu_run -i -p 'Run command:' -nb '" ..
+                 beautiful.bg_normal .. "' -nf '" .. beautiful.fg_normal ..
+                 "' -sb '" .. beautiful.bg_focus ..
+                 "' -sf '" .. beautiful.fg_focus .. "' -sb '#955'")
     end),
 
                                   -- Run or raise applications with dmenu
@@ -308,37 +307,37 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "b", function ()
       mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
     end),
-	awful.key({ modkey }, "e", revelation.revelation),
+        awful.key({ modkey }, "e", revelation.revelation),
 
-	   awful.key({ modkey }, "F1", function ()
-                                                                  awful.prompt.run({ prompt = "Manual: " }, mypromptbox[mouse.screen].widget,
-                                                                                   --  Use GNU Emacs for manual page display
-                                                                                   -- function (page) awful.util.spawn("emacsclient --eval '(manual-entry \"'" .. page .. "'\")'", false) end,
-                                                                                   function (page) awful.util.spawn("emacsclient -c -a '' --eval '(manual-entry \"'" .. page .. "'\")'", false) end,
-                                                                                   --  Use the KDE Help Center for manual page display
-                                                                                   --  function (page) awful.util.spawn("khelpcenter man:" .. page, false) end,
-                                                                                   --  Use the terminal emulator for manual page display
-                                                                                   -- function (page) awful.util.spawn("xterm -e man " .. page, false) end,
-                                                                                   function(cmd, cur_pos, ncomp)
-                                                                                      local pages = {}
-                                                                                      local m = 'IFS=: && find $(manpath||echo "$MANPATH") -type f -printf "%f\n"| cut -d. -f1'
-                                                                                      local c, err = io.popen(m)
-                                                                                      if c then while true do
-                                                                                            local manpage = c:read("*line")
-                                                                                            if not manpage then break end
-                                                                                            if manpage:find("^" .. cmd:sub(1, cur_pos)) then
-                                                                                               table.insert(pages, manpage)
-                                                                                            end
-                                                                                         end
-                                                                                         c:close()
-                                                                                      else io.stderr:write(err) end
-                                                                                      if #cmd == 0 then return cmd, cur_pos end
-                                                                                      if #pages == 0 then return end
-                                                                                      while ncomp > #pages do ncomp = ncomp - #pages end
-                                                                                      return pages[ncomp], cur_pos
-                                                                                   end)
-                                                               end)
-)    
+        awful.key({ modkey }, "F1", function ()
+           awful.prompt.run({ prompt = "Manual: " }, mypromptbox[mouse.screen].widget,
+                  --  Use GNU Emacs for manual page display
+                  -- function (page) awful.util.spawn("emacsclient --eval '(manual-entry \"'" .. page .. "'\")'", false) end,
+                  function (page) awful.util.spawn("emacsclient -c -a '' --eval '(manual-entry \"'" .. page .. "'\")'", false) end,
+                  --  Use the KDE Help Center for manual page display
+                  --  function (page) awful.util.spawn("khelpcenter man:" .. page, false) end,
+                  --  Use the terminal emulator for manual page display
+                  -- function (page) awful.util.spawn("xterm -e man " .. page, false) end,
+                  function(cmd, cur_pos, ncomp)
+                     local pages = {}
+                     local m = 'IFS=: && find $(manpath||echo "$MANPATH") -type f -printf "%f\n"| cut -d. -f1'
+                     local c, err = io.popen(m)
+                     if c then while true do
+                           local manpage = c:read("*line")
+                           if not manpage then break end
+                           if manpage:find("^" .. cmd:sub(1, cur_pos)) then
+                              table.insert(pages, manpage)
+                           end
+                        end
+                        c:close()
+                     else io.stderr:write(err) end
+                     if #cmd == 0 then return cmd, cur_pos end
+                     if #pages == 0 then return end
+                     while ncomp > #pages do ncomp = ncomp - #pages end
+                     return pages[ncomp], cur_pos
+                  end)
+        end)
+)
 
 
 clientkeys = awful.util.table.join(
@@ -350,7 +349,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
-	awful.key({ modkey, "Shift"   }, "z",      function () awful.util.spawn("xscreensaver-command --lock") end),
+        awful.key({ modkey, "Shift"   }, "z",      function () awful.util.spawn("xscreensaver-command --lock") end),
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
