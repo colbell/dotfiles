@@ -2,14 +2,6 @@
 
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 
-#xsetroot -cursor_name left_ptr
-#xsetroot -solid '#80a0af'
-#xsetroot -solid midnightblue
-#xsetroot -solid DarkGoldenrod
-#xsetroot -solid '#5f0f1f'
-#xsetroot -solid '#dcdccc'
-#xsetroot -solid '#3f3f3f'
-
 host=`hostname`
 
 if [ -x /usr/bin/gnome-settings-daemon ] ; then
@@ -39,100 +31,36 @@ if [ $host = tux ] ; then
   xrandr --output VBOX1 --primary
 fi
 
-if [ -x /usr/bin/xscreensaver ] ; then
-  xscreensaver -no-splash &
-fi
-
-if [ -x /usr/bin/batterymon ] ; then
-  batterymon &
-fi
-
-if [ -x /usr/bin/dropboxd ] ; then
-  dropboxd&
-elif [ -x /usr/bin/dropbox ] ; then
-  dropbox start&
-fi
-
-if [ -x /usr/bin/ssh-agent ] ; then
-  eval `ssh-agent`
-fi
-
-#if [ -x /usr/bin/xscreensaver ] ; then
-#  xscreensaver -no-splash &
+#if [ -x /usr/bin/gnome-power-manager ] ; then
+#   gnome-power-manager &
 #fi
-
-#if [ -x /usr/bin/gnome-screensaver ] ; then
-#  gnome-screensaver &
+#if [ -x /usr/bin/nm-applet ] ; then
+#  nm-applet --sm-disable &
 #fi
-
-# if [ -x /usr/bin/gnome-keyring-daemon ] ; then
-#   gnome-keyring-daemon &
-# fi
-
-#if [ -x /usr/bin/gnome-volume-control-applet ] ; then
-#  gnome-volume-control-applet &
-#fi
-
-# This must be started before seahorse-daemon.
-# eval $(gnome-keyring-daemon)
-# export GNOME_KEYRING_CONTROL
-# export GNOME_KEYRING_PID
-# export SSH_AUTH_SOCKET
-
-#if [ -x /usr/bin/gnome-panel ] ; then
-#  gnome-panel &
-#fi
-if [ -x /usr/bin/gnome-power-manager ] ; then
-   gnome-power-manager &
-fi
-if [ -x /usr/bin/nm-applet ] ; then
-  nm-applet --sm-disable &
-fi
 # if [ -x /usr/bin/seahorse-daemon ] ; then
 #   seahorse-daemon &
 # fi
-if [ -x /usr/bin/ubuntuone-launch ] ; then
-  ubuntuone-launch &
-fi
-if [ -x /usr/bin/update-notifier ] ; then
-  update-notifier --startup-delay=60 &
-fi
-
-if [ -x /usr/bin/wicd-client ] ; then
-  wicd-client &
-fi
-
-if [ -x /usr/bin/wuala ] ; then
-  wuala --startTrading &
-fi
-
-if [ -x /usr/bin/conky ] ; then
-  conky &
-fi
-
-
-
-#if [ $host = teleute ] ; then
-#  xrandr --newmode "1680x1050_60.00"  146.25  1680 1784 1960 2240  1050 1053 1059 1089 -hsync +vsync
-#  xrandr --addmode CRT1 1680x1050_60.00
-#  #xrandr --auto --output LVDS --mode 1280x768
-#  xrandr --auto --output LVDS --mode 1280x800
-#  xrandr --auto --output CRT1 --mode 1680x1050_60.00 --right-of LVDS
-#  xrandr --output LVDS --primary
+#if [ -x /usr/bin/ubuntuone-launch ] ; then
+#  ubuntuone-launch &
+#fi
+#if [ -x /usr/bin/update-notifier ] ; then
+#  update-notifier --startup-delay=60 &
 #fi
 
-if [ -x /usr/bin/trayer ] ; then
- # #margin=1680
- trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 6 --tint 0xFFFFFF --height 16 &
- # #trayer --edge top --margin 1680 --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --transparent true --tint 0x191970 --height 12 &
-fi
+#if [ -x /usr/bin/wicd-client ] ; then
+#  wicd-client &
+#fi
+
+#if [ -x /usr/bin/wuala ] ; then
+#  wuala --startTrading &
+#fi
 
 
-
-# if [ -x /usr/bin/stalonetray ] ; then
-#   stalonetray -i 16 --icon-gravity E --max-geometry 12x1 --geometry 12x1-0+0 -bg '#000000' --sticky --skip-taskbar &
-#   #stalonetray -i 16 --icon-gravity E -bg '#000000' --sticky --skip-taskbar &
-# fi
+#if [ -x /usr/bin/trayer ] ; then
+# # #margin=1680
+# trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 6 --tint 0xFFFFFF --height 16 &
+# # #trayer --edge top --margin 1680 --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --transparent true --tint 0x191970 --height 12 &
+#fi
 
 # FG='#a8a3f7' 
 # BG='#3f3c6d'
@@ -141,16 +69,91 @@ fi
 # Java/awesome fix
 _JAVA_AWT_WM_NONREPARENTING=1; export _JAVA_AWT_WM_NONREPARENTING
 
-DEFAULT_SESSION=awesome
-if [ $host = olethros ] ; then
-  DEFAULT_SESSION=xmonad
-fi
+#DEFAULT_SESSION=awesome
+#if [ $host = olethros ] ; then
+#  DEFAULT_SESSION=xmonad
+#fi
 
-case $1 in
-  awesome) ck-launch-session dbus-launch --exit-with-session awesome ;;
-  xmonad) ck-launch-session dbus-launch --exit-with-session xmonad ;;
-  *) ck-launch-session dbus-launch --exit-with-session $DEFAULT_SESSION ;;
-esac
+#case $1 in
+#  awesome) ck-launch-session dbus-launch --exit-with-session awesome ;;
+#  xmonad) ck-launch-session dbus-launch --exit-with-session xmonad ;;
+#  *) ck-launch-session dbus-launch --exit-with-session $DEFAULT_SESSION ;;
+#esac
 
 #exec awesome
 #exec xmonad
+
+DEFAULT_SESSION=/usr/bin/openbox-session
+
+if [ -z $1 ]
+then
+ session=awesome
+else
+session=${1}
+fi
+
+case $session in
+awesome)
+  # Start tint2 (panel)
+  # tint2 works with awesome, but was disabled by default.
+  #(nohup /usr/bin/tint2 &)
+
+  # Start wicd client
+  (nohup /usr/bin/wicd-client &)
+
+  # Start volume panel applet
+  (nohup /usr/bin/volumeicon &)
+
+  # Start cairo composite manager
+  # Cairo works, but was disabled
+  #(nohup /usr/bin/cairo-compmgr &)
+
+  # Start xfce4-power-manager
+  (nohup /usr/bin/xfce4-power-manager &)
+
+
+  if [ -x /usr/bin/xscreensaver ] ; then
+    (nohup /usr/bin/xscreensaver -no-splash &)
+  fi
+
+  if [ -x /usr/bin/batterymon ] ; then
+    (nohup /usr/bin/batterymon &)
+  fi
+
+  if [ -x /usr/bin/dropboxd ] ; then
+    (nohup /usr/bin/dropboxd &)
+  elif [ -x /usr/bin/dropbox ] ; then
+    (nohup /usr/bin/dropbox start &)
+  elif [ -x $HOME/apps/dropbox/dropboxd ] ; then
+    (nohup $HOME/apps/dropbox/dropboxd start &)
+  fi
+
+  if [ -x /usr/bin/ssh-agent ] ; then
+    eval `ssh-agent`
+  fi
+  dbus-launch --exit-with-session awesome
+  #exec /usr/bin/awesome
+  ;;
+# These window managers are examples if you add them
+#xfce4)
+#       exec startxfce4
+#       ;;
+#icewm)
+#       icewmbg &
+#       icewmtray &
+#       exec icewm
+#       ;;
+#wmaker)
+#       exec wmaker
+#       ;;
+#blackbox)
+#       exec blackbox
+#       ;;
+openbox)
+  exec /usr/bin/openbox-session
+  ;;
+*)
+  exec $DEFAULT_SESSION
+  ;;
+esac
+
