@@ -4,6 +4,12 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+if [ -f /usr/local/share/config/term_colors ]; then
+  source /usr/local/share/config/term_colors
+fi
+
+export PAGER='most'
+
 export HISTFILESIZE=1000
 export HISTSIZE=1000
 
@@ -15,6 +21,11 @@ shopt -s histappend
 #export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # ... or force ignoredups and ignorespace
 export HISTCONTROL=ignoreboth
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
 
 # Fix for running swing app under awesome
 #export AWT_TOOLKIT=MToolkit
@@ -52,12 +63,12 @@ elif [ $host = teleute ] ; then
 fi
 
 # Colored man pages
-export LESS_TERMCAP_mb=$'\E[01;31m' # begin blinking
-export LESS_TERMCAP_md=$'\E[01;38;5;74m' # begin bold
-export LESS_TERMCAP_me=$'\E[0m' # end mode
-export LESS_TERMCAP_se=$'\E[0m' # end standout-mode
-export LESS_TERMCAP_so=$'\E[38;5;246m' # begin standout-mode - info box export LESS_TERMCAP_ue=$'\E[0m' # end underline
-export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+#export LESS_TERMCAP_mb=$'\E[01;31m' # begin blinking
+#export LESS_TERMCAP_md=$'\E[01;38;5;74m' # begin bold
+#export LESS_TERMCAP_me=$'\E[0m' # end mode
+#export LESS_TERMCAP_se=$'\E[0m' # end standout-mode
+#export LESS_TERMCAP_so=$'\E[38;5;246m' # begin standout-mode - info box export LESS_TERMCAP_ue=$'\E[0m' # end underline
+#export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
@@ -87,7 +98,7 @@ fi
 
 
 function parse_git_dirty {
-  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo " ⚡"
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo " !"
 }
 function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[git: \1$(parse_git_dirty)]/"
@@ -152,3 +163,11 @@ fi
 #   complete -C $rvm_scripts_path/rvm-completion.rb -o default rvm
 # fi
 [[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion
+
+# Source global definitions
+if [ -f /usr/local/share/config/dhammapada ]; then
+  source /usr/local/share/config/dhammapada
+fi
+
+cd ~
+
