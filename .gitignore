@@ -51,3 +51,11 @@
 /config/desktop-couch/*
 /config/compiz/*
 /config/calibre/*
+/config/cairo-compmgr/*
+/config/libfm/*
+/config/midori/*
+/config/nitrogen/*
+/config/openbox/*
+/config/pcmanfm/*
+/config/tint2/*
+/config/volumeicon/*
