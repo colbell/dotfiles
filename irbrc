@@ -1,6 +1,6 @@
 # -*- mode: ruby; -*-
 
-require 'rubygems'
+#require 'rubygems'
 #require 'wirble'
 require 'pp'
 
