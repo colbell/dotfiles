@@ -31,6 +31,12 @@ if [ $host = tux ] ; then
   xrandr --output VBOX1 --primary
 fi
 
+if [ $host = lankhmar ] ; then
+  xrandr --auto --output LVDS --mode 1280x800
+  xrandr --auto --output VGA-0 --mode 1680x1050 --right-of LVDS
+  xrandr --output LVDS --primary
+fi
+
 #if [ -x /usr/bin/gnome-power-manager ] ; then
 #   gnome-power-manager &
 #fi
