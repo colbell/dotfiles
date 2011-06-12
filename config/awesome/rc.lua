@@ -20,7 +20,7 @@ beautiful.init(awful.util.getdir("config") .. "/current_theme/theme.lua")
 require("vicious")
 
 -- scratchpads.
-require("scratch")
+--require("scratch")
 
 -- expose effect
 require("revelation")
@@ -257,8 +257,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
         -- Popup terminal
-    awful.key({ modkey }, "F11", function () scratch.drop(terminal .. " -e htop", "top") end),
-    awful.key({ modkey }, "F12", function () scratch.drop(terminal, "top") end),
+--    awful.key({ modkey }, "F11", function () scratch.drop(terminal .. " -e htop", "top") end),
+--    awful.key({ modkey }, "F12", function () scratch.drop(terminal, "top") end),
 
         -- Zenix Xkill
     awful.key({ modkey, "Ctrl"    }, "x",     function () awful.util.spawn("/usr/bin/xkill") end),
@@ -313,11 +313,12 @@ globalkeys = awful.util.table.join(
            awful.prompt.run({ prompt = "Manual: " }, mypromptbox[mouse.screen].widget,
                   --  Use GNU Emacs for manual page display
                   -- function (page) awful.util.spawn("emacsclient --eval '(manual-entry \"'" .. page .. "'\")'", false) end,
-                  function (page) awful.util.spawn("emacsclient -c -a '' --eval '(manual-entry \"'" .. page .. "'\")'", false) end,
+                  -- function (page) awful.util.spawn("emacsclient -c -a '' --eval '(manual-entry \"'" .. page .. "'\")'", false) end,
                   --  Use the KDE Help Center for manual page display
                   --  function (page) awful.util.spawn("khelpcenter man:" .. page, false) end,
                   --  Use the terminal emulator for manual page display
-                  -- function (page) awful.util.spawn("xterm -e man " .. page, false) end,
+                  -- function (page) awful.util.spawn("xterm -e man '" .. page .. "'", false) end,
+                  function (page) awful.util.spawn("sakura -e 'man " .. page .. "'", false) end,
                   function(cmd, cur_pos, ncomp)
                      local pages = {}
                      local m = 'IFS=: && find $(manpath||echo "$MANPATH") -type f -printf "%f\n"| cut -d. -f1'
