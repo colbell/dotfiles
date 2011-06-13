@@ -45,7 +45,7 @@ zmodload -ap zsh/mapfile mapfile
 
 
 # PATH="/usr/local/bin:/usr/local/sbin/:/bin:/sbin:/usr/bin:/usr/sbin:$PATH"
-PATH='/usr/kerberos/bin:/usr/lib/ccache:/usr/local/bin:/usr/bin:/bin:/home/bodhi/bin'
+#PATH='/usr/kerberos/bin:/usr/lib/ccache:/usr/local/bin:/usr/bin:/bin:/home/bodhi/bin'
 # TZ="America/New_York"
 HISTFILE=$HOME/.zhistory
 HISTSIZE=1000
@@ -95,9 +95,9 @@ PS1="$PR_LIGHT_GREEN%n$PR_GREY@$PR_BLUE%m$PR_GREY:$PR_LIGHT_RED%2c$PR_NO_COLOR%(
 # RPS1="$PR_LIGHT_YELLOW(%D{%m-%d %H:%M})$PR_NO_COLOR"
 RPS1="$PR_LIGHT_YELLOW%D{%m/%d/%y %l:%M %p}$PR_NO_COLOR"
 #LANGUAGE=
-LC_ALL='en_US.UTF-8'
-LANG='en_US.UTF-8'
-LC_CTYPE=C
+#LC_ALL='en_US.UTF-8'
+#LANG='en_US.UTF-8'
+#LC_CTYPE=C
 
 if [ $SSH_TTY ]; then
   MUTT_EDITOR=vim
