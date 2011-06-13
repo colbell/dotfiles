@@ -1,0 +1,6 @@
+[mysql]
+prompt=mysql (\u@\h/\d)>
+
+[client]
+password=
+user=
