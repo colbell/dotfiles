@@ -20,6 +20,9 @@
                                   (nnimap-stream ssl)
                                   (nnir-search-engine imap)))
 
+(setq gnus-secondary-select-methods '((nnmaildir "Local Mail"
+                                      (directory "~/.nnmaildir/"))))
+;;(setq mail-sources '((maildir :path "~/Maildir/" :subdirs ("cur" "new"))))
 ;; (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
 
