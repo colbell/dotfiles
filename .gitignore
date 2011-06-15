@@ -34,9 +34,6 @@
 /config/Thunar/*
 /config/oxygen-gtk/argb-apps.conf
 /config/Empathy/*
-/config/awesome/freedesktop/*
-/config/awesome/scratch/*
-/config/awesome/vicious/*
 /config/ubuntuone/*
 /config/transmission/*
 /config/totem/*
@@ -59,5 +56,6 @@
 /config/pcmanfm/*
 /config/tint2/*
 /config/volumeicon/*
-/config/*
+/config/sakura/*
+/config/audacious/*
 /my.cnf

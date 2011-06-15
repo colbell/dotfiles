@@ -94,6 +94,9 @@ end
 -- Generate your table at startup or restart
 theme_menu()
 
+require('freedesktop.utils')
+require('freedesktop.menu')
+freedesktop.utils.icon_theme = 'gnome' -- look inside /usr/share/icons/, default: nil (don't use icon theme)
 
 myawesomemenu = {
    { "themes", mythememenu },
@@ -104,8 +107,10 @@ myawesomemenu = {
 
 mycommons = { }
 
+
 mymainmenu = awful.menu({ items = {
   { "Zenix", zenix.menu.Zenix_menu.Zenix, "/usr/share/awesome/themes/zenix/zenix-menu-icon.gif" },
+  { "Free Desktop", freedesktop.menu.new()},
   { "Terminal", "/usr/bin/sakura", "/usr/share/icons/hicolor/48x48/apps/xfce-terminal.png" },
   { "File Manager", "/usr/bin/pcmanfm", "/usr/share/icons/gnome-dust/32x32/apps/redhat-filemanager.png" },
   { "awesome", myawesomemenu, "/usr/share/awesome/themes/zenix/awesome-icon.png" },
