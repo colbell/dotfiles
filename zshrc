@@ -12,6 +12,11 @@ export ZSH=$HOME/.oh-my-zsh
 #export ZSH_THEME="candy"
 export ZSH_THEME="aussiegeek"
 
+export LC_ALL='en_AU.UTF-8'
+export LANG='en_AU.UTF-8'
+export LC_CTYPE='en_AU.UTF-8'
+export LC_CTYPE=C
+
 # Set to this to use case-sensitive completion
 # export CASE_SENSITIVE="true"
 
@@ -26,7 +31,7 @@ export ZSH_THEME="aussiegeek"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(bundler git rails g-t-flow mysql ruby rvm)
+plugins=(bundler git rails git-flow mysql ruby rvm)
 
 source $ZSH/oh-my-zsh.sh
 
