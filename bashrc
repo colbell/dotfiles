@@ -1,4 +1,4 @@
-# -*- conf -*-
+# -*- shell-script -*-
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -24,7 +24,7 @@ export HISTCONTROL=ignoreboth
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+  . /etc/bashrc
 fi
 
 # Fix for running swing app under awesome
@@ -127,13 +127,13 @@ xterm*|rxvt*)
 esac
 
 # From http://archlinux.me/crouse/2011/05/10/bash-some-bashrc-functions/
-hs() {
-  history | grep ${1} | uniq --skip-fields=1 | sort -biz | uniq --skip-fields=2
-}
-clock ()
-{
-  while true;do clear;echo “===========”;date +”%r”;echo “===========”;sleep 1;done
-}
+# hs() {
+#   history | grep ${1} | uniq --skip-fields=1 | sort -biz | uniq --skip-fields=2
+# }
+# clock ()
+# {
+#   while true;do clear;echo “===========”;date +”%r”;echo “===========”;sleep 1;done
+# }
 
 #######################################################################
 
@@ -168,6 +168,3 @@ fi
 if [ -f /usr/local/share/config/dhammapada ]; then
   source /usr/local/share/config/dhammapada
 fi
-
-cd ~
-
