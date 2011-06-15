@@ -1,4 +1,4 @@
-# -*- conf -*-
+# -*- shell-script -*-
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
