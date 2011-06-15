@@ -31,12 +31,12 @@ export LC_CTYPE='en_AU.UTF-8'
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(bundler git rails git-flow mysql ruby rvm)
+plugins=(bundler git rails mysql ruby cap rvm)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-#export PATH=/home/cbell/bin:/home/cbell/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+export PATH=/home/cbell/bin:/home/cbell/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
 
 PATH() {
   echo $PATH | tr -s ':' '\n'
