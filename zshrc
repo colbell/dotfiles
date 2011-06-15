@@ -12,10 +12,10 @@ export ZSH=$HOME/.oh-my-zsh
 #export ZSH_THEME="candy"
 export ZSH_THEME="aussiegeek"
 
-export LC_ALL='en_AU.UTF-8'
-export LANG='en_AU.UTF-8'
+#export LC_ALL='en_AU.UTF-8'
+export LANG='en_AU.utf8'
 export LC_CTYPE='en_AU.UTF-8'
-export LC_CTYPE=C
+#export LC_CTYPE=C
 
 # Set to this to use case-sensitive completion
 # export CASE_SENSITIVE="true"
