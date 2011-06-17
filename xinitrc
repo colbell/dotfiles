@@ -112,7 +112,9 @@ awesome)
 
   # Start cairo composite manager
   # Cairo works, but was disabled
-  #(nohup /usr/bin/cairo-compmgr &)
+  if [ -x /usr/bin/cairo-compmgr ] ; then
+    (nohup /usr/bin/cairo-compmgr &)
+  fi
 
   # Start xfce4-power-manager
   (nohup /usr/bin/xfce4-power-manager &)
@@ -122,9 +124,9 @@ awesome)
     (nohup /usr/bin/xscreensaver -no-splash &)
   fi
 
-  if [ -x /usr/bin/batterymon ] ; then
-    (nohup /usr/bin/batterymon &)
-  fi
+  # if [ -x /usr/bin/batterymon ] ; then
+  #   (nohup /usr/bin/batterymon &)
+  # fi
 
   if [ -x /usr/bin/dropboxd ] ; then
     (nohup /usr/bin/dropboxd &)
@@ -137,6 +139,7 @@ awesome)
   if [ -x /usr/bin/ssh-agent ] ; then
     eval `ssh-agent`
   fi
+
   dbus-launch --exit-with-session awesome
   #exec /usr/bin/awesome
   ;;
