@@ -20,7 +20,7 @@ beautiful.init(awful.util.getdir("config") .. "/current_theme/theme.lua")
 require("vicious")
 
 -- scratchpads.
---require("scratch")
+require("scratch")
 
 -- expose effect
 require("revelation")
@@ -261,11 +261,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
-        -- Popup terminal
---    awful.key({ modkey }, "F11", function () scratch.drop(terminal .. " -e htop", "top") end),
---    awful.key({ modkey }, "F12", function () scratch.drop(terminal, "top") end),
+    -- Popup terminal
+    awful.key({ modkey }, "F11", function () scratch.drop(terminal .. " -e htop", "top") end),
+    awful.key({ modkey }, "F12", function () scratch.drop(terminal) end),
 
-        -- Zenix Xkill
+    -- Zenix Xkill
     awful.key({ modkey, "Ctrl"    }, "x",     function () awful.util.spawn("/usr/bin/xkill") end),
 
 
