@@ -57,9 +57,9 @@ fi
 #  wicd-client &
 #fi
 
-#if [ -x /usr/bin/wuala ] ; then
-#  wuala --startTrading &
-#fi
+if [ -x /usr/bin/wuala ] ; then
+  wuala --startTrading &
+fi
 
 
 #if [ -x /usr/bin/trayer ] ; then
