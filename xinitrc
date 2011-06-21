@@ -141,7 +141,7 @@ awesome)
   fi
 
   if [ -x /usr/bin/conky ] ; then
-    (nohup /usr/bin/conky -d)
+     (sleep 2 && /usr/bin/conky -d)&
   fi
 
   dbus-launch --exit-with-session awesome
