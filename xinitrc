@@ -140,6 +140,10 @@ awesome)
     eval `ssh-agent`
   fi
 
+  if [ -x /usr/bin/conky ] ; then
+    (nohup /usr/bin/conky -d)
+  fi
+
   dbus-launch --exit-with-session awesome
   #exec /usr/bin/awesome
   ;;
