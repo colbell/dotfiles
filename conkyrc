@@ -26,6 +26,7 @@ own_window_class Conky
 own_window_type desktop
 stippled_borders 0
 update_interval 1.0
+double_buffer true
 uppercase no
 use_spacer none
 show_graph_scale no
@@ -46,7 +47,7 @@ alignment top_left
 
 TEXT
 ${font Inconsolata bold:size=16}${color0}Zenix GNU/Linux${font}${color2}
-${scroll 16 $nodename - $sysname $kernel on $machine with uptime $uptime}
+${scroll 64 4 Conky $conky_version - $nodename - $sysname $kernel on $machine with uptime $uptime}
 
 ${font Inconsolata Medium:bold:size=10}${color0}System${font}${color1}
 
@@ -82,10 +83,10 @@ ${GOTO 50}Public IP:${GOTO 150}${execi 10000 wget -O - -q myip.dk | grep 'IP Add
 
 ${GOTO 50}${color0}eth0${color1}
 ${GOTO 50}Local IP:${GOTO 150}${addr eth0}
-${GOTO 50}Upload:${GOTO 150}${upspeedgraph eth0 10,75 B7B2AD B7B2AD} ${upspeed eth0}
-${GOTO 50}Download:${GOTO 150}${downspeedgraph eth0 10,75 B7B2AD B7B2AD} ${downspeed eth0}
+${GOTO 50}Upload:${GOTO 150}${upspeedgraph eth0 10,75 B7B2AD B7B2AD} ${upspeedf eth0} KiB
+${GOTO 50}Download:${GOTO 150}${downspeedgraph eth0 10,75 B7B2AD B7B2AD} ${downspeedf eth0} KiB
 
 ${GOTO 50}${color0}wlan0${color1}
 ${GOTO 50}Local IP:${GOTO 150}${addr wlan0}
-${GOTO 50}Upload:${GOTO 150}${upspeedgraph wlan0 10,75 B7B2AD B7B2AD} ${upspeed wlan0}
-${GOTO 50}Download:${GOTO 150}${downspeedgraph wlan0 10,75 B7B2AD B7B2AD} ${downspeed wlan0}
+${GOTO 50}Upload:${GOTO 150}${upspeedgraph wlan0 10,75 B7B2AD B7B2AD} ${upspeedf wlan0} KiB
+${GOTO 50}Download:${GOTO 150}${downspeedgraph wlan0 10,75 B7B2AD B7B2AD} ${downspeedf wlan0} KiB
