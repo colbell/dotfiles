@@ -84,5 +84,5 @@ ${GOTO 50}Download:${GOTO 150}${downspeedgraph eth0 10,75 D0781A D01C19} ${downs
 
 ${GOTO 50}${color0}wlan0${color1}
 ${GOTO 50}Local IP:${GOTO 150}${addr wlan0}
-${GOTO 50}Upload:${GOTO 150}${upspeedgraph wlan0 10,75 B7B2AD B7B2AD} ${upspeedf wlan0} KiB
-${GOTO 50}Download:${GOTO 150}${downspeedgraph wlan0 10,75 B7B2AD B7B2AD} ${downspeedf wlan0} KiB
+${GOTO 50}Upload:${GOTO 150}${upspeedgraph wlan0 10,75 D0781A D01C19} ${upspeedf wlan0} KiB
+${GOTO 50}Download:${GOTO 150}${downspeedgraph wlan0 10,75 D0781A D01C19} ${downspeedf wlan0} KiB
