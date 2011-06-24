@@ -33,6 +33,7 @@ default_color C5C5C5
 color0 D0781A
 color1 C5C5C5
 color2 8BB381
+color3 D01C19
 
 minimum_size 300 600
 gap_x 30
@@ -45,7 +46,8 @@ ${scroll 64 4 Conky $conky_version - $nodename - $sysname $kernel on $machine wi
 
 ${font Inconsolata Medium:bold:size=10}${color0}System${font}${color1}
 
-${GOTO 50}CPU:${GOTO 100}${cpubar cpu1 10,75} $cpu%
+${GOTO 50}MAIL:${GOTO 100}${new_mails}/${mails}
+${GOTO 50}CPU:${GOTO 100}${cpugraph cpu0 10,75 D0781A D01C19} $cpu%
 
 ${GOTO 50}RAM:${GOTO 100}$mem / $memmax
 ${GOTO 100}${membar 10,75}
@@ -77,8 +79,8 @@ ${GOTO 50}Public IP:${GOTO 150}${execi 10000 wget -O - -q myip.dk | grep 'IP Add
 
 ${GOTO 50}${color0}eth0${color1}
 ${GOTO 50}Local IP:${GOTO 150}${addr eth0}
-${GOTO 50}Upload:${GOTO 150}${upspeedgraph eth0 10,70 0000FF FF0000} ${upspeedf eth0} KiB
-${GOTO 50}Download:${GOTO 150}${downspeedgraph eth0 10,70 FF0000 0000FF} ${downspeedf eth0} KiB
+${GOTO 50}Upload:${GOTO 150}${upspeedgraph eth0 10,75 D0781A D01C19} ${upspeedf eth0} KiB
+${GOTO 50}Download:${GOTO 150}${downspeedgraph eth0 10,75 D0781A D01C19} ${downspeedf eth0} KiB
 
 ${GOTO 50}${color0}wlan0${color1}
 ${GOTO 50}Local IP:${GOTO 150}${addr wlan0}
