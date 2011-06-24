@@ -16,6 +16,9 @@ export LANG='en_AU.utf8'
 export LC_CTYPE='en_AU.UTF-8'
 #export LC_CTYPE=C
 
+export MAIL=$HOME/Maildir
+export MAILDIR=$HOME/Maildir
+
 # Set to this to use case-sensitive completion
 # export CASE_SENSITIVE="true"
 
