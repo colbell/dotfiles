@@ -19,6 +19,8 @@ export LC_CTYPE='en_AU.UTF-8'
 export MAIL=$HOME/Maildir
 export MAILDIR=$HOME/Maildir
 
+setopt hist_ignore_all_dups
+
 # Set to this to use case-sensitive completion
 # export CASE_SENSITIVE="true"
 
