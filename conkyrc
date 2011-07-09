@@ -43,10 +43,9 @@ alignment top_left
 TEXT
 ${font Inconsolata bold:size=16}${color0}Zenix GNU/Linux${font}${color2}
 ${scroll 64 4 Conky $conky_version - $nodename - $sysname $kernel on $machine with uptime $uptime}
-
-${font Inconsolata Medium:bold:size=10}${color0}System${font}${color1}
-
+${font Inconsolata Medium:bold:size=10}${color0}System${font}${color1}${GOTO 100}${execi 3600 ~/.bin/mydebupdates.sh}
 ${GOTO 50}MAIL:${GOTO 100}${new_mails}/${mails}
+
 ${GOTO 50}CPU:${GOTO 100}${cpugraph cpu0 10,75 D0781A D01C19} $cpu%
 
 ${GOTO 50}RAM:${GOTO 100}$mem / $memmax
