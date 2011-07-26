@@ -42,8 +42,26 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 export PATH=/home/cbell/bin:/home/cbell/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
 
-PATH() {
+P() {
   echo $PATH | tr -s ':' '\n'
+}
+
+D()
+{
+  if [ $# -eq 0 ]; then
+    z=0
+    for i in `dirs`; do
+      echo $z $i
+      z=$((z+1))
+    done
+  elif [ $1 -gt 0 ]; then
+    pushd +$1
+  elif [ $1 -lt 0 ]; then
+    z=$1
+    popd +$((-z))
+  else
+    echo d: Broken
+  fi
 }
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
