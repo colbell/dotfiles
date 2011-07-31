@@ -32,10 +32,11 @@ if [ $host = tux ] ; then
 fi
 
 if [ $host = lankhmar ] ; then
-  #xrandr --newmode "1680x1050_60.00"  146.25  1680 1784 1960 2240  1050 1053 1059 1089 -hsync +vsync
-  #xrandr --addmode VGA-0 1680x1050_60.00
+  xrandr --newmode "1680x1050_60.00"  146.25  1680 1784 1960 2240  1050 1053 1059 1089 -hsync +vsync
+  xrandr --addmode VGA-0 1680x1050_60.00
   xrandr --auto --output LVDS --mode 1280x800
-  xrandr --auto --output VGA-0 --mode 1680x1050 --right-of LVDS
+  xrandr --auto --output VGA-0 --mode 1680x1050_60.00 --right-of LVDS
+  #xrandr --auto --output VGA-0 --mode 1680x1050 --right-of LVDS
   xrandr --output LVDS --primary
 fi
 
@@ -114,9 +115,9 @@ awesome)
 
   # Start cairo composite manager
   # Cairo works, but was disabled
-  if [ -x /usr/bin/cairo-compmgr ] ; then
-    (nohup /usr/bin/cairo-compmgr &)
-  fi
+  # if [ -x /usr/bin/cairo-compmgr ] ; then
+  #   (nohup /usr/bin/cairo-compmgr &)
+  # fi
 
   # Start xfce4-power-manager
   (nohup /usr/bin/xfce4-power-manager &)
