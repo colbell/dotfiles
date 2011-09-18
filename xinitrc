@@ -40,6 +40,12 @@ if [ $host = lankhmar ] ; then
   xrandr --output LVDS --primary
 fi
 
+if [ $host = ub] ; then
+  xrandr --newmode 1680x1050  146.25  1680 1784 1960 2240  1050 1053 1059 1089 -hsync +vsync
+  xrandr --addmode VBOX0 1680x1050
+  xrandr --auto --output VBOX0 --mode 1680x1050
+fi
+
 #if [ -x /usr/bin/gnome-power-manager ] ; then
 #   gnome-power-manager &
 #fi
@@ -101,17 +107,17 @@ else
 session=${1}
 fi
 
-case $session in
-awesome)
+#case $session in
+#awesome)
   # Start tint2 (panel)
   # tint2 works with awesome, but was disabled by default.
   #(nohup /usr/bin/tint2 &)
 
   # Start wicd client
-  (nohup /usr/bin/wicd-client &)
+#  (nohup /usr/bin/wicd-client &)
 
   # Start volume panel applet
-  (nohup /usr/bin/volumeicon &)
+#  (nohup /usr/bin/volumeicon &)
 
   # Start cairo composite manager
   # Cairo works, but was disabled
@@ -123,33 +129,37 @@ awesome)
   (nohup /usr/bin/xfce4-power-manager &)
 
 
-  if [ -x /usr/bin/xscreensaver ] ; then
-    (nohup /usr/bin/xscreensaver -no-splash &)
-  fi
+if [ -x /usr/bin/xscreensaver ] ; then
+  (nohup /usr/bin/xscreensaver -no-splash &)
+fi
+
+if [ -x /usr/bin/nm-applet ] ; then
+  (nohup /usr/bin/nm-applet&)
+fi
 
   # if [ -x /usr/bin/batterymon ] ; then
   #   (nohup /usr/bin/batterymon &)
   # fi
 
-  if [ -x /usr/bin/dropboxd ] ; then
-    (nohup /usr/bin/dropboxd &)
-  elif [ -x /usr/bin/dropbox ] ; then
-    (nohup /usr/bin/dropbox start &)
-  elif [ -x $HOME/apps/dropbox/dropboxd ] ; then
-    (nohup $HOME/apps/dropbox/dropboxd start &)
-  fi
+if [ -x /usr/bin/dropboxd ] ; then
+  (nohup /usr/bin/dropboxd &)
+elif [ -x /usr/bin/dropbox ] ; then
+  (nohup /usr/bin/dropbox start &)
+elif [ -x $HOME/apps/dropbox/dropboxd ] ; then
+  (nohup $HOME/apps/dropbox/dropboxd start &)
+fi
 
-  if [ -x /usr/bin/ssh-agent ] ; then
-    eval `ssh-agent`
-  fi
+if [ -x /usr/bin/ssh-agent ] ; then
+  eval `ssh-agent`
+fi
 
-  if [ -x /usr/bin/conky ] ; then
-     (sleep 2 && /usr/bin/conky -d)&
-  fi
+if [ -x /usr/bin/conky ] ; then
+   (sleep 2 && /usr/bin/conky -d)&
+fi
 
-  dbus-launch --exit-with-session awesome
+  #dbus-launch --exit-with-session awesome
   #exec /usr/bin/awesome
-  ;;
+  #;;
 # These window managers are examples if you add them
 #xfce4)
 #       exec startxfce4
@@ -165,11 +175,11 @@ awesome)
 #blackbox)
 #       exec blackbox
 #       ;;
-openbox)
-  exec /usr/bin/openbox-session
-  ;;
-*)
-  exec $DEFAULT_SESSION
-  ;;
-esac
+#openbox)
+  #exec /usr/bin/openbox-session
+  #;;
+#*)
+#  exec $DEFAULT_SESSION
+#  ;;
+#esac
 
