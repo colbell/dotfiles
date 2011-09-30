@@ -36,12 +36,12 @@ color2 8BB381
 color3 D01C19
 
 minimum_size 300 600
-gap_x 30
-gap_y 50
+gap_x 10
+gap_y 20
 alignment top_left
 
 TEXT
-${font Inconsolata bold:size=16}${color0}Zenix GNU/Linux${font}${color2}
+${font Inconsolata bold:size=16}${color0}${execi 3600 lsb_release -sd}${font}${color2}
 ${scroll 64 4 Conky $conky_version - $nodename - $sysname $kernel on $machine with uptime $uptime}
 ${font Inconsolata Medium:bold:size=10}${color0}System${font}${color1}${GOTO 100}${execi 3600 ~/.bin/mydebupdates.sh}
 ${GOTO 50}Mail:${GOTO 100}${new_mails}/${mails}
