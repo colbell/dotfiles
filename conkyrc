@@ -40,6 +40,8 @@ gap_x 10
 gap_y 20
 alignment top_left
 
+mail_spool $MAIL
+
 TEXT
 ${font Inconsolata bold:size=16}${color0}${execi 3600 lsb_release -sd}${font}${color2}
 ${scroll 64 4 Conky $conky_version - $nodename - $sysname $kernel on $machine with uptime $uptime}
