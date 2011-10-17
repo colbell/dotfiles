@@ -14,12 +14,26 @@
 ;; Performance
 ;;;;(setq gnus-read-active-file nil)
 
-(setq gnus-select-method `(nnimap "gmail"
-                                  (nnimap-address "imap.gmail.com")
-                                  (nnimap-server-port 993)
-                                  (nnimap-stream ssl)
-                                  (nnir-search-engine imap)))
+(setq gnus-select-method `(nnimap "dovecot"
+                                  ;; (nnimap-address "imap.gmail.com")
+                                  ;; (nnimap-server-port 993)
+                                  (nnimap-address "localhost")
+                                  (nnimap-stream network)
+                                  (nnimap-authenticator login)
+                                  ;;(nnimap-stream ssl)
+                                  ;;(nnir-search-engine imap)
+                                  ))
 
+;; (setq gnus-secondary-select-methods '((nnmaildir "Local Mail"
+;;                                                  (directory "~/.nnmaildir/"))))
+
+
+;;(setq mail-sources '((maildir :path "~/Maildir/local/" :subdirs ("cur" "new"))))
+ (setq gnus-secondary-select-methods 
+       '((nnmaildir "Local" 
+                   (directory "~/Maildir/")
+                   (directory-files nnheader-directory-files-safe) 
+                   (get-new-mail nil))))
 ;; (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
 
@@ -136,4 +150,4 @@
 ;; (require 'gnus-mst-show-country)
 ;; (add-hook 'gnus-article-prepare-hook 'gnus-article-mst-show-country)
 
-(require 'google-contacts-gnus nil t)
+(require 'google-contacts-gnus)

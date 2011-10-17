@@ -49,8 +49,12 @@ localrepository = cbelltickit-local
 remoterepository = cbelltickit-remote
 
 [Repository cbelltickit-local]
-type = Maildir
-localfolders = ~/Maildir/tickit/
+#type = Maildir
+#localfolders = ~/GMail/
+type = IMAP
+remotehost = localhost
+remoteuser = cbell
+ssl = no
 
 [Repository cbelltickit-remote]
 type = IMAP
