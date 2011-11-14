@@ -44,8 +44,9 @@ myActiveBorderColor = myCurrentWsBgColor
 myInactiveBorderColor = "#262626"
 
 mySWNConfig = defaultSWNConfig {
-                swn_color   = myFgColor
-              , swn_bgcolor = myBgColor}
+                swn_color   = myActiveBorderColor
+              , swn_fade    = 2.0
+              , swn_bgcolor = myInactiveBorderColor}
 
 main = do
   xmonad $ gnomeConfig {
