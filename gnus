@@ -14,15 +14,26 @@
 ;; Performance
 ;;;;(setq gnus-read-active-file nil)
 
-(setq gnus-select-method `(nnimap "gmail"
-                                  (nnimap-address "imap.gmail.com")
-                                  (nnimap-server-port 993)
-                                  (nnimap-stream ssl)
-                                  (nnir-search-engine imap)))
+(setq gnus-select-method `(nnimap "dovecot"
+                                  ;; (nnimap-address "imap.gmail.com")
+                                  ;; (nnimap-server-port 993)
+                                  (nnimap-address "localhost")
+                                  (nnimap-stream network)
+                                  (nnimap-authenticator login)
+                                  ;;(nnimap-stream ssl)
+                                  ;;(nnir-search-engine imap)
+                                  ))
 
-(setq gnus-secondary-select-methods '((nnmaildir "Local Mail"
-                                      (directory "~/.nnmaildir/"))))
-;;(setq mail-sources '((maildir :path "~/Maildir/" :subdirs ("cur" "new"))))
+;; (setq gnus-secondary-select-methods '((nnmaildir "Local Mail"
+;;                                                  (directory "~/.nnmaildir/"))))
+
+
+;;(setq mail-sources '((maildir :path "~/Maildir/local/" :subdirs ("cur" "new"))))
+ (setq gnus-secondary-select-methods 
+       '((nnmaildir "Local" 
+                   (directory "~/Maildir/")
+                   (directory-files nnheader-directory-files-safe) 
+                   (get-new-mail nil))))
 ;; (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
 
@@ -65,6 +76,8 @@
 (setq gnus-summary-make-false-root 'dummy)
 (setq gnus-summary-make-false-root-always nil)
 
+;; Gnus agent does't work well with gmail.
+;;(setq gnus-agent nil)
 
 ;; http://www.emacswiki.org/emacs/TomRauchenwald
 (copy-face 'font-lock-variable-name-face 'gnus-face-6)
@@ -113,7 +126,7 @@
       mm-inline-large-images t)
 
 
-(if (string-equal system-name "zenix.net")
+;;(if (string-equal system-name "olethros")
     (setq message-send-mail-function 'smtpmail-send-it
           smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
           smtpmail-auth-credentials '(("smtp.gmail.com" 587 "cbell@tickitsystems.com.au" nil))
@@ -123,16 +136,18 @@
           user-full-name "Colin Bell"
           user-mail-address "cbell@tickitsystems.com.au"
           smtpmail-smtp-service 587)
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-        smtpmail-auth-credentials '(("smtp.gmail.com" 587 "col@baibell.org" nil))
-        smtpmail-default-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-local-domain "baibell.org"
-        user-full-name "Colin Bell"
-        user-mail-address "col@baibell.org"
-        smtpmail-smtp-service 587))
+  ;; (setq message-send-mail-function 'smtpmail-send-it
+  ;;       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+  ;;       smtpmail-auth-credentials '(("smtp.gmail.com" 587 "col@baibell.org" nil))
+  ;;       smtpmail-default-smtp-server "smtp.gmail.com"
+  ;;       smtpmail-smtp-server "smtp.gmail.com"
+  ;;       smtpmail-local-domain "baibell.org"
+  ;;       user-full-name "Colin Bell"
+  ;;       user-mail-address "col@baibell.org"
+  ;;       smtpmail-smtp-service 587))
 
 
 ;; (require 'gnus-mst-show-country)
 ;; (add-hook 'gnus-article-prepare-hook 'gnus-article-mst-show-country)
+
+(require 'google-contacts-gnus)
