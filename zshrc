@@ -43,7 +43,7 @@ plugins=(bundler git rails mysql ruby cap rvm)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/home/colbell/bin:/home/colbell/.bin:/home/Android/sdk::/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
+export PATH=/home/colbell/bin:/home/colbell/.bin:/home/colbell/Android/sdk/tools:/home/colbell/Android/sdk/platform-tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
 
 P() {
   echo $PATH | tr -s ':' '\n'
