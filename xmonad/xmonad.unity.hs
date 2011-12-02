@@ -26,11 +26,10 @@ myStartupHook = setWMName "LG3D"   -- Workaround for Java grey screen issues.
 myModMask     = mod4Mask           -- Use Windoze key.
 
 scratchpads = [
-      NS "htop" "xterm -name htop -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
-    , NS "nautilus" "Nautilus" (className =? "Nautilus") (nonFloating)
+    , NS "nautilus" "nautilus" (className =? "Nautilus") (nonFloating)
     ] where role = stringProperty "WM_WINDOW_ROLE"
 
-myManageHook = composeAll (
+myManageHook = scratchpadManageHookDefault <+>composeAll (
     [ manageHook gnomeConfig
     , className =? "Unity-2d-panel" --> doIgnore
     , className =? "Unity-2d-launcher" --> doFloat
@@ -72,10 +71,10 @@ main = do
                  , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
                  , ((myModMask, xK_o ),                windowMenu)
 
-                 , ((myModMask, xK_F8),                scratchpadSpawnAction defaultConfig)
-                 , ((myModMask, xK_F9),                namedScratchpadAction scratchpads "htop")
                  , ((myModMask, xK_F10),               namedScratchpadAction scratchpads "nautilus")
+                 , ((myModMask, xK_F12),               scratchpadSpawnAction defaultConfig)
 
                  --, ((myModMask, xK_r), spawn "dmenu_run -nb '#3F3F3F' -nf '#DCDCCC' -sb '#7F9F7F' -sf '#DCDCCC'")
-                 , ((myModMask, xK_r), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")    
+                 , ((myModMask, xK_r), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
+                 , ((myModMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
                  ]
