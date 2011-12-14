@@ -19,6 +19,7 @@ export LC_CTYPE='en_AU.UTF-8'
 export MAIL=$HOME/Maildir/local
 export MAILDIR=$HOME/Maildir/local
 
+export EDITOR=emacs
 setopt hist_ignore_all_dups
 
 # make less more friendly for non-text input files, see lesspipe(1)
@@ -39,6 +40,7 @@ setopt hist_ignore_all_dups
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(bundler git rails mysql ruby cap rvm)
+
 
 source $ZSH/oh-my-zsh.sh
 
