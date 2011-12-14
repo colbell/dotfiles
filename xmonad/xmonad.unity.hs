@@ -26,7 +26,7 @@ myStartupHook = setWMName "LG3D"   -- Workaround for Java grey screen issues.
 myModMask     = mod4Mask           -- Use Windoze key.
 
 scratchpads = [
-    , NS "nautilus" "nautilus" (className =? "Nautilus") (nonFloating)
+      NS "nautilus" "nautilus" (className =? "Nautilus") (nonFloating)
     ] where role = stringProperty "WM_WINDOW_ROLE"
 
 myManageHook = scratchpadManageHookDefault <+>composeAll (
