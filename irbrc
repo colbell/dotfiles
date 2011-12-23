@@ -1,14 +1,11 @@
 # -*- mode: ruby; -*-
-
-#require 'rubygems'
-#require 'wirble'
+require 'irb/completion'
+require 'irb/ext/save-history'
 require 'pp'
 
 IRB.conf[:AUTO_INDENT]=true
 IRB.conf[:SAVE_HISTORY]=1024
-
-#Wirble.init
-#Wirble.colorize
+IRB.conf[:ECHO]=false
 
 # Easily print methods local to an object's class
 class Object
