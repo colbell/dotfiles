@@ -19,6 +19,7 @@ export LC_CTYPE='en_AU.UTF-8'
 export MAIL=$HOME/Maildir/local
 export MAILDIR=$HOME/Maildir/local
 
+export EDITOR=emacs
 setopt hist_ignore_all_dups
 
 # make less more friendly for non-text input files, see lesspipe(1)
@@ -38,12 +39,13 @@ setopt hist_ignore_all_dups
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(bundler git rails mysql ruby cap rvm)
+plugins=(bundler git rails3 ruby cap rvm)
+
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/home/colbell/bin:/home/colbell/.bin:/home/colbell/Android/sdk/tools:/home/colbell/Android/sdk/platform-tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
+export PATH=$HOME/bin:$HOME/.bin:/home/Android/sdk/sdk/tools:/home/colbell/Android/sdk/platform-tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
 
 P() {
   echo $PATH | tr -s ':' '\n'
