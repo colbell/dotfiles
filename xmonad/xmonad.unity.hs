@@ -22,8 +22,11 @@ import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Scratchpad
 
-myStartupHook = setWMName "LG3D"   -- Workaround for Java grey screen issues.
+myStartupHook = setWMName "LG3D"
+
 myModMask     = mod4Mask           -- Use Windoze key.
+
+myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
 scratchpads = [
       NS "nautilus" "nautilus" (className =? "Nautilus") (nonFloating)
@@ -49,7 +52,7 @@ mySWNConfig = defaultSWNConfig {
 
 main = do
   xmonad $ gnomeConfig {
-               startupHook        = myStartupHook
+               workspaces         = myWorkspaces
              , manageHook         = myManageHook
              , terminal           = "xterm"
              , borderWidth        = 1
@@ -78,3 +81,7 @@ main = do
                  , ((myModMask, xK_r), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
                  , ((myModMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
                  ]
+                 ++
+                 [((m .|. myModMask, k), windows $ f i) -- Don't use Greedy view
+                      | (i, k) <- zip myWorkspaces [xK_1 .. xK_9]
+                      , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
