@@ -40,7 +40,7 @@ if [ $host = lankhmar ] ; then
   xrandr --output LVDS --primary
 fi
 
-if [ $host = ub] ; then
+if [ $host = ub ] ; then
   xrandr --newmode 1680x1050  146.25  1680 1784 1960 2240  1050 1053 1059 1089 -hsync +vsync
   xrandr --addmode VBOX0 1680x1050
   xrandr --auto --output VBOX0 --mode 1680x1050
@@ -58,13 +58,13 @@ fi
 #if [ -x /usr/bin/ubuntuone-launch ] ; then
 #  ubuntuone-launch &
 #fi
-#if [ -x /usr/bin/update-notifier ] ; then
-#  update-notifier --startup-delay=60 &
-#fi
+if [ -x /usr/bin/update-notifier ] ; then
+ update-notifier --startup-delay=60 &
+fi
 
-#if [ -x /usr/bin/wicd-client ] ; then
-#  wicd-client &
-#fi
+if [ -x /usr/bin/wicd-client ] ; then
+ wicd-client &
+fi
 
 if [ -x /usr/bin/wuala ] ; then
   wuala --startTrading &
@@ -125,8 +125,8 @@ fi
   #   (nohup /usr/bin/cairo-compmgr &)
   # fi
 
-  # Start xfce4-power-manager
-  (nohup /usr/bin/xfce4-power-manager &)
+# Start xfce4-power-manager
+(nohup /usr/bin/xfce4-power-manager &)
 
 
 if [ -x /usr/bin/xscreensaver ] ; then
@@ -157,7 +157,7 @@ if [ -x /usr/bin/conky ] ; then
    (sleep 2 && /usr/bin/conky -d)&
 fi
 
-  #dbus-launch --exit-with-session awesome
+dbus-launch --exit-with-session awesome
   #exec /usr/bin/awesome
   #;;
 # These window managers are examples if you add them

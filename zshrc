@@ -45,7 +45,7 @@ plugins=(bundler git rails3 ruby cap rvm)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$HOME/bin:$HOME/.bin:/home/Android/sdk::/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
+export PATH=$HOME/bin:$HOME/.bin:/home/Android/sdk/sdk/tools:/home/colbell/Android/sdk/platform-tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
 
 P() {
   echo $PATH | tr -s ':' '\n'
