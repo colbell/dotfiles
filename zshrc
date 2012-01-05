@@ -51,7 +51,7 @@ local smiley="%(?,%{$fg[green]%}☺%{$reset_color%},%{$fg[red]%}☹%{$reset_colo
 
 PROMPT='
 %n@%m:%{$fg[yellow]%}%~%{$reset_color%}
-${smiley}  %{$reset_color%}'
+${smiley}  %{$reset_color%}%# '
 
 RPROMPT='%{$fg[white]%} $(~/.rvm/bin/rvm-prompt)$(~/bin/git-cwd-info.rb)%{$reset_color%}'
 
