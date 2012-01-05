@@ -10,7 +10,7 @@ export ZSH=$HOME/.oh-my-zsh
 #export ZSH_THEME="robbyrussell"
 #export ZSH_THEME="humza"
 #export ZSH_THEME="candy"
-export ZSH_THEME="aussiegeek"
+#export ZSH_THEME="aussiegeek"
 
 export LANG='en_AU.utf8'
 export LC_CTYPE='en_AU.UTF-8'
@@ -46,6 +46,15 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 export PATH=$HOME/bin:$HOME/.bin:/home/Android/sdk/sdk/tools:/home/colbell/Android/sdk/platform-tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
+
+local smiley="%(?,%{$fg[green]%}☺%{$reset_color%},%{$fg[red]%}☹%{$reset_color%})"
+
+PROMPT='
+%n@%m:%{$fg[yellow]%}%~%{$reset_color%}
+${smiley}  %{$reset_color%}'
+
+RPROMPT='%{$fg[white]%} $(~/.rvm/bin/rvm-prompt)$(~/bin/git-cwd-info.rb)%{$reset_color%}'
+
 
 P() {
   echo $PATH | tr -s ':' '\n'
