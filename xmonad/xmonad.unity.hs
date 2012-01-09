@@ -13,6 +13,7 @@ import XMonad.Hooks.SetWMName
 
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
+import XMonad.Layout.SimpleFloat
 
 import XMonad.Prompt
 import XMonad.Prompt.Man
@@ -57,7 +58,7 @@ main = do
              , terminal           = "xterm"
              , borderWidth        = 1
              , modMask            = myModMask
-             , layoutHook         = showWName' mySWNConfig $ smartBorders (layoutHook gnomeConfig)
+             , layoutHook         = showWName' mySWNConfig $ smartBorders (layoutHook gnomeConfig ||| simpleFloat)
              , normalBorderColor  = myInactiveBorderColor
              , focusedBorderColor = myActiveBorderColor
              } `additionalKeys` keys'
