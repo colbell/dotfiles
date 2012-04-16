@@ -78,9 +78,7 @@ main = do
                  , ((myModMask, xK_F10),               namedScratchpadAction scratchpads "nautilus")
                  , ((myModMask, xK_F12),               scratchpadSpawnAction defaultConfig)
 
-                 --, ((myModMask, xK_r), spawn "dmenu_run -nb '#3F3F3F' -nf '#DCDCCC' -sb '#7F9F7F' -sf '#DCDCCC'")
                  , ((myModMask, xK_r), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
-                 , ((myModMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
                  ]
                  ++
                  [((m .|. myModMask, k), windows $ f i) -- Don't use Greedy view
