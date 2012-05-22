@@ -33,7 +33,7 @@ maxsyncaccounts = 1
 #ui = Tk.Blinkenlights
 #ui = Tk.VerboseUI
 #ui = TTY.TTYUI
-ui = Curses.Blinkenlights, TTY.TTYUI,
+ui = Blinkenlights
 #     Noninteractive.Basic, Noninteractive.Quiet
 
 #########################################################################
