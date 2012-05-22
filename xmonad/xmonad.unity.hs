@@ -12,13 +12,14 @@ import XMonad.Config.Gnome
 
 import XMonad.Hooks.SetWMName
 
-import XMonad.Layout.Gaps
+--import XMonad.Layout.Gaps
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
 import XMonad.Layout.SimpleFloat
 
 import XMonad.Prompt
 import XMonad.Prompt.Man
+import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.Window
 
 import XMonad.Util.EZConfig(additionalKeys)
@@ -37,13 +38,14 @@ scratchpads = [
 
 myManageHook = scratchpadManageHookDefault <+>composeAll (
     [ manageHook gnomeConfig
+    , className =? "Tilda"             --> doFloat
     , className =? "Unity-2d-panel"    --> doIgnore
     , className =? "Unity-2d-shell"    --> doIgnore
     , className =? "Unity-2d-launcher" --> doIgnore
-    , className =? "MPlayer"           --> doFloat
-    , className =? "Gimp"              --> doFloat
     , resource  =? "desktop_window"    --> doIgnore
     , resource  =? "kdesktop"          --> doIgnore
+    , className =? "MPlayer"           --> doFloat
+    , className =? "Gimp"              --> doFloat
     ])
 
 myFgColor = "#DCDCCC"
@@ -84,9 +86,9 @@ main = do
                  , ((myModMask, xK_o ),                windowMenu)
 
                  , ((myModMask, xK_F10),               namedScratchpadAction scratchpads "nautilus")
-                 , ((myModMask, xK_F12),               scratchpadSpawnAction defaultConfig)
 
-                 , ((myModMask, xK_r), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
+                 , ((myModMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
+                 , ((myModMask, xK_r), runOrRaisePrompt defaultXPConfig)
                  , ((mod1Mask,  xK_F2), spawn "~/bin/xmenud.py")
 
                  , ((myModMask .|. shiftMask, xK_q), spawn "gnome-session-quit")
