@@ -39,6 +39,7 @@ scratchpads = [
 myManageHook = scratchpadManageHookDefault <+>composeAll (
     [ manageHook gnomeConfig
     , className =? "Tilda"             --> doFloat
+    , className =? "Guake.py"          --> doFloat
     , className =? "Unity-2d-panel"    --> doIgnore
     , className =? "Unity-2d-shell"    --> doIgnore
     , className =? "Unity-2d-launcher" --> doIgnore
