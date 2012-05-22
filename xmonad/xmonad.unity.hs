@@ -7,10 +7,12 @@ import XMonad.Actions.DwmPromote
 import XMonad.Actions.GridSelect
 import XMonad.Actions.WindowMenu
 
+import XMonad.Config.Desktop (desktopLayoutModifiers)
 import XMonad.Config.Gnome
 
 import XMonad.Hooks.SetWMName
 
+import XMonad.Layout.Gaps
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
 import XMonad.Layout.SimpleFloat
@@ -25,9 +27,9 @@ import XMonad.Util.Scratchpad
 
 myStartupHook = setWMName "LG3D"
 
-myModMask     = mod4Mask           -- Use Windoze key.
+myModMask     = mod4Mask
 
-myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces  = ["1","2","3","4","5","6","7","8","9"]
 
 scratchpads = [
       NS "nautilus" "nautilus" (className =? "Nautilus") (nonFloating)
@@ -35,8 +37,13 @@ scratchpads = [
 
 myManageHook = scratchpadManageHookDefault <+>composeAll (
     [ manageHook gnomeConfig
-    , className =? "Unity-2d-panel" --> doIgnore
-    , className =? "Unity-2d-launcher" --> doFloat
+    , className =? "Unity-2d-panel"    --> doIgnore
+    , className =? "Unity-2d-shell"    --> doIgnore
+    , className =? "Unity-2d-launcher" --> doIgnore
+    , className =? "MPlayer"           --> doFloat
+    , className =? "Gimp"              --> doFloat
+    , resource  =? "desktop_window"    --> doIgnore
+    , resource  =? "kdesktop"          --> doIgnore
     ])
 
 myFgColor = "#DCDCCC"
@@ -58,7 +65,8 @@ main = do
              , terminal           = "xterm"
              , borderWidth        = 1
              , modMask            = myModMask
-             , layoutHook         = showWName' mySWNConfig $ smartBorders (layoutHook gnomeConfig ||| simpleFloat)
+--             , layoutHook         = showWName' mySWNConfig $ smartBorders (layoutHook gnomeConfig ||| (gaps [(U, 24)] $ simpleFloat))
+             , layoutHook         = showWName' mySWNConfig $ desktopLayoutModifiers (layoutHook gnomeConfig ||| simpleFloat)
              , normalBorderColor  = myInactiveBorderColor
              , focusedBorderColor = myActiveBorderColor
              } `additionalKeys` keys'
@@ -79,6 +87,9 @@ main = do
                  , ((myModMask, xK_F12),               scratchpadSpawnAction defaultConfig)
 
                  , ((myModMask, xK_r), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
+                 , ((mod1Mask,  xK_F2), spawn "~/bin/xmenud.py")
+
+                 , ((myModMask .|. shiftMask, xK_q), spawn "gnome-session-quit")
                  ]
                  ++
                  [((m .|. myModMask, k), windows $ f i) -- Don't use Greedy view
