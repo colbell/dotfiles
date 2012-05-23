@@ -3,6 +3,7 @@ import XMonad
 
 import qualified XMonad.StackSet as W
 
+import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
 import XMonad.Actions.GridSelect
 import XMonad.Actions.WindowMenu
@@ -85,6 +86,9 @@ main = do
                  , ((myModMask .|. shiftMask, xK_g),   windowPromptBring defaultXPConfig { autoComplete = Just 500000 } )
                  , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
                  , ((myModMask, xK_o ),                windowMenu)
+
+                 , ((myModMask .|. controlMask, xK_w), swapPrevScreen)
+                 , ((myModMask .|. controlMask, xK_e), swapNextScreen)
 
                  , ((myModMask, xK_F10),               namedScratchpadAction scratchpads "nautilus")
 
