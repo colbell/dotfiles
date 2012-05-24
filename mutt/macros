@@ -4,13 +4,13 @@
 macro   index   <F10>   "!muttprofile\n:source ~/.mutt/profile.active\n" "Call muttprofile and load profile"
 
 # View the mailhops for a message
-macro pager \e2 ":unset weed\n|~/bin/mailhops|less -c\n:set weed\n" "Show trace of mail routing"
+macro pager ,h ":unset weed\n|~/bin/mailhops|less -c\n:set weed\n" "Show trace of mail routing"
 
 # Multiple mailbox search
 #macro index \e3 <change-folder>=vfolder<enter><shell-escape>'mairix '
 # first macro does the search according to user query, second macro jumps to result list
-macro index <F8> "<shell-escape>mu find -c -l ~/Maildir/search "  "mu find"
-macro index <F9> "<change-folder-readonly>~/Maildir/search" "display mu find
+#macro index <F8> "<shell-escape>mu find -c -l ~/Maildir/search "  "mu find"
+#macro index <F9> "<change-folder-readonly>~/Maildir/search" "display mu find
 
 
 macro index   <left>   "c?"
@@ -22,9 +22,16 @@ macro pager \cb <pipe-entry>'w3m'<enter> 'Follow links in w3m'
 # Add an email address to the ABook addressbook
 macro pager ,a  |'abook --add-email'\n
 
-macro pager \e\e0    ":set pager_index_lines=10\n:macro pager I \\e\\e1 toggle\\ pager_index_lines\n" "internal function"
-macro pager \e\e1    ":set pager_index_lines=0\n:macro pager I \\e\\e0 toggle\\ pager_index_lines\n" "internal function"
-macro pager ,f       "\e\e1" "toggle pager_index_lines"
+macro pager ,0       "<enter-command>set pager_index_lines=0<enter>"
+macro pager ,1       "<enter-command>set pager_index_lines=1<enter>"
+macro pager ,2       "<enter-command>set pager_index_lines=2<enter>"
+macro pager ,3       "<enter-command>set pager_index_lines=3<enter>"
+macro pager ,4       "<enter-command>set pager_index_lines=4<enter>"
+macro pager ,5       "<enter-command>set pager_index_lines=5<enter>"
+macro pager ,6       "<enter-command>set pager_index_lines=6<enter>"
+macro pager ,7       "<enter-command>set pager_index_lines=7<enter>"
+macro pager ,8       "<enter-command>set pager_index_lines=8<enter>"
+macro pager ,9       "<enter-command>set pager_index_lines=9<enter>"
 
 # Limit to new and flagged messages.
 macro index ,n    '<limit>~N|~O|~F<enter>'

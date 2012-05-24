@@ -2,7 +2,7 @@
 # vim:ft=muttrc
 
 # Fancy (and pointless) headers on outgoing email.
-my_hdr X-Operating-System: `uname -sr`
+my_hdr X-Operating-System: GNU/Linux, kernel `uname -r`, `uptime | sed s/.*up/up/ | sed s/,[[:space:]0-9]*users.*$//`
 my_hdr X-Editor: `emacs -nw -no-init-file -no-site-file --version | head -n 1`
 
 # Which headers to display.
@@ -13,6 +13,7 @@ unignore priority: importance:                        # MS Outlook cals it impor
 unignore organization organisation                    # Because I'm curious
 unignore user-agent: x-agent: x-posting-agent:        # Mail client
 unignore x-mailer: x-newsreader: x-mailing-list:
+unignore x-info
 unignore x-editor                                     # Text editor used
 unignore x-operating-system:
 unignore x-message-flag
@@ -28,7 +29,7 @@ unignore x-virus-status
 unignore followup-to: mail-followup-to:
 unignore auto-submitted                               # ?
 unignore x-pgp-key
-unignore Received-SPF
+#unignore Received-SPF
 
 # Sequence headers.
 unhdr_order *
