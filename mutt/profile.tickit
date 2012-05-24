@@ -4,6 +4,8 @@
 set realname='Colin Bell'
 set from='cbell@tickitsystems.com.au'
 
+my_hdr Organisation: Tickit Systems P/L
+
 set header_cache="~/.mutt/cache/cbelltickit/headers"
 set message_cachedir="~/.mutt/cache/cbelltickit/bodies"
 
