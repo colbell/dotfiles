@@ -4,6 +4,8 @@
 set realname='Colin Noel Bell'
 set from='col@baibell.org'
 
+unmy_hdr organisation
+
 set header_cache="~/.mutt/cache/colbaibell/headers"
 set message_cachedir="~/.mutt/cache/colbaibell/bodies"
 

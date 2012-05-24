@@ -48,6 +48,8 @@ autorefresh = 5
 localrepository = cbelltickit-local
 remoterepository = cbelltickit-remote
 
+postsynchook = notsuch new
+
 [Repository cbelltickit-local]
 type = Maildir
 localfolders = ~/Maildir/tickit

@@ -11,6 +11,7 @@ source ~/.mutt/bindings                    # Key bindings
 source ~/.mutt/macros                      # macros
 source ~/.mutt/hooks                       # Hooks
 source ~/.mutt/format-lines                # Format lines
+source ~/.mutt/notmuch
 
 # Show version on startup
 push "V"
