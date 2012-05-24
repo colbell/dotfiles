@@ -14,7 +14,7 @@ unset confirmappend               # Dont prompt when adding to a mailbox
   set date_format="%e-%b-%y %H:%M:%S"  # d/mon/yy hh:mm:ss
   set delete                      # Delete flagged msgs without prompt
   set copy                        # Save sent emails.
-  set edit_headers                # Display msg headers in edtor during compose
+unset edit_headers                # Display msg headers in edtor during compose
   set followup_to                 # Set a Mail-Followup-To header on each mail sent to a list.
 unset force_name                  # Do not force me to save outgoing mail by username
   set help                        # Show help line
@@ -24,9 +24,9 @@ unset force_name                  # Do not force me to save outgoing mail by use
 unset mark_old                    # Keep msgs flagged as new until actually read
 unset metoo                       # Dont mail to me when replying
   set mime_forward=ask-yes        # Forward msgs as an attachment but ask for confirmation.
-  set move                        # Move read msgs from spoolfile
+unset move                        # Move read msgs from spoolfile
   set pager_context=1             # When viewing next page of info, retain last line of previous page
-  set pager_index_lines=10        # You can see the pager and X lines of the index at the same time
+  set pager_index_lines=9         # You can see the pager and X lines of the index at the same time
   set pager_stop                  # Dont move to next msg when paging paet end/start of msg.
   set prompt_after                # Show "press key to exit" msgs.
   set quit=ask-yes                # Prompt to quit Mutt

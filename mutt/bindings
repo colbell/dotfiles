@@ -14,3 +14,9 @@ bind  browser <left>   exit
 
 bind index    "{"      previous-thread
 bind index    "}"      next-thread
+
+bind index    \e"<"    first-entry
+bind index    \e">"    last-entry
+
+bind pager    \e"<"    top
+bind pager    \e">"    bottom

@@ -1,0 +1,119 @@
+#! /usr/bin/ruby -w
+# -*- coding: utf-8 -*-
+
+# mailhops.rb - prints the hosts an e-mail went through, and the time
+# spent on each of them
+#
+# Copyright (c) 2005, 2006 Adeodato Simó (dato@net.com.org.es)
+# Licensed under the terms of the MIT license, included below.
+
+# (This is a from-scratch reimplementation in Ruby of the original
+# mailhops script in Perl by Marius Gedminas and Roland Rosenfeld as
+# found in http://www.spinnaker.de/mutt/mailhops.)
+
+###
+
+require 'time'
+
+# Format a (perhaps negative) number of seconds into hh:mm:ss, or
+# dd:hh:mm if the amount is greater than seconds in a day.
+def fmt_seconds (s)
+    sep = s < 0 ? "-" : " "
+    s = s.abs
+
+    d, h = s.divmod(86400)
+    h, m = h.divmod(3600)
+    m, s = m.divmod(60)
+
+    if d != 0
+        "% 1sd% 3d:%02d" % ["#{sep}#{d.to_i}", h, m]
+    else
+        "% 2s:%02d:%02d" % ["#{sep}#{h.to_i}", m, s]
+    end
+end
+
+###
+
+# Create an array with all the Received headers, plus the Date of the
+# message as the first element
+
+received = []
+the_date = nil
+
+while line = gets
+    line.chomp!
+    break if line.empty? # end of headers
+
+    case line
+        when /^Date:\s*(.+)/i
+            the_date = "by Date: ; #{$1}"
+        when /^Received:/i
+            received.unshift line
+            in_received = true
+        when /^\s/
+            received.first << line if in_received
+        else
+            in_received = false
+    end
+end
+
+received.unshift(the_date)
+received.compact
+
+###
+
+# TODO - Print table header
+
+total_lag = 0
+last_time = nil
+
+received.each_with_index { |r, i|
+    host = r[/\bby\s+(\S+)/, 1] || '(unknown)'
+    date = r[/;\s*(.+)$/, 1]
+
+    if not date
+        date = lag1 = lag2 = ''
+    else
+        date = Time.parse(date).getlocal
+        last_time ||= date
+
+        lag = date - last_time
+
+        last_time  = date
+        total_lag += lag
+
+        date = date.strftime('%Y-%m-%d  %H:%M:%S')
+
+        lag1, lag2 = [ lag, total_lag ].map { |s|
+            # sep = s < 0 ? '-' : ' '
+            # sep + Time.at(s.abs).utc.strftime('%H:%M:%S')
+            # XXX the above has a bug when l.abs > 3600*24, so:
+            fmt_seconds(s)
+        }
+    end
+
+    puts '%2d. %-33s%s  %s  %s' % [ i+1, host, date, lag1, lag2 ]
+}
+
+###
+
+# MIT LICENSE (http://www.opensource.org/licenses/mit-license.php)
+
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
