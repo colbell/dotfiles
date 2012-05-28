@@ -4,16 +4,17 @@
 set realname='Colin Bell'
 set from='cbell@tickitsystems.com.au'
 
-my_hdr Organisation: Tickit Systems P/L
+my_hdr Organisation: Tickit Systems Pty. Ltd.
 
 set header_cache="~/.mutt/cache/cbelltickit/headers"
 set message_cachedir="~/.mutt/cache/cbelltickit/bodies"
 
-set folder="~/Maildir/tickit"
 set mask="!^\\.[^.]"
 #set mbox="~/maildir/tickit/INBOX"
 #set mbox="/var/mail/$USER"
 #set spoolfile = "+INBOX"
+set folder="~/Maildir/tickit"
+#set mbox="~/Mailbox"
 set postponed="+postponed"
 set record=""
 

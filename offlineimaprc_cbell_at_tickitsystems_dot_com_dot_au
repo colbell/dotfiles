@@ -48,7 +48,7 @@ autorefresh = 5
 localrepository = cbelltickit-local
 remoterepository = cbelltickit-remote
 
-postsynchook = notsuch new
+postsynchook = notmuch new
 
 [Repository cbelltickit-local]
 type = Maildir

@@ -18,6 +18,7 @@ export LC_CTYPE='en_AU.UTF-8'
 
 #export MAIL=$HOME/Maildir/local
 #export MAILDIR=$HOME/Maildir/local
+export MAIL=~/Mailbox
 
 export EDITOR=emacs
 setopt hist_ignore_all_dups
