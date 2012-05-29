@@ -10,9 +10,12 @@ set ispell="/usr/bin/aspell --mode=email check"
 #set editor="vim  -c 'set tw=72 expandtab ft=mail' +/^\$"
 #set editor="vim  -c 'set tw=72 expandtab ft=mail'"
 #set editor="emacs -nw "
-#set editor="emacs -nw --no-init-file --load ~/.emacs.d/emacs.mail +7:0"
 #set editor="emacs --load ~/.emacs.d/emacs.mail"
+
+# Use client when solarized theme works properly in emacsclient and screen
 set editor="emacsclient -nw"
+#set editor="emacs -nw"
+
 # --load ~/.emacs.d/emacs.mail"
 
 #set pager="emacsclient"
