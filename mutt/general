@@ -63,7 +63,7 @@ alternates colbell@users.sourceforge.net|col@squirrelsql.org|col@baibell.org|col
 # mime_lookup application/octet-stream
 
 # Automatically view the following message types using .mailcap entries.
-auto_view text/html text/enriched
+auto_view text/html text/enriched application/pdf
 
 #alternative_order text/plain text/enriched text application/postscript image/*
 alternative_order text/plain text/enriched text

@@ -13,8 +13,8 @@ set ispell="/usr/bin/aspell --mode=email check"
 #set editor="emacs --load ~/.emacs.d/emacs.mail"
 
 # Use client when solarized theme works properly in emacsclient and screen
-set editor="emacsclient -nw"
-#set editor="emacs -nw"
+#set editor="emacsclient -nw"
+set editor="emacs -nw"
 
 # --load ~/.emacs.d/emacs.mail"
 
