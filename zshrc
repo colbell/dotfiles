@@ -40,7 +40,7 @@ setopt hist_ignore_all_dups
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(bundler git rails3 ruby cap rvm)
+plugins=(bundler command-not-found git rails3 ruby cap rvm)
 
 
 source $ZSH/oh-my-zsh.sh
