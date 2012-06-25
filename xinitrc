@@ -71,11 +71,11 @@ if [ -x /usr/bin/wuala ] ; then
 fi
 
 
-#if [ -x /usr/bin/trayer ] ; then
-# # #margin=1680
-# trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 6 --tint 0xFFFFFF --height 16 &
-# # #trayer --edge top --margin 1680 --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --transparent true --tint 0x191970 --height 12 &
-#fi
+if [ -x /usr/bin/trayer ] ; then
+ # #margin=1680
+ trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 6 --tint 0xFFFFFF --height 16 &
+ # #trayer --edge top --margin 1680 --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --transparent true --tint 0x191970 --height 12 &
+fi
 
 # FG='#a8a3f7' 
 # BG='#3f3c6d'
@@ -102,7 +102,7 @@ DEFAULT_SESSION=/usr/bin/openbox-session
 
 if [ -z $1 ]
 then
- session=awesome
+ session=xmonad
 else
 session=${1}
 fi
@@ -157,7 +157,7 @@ if [ -x /usr/bin/conky ] ; then
    (sleep 2 && /usr/bin/conky -d)&
 fi
 
-dbus-launch --exit-with-session awesome
+dbus-launch --exit-with-session xmonad
   #exec /usr/bin/awesome
   #;;
 # These window managers are examples if you add them
