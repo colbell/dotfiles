@@ -7,5 +7,6 @@ set ispell="/usr/bin/aspell --mode=email check"
 #set editor="emacs -nw"
 set editor="emacsclient -c"
 
+# Address lookup
 #set query_command="lbdbq %s"
 set query_command = "bitsa search '%s'"

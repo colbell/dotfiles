@@ -1,7 +1,7 @@
 # -*- mode: muttrc; -*-
 # vim:ft=muttrc
 
-  set abort_nosubject=ask-no      # Prompt to abort emails with no subject.
+  set abort_nosubject=ask-no                       # Prompt to abort emails with no subject.
 unset abort_unmodified            # Don't abort unmodified emails.
 set   alias_file=~/.mutt/aliases  # Address aliases
 unset arrow_cursor                # Dont use arrow to show cur line in index
@@ -15,6 +15,7 @@ unset confirmappend               # Dont prompt when adding to a mailbox
   set delete                      # Delete flagged msgs without prompt
   set copy                        # Save sent emails.
 unset edit_headers                # Display msg headers in edtor during compose
+  set envelope_from               # Make the envelope From: the same as the From: header
   set followup_to                 # Set a Mail-Followup-To header on each mail sent to a list.
 unset force_name                  # Do not force me to save outgoing mail by username
   set help                        # Show help line
@@ -34,26 +35,20 @@ unset move                        # Move read msgs from spoolfile
 unset recall                      # Don't ask about postponed msgs when composing
 unset reply_self                  # If replying to a msg sent by me then send to the original recipients
   set smart_wrap                  # Smart wrapping in pager
+  set sort = 'threads'            # Default to sorting by threads
+  set sort_aux = 'last-date-received' # Sort by date received within threads
   set sort_browser=reverse-date   # Initially show mail folders with most recent new mail at top.
   set status_on_top               # Put status line at top of screen
   set tilde                       # Indicate empty lines in the pager
   set timeout=15                  # Number of seconds (if no user input) before mutt checks for new mail in cur mailbox
   set tmpdir=/tmp                 # Temp files are stored in public.
+  set use_from                    # Generate a From: header
   set wrapmargin=10               # Margin on right when smartwrapping.
   set write_inc=100               # Write counter ticks every X msgs.
   set xterm_set_titles=no         # Don't show Mutt title in console title bar.
 
 # Foreign language versions of re: Needed for correct threading
 set reply_regexp="^((RE|Re|re|re|r?f|aw|antw.?|[Aa]ntwort|Sv|sv|SV):[ \t]*)*"
-
-set followup_to                     # Set a Mail-Followup-To header on each mail sent to a list.
-set honor_followup_to=yes           # If an email has a Mail-Followup-To header then use it when replying.
-
-set sort = 'threads'
-set sort_aux = 'last-date-received'
-
-set envelope_from               # Make the envelope From: the same as the From: header
-set use_from                    # Generate a From: header
 
 alternates colbell@users.sourceforge.net|col@squirrelsql.org|col@baibell.org|colin.bell@jobfutures.com.au|cbell@tickitsystems.com.au
 
