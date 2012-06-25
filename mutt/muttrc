@@ -1,6 +1,9 @@
+# -*- mode: muttrc; -*-
+# vim:ft=muttrc
+
 source ~/.mutt/profile.active
 
-source "/etc/t-prot/Muttrc"                # for the t-prot script
+source "/etc/t-prot/Muttrc"                # t-prot script
 source ~/.mutt/aliases                     # Groups
 source ~/.mutt/cmds                        # Commands that Mutt executes
 source ~/.mutt/general                     # General stuff
@@ -11,7 +14,6 @@ source ~/.mutt/bindings                    # Key bindings
 source ~/.mutt/macros                      # macros
 source ~/.mutt/hooks                       # Hooks
 source ~/.mutt/format-lines                # Format lines
-source ~/.mutt/notmuch
 
 # Show version on startup
 push "V"
