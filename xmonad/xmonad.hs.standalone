@@ -1,12 +1,4 @@
 -- -*- mode: haskell; -*-
-
--- TODO:
--- * Take a look at https://github.com/davidbeckingsale/xmonad-config/blob/master/xmonad.hs
--- * Decide on dzen/conky/xmobar etc.
---   http://dzen.geekmode.org/dwiki/doku.php?id=dzen:dzen-and-xmonad
--- * Investigate urgencyhook
--- * Use zenburn like colors
-
 import System.IO
 
 import XMonad hiding ( (|||) )
@@ -43,6 +35,8 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.Scratchpad
 import XMonad.Util.WorkspaceCompare
 
+myWorkspaces  = ["1","2","3","4","5","6","7","8","9"]
+
 scratchpads = [
       NS "htop" "xterm -name htop -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
     , NS "nautilus" "Nautilus" (className =? "Nautilus") (nonFloating)
@@ -57,10 +51,9 @@ myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDef
                                    , className =? "Vncviewer"    --> doFloat
                                    , className =? "stalonetray"  --> doIgnore
                                    , className =? "trayer"       --> doIgnore
+                                   , className =? "Tilda"        --> doFloat
+                                   , className =? "Guake.py"     --> doFloat
                                    ]])
-
-myWorkSpaces = [" 1-office ", " 2-emacs " ," 3-shell ", " 4-web ", " 5-fm ", " 6 ", " 7 ", " 8 ", " 9-keep "]
-
 
 myLogHook h = do
   dynamicLogWithPP $ oxyPP h
@@ -89,9 +82,11 @@ myFont = "Inconsolata-10"
 myFgColor = "#DCDCCC"
 myBgColor = "#3f3f3f"
 myHighlightedFgColor = myFgColor
-myHighlightedBgColor = "#7F9F7F"
+myHighlightedBgColor = "#CC5500"
 myActiveBorderColor = myCurrentWsBgColor
 myInactiveBorderColor = "#262626"
+
+-- Are these used?
 myCurrentWsFgColor = myHighlightedFgColor
 myCurrentWsBgColor = myHighlightedBgColor
 myVisibleWsFgColor = myFgColor
@@ -123,7 +118,7 @@ main = do
   xmonad $ defaultConfig {
                manageHook         = manageDocks <+> myManageHook <+> manageHook defaultConfig
              , layoutHook         = showWName' mySWNConfig $ myLayout
-             , workspaces         = myWorkSpaces
+             , workspaces         = myWorkspaces
              , terminal           = "xterm"
              , logHook            = myLogHook xmproc
                                     >> updatePointer (Relative 0.5 0.5)
@@ -135,7 +130,7 @@ main = do
              } `additionalKeys` keys'
        where
          keys' =  [ ((myModMask , xK_Return),               dwmpromote)
-                  , ((myModMask .|. shiftMask, xK_Return),  spawn "urxvt")
+                  , ((myModMask .|. shiftMask, xK_Return),  spawn "x-terminal-emulator")
 
                   , ((myModMask .|. shiftMask, xK_z),       spawn "xscreensaver-command --lock")
 
@@ -154,10 +149,12 @@ main = do
                   , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
                   , ((myModMask, xK_o ),                windowMenu)
 
-                  , ((myModMask, xK_p),                 spawn "dmenu_run -nb '#3F3F3F' -nf '#DCDCCC' -sb '#7F9F7F' -sf '#DCDCCC'")
-                  , ((myModMask, xK_F8),                scratchpadSpawnAction defaultConfig)
-                  , ((myModMask, xK_F9),                namedScratchpadAction scratchpads "htop")
-                  , ((myModMask, xK_F10),               namedScratchpadAction scratchpads "nautilus")
+                  , ((myModMask .|. controlMask, xK_w), swapPrevScreen)
+                  , ((myModMask .|. controlMask, xK_e), swapNextScreen)
+
+                  , ((myModMask, xK_p),                 spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
+                  , ((myModMask, xK_r), runOrRaisePrompt defaultXPConfig)
+                  , ((mod1Mask,  xK_F2), spawn "~/bin/xmenud.py")
 
                   , ((myModMask, xK_b),                 sendMessage ToggleStruts)
                   , ((mod1Mask, xK_F4),                 kill)
