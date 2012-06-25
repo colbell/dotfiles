@@ -2,26 +2,11 @@
 # vim:ft=muttrc
 # Commands that mutt can execute.
 
-# Spellcheck
 set ispell="/usr/bin/aspell --mode=email check"
 
-# Edit cmd for composing emails
-#set editor="ec -c +999999 %s"
-#set editor="vim  -c 'set tw=72 expandtab ft=mail' +/^\$"
-#set editor="vim  -c 'set tw=72 expandtab ft=mail'"
-#set editor="emacs -nw "
-#set editor="emacs --load ~/.emacs.d/emacs.mail"
+#set editor="emacs -nw"
+set editor="emacsclient -c"
 
-# Use client when solarized theme works properly in emacsclient and screen
-#set editor="emacsclient -nw"
-set editor="emacs -nw"
-
-# --load ~/.emacs.d/emacs.mail"
-
-#set pager="emacsclient"
-
-# use LBDB for email addresses
+# Address lookup
 #set query_command="lbdbq %s"
-
-#set query_command = "ruby -I ~/src/tumm/lib ~/src/tumm/bin/tumm search '%s'"
 set query_command = "bitsa search '%s'"
