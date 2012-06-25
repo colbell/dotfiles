@@ -6,13 +6,6 @@ macro   index   <F10>   "!muttprofile\n:source ~/.mutt/profile.active\n" "Call m
 # View the mailhops for a message
 macro pager ,h ":unset weed\n|~/bin/mailhops|less -c\n:set weed\n" "Show trace of mail routing"
 
-# Multiple mailbox search
-#macro index \e3 <change-folder>=vfolder<enter><shell-escape>'mairix '
-# first macro does the search according to user query, second macro jumps to result list
-#macro index <F8> "<shell-escape>mu find -c -l ~/Maildir/search "  "mu find"
-#macro index <F9> "<change-folder-readonly>~/Maildir/search" "display mu find
-
-
 macro index   <left>   "c?"
 
 # Replace urlview with w3m. Within w3m press : to see all links
@@ -44,3 +37,15 @@ macro pager ,s <save-message>=[Gmail].Spam<enter>
 # Not only mark the thread as read and position to the next new/unread message
 # but also display that message which the default keybinding doesn't do.
 macro pager \cr <read-thread><display-message>
+
+
+# Searching mail via notmuch
+macro index <F8> \
+      "<enter-command>unset wait_key<enter><shell-escape>notmuch-mutt --prompt search<enter><change-folder-readonly>`echo ${XDG_CACHE_HOME:-$HOME/.cache}/notmuch/mutt/results`<enter>" \
+      "notmuch: search mail"
+macro index <F9> \
+      "<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt thread<enter><change-folder-readonly>`echo ${XDG_CACHE_HOME:-$HOME/.cache}/notmuch/mutt/results`<enter><enter-command>set wait_key<enter>" \
+      "notmuch: reconstruct thread"
+macro index <F6> \
+      "<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt tag -inbox<enter>" \
+      "notmuch: remove message from inbox"

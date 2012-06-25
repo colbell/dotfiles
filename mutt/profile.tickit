@@ -7,18 +7,23 @@ set from='cbell@tickitsystems.com.au'
 my_hdr Organisation: Tickit Systems Pty. Ltd.
 
 set header_cache="~/.mutt/cache/cbelltickit/headers"
-set message_cachedir="~/.mutt/cache/cbelltickit/bodies"
+#set message_cachedir="~/.mutt/cache/cbelltickit/bodies"
 
 set mask="!^\\.[^.]"
+
 #set mbox="~/maildir/tickit/INBOX"
 #set mbox="/var/mail/$USER"
 #set spoolfile = "+INBOX"
-set folder="~/Maildir/tickit"
 #set mbox="~/Mailbox"
-set postponed="+postponed"
+#set postponed="+postponed"
+
+set mbox="~/Mailbox"
+set folder="~/Maildir/tickit"
+
+set postponed="+[Gmail].Drafts"
 set record=""
 
-mailboxes `echo $HOME/Maildir/tickit/*`
+mailboxes `echo $HOME/Mailbox $HOME/Maildir/tickit/*`
 
 set smtp_url="smtps://cbell@tickitsystems.com.au@smtp.gmail.com"
 
@@ -32,7 +37,6 @@ folder-hook .*Gmail.*Spam   'push "<limit>~N<enter>"'
 
 folder-hook IN.                            'push "<limit>~N|~O|~F<enter>"'
 folder-hook cbell@tickitondemand.com.au   'push "<limit>~N|~O|~F<enter>"'
-#folder-hook IN.             'push "<limit>~N|~O|~F|~P<enter>"'
 
 folder-hook .                     unmy_hdr Reply-To:
 folder-hook =IN-tickit-support    my_hdr Reply-To: support@tickitsystems.com.au
