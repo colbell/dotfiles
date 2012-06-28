@@ -9,7 +9,7 @@ source ~/.mutt/cmds                        # Commands that Mutt executes
 source ~/.mutt/general                     # General stuff
 source ~/.mutt/lists                       # Mailing list definitions
 source ~/.mutt/headers                     # Header display info
-source ~/.mutt/colors                      # Color scheme
+source ~/.mutt/colors-zenburn              # Color scheme
 source ~/.mutt/bindings                    # Key bindings
 source ~/.mutt/macros                      # macros
 source ~/.mutt/hooks                       # Hooks
