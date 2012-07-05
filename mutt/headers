@@ -13,6 +13,7 @@ unignore priority: importance:                        # MS Outlook cals it impor
 unignore organization organisation                    # Because I'm curious
 unignore user-agent: x-agent: x-posting-agent:        # Mail client
 unignore x-mailer: x-newsreader: x-mailing-list:
+unignore Message-Id: In-Reply-To: References:
 unignore x-info
 unignore x-editor                                     # Text editor used
 unignore x-operating-system:
@@ -38,10 +39,11 @@ From: Reply-To: \
 To: Cc: newsgroups: posted-to: x-newsgroups: x-posted-to: \
 Subject: Date: \
 x-message-flag: \
-Message-Id: In-Reply-To: References: \
 User-Agent: X-Editor: X-Mailer: \
 X-Newsreader: X-Posting-Agent: \
 x-operating-system: \
+organisation: \
+Message-Id: In-Reply-To: References: \
 X-Resent- \
 Resent- \
 followup-to: mail-followup-to: \

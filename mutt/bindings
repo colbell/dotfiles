@@ -1,22 +1,24 @@
 # -*- mode: muttrc; -*-
 # vim:ft=muttrc
 
-bind  pager   <left>   exit
-bind  pager   <right>  view-attachments
+bind browser <right>  select-entry
+bind browser <left>   exit
+bind browser \e"<"    first-entry
+bind browser \e">"    last-entry
 
-bind  attach  <left>   exit
-bind  attach  <right>  view-attach
+bind pager   <left>   exit
+bind pager   <right>  view-attachments
 
-bind  index   <right>  display-message
+bind attach  <left>   exit
+bind attach  <right>  view-attach
 
-bind  browser <right>  select-entry
-bind  browser <left>   exit
+bind index   <right>  display-message
 
-bind index    "{"      previous-thread
-bind index    "}"      next-thread
+bind index   "{"      previous-thread
+bind index   "}"      next-thread
 
-bind index    \e"<"    first-entry
-bind index    \e">"    last-entry
+bind index   \e"<"    first-entry
+bind index   \e">"    last-entry
 
-bind pager    \e"<"    top
-bind pager    \e">"    bottom
+bind pager   \e"<"    top
+bind pager   \e">"    bottom
