@@ -33,4 +33,3 @@ set forward_format="Fwd: %s"    # Msg when forwarding
 #set index_format="%4C %Z %[(%y/%m/%d %H:%M)] %((%y/%m/%d %H:%M)) %-15.15F (%6c) %3M %s"
 #set index_format="%4C %Z %[(%y/%m/%d %H:%M)] %-15.15F (%6c) %3M %s"
 set index_format="%4C %Z  %d  %D  %-15.15F (%6c) %3M %s"
-
