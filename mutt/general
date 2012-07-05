@@ -1,7 +1,7 @@
 # -*- mode: muttrc; -*-
 # vim:ft=muttrc
 
-  set abort_nosubject=ask-no                       # Prompt to abort emails with no subject.
+  set abort_nosubject=ask-no      # Prompt to abort emails with no subject.
 unset abort_unmodified            # Don't abort unmodified emails.
 set   alias_file=~/.mutt/aliases  # Address aliases
 unset arrow_cursor                # Dont use arrow to show cur line in index
