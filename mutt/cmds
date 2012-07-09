@@ -5,7 +5,7 @@
 set ispell="/usr/bin/aspell --mode=email check"
 
 #set editor="emacs -nw"
-set editor="emacsclient -c"
+set editor="emacsclient -nw -c"
 
 # Address lookup
 #set query_command="lbdbq %s"
