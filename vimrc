@@ -1,14 +1,14 @@
 set nocompatible        " Use gVim defaults
 
-" set tw=80              tw to specify a default text width
+" set tw=80             " tw to specify a default text width
 set fo=tcrq             " fo to specify default formatoptions
                         " t auto-wraps text using textwidth
                         " c auto-wraps comments using textwidth
                         " r auto-inserts the current comment leader
                         " q allows formatting of comments
 
-" allow backspacing over everything in insert mode
-set backspace=2
+
+set backspace=2         " allow backspacing over everything in insert mode
 
 set tabstop=1           " Each Tab has 1_spaces equivalent width
 set shiftwidth=2        " Indentation width when using >> and << re-indentation
