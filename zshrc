@@ -23,6 +23,8 @@ export MAIL=~/Mailbox
 export EDITOR=emacs
 setopt hist_ignore_all_dups
 
+export MANWIDTH=96
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
