@@ -170,8 +170,11 @@ def main():
     try:
         desktopmenu = xdg.Menu.parse()
     except xdg.Exceptions.ParsingError:
-        error('Error parsing the menu files.')
-        sys.exit(-1)
+        try:
+            desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applicationsg.menu")
+        except xdg.Exceptions.ParsingError:
+            error('Error parsing the menu files.')
+            sys.exit(-1)
     
     mainmenu=create_menu(desktopmenu, use_icons, launch)
     if run_tray:
