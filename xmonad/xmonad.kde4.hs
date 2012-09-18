@@ -16,6 +16,7 @@ import XMonad.Hooks.SetWMName
 --import XMonad.Layout.Gaps
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
+import XMonad.Layout.SimpleDecoration
 import XMonad.Layout.SimpleFloat
 
 import XMonad.Prompt
@@ -71,6 +72,7 @@ main = do
              , borderWidth        = 1
              , modMask            = myModMask
 --             , layoutHook         = showWName' mySWNConfig $ smartBorders (layoutHook gnomeConfig ||| (gaps [(U, 24)] $ simpleFloat))
+--             , layoutHook         = simpleDeco shrinkText defaultTheme $ showWName' mySWNConfig $ desktopLayoutModifiers (layoutHook kde4Config ||| simpleFloat)
              , layoutHook         = showWName' mySWNConfig $ desktopLayoutModifiers (layoutHook kde4Config ||| simpleFloat)
              , normalBorderColor  = myInactiveBorderColor
              , focusedBorderColor = myActiveBorderColor

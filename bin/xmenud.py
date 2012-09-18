@@ -171,7 +171,7 @@ def main():
         desktopmenu = xdg.Menu.parse()
     except xdg.Exceptions.ParsingError:
         try:
-            desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applicationsg.menu")
+            desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applications.menu")
         except xdg.Exceptions.ParsingError:
             error('Error parsing the menu files.')
             sys.exit(-1)
