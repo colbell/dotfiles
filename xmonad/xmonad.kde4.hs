@@ -16,7 +16,7 @@ import XMonad.Hooks.SetWMName
 --import XMonad.Layout.Gaps
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
-import XMonad.Layout.SimpleDecoration
+--import XMonad.Layout.SimpleDecoration
 import XMonad.Layout.SimpleFloat
 
 import XMonad.Prompt
@@ -33,10 +33,6 @@ myStartupHook = setWMName "LG3D"
 myModMask     = mod4Mask
 
 myWorkspaces  = ["1","2","3","4","5","6","7","8","9"]
-
-scratchpads = [
-      NS "nautilus" "nautilus" (className =? "Nautilus") (nonFloating)
-    ] where role = stringProperty "WM_WINDOW_ROLE"
 
 myManageHook = scratchpadManageHookDefault <+>composeAll (
     [ manageHook kde4Config
@@ -69,7 +65,7 @@ main = do
                workspaces         = myWorkspaces
              , manageHook         = myManageHook
              , terminal           = "xterm"
-             , borderWidth        = 1
+             , borderWidth        = 2
              , modMask            = myModMask
 --             , layoutHook         = showWName' mySWNConfig $ smartBorders (layoutHook gnomeConfig ||| (gaps [(U, 24)] $ simpleFloat))
 --             , layoutHook         = simpleDeco shrinkText defaultTheme $ showWName' mySWNConfig $ desktopLayoutModifiers (layoutHook kde4Config ||| simpleFloat)
@@ -93,13 +89,9 @@ main = do
                  , ((myModMask .|. controlMask, xK_w), swapPrevScreen)
                  , ((myModMask .|. controlMask, xK_e), swapNextScreen)
 
-                 --, ((myModMask, xK_F10),               namedScratchpadAction scratchpads "nautilus")
-
                  --, ((myModMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
                  , ((myModMask, xK_r), runOrRaisePrompt defaultXPConfig)
                  , ((myModMask, xK_F2), spawn "~/bin/xmenud.py")
-
-                 --, ((myModMask .|. shiftMask, xK_q), spawn "gnome-session-quit")
                  ]
                  ++
                  [((m .|. myModMask, k), windows $ f i) -- Don't use Greedy view
