@@ -49,8 +49,6 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , resource  =? "kdesktop"          --> doIgnore
     , className =? "MPlayer"           --> doFloat
     , className =? "Gimp"              --> doFloat
-    , className =? "Plasma-desktop"    --> doFloat
-    , className =? "plasma-desktop"    --> doFloat
     ])
 
 myFgColor = "#DCDCCC"
