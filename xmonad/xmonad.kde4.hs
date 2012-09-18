@@ -41,6 +41,7 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     [ manageHook kde4Config
     , className =? "Tilda"             --> doFloat
     , className =? "Guake.py"          --> doFloat
+    , className =? "Yakuake"           --> doFloat
     , className =? "Unity-2d-panel"    --> doIgnore
     , className =? "Unity-2d-shell"    --> doIgnore
     , className =? "Unity-2d-launcher" --> doIgnore
@@ -48,6 +49,8 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , resource  =? "kdesktop"          --> doIgnore
     , className =? "MPlayer"           --> doFloat
     , className =? "Gimp"              --> doFloat
+    , className =? "Plasma-desktop"    --> doFloat
+    , className =? "plasma-desktop"    --> doFloat
     ])
 
 myFgColor = "#DCDCCC"
