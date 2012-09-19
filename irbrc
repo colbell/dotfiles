@@ -5,7 +5,7 @@ require 'pp'
 
 IRB.conf[:AUTO_INDENT]=true
 IRB.conf[:SAVE_HISTORY]=1024
-IRB.conf[:ECHO]=false
+#IRB.conf[:ECHO]=false
 
 # Easily print methods local to an object's class
 class Object
