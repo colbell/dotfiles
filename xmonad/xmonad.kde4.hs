@@ -18,6 +18,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
 --import XMonad.Layout.SimpleDecoration
 import XMonad.Layout.SimpleFloat
+import XMonad.Layout.Tabbed
 
 import XMonad.Prompt
 import XMonad.Prompt.Man
@@ -46,6 +47,7 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , resource  =? "kdesktop"          --> doIgnore
     , className =? "MPlayer"           --> doFloat
     , className =? "Gimp"              --> doFloat
+    , className =? "Plasma"            --> doFloat
     ])
 
 myFgColor = "#DCDCCC"
@@ -67,9 +69,7 @@ main = do
              , terminal           = "xterm"
              , borderWidth        = 2
              , modMask            = myModMask
---             , layoutHook         = showWName' mySWNConfig $ smartBorders (layoutHook gnomeConfig ||| (gaps [(U, 24)] $ simpleFloat))
---             , layoutHook         = simpleDeco shrinkText defaultTheme $ showWName' mySWNConfig $ desktopLayoutModifiers (layoutHook kde4Config ||| simpleFloat)
-             , layoutHook         = showWName' mySWNConfig $ desktopLayoutModifiers (layoutHook kde4Config ||| simpleFloat)
+             , layoutHook         = showWName' mySWNConfig $ desktopLayoutModifiers (layoutHook kde4Config ||| simpleTabbed ||| simpleFloat)
              , normalBorderColor  = myInactiveBorderColor
              , focusedBorderColor = myActiveBorderColor
              } `additionalKeys` keys'

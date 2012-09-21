@@ -11,13 +11,15 @@ import XMonad.Actions.WindowMenu
 import XMonad.Config.Desktop (desktopLayoutModifiers)
 import XMonad.Config.Gnome
 
+import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.SetWMName
 
 --import XMonad.Layout.Gaps
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
 --import XMonad.Layout.SimpleDecoration
-import XMonad.Layout.SimpleFloat
+--import XMonad.Layout.SimpleFloat
+import XMonad.Layout.Tabbed
 
 import XMonad.Prompt
 import XMonad.Prompt.Man
@@ -59,16 +61,27 @@ mySWNConfig = defaultSWNConfig {
               , swn_fade    = 2.0
               , swn_bgcolor = myInactiveBorderColor}
 
+myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror tiled ||| simpleTabbed)
+  where
+     tiled       = Tall nmaster delta ratio
+     nmaster     = 1
+     ratio       = 1/2
+     delta       = 3/100
+     mirrorTiled = Mirror tiled
+
+--myLogHook :: X ()
+myLogHook = fadeInactiveLogHook fadeAmount
+   where fadeAmount = 0.8
+
 main = do
   xmonad $ gnomeConfig {
                workspaces         = myWorkspaces
+             , logHook            = myLogHook
              , manageHook         = myManageHook
              , terminal           = "xterm"
-             , borderWidth        = 1
+             , borderWidth        = 0
              , modMask            = myModMask
---             , layoutHook         = showWName' mySWNConfig $ smartBorders (layoutHook gnomeConfig ||| (gaps [(U, 24)] $ simpleFloat))
---             , layoutHook         = simpleDeco shrinkText defaultTheme | showWName' mySWNConfig $ desktopLayoutModifiers (layoutHook gnomeConfig ||| simpleFloat)
-             , layoutHook         = showWName' mySWNConfig $ desktopLayoutModifiers (layoutHook gnomeConfig ||| simpleFloat)
+             , layoutHook         = myLayout
              , normalBorderColor  = myInactiveBorderColor
              , focusedBorderColor = myActiveBorderColor
              } `additionalKeys` keys'
