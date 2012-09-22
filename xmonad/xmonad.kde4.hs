@@ -6,18 +6,16 @@ import qualified XMonad.StackSet as W
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
 import XMonad.Actions.GridSelect
+import XMonad.Actions.UpdatePointer
 import XMonad.Actions.WindowMenu
 
 import XMonad.Config.Desktop (desktopLayoutModifiers)
 import XMonad.Config.Kde
 
+import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.SetWMName
-
---import XMonad.Layout.Gaps
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
---import XMonad.Layout.SimpleDecoration
-import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Tabbed
 
 import XMonad.Prompt
@@ -33,7 +31,7 @@ myStartupHook = setWMName "LG3D"
 
 myModMask     = mod4Mask
 
-myWorkspaces  = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces  = ["1-emacs","2-cmd","3-web","4-fm","5","6","7","8-ssh","9-mail"]
 
 myManageHook = scratchpadManageHookDefault <+>composeAll (
     [ manageHook kde4Config
@@ -50,6 +48,22 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , className =? "Plasma"            --> doFloat
     ])
 
+myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror tiled ||| simpleTabbed)
+  where
+     tiled       = Tall nmaster delta ratio
+     nmaster     = 1
+     ratio       = 1/2
+     delta       = 3/100
+     mirrorTiled = Mirror tiled
+
+
+myLogHook =  do
+     fadeInactiveLogHook fadeAmount      -- Requires xcompmgr or similar
+     updatePointer (Relative 0.5 0.5)    -- Move cursor to newly focused windows.
+     logHook kde4Config
+    where
+      fadeAmount = 0.8
+
 myFgColor = "#DCDCCC"
 myBgColor = "#3f3f3f"
 myHighlightedBgColor = "#CC5500"
@@ -65,11 +79,12 @@ mySWNConfig = defaultSWNConfig {
 main = do
   xmonad $ kde4Config {
                workspaces         = myWorkspaces
+             , logHook            = myLogHook
              , manageHook         = myManageHook
              , terminal           = "xterm"
-             , borderWidth        = 2
+             , borderWidth        = 0
              , modMask            = myModMask
-             , layoutHook         = showWName' mySWNConfig $ desktopLayoutModifiers (layoutHook kde4Config ||| simpleTabbed ||| simpleFloat)
+             , layoutHook         = myLayout
              , normalBorderColor  = myInactiveBorderColor
              , focusedBorderColor = myActiveBorderColor
              } `additionalKeys` keys'
