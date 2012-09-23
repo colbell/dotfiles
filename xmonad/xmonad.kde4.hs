@@ -14,6 +14,7 @@ import XMonad.Config.Kde
 
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.SetWMName
+
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
 import XMonad.Layout.Tabbed
