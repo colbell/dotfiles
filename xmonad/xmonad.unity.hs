@@ -6,6 +6,7 @@ import qualified XMonad.StackSet as W
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
 import XMonad.Actions.GridSelect
+import XMonad.Actions.UpdatePointer
 import XMonad.Actions.WindowMenu
 
 import XMonad.Config.Desktop (desktopLayoutModifiers)
@@ -14,11 +15,8 @@ import XMonad.Config.Gnome
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.SetWMName
 
---import XMonad.Layout.Gaps
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
---import XMonad.Layout.SimpleDecoration
---import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Tabbed
 
 import XMonad.Prompt
@@ -34,7 +32,7 @@ myStartupHook = setWMName "LG3D"
 
 myModMask     = mod4Mask
 
-myWorkspaces  = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces  = ["1-emacs","2-cmd","3-web","4-fm","5","6","7","8-ssh","9-mail"]
 
 myManageHook = scratchpadManageHookDefault <+>composeAll (
     [ manageHook gnomeConfig
@@ -69,9 +67,12 @@ myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror til
      delta       = 3/100
      mirrorTiled = Mirror tiled
 
---myLogHook :: X ()
-myLogHook = fadeInactiveLogHook fadeAmount
-   where fadeAmount = 0.8
+myLogHook = do
+     fadeInactiveLogHook fadeAmount      -- Requires xcompmgr or similar
+     updatePointer (Relative 0.5 0.5)    -- Move cursor to newly focused windows.
+     logHook gnomeConfig
+    where
+      fadeAmount = 0.8
 
 main = do
   xmonad $ gnomeConfig {
@@ -101,7 +102,6 @@ main = do
                  , ((myModMask .|. controlMask, xK_w), swapPrevScreen)
                  , ((myModMask .|. controlMask, xK_e), swapNextScreen)
 
-                 , ((myModMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
                  , ((myModMask, xK_r), runOrRaisePrompt defaultXPConfig)
                  , ((myModMask, xK_F2), spawn "~/bin/xmenud.py")
 
