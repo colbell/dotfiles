@@ -81,7 +81,6 @@ main = do
                workspaces         = myWorkspaces
              , logHook            = myLogHook
              , manageHook         = myManageHook
-             , terminal           = "xterm"
              , borderWidth        = 0
              , modMask            = myModMask
              , layoutHook         = myLayout
