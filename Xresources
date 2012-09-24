@@ -12,7 +12,7 @@ Xft.rgba: rgb
 !Emacs.foreground: black
 !Emacs.background: black
 !Emacs.foreground: white
-!Emacs.cursorColor: red
+Emacs.cursorColor: white
 Emacs.cursorBlink: true
 Emacs.verticalScrollBars: off
 !Emacs.font: Andale Mono-10
