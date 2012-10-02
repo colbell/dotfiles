@@ -47,6 +47,7 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , className =? "MPlayer"           --> doFloat
     , className =? "Gimp"              --> doFloat
     , className =? "Plasma"            --> doFloat
+    , className =? "Plasma-desktop"    --> doFloat
     ])
 
 myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror tiled ||| simpleTabbed)
@@ -82,7 +83,6 @@ main = do
                workspaces         = myWorkspaces
              , logHook            = myLogHook
              , manageHook         = myManageHook
-             , terminal           = "xterm"
              , borderWidth        = 0
              , modMask            = myModMask
              , layoutHook         = myLayout
