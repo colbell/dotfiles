@@ -6,7 +6,8 @@ import qualified XMonad.StackSet as W
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
 import XMonad.Actions.GridSelect
-import XMonad.Actions.UpdatePointer
+--import XMonad.Actions.UpdatePointer
+import XMonad.Actions.Warp
 import XMonad.Actions.WindowMenu
 
 import XMonad.Config.Desktop (desktopLayoutModifiers)
@@ -61,7 +62,7 @@ myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror til
 
 myLogHook =  do
      fadeInactiveLogHook fadeAmount      -- Requires xcompmgr or similar
-     updatePointer (Relative 0.5 0.5)    -- Move cursor to newly focused windows.
+     -- updatePointer (Relative 0.5 0.5)    -- Move cursor to newly focused windows.
      logHook kde4Config
     where
       fadeAmount = 0.8
@@ -104,6 +105,11 @@ main = do
 
                  , ((myModMask .|. controlMask, xK_w), swapPrevScreen)
                  , ((myModMask .|. controlMask, xK_e), swapNextScreen)
+
+                 , ((myModMask, xK_z             ), warpToWindow (0.5) (0.5))
+                 , ((myModMask .|. mod1Mask, xK_w), warpToScreen 0 (0.5) (0.5))
+                 , ((myModMask .|. mod1Mask, xK_e), warpToScreen 1 (0.5) (0.5))
+                 , ((myModMask .|. mod1Mask, xK_r), warpToScreen 2 (0.5) (0.5))
 
                  --, ((myModMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
                  , ((myModMask, xK_r), runOrRaisePrompt defaultXPConfig)
