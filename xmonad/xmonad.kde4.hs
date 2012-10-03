@@ -16,7 +16,7 @@ import XMonad.Config.Kde
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.SetWMName
 
-import XMonad.Layout.NoBorders
+--import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
 import XMonad.Layout.Tabbed
 
@@ -26,7 +26,7 @@ import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.Window
 
 import XMonad.Util.EZConfig(additionalKeys)
-import XMonad.Util.NamedScratchpad
+--import XMonad.Util.NamedScratchpad
 import XMonad.Util.Scratchpad
 
 myStartupHook = setWMName "LG3D"
@@ -61,7 +61,7 @@ myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror til
 
 
 myLogHook =  do
-     fadeInactiveLogHook fadeAmount      -- Requires xcompmgr or similar
+     -- fadeInactiveLogHook fadeAmount      -- Requires xcompmgr or similar
      -- updatePointer (Relative 0.5 0.5)    -- Move cursor to newly focused windows.
      logHook kde4Config
     where
@@ -84,7 +84,7 @@ main = do
                workspaces         = myWorkspaces
              , logHook            = myLogHook
              , manageHook         = myManageHook
-             , borderWidth        = 0
+             , borderWidth        = 1
              , modMask            = myModMask
              , layoutHook         = myLayout
              , normalBorderColor  = myInactiveBorderColor
