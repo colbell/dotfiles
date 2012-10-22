@@ -25,7 +25,9 @@ setopt hist_ignore_all_dups
 
 export MANWIDTH=96
 
-export TERM=xterm-256color
+#export TERM=xterm-256color
+#export TERM=screen-256color-bce
+export TERM=screen-256color
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
