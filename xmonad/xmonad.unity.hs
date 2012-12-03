@@ -20,7 +20,10 @@ import XMonad.Hooks.SetWMName
 import XMonad.Layout.ShowWName
 import XMonad.Layout.Tabbed
 
-import XMonad.Prompt
+import XMonad.Prompt ( XPConfig(..), XPPosition(..), defaultXPConfig
+                     , defaultXPKeymap , moveHistory,  deleteConsecutive
+                     , deleteString, Direction1D(..)
+                     , setSuccess, setDone )
 import XMonad.Prompt.Man
 import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.Window
@@ -60,6 +63,15 @@ mySWNConfig = defaultSWNConfig {
               , swn_fade    = 2.0
               , swn_bgcolor = myInactiveBorderColor}
 
+myXPConfig :: XPConfig
+myXPConfig = defaultXPConfig
+                { bgColor               = myBgColor
+                , fgColor               = myFgColor
+                , bgHLight              = myHighlightedBgColor
+                , position              = Top
+                , promptBorderWidth     = 0
+                }
+
 myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror tiled ||| simpleTabbed)
   where
      tiled       = Tall nmaster delta ratio
@@ -93,10 +105,10 @@ main = do
                  , ((myModMask .|. shiftMask, xK_z),       spawn "gnome-screensaver-command -l")
                  , ((mod1Mask, xK_F4),                     kill)
 
-                 , ((myModMask, xK_F1),                manPrompt defaultXPConfig)
+                 , ((myModMask, xK_F1),                manPrompt myXPConfig)
 
-                 , ((myModMask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
-                 , ((myModMask .|. shiftMask, xK_g),   windowPromptBring defaultXPConfig { autoComplete = Just 500000 } )
+                 , ((myModMask, xK_g),                 windowPromptGoto myXPConfig { autoComplete = Just 500000 } )
+                 , ((myModMask .|. shiftMask, xK_g),   windowPromptBring myXPConfig { autoComplete = Just 500000 } )
                  , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
                  , ((myModMask, xK_o ),                windowMenu)
 
@@ -108,7 +120,7 @@ main = do
                  , ((myModMask .|. mod1Mask, xK_e), warpToScreen 1 (0.5) (0.5))
                  , ((myModMask .|. mod1Mask, xK_r), warpToScreen 2 (0.5) (0.5))
 
-                 , ((myModMask, xK_r ), runOrRaisePrompt defaultXPConfig)
+                 , ((myModMask, xK_r ), runOrRaisePrompt myXPConfig)
                  , ((myModMask, xK_F2), spawn "~/bin/xmenud.py")
 
                  , ((myModMask .|. shiftMask, xK_q), spawn "gnome-session-quit")
