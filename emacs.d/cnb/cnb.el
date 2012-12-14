@@ -28,7 +28,7 @@
 (require 'cnb-twitter)         ;; Read twitter stream
 (require 'cnb-abbrev)          ;; Auto-correction
 (require 'cnb-w3m)             ;; W3m config
-(require 'cnb-term)            ;; Term mode config
+(require 'cnb-comint)          ;; Comint mode config
 (require 'cnb-saveplace)       ;; Saveplace
 (provide 'cnb-uniquify)        ;; Unique buffer names
 (require 'cnb-yasnippet)       ;; ya-snippet config
