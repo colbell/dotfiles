@@ -55,10 +55,10 @@
 ;; Should match xresources file
 (set-frame-font "Inconsolata-11" nil t)
 
-(if window-system
-    (progn
-      (add-to-list 'default-frame-alist '(background-color . "black"))
-      (add-to-list 'default-frame-alist '(foreground-color . "wheat"))))
+;; (if window-system
+;;     (progn
+;;       (add-to-list 'default-frame-alist '(background-color . "black"))
+;;       (add-to-list 'default-frame-alist '(foreground-color . "wheat"))))
 ;;       (ignore-errors
 ;;         ;;(load-theme 'solarized-dark t)
 ;;         (load-theme 'zenburn t))
@@ -67,8 +67,8 @@
 ;;     (set-background-color 'black)
 ;;     (set-foreground-color 'white)))
 
-;; (ignore-errors
-;;   (load-theme 'zenburn t))
+(ignore-errors
+  (load-theme 'zenburn t))
 
 ;; (when (require 'highlight-tail)
 ;;   ;; (setq highlight-tail-colors '(("black" . 0)
@@ -85,13 +85,6 @@
 ;;*==============================================
 (require 'windmove)
 (windmove-default-keybindings)
-
-
-;;*==============================================
-;; Colorise CSS color codes
-;;*==============================================
-(add-hook 'css-mode-hook 'rainbow-mode)
-(add-hook 'sass-mode-hook 'rainbow-mode)
 
 
 ;;*==============================================

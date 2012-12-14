@@ -1,3 +1,7 @@
+;; Colourize CSS color codes
+(add-hook 'css-mode-hook 'rainbow-mode)
+(add-hook 'sass-mode-hook 'rainbow-mode)
+
 (when (require 'haml-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.haml\\'" . haml-mode)))
 
