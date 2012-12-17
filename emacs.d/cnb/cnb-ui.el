@@ -96,15 +96,6 @@
 ;;(setq-default truncate-partial-width-windows t)
 
 
-;;==============
-;; whitespace style
-;;==============
-(require 'whitespace)
-(setq whitespace-style '(face tabs trailing lines space-before-tab indentation space-after-tab))
-(set-default 'show-trailing-whitespace t)
-(setq whitespace-line-column 999)
-(global-whitespace-mode 1)
-
 
 (when (require 'rainbow-delimiters nil t)
   (global-rainbow-delimiters-mode))
