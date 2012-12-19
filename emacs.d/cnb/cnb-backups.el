@@ -6,6 +6,9 @@
 (setq kept-old-versions 2)
 (setq delete-old-versions t)
 (setq backup-directory-alist
-      `(("." . ,(expand-file-name "~/.emacs.d/backups"))))
+      `(("." . ,(expand-file-name
+                 (concat user-emacs-directory "backups")))))
+
+(setq vc-make-backup-files t) ;; Make backups of files, even when they're in version control
 
 (provide 'cnb-backups)

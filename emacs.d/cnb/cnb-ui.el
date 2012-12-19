@@ -111,6 +111,10 @@
      (set-face-foreground 'magit-branch "orange")
      (set-face-foreground 'magit-diff-add "green3")))
 
+;; Stand out in zenburn.
+(set-face-background 'header-line "grey90")
+(set-face-foreground 'header-line "blue")
+
 
 ;; Other stuff that fades into the background
 ;; (eval-after-load 'anything-config

@@ -2,6 +2,7 @@
 (column-number-mode t)
 (size-indication-mode)
 
+
 ;;*==============================================
 ;; Show current function name in modeline
 ;;*==============================================
@@ -11,18 +12,15 @@
   ;; (set-face-foreground 'which-func "gainsboro")
   ;; (set-face-background 'which-func "blue"))
 
-(eval-after-load 'which-func
-  '(progn
-     (set-face-attribute 'which-func nil :weight 'bold)
-     (set-face-foreground 'which-func "#f0dfaf")))
-
-;; whichfunc is hard to read with default header colors.
-(set-face-background 'header-line "grey90")
-(set-face-foreground 'header-line "blue")
+;; (eval-after-load 'which-func
+;;   '(progn
+;;      (set-face-attribute 'which-func nil :weight 'bold)
+;;      (set-face-foreground 'which-func "#f0dfaf")))
 
 
-(when (require 'powerline nil t)
-  (powerline-default))
+
+;; (when (require 'powerline nil t)
+;;   (powerline-default))
 
 (require 'battery)
 (when (and battery-status-function
@@ -32,6 +30,14 @@
   (setq battery-mode-line-format "[%b%p%%%% %t]")
   (display-battery-mode 1))
 
+;; Dimnish clutter
+(require 'diminish)
+(diminish 'undo-tree-mode)
+(diminish 'drag-stuff-mode)
+(diminish 'ruby-block-mode)
+(diminish 'whitespace-mode)
+(diminish 'global-whitespace-mode)
+(diminish 'volatile-highlights-mode)
 
 
 (provide 'cnb-modeline)
