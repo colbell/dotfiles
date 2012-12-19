@@ -18,8 +18,7 @@
                        auctex auto-complete
                        autopair bm browse-kill-ring coffee-mode
                        color-theme-solarized
-                       crontab-mode
-                       csv-mode deft drag-stuff
+                       crontab-mode csv-mode deft diminish drag-stuff
                        ;;etags-select
                        expand-region
                        feature-mode find-file-in-project findr
