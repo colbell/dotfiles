@@ -1,9 +1,9 @@
 (setq bookmark-save-flag 1) ; save bookmarks instantly
-(setq bookmark-default-file "~/.emacs.d/emacs.bmk")
+(setq bookmark-default-file (expand-file-name "emacs.bmk" user-emacs-directory))
 
 (setq bm-restore-repository-on-load t)
 (when (require 'bm nil t)
-  (setq bm-repository-file "~/.emacs.d/bm-repository")
+  (setq bm-repository-file (expand-file-name "bm-repository" user-emacs-directory))
   (setq bm-repository-size 1024)
 
   ;; (setq-default bm-buffer-persistence t)
