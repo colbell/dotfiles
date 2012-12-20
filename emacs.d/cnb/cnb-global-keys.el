@@ -77,7 +77,7 @@
   (global-set-key (kbd "C-=") 'er/expand-region))
 
 (when (require 'ace-jump-mode nil t)
-  (define-key global-map (kbd "C-x SPC") 'ace-jump-mode))
+  (define-key global-map (kbd "C-c SPC") 'ace-jump-mode))
 
 ;; Same as O in vim
 (global-set-key (kbd "C-o")
