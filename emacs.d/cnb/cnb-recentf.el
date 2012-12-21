@@ -10,8 +10,7 @@
 ;; we need to ignore each file twice. The function (file-truename) will expand symlinks.
 (setq exclude-files '("places" ".ido.last" "elpa/**/.*" "emacs.bmk" "url/cookies"))
 (while exclude-files
-  (setq f (car exclude-files))
-  (setq f (expand-file-name f user-emacs-directory))
+  (setq f (expand-file-name (car exclude-files) user-emacs-directory))
   (add-to-list 'recentf-exclude f)
   (add-to-list 'recentf-exclude (file-truename f))
   (setq exclude-files (cdr exclude-files)))

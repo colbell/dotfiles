@@ -35,9 +35,9 @@
 (provide 'cnb-uniquify)        ;; Unique buffer names
 (require 'cnb-yasnippet)       ;; ya-snippet config
 (require 'cnb-nonstd-cmds)     ;; Enable non-std commands
-(require 'cnb-global-keys)     ;; Global key bindings
 (require 'cnb-aliases)         ;; Aliases to common cmds
 (require 'cnb-general)         ;; General stuff
 (require 'cnb-modeline)        ;; Modeline config
+(require 'cnb-global-keys)     ;; Global key bindings
 
 (provide 'cnb)
