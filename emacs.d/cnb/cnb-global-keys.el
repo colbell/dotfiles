@@ -41,6 +41,10 @@
   (global-set-key (kbd "C-x C-f") 'helm-find-files))
 (global-set-key (kbd "C-c h") 'helm-mini)
 
+(when (fboundp 'yas-insert-snippet)
+;; (global-set-key (kbd "C-c s") 'yas-insert-snippet))
+  (global-set-key (kbd "C-c y") 'helm-c-yas-complete))
+
 (when (fboundp 'helm-M-x)
   (global-set-key (kbd "M-x") 'helm-M-x))
 
