@@ -24,7 +24,7 @@
                        feature-mode find-file-in-project findr
                        flymake flymake-coffee flymake-cursor flymake-haml flymake-ruby flymake-sass
                        ;;furl
-                       go-mode haml-mode haskell-mode helm helm-git
+                       go-mode haml-mode haskell-mode helm helm-git helm-c-yasnippet
                        ibuffer-vc
                        idle-highlight
                        inf-ruby inflections jump
