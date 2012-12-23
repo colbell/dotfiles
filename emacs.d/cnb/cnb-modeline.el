@@ -9,8 +9,8 @@
 (when (require 'which-func)
   (which-func-mode 1)
   (add-to-list 'which-func-modes 'ruby-mode))
-  ;; (set-face-foreground 'which-func "gainsboro")
-  ;; (set-face-background 'which-func "blue"))
+;; (set-face-foreground 'which-func "gainsboro")
+;; (set-face-background 'which-func "blue"))
 
 ;; (eval-after-load 'which-func
 ;;   '(progn
@@ -31,13 +31,13 @@
   (display-battery-mode 1))
 
 ;; Dimnish clutter
-(require 'diminish)
-(diminish 'undo-tree-mode)
-(diminish 'drag-stuff-mode)
-(diminish 'ruby-block-mode)
-(diminish 'whitespace-mode)
-(diminish 'global-whitespace-mode)
-(diminish 'volatile-highlights-mode)
+(when (require 'diminish nil t)
+  (diminish 'undo-tree-mode)
+  (diminish 'drag-stuff-mode)
+  (diminish 'ruby-block-mode)
+  (diminish 'whitespace-mode)
+  (diminish 'global-whitespace-mode)
+  (diminish 'volatile-highlights-mode))
 
 
 (provide 'cnb-modeline)
