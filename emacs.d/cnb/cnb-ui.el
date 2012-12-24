@@ -105,11 +105,6 @@
   '(progn
       (set-face-foreground 'diff-added "green4")))
 
-(eval-after-load 'magit
-  '(progn
-     (set-face-foreground 'magit-section-title "blue")
-     (set-face-foreground 'magit-branch "orange")
-     (set-face-foreground 'magit-diff-add "green3")))
 
 ;; Stand out in zenburn.
 (set-face-background 'header-line "grey90")

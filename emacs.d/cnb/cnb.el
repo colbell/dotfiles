@@ -10,7 +10,6 @@
 
 (require 'cl)
 
-
 (require 'cnb-elpa)            ;; Package manager stuff
 (require 'cnb-ui)              ;; Basic UI setup
 (require 'cnb-bm)              ;; Bookmark config
@@ -21,6 +20,7 @@
 (require 'cnb-ibuffer)         ;; IBuffer config
 (require 'cnb-dired)           ;; Dired config
 (require 'cnb-coding-hook)     ;; Setup for coding buffers
+(require 'cnb-sc)              ;; Source Control config
 (require 'cnb-org)             ;; Org mode config
 (require 'cnb-ruby)            ;; Ruby mode config
 (require 'cnb-haml-sass-etc)   ;; HTML CSS modes
