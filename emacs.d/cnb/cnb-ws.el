@@ -10,9 +10,6 @@
 
 (add-hook 'comint-mode-hook 'cnb-ws-hook)
 (add-hook 'term-mode-hook 'cnb-ws-hook)
-  
-
-
-
+(add-hook 'package-menu-mode 'cnb-ws-hook)
 
 (provide 'cnb-ws)
