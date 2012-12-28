@@ -32,12 +32,12 @@
 
 ;; Dimnish clutter
 (when (require 'diminish nil t)
-  (diminish 'undo-tree-mode)
   (diminish 'drag-stuff-mode)
-  (diminish 'ruby-block-mode)
-  (diminish 'whitespace-mode)
   (diminish 'global-whitespace-mode)
-  (diminish 'volatile-highlights-mode))
-
+  (diminish 'ruby-block-mode)
+  (diminish 'undo-tree-mode)
+  (diminish 'volatile-highlights-mode)
+  (diminish 'whitespace-mode)
+  (diminish 'yas-minor-mode))
 
 (provide 'cnb-modeline)
