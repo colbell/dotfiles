@@ -14,6 +14,8 @@
 
 
 (global-auto-revert-mode t)
+(setq auto-revert-verbose nil)
+(setq global-auto-revert-non-file-buffers t)
 
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG$" . diff-mode))
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))

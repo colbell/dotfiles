@@ -121,9 +121,9 @@
       (setq i (1+ i)))))))
 
 
-(defun turn-on-auto-revert-mode ()
-  (interactive)
-  (auto-revert-mode 1))
+;; (defun turn-on-auto-revert-mode ()
+;;   (interactive)
+;;   (auto-revert-mode 1))
 
 
 ;; http://www.gnu.org/software/emms/configs/de-emms.el
