@@ -55,14 +55,6 @@
 ;; Should match xresources file
 (set-frame-font "Inconsolata-11" nil t)
 
-(if window-system
-    (progn
-      (add-to-list 'default-frame-alist '(background-color . "black"))
-      (add-to-list 'default-frame-alist '(foreground-color . "wheat")))
-  (progn
-    (set-background-color 'black)
-    (set-foreground-color 'white)))
-
 (ignore-errors
   (load-theme 'zenburn t))
 
