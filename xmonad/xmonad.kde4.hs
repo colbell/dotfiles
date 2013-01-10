@@ -52,8 +52,9 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , className =? "Gimp"              --> doFloat
     , className =? "Plasma"            --> doFloat
     , className =? "Plasma-desktop"    --> doFloat
-    , className =? "knotes"            --> doFloat
     , className =? "Knotes"            --> doFloat
+    , className =? "Kcalc"             --> doFloat
+    , className =? "XCalc"             --> doFloat
     ])
 
 myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror tiled ||| simpleTabbed)
