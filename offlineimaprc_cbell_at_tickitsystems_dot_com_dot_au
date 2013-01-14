@@ -63,6 +63,7 @@ type = IMAP
 remotehost = imap.gmail.com
 remoteuser = cbell@tickitsystems.com.au
 ssl = yes
+cert_fingerprint = 6d1b5b5ee0180ab493b71d3b94534b5ab937d042
 
 # Remove leading INBOX from all mailbox names.
 nametrans = lambda foldername: re.sub('^INBOX\.', '', foldername)
