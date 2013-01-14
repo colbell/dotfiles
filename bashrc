@@ -34,7 +34,8 @@ fi
 #export LIBXCB_ALLOW_SLOPPY_LOCK=1
 
 # need to install ncurses-term
-#export TERM=xterm-256color
+export TERM=xterm-256color
+[ -n "$TMUX" ] && export TERM=screen-256color
 
 export BROWSER=w3m
 
