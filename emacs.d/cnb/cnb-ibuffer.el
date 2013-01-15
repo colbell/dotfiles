@@ -54,7 +54,9 @@
                        (name . "magit")))
                ("conf" (or
                         (mode . muttrc-mode)
-                        (mode . conf-mode)))
+                        (mode . conf-mode)
+                        (mode . conf-unix-mode)
+                        (mode . conf-space-mode)))
                ("help"(or
                        (mode . help-mode)
                        (mode . Man-mode)
@@ -69,6 +71,7 @@
                         (mode . helm-mode)
                         (name . "^\\*helm")
                         ))
+               ("shell-script" (mode . sh-mode))
                ("gnus" (or
                         (mode . bbdb-mode)
                         (mode . gnus-article-mode)

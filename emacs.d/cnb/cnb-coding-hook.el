@@ -73,8 +73,11 @@
 (add-hook 'lua-mode-hook        'esk-run-coding-hook)
 (add-hook 'muttrc-mode-hook     'esk-run-coding-hook)
 (add-hook 'nxml-mode-hook       'esk-run-coding-hook)
+(add-hook 'python-mode-hook     'esk-run-coding-hook)
 (add-hook 'rhtml-mode-hook      'esk-run-coding-hook)
 (add-hook 'ruby-mode-hook       'esk-run-coding-hook)
+(add-hook 'sass-mode-hook       'esk-run-coding-hook)
+(add-hook 'sh-mode-hook         'esk-run-coding-hook)
 (add-hook 'yaml-mode-hook       'esk-run-coding-hook)
 
 
