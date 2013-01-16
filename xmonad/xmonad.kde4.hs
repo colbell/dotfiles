@@ -6,7 +6,7 @@ import qualified XMonad.StackSet as W
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
 import XMonad.Actions.GridSelect
---import XMonad.Actions.UpdatePointer
+import XMonad.Actions.UpdatePointer
 import XMonad.Actions.Warp
 import XMonad.Actions.WindowMenu
 
@@ -36,7 +36,7 @@ myStartupHook = setWMName "LG3D"
 
 myModMask     = mod4Mask
 
-myWorkspaces  = ["1-emacs","2-cmd","3-web","4-fm","5","6","7","8-ssh","9-mail"]
+myWorkspaces  = ["1-emacs","2-shell","3-web","4-fm","5","6","7","8-ssh","9-mail"]
 
 myManageHook = scratchpadManageHookDefault <+>composeAll (
     [ manageHook kde4Config
@@ -57,7 +57,7 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , className =? "XCalc"             --> doFloat
     ])
 
-myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror tiled ||| simpleTabbed)
+myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror tiled ||| simpleTabbed ||| Full)
   where
      tiled       = Tall nmaster delta ratio
      nmaster     = 1
@@ -68,10 +68,10 @@ myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror til
 
 myLogHook =  do
      -- fadeInactiveLogHook fadeAmount      -- Requires xcompmgr or similar
-     -- updatePointer (Relative 0.5 0.5)    -- Move cursor to newly focused windows.
+     updatePointer (Relative 0.5 0.5)    -- Move cursor to newly focused windows.
      logHook kde4Config
-    where
-      fadeAmount = 0.8
+     --where
+     -- fadeAmount = 0.8
 
 myFgColor = "#DCDCCC"
 myBgColor = "#3f3f3f"
