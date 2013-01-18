@@ -12,18 +12,18 @@ set header_cache="~/.mutt/cache/cbelltickit/headers"
 set mask="!^\\.[^.]"
 
 #set mbox="~/maildir/tickit/INBOX"
-#set mbox="/var/mail/$USER"
+set mbox="/var/mail/$USER"
 #set spoolfile = "+INBOX"
 #set mbox="~/Mailbox"
 #set postponed="+postponed"
 
-set mbox="~/Mailbox"
+#set mbox="~/Mailbox"
 set folder="~/Maildir/tickit"
 
 set postponed="+[Gmail].Drafts"
 set record=""
 
-mailboxes `echo $HOME/Mailbox $HOME/Maildir/tickit/*`
+mailboxes `echo /var/mail/$USER $HOME/Mailbox $HOME/Maildir/tickit/*`
 
 set smtp_url="smtps://cbell@tickitsystems.com.au@smtp.gmail.com"
 
@@ -32,6 +32,7 @@ folder-hook IN. "push <collapse-all>\n"
 folder-hook IN.                          set sort=threads
 folder-hook cbell@tickitondemand.com.au  set sort=threads
 folder-hook .*Gmail.*Sent.*              set sort=reverse-date-sent
+folder-hook IN.jira                      set sort_aux=reverse-date-sent
 
 folder-hook .*Gmail.*Spam   'push "<limit>~N<enter>"'
 
