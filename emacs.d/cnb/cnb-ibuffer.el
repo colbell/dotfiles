@@ -34,7 +34,7 @@
                         (mode . haskell-mode)
                         (mode . lua-mode)
                         (mode . python-mode)))
-               ("html" (or
+               ("web" (or
                         (mode . haml-mode)
                         (mode . sass-mode)
                         (mode . css-mode)
