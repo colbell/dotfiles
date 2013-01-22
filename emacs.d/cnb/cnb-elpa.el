@@ -29,6 +29,7 @@
                        inf-ruby inflections jump
                        less-css-mode lua-mode magit markdown-mode powerline
                        ;;mode-compile
+                       puppet-mode
                        rainbow-delimiters rainbow-mode
                        rinari rspec-mode ruby-compilation ruby-block ruby-end ruby-mode rvm sass-mode
                        ;;scpaste
