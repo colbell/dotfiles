@@ -45,6 +45,11 @@
 ;; (global-set-key (kbd "C-c s") 'yas-insert-snippet))
   (global-set-key (kbd "C-c y") 'helm-c-yas-complete))
 
+(global-set-key (kbd "M-j")
+                (lambda ()
+                  (interactive)
+                  (join-line -1)))
+
 (when (fboundp 'helm-M-x)
   (global-set-key (kbd "M-x") 'helm-M-x))
 
