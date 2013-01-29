@@ -2,20 +2,13 @@
 (global-unset-key (kbd "C-x C-z"))
 
 ;;(global-set-key "\M-?" 'etags-select-find-tag-at-point)
-(global-set-key "\M-." 'etags-select-find-tag)
+;;(global-set-key "\M-." 'etags-select-find-tag)
 ;;helm-c-etags-select
 (global-set-key [f8]  'shell-current-directory)
 
-(when (fboundp 'bm-toggle)
-  (global-set-key (kbd "<C-f2>") 'bm-toggle)
-  (global-set-key (kbd "<f2>")   'bm-next)
-  (global-set-key (kbd "<S-f2>") 'bm-previous)
-)
 
 ;;(global-set-key [f11] 'my-anything)
 ;;(global-set-key [f11] 'helm-mini)
-
-(global-set-key [f11] 'recentf-open-files)
 
 ;; (global-set-key (kbd "C-c a") 'org-agenda)
 ;; (global-set-key (kbd "C-c b") 'org-iswitchb)
@@ -35,18 +28,10 @@
 (global-set-key (kbd "C-'") 'other-window)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(when (fboundp 'helm-buffers-list)
-  (global-set-key (kbd "C-x b") 'helm-buffers-list))
-(when (fboundp 'helm-find-files)
-  (global-set-key (kbd "C-x C-f") 'helm-find-files))
-(global-set-key (kbd "C-c h") 'helm-mini)
 
 (when (fboundp 'yas-insert-snippet)
 ;; (global-set-key (kbd "C-c s") 'yas-insert-snippet))
   (global-set-key (kbd "C-c y") 'helm-c-yas-complete))
-
-(when (fboundp 'helm-M-x)
-  (global-set-key (kbd "M-x") 'helm-M-x))
 
 (global-set-key (kbd "C-c g") 'magit-status)
 
@@ -58,7 +43,7 @@
 
 ;; (global-set-key (kbd "C-c k") 'browse-kill-ring)
 
-(global-set-key (kbd "C-x C-M-f") 'helm-git-find-files)
+
 
 (global-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line)
 
