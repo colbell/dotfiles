@@ -41,4 +41,7 @@
      (set-face-foreground 'magit-branch "orange")
      (set-face-foreground 'magit-diff-add "green3")))
 
+
+(global-set-key (kbd "C-c g") 'magit-status)
+
 (provide 'cnb-sc)

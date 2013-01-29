@@ -4,7 +4,7 @@
 ;;(global-set-key "\M-?" 'etags-select-find-tag-at-point)
 ;;(global-set-key "\M-." 'etags-select-find-tag)
 ;;helm-c-etags-select
-(global-set-key [f8]  'shell-current-directory)
+;;(global-set-key [f8]  'shell-current-directory)
 
 
 ;;(global-set-key [f11] 'my-anything)
@@ -27,13 +27,6 @@
 
 (global-set-key (kbd "C-'") 'other-window)
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
-(when (fboundp 'yas-insert-snippet)
-;; (global-set-key (kbd "C-c s") 'yas-insert-snippet))
-  (global-set-key (kbd "C-c y") 'helm-c-yas-complete))
-
-(global-set-key (kbd "C-c g") 'magit-status)
 
 (global-set-key (kbd "C-M-h") 'backward-kill-word)
 
@@ -42,7 +35,6 @@
 (global-set-key (kbd "C-x \\") 'align-regexp)
 
 ;; (global-set-key (kbd "C-c k") 'browse-kill-ring)
-
 
 
 (global-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line)
@@ -56,7 +48,6 @@
 ;;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; orig alt X
 
-(define-key ibuffer-mode-map "e" 'ibuffer-ediff-marked-buffers)
 
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)

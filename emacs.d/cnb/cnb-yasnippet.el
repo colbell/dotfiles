@@ -4,4 +4,7 @@
   (setq yas-prompt-functions '(yas-ido-prompt
                                yas-completing-prompt)))
 
+(when (fboundp 'yas-insert-snippet)
+  (global-set-key (kbd "C-c y") 'helm-c-yas-complete))
+
 (provide 'cnb-yasnippet)
