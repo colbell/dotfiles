@@ -24,6 +24,7 @@
                        flymake flymake-coffee flymake-cursor flymake-haml flymake-ruby flymake-sass
                        ;;furl
                        go-mode haml-mode haskell-mode helm helm-git helm-c-yasnippet
+                       git-gutter
                        ibuffer-vc
                        idle-highlight
                        inf-ruby inflections jump

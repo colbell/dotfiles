@@ -41,6 +41,12 @@
      (set-face-foreground 'magit-branch "orange")
      (set-face-foreground 'magit-diff-add "green3")))
 
+(when (require 'git-gutter nil t)
+  (add-hook 'after-save-hook
+            (lambda ()
+              (when (zerop (call-process-shell-command "git rev-parse --show-toplevel"))
+                (git-gutter)))))
+
 
 (global-set-key (kbd "C-c g") 'magit-status)
 
