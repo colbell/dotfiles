@@ -41,9 +41,7 @@
   (when (require 'flymake-ruby nil t)
     (add-hook 'ruby-mode-hook 'flymake-ruby-load))
 
-
-
-  (require 'rinari nil t))
-
+  (when (require 'rinari nil t)
+    (global-rinari-mode)))
 
 (provide 'cnb-ruby)
