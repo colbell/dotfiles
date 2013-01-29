@@ -4,6 +4,7 @@
 (when (require 'helm-config nil t)
   (setq helm-c-use-adaptative-sorting t)
   (setq ido-use-virtual-buffers t) ;; used by helm?
+  (setq helm-buffer-max-length 40)
   (helm-mode 1)
   (require 'helm-git nil t)
 
