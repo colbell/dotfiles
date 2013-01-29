@@ -86,4 +86,8 @@
             (ibuffer-auto-mode 1)
             (ibuffer-switch-to-saved-filter-groups "default")))
 
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(define-key ibuffer-mode-map "e" 'ibuffer-ediff-marked-buffers)
+
 (provide 'cnb-ibuffer)
