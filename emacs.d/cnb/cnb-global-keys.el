@@ -27,6 +27,11 @@
 
 (global-set-key (kbd "C-'") 'other-window)
 
+(global-set-key (kbd "M-j")
+                (lambda ()
+                  (interactive)
+                  (join-line -1)))
+
 
 (global-set-key (kbd "C-M-h") 'backward-kill-word)
 
