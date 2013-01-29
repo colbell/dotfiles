@@ -6,6 +6,11 @@
   (setq bm-repository-file (expand-file-name "bm-repository" user-emacs-directory))
   (setq bm-repository-size 1024)
 
+  (when (fboundp 'bm-toggle)
+    (global-set-key (kbd "<C-f2>") 'bm-toggle)
+    (global-set-key (kbd "<f2>")   'bm-next)
+    (global-set-key (kbd "<S-f2>") 'bm-previous))
+
   ;; (setq-default bm-buffer-persistence t)
 
   ;; Load the repository from file on start up.
