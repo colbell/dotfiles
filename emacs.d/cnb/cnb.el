@@ -15,9 +15,10 @@
 (require 'cnb-bm)              ;; Bookmark config
 (require 'cnb-backups)         ;; File backups
 (require 'cnb-coding-system)   ;; UTF-8 setup
-(require 'cnb-rvm)              ;; Ruby version manager
+(require 'cnb-rvm)             ;; Ruby version manager
 (require 'cnb-recentf)         ;; View recently opened files
 (require 'cnb-helm)            ;; Anything successor
+(require 'cnb-ido)             ;; IDO mode
 (require 'cnb-ibuffer)         ;; IBuffer config
 (require 'cnb-dired)           ;; Dired config
 (require 'cnb-coding-hook)     ;; Setup for coding buffers
