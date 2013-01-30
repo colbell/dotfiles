@@ -1,7 +1,6 @@
 (server-start)
 (setenv "EDITOR" "emacsclient")
 
-
 ;; Default to unified diffs
 (setq diff-switches "-u -w")
 
@@ -214,8 +213,8 @@
 ;;==============
 ;; ctags
 ;;==============
-(autoload 'etags-select-find-tag-at-point "etags-select" "" t)
-(autoload 'etags-select-find-tag "etags-select" "" t)
+;; (autoload 'etags-select-find-tag-at-point "etags-select" "" t)
+;; (autoload 'etags-select-find-tag "etags-select" "" t)
 
 
 ;;(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
