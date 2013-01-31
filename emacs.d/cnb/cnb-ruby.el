@@ -1,4 +1,7 @@
 ;;(require 'ruby-end nil t)
+
+(require 'rspec-mode nil t)
+
 (when (require 'ruby-mode nil t)
   (when (require 'ruby-block nil t)
     (setq ruby-block-highlight-toggle t))
