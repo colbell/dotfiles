@@ -8,4 +8,12 @@
 (setq custom-file (concat dotfiles-dir "emacs-custom.el"))
 (load custom-file t)
 
+(setq inhibit-startup-echo-area-message "colbell")
+
 (require 'cnb) ;; main config file
+
+;;(require 'time)
+(defun cnb-init-time()
+  (message (concat "Startup Time: " (emacs-init-time))))
+
+(add-hook 'after-init-hook 'cnb-init-time)
