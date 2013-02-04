@@ -1,6 +1,6 @@
+(when (featurep 'magit)
 ;;
 ;; Show magit-status in full window and restore window config on quit.
-
 (defadvice magit-status (around magit-fullscreen activate)
   (window-configuration-to-register :magit-fullscreen)
   ad-do-it
@@ -30,7 +30,8 @@
   (setq magit-diff-options (remove "-w" magit-diff-options))
   (magit-refresh))
 
-(define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace)
+(if magit-status-mode-map
+    (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))
 
 (add-hook 'magit-log-edit-mode-hook 'flyspell-mode)
 (add-hook 'git-commit-mode-hook 'flyspell-mode)
@@ -48,6 +49,6 @@
                 (git-gutter)))))
 
 
-(global-set-key (kbd "C-c g") 'magit-status)
+(global-set-key (kbd "C-c g") 'magit-status))
 
 (provide 'cnb-sc)
