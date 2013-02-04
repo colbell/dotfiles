@@ -36,7 +36,7 @@
 
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 (mouse-avoidance-mode 'exile)
-(menu-bar-mode -1)
+(menu-bar-mode 1)
 (tool-bar-mode -1)
 (mouse-wheel-mode t)
 (blink-cursor-mode)
