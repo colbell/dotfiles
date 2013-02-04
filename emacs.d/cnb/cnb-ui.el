@@ -94,8 +94,8 @@
 
 
 ;; Stand out in zenburn.
-(set-face-background 'header-line "grey90")
-(set-face-foreground 'header-line "blue")
+;; (set-face-background 'header-line "grey90")
+;; (set-face-foreground 'header-line "blue")
 
 
 ;; Other stuff that fades into the background
