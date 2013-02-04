@@ -6,10 +6,10 @@
   (when (require 'ruby-block nil t)
     (setq ruby-block-highlight-toggle t))
 
-
   ;; rvm-activate-corresponding-ruby is broken
   (add-hook 'ruby-mode-hook
             (lambda () (rvm-activate-corresponding-ruby)
+              (add-hook 'ruby-mode-hook 'robe-mode)
               (when (featurep 'ruby-block)
                 (ruby-block-mode t))
               ;;(auto-fill-mode)
