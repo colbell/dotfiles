@@ -32,7 +32,7 @@
                        ;;mode-compile
                        puppet-mode
                        rainbow-delimiters rainbow-mode
-                       rinari rspec-mode ruby-compilation ruby-block ruby-end ruby-mode rvm sass-mode
+                       rinari robe rspec-mode ruby-compilation ruby-block ruby-end ruby-mode rvm sass-mode
                        ;;scpaste
                        scss-mode
                        ;;shell-current-directory
