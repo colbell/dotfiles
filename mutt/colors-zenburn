@@ -55,7 +55,7 @@ color body       color174 color237 "mailto: *[^ ]+\(\\i?subject=[^ ]+\)?"
 color body       color174 color237 "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
 
 # Smilies
-color body       yellow     default    "^ +.*> "
+#color body       yellow     default    "^ +.*> "
 color body       yellow     default    "(:|;)(-|^)*(\\)|\\()"
 color body       red        default    "(-|=)(-|=)+"
 
