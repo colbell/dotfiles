@@ -40,6 +40,7 @@
 (require 'cnb-aliases)         ;; Aliases to common cmds
 (require 'cnb-general)         ;; General stuff
 (require 'cnb-modeline)        ;; Modeline config
+(require 'cnb-term)            ;; Terminal mode
 (require 'cnb-global-keys)     ;; Global key bindings
 
 (provide 'cnb)
