@@ -13,8 +13,7 @@
 #
 # Requires a 256 color terminal. E.G. xterm-256-color
 
-
-# general-doesn't-fit stuff
+# general
 color normal     color188 color237
 color error      color115 color236
 color markers    color142 color238
@@ -29,7 +28,7 @@ color index      color108 color237 ~N
 color index      color188 color237 ~O
 color index      color223 color237 ~F
 color index      color174 color237 ~D
-color index      red      black    "TODTASKS"
+color index      red      color237 "TODTASKS"
 
 # header stuff
 color hdrdefault color223 color237
@@ -60,7 +59,7 @@ color body       yellow     default    "(:|;)(-|^)*(\\)|\\()"
 color body       red        default    "(-|=)(-|=)+"
 
 # misc body stuff
-color attachment color174 color237 #Add-ons to the message
+color attachment color174 color237
 color signature  color223 color237
 
 # quote levels
