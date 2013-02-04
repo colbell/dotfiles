@@ -19,7 +19,7 @@ Emacs.verticalScrollBars: off
 !Emacs.font:terminus-10
 !Emacs.font: DejaVu Sans Mono-8
 !Emacs.font: Bitstream Vera Sans Mono-11
-Emacs.font: Inconsolata-11
+!Emacs.font: Inconsolata-11
 Emacs.FontBackend: xft
 !Emacs.menuBar: off
 Emacs.toolBar: -1

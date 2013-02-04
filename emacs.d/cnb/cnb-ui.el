@@ -53,7 +53,7 @@
 (tooltip-mode -1) ;; Show tooltips in echo area
 
 ;; Should match xresources file
-(set-frame-font "Inconsolata-11" nil t)
+(set-frame-font "Inconsolata-12" nil t)
 
 (ignore-errors
   (load-theme 'zenburn t))
