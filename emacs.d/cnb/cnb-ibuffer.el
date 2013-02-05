@@ -54,6 +54,7 @@
                        (name . "magit")))
                ("conf" (or
                         (mode . muttrc-mode)
+                        (mode . conf-xdefaults-mode)
                         (mode . conf-mode)
                         (mode . conf-unix-mode)
                         (mode . conf-space-mode)))
