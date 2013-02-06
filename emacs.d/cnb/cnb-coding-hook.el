@@ -26,6 +26,11 @@
    nil `(("(?\\(lambda\\>\\)"
           (0 (progn (compose-region (match-beginning 1) (match-end 1)
                                     ,(make-char 'greek-iso8859-7 107))
+                    nil)))))
+  (font-lock-add-keywords
+   nil `(("(?\\(function\\>\\)"
+          (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                    ,(make-char 'symbol 166))
                     nil))))))
 
 (defun esk-run-coding-hook ()
