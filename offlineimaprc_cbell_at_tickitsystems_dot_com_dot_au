@@ -32,7 +32,7 @@ maxsyncaccounts = 1
 # You can override this with a command-line option -u.
 #ui = Tk.Blinkenlights
 #ui = Tk.VerboseUI
-ui = TTY.TTYUI
+ui = ttyui
 #ui = Blinkenlights
 #     Noninteractive.Basic, Noninteractive.Quiet
 
