@@ -33,7 +33,7 @@ maxsyncaccounts = 1
 #ui = Tk.VerboseUI,
 # ui = Curses.Blinkenlights, TTY.TTYUI,
 #     Noninteractive.Basic, Noninteractive.Quiet
-ui = Blinkenlights
+ui = ttyui
 
 #########################################################################
 [Account col@baibell.org]
