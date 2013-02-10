@@ -38,6 +38,9 @@
   (diminish 'undo-tree-mode)
   (diminish 'volatile-highlights-mode)
   (diminish 'whitespace-mode)
+  (diminish 'eldoc-mode)
+  (diminish 'hi-lock-mode)
+  (diminish 'helm-mode)
   (diminish 'yas-minor-mode))
 
 (provide 'cnb-modeline)
