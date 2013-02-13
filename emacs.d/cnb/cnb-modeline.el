@@ -32,15 +32,25 @@
 
 ;; Dimnish clutter
 (when (require 'diminish nil t)
-  (diminish 'drag-stuff-mode)
-  (diminish 'global-whitespace-mode)
-  (diminish 'ruby-block-mode)
-  (diminish 'undo-tree-mode)
-  (diminish 'volatile-highlights-mode)
-  (diminish 'whitespace-mode)
-  (diminish 'eldoc-mode)
-  (diminish 'hi-lock-mode)
-  (diminish 'helm-mode)
-  (diminish 'yas-minor-mode))
+  (ignore-errors
+    (diminish 'drag-stuff-mode))
+  (ignore-errors
+    (diminish 'global-whitespace-mode))
+  (ignore-errors
+    (diminish 'ruby-block-mode))
+  (ignore-errors
+    (diminish 'undo-tree-mode))
+  (ignore-errors
+    (diminish 'volatile-highlights-mode))
+  (ignore-errors
+    (diminish 'whitespace-mode))
+  (ignore-errors
+    (diminish 'eldoc-mode))
+  (ignore-errors
+    (diminish 'hi-lock-mode))
+  (ignore-errors
+    (diminish 'helm-mode))
+  (ignore-errors
+    (diminish 'yas-minor-mode)))
 
 (provide 'cnb-modeline)
