@@ -67,6 +67,7 @@ type = IMAP
 remotehost = imap.gmail.com
 remoteuser = col@baibell.org
 ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 
 maxconnections = 1
 
