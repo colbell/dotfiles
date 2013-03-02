@@ -68,7 +68,7 @@ myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror til
 
 myLogHook =  do
      -- fadeInactiveLogHook fadeAmount      -- Requires xcompmgr or similar
-     updatePointer (Relative 0.5 0.5)    -- Move cursor to newly focused windows.
+     -- updatePointer (Relative 0.5 0.5)    -- Move cursor to newly focused windows.
      logHook kde4Config
      --where
      -- fadeAmount = 0.8
