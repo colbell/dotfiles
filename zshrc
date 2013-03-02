@@ -118,5 +118,9 @@ D()
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
+if [[ -f "$HOME/.aws_keys" ]]; then
+  source "$HOME/.aws_keys";
+fi
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
