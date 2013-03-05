@@ -12,7 +12,7 @@ set header_cache="~/.mutt/cache/cbelltickit/headers"
 set mask="!^\\.[^.]"
 
 #set mbox="~/maildir/tickit/INBOX"
-set mbox="/var/mail/$USER"
+set mbox="$MAIL"
 #set spoolfile = "+INBOX"
 #set mbox="~/Mailbox"
 #set postponed="+postponed"
@@ -23,7 +23,7 @@ set folder="~/Maildir/tickit"
 set postponed="+[Gmail].Drafts"
 set record=""
 
-mailboxes `echo /var/mail/$USER $HOME/Mailbox $HOME/Maildir/tickit/*`
+mailboxes `echo $MAIL $HOME/Maildir/tickit/*`
 
 set smtp_url="smtps://cbell@tickitsystems.com.au@smtp.gmail.com"
 
