@@ -14,6 +14,7 @@ import XMonad.Config.Desktop (desktopLayoutModifiers)
 import XMonad.Config.Kde
 
 import XMonad.Hooks.FadeInactive
+import XMonad.Hooks.ICCCMFocus
 import XMonad.Hooks.SetWMName
 
 --import XMonad.Layout.NoBorders
@@ -32,6 +33,9 @@ import XMonad.Util.EZConfig(additionalKeys)
 --import XMonad.Util.NamedScratchpad
 import XMonad.Util.Scratchpad
 
+-- setWMName fixes grey rectangle problem in Swing apps
+-- takeTopFocus fixes being unable to click a text field to get focus in Swing apps.
+-- Requires JRE6, so far it doesn't work under 7.
 myStartupHook = setWMName "LG3D"
 
 myModMask     = mod4Mask
@@ -69,7 +73,7 @@ myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror til
 myLogHook =  do
      -- fadeInactiveLogHook fadeAmount      -- Requires xcompmgr or similar
      -- updatePointer (Relative 0.5 0.5)    -- Move cursor to newly focused windows.
-     logHook kde4Config
+     logHook kde4Config>> takeTopFocus
      --where
      -- fadeAmount = 0.8
 
@@ -99,6 +103,7 @@ main = do
                workspaces         = myWorkspaces
              , logHook            = myLogHook
              , manageHook         = myManageHook
+             , startupHook        = myStartupHook
              , borderWidth        = 1
              , modMask            = myModMask
              , layoutHook         = myLayout
