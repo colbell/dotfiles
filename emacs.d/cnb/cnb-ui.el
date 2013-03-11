@@ -52,15 +52,11 @@
 
 (tooltip-mode -1) ;; Show tooltips in echo area
 
-;; Should match xresources file
 (ignore-errors
-  (set-frame-font "Inconsolata-12" nil t))
-
-(ignore-errors
-  (load-theme 'solarized-dark t)
-  ;;(load-theme 'solarized-light t)
-  ;;(load-theme 'zenburn t)
-  )
+  (set-frame-font "Inconsolata-12" nil t)
+  (load-theme 'solarized-dark t))
+  ;;(load-theme 'solarized-light t))
+  ;;(load-theme 'zenburn t))
 
 ;; (when (require 'highlight-tail)
 ;;   ;; (setq highlight-tail-colors '(("black" . 0)
