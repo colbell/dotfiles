@@ -57,7 +57,10 @@
   (set-frame-font "Inconsolata-12" nil t))
 
 (ignore-errors
-  (load-theme 'zenburn t))
+  (load-theme 'solarized-dark t)
+  ;;(load-theme 'solarized-light t)
+  ;;(load-theme 'zenburn t)
+  )
 
 ;; (when (require 'highlight-tail)
 ;;   ;; (setq highlight-tail-colors '(("black" . 0)
