@@ -43,10 +43,10 @@
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 
-(setq
- scroll-margin 0
- scroll-conservatively 100000
- scroll-preserve-screen-position t)
+;; (setq
+;;  scroll-margin 0
+;;  scroll-conservatively 100000
+;;  scroll-preserve-screen-position t)
 
 (require 'smooth-scrolling nil t)
 

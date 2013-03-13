@@ -34,8 +34,6 @@
 (savehist-mode t)
 
 
-
-
 ;; (defadvice ffap-file-at-point (after avoid-c-comments activate)
 ;;   "Don't return paths like \"/******\" unless they actually exist.
 
