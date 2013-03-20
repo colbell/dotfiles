@@ -95,9 +95,9 @@
       (set-face-foreground 'diff-added "green4")))
 
 
-;; Stand out in zenburn.
-;; (set-face-background 'header-line "grey90")
-;; (set-face-foreground 'header-line "blue")
+;; Stand out in zenburn and solarized.
+(set-face-background 'header-line "grey90")
+(set-face-foreground 'header-line "blue")
 
 
 ;; Other stuff that fades into the background
