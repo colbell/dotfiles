@@ -46,7 +46,7 @@
 ;; Things to do when you open a coding buffer.
 ;;=======================
 (require 'linum)
-;;(add-hook 'esk-coding-hook 'linum-on)
+(add-hook 'esk-coding-hook 'linum-on)
 (add-hook 'esk-coding-hook 'esk-turn-on-hl-line-mode)
 (add-hook 'esk-coding-hook 'esk-pretty-lambdas)
 (add-hook 'esk-coding-hook 'esk-add-watchwords)
