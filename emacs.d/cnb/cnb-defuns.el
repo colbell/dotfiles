@@ -151,4 +151,16 @@
         (add-to-list 'load-path name)))))
 
 
+(defun cnb-open-external()
+  "Open file associated with current buffer or files marked in dired buffer"
+  (interactive)
+  (let (my_files)
+    (if (string-equal major-mode "dired-mode")
+        (setq my_files (dired-get-marked-files))
+      (setq my_files (list (buffer-file-name))))
+
+    (when my_files
+      (dolist (fn my_files)
+        (start-process "" nil "xdg-open" fn)))))
+
 (provide 'cnb-defuns)
