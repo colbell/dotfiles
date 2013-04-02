@@ -11,6 +11,8 @@
 (set-default 'imenu-auto-rescan t)
 
 (setenv "PAGER" "cat")
+
+(setq show-paren-style 'mixed)
 (show-paren-mode 1)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
