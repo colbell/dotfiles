@@ -6,6 +6,7 @@
   (setq ido-use-virtual-buffers t) ;; used by helm?
   (setq helm-buffer-max-length 40)
   (helm-mode 1)
+  (set-face-foreground 'helm-selection "black")
   (require 'helm-git nil t)
 
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
