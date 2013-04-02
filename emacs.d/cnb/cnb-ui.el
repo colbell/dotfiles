@@ -96,8 +96,9 @@
 
 
 ;; Stand out in zenburn and solarized.
-(set-face-background 'header-line "grey90")
-(set-face-foreground 'header-line "blue")
+;;(set-face-background 'header-line "grey90")
+(set-face-background 'header-line "black")
+(set-face-foreground 'header-line "white")
 
 
 ;; Other stuff that fades into the background
