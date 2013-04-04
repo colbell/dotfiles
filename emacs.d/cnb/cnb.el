@@ -42,5 +42,6 @@
 (require 'cnb-modeline)        ;; Modeline config
 (require 'cnb-term)            ;; Terminal mode
 (require 'cnb-global-keys)     ;; Global key bindings
+(require 'cnb-auto-dim)        ;; Change bg color on inactive buffers
 
 (provide 'cnb)
