@@ -14,7 +14,7 @@
     (package-refresh-contents))
 
   (setq cnb-packages '(ace-jump-mode
-                       auctex auto-complete
+                       auctex auto-complete auto-dim-other-buffers
                        autopair bm browse-kill-ring coffee-mode
                        color-theme-solarized
                        crontab-mode csv-mode deft diminish drag-stuff
