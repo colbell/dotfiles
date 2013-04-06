@@ -28,7 +28,8 @@
                        ibuffer-vc
                        idle-highlight
                        inf-ruby inflections jump
-                       less-css-mode lua-mode magit markdown-mode powerline
+                       less-css-mode lua-mode magit markdown-mode
+                       ;;powerline
                        ;;mode-compile
                        puppet-mode
                        rainbow-delimiters rainbow-mode
