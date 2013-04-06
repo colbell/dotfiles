@@ -18,4 +18,7 @@
   (add-hook 'rhtml-mode-hook
             (lambda () (rinari-launch))))
 
+(when (require 'handlebars-mode nil t)
+)
+
 (provide 'cnb-haml-sass-etc)
