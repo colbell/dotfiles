@@ -26,7 +26,8 @@
 
 (defun coffee-custom ()
   "coffee-mode-hook"
-  (set (make-local-variable 'tab-width) 2)
+  (make-local-variable 'tab-width)
+  (set 'tab-width 2)
   (setq coffee-tab-width 2)
   (setq coffee-debug-mode t)
   (setq js-indent-level 2)
