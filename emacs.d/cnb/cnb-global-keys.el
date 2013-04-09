@@ -1,4 +1,5 @@
-;; I press this too often
+;; I press these too often
+(global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
 
 ;;(global-set-key "\M-?" 'etags-select-find-tag-at-point)
