@@ -84,6 +84,7 @@
 (add-hook 'sass-mode-hook       'esk-run-coding-hook)
 (add-hook 'sh-mode-hook         'esk-run-coding-hook)
 (add-hook 'yaml-mode-hook       'esk-run-coding-hook)
+(add-hook 'handlebars-mode-hook 'esk-run-coding-hook)
 
 
 (provide 'cnb-coding-hook)
