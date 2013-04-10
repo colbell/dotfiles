@@ -25,6 +25,8 @@
 (when (require 'tramp nil t)
  (setq tramp-default-method "ssh"))
 
+;; Show flymake errors in mini-buffer
+(require 'flymake-cursor nil t)
 
 ;;*==============================================
 ;; Remember mini-buffer history
