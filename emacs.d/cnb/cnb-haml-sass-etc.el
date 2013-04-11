@@ -1,9 +1,10 @@
-;; Colourise CSS color codes
+;; Colorise CSS color codes
 (add-hook 'css-mode-hook 'rainbow-mode)
 (add-hook 'sass-mode-hook 'rainbow-mode)
 
 (when (require 'haml-mode nil t)
-  (add-to-list 'auto-mode-alist '("\\.haml\\'" . haml-mode)))
+  (add-to-list 'auto-mode-alist '("\\.haml\\'" . haml-mode))
+  (add-to-list 'auto-mode-alist '("\\.hamlbars\\'" . haml-mode)))
 
 (when (require 'sass-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.sass\\'" . sass-mode))
