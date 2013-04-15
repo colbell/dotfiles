@@ -22,4 +22,10 @@
 (when (require 'handlebars-mode nil t)
 )
 
+;;(when (require 'slim-mode nil t)
+;;  (add-to-list 'auto-mode-alist '("\\.emblem\\'" . slim-mode))) ;; Use Slim mode for emblem files - its close enuf.
+
+(add-to-list 'auto-mode-alist '("\\.emblem\\'" . slim-mode))
+(autoload 'slim-mode "slim-mode" "Slim Mode." t)
+
 (provide 'cnb-haml-sass-etc)
