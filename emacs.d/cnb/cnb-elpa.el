@@ -35,7 +35,7 @@
                        rainbow-delimiters rainbow-mode rhtml-mode
                        rinari robe rspec-mode ruby-compilation ruby-block ruby-end ruby-mode rvm sass-mode
                        ;;scpaste
-                       scss-mode
+                       scss-mode slim-mode
                        ;;shell-current-directory
                        smooth-scrolling
                        ;; sunrise-commander

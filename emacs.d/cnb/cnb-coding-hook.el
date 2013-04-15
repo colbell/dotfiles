@@ -83,6 +83,7 @@
 (add-hook 'ruby-mode-hook       'esk-run-coding-hook)
 (add-hook 'sass-mode-hook       'esk-run-coding-hook)
 (add-hook 'sh-mode-hook         'esk-run-coding-hook)
+(add-hook 'slim-mode-hook       'esk-run-coding-hook)
 (add-hook 'yaml-mode-hook       'esk-run-coding-hook)
 (add-hook 'handlebars-mode-hook 'esk-run-coding-hook)
 
