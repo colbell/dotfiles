@@ -14,7 +14,7 @@
   (add-hook 'haml-mode-hook 'flymake-haml-load)
   (add-hook 'sass-mode-hook 'flymake-sass-load))
 
-(when (require 'rhtml-mode)
+(when (require 'rhtml-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.rhtml\\'" . rhtml-mode))
   (add-hook 'rhtml-mode-hook
             (lambda () (rinari-launch))))
