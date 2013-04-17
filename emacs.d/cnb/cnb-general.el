@@ -89,7 +89,7 @@
 ;;*==============================================
 ;; Find file in project
 ;;*==============================================
-(require 'find-file-in-project nil t)
+(autoload 'find-file-in-project "find-file-in-project" t nil)
 
 ;;*==============================================
 ;; C-c left  C-c right  undo/redo window config changes
@@ -114,8 +114,8 @@
 ;;*==============================================
 ;; Editing mutt mail
 ;;*==============================================
-(require 'muttrc-mode)
 (add-to-list 'auto-mode-alist '("/tmp/mutt" . mail-mode))
+(autoload 'muttrc-mode "muttrc-mode" t nil)
 
 
 ;;*==============================================
