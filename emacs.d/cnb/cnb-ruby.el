@@ -6,6 +6,8 @@
   (when (require 'ruby-block nil t)
     (setq ruby-block-highlight-toggle t))
 
+  (require 'rubocop nil t)
+
   ;; rvm-activate-corresponding-ruby is broken
   (add-hook 'ruby-mode-hook
             (lambda () (rvm-activate-corresponding-ruby)
