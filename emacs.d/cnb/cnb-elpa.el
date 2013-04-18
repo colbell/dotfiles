@@ -16,7 +16,6 @@
   (setq cnb-packages '(ace-jump-mode
                        auctex auto-complete auto-dim-other-buffers
                        autopair bm browse-kill-ring coffee-mode
-                       color-theme-solarized
                        crontab-mode csv-mode deft diminish drag-stuff
                        ;;etags-select
                        expand-region
@@ -37,7 +36,7 @@
                        ;;scpaste
                        scss-mode slim-mode
                        ;;shell-current-directory
-                       smooth-scrolling
+                       smooth-scrolling solarized-theme
                        ;; sunrise-commander
                        switch-window
                        twittering-mode
