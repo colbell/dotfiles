@@ -56,6 +56,7 @@
 
 (ignore-errors
   (set-frame-font "Inconsolata-12" nil t)
+  (load-theme 'solarized-dark t)
   (load-theme 'solarized-dark t))
   ;;(load-theme 'solarized-light t))
   ;;(load-theme 'zenburn t))
@@ -97,8 +98,8 @@
 
 ;; Stand out in zenburn and solarized.
 ;;(set-face-background 'header-line "grey90")
-(set-face-background 'header-line "black")
-(set-face-foreground 'header-line "white")
+;; (set-face-background 'header-line "black")
+;; (set-face-foreground 'header-line "white")
 
 
 ;; Other stuff that fades into the background
