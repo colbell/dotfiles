@@ -55,8 +55,11 @@
 (add-hook 'esk-coding-hook 'flyspell-prog-mode t)
 (add-hook 'esk-coding-hook 'esk-semantic t)
 
-(when (fboundp 'idle-highlight)
+(when (require 'idle-highlight nil t)
+  (set-face-foreground 'idle-highlight "#268bd2")
+  (set-face-background 'idle-highlight "white")
   (add-hook 'esk-coding-hook 'idle-highlight))
+
 (when (fboundp 'yas/minor-mode)
   (add-hook 'esk-coding-hook 'yas/minor-mode))
 
