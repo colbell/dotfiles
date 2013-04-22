@@ -83,6 +83,24 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 
+if [ -d "$HOME/.rvm/bin" ]; then
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+  PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+fi
+
+if [[ -f "$HOME/.aws_keys" ]]; then
+  source "$HOME/.aws_keys";
+fi
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+if [ -d "$HOME/.rbenv/bin" ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
+
+
 #local smiley="%(?,%{$fg[green]%}☺%{$reset_color%},%{$fg[red]%}☹%{$reset_color%})"
 local smiley="%(?,%{$fg[green]%}✔%{$reset_color%},%{$fg[red]%}✘%{$reset_color%})"
 
@@ -90,8 +108,13 @@ PROMPT='
 %n@%m:%{$fg[yellow]%}%~%{$reset_color%}
 ${smiley} %{$reset_color%}%# '
 
-RPROMPT='%{$fg[white]%} $(~/.rvm/bin/rvm-prompt)$(~/bin/git-cwd-info.rb)%{$reset_color%}'
-
+if [ -d "$HOME/.rbenv/bin" ]; then
+  RPROMPT='%{$fg[white]%} $(~/bin/git-cwd-info.rb)%{$reset_color%}'
+elif [ -d "$HOME/.rvm/bin" ]; then
+  RPROMPT='%{$fg[white]%} $(~/.rvm/bin/rvm-prompt)$(~/bin/git-cwd-info.rb)%{$reset_color%}'
+else
+  RPROMPT='%{$fg[white]%} $(~/bin/git-cwd-info.rb)%{$reset_color%}'
+fi
 
 P() {
   echo $PATH | tr -s ':' '\n'
@@ -114,14 +137,3 @@ D()
     echo d: Broken
   fi
 }
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
-if [[ -f "$HOME/.aws_keys" ]]; then
-  source "$HOME/.aws_keys";
-fi
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
