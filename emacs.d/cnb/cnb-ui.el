@@ -32,6 +32,8 @@
       shift-select-mode nil
       mouse-yank-at-point t
       x-select-enable-clipboard t
+      x-select-enable-primary t
+      save-interprogram-paste-before-kill t
       require-final-newline t
       truncate-partial-width-windows nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
