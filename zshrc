@@ -50,7 +50,7 @@ export TERM=xterm-256color
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(bundler command-not-found git rails3 ruby cap rvm)
+plugins=(bundler command-not-found git rails3 ruby cap rvm rbenv)
 
 
 source $ZSH/oh-my-zsh.sh
@@ -109,7 +109,7 @@ PROMPT='
 ${smiley} %{$reset_color%}%# '
 
 if [ -d "$HOME/.rbenv/bin" ]; then
-  RPROMPT='%{$fg[white]%} $(~/bin/git-cwd-info.rb)%{$reset_color%}'
+  RPROMPT='%{$fg[white]%} $(rbenv_prompt_info) $(~/bin/git-cwd-info.rb)%{$reset_color%}'
 elif [ -d "$HOME/.rvm/bin" ]; then
   RPROMPT='%{$fg[white]%} $(~/.rvm/bin/rvm-prompt)$(~/bin/git-cwd-info.rb)%{$reset_color%}'
 else
