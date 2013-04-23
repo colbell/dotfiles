@@ -18,12 +18,6 @@
 
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG$" . diff-mode))
 
-;; Ignore symbolic link warning msgs.
-(setq find-file-visit-truename t)
-
-(when (require 'tramp nil t)
- (setq tramp-default-method "ssh"))
-
 ;; Show flymake errors in mini-buffer
 (require 'flymake-cursor nil t)
 
@@ -83,12 +77,6 @@
 ;; Grammer checking. diction-region or diction-buffer
 ;;*==============================================
 ;;(require 'diction)
-
-
-;;*==============================================
-;; Find file in project
-;;*==============================================
-(autoload 'find-file-in-project "find-file-in-project" t nil)
 
 ;;*==============================================
 ;; C-c left  C-c right  undo/redo window config changes
