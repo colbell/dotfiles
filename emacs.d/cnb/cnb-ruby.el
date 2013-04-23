@@ -18,6 +18,12 @@
               (outline-minor-mode)
               ;;(subword-mode +1)
               ;;(inf-ruby-setup-keybindings)
+
+              (setq imenu-generic-expression
+                 '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
+                   ))
+
+
               (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")))
 
   (eval-after-load 'ruby-mode

@@ -12,5 +12,6 @@
 (add-hook 'term-mode-hook 'cnb-ws-hook)
 (add-hook 'package-menu-mode-hook 'cnb-ws-hook)
 (add-hook 'helm-mode-hook 'cnb-ws-hook)
+(add-hook 'completion-list-mode-hook 'cnb-ws-hook)
 
 (provide 'cnb-ws)

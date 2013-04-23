@@ -1,4 +1,5 @@
-(when (featurep 'magit)
+(when (require 'magit nil t)
+;;(when (featurep 'magit)
   ;;
   ;; Show magit-status in full window and restore window config on quit.
   (defadvice magit-status (around magit-fullscreen activate)
