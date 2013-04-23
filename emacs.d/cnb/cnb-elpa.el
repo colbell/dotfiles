@@ -19,7 +19,9 @@
                        crontab-mode csv-mode deft diminish drag-stuff
                        ;;etags-select
                        expand-region
-                       feature-mode find-file-in-project findr
+                       feature-mode 
+                       ;;find-file-in-project
+                       find-file-in-repository findr
                        flymake flymake-coffee flymake-cursor flymake-haml flymake-ruby flymake-sass
                        ;;furl
                        go-mode haml-mode haskell-mode

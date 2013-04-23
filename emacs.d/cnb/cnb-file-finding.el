@@ -1,3 +1,14 @@
+;; Ignore symbolic link warning msgs.
+(setq find-file-visit-truename t)
+
+(when (require 'tramp nil t)
+ (setq tramp-default-method "ssh"))
+
+
+(when (require 'find-file-in-repository nil t)
+  (global-set-key (kbd "C-x f"x)))
+
+
 (require 'recentf)
 
 (setq recentf-save-file (file-truename (expand-file-name "recentf" user-emacs-directory)))
@@ -17,4 +28,4 @@
 
 (recentf-mode 1)
 
-(provide 'cnb-recentf)
+(provide 'cnb-file-finding)

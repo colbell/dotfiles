@@ -16,9 +16,12 @@
 (require 'cnb-backups)         ;; File backups
 (require 'cnb-coding-system)   ;; UTF-8 setup
 (require 'cnb-rvm)             ;; Ruby version manager
-(require 'cnb-recentf)         ;; View recently opened files
+
+(require 'cnb-file-finding)    ;; Various ways to find files
+(require 'cnb-icicles)         ;; Icicles mode
 ;;(require 'cnb-helm)            ;; Anything successor
 ;;(require 'cnb-ido)             ;; IDO mode
+
 (require 'cnb-ibuffer)         ;; IBuffer config
 (require 'cnb-dired)           ;; Dired config
 (require 'cnb-coding-hook)     ;; Setup for coding buffers
@@ -26,7 +29,6 @@
 (require 'cnb-org)             ;; Org mode config
 (require 'cnb-ruby)            ;; Ruby mode config
 (require 'cnb-haml-sass-etc)   ;; HTML CSS modes
-(require 'cnb-icicles)         ;; Icicles mode
 (require 'cnb-js-coffee)       ;; Coffeescript, JS
 (require 'cnb-auto-complete)   ;; tab-completiom
 (require 'cnb-kill-ring)       ;; Kill ring configuration
