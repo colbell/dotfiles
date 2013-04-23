@@ -34,7 +34,7 @@
                        ;;powerline
                        ;;mode-compile
                        puppet-mode
-                       rainbow-delimiters rainbow-mode rhtml-mode
+                       rainbow-delimiters rainbow-mode rbenv rhtml-mode
                        rinari robe rspec-mode rubocop
                        ruby-compilation ruby-block ruby-end ruby-mode rvm sass-mode
                        ;;scpaste
