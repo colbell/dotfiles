@@ -8,17 +8,18 @@
 
   (require 'rubocop nil t)
 
-  ;; rvm-activate-corresponding-ruby is broken
   (add-hook 'ruby-mode-hook
-            (lambda () (rvm-activate-corresponding-ruby)
-              (add-hook 'ruby-mode-hook 'robe-mode)
+            (lambda () (ignore-errors(rvm-activate-corresponding-ruby))
+              (ignore-errors(rbenv-use-corresponding))
+              (ignore-errors(setq rbenv-show-active-ruby-in-modeline nil))
+              ;;(add-hook 'ruby-mode-hook 'robe-mode)
               (when (featurep 'ruby-block)
                 (ruby-block-mode t))
               ;;(auto-fill-mode)
               (outline-minor-mode)
               ;;(subword-mode +1)
               ;;(inf-ruby-setup-keybindings)
-
+              (robe-mode)
               (setq imenu-generic-expression
                  '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
                    ))
