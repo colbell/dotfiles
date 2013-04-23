@@ -22,9 +22,10 @@
                        feature-mode find-file-in-project findr
                        flymake flymake-coffee flymake-cursor flymake-haml flymake-ruby flymake-sass
                        ;;furl
-                       go-mode haml-mode haskell-mode helm helm-git helm-c-yasnippet
+                       go-mode haml-mode haskell-mode
+                       ;;helm helm-git helm-c-yasnippet
                        git-gutter handlebars-mode
-                       ibuffer-vc
+                       ibuffer-vc icicles
                        idle-highlight
                        inf-ruby inflections jump
                        less-css-mode lua-mode magit markdown-mode

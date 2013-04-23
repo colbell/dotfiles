@@ -54,6 +54,7 @@
 ;;(add-hook 'esk-coding-hook 'turn-on-whitespace)
 (add-hook 'esk-coding-hook 'flyspell-prog-mode t)
 (add-hook 'esk-coding-hook 'esk-semantic t)
+(add-hook 'esk-coding-hook #'imenu-add-menubar-index t)
 
 (when (require 'idle-highlight nil t)
   (set-face-foreground 'idle-highlight "#268bd2")
