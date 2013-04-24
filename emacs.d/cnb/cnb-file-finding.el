@@ -6,7 +6,7 @@
 
 
 (when (require 'find-file-in-repository nil t)
-  (global-set-key (kbd "C-x f"x)))
+  (global-set-key (kbd "C-x f") 'find-file-in-repository))
 
 
 (require 'recentf)
