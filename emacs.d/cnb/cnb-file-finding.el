@@ -8,7 +8,6 @@
 (when (require 'find-file-in-repository nil t)
   (global-set-key (kbd "C-x f") 'find-file-in-repository))
 
-
 (require 'recentf)
 
 (setq recentf-save-file (file-truename (expand-file-name "recentf" user-emacs-directory)))

@@ -1,5 +1,5 @@
 (when (require 'icicles nil t)
   (icy-mode)
-  (global-set-key [f11] 'icicle-recent-file))
+  (global-set-key (kbd "C-x C-r") 'icicle-recent-file))
 
 (provide 'cnb-icicles)
