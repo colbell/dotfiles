@@ -19,7 +19,7 @@
               (outline-minor-mode)
               ;;(subword-mode +1)
               ;;(inf-ruby-setup-keybindings)
-              (robe-mode)
+              ;;(robe-mode)
               (setq imenu-generic-expression
                  '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
                    ))
