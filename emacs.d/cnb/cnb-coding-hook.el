@@ -68,28 +68,24 @@
 ;;=======================
 ;; Modes to treat as coding buffers
 ;;=======================
-(add-hook 'coffee-mode-hook     'esk-run-coding-hook)
+(add-hook 'prog-mode-hook       'esk-run-coding-hook) ;; Base mode for most coding modes.
+
 (add-hook 'conf-mode-hook       'esk-run-coding-hook)
 (add-hook 'css-mode-hook        'esk-run-coding-hook)
-(add-hook 'cucumber-mode-hook   'esk-run-coding-hook)
 (add-hook 'diff-hook            'esk-run-coding-hook)
-(add-hook 'emacs-lisp-mode-hook 'esk-run-coding-hook)
-(add-hook 'feature-mode-hook    'esk-run-coding-hook)
-(add-hook 'haml-mode-hook       'esk-run-coding-hook)
-(add-hook 'haskell-mode-hook    'esk-run-coding-hook)
-(add-hook 'html-mode-hook       'esk-run-coding-hook)
-(add-hook 'js-mode-hook         'esk-run-coding-hook)
-(add-hook 'lua-mode-hook        'esk-run-coding-hook)
-(add-hook 'muttrc-mode-hook     'esk-run-coding-hook)
-(add-hook 'nxml-mode-hook       'esk-run-coding-hook)
-(add-hook 'python-mode-hook     'esk-run-coding-hook)
-(add-hook 'rhtml-mode-hook      'esk-run-coding-hook)
-(add-hook 'ruby-mode-hook       'esk-run-coding-hook)
-(add-hook 'sass-mode-hook       'esk-run-coding-hook)
-(add-hook 'sh-mode-hook         'esk-run-coding-hook)
-(add-hook 'slim-mode-hook       'esk-run-coding-hook)
-(add-hook 'yaml-mode-hook       'esk-run-coding-hook)
-(add-hook 'handlebars-mode-hook 'esk-run-coding-hook)
+;; (add-hook 'cucumber-mode-hook   'esk-run-coding-hook)
+;; (add-hook 'feature-mode-hook    'esk-run-coding-hook)
+;; (add-hook 'haml-mode-hook       'esk-run-coding-hook)
+;; (add-hook 'html-mode-hook       'esk-run-coding-hook)
+;; (add-hook 'js-mode-hook         'esk-run-coding-hook)
+;; (add-hook 'lua-mode-hook        'esk-run-coding-hook)
+;; (add-hook 'muttrc-mode-hook     'esk-run-coding-hook)
+;; (add-hook 'python-mode-hook     'esk-run-coding-hook)
+;; (add-hook 'rhtml-mode-hook      'esk-run-coding-hook)
+;; (add-hook 'sass-mode-hook       'esk-run-coding-hook)
+;; (add-hook 'slim-mode-hook       'esk-run-coding-hook)
+;; (add-hook 'yaml-mode-hook       'esk-run-coding-hook)
+;; (add-hook 'handlebars-mode-hook 'esk-run-coding-hook)
 
 
 (provide 'cnb-coding-hook)
