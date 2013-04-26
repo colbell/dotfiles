@@ -10,7 +10,6 @@
 
   (add-hook 'ruby-mode-hook
             (lambda () (ignore-errors(rvm-activate-corresponding-ruby))
-              (ignore-errors(rbenv-use-corresponding))
               (ignore-errors(setq rbenv-show-active-ruby-in-modeline nil))
               ;;(add-hook 'ruby-mode-hook 'robe-mode)
               (when (featurep 'ruby-block)
