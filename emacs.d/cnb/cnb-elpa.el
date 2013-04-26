@@ -26,7 +26,7 @@
                        ;;furl
                        go-mode haml-mode haskell-mode
                        ;;helm helm-git helm-c-yasnippet
-                       git-gutter handlebars-mode
+                       git-gutter-fringe handlebars-mode
                        ibuffer-vc icicles
                        idle-highlight
                        inf-ruby inflections jump
