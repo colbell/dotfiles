@@ -9,9 +9,17 @@
   (require 'rubocop nil t)
 
   (add-hook 'ruby-mode-hook
-            (lambda () (ignore-errors(rvm-activate-corresponding-ruby))
-              (ignore-errors(setq rbenv-show-active-ruby-in-modeline nil))
-              ;;(add-hook 'ruby-mode-hook 'robe-mode)
+            (lambda ()
+              ;;(ignore-errors(robe-mode))
+
+              (cond
+               ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
+                (when (require 'rbenv nil t)
+                  (setq rbenv-show-active-ruby-in-modeline nil)))
+               ((file-directory-p (concat (getenv "HOME") "/.rvm"))
+                (when (require 'rvm nil t)
+                  (rvm-activate-corresponding-ruby))))
+
               (when (featurep 'ruby-block)
                 (ruby-block-mode t))
               ;;(auto-fill-mode)
@@ -22,7 +30,6 @@
               (setq imenu-generic-expression
                  '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
                    ))
-
 
               (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")))
 
