@@ -73,4 +73,14 @@
                    (open-line 1)
                    (indent-according-to-mode)))
 
+
+(when (require 'key-chord nil t)
+  (key-chord-mode 1)
+
+  (key-chord-define-global "qr"     'query-replace-regexp)
+  (key-chord-define-global "qt"     'delete-trailing-whitespace)
+
+  (key-chord-define emacs-lisp-mode-map "qv" 'eval-region)
+)
+
 (provide 'cnb-global-keys)

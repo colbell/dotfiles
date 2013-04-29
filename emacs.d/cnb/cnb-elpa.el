@@ -30,6 +30,7 @@
                        ibuffer-vc icicles
                        idle-highlight
                        inf-ruby inflections jump
+                       key-chord
                        less-css-mode lua-mode magit markdown-mode
                        ;;powerline
                        ;;mode-compile
