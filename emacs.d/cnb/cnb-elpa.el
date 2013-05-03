@@ -31,7 +31,7 @@
                        idle-highlight
                        inf-ruby inflections jump
                        key-chord
-                       less-css-mode lua-mode magit markdown-mode
+                       less-css-mode lua-mode magit markdown-mode mo-git-blame
                        ;;powerline
                        ;;mode-compile
                        puppet-mode
