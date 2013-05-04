@@ -6,4 +6,7 @@
 (put 'upcase-region 'disabled nil)                  ;; ("C-x C-u")
 (put 'dired-find-alternate-file 'disabled nil)      ;; 'a' in dired mode
 
+(put 'erase-buffer 'disabled nil)
+(global-set-key (kbd "C-c E")  'erase-buffer)
+
 (provide 'cnb-nonstd-cmds)
