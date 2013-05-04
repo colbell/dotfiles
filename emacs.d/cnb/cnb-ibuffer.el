@@ -34,15 +34,19 @@
                         (mode . haskell-mode)
                         (mode . lua-mode)
                         (mode . python-mode)))
+               ("js" (or
+                        (mode . coffee-mode)
+                        (mode . js-mode)
+                        (mode . espresso-mode)))
                ("web" (or
                         (mode . haml-mode)
+                        (mode . slim-mode)
                         (mode . sass-mode)
                         (mode . css-mode)
                         (mode . html-mode)
                         (mode . rhtml-mode)
                         (name . ".rhtml")
                         (mode . nXhtml-mode)
-                        (mode . coffee-mode)
                         (mode . espresso-mode)))
                ("term" (mode . term-mode))
                ("git" (or
