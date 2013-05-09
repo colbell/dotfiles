@@ -1,3 +1,7 @@
+(defun system-is-tickit()
+  (interactive)
+  (string-equal system-name "going-postal"))
+
 ;; Found somewhere on the Internet
 (defun edit-current-buffer-as-root ()
   (interactive)
