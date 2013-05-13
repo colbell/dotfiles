@@ -7,10 +7,14 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#export ZSH_THEME="robbyrussell"
+# export ZSH_THEME="robbyrussell"
+# if [ -d "$HOME/.rvm/bin" ]; then
+#   RPROMPT='[%{$fg[red]%}$(rvm-prompt)%{$reset_color%}]'
+# fi
+#export ZSH_THEME="fwalch"
 #export ZSH_THEME="humza"
 #export ZSH_THEME="candy"
-#export ZSH_THEME="aussiegeek"
+export ZSH_THEME="aussiegeek"
 
 export LANG='en_AU.utf8'
 export LC_CTYPE='en_AU.UTF-8'
@@ -50,7 +54,7 @@ export TERM=xterm-256color
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(bundler command-not-found git rails3 ruby cap rvm rbenv)
+plugins=(bundler xocommand-not-found git heroku rails3 ruby xorvm)
 
 
 source $ZSH/oh-my-zsh.sh
@@ -58,7 +62,6 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
 
-# No autocorrect - annoying.
 #unsetopt correct_all
 
 autoload -Uz compinit
@@ -101,20 +104,21 @@ if [ -d "$HOME/.rbenv/bin" ]; then
 fi
 
 
-#local smiley="%(?,%{$fg[green]%}☺%{$reset_color%},%{$fg[red]%}☹%{$reset_color%})"
-local smiley="%(?,%{$fg[green]%}✔%{$reset_color%},%{$fg[red]%}✘%{$reset_color%})"
+# #local smiley="%(?,%{$fg[green]%}☺%{$reset_color%},%{$fg[red]%}☹%{$reset_color%})"
+# local smiley="%(?,%{$fg[green]%}✔%{$reset_color%},%{$fg[red]%}✘%{$reset_color%})"
 
-PROMPT='
-%n@%m:%{$fg[yellow]%}%~%{$reset_color%}
-${smiley} %{$reset_color%}%# '
+# PROMPT='
+# %n@%m:%{$fg[yellow]%}%~%{$reset_color%}
+# ${smiley} %{$reset_color%}%# '
 
-if [ -d "$HOME/.rbenv/bin" ]; then
-  RPROMPT='%{$fg[white]%} $(rbenv_prompt_info) $(~/bin/git-cwd-info.rb)%{$reset_color%}'
-elif [ -d "$HOME/.rvm/bin" ]; then
-  RPROMPT='%{$fg[white]%} $(~/.rvm/bin/rvm-prompt)$(~/bin/git-cwd-info.rb)%{$reset_color%}'
-else
-  RPROMPT='%{$fg[white]%} $(~/bin/git-cwd-info.rb)%{$reset_color%}'
-fi
+# if [ -d "$HOME/.rbenv/bin" ]; then
+#  RPROMPT='%{$fg[white]%} $(rbenv_prompt_info) $(~/bin/git-cwd-info.rb)%{$reset_color%}'
+# elif [ -d "$HOME/.rvm/bin" ]; then
+#  RPROMPT='%{$fg[white]%} $(~/.rvm/bin/rvm-prompt)$(~/bin/git-cwd-info.rb)%{$reset_color%}'
+# else
+#  RPROMPT='%{$fg[white]%} $(~/bin/git-cwd-info.rb)%{$reset_color%}'
+# fi
+
 
 P() {
   echo $PATH | tr -s ':' '\n'
