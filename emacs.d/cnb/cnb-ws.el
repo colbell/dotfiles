@@ -15,5 +15,6 @@
 (add-hook 'completion-list-mode-hook 'cnb-ws-hook)
 (add-hook 'buffer-menu-mode-hook 'cnb-ws-hook)
 (add-hook 'fundamental-mode-hook 'cnb-ws-hook)
+(add-hook 'mu4e-headers-mode-hook 'cnb-ws-hook)
 
 (provide 'cnb-ws)
