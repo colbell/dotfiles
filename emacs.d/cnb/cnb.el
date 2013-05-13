@@ -46,5 +46,6 @@
 (require 'cnb-term)            ;; Terminal mode
 (require 'cnb-global-keys)     ;; Global key bindings
 (require 'cnb-auto-dim)        ;; Change bg color on inactive buffers
+(require 'cnb-mu4e)            ;; Email
 
 (provide 'cnb)
