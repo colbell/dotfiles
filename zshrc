@@ -11,10 +11,6 @@ export ZSH=$HOME/.oh-my-zsh
 # if [ -d "$HOME/.rvm/bin" ]; then
 #   RPROMPT='[%{$fg[red]%}$(rvm-prompt)%{$reset_color%}]'
 # fi
-#export ZSH_THEME="fwalch"
-#export ZSH_THEME="humza"
-#export ZSH_THEME="candy"
-export ZSH_THEME="aussiegeek"
 
 export LANG='en_AU.utf8'
 export LC_CTYPE='en_AU.UTF-8'
@@ -104,20 +100,20 @@ if [ -d "$HOME/.rbenv/bin" ]; then
 fi
 
 
-# #local smiley="%(?,%{$fg[green]%}☺%{$reset_color%},%{$fg[red]%}☹%{$reset_color%})"
-# local smiley="%(?,%{$fg[green]%}✔%{$reset_color%},%{$fg[red]%}✘%{$reset_color%})"
+#local smiley="%(?,%{$fg[green]%}☺%{$reset_color%},%{$fg[red]%}☹%{$reset_color%})"
+local smiley="%(?,%{$fg[green]%}✔%{$reset_color%},%{$fg[red]%}✘%{$reset_color%})"
 
-# PROMPT='
-# %n@%m:%{$fg[yellow]%}%~%{$reset_color%}
-# ${smiley} %{$reset_color%}%# '
+PROMPT='
+%n@%m:%{$fg[yellow]%}%~%{$reset_color%}
+${smiley} %{$reset_color%}%# '
 
-# if [ -d "$HOME/.rbenv/bin" ]; then
-#  RPROMPT='%{$fg[white]%} $(rbenv_prompt_info) $(~/bin/git-cwd-info.rb)%{$reset_color%}'
-# elif [ -d "$HOME/.rvm/bin" ]; then
-#  RPROMPT='%{$fg[white]%} $(~/.rvm/bin/rvm-prompt)$(~/bin/git-cwd-info.rb)%{$reset_color%}'
-# else
-#  RPROMPT='%{$fg[white]%} $(~/bin/git-cwd-info.rb)%{$reset_color%}'
-# fi
+if [ -d "$HOME/.rbenv/bin" ]; then
+ RPROMPT='%{$fg[white]%} $(rbenv_prompt_info) $(~/bin/git-cwd-info.rb)%{$reset_color%}'
+elif [ -d "$HOME/.rvm/bin" ]; then
+ RPROMPT='%{$fg[red]%} $(~/.rvm/bin/rvm-prompt)$(~/bin/git-cwd-info.rb)%{$reset_color%}'
+else
+ RPROMPT='%{$fg[red]%}[$(~/bin/git-cwd-info.rb)%{$reset_color%}'
+fi
 
 
 P() {
