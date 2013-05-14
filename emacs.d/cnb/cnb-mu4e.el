@@ -22,8 +22,8 @@
                      '("maildir:/IN.jira AND flag:unread"  "Unread JIRAs"  ?j))
         (add-to-list 'mu4e-bookmarks
                      '("maildir:/IN.jira AND flag:unread AND subject:TODTASKS"  "Unread JIRA Tasks"  ?i))
-
-))
+        (add-to-list 'mu4e-bookmarks
+                     '("flag:attach"  "with attachments"  ?a))))
 
   (setq mu4e-drafts-folder "/[Gmail].Drafts")
   (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
@@ -31,11 +31,12 @@
 
   (setq mu4e-headers-fields
         '(
-          (:date . 25)
-          (:flags . 6)
-          (:size . 6)
-          (:from-or-to . 22)
-          (:subject . nil)))
+          (:date         . 25)
+          (:flags        .  6)
+          (:size         .  6)
+          (:from-or-to   . 22)
+          (:maildir      . 22)
+          (:subject      . nil)))
 
   (setq mu4e-use-fancy-chars t)
   (setq mu4e-headers-passed-mark '("P" . "⇉"))
