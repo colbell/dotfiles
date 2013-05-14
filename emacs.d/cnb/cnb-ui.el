@@ -57,7 +57,7 @@
 (tooltip-mode -1) ;; Show tooltips in echo area
 
 (ignore-errors
-  (set-frame-font "Inconsolata-12" nil t)
+  (set-frame-font "Inconsolata-10" nil t)
   (load-theme 'solarized-dark t)
   (load-theme 'solarized-dark t))
   ;;(load-theme 'solarized-light t))
