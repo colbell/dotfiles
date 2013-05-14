@@ -1,0 +1,4 @@
+#!/bin/sh
+pkill -2 -u $USER mu
+sleep 1
+mu index --maildir=~/Maildir/tickit

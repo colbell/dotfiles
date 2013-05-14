@@ -2,9 +2,10 @@
   (if (system-is-tickit)
       (progn
         (setq mu4e-maildir "~/Maildir/tickit")
-        (setq user-mail-address "cbell@tickitsystems.com.au"
-              user-full-name  "Colin Bell"
-              message-signature
+        (setq user-mail-address "cbell@tickitsystems.com.au")
+        (setq user-full-name  "Colin Bell")
+        (setq mu4e-user-mail-address-regexp "col@baibell\.org\\|cbell@tickitsystems.com.au")
+        (setq message-signature
               (concat
                "Colin Bell\n"
                "Chief Technology Officer\n"
@@ -16,7 +17,13 @@
                "www.tickitsystems.com.au\n"
                "www.tickitondemand.com.au\n"
                "Award winning Risk, Compliance, Incident & Audit Software\n"
-               ))))
+               ))
+        (add-to-list 'mu4e-bookmarks
+                     '("maildir:/IN.jira AND flag:unread"  "Unread JIRAs"  ?j))
+        (add-to-list 'mu4e-bookmarks
+                     '("maildir:/IN.jira AND flag:unread AND subject:TODTASKS"  "Unread JIRA Tasks"  ?i))
+
+))
 
   (setq mu4e-drafts-folder "/[Gmail].Drafts")
   (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
@@ -38,8 +45,14 @@
 
   (setq mu4e-view-fields '(:from :to :cc :subject :flags :date :maildir :attachments :signature))
 
+  (setq mu4e-headers-leave-behavior 'apply)
+
+  (setq mu4e-headers-date-format "%d/%b/%Y %H:%M" )
+
   ;;(setq mu4e-html2text-command "html2text -utf8 -width 72")
   (setq mu4e-html2text-command "w3m -dump -T text/html")
+
+  (setq mu4e-view-prefer-html nil)
 
   (setq mu4e-attachment-dir  "~/Downloads")
 
@@ -57,6 +70,7 @@
 
   (setq mu4e-maildir-shortcuts
         '( ("/INBOX"               . ?i)
+           ("/IN.jira"             . ?j)
            ("/[Gmail].Sent Mail"   . ?s)
            ("/[Gmail].Trash"       . ?t)
            ("/[Gmail].All Mail"    . ?a)))
