@@ -49,7 +49,7 @@ localrepository = cbelltickit-local
 remoterepository = cbelltickit-remote
 
 #postsynchook = notmuch new
-postsynchook mu index --maildir=~/Maildir/tickit
+postsynchook = ~/bin/m4usync
 
 [Repository cbelltickit-local]
 type = Maildir
