@@ -2,6 +2,10 @@
   (interactive)
   (string-equal system-name "going-postal"))
 
+(defun system-is-home()
+  (interactive)
+  (string-equal system-name "ankh-morpork"))
+
 ;; Found somewhere on the Internet
 (defun edit-current-buffer-as-root ()
   (interactive)

@@ -56,7 +56,8 @@ autorefresh = 10
 localrepository = colbaibell-local
 remoterepository = colbaibell-remote
 
-postsynchook = notmuch new
+#postsynchook = notmuch new
+postsynchook = pkill -2 -u $USER mu && sleep 1 && mu index --maildir=~/Maildir/colbaibell.org
 
 [Repository colbaibell-local]
 type = Maildir

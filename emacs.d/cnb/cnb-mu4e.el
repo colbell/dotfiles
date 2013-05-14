@@ -1,4 +1,5 @@
 (when (require 'mu4e nil t)
+
   (if (system-is-tickit)
       (progn
         (setq mu4e-maildir "~/Maildir/tickit")
@@ -23,7 +24,28 @@
         (add-to-list 'mu4e-bookmarks
                      '("maildir:/IN.jira AND flag:unread AND subject:TODTASKS"  "Unread JIRA Tasks"  ?i))
         (add-to-list 'mu4e-bookmarks
-                     '("flag:attach"  "with attachments"  ?a))))
+                     '("flag:attach"  "with attachments"  ?a))
+
+        (setq mu4e-maildir-shortcuts
+              '( ("/INBOX"               . ?i)
+                 ("/IN.jira"             . ?j)
+                 ("/[Gmail].Sent Mail"   . ?s)
+                 ("/[Gmail].Trash"       . ?t)
+                 ("/[Gmail].All Mail"    . ?a))))
+    (if (system-is-home)
+      (setq mu4e-maildir "~/Maildir/colbaibell.org/")
+      (setq user-mail-address "col@baibell.org")
+      (setq user-full-name  "Colin Bell")
+      (setq mu4e-user-mail-address-regexp "col@baibell\.org\\|cbell@tickitsystems.com.au")
+      (setq message-signature nil)
+      (add-to-list 'mu4e-bookmarks
+                   '("flag:attach"  "with attachments"  ?a))
+
+      (setq mu4e-maildir-shortcuts
+            '( ("/INBOX"               . ?i)
+               ("/[Gmail].Sent Mail"   . ?s)
+               ("/[Gmail].Trash"       . ?t)
+               ("/[Gmail].All Mail"    . ?a)))))
 
   (setq mu4e-drafts-folder "/[Gmail].Drafts")
   (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
@@ -69,22 +91,13 @@
   ;; Don't save message to Sent Messages, Gmail/IMAP takes care of this
   (setq mu4e-sent-messages-behavior 'delete)
 
-  (setq mu4e-maildir-shortcuts
-        '( ("/INBOX"               . ?i)
-           ("/IN.jira"             . ?j)
-           ("/[Gmail].Sent Mail"   . ?s)
-           ("/[Gmail].Trash"       . ?t)
-           ("/[Gmail].All Mail"    . ?a)))
-
-  ;; alternatively, for emacs-24 you can use:
-  ;;(setq message-send-mail-function 'smtpmail-send-it
-  ;;     smtpmail-stream-type 'starttls
-  ;;     smtpmail-default-smtp-server "smtp.gmail.com"
-  ;;     smtpmail-smtp-server "smtp.gmail.com"
-  ;;     smtpmail-smtp-service 587)
+  (setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-stream-type 'starttls
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587)
 
   ;; don't keep message buffers around
-  (setq message-kill-buffer-on-exit t)
-  )
+  (setq message-kill-buffer-on-exit t))
 
 (provide 'cnb-mu4e)
