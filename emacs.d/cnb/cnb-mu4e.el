@@ -33,19 +33,20 @@
                  ("/[Gmail].Trash"       . ?t)
                  ("/[Gmail].All Mail"    . ?a))))
     (if (system-is-home)
-      (setq mu4e-maildir "~/Maildir/colbaibell.org/")
-      (setq user-mail-address "col@baibell.org")
-      (setq user-full-name  "Colin Bell")
-      (setq mu4e-user-mail-address-regexp "col@baibell\.org\\|cbell@tickitsystems.com.au")
-      (setq message-signature nil)
-      (add-to-list 'mu4e-bookmarks
-                   '("flag:attach"  "with attachments"  ?a))
+        (progn
+          (setq mu4e-maildir "~/Maildir/colbaibell.org/")
+          (setq user-mail-address "col@baibell.org")
+          (setq user-full-name  "Colin Bell")
+          (setq mu4e-user-mail-address-regexp "col@baibell\.org\\|cbell@tickitsystems.com.au")
+          (setq message-signature nil)
+          (add-to-list 'mu4e-bookmarks
+                       '("flag:attach"  "with attachments"  ?a))
 
-      (setq mu4e-maildir-shortcuts
-            '( ("/INBOX"               . ?i)
-               ("/[Gmail].Sent Mail"   . ?s)
-               ("/[Gmail].Trash"       . ?t)
-               ("/[Gmail].All Mail"    . ?a)))))
+          (setq mu4e-maildir-shortcuts
+                '( ("/INBOX"               . ?i)
+                   ("/[Gmail].Sent Mail"   . ?s)
+                   ("/[Gmail].Trash"       . ?t)
+                   ("/[Gmail].All Mail"    . ?a))))))
 
   (setq mu4e-drafts-folder "/[Gmail].Drafts")
   (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
@@ -92,10 +93,10 @@
   (setq mu4e-sent-messages-behavior 'delete)
 
   (setq message-send-mail-function 'smtpmail-send-it
-      smtpmail-stream-type 'starttls
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 587)
+        smtpmail-stream-type 'starttls
+        smtpmail-default-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587)
 
   ;; don't keep message buffers around
   (setq message-kill-buffer-on-exit t))
