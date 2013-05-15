@@ -77,13 +77,17 @@
                         (name . "^\\*helm")
                         ))
                ("shell-script" (mode . sh-mode))
-               ("gnus" (or
+               ("mail" (or
                         (mode . bbdb-mode)
                         (mode . gnus-article-mode)
                         (mode . gnus-group-mode)
                         (mode . gnus-summary-mode)
                         (name . "\.bbdb")
-                        (name . "\.newsrc-dribble")))
+                        (name . "\.newsrc-dribble")
+                        (mode . mu4e-main-mode)
+                        (mode . mu4e-headers-mode)
+                        (mode . mu4e-view-mode)
+                        (mode . mu4e-compose-mode)))
                ))))
 
 (add-hook 'ibuffer-mode-hook
