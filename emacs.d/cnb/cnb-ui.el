@@ -39,18 +39,19 @@
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+
 (mouse-avoidance-mode 'exile)
-(menu-bar-mode 1)
+(menu-bar-mode -1)
 (tool-bar-mode -1)
 (mouse-wheel-mode t)
 (blink-cursor-mode)
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 
-;; (setq
-;;  scroll-margin 0
-;;  scroll-conservatively 100000
-;;  scroll-preserve-screen-position t)
+(setq
+ scroll-margin 0
+ scroll-conservatively 100000
+ scroll-preserve-screen-position t)
 
 (require 'smooth-scrolling nil t)
 
@@ -58,7 +59,6 @@
 
 (ignore-errors
   (set-frame-font "Inconsolata-10" nil t)
-  (load-theme 'solarized-dark t)
   (load-theme 'solarized-dark t))
   ;;(load-theme 'solarized-light t))
   ;;(load-theme 'zenburn t))

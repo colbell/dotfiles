@@ -84,8 +84,11 @@
                '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
   (setq mu4e-view-show-images t)
+  (setq mu4e-view-images t)
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types))
+
+  (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
 
   (setq mu4e-headers-skip-duplicates t)
 
