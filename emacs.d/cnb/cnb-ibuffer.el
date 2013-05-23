@@ -46,8 +46,7 @@
                         (mode . html-mode)
                         (mode . rhtml-mode)
                         (name . ".rhtml")
-                        (mode . nXhtml-mode)
-                        (mode . espresso-mode)))
+                        (mode . nXhtml-mode)))
                ("term" (mode . term-mode))
                ("git" (or
                        (mode . magit-mode)
@@ -87,7 +86,8 @@
                         (mode . mu4e-main-mode)
                         (mode . mu4e-headers-mode)
                         (mode . mu4e-view-mode)
-                        (mode . mu4e-compose-mode)))
+                        (mode . mu4e-compose-mode)
+                        (mode . rmail-mode)))
                ))))
 
 (add-hook 'ibuffer-mode-hook
