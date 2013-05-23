@@ -108,25 +108,26 @@
                          (set-window-start w1 s2)
                          (set-window-start w2 s1)))))
 
- (defun rotate-windows ()
-  "Rotate your windows" (interactive) (cond ((not (> (count-windows) 1)) (message "You can't rotate a single window!"))
- (t
-  (setq i 1)
-  (setq numWindows (count-windows))
-  (while  (< i numWindows)
-    (let* (
-           (w1 (elt (window-list) i))
-           (w2 (elt (window-list) (+ (% i numWindows) 1)))
-           (b1 (window-buffer w1))
-           (b2 (window-buffer w2))
-           (s1 (window-start w1))
-           (s2 (window-start w2))
-           )
-      (set-window-buffer w1  b2)
-      (set-window-buffer w2 b1)
-      (set-window-start w1 s2)
-      (set-window-start w2 s1)
-      (setq i (1+ i)))))))
+(defun rotate-windows ()
+  "Rotate your windows" (interactive)
+  (cond ((not (> (count-windows) 1)) (message "You can't rotate a single window!"))
+        (t
+         (setq i 1)
+         (setq numWindows (count-windows))
+         (while  (< i numWindows)
+           (let* (
+                  (w1 (elt (window-list) i))
+                  (w2 (elt (window-list) (+ (% i numWindows) 1)))
+                  (b1 (window-buffer w1))
+                  (b2 (window-buffer w2))
+                  (s1 (window-start w1))
+                  (s2 (window-start w2))
+                  )
+             (set-window-buffer w1  b2)
+             (set-window-buffer w2 b1)
+             (set-window-start w1 s2)
+             (set-window-start w2 s1)
+             (setq i (1+ i)))))))
 
 
 ;; (defun turn-on-auto-revert-mode ()
@@ -170,5 +171,33 @@
     (when my_files
       (dolist (fn my_files)
         (start-process "" nil "xdg-open" fn)))))
+
+;; From http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
+(defun smarter-move-beginning-of-line (arg)
+  "Move point back to indentation of beginning of line.
+
+Move point to the first non-whitespace character on this line.
+If point is already there, move to the beginning of the line.
+Effectively toggle between the first non-whitespace character and
+the beginning of the line.
+
+If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+point reaches the beginning or end of the buffer, stop there."
+  (interactive "^p")
+  (setq arg (or arg 1))
+
+  ;; Move lines first
+  (when (/= arg 1)
+    (let ((line-move-visual nil))
+      (forward-line (1- arg))))
+
+  (let ((orig-point (point)))
+    (back-to-indentation)
+    (when (= orig-point (point))
+      (move-beginning-of-line 1))))
+
+;; remap C-a to `smarter-move-beginning-of-line'
+(global-set-key [remap move-beginning-of-line]
+                'smarter-move-beginning-of-line)
 
 (provide 'cnb-defuns)
