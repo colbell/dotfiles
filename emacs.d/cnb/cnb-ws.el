@@ -17,5 +17,8 @@
 (add-hook 'fundamental-mode-hook 'cnb-ws-hook)
 (add-hook 'mu4e-headers-mode-hook 'cnb-ws-hook)
 (add-hook 'mu4e-view-mode-hook 'cnb-ws-hook)
+(add-hook 'jabber-roster-mode-hook 'cnb-ws-hook)
+(add-hook 'jabber-chat-mode 'cnb-ws-hook)
+(add-hook 'ps-mode-hook 'cnb-ws-hook)
 
 (provide 'cnb-ws)
