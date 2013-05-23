@@ -19,7 +19,7 @@
                        crontab-mode csv-mode deft diminish drag-stuff
                        ;;etags-select
                        expand-region
-                       feature-mode 
+                       feature-mode
                        ;;find-file-in-project
                        find-file-in-repository findr
                        flymake flymake-coffee flymake-cursor flymake-haml flymake-ruby flymake-sass
@@ -29,7 +29,7 @@
                        git-gutter-fringe handlebars-mode
                        ibuffer-vc icicles
                        idle-highlight
-                       inf-ruby inflections jump
+                       inf-ruby inflections jabber jump
                        key-chord
                        less-css-mode lua-mode magit markdown-mode mo-git-blame
                        ;;powerline

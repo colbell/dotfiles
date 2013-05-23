@@ -47,5 +47,6 @@
 (require 'cnb-global-keys)     ;; Global key bindings
 (require 'cnb-auto-dim)        ;; Change bg color on inactive buffers
 (require 'cnb-mu4e)            ;; Email
+(require 'cnb-jabber)          ;; Gtalk
 
 (provide 'cnb)
