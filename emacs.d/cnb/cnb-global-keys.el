@@ -26,8 +26,6 @@
 ;; of inserting it into the current buffer
 (define-key global-map [ns-drag-file] 'ns-find-file)
 
-(global-set-key (kbd "C-'") 'other-window)
-
 (global-set-key (kbd "M-j")
                 (lambda ()
                   (interactive)
@@ -45,7 +43,6 @@
 
 (global-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line)
 
-(global-set-key (kbd "C-c r") 'rotate-windows)
 
 ;; (global-set-key (kbd "<up>") (lambda () (interactive) (scroll-down 1)))
 ;; (global-set-key (kbd "<down>") (lambda () (interactive) (scroll-up 1)))
