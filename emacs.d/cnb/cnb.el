@@ -48,5 +48,6 @@
 (require 'cnb-auto-dim)        ;; Change bg color on inactive buffers
 (require 'cnb-mu4e)            ;; Email
 (require 'cnb-jabber)          ;; Gtalk
+(require 'cnb-win)             ;; Window handling
 
 (provide 'cnb)
