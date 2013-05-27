@@ -35,7 +35,6 @@
       x-select-enable-primary t
       save-interprogram-paste-before-kill t
       require-final-newline t
-      truncate-partial-width-windows nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
@@ -71,13 +70,6 @@
 ;;                                 ("#bc2525" . 25)
 ;;                                 ("black" . 66)))
 ;;   (highlight-tail-mode))
-
-
-;;*==============================================
-;; shift + arrow keys to move between windows
-;;*==============================================
-(require 'windmove)
-(windmove-default-keybindings)
 
 
 ;;*==============================================
