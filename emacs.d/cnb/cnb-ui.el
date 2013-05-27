@@ -1,3 +1,11 @@
+
+(ignore-errors
+  (set-frame-font "Inconsolata-11" nil t)
+  (load-theme 'solarized-dark t))
+  ;;(load-theme 'solarized-light t))
+  ;;(load-theme 'zenburn t))
+
+
 ;;(setq redisplay-dont-pause nil) ;; Possibly stop emacs-snapshot from locking up.
 (setq redisplay-dont-pause t)
 
@@ -56,12 +64,6 @@
 (require 'smooth-scrolling nil t)
 
 (tooltip-mode -1) ;; Show tooltips in echo area
-
-(ignore-errors
-  (set-frame-font "Inconsolata-10" nil t)
-  (load-theme 'solarized-dark t))
-  ;;(load-theme 'solarized-light t))
-  ;;(load-theme 'zenburn t))
 
 ;; (when (require 'highlight-tail)
 ;;   ;; (setq highlight-tail-colors '(("black" . 0)
