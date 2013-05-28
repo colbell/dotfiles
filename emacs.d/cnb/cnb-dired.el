@@ -8,6 +8,6 @@
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\..+$"))
 
-(global-set-key (kbd "C-c d") 'dired-jump)
+(global-set-key (kbd "C-c C-d") 'dired-jump)
 
 (provide 'cnb-dired)
