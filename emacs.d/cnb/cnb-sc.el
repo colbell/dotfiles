@@ -15,6 +15,8 @@
 
   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
+
+
   (defun magit-toggle-whitespace ()
     (interactive)
     (if (member "-w" magit-diff-options)
