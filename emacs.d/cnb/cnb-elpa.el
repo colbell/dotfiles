@@ -18,7 +18,7 @@
                        autopair bm browse-kill-ring butler coffee-mode
                        crontab-mode csv-mode deft diminish drag-stuff
                        ;;etags-select
-                       expand-region
+                       esup expand-region
                        feature-mode
                        ;;find-file-in-project
                        find-file-in-repository findr
@@ -34,7 +34,7 @@
                        less-css-mode lua-mode magit markdown-mode mo-git-blame
                        ;;powerline
                        ;;mode-compile
-                       puppet-mode
+                       php-mode puppet-mode
                        rainbow-delimiters rainbow-mode rbenv rhtml-mode
                        rinari robe rspec-mode rubocop
                        ruby-compilation ruby-block ruby-end ruby-mode rvm sass-mode

@@ -8,6 +8,8 @@
 
 (add-subdirs-to-load-path (concat personal-dotfiles-dir "/vendor"))
 
+(autoload 'esup "esup" "Emacs Start Up Profiler." nil)
+
 (require 'cl)
 
 (require 'cnb-elpa)            ;; Package manager stuff
