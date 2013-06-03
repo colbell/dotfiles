@@ -1,8 +1,8 @@
 
 (ignore-errors
   (set-frame-font "Inconsolata-11" nil t)
-  (load-theme 'solarized-dark t))
-  ;;(load-theme 'solarized-light t))
+  ;;(load-theme 'solarized-dark t))
+  (load-theme 'solarized-light t))
   ;;(load-theme 'zenburn t))
 
 
