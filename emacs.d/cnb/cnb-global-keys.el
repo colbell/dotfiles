@@ -2,25 +2,8 @@
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
 
-;;(global-set-key "\M-?" 'etags-select-find-tag-at-point)
-;;(global-set-key "\M-." 'etags-select-find-tag)
-;;helm-c-etags-select
-;;(global-set-key [f8]  'shell-current-directory)
-
-
-;;(global-set-key [f11] 'my-anything)
-;;(global-set-key [f11] 'helm-mini)
-
-;; (global-set-key (kbd "C-c a") 'org-agenda)
-;; (global-set-key (kbd "C-c b") 'org-iswitchb)
-;; (global-set-key (kbd "C-c r") 'org-remember)
-
-
-;;(global-set-key (kbd "C-x b") 'anything-mini)
-;; (when (fboundp 'anything-imenu)
-;;   (global-set-key (kbd "C-x b") 'my-anything-buffer-func)
-;;   (global-set-key (kbd "C-x f") 'anything-recentf)
-;;   (global-set-key (kbd "C-x C-i") 'anything-imenu))
+;; How often do I key a comma without a trailing space?
+(global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
 
 ;; When you drag and drop a file into an Emacs buffer open it instead
 ;; of inserting it into the current buffer
@@ -51,6 +34,25 @@
 ;;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; orig alt X
 
+;;(global-set-key "\M-?" 'etags-select-find-tag-at-point)
+;;(global-set-key "\M-." 'etags-select-find-tag)
+;;helm-c-etags-select
+;;(global-set-key [f8]  'shell-current-directory)
+
+
+;;(global-set-key [f11] 'my-anything)
+;;(global-set-key [f11] 'helm-mini)
+
+;; (global-set-key (kbd "C-c a") 'org-agenda)
+;; (global-set-key (kbd "C-c b") 'org-iswitchb)
+;; (global-set-key (kbd "C-c r") 'org-remember)
+
+
+;;(global-set-key (kbd "C-x b") 'anything-mini)
+;; (when (fboundp 'anything-imenu)
+;;   (global-set-key (kbd "C-x b") 'my-anything-buffer-func)
+;;   (global-set-key (kbd "C-x f") 'anything-recentf)
+;;   (global-set-key (kbd "C-x C-i") 'anything-imenu))
 
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
