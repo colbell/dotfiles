@@ -5,6 +5,10 @@
 ;; How often do I key a comma without a trailing space?
 (global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
 
+(when (fboundp 'goto-last-change)
+  (global-set-key (kbd "M-? .") 'goto-last-change)
+  (global-set-key (kbd "M-? ,") 'goto-last-change-reverse))
+
 ;; When you drag and drop a file into an Emacs buffer open it instead
 ;; of inserting it into the current buffer
 (define-key global-map [ns-drag-file] 'ns-find-file)
