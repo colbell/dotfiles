@@ -24,7 +24,7 @@
                        find-file-in-repository findr
                        flymake flymake-coffee flymake-cursor flymake-haml flymake-ruby flymake-sass
                        ;;furl
-                       go-mode haml-mode haskell-mode
+                       go-mode goto-chg haml-mode haskell-mode
                        ;;helm helm-git helm-c-yasnippet
                        git-gutter-fringe handlebars-mode
                        ibuffer-vc icicles
