@@ -47,6 +47,9 @@
 
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 
+;; Don't let the cursor go into the minibuffer prompt
+(setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
+
 (mouse-avoidance-mode 'exile)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
