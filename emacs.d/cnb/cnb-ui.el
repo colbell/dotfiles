@@ -1,10 +1,13 @@
-
 (ignore-errors
   (set-frame-font "Inconsolata-11" nil t)
+  ;;(set-frame-font "Ubuntu Mono-10
+  (set font-use-system-font t)
   ;;(load-theme 'solarized-dark t))
   (load-theme 'solarized-light t))
   ;;(load-theme 'zenburn t))
 
+(menu-bar-mode -1)
+(tool-bar-mode -1)
 
 ;;(setq redisplay-dont-pause nil) ;; Possibly stop emacs-snapshot from locking up.
 (setq redisplay-dont-pause t)
@@ -36,7 +39,6 @@
 
 (setq visible-bell t
       inhibit-startup-message t
-      color-theme-is-global t
       shift-select-mode nil
       mouse-yank-at-point t
       x-select-enable-clipboard t
@@ -51,8 +53,7 @@
 (setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
 
 (mouse-avoidance-mode 'exile)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
+
 (mouse-wheel-mode t)
 (blink-cursor-mode)
 (setq use-file-dialog nil)
