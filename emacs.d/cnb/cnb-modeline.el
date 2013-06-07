@@ -23,9 +23,6 @@
 ;;      (set-face-attribute 'which-func nil :weight 'bold)
 ;;      (set-face-foreground 'which-func "#f0dfaf")))
 
-;; (when (require 'powerline nil t)
-;;   (powerline-default))
-
 ;; Battery status
 (require 'battery)
 (when (and battery-status-function
