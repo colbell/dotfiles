@@ -26,25 +26,6 @@
     (ediff-buffers (car marked-buffers) (cadr marked-buffers))))
 
 
-;; From http://www.emacswiki.org/emacs-en/MiniBuffer
-(defun minibuffer-quit ()
-  "Quit the minibuffer command, even when the minibuffer loses focus."
-  (interactive)
-  (when (active-minibuffer-window)
-    (save-window-excursion
-      (select-window (minibuffer-window))
-      (keyboard-escape-quit))))
-
-
-;; From http://www.emacswiki.org/emacs-en/MiniBuffer
-(defun minibuffer-refocus ()
-  "Refocus the minibuffer if it is waiting for input."
-  (interactive)
-  (when (active-minibuffer-window)
-    (message "") ;; clear the echo area, in case it overwrote the minibuffer
-    (select-window (minibuffer-window))))
-
-
 (defun move-line (&optional n)
   "Move current line N (1) lines up/down leaving point in place."
   (interactive "p")
