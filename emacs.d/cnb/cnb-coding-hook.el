@@ -54,7 +54,7 @@
 ;;(add-hook 'esk-coding-hook 'turn-on-whitespace)
 (add-hook 'esk-coding-hook 'flyspell-prog-mode t)
 (add-hook 'esk-coding-hook 'esk-semantic t)
-(add-hook 'esk-coding-hook #'imenu-add-menubar-index t)
+(add-hook 'esk-coding-hook 'imenu-add-menubar-index t)
 
 (when (require 'idle-highlight nil t)
   (set-face-foreground 'idle-highlight "#268bd2")
@@ -73,6 +73,8 @@
 (add-hook 'conf-mode-hook       'esk-run-coding-hook)
 (add-hook 'css-mode-hook        'esk-run-coding-hook)
 (add-hook 'diff-hook            'esk-run-coding-hook)
+(add-hook 'rhtml-mode-hook      'esk-run-coding-hook)
+(add-hook 'yaml-mode-hook       'esk-run-coding-hook)
 ;; (add-hook 'cucumber-mode-hook   'esk-run-coding-hook)
 ;; (add-hook 'feature-mode-hook    'esk-run-coding-hook)
 ;; (add-hook 'haml-mode-hook       'esk-run-coding-hook)
@@ -81,11 +83,9 @@
 ;; (add-hook 'lua-mode-hook        'esk-run-coding-hook)
 ;; (add-hook 'muttrc-mode-hook     'esk-run-coding-hook)
 ;; (add-hook 'python-mode-hook     'esk-run-coding-hook)
-(add-hook 'rhtml-mode-hook      'esk-run-coding-hook)
 ;; (add-hook 'sass-mode-hook       'esk-run-coding-hook)
 ;; (add-hook 'slim-mode-hook       'esk-run-coding-hook)
 ;; (add-hook 'yaml-mode-hook       'esk-run-coding-hook)
 ;; (add-hook 'handlebars-mode-hook 'esk-run-coding-hook)
-
 
 (provide 'cnb-coding-hook)
