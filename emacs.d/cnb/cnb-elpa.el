@@ -1,4 +1,3 @@
-;; Package manager
 (require 'package)
 
 (add-to-list 'package-archives '("Marmalade" . "http://marmalade-repo.org/packages/") t)
