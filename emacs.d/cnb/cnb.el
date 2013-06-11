@@ -52,4 +52,5 @@
 (require 'cnb-jabber)          ;; Gtalk
 (require 'cnb-win)             ;; Window handling
 (require 'cnb-print)           ;; Printing
+
 (provide 'cnb)

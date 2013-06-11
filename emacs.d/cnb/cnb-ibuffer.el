@@ -76,6 +76,8 @@
                         (name . "^\\*helm")
                         ))
                ("shell-script" (mode . sh-mode))
+               ("jabber" (or
+                          (mode . jabber-roster-mode)))
                ("mail" (or
                         (mode . bbdb-mode)
                         (mode . gnus-article-mode)
