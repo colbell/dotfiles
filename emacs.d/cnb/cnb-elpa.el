@@ -26,12 +26,13 @@
                        ;;furl
                        go-mode goto-chg haml-mode haskell-mode
                        ;;helm helm-git helm-c-yasnippet
-                       git-gutter-fringe handlebars-mode
+                       git-gutter-fringe git-messenger handlebars-mode
                        ibuffer-vc icicles
                        idle-highlight
                        inf-ruby inflections jabber jump
                        key-chord
                        less-css-mode lua-mode magit markdown-mode mo-git-blame
+                       muttrc-mode
                        ;;powerline
                        ;;mode-compile
                        php-mode puppet-mode
