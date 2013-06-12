@@ -98,12 +98,13 @@
 ;; Editing mutt mail
 ;;*==============================================
 (add-to-list 'auto-mode-alist '("/tmp/mutt" . mail-mode))
+(add-to-list 'auto-mode-alist '("muttrc" . muttrc-mode))
 (autoload 'muttrc-mode "muttrc-mode" t nil)
 
 
 ;;*==============================================
 ;; BBDB
-;; *==============================================
+;;*==============================================
 ;; (when (require 'bbdb nil t)
 ;;   (bbdb-initialize 'gnus 'message 'w3)
 ;;   (setq bbdb-complete-name-allow-cycling t)
