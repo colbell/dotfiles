@@ -102,3 +102,6 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
+/config/kde.org/libphonon.conf
+/config/nautilus/desktop-metadata
+/config/synaptiks/touchpad-defaults.json
