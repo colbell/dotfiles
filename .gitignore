@@ -19,6 +19,7 @@
 /config/f-spot/*
 /config/fish/fish_history
 /config/fish/fishd.*
+/config/fish/generated_completions/*
 /config/google-chrome/*
 /config/gtk-2.0/*
 /config/gtk-3.0/bookmarks

@@ -21,6 +21,11 @@
 ;; Show flymake errors in mini-buffer
 (require 'flymake-cursor nil t)
 
+
+;; associate fish files with shell mode
+(add-to-list 'auto-mode-alist '("\\.fish$" . shell-script-mode))
+
+
 ;;*==============================================
 ;; Remember mini-buffer history
 ;;*==============================================
