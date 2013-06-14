@@ -1,6 +1,9 @@
 (server-start)
 (setenv "EDITOR" "emacsclient")
 
+;; find-grep and some  others don't work well with fish.
+(setq shell-file-name "/bin/bash")
+
 ;; Default to unified diffs
 (setq diff-switches "-u -w")
 
@@ -27,6 +30,8 @@
 ;; Associate fish files with shell-script mode
 (add-to-list 'auto-mode-alist '("\\.fish$" . shell-script-mode))
 
+(setq doc-view-resolution 192)  ;; makes PDFs look better
+(setq doc-view-continuous t)
 
 ;;*==============================================
 ;; Remember mini-buffer history
