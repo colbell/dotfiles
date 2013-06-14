@@ -28,6 +28,8 @@
 ;; associate fish files with shell mode
 (add-to-list 'auto-mode-alist '("\\.fish$" . shell-script-mode))
 
+(setq doc-view-resolution 192)  ;; makes PDFs look better
+(setq doc-view-continuous t)
 
 ;;*==============================================
 ;; Remember mini-buffer history
