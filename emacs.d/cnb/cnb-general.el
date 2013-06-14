@@ -3,6 +3,7 @@
 
 ;; find-grep and some  others don't work well with fish.
 (setq shell-file-name "/bin/bash")
+(setq explicit-shell-file-name "/bin/bash")
 
 ;; Default to unified diffs
 (setq diff-switches "-u -w")
@@ -24,7 +25,6 @@
 ;; Show flymake errors in mini-buffer
 (require 'flymake-cursor nil t)
 
-(setq explicit-shell-file-name "/usr/bin/bash")
 
 
 ;; Associate fish files with shell-script mode
