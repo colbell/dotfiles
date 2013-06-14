@@ -21,8 +21,10 @@
 ;; Show flymake errors in mini-buffer
 (require 'flymake-cursor nil t)
 
+(setq explicit-shell-file-name "/usr/bin/bash")
 
-;; associate fish files with shell mode
+
+;; Associate fish files with shell-script mode
 (add-to-list 'auto-mode-alist '("\\.fish$" . shell-script-mode))
 
 
