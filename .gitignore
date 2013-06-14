@@ -23,14 +23,17 @@
 /config/google-chrome/*
 /config/gtk-2.0/*
 /config/gtk-3.0/bookmarks
+/config/gtk-3.0/settings.ini b/config/gtk-3.0/settings.ini
 /config/htop/htoprc
 /config/indicators/*
 /config/inkscape/*
+/config/kde.org/libphonon.conf
 /config/libfm/*
 /config/libreoffice/*
 /config/menus/*
 /config/midori/*
 /config/monitors.xml
+/config/nautilus/desktop-metadata
 /config/nitrogen/*
 /config/openbox/*
 /config/oxygen-gtk/argb-apps.conf
@@ -40,6 +43,7 @@
 /config/smplayer/*
 /config/softwarecenter/*
 /config/sublime-text-2/*
+/config/synaptiks/touchpad-defaults.json
 /config/tint2/*
 /config/totem/*
 /config/transmission/*
@@ -102,6 +106,3 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
-/config/kde.org/libphonon.conf
-/config/nautilus/desktop-metadata
-/config/synaptiks/touchpad-defaults.json
