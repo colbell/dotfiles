@@ -20,5 +20,6 @@
 (add-hook 'jabber-roster-mode-hook 'cnb-ws-hook)
 (add-hook 'jabber-chat-mode 'cnb-ws-hook)
 (add-hook 'ps-mode-hook 'cnb-ws-hook)
+(add-hook 'rspec-compilation-mode-hook 'cnb-ws-hook)
 
 (provide 'cnb-ws)
