@@ -18,7 +18,6 @@
                   (interactive)
                   (join-line -1)))
 
-
 (global-set-key (kbd "C-M-h") 'backward-kill-word)
 
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -26,7 +25,6 @@
 (global-set-key (kbd "C-x \\") 'align-regexp)
 
 ;; (global-set-key (kbd "C-c k") 'browse-kill-ring)
-
 
 (global-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line)
 
