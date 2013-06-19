@@ -22,7 +22,7 @@ import XMonad.Layout.ShowWName
 import XMonad.Layout.Tabbed
 
 import XMonad.Prompt ( XPConfig(..), XPPosition(..), defaultXPConfig
-                     , defaultXPKeymap , moveHistory,  deleteConsecutive
+                     , defaultXPKeymap, moveHistory,  deleteConsecutive
                      , deleteString, Direction1D(..)
                      , setSuccess, setDone )
 import XMonad.Prompt.Man
@@ -36,11 +36,11 @@ import XMonad.Util.Scratchpad
 -- setWMName fixes grey rectangle problem in Swing apps
 -- takeTopFocus fixes being unable to click a text field to get focus in Swing apps.
 -- Requires JRE6, so far it doesn't work under 7.
-myStartupHook = setWMName "LG3D"
+-- myStartupHook = setWMName "LG3D"
 
-myModMask     = mod4Mask
+myModMask    = mod4Mask
 
-myWorkspaces  = ["1-emacs","2-shell","3-web","4-fm","5","6","7","8-ssh","9-mail"]
+myWorkspaces = ["1-emacs","2-shell","3-web","4-fm","5","6","7","8-ssh","9-mail"]
 
 myManageHook = scratchpadManageHookDefault <+>composeAll (
     [ manageHook kde4Config
@@ -57,7 +57,6 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , className =? "Plasma"            --> doFloat
     , className =? "Plasma-desktop"    --> doFloat
     , className =? "Knotes"            --> doFloat
-    , className =? "Kcalc"             --> doFloat
     , className =? "XCalc"             --> doFloat
     ])
 
@@ -103,7 +102,7 @@ main = do
                workspaces         = myWorkspaces
              , logHook            = myLogHook
              , manageHook         = myManageHook
-             , startupHook        = myStartupHook
+             -- , startupHook        = myStartupHook
              , borderWidth        = 1
              , modMask            = myModMask
              , layoutHook         = myLayout
