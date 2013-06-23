@@ -3,7 +3,8 @@
 (global-unset-key (kbd "C-x C-z"))
 
 ;; How often do I key a comma without a trailing space?
-(global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
+;; Commented out as I* just can't stop pressing the space-bar
+;;(global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
 
 (when (fboundp 'goto-last-change)
   (global-set-key (kbd "M-? .") 'goto-last-change)
