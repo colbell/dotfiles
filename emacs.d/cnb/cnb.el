@@ -52,6 +52,7 @@
 (require 'cnb-jabber)          ;; Gtalk
 (require 'cnb-win)             ;; Window handling
 (require 'cnb-print)           ;; Printing
+(require 'cnb-scrolling)       ;; Scrolling
 (require 'cnb-ace)             ;; Ace jump and buffer setup
 
 (provide 'cnb)
