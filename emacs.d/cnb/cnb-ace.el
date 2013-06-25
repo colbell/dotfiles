@@ -1,5 +1,5 @@
 (when (require 'ace-jump-mode nil t)
-  (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
+  (global-set-key (kbd "C-c SPC") 'ace-jump-mode))
 
   ;; (when (require 'ace-jump-buffer nil t)
   ;;   (ace-jump-buffer-mode t)
