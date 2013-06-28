@@ -18,7 +18,7 @@
 
 ;; Because .emacs.d is a symlink to dotfiles/.emacs.d a file can have two names so
 ;; we need to ignore each file twice. The function (file-truename) will expand symlinks.
-(setq exclude-files '("places" ".ido.last" "elpa/**/.*" "emacs.bmk" "url/cookies"))
+(setq exclude-files '("places" ".ido.last" "elpa/**/.*" "emacs.bmk" "url/cookies" "/home/colbell/.jabber-avatars/*"))
 (while exclude-files
   (setq f (expand-file-name (car exclude-files) user-emacs-directory))
   (add-to-list 'recentf-exclude f)
