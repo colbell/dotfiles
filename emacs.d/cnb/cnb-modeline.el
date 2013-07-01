@@ -2,6 +2,8 @@
 (column-number-mode t)
 (size-indication-mode)
 
+(set-face-foreground 'mode-line-buffer-id "#ffffff")
+
 ;; Display time and local mail indicator.
 
 (defface cnb-display-time-mail-face '((t (:background "red"))) "bg color for mail indicator")
@@ -22,6 +24,7 @@
 ;;   '(progn
 ;;      (set-face-attribute 'which-func nil :weight 'bold)
 ;;      (set-face-foreground 'which-func "#f0dfaf")))
+
 
 ;; Battery status
 (require 'battery)
