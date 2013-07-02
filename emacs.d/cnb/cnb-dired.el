@@ -4,7 +4,7 @@
 ;;(add-hook 'dired-mode-hook 'turn-on-auto-revert-mode)
 
 (setq dired-recursive-copies 'always)
-(setq dired-recursive-deletes 'top)
+(setq dired-recursive-deletes 'always)
 
 
 ;; Allow <ALT>o to omit hidden files
