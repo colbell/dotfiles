@@ -8,8 +8,7 @@
   (setq yank-pop-change-selection t)
 
   (browse-kill-ring-default-keybindings)
-  (setq browse-kill-ring-quit-action 'save-and-restore)
-)
+  (setq browse-kill-ring-quit-action 'save-and-restore))
 
 
 ;;*==============================================

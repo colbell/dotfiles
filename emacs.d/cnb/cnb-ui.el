@@ -6,7 +6,7 @@
   (load-theme 'solarized-dark t)
   (set-frame-font "Inconsolata-11" nil t))
 
-(menu-bar-mode -1)
+;;(menu-bar-mode -1)
 (tool-bar-mode -1)
 
 ;;(setq redisplay-dont-pause nil) ;; Possibly stop emacs-snapshot from locking up.
