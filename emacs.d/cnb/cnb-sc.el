@@ -37,9 +37,9 @@
   (add-hook 'magit-log-edit-mode-hook 'flyspell-mode)
   (add-hook 'git-commit-mode-hook 'flyspell-mode)
 
-  (eval-after-load 'magit
-    '(progn
-       (set-face-foreground 'magit-section-title "blue")))
+  ;;(eval-after-load 'magit
+    ;;'(progn
+       ;;(set-face-foreground 'magit-section-title "blue")))
        ;;(set-face-foreground 'magit-branch "orange")
        ;;(set-face-foreground 'magit-diff-add "green3")))
 
