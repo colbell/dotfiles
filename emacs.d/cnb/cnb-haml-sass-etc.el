@@ -1,3 +1,5 @@
+(message (concat "Loading [" load-file-name "]"))
+
 ;; Colorise CSS color codes
 (add-hook 'css-mode-hook 'rainbow-mode)
 (add-hook 'sass-mode-hook 'rainbow-mode)
