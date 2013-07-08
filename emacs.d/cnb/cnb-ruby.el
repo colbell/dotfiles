@@ -1,3 +1,4 @@
+(message (concat "Loading [" load-file-name "]"))
 
 ;;;; RUBY
 
