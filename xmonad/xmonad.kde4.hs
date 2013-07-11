@@ -17,7 +17,7 @@ import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.ICCCMFocus
 import XMonad.Hooks.SetWMName
 
---import XMonad.Layout.NoBorders
+import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
 import XMonad.Layout.Tabbed
 
@@ -26,12 +26,13 @@ import XMonad.Prompt ( XPConfig(..), XPPosition(..), defaultXPConfig
                      , deleteString, Direction1D(..)
                      , setSuccess, setDone )
 import XMonad.Prompt.Man
+import XMonad.Prompt.Theme
 import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.Window
 
 import XMonad.Util.EZConfig(additionalKeys)
---import XMonad.Util.NamedScratchpad
 import XMonad.Util.Scratchpad
+import XMonad.Util.Themes
 
 -- setWMName fixes grey rectangle problem in Swing apps
 -- takeTopFocus fixes being unable to click a text field to get focus in Swing apps.
@@ -60,7 +61,7 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , className =? "XCalc"             --> doFloat
     ])
 
-myLayout = showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror tiled ||| simpleTabbed ||| Full)
+myLayout = smartBorders $ showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror tiled ||| tabbed shrinkText myTabConfig |||  Full)
   where
      tiled       = Tall nmaster delta ratio
      nmaster     = 1
@@ -76,12 +77,23 @@ myLogHook =  do
      --where
      -- fadeAmount = 0.8
 
-myFgColor = "#DCDCCC"
-myBgColor = "#3f3f3f"
-myHighlightedBgColor = "#CC5500"
-myCurrentWsBgColor = myHighlightedBgColor
-myActiveBorderColor = myCurrentWsBgColor
-myInactiveBorderColor = "#262626"
+myBgColor             = "#000000"
+myFgColor             = "#CC5500"
+myHighlightedBgColor  = myBgColor
+myHighlightedFgColor  = "#FFA000"
+myCurrentWsBgColor    = myHighlightedBgColor
+myActiveBorderColor   = myHighlightedFgColor
+myInactiveBorderColor = "#d3d3d3"
+
+myTabConfig = defaultTheme {
+    activeBorderColor        = myBgColor, --myHighlightedFgColor,
+    activeTextColor          = myHighlightedFgColor,
+    activeColor              = myBgColor,
+    inactiveBorderColor      = myBgColor,
+    inactiveTextColor        = "#EEEEEE",
+    inactiveColor            = myBgColor,
+    decoHeight               = 14
+}
 
 mySWNConfig = defaultSWNConfig {
                 swn_color   = myActiveBorderColor
@@ -93,6 +105,7 @@ myXPConfig = defaultXPConfig
                 { bgColor               = myBgColor
                 , fgColor               = myFgColor
                 , bgHLight              = myHighlightedBgColor
+                , fgHLight              = myHighlightedFgColor
                 , position              = Top
                 , promptBorderWidth     = 0
                 }
@@ -103,11 +116,11 @@ main = do
              , logHook            = myLogHook
              , manageHook         = myManageHook
              -- , startupHook        = myStartupHook
-             , borderWidth        = 1
+             , borderWidth        = 2
              , modMask            = myModMask
              , layoutHook         = myLayout
              , normalBorderColor  = myInactiveBorderColor
-             , focusedBorderColor = myActiveBorderColor
+             , focusedBorderColor = "red"
              } `additionalKeys` keys'
       where
         keys' =  [ ((myModMask , xK_Return),               dwmpromote)
