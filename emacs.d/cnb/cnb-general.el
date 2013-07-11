@@ -33,13 +33,6 @@
 (setq doc-view-resolution 192)  ;; makes PDFs look better
 (setq doc-view-continuous t)
 
-;;*==============================================
-;; Remember mini-buffer history
-;;*==============================================
-(setq savehist-additional-variables
-      '(search-ring regexp-search-ring kill-ring compile-history))
-(savehist-mode t)
-
 
 ;; (defadvice ffap-file-at-point (after avoid-c-comments activate)
 ;;   "Don't return paths like \"/******\" unless they actually exist.
