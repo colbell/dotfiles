@@ -48,6 +48,10 @@
   (ignore-errors
     (diminish 'volatile-highlights-mode))
   (ignore-errors
+    (diminish 'git-gutter-mode))
+  (ignore-errors
+    (diminish 'magit-mode))
+  (ignore-errors
     (diminish 'whitespace-mode))
   (ignore-errors
     (diminish 'eldoc-mode))
