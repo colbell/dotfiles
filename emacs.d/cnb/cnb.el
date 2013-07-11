@@ -14,15 +14,13 @@
 
 (require 'cnb-elpa)            ;; Package manager stuff
 (require 'cnb-ui)              ;; Basic UI setup
+(require 'cnb-sessions)        ;; Sessions
 (require 'cnb-bm)              ;; Bookmark config
 (require 'cnb-backups)         ;; File backups
 (require 'cnb-coding-system)   ;; UTF-8 setup
 (require 'cnb-rvm)             ;; Ruby version manager
-
 (require 'cnb-file-finding)    ;; Various ways to find files
 (require 'cnb-icicles)         ;; Icicles mode
-;;(require 'cnb-helm)            ;; Anything successor
-;;(require 'cnb-ido)             ;; IDO mode
 (require 'cnb-elisp)           ;; ELISP
 (require 'cnb-ibuffer)         ;; IBuffer config
 (require 'cnb-dired)           ;; Dired config
@@ -38,7 +36,6 @@
 (require 'cnb-abbrev)          ;; Auto-correction
 (require 'cnb-w3m)             ;; W3m config
 (require 'cnb-ws)              ;; Whitespace config
-(require 'cnb-saveplace)       ;; Saveplace
 (require 'cnb-uniquify)        ;; Unique buffer names
 (require 'cnb-yasnippet)       ;; ya-snippet config
 (require 'cnb-nonstd-cmds)     ;; Enable non-std commands
