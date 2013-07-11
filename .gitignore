@@ -56,7 +56,6 @@
 /config/xfce4/*
 /emacs.d/#*
 /emacs.d/#.newsrc-dribble#
-/emacs.d/*.elc
 /emacs.d/.DS_Store
 /emacs.d/.ditz-config
 /emacs.d/.newsrc-dribble
@@ -70,6 +69,8 @@
 /emacs.d/bm-repository
 /emacs.d/bookmarks
 /emacs.d/custom.el
+/emacs.d/.emacs.desktop
+/emacs.d/.emacs.desktop.lock
 /emacs.d/elim/
 /emacs.d/elpa/*
 /emacs.d/emacs-custom.el
