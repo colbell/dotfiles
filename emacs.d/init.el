@@ -56,7 +56,8 @@
 (require 'cnb-win)             ;; Window handling
 (require 'cnb-print)           ;; Printing
 (require 'cnb-scrolling)       ;; Scrolling
-(require 'cnb-ace)             ;; Ace jump and buffer setup
+(require 'cnb-ace)             ;; Ace jump
+(require 'cnb-edit-server)     ;; Edit within Chrome
 
 
 ;;(require 'time)
