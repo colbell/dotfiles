@@ -37,7 +37,7 @@
 (require 'cnb-haml-sass-etc)   ;; HTML CSS modes
 (require 'cnb-js-coffee)       ;; Coffeescript, JS
 (require 'cnb-auto-complete)   ;; tab-completiom
-(require 'cnb-kill-ring)       ;; Kill ring configuration
+(require 'cnb-undo)            ;; Undo configuration
 (require 'cnb-twitter)         ;; Read twitter stream
 (require 'cnb-abbrev)          ;; Auto-correction
 (require 'cnb-w3m)             ;; W3m config

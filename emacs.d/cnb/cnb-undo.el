@@ -17,6 +17,18 @@
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode))
 
+;; Keep region when undoing in region
+(defadvice undo-tree-undo (around keep-region activate)
+  (if (use-region-p)
+      (let ((m (set-marker (make-marker) (mark)))
+            (p (set-marker (make-marker) (point))))
+        ad-do-it
+        (goto-char p)
+        (set-mark m)
+        (set-marker p nil)
+        (set-marker m nil))
+    ad-do-it))
+
 
 ;;==============
 ;; If no current selection then let C-W and M-W operate on the current
@@ -38,4 +50,4 @@
            (line-beginning-position 2)))))
 
 
-(provide 'cnb-kill-ring)
+(provide 'cnb-undo)
