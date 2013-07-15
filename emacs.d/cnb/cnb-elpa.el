@@ -15,8 +15,9 @@
   (setq cnb-packages '(ace-jump-mode
                        ;;ace-jump-buffer
                        auctex auto-complete auto-dim-other-buffers
-                       autopair bm browse-kill-ring butler coffee-mode
-                       crontab-mode csv-mode cups deft diminish drag-stuff
+                       autopair bm browse-kill-ring butler
+                       coffee-mode crontab-mode csv-mode cups
+                       deft diminish dired-details  drag-stuff
                        edit-server edit-server-htmlize
                        ;;etags-select
                        esup expand-region

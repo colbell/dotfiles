@@ -62,4 +62,12 @@
   (ignore-errors
     (diminish 'yas-minor-mode)))
 
+;; From http://whattheemacsd.com/
+(defmacro rename-modeline (package-name mode new-name)
+  `(eval-after-load ,package-name
+     '(defadvice ,mode (after rename-modeline activate)
+        (setq mode-name ,new-name))))
+
+(rename-modeline "js" js-mode "JS")
+
 (provide 'cnb-modeline)
