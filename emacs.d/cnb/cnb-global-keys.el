@@ -29,6 +29,7 @@
 
 (global-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line)
 
+(define-key ctl-x-4-map "t" 'cnb-toggle-frame-split)
 
 ;; (global-set-key (kbd "<up>") (lambda () (interactive) (scroll-down 1)))
 ;; (global-set-key (kbd "<down>") (lambda () (interactive) (scroll-up 1)))
