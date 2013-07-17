@@ -25,6 +25,8 @@
 
 ;; Make dired less verbose
 (when (require 'dired-details nil t)
+  (setq dired-details-hidden-string "[...] ")
+  (setq dired-details-hide-link-targets t)
   (dired-details-install))
 
 ;; Allow <ALT>o to omit hidden files
