@@ -1,9 +1,5 @@
 (ignore-errors
-  ;;(set-frame-font "Ubuntu Mono-10
-  ;;(setq font-use-system-font t)
-  ;;(load-theme 'solarized-light t))
-  ;;(load-theme 'zenburn t))
-  (load-theme 'solarized-dark t)
+  (load-theme 'solarized-light t)
   (set-frame-font "Inconsolata-11" nil t))
 
 ;;(menu-bar-mode -1)

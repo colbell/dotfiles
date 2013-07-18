@@ -2,7 +2,7 @@
 (column-number-mode t)
 (size-indication-mode)
 
-(set-face-foreground 'mode-line-buffer-id "#ffffff")
+(set-face-foreground 'mode-line-buffer-id "darkgray")
 
 ;; Display time and local mail indicator.
 
@@ -69,5 +69,6 @@
         (setq mode-name ,new-name))))
 
 (rename-modeline "js" js-mode "JS")
+(rename-modeline "lisp-mode" emacs-lisp-mode "ELISP")
 
 (provide 'cnb-modeline)
