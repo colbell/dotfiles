@@ -19,6 +19,7 @@
 
 (require 'cl)
 (require 'cnb-elpa)            ;; Package manager stuff
+(require 'cnb-auto-dim)        ;; Change bg color on inactive buffers
 (require 'cnb-ui)              ;; Basic UI setup
 (require 'cnb-sessions)        ;; Sessions
 (require 'cnb-bm)              ;; Bookmark config
@@ -50,7 +51,6 @@
 (require 'cnb-modeline)        ;; Modeline config
 (require 'cnb-term)            ;; Terminal mode
 (require 'cnb-global-keys)     ;; Global key bindings
-(require 'cnb-auto-dim)        ;; Change bg color on inactive buffers
 (require 'cnb-mu4e)            ;; Email
 (require 'cnb-jabber)          ;; Gtalk
 (require 'cnb-win)             ;; Window handling
