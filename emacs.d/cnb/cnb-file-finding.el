@@ -11,8 +11,8 @@
 (require 'recentf)
 
 (setq recentf-save-file (file-truename (expand-file-name "recentf" user-emacs-directory)))
-(setq recentf-max-saved-items 200)
-(setq recentf-exclude '("~$"))
+(setq recentf-max-saved-items 1000)
+(setq recentf-exclude '("~$" "/tmp/" "/ssh:"))
 
 (add-to-list 'recentf-exclude recentf-save-file)
 

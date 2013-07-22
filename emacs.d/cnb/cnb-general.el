@@ -15,7 +15,7 @@
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "chromium-browser")
 
-
+(setq compilation-scroll-output t)
 (global-auto-revert-mode t)
 (setq auto-revert-verbose nil)
 (setq global-auto-revert-non-file-buffers t)
