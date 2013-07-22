@@ -52,8 +52,11 @@ export TERM=xterm-256color
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(bundler xocommand-not-found git heroku rails3 ruby xorvm)
 
-
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
+
+if [ -d "$HOME/android-sdk-linux/platform-tools" ]; then
+  PATH=$PATH:$HOME/android-sdk-linux/platform-tools
+fi
 
 if [ -d "$HOME/.rvm/bin" ]; then
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
@@ -65,7 +68,9 @@ if [[ -f "$HOME/.aws_keys" ]]; then
 fi
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+if [ -d "/usr/local/heroku/bin" ]; then
+  export PATH="/usr/local/heroku/bin:$PATH"
+fi
 
 if [ -d "$HOME/.rbenv/bin" ]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
