@@ -60,6 +60,8 @@
   (ignore-errors
     (diminish 'helm-mode))
   (ignore-errors
+    (diminish 'rinari-minor-mode "RIN"))
+  (ignore-errors
     (diminish 'yas-minor-mode)))
 
 ;; From http://whattheemacsd.com/
@@ -70,5 +72,6 @@
 
 (rename-modeline "js" js-mode "JS")
 (rename-modeline "lisp-mode" emacs-lisp-mode "ELISP")
+(rename-modeline "rinari-minor-mode" emacs-lisp-mode "RIN")
 
 (provide 'cnb-modeline)
