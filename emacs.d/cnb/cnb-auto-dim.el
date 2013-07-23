@@ -2,7 +2,7 @@
 
   (defadvice enable-theme (after my-enable-theme activate)
     (if (string= (ad-get-arg 0) "solarized-dark")
-        (set-face-background 'auto-dim-other-buffers-face "#074230")
+        (set-face-background 'auto-dim-other-buffers-face "#073642")
       (if (string= (ad-get-arg 0) "solarized-light")
           (set-face-background 'auto-dim-other-buffers-face "lightgray"))))
 
