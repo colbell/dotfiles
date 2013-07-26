@@ -1,6 +1,6 @@
 (ignore-errors
-  (load-theme 'solarized-light t)
-  (set-frame-font "Inconsolata-11" nil t))
+  (set-frame-font "Ubuntu Mono-11" nil t)
+  (load-theme 'solarized-dark t))
 
 ;;(menu-bar-mode -1)
 (tool-bar-mode -1)
