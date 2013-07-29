@@ -41,6 +41,11 @@
     '(progn
        (ignore-errors (require 'ruby-compilation))
 
+       (add-to-list 'hs-special-modes-alist
+                    '(ruby-mode
+                      "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
+                      (lambda (arg) (ruby-end-of-block)) nil))
+
        ;; The ruby-mode in ELPA (20110630) uses an EMACS variable last-command-char which has been replaced
        ;; by last-command-event. This is needed until ruby-mode catches up.
        (ignore-errors (defvaralias 'last-command-char 'last-command-event))
