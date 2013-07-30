@@ -46,6 +46,7 @@
 (add-hook 'esk-coding-hook 'esk-turn-on-hl-line-mode)
 (add-hook 'esk-coding-hook 'esk-pretty-lambdas)
 (add-hook 'esk-coding-hook 'esk-add-watchwords)
+(add-hook 'esk-coding-hook 'hs-minor-mode)
 
 ;;(add-hook 'esk-coding-hook 'turn-on-whitespace)
 (add-hook 'esk-coding-hook 'flyspell-prog-mode t)
