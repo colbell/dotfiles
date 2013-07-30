@@ -53,10 +53,10 @@
 (autoload 'markdown-mode "markdown-mode.el"
    "Major mode for editing Markdown files" t)
 
-(eval-after-load 'markdown-mode
-  '(progn
-     (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-     (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))))
+(add-hook 'markdown-mode 'flyspell-mode)
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode)
+
 
 ;;==============
 ;; Smex - ido for <alt>x
