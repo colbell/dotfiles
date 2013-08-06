@@ -41,7 +41,8 @@
                        php-mode puppet-mode
                        rainbow-delimiters rainbow-mode rbenv rhtml-mode
                        rinari robe rspec-mode rubocop
-                       ruby-compilation ruby-block ruby-end ruby-mode rvm sass-mode
+                       ruby-compilation ruby-block ruby-end ruby-mode ruby-refactor
+                       rvm sass-mode
                        ;;scpaste
                        scss-mode slim-mode
                        ;;shell-current-directory

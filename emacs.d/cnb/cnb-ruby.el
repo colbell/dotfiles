@@ -28,6 +28,10 @@
                 (ruby-block-mode t))
               ;;(auto-fill-mode)
               (outline-minor-mode)
+              (ruby-refactor-mode-launch)
+              (ignore-errors
+                (diminish 'ruby-refactor-mode "RR"))
+
               ;;(subword-mode +1)
               ;;(inf-ruby-setup-keybindings)
               ;;(robe-mode)

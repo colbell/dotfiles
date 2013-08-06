@@ -36,7 +36,7 @@
   (display-battery-mode 1))
 
 ;; Dimnish clutter
-(when (require 'diminish nil t)
+;;(when (require 'diminish nil t)
   (ignore-errors
     (diminish 'drag-stuff-mode))
   (ignore-errors
@@ -62,7 +62,8 @@
   (ignore-errors
     (diminish 'rinari-minor-mode "RIN"))
   (ignore-errors
-    (diminish 'yas-minor-mode)))
+    (diminish 'yas-minor-mode))
+;;)
 
 ;; From http://whattheemacsd.com/
 (defmacro rename-modeline (package-name mode new-name)
