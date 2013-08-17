@@ -32,13 +32,18 @@
                        ;;helm helm-git helm-c-yasnippet
                        ibuffer-vc icicles
                        idle-highlight
-                       inf-ruby inflections jabber jump
+                       inf-ruby inflections
+                       ;;jabber
+                       jump
                        key-chord
-                       less-css-mode lua-mode magit markdown-mode mo-git-blame
+                       less-css-mode lua-mode
+                       magit
+                       markdown-mode mo-git-blame
                        muttrc-mode
                        ;;powerline
                        ;;mode-compile
-                       php-mode puppet-mode
+                       ;;php-mode
+                       puppet-mode
                        rainbow-delimiters rainbow-mode rbenv rhtml-mode
                        rinari robe rspec-mode rubocop
                        ruby-compilation ruby-block ruby-end ruby-mode ruby-refactor
