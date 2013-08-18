@@ -1,6 +1,7 @@
 (ignore-errors
   (set-frame-font "Ubuntu Mono-11" nil t)
-  (load-theme 'solarized-dark t))
+  ;;(load-theme 'solarized-dark t)
+  (load-theme 'wombat t))
 
 ;;(menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -35,6 +36,7 @@
 
 (setq visible-bell t
       inhibit-startup-message t
+      initial-scratch-message nil
       shift-select-mode nil
       mouse-yank-at-point t
       x-select-enable-clipboard t
@@ -42,6 +44,11 @@
       save-interprogram-paste-before-kill t
       require-final-newline t
       ediff-window-setup-function 'ediff-setup-windows-plain)
+
+
+(setq-default indicate-empty-lines t)
+(when (not indicate-empty-lines)
+  (toggle-indicate-empty-lines))
 
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 
