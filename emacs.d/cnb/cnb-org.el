@@ -50,7 +50,9 @@
   (setq
    deft-extension "org"
    deft-directory(concat org-directory "deft/")
-   deft-text-mode 'org-mode)
+   deft-text-mode 'org-mode
+   deft-extension "org")
+
   (global-set-key (kbd "<f9>") 'deft))
 
 

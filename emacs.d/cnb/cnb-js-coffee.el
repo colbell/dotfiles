@@ -1,5 +1,5 @@
 ;;==============
-;; Javascript
+;; JavaScript
 ;;==============
 
 ;; From Emacs starter kit

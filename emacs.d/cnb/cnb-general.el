@@ -26,7 +26,6 @@
 (require 'flymake-cursor nil t)
 
 
-
 ;; Associate fish files with shell-script mode
 (add-to-list 'auto-mode-alist '("\\.fish$" . shell-script-mode))
 
