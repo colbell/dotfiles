@@ -39,7 +39,7 @@
                        less-css-mode lua-mode
                        magit
                        markdown-mode mo-git-blame
-                       muttrc-mode
+                       muttrc-mode mu4e-maildirs-extension
                        ;;powerline
                        ;;mode-compile
                        ;;php-mode

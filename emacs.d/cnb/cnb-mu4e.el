@@ -102,6 +102,8 @@
         smtpmail-smtp-service 587)
 
   ;; don't keep message buffers around
-  (setq message-kill-buffer-on-exit t))
+  (setq message-kill-buffer-on-exit t)
+  (when (require 'mu4e-maildirs-extension nil t)
+    (mu4e-maildirs-extension)))
 
 (provide 'cnb-mu4e)
