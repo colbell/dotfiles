@@ -1,0 +1,65 @@
+# -*- mode: conf; -*-
+[general]
+
+metadata = ~/offlineimap
+accounts = kwela,home
+maxsyncaccounts = 2
+ui = ttyui
+
+#########################################################################
+[Account home]
+
+autorefresh = 10
+
+localrepository = home-local
+remoterepository = home-remote
+
+postsynchook = pkill -2 -u $USER mu && sleep 1 && mu index --maildir=~/Maildir/home
+
+[Repository home-local]
+type = Maildir
+localfolders = ~/Maildir/home
+
+[Repository home-remote]
+type = IMAP
+remotehost = imap.gmail.com
+remoteuser = col@baibell.org
+remotepassfile = ~/.password.home
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+maxconnections = 3
+
+# Remove leading INBOX from all mailbox names.
+nametrans = lambda foldername: re.sub('^INBOX\.', '', foldername)
+
+folderfilter = lambda foldername: foldername not in '[Gmail]/All Mail'
+
+#########################################################################
+[Account kwela]
+
+autorefresh = 10
+
+localrepository = kwela-local
+remoterepository = kwela-remote
+
+postsynchook = pkill -2 -u $USER mu && sleep 1 && mu index --maildir=~/Maildir/kwela
+
+[Repository kwela-local]
+type = Maildir
+localfolders = ~/Maildir/kwela
+
+[Repository kwela-remote]
+type = IMAP
+remotehost = imap.gmail.com
+remoteuser = colin@kwelasolutions.com
+remotepassfile = ~/.password.kwela
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+maxconnections = 1
+
+# Remove leading INBOX from all mailbox names.
+nametrans = lambda foldername: re.sub('^INBOX\.', '', foldername)
+
+folderfilter = lambda foldername: foldername not in '[Gmail]/All Mail'
