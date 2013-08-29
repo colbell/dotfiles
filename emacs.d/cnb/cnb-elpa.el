@@ -51,7 +51,8 @@
                        ;;scpaste
                        scss-mode slim-mode
                        ;;shell-current-directory
-                       smooth-scrolling solarized-theme
+                       smooth-scrolling 
+                       ;;solarized-theme
                        ;; sunrise-commander
                        switch-window
                        twittering-mode
@@ -59,7 +60,8 @@
                        yaml-mode yasnippet
                        ;;yasnippet-bundle
                        w3m
-                       zenburn-theme))
+                       ;;zenburn-theme
+                       ))
 
   (dolist (p cnb-packages)
     (when (not (package-installed-p p))
