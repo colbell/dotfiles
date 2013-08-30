@@ -109,3 +109,5 @@
 /xmonad/xmonad.o
 /config/gtk-3.0/*
 
+/config/nautilus/accels
+/emacs.d/.directory
