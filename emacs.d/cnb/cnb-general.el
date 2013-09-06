@@ -235,16 +235,14 @@
 ;;   (slime-setup))
 
 
-(when (require 'butler nil t)
-  (setq butler-servers '())  ;; Bug in butler
-  (if (system-is-tickit)
-      (setq butler-servers
-            '((jenkins "tickit"
-                       (server-address . "http://192.168.1.113:8080")
-                       (server-user . "user")
-                       (server-passord . "user"))))
-)
-)
+;; (when (require 'butler nil t)
+;;   (setq butler-servers '())  ;; Bug in butler
+;;   (if (system-is-tickit)
+;;       (setq butler-servers
+;;             '((jenkins "tickit"
+;;                        (server-address . "http://192.168.1.113:8080")
+;;                        (server-user . "user")
+;;                        (server-passord . "user"))))))
 
 
 (provide 'cnb-general)
