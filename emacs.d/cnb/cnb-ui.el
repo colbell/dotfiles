@@ -52,6 +52,8 @@
 
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 
+(set-default 'cursor-type 'bar)
+
 ;; Don't let the cursor go into the minibuffer prompt
 (setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
 
