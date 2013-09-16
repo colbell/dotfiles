@@ -25,6 +25,7 @@
 ;; Show flymake errors in mini-buffer
 (require 'flymake-cursor nil t)
 
+(setq delete-by-moving-to-trash t)
 
 ;; Associate fish files with shell-script mode
 (add-to-list 'auto-mode-alist '("\\.fish$" . shell-script-mode))
@@ -208,7 +209,8 @@
 
 ;;(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
-
+;; Seed the random number generator
+(random t)
 
 ;;==============
 ;; CUA mode, really only used for rectangular editing.

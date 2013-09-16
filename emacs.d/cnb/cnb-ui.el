@@ -52,7 +52,9 @@
 
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 
-(set-default 'cursor-type 'bar)
+(set-default 'cursor-type '(bar . 1))
+(setq default-frame-alist
+  '((cursor-color . "palegoldenrod")))
 
 ;; Don't let the cursor go into the minibuffer prompt
 (setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
@@ -91,9 +93,10 @@
 
 (eval-after-load 'diff-mode
   '(progn
-      (set-face-foreground 'diff-added "green4")))
+     (set-face-foreground 'diff-added "green4")))
 
 (set-face-underline 'highlight nil)
+(set-face-attribute 'region nil :background "#666") # Selected textregion.
 
 ;; Stand out in zenburn and solarized.
 ;;(set-face-background 'header-line "grey90")
