@@ -96,7 +96,7 @@
      (set-face-foreground 'diff-added "green4")))
 
 (set-face-underline 'highlight nil)
-(set-face-attribute 'region nil :background "#666") # Selected textregion.
+(set-face-attribute 'region nil :background "#666") ;; Selected textregion.
 
 ;; Stand out in zenburn and solarized.
 ;;(set-face-background 'header-line "grey90")
