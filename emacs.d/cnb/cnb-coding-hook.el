@@ -34,8 +34,8 @@
   (run-hooks 'esk-coding-hook))
 
 
-(defun esk-semantic()
-  (add-to-list 'completion-at-point-functions 'semantic-completion-at-point-function))
+;; (defun esk-semantic()
+;;   (add-to-list 'completion-at-point-functions 'semantic-completion-at-point-function))
 
 
 ;;=======================
@@ -50,7 +50,7 @@
 
 ;;(add-hook 'esk-coding-hook 'turn-on-whitespace)
 (add-hook 'esk-coding-hook 'flyspell-prog-mode t)
-(add-hook 'esk-coding-hook 'esk-semantic t)
+;;(add-hook 'esk-coding-hook 'esk-semantic t)
 (add-hook 'esk-coding-hook 'imenu-add-menubar-index t)
 
 (when (require 'idle-highlight nil t)
