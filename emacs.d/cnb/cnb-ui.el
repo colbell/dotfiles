@@ -52,9 +52,9 @@
 
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 
-(set-default 'cursor-type '(bar . 1))
+(set-default 'cursor-type '(bar . 2))
 (setq default-frame-alist
-  '((cursor-color . "palegoldenrod")))
+  '((cursor-color . "red")))
 
 ;; Don't let the cursor go into the minibuffer prompt
 (setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
