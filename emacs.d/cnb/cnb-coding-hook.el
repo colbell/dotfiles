@@ -11,8 +11,8 @@
    nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
           1 font-lock-warning-face t))))
 
-(defun esk-turn-on-hl-line-mode ()
-  (when window-system (hl-line-mode t)))
+;; (defun esk-turn-on-hl-line-mode ()
+;;   (when window-system (hl-line-mode t)))
 
 (defun esk-turn-on-whitespace ()
   (whitespace-mode t))
@@ -43,7 +43,7 @@
 ;;=======================
 (require 'linum)
 (add-hook 'esk-coding-hook 'linum-on)
-(add-hook 'esk-coding-hook 'esk-turn-on-hl-line-mode)
+;; (add-hook 'esk-coding-hook 'esk-turn-on-hl-line-mode)
 (add-hook 'esk-coding-hook 'esk-pretty-lambdas)
 (add-hook 'esk-coding-hook 'esk-add-watchwords)
 (add-hook 'esk-coding-hook 'hs-minor-mode)
