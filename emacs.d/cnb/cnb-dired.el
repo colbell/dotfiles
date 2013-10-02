@@ -23,7 +23,7 @@
 (define-key dired-mode-map
   (vector 'remap 'end-of-buffer) 'dired-jump-to-bottom)
 
-';; Allow <ALT>o to omit hidden files
+;; Allow <ALT>o to omit hidden files
 (require 'dired-x)
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\..+$"))

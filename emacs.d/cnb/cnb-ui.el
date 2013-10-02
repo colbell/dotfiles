@@ -65,8 +65,12 @@
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 
-
 (tooltip-mode -1) ;; Show tooltips in echo area
+
+(when (require 'hilit-chg nil t)
+  (global-highlight-changes-mode-check-buffers))
+
+(global-hl-line-mode)
 
 ;;*==============================================
 ;; Line wrapping
