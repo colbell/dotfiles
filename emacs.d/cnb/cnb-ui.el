@@ -68,16 +68,6 @@
 
 (tooltip-mode -1) ;; Show tooltips in echo area
 
-;; (when (require 'highlight-tail)
-;;   ;; (setq highlight-tail-colors '(("black" . 0)
-;;   ;;                               ("#CC5500" . 25)
-;;   ;;                               ("#bc2525" . 66)))
-;;   ;; (setq highlight-tail-colors '(("black" . 0)
-;;   ;;                               ("#bc2525" . 25)
-;;   ;;                               ("black" . 66)))
-;;   (highlight-tail-mode))
-
-
 ;;*==============================================
 ;; Line wrapping
 ;;*==============================================
