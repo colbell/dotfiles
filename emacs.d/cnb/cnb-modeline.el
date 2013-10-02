@@ -30,8 +30,7 @@
   (global-anzu-mode +1)
   (setq anzu-search-threshold 1000)
   (set-face-attribute 'anzu-mode-line nil
-                      :foreground "yellow" :weight 'bold)
-)
+                      :foreground "yellow" :weight 'bold))
 
 ;; Battery status
 (require 'battery)
@@ -43,34 +42,34 @@
   (display-battery-mode 1))
 
 ;; Dimnish clutter
-;;(when (require 'diminish nil t)
-  (ignore-errors
-    (diminish 'drag-stuff-mode))
-  (ignore-errors
-    (diminish 'global-whitespace-mode))
-  (ignore-errors
-    (diminish 'ruby-block-mode))
-  (ignore-errors
-    (diminish 'undo-tree-mode))
-  (ignore-errors
-    (diminish 'volatile-highlights-mode))
-  (ignore-errors
-    (diminish 'git-gutter-mode))
-  (ignore-errors
-    (diminish 'magit-mode))
-  (ignore-errors
-    (diminish 'whitespace-mode))
-  (ignore-errors
-    (diminish 'eldoc-mode))
-  (ignore-errors
-    (diminish 'hi-lock-mode))
-  (ignore-errors
-    (diminish 'helm-mode))
-  (ignore-errors
-    (diminish 'rinari-minor-mode "RIN"))
-  (ignore-errors
-    (diminish 'yas-minor-mode))
-;;)
+(ignore-errors
+  (diminish `anzu-mode))
+(ignore-errors
+  (diminish 'drag-stuff-mode))
+(ignore-errors
+  (diminish 'global-whitespace-mode))
+(ignore-errors
+  (diminish 'ruby-block-mode))
+(ignore-errors
+  (diminish 'undo-tree-mode))
+(ignore-errors
+  (diminish 'volatile-highlights-mode))
+(ignore-errors
+  (diminish 'git-gutter-mode))
+(ignore-errors
+  (diminish 'magit-mode))
+(ignore-errors
+  (diminish 'whitespace-mode))
+(ignore-errors
+  (diminish 'eldoc-mode))
+(ignore-errors
+  (diminish 'hi-lock-mode))
+(ignore-errors
+  (diminish 'helm-mode))
+(ignore-errors
+  (diminish 'rinari-minor-mode "RIN"))
+(ignore-errors
+  (diminish 'yas-minor-mode))
 
 ;; From http://whattheemacsd.com/
 (defmacro rename-modeline (package-name mode new-name)
@@ -80,6 +79,6 @@
 
 (rename-modeline "js" js-mode "JS")
 (rename-modeline "lisp-mode" emacs-lisp-mode "ELISP")
-(rename-modeline "rinari-minor-mode" emacs-lisp-mode "RIN")
+;;(rename-modeline "rinari-minor-mode" emacs-lisp-mode "RIN")
 
 (provide 'cnb-modeline)
