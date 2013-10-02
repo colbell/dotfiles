@@ -16,7 +16,7 @@
                        auctex auto-complete auto-dim-other-buffers
                        autopair bm browse-kill-ring butler
                        coffee-mode creole-mode crontab-mode csv-mode cups
-                       deft diminish dired-details  drag-stuff
+                       deft diminish dired+ drag-stuff
                        edit-server edit-server-htmlize
                        ;;etags-select
                        esup expand-region
@@ -50,7 +50,7 @@
                        ;;scpaste
                        scss-mode slim-mode
                        ;;shell-current-directory
-                       smooth-scrolling 
+                       smooth-scrolling
                        ;;solarized-theme
                        ;; sunrise-commander
                        switch-window
