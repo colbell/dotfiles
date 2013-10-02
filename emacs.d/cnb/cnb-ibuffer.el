@@ -1,5 +1,5 @@
 (require 'ibuffer)
-(setq ibuffer-default-sorting-mode 'major-mode)
+(setq ibuffer-default-sorting-mode 'alphabetic)
 
 (setq ibuffer-expert t) ;; Don't prompt closing unmodified buffers
 (setq ibuffer-show-empty-filter-groups nil)
@@ -7,12 +7,10 @@
 ;;(require 'ibuffer-vc nil t)
 
 (setq ibuffer-formats
-      '((mark modified read-only " "
-              (name 18 18 :left :elide)
+      '((mark modified read-only vc-status-mini" "
+              (name 30 30 :left :elide)
               " "
               (size 9 -1 :right)
-;;              " "
-;;               (vc-status 16 16 :left)
               " "
               (mode 16 16 :left :elide)
               " " filename-and-process)
