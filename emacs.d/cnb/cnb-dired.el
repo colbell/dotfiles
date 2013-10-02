@@ -23,13 +23,7 @@
 (define-key dired-mode-map
   (vector 'remap 'end-of-buffer) 'dired-jump-to-bottom)
 
-;; Make dired less verbose
-(when (require 'dired-details nil t)
-  (setq dired-details-hidden-string "[...] ")
-  (setq dired-details-hide-link-targets t)
-  (dired-details-install))
-
-;; Allow <ALT>o to omit hidden files
+';; Allow <ALT>o to omit hidden files
 (require 'dired-x)
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\..+$"))
