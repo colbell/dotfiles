@@ -12,11 +12,10 @@
   (when (not package-archive-contents)
     (package-refresh-contents))
 
-  (setq cnb-packages '(ace-jump-mode
-                       ;;ace-jump-buffer
+  (setq cnb-packages '(ace-jump-mode anzu
                        auctex auto-complete auto-dim-other-buffers
                        autopair bm browse-kill-ring butler
-                       coffee-mode crontab-mode csv-mode cups
+                       coffee-mode creole-mode crontab-mode csv-mode cups
                        deft diminish dired-details  drag-stuff
                        edit-server edit-server-htmlize
                        ;;etags-select

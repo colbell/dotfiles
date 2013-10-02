@@ -25,6 +25,13 @@
 ;;      (set-face-attribute 'which-func nil :weight 'bold)
 ;;      (set-face-foreground 'which-func "#f0dfaf")))
 
+;; Display current match and total matches information in the mode-line
+(when (require 'anzu nil t)
+  (global-anzu-mode +1)
+  (setq anzu-search-threshold 1000)
+  (set-face-attribute 'anzu-mode-line nil
+                      :foreground "yellow" :weight 'bold)
+)
 
 ;; Battery status
 (require 'battery)
