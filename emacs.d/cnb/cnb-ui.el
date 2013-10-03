@@ -68,6 +68,7 @@
 (tooltip-mode -1) ;; Show tooltips in echo area
 
 (when (require 'hilit-chg nil t)
+  (setq highlight-changes-visibility-initial-state nil)
   (global-highlight-changes-mode-check-buffers))
 
 (global-hl-line-mode)
