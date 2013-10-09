@@ -22,7 +22,7 @@
 (require 'cnb-auto-dim)        ;; Change bg color on inactive buffers
 (require 'cnb-ui)              ;; Basic UI setup
 (require 'cnb-sessions)        ;; Sessions
-(require 'cnb-bm)              ;; Bookmark config
+(require 'cnb-bookmarks)       ;; Bookmark config
 (require 'cnb-backups)         ;; File backups
 (require 'cnb-coding-system)   ;; UTF-8 setup
 (require 'cnb-rvm)             ;; Ruby version manager
@@ -51,7 +51,7 @@
 (require 'cnb-modeline)        ;; Modeline config
 (require 'cnb-term)            ;; Terminal mode
 (require 'cnb-global-keys)     ;; Global key bindings
-(require 'cnb-mu4e)            ;; Email
+;;(require 'cnb-mu4e)            ;; Email
 (require 'cnb-jabber)          ;; Gtalk
 (require 'cnb-win)             ;; Window handling
 (require 'cnb-print)           ;; Printing
