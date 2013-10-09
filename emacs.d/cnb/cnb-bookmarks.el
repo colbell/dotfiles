@@ -29,4 +29,4 @@
 
   (setq bm-highlight-style 'bm-highlight-only-fringe))
 
-(provide 'cnb-bm)
+(provide 'cnb-bookmarks)
