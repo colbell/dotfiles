@@ -28,6 +28,10 @@
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\..+$"))
 
-(global-set-key (kbd "C-c C-d") 'dired-jump)
+
+(setq wdired-allow-to-change-permissions 't)
+(setq wdired-confirm-overwrite 't)
+
+;;(global-set-key (kbd "C-c C-d") 'dired-jump)
 
 (provide 'cnb-dired)
