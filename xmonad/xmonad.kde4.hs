@@ -59,6 +59,9 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , className =? "Plasma-desktop"    --> doFloat
     , className =? "Knotes"            --> doFloat
     , className =? "XCalc"             --> doFloat
+    , className =? "Emacs"             --> doShift "1-emacs"
+    , className =? "Dolphin"           --> doShift "4-fm"
+    , className =? "chromium-browser"  --> doShift "3-web"
     ])
 
 myLayout = smartBorders $ showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror tiled ||| tabbed shrinkText myTabConfig |||  Full)
