@@ -1,5 +1,13 @@
 ;; C-u 0 M-x byte-recompile-directory
 ;; will speed up emacs start time.
+
+;; - Cleanup flymake/flyspell
+;; (defface flymake-message-face
+;;  '((((class color) (background light)) (:foreground "#b2dfff"))
+;;    (((class color) (background dark))  (:foreground "#b2dfff")))
+;;  "Flymake message face")
+
+
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name))) ;; Taken from emacs starter kit
 
@@ -19,7 +27,7 @@
 
 (require 'cl)
 (require 'cnb-elpa)            ;; Package manager stuff
-(require 'cnb-auto-dim)        ;; Change bg color on inactive buffers
+;;(require 'cnb-auto-dim)        ;; Change bg color on inactive buffers
 (require 'cnb-ui)              ;; Basic UI setup
 (require 'cnb-sessions)        ;; Sessions
 (require 'cnb-bookmarks)       ;; Bookmark config
@@ -57,8 +65,8 @@
 (require 'cnb-print)           ;; Printing
 (require 'cnb-scrolling)       ;; Scrolling
 (require 'cnb-ace)             ;; Ace jump
+(require 'cnb-crosshairs)      ;; Screen crosshairs
 (require 'cnb-edit-server)     ;; Edit within Chrome
-
 
 ;;(require 'time)
 (defun cnb-init-time()
