@@ -45,7 +45,6 @@
       require-final-newline t
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
-
 (setq-default indicate-empty-lines t)
 (when (not indicate-empty-lines)
   (toggle-indicate-empty-lines))
@@ -70,8 +69,6 @@
 (when (require 'hilit-chg nil t)
   (setq highlight-changes-visibility-initial-state nil)
   (global-highlight-changes-mode-check-buffers))
-
-(global-hl-line-mode)
 
 ;;*==============================================
 ;; Line wrapping

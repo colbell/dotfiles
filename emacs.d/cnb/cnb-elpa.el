@@ -1,8 +1,8 @@
 (require 'package)
 
-(add-to-list 'package-archives '("Marmalade" . "http://marmalade-repo.org/packages/") t)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-;;(add-to-list 'package-archives '("Tromey" . "http://tromey.com/elpa/") t)
+(add-to-list 'package-archives '("Marmalade" . "http://marmalade-repo.org/packages/") 'APPEND)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") 'APPEND)
+;;(add-to-list 'package-archives '("Tromey" . "http://tromey.com/elpa/") 'APPEND)
 
 (package-initialize)
 
@@ -15,7 +15,7 @@
   (setq cnb-packages '(ace-jump-mode anzu
                        auctex auto-complete auto-dim-other-buffers
                        autopair bm browse-kill-ring butler
-                       coffee-mode creole-mode crontab-mode csv-mode cups
+                       coffee-mode creole-mode crontab-mode crosshairs csv-mode cups
                        deft diminish dired+ drag-stuff
                        edit-server edit-server-htmlize
                        ;;etags-select
@@ -58,7 +58,6 @@
                        undo-tree volatile-highlights
                        yaml-mode yasnippet
                        ;;yasnippet-bundle
-                       w3m
                        ;;zenburn-theme
                        ))
 
