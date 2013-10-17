@@ -2,11 +2,6 @@
 ;; Browse the kill-ring
 ;;==============
 (when (require 'browse-kill-ring nil t)
-;; If 'yank-pop-change-selection' is t, rotating the kill ring
-;; also updates the selection or clipboard to the current yank,
-;; just as M-w would do so with the text it copies to the kill ring.
-  (setq yank-pop-change-selection t)
-
   (browse-kill-ring-default-keybindings)
   (setq browse-kill-ring-quit-action 'save-and-restore))
 

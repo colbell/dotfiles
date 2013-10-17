@@ -1,5 +1,5 @@
 (when (require 'crosshairs nil t)
-  (toggle-crosshairs-when-idle 1)
+  ;;(toggle-crosshairs-when-idle 1)
 
   ;; Without this crosshairs turns global hiline mode on.
   (setq global-hl-line-mode nil)
@@ -13,6 +13,8 @@
     (flash-crosshairs))
   (defadvice windmove-do-window-select (after windmove-do-flash-crosshairs activate)
     "Call flash-crosshairs after windmove-do-window-select"
-    (flash-crosshairs)))
+    (flash-crosshairs))
+
+  (global-set-key (kbd "<f11>") 'flash-crosshairs))
 
 (provide 'cnb-crosshairs)
