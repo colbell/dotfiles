@@ -13,6 +13,11 @@
 (setq apropos-do-all t)
 (auto-image-file-mode)
 
+;; Reuse existing window for compilation windows.
+(setq-default display-buffer-reuse-frames t)
+;;(setq display-buffer-alist '(("*rspec-compilation*" display-buffer-in-previous-window (reusable-frames . t))))
+;;(setq display-buffer-alist '(("*rspec-compilation*" display-buffer-in-previous-window 'reusable-frames)))
+
 (set-default 'indent-tabs-mode nil)
 
 (set-default 'indicate-empty-lines t)
