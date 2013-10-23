@@ -111,3 +111,5 @@
 
 /config/nautilus/accels
 /emacs.d/.directory
+/config/synaptiks/management.json
+/config/synaptiks/touchpad-config.json
