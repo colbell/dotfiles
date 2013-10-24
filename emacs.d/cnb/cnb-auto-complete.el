@@ -1,6 +1,7 @@
 (when (require 'auto-complete-config nil t)
   (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
   ;;(setq ac-auto-start nil)
+  (ac-config-default)
   (define-key ac-mode-map (kbd "C-c i") 'auto-complete))
 
 ;;  (defun ac-ruby-mode-setup ()

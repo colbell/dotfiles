@@ -20,7 +20,6 @@
 
 (set-default 'indent-tabs-mode nil)
 
-(set-default 'indicate-empty-lines t)
 (set-default 'imenu-auto-rescan t)
 
 (setenv "PAGER" "cat")
@@ -49,10 +48,6 @@
       save-interprogram-paste-before-kill t
       require-final-newline t
       ediff-window-setup-function 'ediff-setup-windows-plain)
-
-(setq-default indicate-empty-lines t)
-(when (not indicate-empty-lines)
-  (toggle-indicate-empty-lines))
 
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 
