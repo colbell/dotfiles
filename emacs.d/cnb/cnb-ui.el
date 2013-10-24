@@ -3,7 +3,7 @@
   ;;(load-theme 'solarized-dark t)
   (load-theme 'wombat t))
 
-;;(menu-bar-mode -1)
+(menu-bar-mode -1)
 (tool-bar-mode -1)
 
 ;;(setq redisplay-dont-pause nil) ;; Possibly stop emacs-snapshot from locking up.
