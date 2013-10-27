@@ -2,7 +2,10 @@
 (column-number-mode t)
 (size-indication-mode)
 
-(set-face-foreground 'mode-line-buffer-id "darkgray")
+(when (require 'powerline nil t)
+  (powerline-default-theme))
+
+;;(set-face-foreground 'mode-line-buffer-id "darkgray")
 
 ;; Display time and local mail indicator.
 

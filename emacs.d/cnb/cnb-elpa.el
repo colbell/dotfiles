@@ -39,7 +39,7 @@
                        magit
                        markdown-mode mo-git-blame
                        muttrc-mode mu4e-maildirs-extension
-                       ;;powerline
+                       powerline
                        ;;mode-compile
                        ;;php-mode
                        puppet-mode
