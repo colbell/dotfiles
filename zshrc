@@ -7,10 +7,10 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#export ZSH_THEME="robbyrussell"
+export ZSH_THEME="robbyrussell"
 #export ZSH_THEME="alanpeabody"
 #export ZSH_THEME="suvash"
-export ZSH_THEME="gnzh"
+#export ZSH_THEME="gnzh"
 
 export LANG='en_AU.utf8'
 export LC_CTYPE='en_AU.UTF-8'
@@ -50,7 +50,7 @@ export TERM=xterm-256color
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(bundler xocommand-not-found git heroku rails3 ruby xorvm)
+plugins=(bundler command-not-found git heroku rails3 ruby rvm)
 
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
 
