@@ -67,6 +67,7 @@
 (add-hook 'css-mode-hook        'esk-run-coding-hook)
 (add-hook 'cucumber-mode-hook   'esk-run-coding-hook)
 (add-hook 'diff-hook            'esk-run-coding-hook)
+(add-hook 'enh-ruby-mode-hook   'esk-run-coding-hook)
 (add-hook 'feature-mode-hook    'esk-run-coding-hook)
 (add-hook 'markdown-mode-hook   'esk-run-coding-hook)
 (add-hook 'rhtml-mode-hook      'esk-run-coding-hook)

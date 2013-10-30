@@ -24,6 +24,7 @@
                ("ruby" (or
                         (mode . yaml-mode)
                         (mode . rinari-mode)
+                        (mode . enh-ruby-mode)
                         (mode . ruby-mode)))
                ("lisp" (or (mode . emacs-lisp-mode)
                            (mode . lisp-interaction-mode)
