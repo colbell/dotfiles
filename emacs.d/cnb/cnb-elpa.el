@@ -52,14 +52,14 @@
                        scss-mode slim-mode
                        ;;shell-current-directory
                        smooth-scrolling
-                       ;;solarized-theme
+                       solarized-theme
                        ;; sunrise-commander
                        switch-window
                        twittering-mode
                        undo-tree volatile-highlights
                        yaml-mode yasnippet
                        ;;yasnippet-bundle
-                       ;;zenburn-theme
+                       zenburn-theme
                        ))
 
   (dolist (p cnb-packages)

@@ -1,7 +1,9 @@
 (ignore-errors
-  (set-frame-font "Ubuntu Mono-11" nil t)
-  ;;(load-theme 'solarized-dark t)
-  (load-theme 'wombat t))
+  (load-theme 'solarized-dark t)
+  ;;(load-theme 'wombat t)
+  ;;(load-theme 'zenburn t)
+  ;;(set-frame-font "Inconsolata-11" nil t)
+  (set-frame-font "Ubuntu Mono-11" nil t))
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -84,12 +86,12 @@
   (global-rainbow-delimiters-mode))
 
 
-(eval-after-load 'diff-mode
-  '(progn
-     (set-face-foreground 'diff-added "green4")))
+;; (eval-after-load 'diff-mode
+;;   '(progn
+;;      (set-face-foreground 'diff-added "green4")))
 
-(set-face-underline 'highlight nil)
-(set-face-attribute 'region nil :background "#666") ;; Selected textregion.
+;; (set-face-underline 'highlight nil)
+;; (set-face-attribute 'region nil :background "#666") ;; Selected textregion.
 
 ;; Stand out in zenburn and solarized.
 ;;(set-face-background 'header-line "grey90")
