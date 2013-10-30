@@ -18,6 +18,7 @@
                        coffee-mode creole-mode crontab-mode crosshairs csv-mode cups
                        deft diminish dired+ drag-stuff
                        edit-server edit-server-htmlize
+                       enh-ruby-mode
                        ;;etags-select
                        esup expand-region
                        feature-mode
