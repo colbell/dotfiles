@@ -27,7 +27,6 @@
 
 (require 'cl)
 (require 'cnb-elpa)            ;; Package manager stuff
-;;(require 'cnb-auto-dim)        ;; Change bg color on inactive buffers
 (require 'cnb-ui)              ;; Basic UI setup
 (require 'cnb-fringe)          ;; Fringe setup
 (require 'cnb-bookmarks)       ;; Bookmark config

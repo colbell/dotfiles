@@ -23,10 +23,10 @@
 ;; (set-face-foreground 'which-func "gainsboro")
 ;; (set-face-background 'which-func "blue"))
 
-(eval-after-load 'which-func
-  '(progn
-     (set-face-attribute 'which-func nil :weight 'bold)
-     (set-face-foreground 'which-func "cyan")))
+;; (eval-after-load 'which-func
+;;   '(progn
+;;      (set-face-attribute 'which-func nil :weight 'bold)
+;;      (set-face-foreground 'which-func "cyan")))
 
 ;; Display current match and total matches information in the mode-line
 (when (require 'anzu nil t)
