@@ -30,7 +30,6 @@
 ;;(require 'cnb-auto-dim)        ;; Change bg color on inactive buffers
 (require 'cnb-ui)              ;; Basic UI setup
 (require 'cnb-fringe)          ;; Fringe setup
-(require 'cnb-sessions)        ;; Sessions
 (require 'cnb-bookmarks)       ;; Bookmark config
 (require 'cnb-backups)         ;; File backups
 (require 'cnb-coding-system)   ;; UTF-8 setup
@@ -68,6 +67,7 @@
 (require 'cnb-ace)             ;; Ace jump
 (require 'cnb-crosshairs)      ;; Screen crosshairs
 (require 'cnb-edit-server)     ;; Edit within Chrome
+(require 'cnb-sessions)        ;; Sessions
 
 ;;(require 'time)
 (defun cnb-init-time()
