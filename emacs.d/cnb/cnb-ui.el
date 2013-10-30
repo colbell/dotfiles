@@ -52,6 +52,7 @@
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 
 (set-default 'cursor-type '(bar . 2))
+(set-cursor-color "red")
 (setq default-frame-alist
   '((cursor-color . "red")))
 
