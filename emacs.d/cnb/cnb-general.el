@@ -1,10 +1,6 @@
 (server-start)
 (setenv "EDITOR" "emacsclient")
 
-;; find-grep and some  others don't work well with fish.
-(setq shell-file-name "/bin/bash")
-(setq explicit-shell-file-name "/bin/bash")
-
 ;; Default to unified diffs
 (setq diff-switches "-u -w")
 

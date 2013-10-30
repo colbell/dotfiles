@@ -9,4 +9,12 @@
              (auto-fill-mode -1)
              (setq tab-width 8 ))))
 
+;; Use Emacs terminfo, not system terminfo
+;;(setq system-uses-terminfo t)
+
+
+;; find-grep and some  others don't work well with fish.
+;; (setq shell-file-name "/bin/bash")
+;; (setq explicit-shell-file-name "/bin/bash")
+
 (provide 'cnb-term)
