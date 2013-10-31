@@ -11,4 +11,7 @@
 
 (setq vc-make-backup-files t) ;; Make backups of files, even when they're in version control
 
+(setq make-backup-files nil) ; stop creating those backup~ files
+(setq auto-save-default nil) ; stop creating those #autosave# files
+
 (provide 'cnb-backups)
