@@ -22,8 +22,10 @@
 /config/fish/generated_completions/*
 /config/google-chrome/*
 /config/gtk-2.0/*
+/config/gtk-3.0/*
 /config/gtk-3.0/bookmarks
 /config/gtk-3.0/settings.ini b/config/gtk-3.0/settings.ini
+/config/gxine/*
 /config/htop/htoprc
 /config/indicators/*
 /config/inkscape/*
@@ -33,6 +35,7 @@
 /config/menus/*
 /config/midori/*
 /config/monitors.xml
+/config/nautilus/accels
 /config/nautilus/desktop-metadata
 /config/nitrogen/*
 /config/openbox/*
@@ -43,6 +46,8 @@
 /config/smplayer/*
 /config/softwarecenter/*
 /config/sublime-text-2/*
+/config/synaptiks/management.json
+/config/synaptiks/touchpad-config.json
 /config/synaptiks/touchpad-defaults.json
 /config/tint2/*
 /config/totem/*
@@ -57,7 +62,10 @@
 /emacs.d/#*
 /emacs.d/#.newsrc-dribble#
 /emacs.d/.DS_Store
+/emacs.d/.directory
 /emacs.d/.ditz-config
+/emacs.d/.emacs.desktop
+/emacs.d/.emacs.desktop.lock
 /emacs.d/.newsrc-dribble
 /emacs.d/.nnmail-cache
 /emacs.d/.svn
@@ -69,8 +77,6 @@
 /emacs.d/bm-repository
 /emacs.d/bookmarks
 /emacs.d/custom.el
-/emacs.d/.emacs.desktop
-/emacs.d/.emacs.desktop.lock
 /emacs.d/elim/
 /emacs.d/elpa/*
 /emacs.d/emacs-custom.el
@@ -81,6 +87,8 @@
 /emacs.d/loaddefs.el*
 /emacs.d/oauth2.plstore
 /emacs.d/places
+/emacs.d/projectile-bookmarks.eld
+/emacs.d/projectile.cache
 /emacs.d/recentf
 /emacs.d/recentf~
 /emacs.d/semanticdb/*
@@ -107,11 +115,3 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
-/config/gtk-3.0/*
-
-/config/nautilus/accels
-/emacs.d/.directory
-/config/synaptiks/management.json
-/config/synaptiks/touchpad-config.json
-/emacs.d/projectile-bookmarks.eld
-/emacs.d/projectile.cache

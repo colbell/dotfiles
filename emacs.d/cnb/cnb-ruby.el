@@ -28,6 +28,7 @@
 
   (add-hook 'enh-ruby-mode-hook
             (lambda ()
+              (robe-mode)
               (cond
                ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
                 (require 'rbenv nil t)
