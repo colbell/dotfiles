@@ -38,7 +38,7 @@
                        key-chord
                        less-css-mode lua-mode
                        magit
-                       markdown-mode mo-git-blame
+                       markdown-mode mo-git-blame multiple-cursors
                        muttrc-mode mu4e-maildirs-extension
                        powerline
                        ;;mode-compile

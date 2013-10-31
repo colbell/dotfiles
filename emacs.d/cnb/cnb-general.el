@@ -174,6 +174,15 @@
                                          try-expand-dabbrev try-expand-dabbrev-all-buffers
                                          try-expand-dabbrev-from-kill try-complete-lisp-symbol))
 
+;;==============
+;; multiple cursors
+;;==============
+(when (require 'multiple-cursors nil t)
+  (global-set-key (kbd "C-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+  )
 
 ;;==============
 ;; auto-pair mode
