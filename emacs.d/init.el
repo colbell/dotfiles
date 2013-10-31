@@ -62,10 +62,12 @@
 (require 'cnb-jabber)          ;; Gtalk
 (require 'cnb-win)             ;; Window handling
 (require 'cnb-print)           ;; Printing
+;;(require 'cnb-projectile)      ;; Projectile Project management
 (require 'cnb-scrolling)       ;; Scrolling
 (require 'cnb-ace)             ;; Ace jump
 (require 'cnb-crosshairs)      ;; Screen crosshairs
 (require 'cnb-edit-server)     ;; Edit within Chrome
+(require 'cnb-smartparens)     ;; Smart parens
 (require 'cnb-sessions)        ;; Sessions
 
 ;;(require 'time)

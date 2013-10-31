@@ -113,3 +113,5 @@
 /emacs.d/.directory
 /config/synaptiks/management.json
 /config/synaptiks/touchpad-config.json
+/emacs.d/projectile-bookmarks.eld
+/emacs.d/projectile.cache
