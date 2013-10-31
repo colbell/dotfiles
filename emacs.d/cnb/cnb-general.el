@@ -191,7 +191,7 @@
 ;;   ;; ;; Slime incompatability
 ;;   ;; (add-hook 'sldb-mode-hook #'(lambda () (setq autopair-dont-activate t)))
 ;;   )
-(electric-pair-mode t)
+;;(electric-pair-mode t)
 ;;(electric-indent-mode t)
 (electric-layout-mode t)
 

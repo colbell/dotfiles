@@ -43,7 +43,7 @@
                        powerline
                        ;;mode-compile
                        ;;php-mode
-                       puppet-mode
+                       puppet-mode projectile
                        rainbow-delimiters rainbow-mode rbenv rhtml-mode
                        rinari robe rspec-mode rubocop
                        ruby-compilation ruby-block ruby-end ruby-mode ruby-refactor
@@ -51,12 +51,13 @@
                        ;;scpaste
                        scss-mode slim-mode
                        ;;shell-current-directory
-                       smooth-scrolling
+                       smartparens smooth-scrolling
                        solarized-theme
                        ;; sunrise-commander
                        switch-window
                        twittering-mode
                        undo-tree volatile-highlights
+                       web-mode
                        yaml-mode yasnippet
                        ;;yasnippet-bundle
                        zenburn-theme
