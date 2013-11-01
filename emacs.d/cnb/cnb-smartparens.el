@@ -3,7 +3,11 @@
 
   (smartparens-global-mode)
 
-  (show-smartparens-global-mode t)
+  (show-smartparens-global-mode +1)
+
+  ;; (setq show-paren-style 'mixed)
+  ;; (show-paren-mode 1)
+
 
   (sp-with-modes '(rhtml-mode)
     (sp-local-pair "<" ">")

@@ -7,6 +7,14 @@
 ;;(autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
 
 (when (require 'enh-ruby-mode nil t)
+
+  (cond
+   ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
+    (require 'rbenv nil t))
+   ((file-directory-p (concat (getenv "HOME") "/.rvm"))
+    (require 'rvm nil t)))
+
+
   (require 'rspec-mode nil t)
 
   (when (require 'rinari nil t)
@@ -19,8 +27,17 @@
    ((file-directory-p (concat (getenv "HOME") "/.rvm"))
     (require 'rvm nil t)))
 
+  (add-to-list 'auto-mode-alist '("Capfile$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("Rakefile$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("Vagrantfile$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.gemspec$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.prawn$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.rjs$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.ru$" . enh-ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
-  (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
+
   (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 
   (setq enh-ruby-bounce-deep-indent t)
@@ -29,12 +46,11 @@
   (add-hook 'enh-ruby-mode-hook
             (lambda ()
               (robe-mode)
+              (yard-mode)
               (cond
                ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
-                (require 'rbenv nil t)
-                ((set  )q rbenv-show-active-ruby-in-modeline nil))
+                (rbenv-show-active-ruby-in-modeline nil))
                ((file-directory-p (concat (getenv "HOME") "/.rvm"))
-                (require 'rvm nil t)
                 (rvm-activate-corresponding-ruby))))))
 
 

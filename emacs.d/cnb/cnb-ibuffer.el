@@ -46,16 +46,6 @@
                        (mode . rhtml-mode)
                        (name . ".rhtml")
                        (mode . nXhtml-mode)))
-               ("term" (or
-                        (mode . term-mode)
-                        (mode . inf-ruby-mode)
-                        (mode . sql-interactive-mode)))
-               ("git" (or
-                       (mode . magit-mode)
-                       (mode . magit-commit-mode)
-                       (mode . magit-status-mode)
-                       (name . "^magit")
-                       (name . "magit")))
                ("conf" (or
                         (mode . muttrc-mode)
                         (mode . conf-xdefaults-mode)
@@ -77,6 +67,19 @@
                         (name . "^\\*helm")
                         ))
                ("shell-script" (mode . sh-mode))
+               ("compilation" (or
+                               (name . "^\\*Compile-Log\\*$")
+                               (mode . ruby-compilation-mode)))
+               ("term" (or
+                        (mode . term-mode)
+                        (mode . inf-ruby-mode)
+                        (mode . sql-interactive-mode)))
+               ("git" (or
+                       (mode . magit-mode)
+                       (mode . magit-commit-mode)
+                       (mode . magit-status-mode)
+                       (name . "^magit")
+                       (name . "magit")))
                ("jabber" (or
                           (mode . jabber-roster-mode)))
                ("mail" (or

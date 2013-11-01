@@ -44,7 +44,8 @@
                        ;;mode-compile
                        ;;php-mode
                        puppet-mode projectile
-                       rainbow-delimiters rainbow-mode rbenv rhtml-mode
+                       ;;rainbow-delimiters
+                       rainbow-mode rbenv rhtml-mode
                        rinari robe rspec-mode rubocop
                        ruby-compilation ruby-block ruby-end ruby-mode ruby-refactor
                        rvm sass-mode
@@ -58,7 +59,7 @@
                        twittering-mode
                        undo-tree volatile-highlights
                        web-mode
-                       yaml-mode yasnippet
+                       yaml-mode yard-mode yasnippet
                        ;;yasnippet-bundle
                        zenburn-theme
                        ))
