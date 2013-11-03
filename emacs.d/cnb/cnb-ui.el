@@ -1,7 +1,7 @@
 (ignore-errors
-  ;;(load-theme 'solarized-dark t)
+  (load-theme 'solarized-dark t)
   ;;(load-theme 'wombat t)
-  (load-theme 'zenburn t)
+  ;;(load-theme 'zenburn t)
   ;;(set-frame-font "Inconsolata-11" nil t)
   (set-frame-font "Ubuntu Mono-11" nil t))
 
@@ -49,10 +49,10 @@
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 
 (set-default 'cursor-type '(bar . 3))
-(set-cursor-color "OrangeRed")
+(set-cursor-color "DarkOrange")
 
 (setq default-frame-alist
-  '((cursor-color . "OrangeRed")))
+  '((cursor-color . "DarkOrange")))
 
 ;; Don't let the cursor go into the minibuffer prompt
 (setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))

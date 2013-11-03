@@ -8,7 +8,6 @@
   ;; (setq show-paren-style 'mixed)
   ;; (show-paren-mode 1)
 
-
   (sp-with-modes '(rhtml-mode)
     (sp-local-pair "<" ">")
     (sp-local-pair "<%" "%>")))
