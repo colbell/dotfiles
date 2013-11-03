@@ -12,7 +12,8 @@
   (when (not package-archive-contents)
     (package-refresh-contents))
 
-  (setq cnb-packages '(ace-jump-mode anzu
+  (setq cnb-packages '(ace-jump-mode
+                       anzu
                        auctex auto-complete auto-dim-other-buffers
                        autopair bm browse-kill-ring butler
                        coffee-mode creole-mode crontab-mode crosshairs csv-mode cups
@@ -43,7 +44,7 @@
                        powerline
                        ;;mode-compile
                        ;;php-mode
-                       puppet-mode projectile
+                       puppet-mode ;;projectile
                        ;;rainbow-delimiters
                        rainbow-mode rbenv rhtml-mode
                        rinari robe rspec-mode rubocop

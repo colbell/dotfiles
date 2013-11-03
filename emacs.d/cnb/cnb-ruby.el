@@ -14,12 +14,13 @@
    ((file-directory-p (concat (getenv "HOME") "/.rvm"))
     (require 'rvm nil t)))
 
-
   (require 'rspec-mode nil t)
 
   (when (require 'rinari nil t)
     (global-rinari-mode))
 
+  ;; Doesn't work well with Solarized theme. Can't see assignment operator.
+  (remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
 
   (cond
    ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
