@@ -73,6 +73,10 @@
   (diminish 'rinari-minor-mode "RIN"))
 (ignore-errors
   (diminish 'yas-minor-mode))
+(ignore-errors
+  (diminish 'yard-mode))
+(ignore-errors
+  (diminish 'abbrev-mode))
 
 ;; From http://whattheemacsd.com/
 (defmacro rename-modeline (package-name mode new-name)
