@@ -123,7 +123,7 @@ main = do
              , modMask            = myModMask
              , layoutHook         = myLayout
              , normalBorderColor  = myInactiveBorderColor
-             , focusedBorderColor = "red"
+             , focusedBorderColor = "#ff4500"
              } `additionalKeys` keys'
       where
         keys' =  [ ((myModMask , xK_Return),               dwmpromote)
