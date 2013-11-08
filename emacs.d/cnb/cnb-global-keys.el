@@ -58,6 +58,8 @@
 ;;   (global-set-key (kbd "C-x f") 'anything-recentf)
 ;;   (global-set-key (kbd "C-x C-i") 'anything-imenu))
 
+(global-set-key (kbd "C-x C-i") 'imenu)
+
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
