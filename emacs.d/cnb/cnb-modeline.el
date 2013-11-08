@@ -64,7 +64,7 @@
 (ignore-errors
   (diminish 'whitespace-mode))
 (ignore-errors
-  (diminish 'eldoc-mode))
+  (diminish 'Eldoc-mode))
 (ignore-errors
   (diminish 'hi-lock-mode))
 (ignore-errors
@@ -77,6 +77,8 @@
   (diminish 'yard-mode))
 (ignore-errors
   (diminish 'abbrev-mode))
+(ignore-errors
+  (diminish 'compilation-in-progress "COMP"))
 
 ;; From http://whattheemacsd.com/
 (defmacro rename-modeline (package-name mode new-name)
