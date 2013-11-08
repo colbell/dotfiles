@@ -20,7 +20,7 @@
     (global-rinari-mode))
 
   ;; Doesn't work well with Solarized theme. Can't see assignment operator.
-  (remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
+  ;;(remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
 
   (cond
    ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
@@ -44,10 +44,16 @@
   (setq enh-ruby-bounce-deep-indent t)
   (setq enh-ruby-hanging-brace-indent-level 2)
 
-  (add-hook 'enh-ruby-mode-hook
+  (add-hook 'enh-ruby-mode-hook t
             (lambda ()
               (robe-mode)
               (yard-mode)
+              (set-face-foreground 'enh-ruby-op-face "blue")
+
+              (setq imenu-generic-expression
+                     '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
+                       ))
+
               (cond
                ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
                 (rbenv-show-active-ruby-in-modeline nil))
