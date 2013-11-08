@@ -207,6 +207,10 @@
 (electric-layout-mode t)
 
 
+(when (require 'smartscan nil t)
+  (global-smartscan-mode 1))
+
+
 ;;==============
 ;; ctags
 ;;==============
