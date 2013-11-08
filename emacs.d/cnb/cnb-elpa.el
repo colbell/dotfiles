@@ -53,6 +53,7 @@
                        ;;scpaste
                        scss-mode slim-mode
                        ;;shell-current-directory
+                       smartscan
                        smartparens smooth-scrolling
                        solarized-theme
                        ;; sunrise-commander
