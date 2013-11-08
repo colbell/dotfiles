@@ -44,11 +44,17 @@
   (setq enh-ruby-bounce-deep-indent t)
   (setq enh-ruby-hanging-brace-indent-level 2)
 
+  (define-key enh-ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+
   (add-hook 'enh-ruby-mode-hook t
             (lambda ()
               (robe-mode)
               (yard-mode)
               (set-face-foreground 'enh-ruby-op-face "blue")
+
+              (ruby-refactor-mode-launch)
+              (ignore-errors
+                (diminish 'ruby-refactor-mode "RR"))
 
               (setq imenu-generic-expression
                      '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
