@@ -32,6 +32,7 @@
                ("code" (or
                         (mode . haskell-mode)
                         (mode . lua-mode)
+                        (mode . scala-mode)
                         (mode . python-mode)))
                ("js" (or
                       (mode . coffee-mode)

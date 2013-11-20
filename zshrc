@@ -77,6 +77,11 @@ if [ -d "$HOME/.rbenv/bin" ]; then
   eval "$(rbenv init -)"
 fi
 
+if [ -d "$HOME/apps/scala/bin" ]; then
+  export SCALA_HOME=$HOME/apps/scala
+  export PATH="$SCALA_HOME/bin:$PATH"
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 #unsetopt correct_all
