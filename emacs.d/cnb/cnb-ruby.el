@@ -46,94 +46,83 @@
 
   (define-key enh-ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
 
-  (add-hook 'enh-ruby-mode-hook t
+  (add-hook 'enh-ruby-mode-hook 'yard-mode)
+  (add-hook 'enh-ruby-mode-hook 'rspec-mode)
+  (add-hook 'enhruby-mode-hook 'ruby-refactor-mode-launch)
+
+  (add-hook 'enh-ruby-mode-hook
             (lambda ()
-              (robe-mode)
-              (yard-mode)
-              (set-face-foreground 'enh-ruby-op-face "blue")
-
-              (ruby-refactor-mode-launch)
-              (ignore-errors
-                (diminish 'ruby-refactor-mode "RR"))
-
+              ;;(robe-mode)
               (setq imenu-generic-expression
-                     '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
-                       ))
+                    '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1))))))
 
-              (cond
-               ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
-                (rbenv-show-active-ruby-in-modeline nil))
-               ((file-directory-p (concat (getenv "HOME") "/.rvm"))
-                (rvm-activate-corresponding-ruby))))))
+            ;; (when (require 'ruby-mode nil t)
+            ;;   (when (require 'ruby-block nil t)
+            ;;     (setq ruby-block-highlight-toggle t))
 
+            ;;   (require 'rubocop nil t)
 
-;; (when (require 'ruby-mode nil t)
-;;   (when (require 'ruby-block nil t)
-;;     (setq ruby-block-highlight-toggle t))
+            ;;   (add-hook 'ruby-mode-hook
+            ;;             (lambda ()
+            ;;               ;;(ignore-errors(robe-mode))
 
-;;   (require 'rubocop nil t)
+            ;;               (cond
+            ;;                ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
+            ;;                 (when (require 'rbenv nil t)
+            ;;                   (setq rbenv-show-active-ruby-in-modeline nil)))
+            ;;                ((file-directory-p (concat (getenv "HOME") "/.rvm"))
+            ;;                 (when (require 'rvm nil t)
+            ;;                   (rvm-activate-corresponding-ruby))))
 
-;;   (add-hook 'ruby-mode-hook
-;;             (lambda ()
-;;               ;;(ignore-errors(robe-mode))
+            ;;               (when (featurep 'ruby-block)
+            ;;                 (ruby-block-mode t))
+            ;;               ;;(auto-fill-mode)
+            ;;               (outline-minor-mode)
+            ;;               (ruby-refactor-mode-launch)
+            ;;               (ignore-errors
+            ;;                 (diminish 'ruby-refactor-mode "RR"))
 
-;;               (cond
-;;                ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
-;;                 (when (require 'rbenv nil t)
-;;                   (setq rbenv-show-active-ruby-in-modeline nil)))
-;;                ((file-directory-p (concat (getenv "HOME") "/.rvm"))
-;;                 (when (require 'rvm nil t)
-;;                   (rvm-activate-corresponding-ruby))))
+            ;;               ;;(subword-mode +1)
+            ;;               ;;(inf-ruby-setup-keybindings)
+            ;;               ;;(robe-mode)
+            ;;               (setq imenu-generic-expression
+            ;;                     '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
+            ;;                       ))
 
-;;               (when (featurep 'ruby-block)
-;;                 (ruby-block-mode t))
-;;               ;;(auto-fill-mode)
-;;               (outline-minor-mode)
-;;               (ruby-refactor-mode-launch)
-;;               (ignore-errors
-;;                 (diminish 'ruby-refactor-mode "RR"))
+            ;;               (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")))
 
-;;               ;;(subword-mode +1)
-;;               ;;(inf-ruby-setup-keybindings)
-;;               ;;(robe-mode)
-;;               (setq imenu-generic-expression
-;;                     '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
-;;                       ))
+            ;;   (eval-after-load 'ruby-mode
+            ;;     '(progn
+            ;;        (ignore-errors (require 'ruby-compilation))
 
-;;               (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")))
+            ;;        (add-to-list 'hs-special-modes-alist
+            ;;                     '(ruby-mode
+            ;;                       "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
+            ;;                       (lambda (arg) (ruby-end-of-block)) nil))
 
-;;   (eval-after-load 'ruby-mode
-;;     '(progn
-;;        (ignore-errors (require 'ruby-compilation))
+            ;;        ;; The ruby-mode in ELPA (20110630) uses an EMACS variable last-command-char which has been replaced
+            ;;        ;; by last-command-event. This is needed until ruby-mode catches up.
+            ;;        (ignore-errors (defvaralias 'last-command-char 'last-command-event))
 
-;;        (add-to-list 'hs-special-modes-alist
-;;                     '(ruby-mode
-;;                       "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
-;;                       (lambda (arg) (ruby-end-of-block)) nil))
-
-;;        ;; The ruby-mode in ELPA (20110630) uses an EMACS variable last-command-char which has been replaced
-;;        ;; by last-command-event. This is needed until ruby-mode catches up.
-;;        (ignore-errors (defvaralias 'last-command-char 'last-command-event))
-
-;;        (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-;;        (setq comint-process-echoes t)))
+            ;;        (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+            ;;        (setq comint-process-echoes t)))
 
 
-;; (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("\\.rjs$" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("\\.prawn$" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
+            ;; (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+            ;; (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+            ;; (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
+            ;; (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+            ;; (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+            ;; (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+            ;; (add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
+            ;; (add-to-list 'auto-mode-alist '("\\.rjs$" . ruby-mode))
+            ;; (add-to-list 'auto-mode-alist '("\\.prawn$" . ruby-mode))
+            ;; (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
 
-;; (when (require 'flymake-ruby nil t)
-;;   (add-hook 'ruby-mode-hook 'flymake-ruby-load))
+            ;; (when (require 'flymake-ruby nil t)
+            ;;   (add-hook 'ruby-mode-hook 'flymake-ruby-load))
 
-;; (when (require 'rinari nil t)
-;;   (global-rinari-mode)))
+            ;; (when (require 'rinari nil t)
+            ;;   (global-rinari-mode)))
 
-(provide 'cnb-ruby)
+            (provide 'cnb-ruby)
