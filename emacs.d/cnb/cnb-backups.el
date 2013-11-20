@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (setq version-control t)
 (setq backup_by_copying t)
 (setq backup-by-copying-when-linked t)

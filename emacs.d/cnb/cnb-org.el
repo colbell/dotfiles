@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 ;;*==============================================
 ;; Some notes: http://doc.norang.ca/org-mode.html
 ;;*==============================================

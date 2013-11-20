@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 ;;==============
 ;; Browse the kill-ring
 ;;==============

@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (require 'printing)
 (pr-update-menus t)
 

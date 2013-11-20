@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 ;;=======================
 ;; Borrowed from Emacs starter kit
 ;;=======================

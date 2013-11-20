@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (require 'whitespace)
 
 (setq whitespace-style '(face tabs trailing lines space-before-tab indentation space-after-tab))

@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (setq
  scroll-margin 0
  scroll-conservatively 100000

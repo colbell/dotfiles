@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (when (require 'twittering-mode nil t)
   (setq twittering-use-master-password t)
   (setq twittering-icon-mode t)                ; Show icons

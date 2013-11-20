@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (require 'server)
 (unless (server-running-p)
   (server-start))

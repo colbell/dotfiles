@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 ;; Remember current position in file.
 (require 'saveplace)
 (setq-default save-place t)

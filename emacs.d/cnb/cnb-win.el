@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (setq truncate-partial-width-windows nil)
 (global-set-key (kbd "C-c r") 'rotate-windows)
 

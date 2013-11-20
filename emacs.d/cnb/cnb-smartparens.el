@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (when (require 'smartparens-config nil t)
   (require 'smartparens-ruby)
 

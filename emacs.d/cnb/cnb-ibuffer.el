@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (require 'ibuffer)
 (setq ibuffer-default-sorting-mode 'alphabetic)
 

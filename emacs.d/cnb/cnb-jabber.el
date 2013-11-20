@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (when (require 'jabber nil t)
   (setq jabber-account-list '(
                               ("cbell@tickitsystems.com.au"

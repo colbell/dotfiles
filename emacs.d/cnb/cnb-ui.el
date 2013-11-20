@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (ignore-errors
   (load-theme 'solarized-dark t)
   ;;(load-theme 'wombat t)
