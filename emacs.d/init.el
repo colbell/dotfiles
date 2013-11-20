@@ -42,6 +42,7 @@
 (require 'cnb-sc)              ;; Source Control config
 (require 'cnb-org)             ;; Org mode config
 (require 'cnb-ruby)            ;; Ruby mode config
+(require 'cnb-scala)           ;; Scala config
 (require 'cnb-haml-sass-etc)   ;; HTML CSS modes
 (require 'cnb-js-coffee)       ;; Coffeescript, JS
 (require 'cnb-auto-complete)   ;; tab-completiom
