@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 ;; Ignore symbolic link warning msgs.
 (setq find-file-visit-truename t)
 

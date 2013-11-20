@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (setq dired-listing-switches "-alFh")
 (setq dired-dwim-target t)
 (load "dired-x")

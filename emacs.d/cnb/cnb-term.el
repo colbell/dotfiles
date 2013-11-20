@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (add-hook 'term-mode-hook
           (function
            (lambda ()

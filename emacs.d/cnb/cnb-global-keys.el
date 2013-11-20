@@ -1,9 +1,11 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 ;; I press these too often
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
 
 ;; How often do I key a comma without a trailing space?
-;; Commented out as I* just can't stop pressing the space-bar
+;; Commented out as I just can't stop pressing the space-bar
 ;;(global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
 
 (when (fboundp 'goto-last-change)

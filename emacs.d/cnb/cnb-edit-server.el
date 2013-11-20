@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 ;; Editing within Chrome
 (when (require 'edit-server nil t)
   (edit-server-start)

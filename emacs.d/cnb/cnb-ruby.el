@@ -1,4 +1,4 @@
-(message (concat "Loading [" load-file-name "]"))
+(message (concat "[CNB] - Loading [" load-file-name "]"))
 
 ;;;; RUBY
 

@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (setq bookmark-save-flag 1) ; save bookmarks instantly
 (setq bookmark-default-file (expand-file-name "emacs.bmk" user-emacs-directory))
 

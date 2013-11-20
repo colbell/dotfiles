@@ -1,4 +1,4 @@
-(message (concat "Loading [" load-file-name "]"))
+(message (concat "[CNB] - Loading [" load-file-name "]"))
 
 ;; Colorise CSS color codes
 (add-hook 'css-mode-hook 'rainbow-mode)

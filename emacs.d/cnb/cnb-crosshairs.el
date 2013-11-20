@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (when (require 'crosshairs nil t)
   ;;(toggle-crosshairs-when-idle 1)
 

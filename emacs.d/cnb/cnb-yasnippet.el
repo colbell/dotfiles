@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (when (require 'yasnippet nil t)
   (yas-global-mode 1)
   ;;(require 'helm-c-yasnippet nil t)

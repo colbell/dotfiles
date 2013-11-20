@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (defun system-is-tickit()
   (interactive)
   (string-equal system-name "going-postal"))

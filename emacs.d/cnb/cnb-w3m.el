@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (setq w3m-default-display-inline-images t)
 (setq w3m-use-cookies t)
 (require 'w3m-load nil t)

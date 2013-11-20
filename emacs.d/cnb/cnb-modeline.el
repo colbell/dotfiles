@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (line-number-mode t)
 (column-number-mode t)
 (size-indication-mode)

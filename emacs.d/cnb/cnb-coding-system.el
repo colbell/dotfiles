@@ -1,3 +1,5 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 ;; From http://www.masteringemacs.org/articles/2012/08/09/working-coding-systems-unicode-emacs/
 
 (prefer-coding-system 'utf-8)

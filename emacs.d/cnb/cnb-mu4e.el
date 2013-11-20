@@ -1,71 +1,13 @@
+(message (concat "[CNB] - Loading [" load-file-name "]"))
+
 (when (require 'mu4e nil t)
-
-  (if (system-is-tickit)
-      (progn
-        (setq mu4e-maildir "~/Maildir/tickit")
-        (setq user-mail-address "cbell@tickitsystems.com.au")
-        (setq user-full-name  "Colin Bell")
-        (setq mu4e-user-mail-address-regexp "col@baibell\.org\\|cbell@tickitsystems.com.au")
-        (setq message-signature
-              (concat
-               "Colin Bell\n"
-               "Chief Technology Officer\n"
-               "Tickit Systems Pty. Ltd.\n"
-               "Suite 201 10-12 Clarke St\n"
-               "(PO Box 916)\n"
-               "Crows Nest NSW 2065\n"
-               "D: (02) 9467 8833 T: (02) 9467 8800 M: 04039 16468 F: (02) 9467 8889\n"
-               "www.tickitsystems.com.au\n"
-               "www.tickitondemand.com.au\n"
-               "Award winning Risk, Compliance, Incident & Audit Software\n"
-               ))
-        (add-to-list 'mu4e-bookmarks
-                     '("maildir:/IN.jira AND flag:unread"  "Unread JIRAs"  ?j))
-        (add-to-list 'mu4e-bookmarks
-                     '("maildir:/IN.jira AND flag:unread AND subject:TODTASKS"  "Unread JIRA Tasks"  ?i))
-        (add-to-list 'mu4e-bookmarks
-                     '("flag:attach"  "with attachments"  ?a))
-
-        (setq mu4e-maildir-shortcuts
-              '( ("/INBOX"               . ?i)
-                 ("/IN.jira"             . ?j)
-                 ("/[Gmail].Sent Mail"   . ?s)
-                 ("/[Gmail].Trash"       . ?t)
-                 ("/[Gmail].All Mail"    . ?a))))
-    (if (system-is-home)
-        (progn
-          (setq mu4e-maildir "~/Maildir/colbaibell.org/")
-          (setq user-mail-address "col@baibell.org")
-          (setq user-full-name  "Colin Bell")
-          (setq mu4e-user-mail-address-regexp "col@baibell\.org\\|cbell@tickitsystems.com.au")
-          (setq message-signature nil)
-          (add-to-list 'mu4e-bookmarks
-                       '("flag:attach"  "with attachments"  ?a))
-
-          (setq mu4e-maildir-shortcuts
-                '( ("/INBOX"               . ?i)
-                   ("/[Gmail].Sent Mail"   . ?s)
-                   ("/[Gmail].Trash"       . ?t)
-                   ("/[Gmail].All Mail"    . ?a))))))
-
-  (setq mu4e-drafts-folder "/[Gmail].Drafts")
-  (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-  (setq mu4e-trash-folder  "/[Gmail].Trash")
-
-  (setq mu4e-headers-fields
-        '(
-          (:date         . 25)
-          (:flags        .  6)
-          (:size         .  6)
-          (:from-or-to   . 22)
-          (:maildir      . 22)
-          (:subject      . nil)))
 
   (setq mu4e-use-fancy-chars t)
   (setq mu4e-headers-passed-mark '("P" . "⇉"))
   (setq mu4e-headers-replied-mark '("R" . "↵"))
   (setq mu4e-headers-seen-mark '("S" . "-"))
   (setq mu4e-headers-unread-mark '("u" . "✉"))
+  (setq mu4e-user-mail-address-regexp "col@baibell\.org\\|colin@kwelasolutions.com")
 
   (setq mu4e-view-fields '(:from :to :cc :subject :flags :date :maildir :attachments :signature))
 
@@ -91,6 +33,57 @@
   (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
 
   (setq mu4e-headers-skip-duplicates t)
+  (add-to-list 'mu4e-bookmarks
+               '("flag:attach"  "with attachments"  ?a))
+
+  (setq mu4e-headers-fields
+        '(
+          (:date         . 25)
+          (:flags        .  6)
+          (:size         .  6)
+          (:from-or-to   . 22)
+          (:maildir      . 22)
+          (:subject      . nil)))
+
+
+
+  (setq message-kill-buffer-on-exit t)
+
+  (when (require 'mu4e-maildirs-extension nil t)
+    (mu4e-maildirs-extension)))
+
+
+(defvar my-mu4e-account-alist
+  '(("home"
+     (user-mail-address "col@baibell.org")
+     (user-full-name  "Colin Bell")
+     (message-signature nil)
+)
+    ("kwela"
+     (user-mail-address "colin@kwelasolutions.com")
+     (user-full-name  "Colin Bell")
+     (message-signature nil)
+     )))
+
+
+  (if (system-is-home)
+      (progn
+
+
+
+        (setq message-signature nil)
+
+        (setq mu4e-maildir-shortcuts
+              '( ("/INBOX"               . ?i)
+                 ("/[Gmail].Sent Mail"   . ?s)
+                 ("/[Gmail].Trash"       . ?t)
+                 ("/[Gmail].All Mail"    . ?a)))))
+
+  (setq mu4e-drafts-folder "/[Gmail].Drafts")
+  (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+  (setq mu4e-trash-folder  "/[Gmail].Trash")
+
+
 
   ;; Don't save message to Sent Messages, Gmail/IMAP takes care of this
   (setq mu4e-sent-messages-behavior 'delete)
@@ -100,10 +93,5 @@
         smtpmail-default-smtp-server "smtp.gmail.com"
         smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587)
-
-  ;; don't keep message buffers around
-  (setq message-kill-buffer-on-exit t)
-  (when (require 'mu4e-maildirs-extension nil t)
-    (mu4e-maildirs-extension)))
 
 (provide 'cnb-mu4e)
