@@ -43,12 +43,14 @@
                ("web" (or
                        (mode . haml-mode)
                        (mode . slim-mode)
-                       (mode . sass-mode)
-                       (mode . css-mode)
                        (mode . html-mode)
                        (mode . rhtml-mode)
                        (name . ".rhtml")
                        (mode . nXhtml-mode)))
+               ("css" (or
+                       (mode . sass-mode)
+                       (mode . css-mode)
+                       (mode . scss-mode)))
                ("conf" (or
                         (mode . muttrc-mode)
                         (mode . conf-xdefaults-mode)
