@@ -22,6 +22,8 @@
 
   (setq mu4e-attachment-dir  "~/Downloads")
 
+  (setq user-mail-address  "col@baibell.org")
+
   (add-to-list 'mu4e-view-actions
                '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
@@ -50,40 +52,17 @@
   (setq message-kill-buffer-on-exit t)
 
   (when (require 'mu4e-maildirs-extension nil t)
-    (mu4e-maildirs-extension)))
+    (mu4e-maildirs-extension))
 
+  (setq mu4e-drafts-folder "/home/[Gmail].Drafts")
+  (setq mu4e-sent-folder   "/home/[Gmail].Sent\  Mail")
+  (setq mu4e-trash-folder  "/home/[Gmail].Trash")
 
-(defvar my-mu4e-account-alist
-  '(("home"
-     (user-mail-address "col@baibell.org")
-     (user-full-name  "Colin Bell")
-     (message-signature nil)
-)
-    ("kwela"
-     (user-mail-address "colin@kwelasolutions.com")
-     (user-full-name  "Colin Bell")
-     (message-signature nil)
-     )))
-
-
-  (if (system-is-home)
-      (progn
-
-
-
-        (setq message-signature nil)
-
-        (setq mu4e-maildir-shortcuts
-              '( ("/INBOX"               . ?i)
-                 ("/[Gmail].Sent Mail"   . ?s)
-                 ("/[Gmail].Trash"       . ?t)
-                 ("/[Gmail].All Mail"    . ?a)))))
-
-  (setq mu4e-drafts-folder "/[Gmail].Drafts")
-  (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-  (setq mu4e-trash-folder  "/[Gmail].Trash")
-
-
+  (setq mu4e-maildir-shortcuts
+        '( ("/home/INBOX"               . ?i)
+           ("/home/[Gmail].Sent\  Mail"   . ?s)
+           ("/home/[Gmail].Trash"       . ?t)
+           ("/home/[Gmail].All Mail"    . ?a)))
 
   ;; Don't save message to Sent Messages, Gmail/IMAP takes care of this
   (setq mu4e-sent-messages-behavior 'delete)
@@ -93,5 +72,41 @@
         smtpmail-default-smtp-server "smtp.gmail.com"
         smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587)
+
+  (setq mail-user-agent 'mu4e-user-agent)
+
+  (defvar cnb-mu4e-account-alist
+    '(("home"
+       (user-mail-address  "col@baibell.org"
+       (mu4e-drafts-folder "/home/[Gmail].Drafts")
+       (mu4e-sent-folder   "/home/[Gmail].Sent\  Mail")
+       (mu4e-trash-folder  "/home/[Gmail].Trash"))
+      ("kwela"
+       (user-mail-address  "colin@kwelasolutions.com")
+       (mu4e-drafts-folder "/kwela/[Gmail].Drafts")
+       (mu4e-sent-folder   "/kwela/[Gmail].Sent\  Mail")
+       (mu4e-trash-folder  "/kwela/[Gmail].Trash"))
+      )
+    )
+
+  (defun cnb-mu4e-set-account ()
+    "Set the mu4e account for composing a message."
+    (let* ((account
+            (if mu4e-compose-parent-message
+                (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+                  (string-match "/\\(.*?\\)/" maildir)
+                  (match-string 1 maildir))
+              (completing-read (format "Compose with account: (%s) "
+                                       (mapconcat #'(lambda (var) (car var)) cnb-mu4e-account-alist "/"))
+                               (mapcar #'(lambda (var) (car var)) cnb-mu4e-account-alist)
+                               nil t nil nil (caar cnb-mu4e-account-alist))))
+           (account-vars (cdr (assoc account cnb-mu4e-account-alist))))
+      (if account-vars
+          (mapc #'(lambda (var)
+                    (set (car var) (cadr var)))
+                account-vars)
+        (error "No email account found"))))
+
+  (add-hook 'mu4e-compose-pre-hook 'cnb-mu4e-set-account))
 
 (provide 'cnb-mu4e)
