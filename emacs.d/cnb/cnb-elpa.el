@@ -36,7 +36,7 @@
                        ibuffer-vc icicles
                        idle-highlight
                        inf-ruby inflections
-                       ;;jabber
+                       jabber
                        jump
                        key-chord
                        less-css-mode lua-mode
