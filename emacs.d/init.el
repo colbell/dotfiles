@@ -68,7 +68,7 @@
 (require 'cnb-ace)             ;; Ace jump
 (require 'cnb-crosshairs)      ;; Screen crosshairs
 (require 'cnb-edit-server)     ;; Edit within Chrome
-(require 'cnb-smartparens)     ;; Smart parens
+;; currently broken(require 'cnb-smartparens)     ;; Smart parens
 (require 'cnb-sessions)        ;; Sessions
 
 ;;(require 'time)
