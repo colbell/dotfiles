@@ -2,18 +2,16 @@
 
 (when (require 'jabber nil t)
   (setq jabber-account-list '(
-                              ("cbell@tickitsystems.com.au"
+                              ("colin@kwelasolutions.com"
                                (:network-server . "talk.google.com")
-                               (:port . 443)
                                (:connection-type . ssl))
                               ("col@baibell.org"
                                (:network-server . "talk.google.com")
-                               (:port . 443)
                                (:connection-type . ssl))
                               ))
 
 
-  (setq jabber-chat-buffer-show-avatar nil
+  (setq jabber-chat-buffer-show-avatar t
         jabber-chat-foreign-prompt-format "> "
         jabber-chat-local-prompt-format "> "
         jabber-chat-system-prompt-format "*** "
