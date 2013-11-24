@@ -1,5 +1,9 @@
 (message (concat "[CNB] - Loading [" load-file-name "]"))
 
+
+;; (when (file-readable-p "/usr/local/share/emacs/site-lisp/mu4e")
+;;   (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
+
 (when (require 'mu4e nil t)
 
   (setq mu4e-use-fancy-chars t)
@@ -15,6 +19,8 @@
 
   (setq mu4e-headers-date-format "%d/%b/%Y %H:%M" )
 
+  (setq mu4e-msg2pdf "/usr/bin/msg2pdf")
+
   ;;(setq mu4e-html2text-command "html2text -utf8 -width 72")
   (setq mu4e-html2text-command "w3m -dump -T text/html")
 
@@ -22,7 +28,11 @@
 
   (setq mu4e-attachment-dir  "~/Downloads")
 
-  (setq user-mail-address  "col@baibell.org")
+  (setq user-mail-address "col@baibell.org")
+
+
+  (setq mu4e-get-mail-command "offlineimap")
+  (setq mu4e-update-interval 1200)
 
   (add-to-list 'mu4e-view-actions
                '("ViewInBrowser" . mu4e-action-view-in-browser) t)
@@ -46,8 +56,6 @@
           (:from-or-to   . 22)
           (:maildir      . 22)
           (:subject      . nil)))
-
-
 
   (setq message-kill-buffer-on-exit t)
 
@@ -78,35 +86,36 @@
   (defvar cnb-mu4e-account-alist
     '(("home"
        (user-mail-address  "col@baibell.org"
-       (mu4e-drafts-folder "/home/[Gmail].Drafts")
-       (mu4e-sent-folder   "/home/[Gmail].Sent\  Mail")
-       (mu4e-trash-folder  "/home/[Gmail].Trash"))
-      ("kwela"
-       (user-mail-address  "colin@kwelasolutions.com")
-       (mu4e-drafts-folder "/kwela/[Gmail].Drafts")
-       (mu4e-sent-folder   "/kwela/[Gmail].Sent\  Mail")
-       (mu4e-trash-folder  "/kwela/[Gmail].Trash"))
-      )
-    )
+                           (mu4e-drafts-folder "/home/[Gmail].Drafts")
+                           (mu4e-sent-folder   "/home/[Gmail].Sent\  Mail")
+                           (mu4e-trash-folder  "/home/[Gmail].Trash"))
+       ("kwela"
+        (user-mail-address  "colin@kwelasolutions.com")
+        (mu4e-drafts-folder "/kwela/[Gmail].Drafts")
+        (mu4e-sent-folder   "/kwela/[Gmail].Sent\  Mail")
+        (mu4e-trash-folder  "/kwela/[Gmail].Trash"))
+       )
+      ))
 
-  (defun cnb-mu4e-set-account ()
-    "Set the mu4e account for composing a message."
-    (let* ((account
-            (if mu4e-compose-parent-message
-                (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
-                  (string-match "/\\(.*?\\)/" maildir)
-                  (match-string 1 maildir))
-              (completing-read (format "Compose with account: (%s) "
-                                       (mapconcat #'(lambda (var) (car var)) cnb-mu4e-account-alist "/"))
-                               (mapcar #'(lambda (var) (car var)) cnb-mu4e-account-alist)
-                               nil t nil nil (caar cnb-mu4e-account-alist))))
-           (account-vars (cdr (assoc account cnb-mu4e-account-alist))))
-      (if account-vars
-          (mapc #'(lambda (var)
-                    (set (car var) (cadr var)))
-                account-vars)
-        (error "No email account found"))))
+    (defun cnb-mu4e-set-account ()
+      "Set the mu4e account for composing a message."
+      (interactive)
+      (let* ((account
+              (if mu4e-compose-parent-message
+                  (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+                    (string-match "/\\(.*?\\)/" maildir)
+                    (match-string 1 maildir))
+                (completing-read (format "Compose with account: (%s) "
+                                         (mapconcat #'(lambda (var) (car var)) cnb-mu4e-account-alist "/"))
+                                 (mapcar #'(lambda (var) (car var)) cnb-mu4e-account-alist)
+                                 nil t nil nil (caar cnb-mu4e-account-alist))))
+             (account-vars (cdr (assoc account cnb-mu4e-account-alist))))
+        (if account-vars
+            (mapc #'(lambda (var)
+                      (set (car var) (cadr var)))
+                  account-vars)
+          (error "No email account found"))))
 
-  (add-hook 'mu4e-compose-pre-hook 'cnb-mu4e-set-account))
+    (add-hook 'mu4e-compose-pre-hook 'cnb-mu4e-set-account))
 
 (provide 'cnb-mu4e)

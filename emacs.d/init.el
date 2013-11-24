@@ -59,7 +59,6 @@
 (require 'cnb-modeline)        ;; Modeline config
 (require 'cnb-term)            ;; Terminal mode
 (require 'cnb-global-keys)     ;; Global key bindings
-;;(require 'cnb-mu4e)            ;; Email
 (require 'cnb-jabber)          ;; Gtalk
 (require 'cnb-win)             ;; Window handling
 (require 'cnb-print)           ;; Printing
@@ -68,7 +67,8 @@
 (require 'cnb-ace)             ;; Ace jump
 (require 'cnb-crosshairs)      ;; Screen crosshairs
 (require 'cnb-edit-server)     ;; Edit within Chrome
-;; currently broken(require 'cnb-smartparens)     ;; Smart parens
+(require 'cnb-smartparens)     ;; Smart parens
+(require 'cnb-mu4e)            ;; Email
 (require 'cnb-sessions)        ;; Sessions
 
 ;;(require 'time)
