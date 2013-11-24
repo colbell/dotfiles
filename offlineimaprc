@@ -9,12 +9,12 @@ ui = ttyui
 #########################################################################
 [Account home]
 
-autorefresh = 10
+#autorefresh = 10
 
 localrepository = home-local
 remoterepository = home-remote
 
-postsynchook = pkill -2 -u $USER mu && sleep 1 && mu index --maildir=~/Maildir/home
+#postsynchook = pkill -2 -u $USER mu && sleep 1 && mu index --maildir=~/Maildir/home
 
 [Repository home-local]
 type = Maildir
@@ -38,12 +38,12 @@ folderfilter = lambda foldername: foldername not in '[Gmail]/All Mail'
 #########################################################################
 [Account kwela]
 
-autorefresh = 10
+#autorefresh = 10
 
 localrepository = kwela-local
 remoterepository = kwela-remote
 
-postsynchook = pkill -2 -u $USER mu && sleep 1 && mu index --maildir=~/Maildir/kwela
+#postsynchook = pkill -2 -u $USER mu && sleep 1 && mu index --maildir=~/Maildir/kwela
 
 [Repository kwela-local]
 type = Maildir
