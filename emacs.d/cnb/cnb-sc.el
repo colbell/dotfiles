@@ -3,7 +3,7 @@
 (when (require 'magit nil t)
 
   (setq magit-diff-refine-hunk t)
-  (setq magit-process-popup-time  10)
+  (setq magit-process-popup-time 60)
 
   ;; Show magit-status in full window and restore window config on quit.
   (defadvice magit-status (around magit-fullscreen activate)
