@@ -22,7 +22,6 @@
 
 (setq ibuffer-saved-filter-groups
       (quote (("default"
-               ("dired" (mode . dired-mode))
                ("ruby" (or
                         (mode . yaml-mode)
                         (mode . rinari-mode)
@@ -31,11 +30,6 @@
                ("lisp" (or (mode . emacs-lisp-mode)
                            (mode . lisp-interaction-mode)
                            (mode . lisp-mode)))
-               ("code" (or
-                        (mode . haskell-mode)
-                        (mode . lua-mode)
-                        (mode . scala-mode)
-                        (mode . python-mode)))
                ("js" (or
                       (mode . coffee-mode)
                       (mode . js-mode)
@@ -51,12 +45,21 @@
                        (mode . sass-mode)
                        (mode . css-mode)
                        (mode . scss-mode)))
+               ("code" (or
+                        (mode . haskell-mode)
+                        (mode . lua-mode)
+                        (mode . scala-mode)
+                        (mode . python-mode)))
+               ("markup" (mode . markdown-mode))
                ("conf" (or
                         (mode . muttrc-mode)
                         (mode . conf-xdefaults-mode)
                         (mode . conf-mode)
                         (mode . conf-unix-mode)
-                        (mode . conf-space-mode)))
+                        (mode . conf-space-mode)
+                        (name . "\.env")))
+               ("docview" (mode . doc-view-mode))
+               ("dired" (mode . dired-mode))
                ("help"(or
                        (mode . help-mode)
                        (mode . Man-mode)
@@ -79,12 +82,13 @@
                         (mode . term-mode)
                         (mode . inf-ruby-mode)
                         (mode . sql-interactive-mode)))
-               ("git" (or
-                       (mode . magit-mode)
-                       (mode . magit-commit-mode)
-                       (mode . magit-status-mode)
-                       (name . "^magit")
-                       (name . "magit")))
+               ("source control" (or
+                                  (mode . magit-mode)
+                                  (mode . magit-commit-mode)
+                                  (mode . magit-status-mode)
+                                  (mode . git-commit-mode)
+                                  (name . "^magit")
+                                  (name . "magit")))
                ("jabber" (or
                           (mode . jabber-roster-mode)))
                ("Emacs customisation" (mode . Custom-mode))
