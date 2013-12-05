@@ -15,6 +15,7 @@
 
 (setq  display-time-mail-file "/var/mail/colbell"
        display-time-use-mail-icon t
+       display-time-24hr-format t
        display-time-mail-face 'cnb-display-time-mail-face)
 (display-time-mode t)
 
