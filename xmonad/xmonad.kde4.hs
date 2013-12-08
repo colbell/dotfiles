@@ -16,6 +16,7 @@ import XMonad.Config.Kde
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.ICCCMFocus
 import XMonad.Hooks.SetWMName
+import XMonad.Hooks.ManageDocks
 
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
@@ -132,6 +133,9 @@ main = do
                  , ((mod1Mask, xK_F4),                     kill)
 
                  , ((myModMask, xK_F1),                manPrompt myXPConfig)
+
+                 , ((myModMask, xK_u),                 sendMessage $ ToggleStrut U)
+                 , ((myModMask, xK_b),                 sendMessage $ ToggleStrut D)
 
                  , ((myModMask, xK_g),                 windowPromptGoto myXPConfig { autoComplete = Just 500000 } )
                  , ((myModMask .|. shiftMask, xK_g),   windowPromptBring myXPConfig { autoComplete = Just 500000 } )

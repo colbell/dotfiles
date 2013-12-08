@@ -20,6 +20,7 @@ import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.Named
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
+import XMonad.Layout.Tabbed
 
 import XMonad.Prompt
 import XMonad.Prompt.AppLauncher as AL
@@ -35,25 +36,32 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.Scratchpad
 import XMonad.Util.WorkspaceCompare
 
-myWorkspaces  = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces = ["1-emacs","2-shell","3-web","4-fm","5","6","7","8","9"]
 
-scratchpads = [
-      NS "htop" "xterm -name htop -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
-    , NS "nautilus" "Nautilus" (className =? "Nautilus") (nonFloating)
-    ] where role = stringProperty "WM_WINDOW_ROLE"
-
-myManageHook = namedScratchpadManageHook scratchpads <+> scratchpadManageHookDefault
-               <+> (composeAll . concat $ [[
-                                     resource   =? "Do"           --> doIgnore
-                                   , resource  =? "gnome-do"     --> doIgnore
-                                   , className =? "Gimp"         --> doFloat
-                                   , className =? "MPlayer"      --> doFloat
-                                   , className =? "Vncviewer"    --> doFloat
-                                   , className =? "stalonetray"  --> doIgnore
-                                   , className =? "trayer"       --> doIgnore
-                                   , className =? "Tilda"        --> doFloat
-                                   , className =? "Guake.py"     --> doFloat
-                                   ]])
+myManageHook = scratchpadManageHookDefault <+> (composeAll . concat $ [[
+         resource  =? "Do"                --> doIgnore
+       , resource  =? "gnome-do"          --> doIgnore
+       , className =? "Gimp"              --> doFloat
+       , className =? "MPlayer"           --> doFloat
+       , className =? "Vncviewer"         --> doFloat
+       , className =? "stalonetray"       --> doIgnore
+       , className =? "trayer"            --> doIgnore
+       , className =? "Tilda"             --> doFloat
+       , className =? "Guake.py"          --> doFloat
+       , className =? "Yakuake"           --> doFloat
+       , className =? "Unity-2d-panel"    --> doIgnore
+       , className =? "Unity-2d-shell"    --> doIgnore
+       , className =? "Unity-2d-launcher" --> doIgnore
+       , resource  =? "desktop_window"    --> doIgnore
+       , resource  =? "kdesktop"          --> doIgnore
+       , className =? "Plasma"            --> doFloat
+       , className =? "Plasma-desktop"    --> doFloat
+       , className =? "Knotes"            --> doFloat
+       , className =? "XCalc"             --> doFloat
+       , className =? "Emacs"             --> doShift "1-emacs"
+       , className =? "Dolphin"           --> doShift "4-fm"
+       , className =? "chromium-browser"  --> doShift "3-web"
+       ]])
 
 myLogHook h = do
   dynamicLogWithPP $ oxyPP h
@@ -61,7 +69,7 @@ myLogHook h = do
 oxyPP :: Handle -> PP
 oxyPP h = defaultPP {
             ppOutput = hPutStrLn h
-          , ppWsSep = ""
+          , ppWsSep = " "
           , ppCurrent = xmobarColor myCurrentWsFgColor myCurrentWsBgColor
           , ppVisible = xmobarColor myVisibleWsFgColor myVisibleWsBgColor
           , ppHidden = xmobarColor myHiddenWsFgColor ""
@@ -73,22 +81,31 @@ oxyPP h = defaultPP {
           }
 
 
-myStartupHook = setWMName "LG3D"   -- Workaround for Java grey screen issues.
+myXPConfig :: XPConfig
+myXPConfig = defaultXPConfig
+                { bgColor               = myBgColor
+                , fgColor               = myFgColor
+                , bgHLight              = myHighlightedBgColor
+                , fgHLight              = myHighlightedFgColor
+                , position              = Top
+                , promptBorderWidth     = 0
+                }
+
+--myStartupHook = setWMName "LG3D"   -- Workaround for Java grey screen issues.
 
 myModMask = mod4Mask               -- Use Windoze key.
 
-myFont = "Inconsolata-10"
-
-myFgColor = "#DCDCCC"
-myBgColor = "#3f3f3f"
-myHighlightedFgColor = myFgColor
-myHighlightedBgColor = "#CC5500"
-myActiveBorderColor = myCurrentWsBgColor
-myInactiveBorderColor = "#262626"
+myBgColor = "#000000"
+myFgColor = "#CC5500"
+myHighlightedBgColor = myBgColor
+myHighlightedFgColor = "#FFA000"
+myCurrentWsBgColor    = myHighlightedBgColor
+myActiveBorderColor   = myHighlightedFgColor
+myInactiveBorderColor = "#d3d3d3"
 
 -- Are these used?
 myCurrentWsFgColor = myHighlightedFgColor
-myCurrentWsBgColor = myHighlightedBgColor
+--myCurrentWsBgColor = myHighlightedBgColor
 myVisibleWsFgColor = myFgColor
 myVisibleWsBgColor = "#506070"
 myHiddenWsFgColor = myHighlightedFgColor
@@ -98,7 +115,7 @@ myTitleFgColor = myFgColor
 myUrgencyHintFgColor = "red"
 myUrgencyHintBgColor = "blue"
 
-myLayout = smartBorders $ avoidStruts $ named "tile" tiled ||| named "mTile" mirrorTiled ||| noBorders Full
+myLayout = avoidStruts $ showWName' mySWNConfig $ named "tile" tiled ||| named "mTile" mirrorTiled ||| tabbed shrinkText myTabConfig ||| noBorders Full
   where
      tiled       = Tall nmaster delta ratio
      nmaster     = 1
@@ -106,11 +123,21 @@ myLayout = smartBorders $ avoidStruts $ named "tile" tiled ||| named "mTile" mir
      delta       = 3/100
      mirrorTiled = Mirror tiled
 
+myTabConfig = defaultTheme {
+    activeBorderColor        = myBgColor, --myHighlightedFgColor,
+    activeTextColor          = myFgColor, --myHighlightedFgColor,
+    activeColor              = myBgColor,
+    inactiveBorderColor      = myBgColor,
+    inactiveTextColor        = "#000000",
+    inactiveColor            = myInactiveBorderColor,
+    decoHeight               = 14
+}
 
 -- Configure showWName
 mySWNConfig = defaultSWNConfig {
-                swn_color   = myFgColor
-              , swn_bgcolor = myBgColor}
+                swn_color   = myActiveBorderColor
+              , swn_fade    = 2.0
+              , swn_bgcolor = myInactiveBorderColor}
 
 
 main = do
@@ -122,16 +149,15 @@ main = do
              , terminal           = "xterm"
              , logHook            = myLogHook xmproc
                                     >> updatePointer (Relative 0.5 0.5)
-             , startupHook        = myStartupHook
+             -- , startupHook        = myStartupHook
              , borderWidth        = 2
              , modMask            = myModMask
              , normalBorderColor  = myInactiveBorderColor
-             , focusedBorderColor = myActiveBorderColor
+             , focusedBorderColor = "#ff4500"
              } `additionalKeys` keys'
        where
          keys' =  [ ((myModMask , xK_Return),               dwmpromote)
                   , ((myModMask .|. shiftMask, xK_Return),  spawn "x-terminal-emulator")
-
                   , ((myModMask .|. shiftMask, xK_z),       spawn "xscreensaver-command --lock")
 
                   -- Print Screen - Interactively select window or rectangle
@@ -153,7 +179,7 @@ main = do
                   , ((myModMask .|. controlMask, xK_e), swapNextScreen)
 
                   , ((myModMask, xK_p),                 spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
-                  , ((myModMask, xK_r), runOrRaisePrompt defaultXPConfig)
+                  , ((myModMask, xK_r), runOrRaisePrompt myXPConfig)
                   , ((mod1Mask,  xK_F2), spawn "~/bin/xmenud.py")
 
                   , ((myModMask, xK_b),                 sendMessage ToggleStruts)

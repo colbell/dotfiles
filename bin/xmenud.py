@@ -3,7 +3,6 @@
 
 # From http://mad.unserver.de/2010/xmonad/xmenud/
 # xmenud - a small desktop menu
-# This is 
 #
 
 # for launching the app
@@ -63,7 +62,7 @@ def create_menu(menu, use_icons=True, launch=launcher_execute):
 
     def get_exec(string, terminal=False):
         ''' Parses the string according to the XDG Desktop Entry Specifications. '''
-        r1 = re.compile('(?<!%)%[fFuUdDnNickvm]') 
+        r1 = re.compile('(?<!%)%[fFuUdDnNickvm]')
         r2 = re.compile('%%')
         result=r2.sub('%', r1.sub('', string))
         if(terminal):
@@ -168,14 +167,15 @@ def main():
             use_icons = False
 
     try:
-        desktopmenu = xdg.Menu.parse()
+        #desktopmenu = xdg.Menu.parse()
+        desktopmenu = xdg.Menu.parse("/etc/xdg/menus/gnome-applications.menu")
     except xdg.Exceptions.ParsingError:
         try:
             desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applications.menu")
         except xdg.Exceptions.ParsingError:
             error('Error parsing the menu files.')
             sys.exit(-1)
-    
+
     mainmenu=create_menu(desktopmenu, use_icons, launch)
     if run_tray:
         popupmenu=create_popup()
