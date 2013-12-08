@@ -1,11 +1,11 @@
 (message (concat "[CNB] - Loading [" load-file-name "]"))
 
 (ignore-errors
-  (load-theme 'solarized-dark t)
+  ;;(load-theme 'solarized-dark t)
   ;;(load-theme 'wombat t)
-  ;;(load-theme 'zenburn t)
-  ;;(set-frame-font "Inconsolata-11" nil t)
-  (set-frame-font "Ubuntu Mono-11" nil t))
+  (load-theme 'zenburn t)
+  (set-frame-font "Inconsolata-11" nil t))
+  ;;(set-frame-font "Ubuntu Mono-11" nil t))
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)

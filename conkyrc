@@ -56,6 +56,8 @@ ${GOTO 100}${membar 10,75}
 ${GOTO 50}SWAP:${GOTO 100}$swap / $swapmax
 ${GOTO 100}${swapbar 10,75}
 
+${GOTO 50}Battery:${GOTO 100}${battery_bar 10,75}   ${battery_percent}%    ${battery_time}
+
 ${font Inconsolata Medium:bold:size=10}${color0}Top Processes${font}${color1}
 ${GOTO 200}CPU%${GOTO 250}MEM%
 ${GOTO 50}${top name 1} ${GOTO 200}${top cpu 1} ${GOTO 250}${top mem 1}

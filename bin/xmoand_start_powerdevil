@@ -1,0 +1,6 @@
+#! /bin/sh
+if [ -x /usr/bin/kdeinit4 ] ; then
+  kded4
+  qdbus org.kde.kded /kded loadModule powerdevil
+fi
+
