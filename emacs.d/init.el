@@ -21,6 +21,7 @@
 (eval '(setq inhibit-startup-echo-area-message "colbell"))
 
 (require 'cnb-defuns) ;; Utility functions (incl add-subdirs-to-load-path)
+(add-to-list 'load-path (concat personal-dotfiles-dir "/vendor"))
 (add-subdirs-to-load-path (concat personal-dotfiles-dir "/vendor"))
 
 (autoload 'esup "esup" "Emacs Start Up Profiler." nil)
@@ -41,6 +42,7 @@
 (require 'cnb-coding-hook)     ;; Setup for coding buffers
 (require 'cnb-sc)              ;; Source Control config
 (require 'cnb-org)             ;; Org mode config
+(require 'cnb-cobol)           ;; COBOL mode config
 (require 'cnb-ruby)            ;; Ruby mode config
 (require 'cnb-scala)           ;; Scala config
 (require 'cnb-haml-sass-etc)   ;; HTML CSS modes
