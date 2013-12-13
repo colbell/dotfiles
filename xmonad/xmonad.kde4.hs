@@ -59,6 +59,7 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , className =? "Plasma"            --> doFloat
     , className =? "Plasma-desktop"    --> doFloat
     , className =? "Knotes"            --> doFloat
+    , className =? "Klipper"           --> doFloat
     , className =? "XCalc"             --> doFloat
     , className =? "Emacs"             --> doShift "1-emacs"
     , className =? "Dolphin"           --> doShift "4-fm"
