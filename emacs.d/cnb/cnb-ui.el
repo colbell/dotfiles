@@ -2,6 +2,7 @@
 
 (ignore-errors
   ;;(load-theme 'solarized-dark t)
+  ;;(load-theme 'solarized-light t)
   ;;(load-theme 'wombat t)
   (load-theme 'zenburn t)
   (set-frame-font "Inconsolata-11" nil t))
@@ -9,6 +10,10 @@
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+
+;; (set-face-foreground 'enh-ruby-op-face "#CC9393")
+;; (set-face-foreground 'enh-ruby-string-delimiter-face "tomato")
+;; (set-face-foreground 'enh-ruby-heredoc-delimiter-face "tomato")
 
 ;;(setq redisplay-dont-pause nil) ;; Possibly stop emacs-snapshot from locking up.
 (setq redisplay-dont-pause t)
