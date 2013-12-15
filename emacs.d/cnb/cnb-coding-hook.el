@@ -63,8 +63,9 @@
 ;;=======================
 ;; Modes to treat as coding buffers
 ;;=======================
-(add-hook 'prog-mode-hook       'esk-run-coding-hook) ;; Base mode for most coding modes since Emacs 24.
+(add-hook 'prog-mode-hook       'esk-run-coding-hook)
 
+(add-hook 'cobol-mode-hook      'esk-run-coding-hook)
 (add-hook 'conf-mode-hook       'esk-run-coding-hook)
 (add-hook 'css-mode-hook        'esk-run-coding-hook)
 (add-hook 'cucumber-mode-hook   'esk-run-coding-hook)
