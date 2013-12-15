@@ -2,9 +2,9 @@
 
 (require 'whitespace)
 
-(setq whitespace-style '(face tabs trailing lines space-before-tab indentation space-after-tab))
+(setq whitespace-style '(face tabs trailing lines-tail space-before-tab indentation space-after-tab))
 (set-default 'show-trailing-whitespace t)
-(setq whitespace-line-column 999)
+(setq whitespace-line-column 80)
 (global-whitespace-mode 1)
 
 (defun cnb-ws-hook ()
