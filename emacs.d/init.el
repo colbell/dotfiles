@@ -43,6 +43,7 @@
 (require 'cnb-sc)              ;; Source Control config
 (require 'cnb-org)             ;; Org mode config
 (require 'cnb-cobol)           ;; COBOL mode config
+(require 'cnb-projectile)      ;; Projectile Project management
 (require 'cnb-ruby)            ;; Ruby mode config
 (require 'cnb-scala)           ;; Scala config
 (require 'cnb-haml-sass-etc)   ;; HTML CSS modes
@@ -64,7 +65,6 @@
 (require 'cnb-jabber)          ;; Gtalk
 (require 'cnb-win)             ;; Window handling
 (require 'cnb-print)           ;; Printing
-;;(require 'cnb-projectile)      ;; Projectile Project management
 (require 'cnb-scrolling)       ;; Scrolling
 (require 'cnb-ace)             ;; Ace jump
 (require 'cnb-crosshairs)      ;; Screen crosshairs

@@ -1,8 +1,25 @@
 (message (concat "[CNB] - Loading [" load-file-name "]"))
 
 ;;(set-face-background 'region "blue")
-(set-background-color "black")
-(set-foreground-color "wheat")
+;;(set-background-color "black")
+;;(set-foreground-color "wheat")
+
+;;(add-to-list 'default-frame-alist '(background-color . "black"))
+;;(add-to-list 'default-frame-alist '(foreground-color . "wheat"))
+
+;; (set-default 'cursor-type '(bar . 3))
+;; (set-cursor-color "DarkOrange")
+;;(setq default-frame-alist
+;;  '((cursor-color . "DarkOrange")))
+
+
+(setq default-frame-alist
+      (append default-frame-alist
+              '((foreground-color . "wheat")
+                (background-color . "black")
+                (cursor-color . "DarkOrange"))))
+
+(setq frame-title-format '(buffer-file-name "%f" ("%b")))
 
 (ignore-errors
   ;;(load-theme 'solarized-dark t)
@@ -55,14 +72,6 @@
       save-interprogram-paste-before-kill t
       require-final-newline t
       ediff-window-setup-function 'ediff-setup-windows-plain)
-
-(setq frame-title-format '(buffer-file-name "%f" ("%b")))
-
-(set-default 'cursor-type '(bar . 3))
-(set-cursor-color "DarkOrange")
-
-(setq default-frame-alist
-  '((cursor-color . "DarkOrange")))
 
 ;; Don't let the cursor go into the minibuffer prompt
 (setq minibuffer-prompt-properties

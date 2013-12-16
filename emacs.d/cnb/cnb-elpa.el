@@ -46,10 +46,11 @@
                        powerline
                        ;;mode-compile
                        ;;php-mode
-                       puppet-mode ;;projectile
+                       puppet-mode projectile projectile-rails
                        ;;rainbow-delimiters
                        rainbow-mode rbenv rhtml-mode
-                       rinari robe rspec-mode rubocop
+                       ;; rinari
+                       robe rspec-mode rubocop
                        ruby-compilation ruby-block ruby-end ruby-mode ruby-refactor
                        rvm sass-mode sbt-mode scala-mode2
                        ;;scpaste
