@@ -9,7 +9,7 @@
 ;;(require 'ibuffer-vc nil t)
 
 (setq ibuffer-formats
-      '((mark modified read-only vc-status-mini" "
+      '((mark modified read-only" "
               (name 30 30 :left :elide)
               " "
               (size 9 -1 :right)

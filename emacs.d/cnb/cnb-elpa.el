@@ -58,7 +58,7 @@
                        ;;shell-current-directory
                        smartscan
                        smartparens smooth-scrolling
-                       solarized-theme
+                       ;;solarized-theme
                        ;; sunrise-commander
                        switch-window
                        twittering-mode

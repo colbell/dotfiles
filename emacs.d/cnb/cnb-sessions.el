@@ -7,7 +7,7 @@
 
 ;; Remember open buffers
 (require 'desktop)
-(setq desktop-load-locked-desktop nil) ;; FIXME: This isn't working - always set to ask
+(setq desktop-load-locked-desktop nil)
 (setq desktop-restore-eager 5) ;; Open first X immed then rest in background
 (desktop-save-mode 1)
 
