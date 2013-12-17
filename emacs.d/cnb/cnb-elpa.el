@@ -24,6 +24,7 @@
                        enh-ruby-mode ensime
                        ;;etags-select
                        esup expand-region
+                       f  ;; Required by projectile.
                        feature-mode
                        ;;find-file-in-project
                        find-file-in-repository findr

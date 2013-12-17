@@ -2,11 +2,6 @@
 
 ;;;; RUBY
 
-
-;;(require 'ruby-end nil t)
-;;(autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
-
-;;(when (require 'enh-ruby-mode nil t)
 (eval-after-load 'enh-ruby-mode
   '(progn
      (cond
@@ -23,6 +18,10 @@
 
      ;; Doesn't work well with Solarized theme. Can't see assignment operator.
      ;;(remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
+
+     ;; (set-face-foreground 'enh-ruby-op-face "#CC9393")
+     (set-face-foreground 'enh-ruby-string-delimiter-face "tomato")
+     ;; (set-face-foreground 'enh-ruby-heredoc-delimiter-face "tomato")
 
      (cond
       ((file-directory-p (concat (getenv "HOME") "/.rbenv"))

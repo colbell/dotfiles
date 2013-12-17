@@ -2,8 +2,8 @@
 
 (setq
  scroll-margin 0
- scroll-conservatively 100000
- scroll-preserve-screen-position t)
+ scroll-conservatively 100000)
+ ;;scroll-preserve-screen-position t
 
 (require 'smooth-scrolling nil t)
 
