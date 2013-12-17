@@ -16,7 +16,7 @@
 (setq default-frame-alist
       (append default-frame-alist
               '((foreground-color . "wheat")
-                (background-color . "black")
+                (background-color . "gray4")
                 (cursor-color . "DarkOrange"))))
 
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
@@ -31,10 +31,6 @@
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
-
-;; (set-face-foreground 'enh-ruby-op-face "#CC9393")
-;; (set-face-foreground 'enh-ruby-string-delimiter-face "tomato")
-;; (set-face-foreground 'enh-ruby-heredoc-delimiter-face "tomato")
 
 (setq redisplay-dont-pause t)
 
