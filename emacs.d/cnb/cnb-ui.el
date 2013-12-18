@@ -13,6 +13,12 @@
 ;;  '((cursor-color . "DarkOrange")))
 
 
+;; (set-cursor-color "DarkOrange")
+;; (setq default-frame-alist
+;;       (append default-frame-alist
+;;               '((cursor-color . "DarkOrange"))))
+
+;;(require 'negativ-faces)       ;; Basic L&F
 (setq default-frame-alist
       (append default-frame-alist
               '((foreground-color . "wheat")

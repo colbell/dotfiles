@@ -90,7 +90,8 @@
                                   (name . "^magit")
                                   (name . "magit")))
                ("jabber" (or
-                          (mode . jabber-roster-mode)))
+                          (mode . jabber-roster-mode)
+                          (mode . jabber-chat-mode)))
                ("Emacs customisation" (mode . Custom-mode))
                ("mail" (or
                         (mode . bbdb-mode)
