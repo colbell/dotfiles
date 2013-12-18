@@ -20,17 +20,18 @@
         jabber-groupchat-prompt-format "%n> "
         jabber-muc-private-foreign-prompt-format "%g/%n> ")
 
-  (setq jabber-backlog-days 3.0
+  (setq jabber-backlog-days 10.0
         jabber-roster-line-format "%c %-25n %u %-8s"
         jabber-roster-show-title nil
         jabber-show-resources nil
+        jabber-history-enabled t
         jabber-show-offline-contacts nil)
 
   (setq jabber-roster-subscription-display
         '(("none" . " ")
-         ("from" . "←")
-         ("to" . "→")
-         ("both" . "⇄")))
+          ("from" . "←")
+          ("to" . "→")
+          ("both" . "⇄")))
 
 
   (set-face-foreground 'jabber-chat-prompt-foreign "red")
@@ -40,6 +41,23 @@
   (set-face-foreground 'jabber-roster-user-away "orange")
   (set-face-foreground 'jabber-roster-user-chatty "green")
   (set-face-foreground 'jabber-roster-user-online "dark green")
+
+  ;; From Emacs wiki.
+  (defun jabber-visit-history (jid)
+    "Visit jabber history with JID in a new buffer.
+
+Performs well only for small files.  Expect to wait a few seconds
+for large histories.  Adapted from `jabber-chat-create-buffer'."
+    (interactive (list (jabber-read-jid-completing "JID: ")))
+    (let ((buffer (generate-new-buffer (format "*-jabber-history-%s-*"
+                                               (jabber-jid-displayname jid)))))
+      (switch-to-buffer buffer)
+      (make-local-variable 'jabber-chat-ewoc)
+      (setq jabber-chat-ewoc (ewoc-create #'jabber-chat-pp))
+      (mapc 'jabber-chat-insert-backlog-entry
+            (nreverse (jabber-history-query nil nil t t "."
+                                            (jabber-history-filename jid))))
+      (view-mode)))
 
   ;; Stop msgs in the echo area from clobbering the mini buffer
   (define-jabber-alert echo "Show a message in the echo area"

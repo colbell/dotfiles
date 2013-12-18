@@ -2,59 +2,62 @@
 
 ;;;; RUBY
 
-(eval-after-load 'enh-ruby-mode
-  '(progn
-     (cond
-      ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
-       (require 'rbenv nil t))
-      ((file-directory-p (concat (getenv "HOME") "/.rvm"))
-       (require 'rvm nil t)))
+;; (eval-after-load 'enh-ruby-mode
+;;   '(progn
 
-     (add-hook 'projectile-mode-hook 'projectile-rails-on)
-     (require 'rspec-mode nil t)
+(when (require 'enh-ruby-mode nil t)
+  (cond
+   ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
+    (require 'rbenv nil t))
+   ((file-directory-p (concat (getenv "HOME") "/.rvm"))
+    (require 'rvm nil t)))
 
-     ;; (when (require 'rinari nil t)
-     ;;   (global-rinari-mode))
+  (add-hook 'projectile-mode-hook 'projectile-rails-on)
+  (require 'rspec-mode nil t)
 
-     ;; Doesn't work well with Solarized theme. Can't see assignment operator.
-     ;;(remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
+  ;; (when (require 'rinari nil t)
+  ;;   (global-rinari-mode))
 
-     ;; (set-face-foreground 'enh-ruby-op-face "#CC9393")
-     (set-face-foreground 'enh-ruby-string-delimiter-face "tomato")
-     ;; (set-face-foreground 'enh-ruby-heredoc-delimiter-face "tomato")
+  ;; Doesn't work well with Solarized theme. Can't see assignment operator.
+  (remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
 
-     (cond
-      ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
-       (require 'rbenv nil t))
-      ((file-directory-p (concat (getenv "HOME") "/.rvm"))
-       (require 'rvm nil t)))
+  ;; (set-face-foreground 'enh-ruby-op-face "#CC9393")
+  ;; (set-face-foreground 'enh-ruby-heredoc-delimiter-face "tomato")
 
-     (add-to-list 'auto-mode-alist '("Capfile$" . enh-ruby-mode))
-     (add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
-     (add-to-list 'auto-mode-alist '("Rakefile$" . enh-ruby-mode))
-     (add-to-list 'auto-mode-alist '("Vagrantfile$" . enh-ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.gemspec$" . enh-ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.prawn$" . enh-ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.rjs$" . enh-ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.ru$" . enh-ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
+  (cond
+   ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
+    (require 'rbenv nil t))
+   ((file-directory-p (concat (getenv "HOME") "/.rvm"))
+    (require 'rvm nil t)))
 
-     (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("Capfile$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("Rakefile$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("Vagrantfile$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.gemspec$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.prawn$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.rjs$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.ru$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
 
-     (setq enh-ruby-bounce-deep-indent t)
-     (setq enh-ruby-hanging-brace-indent-level 2)
+  (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 
-     (define-key enh-ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+  (setq enh-ruby-bounce-deep-indent t)
+  (setq enh-ruby-hanging-brace-indent-level 2)
 
-     (defun cnb-ruby-setup ()
-       (setq imenu-generic-expression
-             '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
-       (yard-mode)
-       (rspec-mode)
-       (ruby-refactor-mode-launch))
+  (define-key enh-ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
 
-     (add-hook 'enh-ruby-mode-hook 'cnb-ruby-setup)))
+  (defun cnb-ruby-setup ()
+    ;; (setq imenu-generic-expression
+    ;;       '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
+    (yard-mode)
+    (rspec-mode)
+    (ruby-refactor-mode-launch)
+    ;;(set-face-foreground 'enh-ruby-string-delimiter-face "tomato")
+    )
+
+  (add-hook 'enh-ruby-mode-hook 'cnb-ruby-setup))
 
 (provide 'cnb-ruby)
 
