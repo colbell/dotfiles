@@ -1,5 +1,2 @@
---pager=less -r
-
 --type-set=haml=.haml
 --type-set=ruby=.rb,.rake,.rhtml,.erb,.rjs
-

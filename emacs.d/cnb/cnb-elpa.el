@@ -14,7 +14,7 @@
   (when (not package-archive-contents)
     (package-refresh-contents))
 
-  (setq cnb-packages '(ace-jump-mode
+  (setq cnb-packages '(ace-jump-mode ack-and-a-half
                        anzu
                        auctex auto-complete auto-dim-other-buffers
                        autopair bm browse-kill-ring butler
