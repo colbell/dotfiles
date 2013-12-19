@@ -54,17 +54,12 @@ export HISTSIZE=
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(bundler command-not-found git heroku rails3 ruby rvm)
+plugins=(command-not-found git heroku rails3 ruby rvm)
 
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
 
 if [ -d "$HOME/android-sdk-linux/platform-tools" ]; then
   PATH=$PATH:$HOME/android-sdk-linux/platform-tools
-fi
-
-if [ -d "$HOME/.rvm/bin" ]; then
-  [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-  PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 fi
 
 if [[ -f "$HOME/.aws_keys" ]]; then
@@ -85,6 +80,8 @@ if [ -d "$HOME/apps/scala/bin" ]; then
   export SCALA_HOME=$HOME/apps/scala
   export PATH="$SCALA_HOME/bin:$PATH"
 fi
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 source $ZSH/oh-my-zsh.sh
 
