@@ -6,17 +6,17 @@ set from='col@baibell.org'
 
 unmy_hdr organisation
 
-set header_cache="~/.mutt/cache/colbaibell/headers"
-set message_cachedir="~/.mutt/cache/colbaibell/bodies"
+set header_cache="~/.mutt/cache/home/headers"
+set message_cachedir="~/.mutt/cache/home/bodies"
 
-set folder="~/Maildir/colbaibell.org"
+set folder="~/Maildir/home"
 set mask="!^\\.[^.]"
-set mbox="~/Maildir/colbaibell.org/INBOX"
+set mbox="~/Maildir/home/INBOX"
 set spoolfile = "+INBOX"
 set postponed="+.Drafts"
 set record=""
 
-mailboxes `echo /var/mail/$USERNAME` `echo $HOME/Maildir/colbaibell.org/*`
+mailboxes `echo /var/mail/$USER` `echo $HOME/Maildir/home/*`
 
 set smtp_url="smtps://col@baibell.org@smtp.gmail.com"
 
