@@ -16,7 +16,7 @@
 
   (setq mu4e-headers-leave-behavior 'apply)
 
-  (setq mu4e-headers-date-format "%d/%b/%Y %H:%M" )
+  (setq mu4e-headers-date-format "%d%b%Y %H:%M" )
 
   (setq mu4e-msg2pdf "/usr/bin/msg2pdf")
 
@@ -29,8 +29,8 @@
 
   (setq user-mail-address "col@baibell.org")
 
-
-  (setq mu4e-get-mail-command "offlineimap")
+  (setq mu4e-get-mail-command nil)
+  ;;(setq mu4e-get-mail-command "offlineimap")
   (setq mu4e-update-interval 1200)
 
   (add-to-list 'mu4e-view-actions
