@@ -61,6 +61,7 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , className =? "Knotes"            --> doFloat
     , className =? "Klipper"           --> doFloat
     , className =? "XCalc"             --> doFloat
+    , className =? "emulator-arm"      --> doFloat
     , className =? "Dolphin"           --> doShift "4-fm"
     , className =? "chromium-browser"  --> doShift "3-web"
     ])
