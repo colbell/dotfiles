@@ -115,3 +115,5 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
+/config/ubuntu-ui-toolkit/*
+/emacs.d/jabber-history/*
