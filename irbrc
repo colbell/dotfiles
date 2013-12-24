@@ -17,3 +17,6 @@ end
 def irb_verbosity_toggle
   irb_context.echo ? irb_context.echo = false : irb_context.echo = true
 end
+
+require "awesome_print"
+AwesomePrint.irb!
