@@ -9,11 +9,11 @@
   (string-equal system-name "ankh-morpork"))
 
 ;; Found somewhere on the Internet
-(defun edit-current-buffer-as-root ()
-  (interactive)
-  (let ((bfn buffer-file-name))
-    (kill-buffer)
-    (find-file (concatenate 'string "/sudo:root@localhost:" bfn))))
+;; (defun edit-current-buffer-as-root ()
+;;   (interactive)
+;;   (let ((bfn buffer-file-name))
+;;     (kill-buffer)
+;;     (find-file (concatenate 'string "/sudo:root@localhost:" bfn))))
 
 
 ;; http://curiousprogrammer.wordpress.com/2009/04/02/ibuffer/

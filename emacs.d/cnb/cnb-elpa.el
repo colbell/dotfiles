@@ -19,7 +19,7 @@
                        auctex auto-complete auto-dim-other-buffers
                        autopair bm browse-kill-ring butler
                        coffee-mode creole-mode crontab-mode crosshairs csv-mode cups
-                       deft diminish dired+ drag-stuff
+                       deft diminish dired+ discover drag-stuff
                        edit-server edit-server-htmlize
                        enh-ruby-mode ensime
                        ;;etags-select
