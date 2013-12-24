@@ -16,6 +16,7 @@ set spoolfile = "+INBOX"
 set postponed="+.Drafts"
 set record=""
 
+unmailboxes *
 mailboxes `echo /var/mail/$USER` `echo $HOME/Maildir/home/*`
 
 set smtp_url="smtps://col@baibell.org@smtp.gmail.com"

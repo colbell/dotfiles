@@ -17,7 +17,8 @@ set postponed="+.Drafts"
 set record=""
 #set postponed="+[Gmail].Drafts"
 
-mailboxes `echo /var/mail/$USER` `echo $HOME/Maildir/home/*`
+unmailboxes *
+mailboxes `echo /var/mail/$USER` `echo $HOME/Maildir/kwela/*`
 
 set smtp_url="smtps://cbell@tickitsystems.com.au@smtp.gmail.com"
 
@@ -32,6 +33,4 @@ folder-hook .*Gmail.*Spam   'push "<limit>~N<enter>"'
 folder-hook IN.                            'push "<limit>~N|~O|~F<enter>"'
 
 folder-hook .                     unmy_hdr Reply-To:
-folder-hook =IN.tickit-support    my_hdr Reply-To: support@tickitsystems.com.au
-
-folder-hook =Z-linux-kernel      'push "<limit>~N|~O|~F<enter>"'
+folder-hook =IN.kwela-support    my_hdr Reply-To: support@kwelasolutions.com
