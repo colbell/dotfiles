@@ -48,6 +48,9 @@
 ;;       (setq ad-return-value nil))))
 
 
+;;(require 'discover)
+(global-discover-mode 1)
+
 ;;==============
 ;; Markdown mode
 ;;==============
