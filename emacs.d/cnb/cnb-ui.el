@@ -31,9 +31,14 @@
   ;;(load-theme 'solarized-dark t)
   ;;(load-theme 'solarized-light t)
   ;;(load-theme 'wombat t)
-  ;;(load-theme 'zenburn t)
-  (set-frame-font "Inconsolata-11" nil t))
-  ;;(set-frame-font "Ubuntu Mono-11" nil t))
+  (load-theme 'zenburn t)
+)
+
+(set-frame-font "Anonymous Pro-11" nil t)
+(set-default-font "Anonymous Pro-11" nil t)
+;;(set-frame-font "Inconsolata-11" nil t)
+;;(set-frame-font "Source Code Pro-10" nil t)
+;;(set-frame-font "Ubuntu Mono-11" nil t)
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)

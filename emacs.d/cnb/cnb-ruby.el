@@ -19,7 +19,7 @@
   ;;   (global-rinari-mode))
 
   ;; Doesn't work well with Solarized theme. Can't see assignment operator.
-  (remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
+  ;;(remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
 
   ;; (set-face-foreground 'enh-ruby-op-face "#CC9393")
   ;; (set-face-foreground 'enh-ruby-heredoc-delimiter-face "tomato")
