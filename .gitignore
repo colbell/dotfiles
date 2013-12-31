@@ -117,3 +117,4 @@
 /xmonad/xmonad.o
 /config/ubuntu-ui-toolkit/*
 /emacs.d/jabber-history/*
+/config/configstore/*
