@@ -21,6 +21,8 @@
 (setq auto-revert-verbose nil)
 (setq global-auto-revert-non-file-buffers t)
 
+(setq line-move-visual nil)
+
 ;;(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG$" . diff-mode))
 
 ;; Show flymake errors in mini-buffer

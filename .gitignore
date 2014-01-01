@@ -118,3 +118,6 @@
 /config/ubuntu-ui-toolkit/*
 /emacs.d/jabber-history/*
 /config/configstore/*
+/fonts/fonts.dir
+/bin/eclipse
+/bin/nb
