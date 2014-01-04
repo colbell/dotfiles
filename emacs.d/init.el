@@ -71,7 +71,7 @@
 (require 'cnb-edit-server)     ;; Edit within Chrome
 (require 'cnb-smartparens)     ;; Smart parens
 (require 'cnb-mu4e)            ;; Email
-(require 'cnb-sessions)        ;; Sessions
+;;(require 'cnb-sessions)        ;; Sessions
 
 ;;(require 'time)
 (defun cnb-init-time()
