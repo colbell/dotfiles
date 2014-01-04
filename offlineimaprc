@@ -3,7 +3,7 @@
 
 metadata = ~/offlineimap
 accounts = kwela,home
-maxsyncaccounts = 1
+maxsyncaccounts = 2
 ui = ttyui
 
 #########################################################################
@@ -28,7 +28,7 @@ remotepassfile = ~/.password.home
 ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 
-maxconnections = 3
+maxconnections = 1
 
 # Remove leading INBOX from all mailbox names.
 nametrans = lambda foldername: re.sub('^INBOX\.', '', foldername)
