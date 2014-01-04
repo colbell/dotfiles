@@ -58,6 +58,7 @@ plugins=(command-not-found custom-aliases rails)
 
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
 
+#export _JAVA_AWT_WM_NONREPARENTING=1
 
 # if [ -d "$HOME/apps/eclipse" ]; then
 #   PATH=$PATH:$HOME/apps/eclipse
