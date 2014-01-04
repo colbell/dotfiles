@@ -23,7 +23,6 @@
 (setq ibuffer-saved-filter-groups
       (quote (("default"
                ("ruby" (or
-                        (mode . yaml-mode)
                         (mode . rinari-mode)
                         (mode . enh-ruby-mode)
                         (mode . ruby-mode)))
@@ -50,7 +49,10 @@
                         (mode . lua-mode)
                         (mode . scala-mode)
                         (mode . python-mode)))
-               ("markup" (mode . markdown-mode))
+               ("markup" (or 
+                          (mode . nxml-mode)
+                          (mode . yaml-mode)
+                          (mode . markdown-mode)))
                ("conf" (or
                         (mode . muttrc-mode)
                         (mode . conf-xdefaults-mode)

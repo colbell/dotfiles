@@ -47,7 +47,7 @@
 (add-hook 'esk-coding-hook 'esk-add-watchwords)
 (add-hook 'esk-coding-hook 'hs-minor-mode)
 
-(add-hook 'esk-coding-hook 'flyspell-prog-mode t)
+;;(add-hook 'esk-coding-hook 'flyspell-prog-mode t)
 
 (when (fboundp 'yas/minor-mode)
   (add-hook 'esk-coding-hook 'yas/minor-mode))

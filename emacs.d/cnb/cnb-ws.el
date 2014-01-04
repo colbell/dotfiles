@@ -5,7 +5,7 @@
 (setq whitespace-style '(face tabs trailing lines-tail space-before-tab indentation space-after-tab))
 (set-default 'show-trailing-whitespace t)
 (setq whitespace-line-column 80)
-(global-whitespace-mode 1)
+;;(global-whitespace-mode 1) slows session reopening
 
 (defun cnb-ws-hook ()
   (setq show-trailing-whitespace nil))
