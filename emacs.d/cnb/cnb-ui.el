@@ -19,11 +19,11 @@
 ;;               '((cursor-color . "DarkOrange"))))
 
 ;;(require 'negativ-faces)       ;; Basic L&F
-(setq default-frame-alist
-      (append default-frame-alist
-              '((foreground-color . "wheat")
-                (background-color . "gray4")
-                (cursor-color . "DarkOrange"))))
+;; (setq default-frame-alist
+;;       (append default-frame-alist
+;;               '((foreground-color . "wheat")
+;;                 (background-color . "gray4")
+;;                 (cursor-color . "DarkOrange"))))
 
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 

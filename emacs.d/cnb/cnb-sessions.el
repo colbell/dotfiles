@@ -7,12 +7,14 @@
 
 ;; Remember open buffers
 (require 'desktop)
+(desktop-save-mode 1)
 (setq desktop-load-locked-desktop nil)
-;;(setq desktop-restore-eager 5) ;; Open first X immed then rest in background
-(setq desktop-restore-eager t) ;; Open first X immed then rest in background
+;;(setq desktop-restore-eager 10) ;; Open first X immed then rest in background
+(setq desktop-restore-eager t)
 (setq history-length 250)
 
-(desktop-save-mode 1)
+(add-to-list 'desktop-modes-not-to-save 'dired-mode)
+
 
 ;; Remember mini-buffer history
 (setq savehist-additional-variables

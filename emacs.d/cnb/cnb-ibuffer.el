@@ -44,10 +44,12 @@
                        (mode . sass-mode)
                        (mode . css-mode)
                        (mode . scss-mode)))
+               ("scala" (or
+                        (mode . scala-mode)
+                        (mode . sbt-mode)))
                ("code" (or
                         (mode . haskell-mode)
                         (mode . lua-mode)
-                        (mode . scala-mode)
                         (mode . python-mode)))
                ("markup" (or 
                           (mode . nxml-mode)
