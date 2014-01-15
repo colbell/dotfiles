@@ -93,6 +93,10 @@ fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
+if [ -d "/usr/lib/jvm/java-7-oracle" ]; then
+  export JAVA_HOME="/usr/lib/jvm/java-7-oracle"
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 #unsetopt correct_all
