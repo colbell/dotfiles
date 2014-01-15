@@ -8,6 +8,9 @@
      (define-key scala-mode-map (kbd "<backtab>")
        'scala-indent:indent-with-reluctant-strategy)
 
+     (when (require 'ensime nil t)
+       (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
+
      (add-hook 'scala-mode-hook
                (lambda ()
                  (setq scala-indent:align-parameters t)))))

@@ -28,7 +28,9 @@
                        feature-mode
                        ;;find-file-in-project
                        find-file-in-repository findr
-                       flymake flymake-coffee flymake-cursor flymake-haml flymake-ruby flymake-sass
+                       flymake flymake-coffee flymake-cursor flymake-haml
+                       ;;flymake-ruby
+                       flymake-sass
                        ;;furl
                        git-gutter-fringe git-messenger
                        go-mode goto-chg
@@ -52,14 +54,16 @@
                        rainbow-mode rbenv rhtml-mode
                        ;; rinari
                        robe rspec-mode rubocop
-                       ruby-compilation ruby-block ruby-end ruby-mode ruby-refactor
+                       ruby-compilation ruby-block ruby-end
+                       ;;ruby-mode
+                       ruby-refactor
                        rvm sass-mode sbt-mode scala-mode2
                        ;;scpaste
                        scss-mode slim-mode
                        ;;shell-current-directory
                        smartscan
                        smartparens smooth-scrolling
-                       ;;solarized-theme
+                       solarized-theme
                        ;; sunrise-commander
                        switch-window
                        twittering-mode

@@ -44,7 +44,8 @@
 (require 'cnb-org)             ;; Org mode config
 (require 'cnb-cobol)           ;; COBOL mode config
 (require 'cnb-projectile)      ;; Projectile Project management
-(require 'cnb-ruby)            ;; Ruby mode config
+(require 'cnb-enh-ruby)        ;; Ruby mode config
+;;(require 'cnb-ruby)            ;; Ruby mode config
 (require 'cnb-scala)           ;; Scala config
 (require 'cnb-haml-sass-etc)   ;; HTML CSS modes
 (require 'cnb-js-coffee)       ;; Coffeescript, JS
@@ -70,8 +71,8 @@
 (require 'cnb-crosshairs)      ;; Screen crosshairs
 (require 'cnb-edit-server)     ;; Edit within Chrome
 (require 'cnb-smartparens)     ;; Smart parens
-(require 'cnb-mu4e)            ;; Email
-;;(require 'cnb-sessions)        ;; Sessions
+;;(require 'cnb-mu4e)            ;; Email
+(require 'cnb-sessions)        ;; Sessions
 
 ;;(require 'time)
 (defun cnb-init-time()

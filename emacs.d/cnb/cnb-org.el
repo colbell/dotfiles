@@ -39,10 +39,10 @@
               ("CANCELLED" :foreground "forest green" :weight bold)
               ("PHONE" :foreground "forest green" :weight bold))))
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((ruby . t)
-   ))
+;; (org-babel-do-load-languages
+;;  'org-babel-load-languages
+;;  '((ruby . t)
+;;    ))
 
 
 ;;==============
