@@ -106,9 +106,9 @@
                         (name . "\.newsrc-dribble")
                         (mode . mu4e-main-mode)
                         (mode . mu4e-headers-mode)
+                        ;;(mode . rmail-mode)
                         (mode . mu4e-view-mode)
-                        (mode . mu4e-compose-mode)
-                        (mode . rmail-mode)))
+                        (mode . mu4e-compose-mode)))
                ))))
 
 (add-hook 'ibuffer-mode-hook

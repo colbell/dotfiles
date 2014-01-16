@@ -11,12 +11,12 @@
 
 ;; Display time and local mail indicator.
 
-(defface cnb-display-time-mail-face '((t (:background "red"))) "bg color for mail indicator")
+;;(defface cnb-display-time-mail-face '((t (:background "red"))) "bg color for mail indicator")
 
-(setq  display-time-mail-file "/var/mail/colbell"
-       display-time-use-mail-icon t
-       display-time-24hr-format t
-       display-time-mail-face 'cnb-display-time-mail-face)
+;; (setq  display-time-mail-file "/var/mail/colbell"
+;;        display-time-use-mail-icon t
+;;        display-time-24hr-format t
+;;        display-time-mail-face 'cnb-display-time-mail-face)
 (display-time-mode t)
 
 ;; Show current function name in modeline
