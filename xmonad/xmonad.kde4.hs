@@ -151,8 +151,8 @@ main = do
                  , ((myModMask .|. mod1Mask, xK_e), warpToScreen 1 (0.5) (0.5))
                  , ((myModMask .|. mod1Mask, xK_r), warpToScreen 2 (0.5) (0.5))
 
-                 , ((myModMask .|. shiftMask, xK_r), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
-                 , ((myModMask, xK_r), runOrRaisePrompt myXPConfig)
+                 , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
+                 , ((myModMask, xK_p), runOrRaisePrompt myXPConfig)
 
                  , ((myModMask, xK_F2), spawn "~/bin/xmenud.py")
                  ]
