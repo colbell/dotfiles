@@ -63,10 +63,10 @@
                        ;;shell-current-directory
                        smartscan
                        smartparens smooth-scrolling
-                       solarized-theme
+                       ;;solarized-theme
                        ;; sunrise-commander
                        switch-window
-                       twittering-mode
+                       twilight-theme twittering-mode
                        undo-tree volatile-highlights
                        web-mode
                        yaml-mode yard-mode yasnippet

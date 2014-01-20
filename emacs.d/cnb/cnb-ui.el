@@ -9,7 +9,7 @@
 
 ;; (set-default 'cursor-type '(bar . 3))
 ;; (set-cursor-color "DarkOrange")
-;;(setq default-frame-alist
+;; (setq default-frame-alist
 ;;  '((cursor-color . "DarkOrange")))
 
 
@@ -31,7 +31,8 @@
   ;;(load-theme 'solarized-dark t)
   ;;(load-theme 'solarized-light t)
   ;;(load-theme 'wombat t)
-  (load-theme 'zenburn t)
+  ;;(load-theme 'zenburn t)
+  (load-theme 'twilight t)
 )
 
 (set-frame-font "Anonymous Pro-11" nil t)
