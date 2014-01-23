@@ -29,7 +29,7 @@
 
 ;; (global-set-key (kbd "C-c k") 'browse-kill-ring)
 
-;;(global-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line)
+(global-set-key (kbd "C-c C-e") 'flymake-display-err-menu-for-current-line)
 
 (define-key ctl-x-4-map "t" 'cnb-toggle-frame-split)
 

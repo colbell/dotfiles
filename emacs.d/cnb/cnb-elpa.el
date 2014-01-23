@@ -21,7 +21,7 @@
                        coffee-mode creole-mode crontab-mode crosshairs csv-mode cups
                        deft diminish dired+ discover drag-stuff
                        edit-server edit-server-htmlize
-                       enh-ruby-mode ensime
+                       ;;enh-ruby-mode ensime
                        ;;etags-select
                        esup expand-region
                        f  ;; Required by projectile.
@@ -29,7 +29,7 @@
                        ;;find-file-in-project
                        find-file-in-repository findr
                        flymake flymake-coffee flymake-cursor flymake-haml
-                       ;;flymake-ruby
+                       flymake-ruby
                        flymake-sass
                        ;;furl
                        git-gutter-fringe git-messenger
