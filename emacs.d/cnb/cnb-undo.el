@@ -11,8 +11,8 @@
 ;;*==============================================
 ;; Undo tree visualisation
 ;;*==============================================
-(when (require 'undo-tree nil t)
-  (global-undo-tree-mode))
+;; (when (require 'undo-tree nil t)
+;;   (global-undo-tree-mode))
 
 ;; Keep region when undoing in region
 (defadvice undo-tree-undo (around keep-region activate)
