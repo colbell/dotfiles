@@ -1,3 +1,4 @@
+
 -- -*- mode: haskell; -*-
 import System.IO
 
@@ -36,7 +37,7 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.Scratchpad
 import XMonad.Util.WorkspaceCompare
 
-myWorkspaces = ["1-emacs","2-shell","3-web","4-fm","5","6","7","8","9"]
+myWorkspaces = ["1-emacs","2-shell","3-web","4-fm","5","6","7","8-ssh","9-mail"]
 
 myManageHook = scratchpadManageHookDefault <+> (composeAll . concat $ [[
          resource  =? "Do"                --> doIgnore
@@ -54,11 +55,11 @@ myManageHook = scratchpadManageHookDefault <+> (composeAll . concat $ [[
        , className =? "Unity-2d-launcher" --> doIgnore
        , resource  =? "desktop_window"    --> doIgnore
        , resource  =? "kdesktop"          --> doIgnore
+       , className =? "tint2"             --> doIgnore
        , className =? "Plasma"            --> doFloat
        , className =? "Plasma-desktop"    --> doFloat
        , className =? "Knotes"            --> doFloat
        , className =? "XCalc"             --> doFloat
-       , className =? "Emacs"             --> doShift "1-emacs"
        , className =? "Dolphin"           --> doShift "4-fm"
        , className =? "chromium-browser"  --> doShift "3-web"
        ]])
@@ -115,7 +116,7 @@ myTitleFgColor = myFgColor
 myUrgencyHintFgColor = "red"
 myUrgencyHintBgColor = "blue"
 
-myLayout = avoidStruts $ showWName' mySWNConfig $ named "tile" tiled ||| named "mTile" mirrorTiled ||| tabbed shrinkText myTabConfig ||| noBorders Full
+myLayout = smartBorders $ avoidStruts $ showWName' mySWNConfig $ named "tile" tiled ||| named "mTile" mirrorTiled ||| tabbed shrinkText myTabConfig ||| noBorders Full
   where
      tiled       = Tall nmaster delta ratio
      nmaster     = 1
@@ -148,7 +149,7 @@ main = do
              , workspaces         = myWorkspaces
              , terminal           = "xterm"
              , logHook            = myLogHook xmproc
-                                    >> updatePointer (Relative 0.5 0.5)
+             --                       >> updatePointer (Relative 0.5 0.5)
              -- , startupHook        = myStartupHook
              , borderWidth        = 2
              , modMask            = myModMask
@@ -178,12 +179,15 @@ main = do
                   , ((myModMask .|. controlMask, xK_w), swapPrevScreen)
                   , ((myModMask .|. controlMask, xK_e), swapNextScreen)
 
-                  , ((myModMask, xK_p),                 spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
-                  , ((myModMask, xK_r), runOrRaisePrompt myXPConfig)
+                  -- , ((myModMask, xK_p),                 spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
+                  -- , ((myModMask, xK_r), runOrRaisePrompt myXPConfig)
+                  , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
+                  , ((myModMask, xK_p), runOrRaisePrompt myXPConfig)
+
                   , ((mod1Mask,  xK_F2), spawn "~/bin/xmenud.py")
 
                   , ((myModMask, xK_b),                 sendMessage ToggleStruts)
-                  , ((mod1Mask, xK_F4),                 kill)
+                  -- , ((mod1Mask, xK_F4),                 kill)
 
                   , ((myModMask, xK_Left),              prevWS)
                   , ((myModMask, xK_Right),             nextWS)
