@@ -1,0 +1,32 @@
+#!/bin/bash
+
+CMD="${1}"
+MODE="${2:-right-of}"
+IN="LVDS1"
+TV="HDMI1"
+MON="DP1"
+
+errormsg () { echo "${0##*/}: ${1}" >&2; exit 1; }
+
+if  xrandr -q | grep -q "^$MON connected"; then
+  EXT="$MON"
+elif xrandr -q | grep -q "^$TV connected"; then
+  EXT="$TV"
+else
+  errormsg 'No external monitor connected.'
+fi
+
+case "$CMD" in
+  -h|--help|'')
+    echo "Usage: ${0##*/} on|off|only [mode]"
+    echo 'Mode is optional, and is one of the positional arguments of xrandr.'
+    echo 'Valid options are: above (default), below, left-of and right-of.' ;;
+  on)
+    xrandr --output "$IN" --primary --auto --output "$EXT" --auto "--$MODE" "$IN" > /dev/null & ;;
+  off)
+    xrandr --output "$IN" --auto --output "$EXT" --off  > /dev/null & ;;
+  only)
+    xrandr --output "$IN" --off  --output "$EXT" --auto > /dev/null & ;;
+  *)
+    errormsg "Command '$CMD' not supported." ;;
+esac

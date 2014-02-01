@@ -166,16 +166,17 @@ def main():
         elif o in ('-n', '--no-icons'):
             use_icons = False
 
-    #try:
-    #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/debian-menu.menu")
-    desktopmenu = xdg.Menu.parse("/etc/xdg/menus/xfce-applications.menu")
-    #desktopmenu = xdg.Menu.parse("/home/colbell/.config/openbox/menu.xml")
-    # except xdg.Exceptions.ParsingError:
-    #     try:
-    #         desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applications.menu")
-    #     except xdg.Exceptions.ParsingError:
-    #         error('Error parsing the menu files.')
-    #         sys.exit(-1)
+    try:
+        desktopmenu = xdg.Menu.parse("/etc/xdg/menus/xfce-applications.menu")
+        #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applications.menu")
+        #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde-information.menu")
+        #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/gnome-applications.menu")
+    except xdg.Exceptions.ParsingError:
+        try:
+            desktopmenu = xdg.Menu.parse()
+        except xdg.Exceptions.ParsingError:
+            error('Error parsing the menu files.')
+            sys.exit(-1)
 
     mainmenu=create_menu(desktopmenu, use_icons, launch)
     if run_tray:

@@ -9,8 +9,8 @@
 (require 'desktop)
 (desktop-save-mode 1)
 (setq desktop-load-locked-desktop nil)
-;;(setq desktop-restore-eager 10) ;; Open first X immed then rest in background
-(setq desktop-restore-eager t)
+(setq desktop-restore-eager 10) ;; Open first X immed then rest in background
+;;(setq desktop-restore-eager t)
 (setq history-length 250)
 
 (add-to-list 'desktop-modes-not-to-save 'dired-mode)
