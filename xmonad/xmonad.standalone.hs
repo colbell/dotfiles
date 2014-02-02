@@ -49,6 +49,7 @@ myManageHook = scratchpadManageHookDefault <+> (composeAll . concat $ [[
        , className =? "trayer"            --> doIgnore
        , className =? "Tilda"             --> doFloat
        , className =? "Guake.py"          --> doFloat
+       , className =? "Guake"             --> doFloat
        , className =? "Yakuake"           --> doFloat
        , className =? "Unity-2d-panel"    --> doIgnore
        , className =? "Unity-2d-shell"    --> doIgnore
