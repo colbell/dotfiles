@@ -3,9 +3,7 @@
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 
 host=`hostname`
-
-xsetroot -solid rgb:3f/3f/3f
-xsetroot -cursor_name left_ptr
+#xsetroot -cursor_name left_ptr
 
 if [ -x $HOME/.config/openbox/autostart ] ; then
   (nohup $HOME/.config/openbox/autostart &)
@@ -14,6 +12,8 @@ fi
 if [ -x /usr/lib/openbox/openbox-xdg-autostart ] ; then
   (nohup /usr/lib/openbox/openbox-xdg-autostart  &)
 fi
+
+xsetroot -solid rgb:3f/3f/3f
 
 
 #if [ -x /usr/bin/kde4init ] ; then

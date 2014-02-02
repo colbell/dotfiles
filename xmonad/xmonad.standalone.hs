@@ -9,8 +9,9 @@ import qualified XMonad.StackSet as W
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
 import XMonad.Actions.GridSelect
-import XMonad.Actions.WindowMenu
 import XMonad.Actions.UpdatePointer
+import XMonad.Actions.Warp
+import XMonad.Actions.WindowMenu
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -43,6 +44,7 @@ myManageHook = scratchpadManageHookDefault <+> (composeAll . concat $ [[
          resource  =? "Do"                --> doIgnore
        , resource  =? "gnome-do"          --> doIgnore
        , className =? "Gimp"              --> doFloat
+       , className =? "Guake"             --> doFloat
        , className =? "MPlayer"           --> doFloat
        , className =? "Vncviewer"         --> doFloat
        , className =? "stalonetray"       --> doIgnore
@@ -160,7 +162,7 @@ main = do
        where
          keys' =  [ ((myModMask , xK_Return),               dwmpromote)
                   , ((myModMask .|. shiftMask, xK_Return),  spawn "x-terminal-emulator")
-                  , ((myModMask .|. shiftMask, xK_z),       spawn "xscreensaver-command --lock")
+                  --, ((myModMask .|. shiftMask, xK_z),       spawn "xscreensaver-command --lock")
 
                   -- Print Screen - Interactively select window or rectangle
                   , ((myModMask, xK_Print),                 spawn "sleep 0.2;scrot -d2 -s 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
@@ -172,6 +174,15 @@ main = do
                   , ((myModMask .|. controlMask, xK_Print), spawn "sleep 0.2;scrot -d2 -m 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
 
                   , ((myModMask, xK_F1),                manPrompt defaultXPConfig)
+
+                  , ((myModMask, xK_z             ),    warpToWindow (0.5) (0.5))
+                  , ((myModMask .|. mod1Mask, xK_w),    warpToScreen 0 (0.5) (0.5))
+                  , ((myModMask .|. mod1Mask, xK_e),    warpToScreen 1 (0.5) (0.5))
+                  , ((myModMask .|. mod1Mask, xK_r),    warpToScreen 2 (0.5) (0.5))
+
+                  , ((myModMask, xK_u),                 sendMessage $ ToggleStrut U)
+                  , ((myModMask, xK_b),                 sendMessage $ ToggleStrut D)
+
                   , ((myModMask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
                   , ((myModMask .|. shiftMask, xK_g),   windowPromptBring defaultXPConfig { autoComplete = Just 500000 } )
                   , ((myModMask, xK_s),                 goToSelected defaultGSConfig)

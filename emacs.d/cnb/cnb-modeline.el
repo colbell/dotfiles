@@ -4,8 +4,9 @@
 (column-number-mode t)
 (size-indication-mode)
 
-(when (require 'powerline nil t)
-  (powerline-default-theme))
+;; Broken with emacs-snapshot
+;;(when (require 'powerline nil t)
+;;  (powerline-default-theme))
 
 ;;(set-face-foreground 'mode-line-buffer-id "darkgray")
 
