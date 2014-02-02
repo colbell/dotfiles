@@ -53,13 +53,23 @@
   ;;(subword-mode +1)
   ;;(inf-ruby-setup-keybindings)
   ;;(robe-mode)
-  (setq imenu-generic-expression
-        '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
+  ;; (setq imenu-generic-expression
+  ;;       '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
+  ;; (set (make-local-variable imenu-generic-expression)
+  ;;      '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
+  ;;        ))
   (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
   )
 
 (when (require 'ruby-mode nil t)
-  (add-hook 'ruby-mode-hook 'cnb-ruby-setup))
+  (add-hook 'ruby-mode-hook 'cnb-ruby-setup)
+
+  (add-hook 'ruby-mode-hook
+            (lambda ()
+              (set (make-local-variable imenu-generic-expression)
+                   '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
+                     ))))
+  )
 
 (provide 'cnb-ruby)
 
