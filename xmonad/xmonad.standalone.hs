@@ -44,6 +44,7 @@ myManageHook = scratchpadManageHookDefault <+> (composeAll . concat $ [[
          resource  =? "Do"                --> doIgnore
        , resource  =? "gnome-do"          --> doIgnore
        , className =? "Gimp"              --> doFloat
+       , className =? "Gsimplecal"        --> doIgnore
        , className =? "Guake"             --> doFloat
        , className =? "MPlayer"           --> doFloat
        , className =? "Vncviewer"         --> doFloat
