@@ -38,7 +38,14 @@
   (ignore-errors
     (ruby-refactor-mode-launch)
     (diminish 'ruby-refactor-mode "RR"))
+  (set (make-local-variable imenu-generic-expression)
+       '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
+         ))
+  ;;(subword-mode +1)
+  ;;(robe-mode)
+  (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")  )
 
+(when (require 'ruby-mode nil t)
   (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
@@ -50,26 +57,7 @@
   (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 
-  ;;(subword-mode +1)
-  ;;(inf-ruby-setup-keybindings)
-  ;;(robe-mode)
-  ;; (setq imenu-generic-expression
-  ;;       '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
-  ;; (set (make-local-variable imenu-generic-expression)
-  ;;      '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
-  ;;        ))
-  (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
-  )
-
-(when (require 'ruby-mode nil t)
-  (add-hook 'ruby-mode-hook 'cnb-ruby-setup)
-
-  (add-hook 'ruby-mode-hook
-            (lambda ()
-              (set (make-local-variable imenu-generic-expression)
-                   '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
-                     ))))
-  )
+  (add-hook 'ruby-mode-hook 'cnb-ruby-setup))
 
 (provide 'cnb-ruby)
 
