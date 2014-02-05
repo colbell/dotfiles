@@ -16,7 +16,7 @@
 
   (setq cnb-packages '(ace-jump-mode ack-and-a-half
                        anzu
-                       auctex auto-complete auto-dim-other-buffers
+                       auctex auto-complete ;;auto-dim-other-buffers
                        autopair bm browse-kill-ring butler
                        coffee-mode creole-mode crontab-mode crosshairs csv-mode cups
                        deft diminish dired+ discover drag-stuff
