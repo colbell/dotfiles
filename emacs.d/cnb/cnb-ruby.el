@@ -26,8 +26,8 @@
 (require 'flymake-ruby nil t)
 
 (defun cnb-ruby-setup ()
-  ;; (setq imenu-generic-expression
-  ;;       '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
+  (setq imenu-generic-expression
+        '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
   (yard-mode)
   ;;(auto-fill-mode)
   (outline-minor-mode)
@@ -38,11 +38,11 @@
   (ignore-errors
     (ruby-refactor-mode-launch)
     (diminish 'ruby-refactor-mode "RR"))
-  (set (make-local-variable imenu-generic-expression)
-       '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
-         ))
+  ;; (set (make-local-variable imenu-generic-expression)
+  ;;      '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
+  ;;        ))
   ;;(subword-mode +1)
-  ;;(robe-mode)
+  (robe-mode)
   (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")  )
 
 (when (require 'ruby-mode nil t)
