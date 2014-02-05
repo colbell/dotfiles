@@ -8,10 +8,11 @@
 (add-to-list 'auto-mode-alist '("\\.hamlbars\\'" . haml-mode))
 (autoload 'haml-mode "haml-mode" "Haml Mode." t)
 
-(defun cnb-newline-indent ()
+(defun cnb-haml-setup ()
+  (robe-mode)
   (local-set-key (kbd "RET") 'newline-and-indent))
 
-(add-hook 'haml-mode-hook (cnb-newline-indent))
+(add-hook 'haml-mode-hook (cnb-haml-setup))
 
 (when (require 'sass-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.sass\\'" . sass-mode))

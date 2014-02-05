@@ -29,6 +29,7 @@
 (require 'cl)
 (require 'cnb-elpa)            ;; Package manager stuff
 (require 'cnb-ui)              ;; Basic UI setup
+(require 'cnb-auto-complete)   ;; tab-completiom
 (require 'cnb-fringe)          ;; Fringe setup
 (require 'cnb-bookmarks)       ;; Bookmark config
 (require 'cnb-backups)         ;; File backups
@@ -44,12 +45,14 @@
 (require 'cnb-org)             ;; Org mode config
 (require 'cnb-cobol)           ;; COBOL mode config
 (require 'cnb-projectile)      ;; Projectile Project management
+
+(require 'cnb-robe)
 ;;(require 'cnb-enh-ruby)        ;; Ruby mode config
 (require 'cnb-ruby)            ;; Ruby mode config
-(require 'cnb-scala)           ;; Scala config
 (require 'cnb-haml-sass-etc)   ;; HTML CSS modes
+
+(require 'cnb-scala)           ;; Scala config
 (require 'cnb-js-coffee)       ;; Coffeescript, JS
-(require 'cnb-auto-complete)   ;; tab-completiom
 (require 'cnb-undo)            ;; Undo configuration
 (require 'cnb-twitter)         ;; Read twitter stream
 (require 'cnb-abbrev)          ;; Auto-correction
