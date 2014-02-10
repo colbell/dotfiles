@@ -135,8 +135,8 @@ main = do
 
                  , ((myModMask, xK_F1),                manPrompt myXPConfig)
 
-                 , ((myModMask, xK_u),                 sendMessage $ ToggleStrut U)
-                 , ((myModMask, xK_b),                 sendMessage $ ToggleStrut D)
+                 --, ((myModMask, xK_u),                 sendMessage $ ToggleStrut U)
+                 --, ((myModMask, xK_b),                 sendMessage $ ToggleStrut D)
 
                  , ((myModMask, xK_g),                 windowPromptGoto myXPConfig { autoComplete = Just 500000 } )
                  , ((myModMask .|. shiftMask, xK_g),   windowPromptBring myXPConfig { autoComplete = Just 500000 } )
