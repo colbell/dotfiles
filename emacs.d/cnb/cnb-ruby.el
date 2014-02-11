@@ -29,6 +29,7 @@
   (setq imenu-generic-expression
         '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
   (yard-mode)
+  (define-key ruby-mode-map (kbd "RET") 'newline-and-indent)
   ;;(auto-fill-mode)
   (outline-minor-mode)
   (when (featurep 'ruby-block)
