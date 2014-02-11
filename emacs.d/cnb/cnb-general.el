@@ -245,7 +245,7 @@
 (require 'midnight)
 (add-to-list 'clean-buffer-list-kill-never-buffer-names "*info*")
 (add-to-list 'clean-buffer-list-kill-never-buffer-names "*scratch*")
-(midnight-delay-set 'midnight-delay "08:45am")
+(midnight-delay-set 'midnight-delay 31500) ;; Secs after midnight. 08:45AM
 
 ;;==============
 ;; Slime
