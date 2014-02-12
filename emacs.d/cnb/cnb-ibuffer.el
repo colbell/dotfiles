@@ -45,13 +45,13 @@
                        (mode . css-mode)
                        (mode . scss-mode)))
                ("scala" (or
-                        (mode . scala-mode)
-                        (mode . sbt-mode)))
+                         (mode . scala-mode)
+                         (mode . sbt-mode)))
                ("code" (or
                         (mode . haskell-mode)
                         (mode . lua-mode)
                         (mode . python-mode)))
-               ("markup" (or 
+               ("markup" (or
                           (mode . nxml-mode)
                           (mode . yaml-mode)
                           (mode . markdown-mode)))
@@ -119,5 +119,15 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (define-key ibuffer-mode-map "e" 'ibuffer-ediff-marked-buffers)
+
+
+(eval-after-load "ibuf-ext"
+  '(define-ibuffer-filter filename
+     "Toggle current view to buffers with file or directory name matching QUALIFIER."
+     (:description "filename"
+                   :reader (read-from-minibuffer "Filter by file/directory name (regexp): "))
+     (ibuffer-awhen (or (buffer-local-value 'buffer-file-name buf)
+                        (buffer-local-value 'dired-directory buf))
+                    (string-match qualifier it))))
 
 (provide 'cnb-ibuffer)
