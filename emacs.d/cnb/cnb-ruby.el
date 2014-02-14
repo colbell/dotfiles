@@ -20,6 +20,8 @@
 ;;                 (when (require 'rvm nil t)
 ;;                   (rvm-activate-corresponding-ruby))))
 
+(when (require 'rvm nil t)
+  (rvm-autodetect-ruby))
 
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 (require 'rspec-mode nil t)

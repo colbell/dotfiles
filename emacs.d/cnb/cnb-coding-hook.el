@@ -33,16 +33,12 @@
   (run-hooks 'esk-coding-hook))
 
 
-;; (defun esk-semantic()
-;;   (add-to-list 'completion-at-point-functions 'semantic-completion-at-point-function))
-
-
 ;;=======================
 ;; Things to do when you open a coding buffer.
 ;;=======================
 (require 'linum)
 (add-hook 'esk-coding-hook 'linum-on)
-(add-hook 'esk-coding-hook 'imenu-add-menubar-index t)
+;;(add-hook 'esk-coding-hook 'imenu-add-menubar-index t)
 (add-hook 'esk-coding-hook 'esk-pretty-lambdas)
 (add-hook 'esk-coding-hook 'esk-add-watchwords)
 (add-hook 'esk-coding-hook 'hs-minor-mode)
@@ -69,15 +65,5 @@
 (add-hook 'markdown-mode-hook   'esk-run-coding-hook)
 (add-hook 'rhtml-mode-hook      'esk-run-coding-hook)
 (add-hook 'yaml-mode-hook       'esk-run-coding-hook)
-;; (add-hook 'haml-mode-hook       'esk-run-coding-hook)
-;; (add-hook 'html-mode-hook       'esk-run-coding-hook)
-;; (add-hook 'js-mode-hook         'esk-run-coding-hook)
-;; (add-hook 'lua-mode-hook        'esk-run-coding-hook)
-;; (add-hook 'muttrc-mode-hook     'esk-run-coding-hook)
-;; (add-hook 'python-mode-hook     'esk-run-coding-hook)
-;; (add-hook 'sass-mode-hook       'esk-run-coding-hook)
-;; (add-hook 'slim-mode-hook       'esk-run-coding-hook)
-;; (add-hook 'yaml-mode-hook       'esk-run-coding-hook)
-;; (add-hook 'handlebars-mode-hook 'esk-run-coding-hook)
 
 (provide 'cnb-coding-hook)
