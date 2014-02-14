@@ -8,19 +8,24 @@
 (add-to-list 'auto-mode-alist '("\\.hamlbars\\'" . haml-mode))
 (autoload 'haml-mode "haml-mode" "Haml Mode." t)
 
-(defun cnb-haml-setup ()
-  (robe-mode)
-  (local-set-key (kbd "RET") 'newline-and-indent))
+;;(defun cnb-haml-setup ()
+  ;;(robe-mode)
+  ;;(local-set-key (kbd "RET") 'newline-and-indent))
+;;(add-hook 'haml-mode-hook (cnb-haml-setup))
 
-(add-hook 'haml-mode-hook (cnb-haml-setup))
 
 (when (require 'sass-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.sass\\'" . sass-mode))
   (setq scss-compile-at-save nil))
 
+
 (when (require 'flymake-haml nil t)
-  (add-hook 'haml-mode-hook 'flymake-haml-load)
-  (add-hook 'sass-mode-hook 'flymake-sass-load))
+  (add-hook 'haml-mode-hook 'flymake-haml-load))
+
+
+;; (when (require 'flymake-sass nil t)
+;;   (add-hook 'sass-mode-hook 'flymake-sass-load))
+
 
 (when (require 'rhtml-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.rhtml\\'" . rhtml-mode))
