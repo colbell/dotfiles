@@ -63,6 +63,7 @@
 (require 'cnb-nonstd-cmds)     ;; Enable non-std commands
 (require 'cnb-aliases)         ;; Aliases to common cmds
 (require 'cnb-general)         ;; General stuff
+(require 'cnb-midnight)        ;; Cleanup unusd buffers
 (require 'cnb-modeline)        ;; Modeline config
 (require 'cnb-term)            ;; Terminal mode
 (require 'cnb-global-keys)     ;; Global key bindings
