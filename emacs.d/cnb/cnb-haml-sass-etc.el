@@ -23,8 +23,8 @@
   (add-hook 'haml-mode-hook 'flymake-haml-load))
 
 
-;; (when (require 'flymake-sass nil t)
-;;   (add-hook 'sass-mode-hook 'flymake-sass-load))
+(when (require 'flymake-sass nil t)
+  (add-hook 'sass-mode-hook 'flymake-sass-load))
 
 
 (when (require 'rhtml-mode nil t)
