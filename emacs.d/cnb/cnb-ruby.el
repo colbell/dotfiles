@@ -27,11 +27,12 @@
 (require 'rspec-mode nil t)
 (require 'flymake-ruby nil t)
 
+(define-key ruby-mode-map (kbd "RET") 'newline-and-indent)
+
 (defun cnb-ruby-setup ()
   (setq imenu-generic-expression
         '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
   (yard-mode)
-  (define-key ruby-mode-map (kbd "RET") 'newline-and-indent)
   ;;(auto-fill-mode)
   (outline-minor-mode)
   (when (featurep 'ruby-block)
