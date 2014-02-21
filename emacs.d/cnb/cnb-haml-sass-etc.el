@@ -13,6 +13,7 @@
   ;;(local-set-key (kbd "RET") 'newline-and-indent))
 ;;(add-hook 'haml-mode-hook (cnb-haml-setup))
 
+(add-hook 'haml-mode-hook 'rvm-activate-corresponding-ruby)
 
 (when (require 'sass-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.sass\\'" . sass-mode))
