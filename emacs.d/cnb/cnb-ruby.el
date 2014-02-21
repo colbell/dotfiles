@@ -29,6 +29,9 @@
 
 (define-key ruby-mode-map (kbd "RET") 'newline-and-indent)
 
+(eval-after-load 'ruby-refactor-mode
+  '(progn (diminish 'ruby-refactor-mode "RR")))
+
 (defun cnb-ruby-setup ()
   (setq imenu-generic-expression
         '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
@@ -41,13 +44,12 @@
     (flymake-ruby-load))
   (ignore-errors
     (ruby-refactor-mode-launch)
-    (diminish 'ruby-refactor-mode "RR"))
   ;; (set (make-local-variable imenu-generic-expression)
   ;;      '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
   ;;        ))
   ;;(subword-mode +1)
   (robe-mode)
-  (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")  )
+  (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")))
 
 (when (require 'ruby-mode nil t)
   (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
