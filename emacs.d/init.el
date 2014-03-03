@@ -51,6 +51,7 @@
 (require 'cnb-ruby)            ;; Ruby mode config
 (require 'cnb-haml-sass-etc)   ;; HTML CSS modes
 
+(require 'cnb-clojure)         ;; Clojure/cider etc.
 (require 'cnb-scala)           ;; Scala config
 (require 'cnb-js-coffee)       ;; Coffeescript, JS
 (require 'cnb-undo)            ;; Undo configuration

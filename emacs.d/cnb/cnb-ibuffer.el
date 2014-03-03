@@ -29,6 +29,8 @@
                ("lisp" (or (mode . emacs-lisp-mode)
                            (mode . lisp-interaction-mode)
                            (mode . lisp-mode)))
+               ("clojure" (or (mode . clojure-mode)
+                           (mode . clojure-test-mode)))
                ("js" (or
                       (mode . coffee-mode)
                       (mode . js-mode)
