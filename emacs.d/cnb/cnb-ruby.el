@@ -27,8 +27,6 @@
 (require 'rspec-mode nil t)
 (require 'flymake-ruby nil t)
 
-(define-key ruby-mode-map (kbd "RET") 'newline-and-indent)
-
 (eval-after-load 'ruby-refactor-mode
   '(progn (diminish 'ruby-refactor-mode "RR")))
 
@@ -52,6 +50,7 @@
   (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")))
 
 (when (require 'ruby-mode nil t)
+  (define-key ruby-mode-map (kbd "RET") 'newline-and-indent)
   (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
