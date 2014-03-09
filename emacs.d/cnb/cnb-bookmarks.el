@@ -29,6 +29,6 @@
                                 (bm-buffer-save-all)
                                 (bm-repository-save)))
 
-  (setq bm-highlight-style 'bm-highlight-only-fringe))
+  (setq bm-highlight-style 'bm-highlight-only-line))
 
 (provide 'cnb-bookmarks)

@@ -20,7 +20,7 @@
                        autopair bm browse-kill-ring ;;butler
                        cider clojure-mode clojure-test-mode
                        coffee-mode creole-mode crontab-mode crosshairs csv-mode
-                       cups deft diminish dired+ 
+                       deft diminish dired+
                        discover
                        drag-stuff
                        ;;edit-server edit-server-htmlize
@@ -37,7 +37,9 @@
                        ;; git-messenger go-mode
                        goto-chg haml-mode handlebars-mode haskell-mode httpcode
                        ;;helm helm-git helm-c-yasnippet
-                       ibuffer-vc icicles idle-highlight inf-ruby inflections
+                       ibuffer-vc icicles
+                       ;;idle-highlight
+                       inf-ruby inflections
                        jabber jump key-chord less-css-mode lua-mode magit
                        markdown-mode mo-git-blame multiple-cursors muttrc-mode
                        ;; mu4e-maildirs-extension powerline mode-compile php-mode
