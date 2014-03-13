@@ -74,13 +74,14 @@
   (global-set-key (kbd "C-=") 'er/expand-region))
 
 ;; Same as O in vim
-(global-set-key (kbd "C-o")
-                '(lambda ()
-                   (interactive)
-                   (beginning-of-line)
-                   (open-line 1)
-                   (indent-according-to-mode)))
+;; (global-set-key (kbd "C-o")
+;;                 '(lambda ()
+;;                    (interactive)
+;;                    (beginning-of-line)
+;;                    (open-line 1)
+;;                    (indent-according-to-mode)))
 
+(global-set-key (kbd "C-o") 'other-window)
 
 (when (require 'key-chord nil t)
   (key-chord-mode 1)

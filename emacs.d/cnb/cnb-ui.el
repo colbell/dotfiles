@@ -33,7 +33,7 @@
   ;;(load-theme 'wombat t)
   ;;(load-theme 'zenburn t)
   (load-theme 'manoj-dark t)
-  (load-theme 'twilight t)
+  ;;(load-theme 'twilight t)
 )
 
 (set-frame-font "Anonymous Pro-11" nil t)
