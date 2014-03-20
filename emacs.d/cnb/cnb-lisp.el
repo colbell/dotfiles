@@ -1,9 +1,14 @@
 (message (concat "[CNB] - Loading [" load-file-name "]"))
 
+(setq lisp-modes '(common-lisp-mode
+                   clojure-mode
+                   emacs-lisp-mode
+                   lisp-mode
+                   scheme-mode))
+
 (when (require 'rainbow-delimiters nil t)
-  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
+  (dolist (mode lisp-modes)
+    (add-hook (intern (format "%s-hook" mode)) 'rainbow-delimiters-mode))
 
   ;; I can't see the default colors.
   (require 'cl-lib)
