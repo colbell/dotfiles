@@ -30,17 +30,20 @@
 (ignore-errors
   ;;(load-theme 'solarized-dark t)
   ;;(load-theme 'solarized-light t)
-  ;;(load-theme 'wombat t)
+  (load-theme 'wombat t)
   ;;(load-theme 'zenburn t)
-  (load-theme 'manoj-dark t)
+  ;;(load-theme 'manoj-dark t)
   ;;(load-theme 'twilight t)
 )
 
-(set-frame-font "Anonymous Pro-11" nil t)
-(set-default-font "Anonymous Pro-11" nil t)
+;;(set-frame-font "Anonymous Pro-12" nil t)
+;;(set-default-font "Anonymous Pro-12" nil t)
 ;;(set-frame-font "Inconsolata-11" nil t)
-;;(set-frame-font "Source Code Pro-10" nil t)
-;;(set-frame-font "Ubuntu Mono-11" nil t)
+;;(set-default-font "Inconsolata-11" nil t)
+;;(set-frame-font "Ubuntu Mono-12" nil t)
+;;(set-default-font "Ubuntu Mono-12" nil t)
+(set-frame-font "Source Code Pro-10" nil t)
+(set-default-font "Source Code Pro-10" nil t)
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -77,8 +80,9 @@
       initial-scratch-message nil
       shift-select-mode nil
       mouse-yank-at-point t
-      x-select-enable-clipboard t
-      x-select-enable-primary t
+      ;;x-select-enable-clipboard t
+      delete-active-region nil
+      ;;x-select-enable-primary t
       save-interprogram-paste-before-kill t
       require-final-newline t
       ediff-window-setup-function 'ediff-setup-windows-plain)
