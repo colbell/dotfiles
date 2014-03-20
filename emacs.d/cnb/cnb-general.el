@@ -239,15 +239,6 @@
 (cua-selection-mode t)
 
 
-;;==============
-;; Slime
-;;==============
-;; (setq inferior-lisp-program "clisp")
-;; ;;(add-to-list 'load-path "~/.slime")
-;; (when (require 'slime nil t)
-;;   (slime-setup))
-
-
 ;; (when (require 'butler nil t)
 ;;   (setq butler-servers '())  ;; Bug in butler
 ;;   (if (system-is-tickit)

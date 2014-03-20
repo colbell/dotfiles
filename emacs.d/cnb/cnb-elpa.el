@@ -44,7 +44,7 @@
                        markdown-mode mo-git-blame multiple-cursors muttrc-mode
                        ;; mu4e-maildirs-extension powerline mode-compile php-mode
                        puppet-mode projectile projectile-rails
-                       ;;rainbow-delimiters
+                       rainbow-delimiters
                        rainbow-mode rbenv rhtml-mode
                        ;; rinari
                        robe rspec-mode rubocop

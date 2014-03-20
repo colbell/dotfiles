@@ -37,7 +37,7 @@
 (require 'cnb-rvm)             ;; Ruby version manager
 (require 'cnb-file-finding)    ;; Various ways to find files
 (require 'cnb-icicles)         ;; Icicles mode
-(require 'cnb-elisp)           ;; ELISP
+(require 'cnb-lisp)            ;; Lisp, Clojure etc.
 (require 'cnb-ibuffer)         ;; IBuffer config
 (require 'cnb-dired)           ;; Dired config
 (require 'cnb-coding-hook)     ;; Setup for coding buffers
@@ -51,7 +51,7 @@
 (require 'cnb-ruby)            ;; Ruby mode config
 (require 'cnb-haml-sass-etc)   ;; HTML CSS modes
 
-(require 'cnb-clojure)         ;; Clojure/cider etc.
+;;(require 'cnb-lisp)            ;; Lisp, Clojure/cider etc.
 (require 'cnb-scala)           ;; Scala config
 (require 'cnb-js-coffee)       ;; Coffeescript, JS
 (require 'cnb-undo)            ;; Undo configuration
