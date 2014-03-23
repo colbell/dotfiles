@@ -1,5 +1,7 @@
 (message (concat "[CNB] - Loading [" load-file-name "]"))
 
+;;;; GIT
+
 (when (require 'magit nil t)
 
   (setq magit-diff-refine-hunk t)

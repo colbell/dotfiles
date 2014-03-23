@@ -4,7 +4,7 @@
   ;;(toggle-crosshairs-when-idle 1)
 
   ;; Without this crosshairs turns global hiline mode on.
-  (setq global-hl-line-mode nil)
+  ;;(setq global-hl-line-mode nil)
 
   ;; FIXME: Use ad-add-advice to apply to a list of functions?
   (defadvice switch-to-buffer (after switch-to-buffer-flash-crosshairs activate)
