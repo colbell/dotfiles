@@ -1,10 +1,19 @@
 (message (concat "[CNB] - Loading [" load-file-name "]"))
 
+;;;; LISP
+
 (setq lisp-modes '(common-lisp-mode
                    clojure-mode
                    emacs-lisp-mode
                    lisp-mode
                    scheme-mode))
+
+(defun cnb-imenu-lisp-sections ()
+  (setq imenu-prev-index-position-function nil)
+  (add-to-list 'imenu-generic-expression '("Sections" "^;;;; \\(.+\\)$" 1) t))
+
+(dolist (mode lisp-modes)
+  (add-hook (intern (format "%s-hook" mode)) 'cnb-imenu-lisp-sections))
 
 (when (require 'rainbow-delimiters nil t)
   (dolist (mode lisp-modes)
@@ -25,11 +34,7 @@
                       :inherit 'error
                       :strike-through t))
 
-(defun imenu-elisp-sections ()
-  (setq imenu-prev-index-position-function nil)
-  (add-to-list 'imenu-generic-expression '("Sections" "^;;;; \\(.+\\)$" 1) t))
-
-(add-hook 'emacs-lisp-mode-hook 'imenu-elisp-sections)
+;;;; CIDER
 
 (eval-after-load 'cider-mode
   '(progn
@@ -41,6 +46,8 @@
      (setq cider-repl-history-size 1000)))
 
 
+;;;; SLIME
+
 ;;==============
 ;; Slime
 ;;==============
@@ -48,7 +55,5 @@
 ;; ;;(add-to-list 'load-path "~/.slime")
 ;; (when (require 'slime nil t)
 ;;   (slime-setup))
-
-
 
 (provide 'cnb-lisp)
