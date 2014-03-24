@@ -9,7 +9,7 @@
 (defun cnb-haml-setup()
   (ignore-errors (robe-mode))
   (local-set-key (kbd "RET") 'newline-and-indent))
-(add-hook 'haml-mode-hook (cnb-haml-setup))
+;;(add-hook 'haml-mode-hook (cnb-haml-setup))
 
 (eval-after-load 'haml-mode
   '(progn (add-hook 'haml-mode-hook 'rvm-activate-corresponding-ruby)
