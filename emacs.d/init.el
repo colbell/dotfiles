@@ -51,20 +51,20 @@
 (require 'cnb-ruby)            ;; Ruby mode config
 (require 'cnb-haml-sass-etc)   ;; HTML CSS modes
 
-;;(require 'cnb-lisp)            ;; Lisp, Clojure/cider etc.
+(require 'cnb-lisp)            ;; Lisp, Clojure/cider etc.
 (require 'cnb-scala)           ;; Scala config
 (require 'cnb-js-coffee)       ;; Coffeescript, JS
 (require 'cnb-undo)            ;; Undo configuration
 (require 'cnb-twitter)         ;; Read twitter stream
 (require 'cnb-abbrev)          ;; Auto-correction
-(require 'cnb-w3m)             ;; W3m config
+;; (require 'cnb-w3m)             ;; W3m config
 (require 'cnb-ws)              ;; Whitespace config
 (require 'cnb-uniquify)        ;; Unique buffer names
 (require 'cnb-yasnippet)       ;; ya-snippet config
 (require 'cnb-nonstd-cmds)     ;; Enable non-std commands
 (require 'cnb-aliases)         ;; Aliases to common cmds
 (require 'cnb-general)         ;; General stuff
-(require 'cnb-midnight)        ;; Cleanup unusd buffers2
+(require 'cnb-midnight)        ;; Cleanup unused buffers
 (require 'cnb-modeline)        ;; Modeline config
 (require 'cnb-term)            ;; Terminal mode
 (require 'cnb-global-keys)     ;; Global key bindings
@@ -79,7 +79,7 @@
 ;;(require 'cnb-mu4e)            ;; Email
 (require 'cnb-sessions)        ;; Sessions
 
-;;(require 'time)
+(require 'time)
 (defun cnb-init-time()
   (message (concat "Startup Time: " (emacs-init-time))))
 
