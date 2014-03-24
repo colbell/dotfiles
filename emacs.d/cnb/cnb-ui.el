@@ -18,7 +18,6 @@
 ;;       (append default-frame-alist
 ;;               '((cursor-color . "DarkOrange"))))
 
-;;(require 'negativ-faces)       ;; Basic L&F
 ;; (setq default-frame-alist
 ;;       (append default-frame-alist
 ;;               '((foreground-color . "wheat")
@@ -42,8 +41,8 @@
 ;;(set-default-font "Inconsolata-11" nil t)
 ;;(set-frame-font "Ubuntu Mono-12" nil t)
 ;;(set-default-font "Ubuntu Mono-12" nil t)
-(set-frame-font "Source Code Pro-10" nil t)
-(set-default-font "Source Code Pro-10" nil t)
+(set-frame-font "Source Code Pro-11" nil t)
+(set-default-font "Source Code Pro-11" nil t)
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -72,8 +71,8 @@
 
 (setq completion-cycle-threshold 5)
 
-(when (require 'volatile-highlights nil t)
-  (volatile-highlights-mode t))
+;; (when (require 'volatile-highlights nil t)
+;;   (volatile-highlights-mode t))
 
 (setq visible-bell t
       inhibit-startup-message t
@@ -100,9 +99,9 @@
 
 ;;(tooltip-mode 1) ;; Show tooltips in echo area
 
-(when (require 'hilit-chg nil t)
-  (setq highlight-changes-visibility-initial-state nil)
-  (global-highlight-changes-mode-check-buffers))
+;; (when (require 'hilit-chg nil t)
+;;   (setq highlight-changes-visibility-initial-state nil)
+;;   (global-highlight-changes-mode-check-buffers))
 
 ;;*==============================================
 ;; Line wrapping
