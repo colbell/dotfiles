@@ -62,7 +62,7 @@
                        switch-window
                        twilight-theme twittering-mode
                        ;;undo-tree
-                       volatile-highlights
+                       ;;volatile-highlights
                        web-mode
                        yaml-mode yard-mode yasnippet
                        ;;yasnippet-bundle
