@@ -1,19 +1,21 @@
-(message (concat "[CNB] - Loading [" load-file-name "]"))
+;; (message (concat "[CNB] - Loading [" load-file-name "]"))
 
 ;; Colorise CSS color codes
 (add-hook 'css-mode-hook 'rainbow-mode)
 (add-hook 'sass-mode-hook 'rainbow-mode)
 
-(add-to-list 'auto-mode-alist '("\\.haml\\'" . haml-mode))
-(add-to-list 'auto-mode-alist '("\\.hamlbars\\'" . haml-mode))
-(autoload 'haml-mode "haml-mode" "Haml Mode." t)
+;;(autoload 'haml-mode "haml-mode" "Haml Mode." t)
 
-;;(defun cnb-haml-setup ()
-  ;;(robe-mode)
-  ;;(local-set-key (kbd "RET") 'newline-and-indent))
-;;(add-hook 'haml-mode-hook (cnb-haml-setup))
+(defun cnb-haml-setup()
+  (ignore-errors (robe-mode))
+  (local-set-key (kbd "RET") 'newline-and-indent))
+(add-hook 'haml-mode-hook (cnb-haml-setup))
 
-(add-hook 'haml-mode-hook 'rvm-activate-corresponding-ruby)
+(eval-after-load 'haml-mode
+  '(progn (add-hook 'haml-mode-hook 'rvm-activate-corresponding-ruby)
+          (add-to-list 'auto-mode-alist '("\\.haml\\'" . haml-mode))
+          (add-to-list 'auto-mode-alist '("\\.hamlbars\\'" . haml-mode))))
+
 
 (when (require 'sass-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.sass\\'" . sass-mode))
@@ -39,8 +41,8 @@
 ;;(when (require 'slim-mode nil t)
 ;;  (add-to-list 'auto-mode-alist '("\\.emblem\\'" . slim-mode))) ;; Use Slim mode for emblem files - its close enuf.
 
-(add-to-list 'auto-mode-alist '("\\.emblem\\'" . slim-mode))
-(autoload 'slim-mode "slim-mode" "Slim Mode." t)
+;; (add-to-list 'auto-mode-alist '("\\.emblem\\'" . slim-mode))
+;; (autoload 'slim-mode "slim-mode" "Slim Mode." t)
 
 (when (require 'web-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
