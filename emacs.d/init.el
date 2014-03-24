@@ -73,7 +73,11 @@
 (require 'cnb-print)           ;; Printing
 (require 'cnb-scrolling)       ;; Scrolling
 (require 'cnb-ace)             ;; Ace jump
-(require 'cnb-crosshairs)      ;; Screen crosshairs
+
+;; Causes the following in Emacs 24.4.50.2
+;; Error in post-command-hook (global-hl-line-highlight): (wrong-type-argument overlayp nil)
+;;(require 'cnb-crosshairs)      ;; Screen crosshairs
+
 (require 'cnb-edit-server)     ;; Edit within Chrome
 (require 'cnb-smartparens)     ;; Smart parens
 ;;(require 'cnb-mu4e)            ;; Email
