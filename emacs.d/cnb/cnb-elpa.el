@@ -5,16 +5,17 @@
 ;;(add-to-list 'package-archives '("Marmalade" . "http://marmalade-repo.org/packages/") 'APPEND)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") 'APPEND)
 ;;(add-to-list 'package-archives '("Tromey" . "http://tromey.com/elpa/") 'APPEND)
+;;(add-to-list 'package-archives '("melpa-stable" . "http://hiddencameras.milkbox.net/packages/") 'APPEND)
 
 (package-initialize)
 
 (defun cnb-install-packages()
   "Install packages from package-manager"
   (interactive)
-  (when (not package-archive-contents)
-    (package-refresh-contents))
+  (package-refresh-contents)
 
-  (setq cnb-packages '(ace-jump-mode ack-and-a-half
+  (setq cnb-packages '(ace-jump-mode
+                       ack-and-a-half
                        anzu
                        auctex auto-complete ;;auto-dim-other-buffers
                        autopair bm browse-kill-ring ;;butler
