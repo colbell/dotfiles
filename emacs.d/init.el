@@ -59,7 +59,7 @@
 (require 'cnb-abbrev)          ;; Auto-correction
 ;; (require 'cnb-w3m)             ;; W3m config
 (require 'cnb-ws)              ;; Whitespace config
-(require 'cnb-uniquify)        ;; Unique buffer names
+;;(require 'cnb-uniquify)        ;; Unique buffer names
 (require 'cnb-yasnippet)       ;; ya-snippet config
 (require 'cnb-nonstd-cmds)     ;; Enable non-std commands
 (require 'cnb-aliases)         ;; Aliases to common cmds
