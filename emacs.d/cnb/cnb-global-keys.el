@@ -33,6 +33,7 @@
 
 (define-key ctl-x-4-map "t" 'cnb-toggle-frame-split)
 
+(global-set-key (kbd "C-<return>") 'rectangle-mark-mode)
 
 (global-set-key (kbd "<f8> <f1>") 'repeat-complex-command)
 
