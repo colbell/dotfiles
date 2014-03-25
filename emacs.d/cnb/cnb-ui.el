@@ -29,9 +29,9 @@
 (ignore-errors
   ;;(load-theme 'solarized-dark t)
   ;;(load-theme 'solarized-light t)
-  (load-theme 'wombat t)
+  ;;(load-theme 'wombat t)
   ;;(load-theme 'zenburn t)
-  ;;(load-theme 'manoj-dark t)
+  (load-theme 'manoj-dark t)
   ;;(load-theme 'twilight t)
 )
 
