@@ -2,10 +2,12 @@
 
 (when (require 'smartparens-config nil t)
   (require 'smartparens-ruby)
+  (require 'smartparens-html)
+  (require 'smartparens-latex)
 
   (smartparens-global-mode)
 
-  (show-smartparens-global-mode +1)
+  ;;(show-smartparens-global-mode +1)
 
   ;; (setq show-paren-style 'mixed)
   ;; (show-paren-mode 1)
