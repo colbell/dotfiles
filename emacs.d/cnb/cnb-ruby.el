@@ -2,24 +2,6 @@
 
 ;;;; RUBY
 
-;; (when (require 'ruby-mode nil t)
-;;   (when (require 'ruby-block nil t)
-;;     (setq ruby-block-highlight-toggle t))
-
-;;   (require 'rubocop nil t)
-
-;;   (add-hook 'ruby-mode-hook
-;;             (lambda ()
-;;               ;;(ignore-errors(robe-mode))
-
-;;               (cond
-;;                ((file-directory-p (concat (getenv "HOME") "/.rbenv"))
-;;                 (when (require 'rbenv nil t)
-;;                   (setq rbenv-show-active-ruby-in-modeline nil)))
-;;                ((file-directory-p (concat (getenv "HOME") "/.rvm"))
-;;                 (when (require 'rvm nil t)
-;;                   (rvm-activate-corresponding-ruby))))
-
 (when (require 'rvm nil t)
   (rvm-autodetect-ruby))
 
