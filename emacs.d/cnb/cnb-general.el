@@ -226,10 +226,10 @@
 ;;==============
 ;; CUA mode, really only used for rectangular editing.
 ;;==============
-(cua-mode t)
-(setq cua-enable-cua-keys nil)
-(setq cua-delete-selection nil)
-(cua-selection-mode t)
+;; (cua-mode t)
+;; (setq cua-enable-cua-keys nil)
+;; (setq cua-delete-selection nil)
+;; (cua-selection-mode t)
 
 
 ;; (when (require 'butler nil t)
