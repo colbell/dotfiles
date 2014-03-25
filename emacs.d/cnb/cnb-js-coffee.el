@@ -32,7 +32,6 @@
   (set 'tab-width 2)
   (setq coffee-tab-width 2)
   (setq coffee-debug-mode t)
-  (setq js-indent-level 2)
-  (electric-indent-mode -1))
+  (setq js-indent-level 2))
 
 (provide 'cnb-js-coffee)

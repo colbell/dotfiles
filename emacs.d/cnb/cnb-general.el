@@ -186,25 +186,10 @@
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
 
-;;==============
-;; auto-pair mode
-;;==============
-;; (when (require 'autopair nil t)
-;;   (autopair-global-mode)
-;;   (delete-selection-mode nil) ;; So that setting autopair-autowrap works
-;;   (setq autopair-autowrap t)
-;;   ;; Workarounds for incompatibilities.
-;;   ;; (add-hook 'latex-mode-hook
-;;   ;;           #'(lambda ()
-;;   ;;               (set (make-local-variable 'autopair-handle-action-fns)
-;;   ;;                    (list #'autopair-default-handle-action
-;;   ;;                          #'autopair-latex-mode-paired-delimiter-action))))
-;;   ;; ;; Slime incompatability
-;;   ;; (add-hook 'sldb-mode-hook #'(lambda () (setq autopair-dont-activate t)))
-;;   )
+
+
 ;;(electric-pair-mode t)
-;;(electric-indent-mode t)
-(electric-layout-mode t)
+(electric-layout-mode)
 
 
 (when (require 'smartscan nil t)
