@@ -8,12 +8,11 @@
 
 ;;(require 'ibuffer-vc nil t)
 
-(defadvice ibuffer (around ibuffer-point-to-most-recent) ()
+(defadvice ibuffer (around ibuffer-point-to-most-recent activate) ()
            "Open ibuffer with cursor at most recently viewed buffer."
            (let ((current-buffer-name (buffer-name)))
              ad-do-it
              (ibuffer-jump-to-buffer current-buffer-name)))
-(ad-activate 'ibuffer)
 
 (setq ibuffer-formats
       '((mark modified read-only" "

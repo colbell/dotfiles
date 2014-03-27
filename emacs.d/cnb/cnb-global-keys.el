@@ -84,12 +84,5 @@
 
 (global-set-key (kbd "C-o") 'other-window)
 
-(when (require 'key-chord nil t)
-  (key-chord-mode 1)
-  (setq key-chord-two-keys-delay 0.2)
-
-  (key-chord-define-global              "qr"   'query-replace-regexp)
-  (key-chord-define emacs-lisp-mode-map "qv"   'eval-region)
-)
 
 (provide 'cnb-global-keys)
