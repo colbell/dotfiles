@@ -5,8 +5,11 @@
 (setq lisp-modes '(common-lisp-mode
                    clojure-mode
                    emacs-lisp-mode
+                   lisp-interaction-mode
                    lisp-mode
                    scheme-mode))
+
+(key-chord-define lisp-mode-shared-map "qv" 'eval-region)
 
 (defun cnb-imenu-lisp-sections ()
   (setq imenu-prev-index-position-function nil)
@@ -15,10 +18,8 @@
 (dolist (mode lisp-modes)
   (add-hook (intern (format "%s-hook" mode)) 'cnb-imenu-lisp-sections))
 
-(when (require 'rainbow-delimiters nil t)
-  (dolist (mode lisp-modes)
-    (add-hook (intern (format "%s-hook" mode)) 'rainbow-delimiters-mode))
 
+(when (require 'rainbow-delimiters nil t)
   ;; I can't see the default colors in some color schemes
   ;; (require 'cl-lib)
   ;; (require 'color)
@@ -33,6 +34,10 @@
                       :foreground 'unspecified
                       :inherit 'error
                       :strike-through t))
+
+(dolist (mode lisp-modes)
+  (if (boundp 'rainbow-delimiters-mode)
+      (add-hook (intern (format "%s-hook" mode)) 'rainbow-delimiters-mode)))
 
 ;;;; CIDER
 

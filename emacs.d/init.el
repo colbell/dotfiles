@@ -29,7 +29,8 @@
 (require 'cl)
 (require 'cnb-elpa)            ;; Package manager stuff
 (require 'cnb-ui)              ;; Basic UI setup
-(require 'cnb-auto-complete)   ;; tab-completiom
+(require 'cnb-auto-complete)   ;; Completiom
+(require 'cnb-keychord)        ;; Keychord setup
 (require 'cnb-fringe)          ;; Fringe setup
 (require 'cnb-bookmarks)       ;; Bookmark config
 (require 'cnb-backups)         ;; File backups

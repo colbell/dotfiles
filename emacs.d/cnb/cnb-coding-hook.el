@@ -66,5 +66,6 @@
 (add-hook 'markdown-mode-hook   'esk-run-coding-hook)
 (add-hook 'rhtml-mode-hook      'esk-run-coding-hook)
 (add-hook 'yaml-mode-hook       'esk-run-coding-hook)
+(add-hook 'lisp-interaction-mode 'esk-run-coding-hook)
 
 (provide 'cnb-coding-hook)
