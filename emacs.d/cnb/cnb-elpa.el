@@ -2,8 +2,8 @@
 
 (require 'package)
 
-;;(add-to-list 'package-archives '("Marmalade" . "http://marmalade-repo.org/packages/") 'APPEND)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") 'APPEND)
+;;(add-to-list 'package-archives '("Marmalade" . "http://marmalade-repo.org/packages/") 'APPEND)
 ;;(add-to-list 'package-archives '("Tromey" . "http://tromey.com/elpa/") 'APPEND)
 ;;(add-to-list 'package-archives '("melpa-stable" . "http://hiddencameras.milkbox.net/packages/") 'APPEND)
 
