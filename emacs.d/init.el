@@ -7,6 +7,7 @@
 ;;    (((class color) (background dark))  (:foreground "#b2dfff")))
 ;;  "Flymake message face")
 
+(require 'cl)
 
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name))) ;; Taken from emacs starter kit
@@ -26,7 +27,6 @@
 
 (autoload 'esup "esup" "Emacs Start Up Profiler." nil)
 
-(require 'cl)
 (require 'cnb-elpa)            ;; Package manager stuff
 (require 'cnb-ui)              ;; Basic UI setup
 (require 'cnb-auto-complete)   ;; Completiom
@@ -46,21 +46,15 @@
 (require 'cnb-org)             ;; Org mode config
 (require 'cnb-cobol)           ;; COBOL mode config
 (require 'cnb-projectile)      ;; Projectile Project management
-
-(require 'cnb-robe)
-;;(require 'cnb-enh-ruby)        ;; Ruby mode config
 (require 'cnb-ruby)            ;; Ruby mode config
 (require 'cnb-haml-sass-etc)   ;; HTML CSS modes
-
 (require 'cnb-lisp)            ;; Lisp, Clojure/cider etc.
 (require 'cnb-scala)           ;; Scala config
 (require 'cnb-js-coffee)       ;; Coffeescript, JS
 (require 'cnb-undo)            ;; Undo configuration
 (require 'cnb-twitter)         ;; Read twitter stream
 (require 'cnb-abbrev)          ;; Auto-correction
-;; (require 'cnb-w3m)             ;; W3m config
 (require 'cnb-ws)              ;; Whitespace config
-;;(require 'cnb-uniquify)        ;; Unique buffer names
 (require 'cnb-yasnippet)       ;; ya-snippet config
 (require 'cnb-nonstd-cmds)     ;; Enable non-std commands
 (require 'cnb-aliases)         ;; Aliases to common cmds
@@ -81,7 +75,6 @@
 
 (require 'cnb-edit-server)     ;; Edit within Chrome
 (require 'cnb-smartparens)     ;; Smart parens
-;;(require 'cnb-mu4e)            ;; Email
 (require 'cnb-sessions)        ;; Sessions
 
 (require 'time)

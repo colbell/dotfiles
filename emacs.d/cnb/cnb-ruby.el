@@ -32,6 +32,9 @@
   (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")))
 
 (when (require 'ruby-mode nil t)
+  (when (require 'robe-mode nil t)
+    (add-hook 'robe-mode-hook 'robe-ac-setup))
+
   (define-key ruby-mode-map (kbd "RET") 'newline-and-indent)
   (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
@@ -47,4 +50,3 @@
   (add-hook 'ruby-mode-hook 'cnb-ruby-setup))
 
 (provide 'cnb-ruby)
-
