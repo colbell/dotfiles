@@ -122,3 +122,4 @@
 /bin/eclipse
 /bin/nb
 /config/LightTable/*
+/emacs.d/.cider-repl-history

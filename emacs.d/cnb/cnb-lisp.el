@@ -10,6 +10,7 @@
                    scheme-mode))
 
 (key-chord-define lisp-mode-shared-map "qv" 'eval-region)
+(key-chord-define lisp-mode-shared-map "qb" 'eval-buffer)
 
 (defun cnb-imenu-lisp-sections ()
   (setq imenu-prev-index-position-function nil)
@@ -27,7 +28,7 @@
      (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
      (add-hook 'cider-repl-mode-hook 'subword-mode)
 
-     (setq cider-repl-history-file "~/.cider-repl-history")
+     (setq cider-repl-history-file "~/.emacs.d/cider-repl-history")
      (setq cider-repl-history-size 1000)))
 
 
