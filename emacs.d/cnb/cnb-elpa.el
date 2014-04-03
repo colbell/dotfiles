@@ -67,7 +67,7 @@
                        web-mode
                        yaml-mode yard-mode yasnippet
                        ;;yasnippet-bundle
-                       ;;zenburn-theme
+                       zenburn-theme
                        ))
 
   (dolist (p cnb-packages)
