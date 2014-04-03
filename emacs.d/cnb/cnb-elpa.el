@@ -14,7 +14,7 @@
   (interactive)
   (package-refresh-contents)
 
-  (setq cnb-packages '(ace-jump-mode
+  (setq cnb-packages '(ace-jump-mode ace-link
                        ack-and-a-half
                        anzu
                        auctex auto-complete ;;auto-dim-other-buffers
