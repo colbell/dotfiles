@@ -50,6 +50,9 @@
 (when (fboundp 'yas/minor-mode)
   (add-hook 'esk-coding-hook 'yas/minor-mode))
 
+(when (fboundp 'rainbow-delimiters-mode)
+  (add-hook 'esk-coding-hook 'rainbow-delimiters-mode))
+
 
 ;;=======================
 ;; Modes to treat as coding buffers
@@ -61,7 +64,7 @@
 (add-hook 'css-mode-hook        'esk-run-coding-hook)
 (add-hook 'cucumber-mode-hook   'esk-run-coding-hook)
 (add-hook 'diff-hook            'esk-run-coding-hook)
-(add-hook 'enh-ruby-mode-hook   'esk-run-coding-hook)
+;;(add-hook 'enh-ruby-mode-hook   'esk-run-coding-hook)
 (add-hook 'feature-mode-hook    'esk-run-coding-hook)
 (add-hook 'markdown-mode-hook   'esk-run-coding-hook)
 (add-hook 'rhtml-mode-hook      'esk-run-coding-hook)
