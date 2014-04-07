@@ -59,6 +59,7 @@ alternates colbell@users.sourceforge.net|col@squirrelsql.org|col@baibell.org|col
 
 # Automatically view the following message types using .mailcap entries.
 auto_view text/html text/enriched application/pdf
+auto_view text/calendar
 
 #alternative_order text/plain text/enriched text application/postscript image/*
 alternative_order text/plain text/enriched text
