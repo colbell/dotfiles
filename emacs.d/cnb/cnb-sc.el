@@ -7,6 +7,11 @@
   (setq magit-diff-refine-hunk t)
   (setq magit-process-popup-time 60)
 
+  (if git-rebase-mode-map
+      (progn
+        (define-key git-rebase-mode-map (kbd "M-d") 'git-rebase-move-line-down)
+        (define-key git-rebase-mode-map (kbd "M-u") 'git-rebase-move-line-up)))
+
   ;; Show magit-status in full window and restore window config on quit.
   ;; (defadvice magit-status (around magit-fullscreen activate)
   ;;   (window-configuration-to-register :magit-fullscreen)
