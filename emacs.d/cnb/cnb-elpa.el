@@ -19,7 +19,9 @@
                        anzu
                        auctex auto-complete ;;auto-dim-other-buffers
                        autopair bm browse-kill-ring ;;butler
-                       cider clojure-cheatsheet clojure-mode clojure-test-mode
+                       cider
+                       ;;clojure-cheatsheet
+                       clojure-mode clojure-test-mode
                        coffee-mode creole-mode crontab-mode crosshairs csv-mode
                        deft diminish dired+
                        discover
