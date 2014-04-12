@@ -7,21 +7,22 @@
 ;;    (((class color) (background dark))  (:foreground "#b2dfff")))
 ;;  "Flymake message face")
 
+;;;; Initialisation
 (require 'cl)
 
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name))) ;; Taken from emacs starter kit
-
 (setq personal-dotfiles-dir (concat dotfiles-dir "cnb"))
 (add-to-list 'load-path personal-dotfiles-dir)
 
 (setq custom-file (concat dotfiles-dir "emacs-custom.el"))
 (load custom-file t)
 
-;;(setq inhibit-startup-echo-area-message "colbell")
 (eval '(setq inhibit-startup-echo-area-message "colbell"))
 
-(require 'cnb-defuns) ;; Utility functions (incl add-subdirs-to-load-path)
+(require 'cnb-defuns) ;; Utility functions incl add-subdirs-to-load-path
+
+;; Add all vendor libraries to load path
 (add-to-list 'load-path (concat personal-dotfiles-dir "/vendor"))
 (add-subdirs-to-load-path (concat personal-dotfiles-dir "/vendor"))
 
@@ -29,7 +30,7 @@
 
 (require 'cnb-elpa)            ;; Package manager stuff
 (require 'cnb-ui)              ;; Basic UI setup
-(require 'cnb-auto-complete)   ;; Completiom
+(require 'cnb-auto-complete)   ;; Completion
 (require 'cnb-keychord)        ;; Keychord setup
 (require 'cnb-fringe)          ;; Fringe setup
 (require 'cnb-bookmarks)       ;; Bookmark config
