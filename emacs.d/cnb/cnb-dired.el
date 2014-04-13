@@ -2,7 +2,12 @@
 
 (setq dired-listing-switches "-alFh")
 (setq dired-dwim-target t)
-(load "dired-x")
+
+;;(load "dired-x")
+(add-hook 'dired-load-hook
+          (lambda ()
+            (load "dired-x")))
+
 ;;(add-hook 'dired-mode-hook 'turn-on-auto-revert-mode)
 
 (setq dired-recursive-copies 'always)
