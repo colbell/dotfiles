@@ -18,7 +18,7 @@
                        ack-and-a-half
                        anzu
                        auctex auto-complete ;;auto-dim-other-buffers
-                       autopair bm browse-kill-ring ;;butler
+                       autopair bm bookmark+ browse-kill-ring ;;butler
                        cider
                        ;;clojure-cheatsheet
                        clojure-mode clojure-test-mode
