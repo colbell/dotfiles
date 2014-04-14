@@ -38,9 +38,9 @@
 (require 'cnb-coding-system)   ;; UTF-8 setup
 (require 'cnb-rvm)             ;; Ruby version manager
 (require 'cnb-file-finding)    ;; Various ways to find files
-(require 'cnb-icicles)         ;; Icicles mode
 (require 'cnb-lisp)            ;; Lisp, Clojure etc.
 (require 'cnb-ibuffer)         ;; IBuffer config
+(require 'cnb-icicles)         ;; Icicles mode
 (require 'cnb-dired)           ;; Dired config
 (require 'cnb-coding-hook)     ;; Setup for coding buffers
 (require 'cnb-sc)              ;; Source Control config
