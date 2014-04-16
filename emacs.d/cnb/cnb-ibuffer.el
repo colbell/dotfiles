@@ -36,18 +36,11 @@
                            (mode . lisp-interaction-mode)
                            (mode . lisp-mode)))
                ("clojure" (or (mode . clojure-mode)
-                           (mode . clojure-test-mode)))
+                              (mode . clojure-test-mode)))
                ("js" (or
                       (mode . coffee-mode)
                       (mode . js-mode)
                       (mode . espresso-mode)))
-               ("web" (or
-                       (mode . haml-mode)
-                       (mode . slim-mode)
-                       (mode . html-mode)
-                       (mode . rhtml-mode)
-                       (name . ".rhtml")
-                       (mode . nXhtml-mode)))
                ("css" (or
                        (mode . sass-mode)
                        (mode . css-mode)
@@ -62,7 +55,13 @@
                ("markup" (or
                           (mode . nxml-mode)
                           (mode . yaml-mode)
-                          (mode . markdown-mode)))
+                          (mode . markdown-mode)
+                          (mode . haml-mode)
+                          (mode . slim-mode)
+                          (mode . html-mode)
+                          (mode . rhtml-mode)
+                          (name . ".rhtml")
+                          (mode . nXhtml-mode)))
                ("conf" (or
                         (mode . muttrc-mode)
                         (mode . conf-xdefaults-mode)
@@ -70,9 +69,10 @@
                         (mode . conf-unix-mode)
                         (mode . conf-space-mode)
                         (name . "\.env")))
-               ("docview" (mode . doc-view-mode))
                ("dired" (mode . dired-mode))
-               ("help"(or
+               ("browser" (or
+                       (mode . doc-view-mode)
+                       (mode . eww-mode)
                        (mode . help-mode)
                        (mode . Man-mode)
                        (mode . woman-mode)))
