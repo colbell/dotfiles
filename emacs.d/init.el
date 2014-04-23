@@ -40,7 +40,8 @@
 (require 'cnb-file-finding)    ;; Various ways to find files
 (require 'cnb-lisp)            ;; Lisp, Clojure etc.
 (require 'cnb-ibuffer)         ;; IBuffer config
-(require 'cnb-icicles)         ;; Icicles mode
+(require 'cnb-helm)            ;; Helm config
+;;(require 'cnb-icicles)         ;; Icicles mode
 (require 'cnb-dired)           ;; Dired config
 (require 'cnb-coding-hook)     ;; Setup for coding buffers
 (require 'cnb-sc)              ;; Source Control config
