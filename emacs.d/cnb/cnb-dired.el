@@ -26,21 +26,22 @@
     (beginning-of-buffer)
     (dired-next-line line-nbr)))
 
-;; Change M-< instead of moving to the dired headings move to the first
-;; file name.
-(define-key dired-mode-map
-  (vector 'remap 'beginning-of-buffer) 'cnb-dired-back-to-top)
-
 (defun cnb-dired-jump-to-bottom ()
   "Jump to last file in dired buffer"
   (interactive)
   (end-of-buffer)
   (dired-next-line -1))
 
+(when (boundp 'dired-mode-map)
+  ;; Change M-< instead of moving to the dired headings move to the first
+  ;; file name.
+  (define-key dired-mode-map
+    (vector 'remap 'beginning-of-buffer) 'cnb-dired-back-to-top)
+  (define-key dired-mode-map
+    (vector 'remap 'end-of-buffer) 'cnb-dired-jump-to-bottom))
+
 ;; Change M-> instead of moving to empty line at bottom  move to the last
 ;; file name.
-(define-key dired-mode-map
-  (vector 'remap 'end-of-buffer) 'cnb-dired-jump-to-bottom)
 
 ;; Allow <ALT>o to omit hidden files
 (require 'dired-x)
