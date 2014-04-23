@@ -8,7 +8,8 @@
 (setq whitespace-line-column 80)
 
 ;; Don't highlight WS in some modes.
-(dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook eww-mode-hook))
+(dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
+                                eww-mode-hook completion-list-mode-hook))
   (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))
 
 ;;(global-whitespace-mode 1) slows session reopening
