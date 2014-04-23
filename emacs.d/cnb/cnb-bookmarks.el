@@ -31,4 +31,6 @@
 
   (setq bm-highlight-style 'bm-highlight-only-line))
 
+(require 'bookmark+ nil t)
+
 (provide 'cnb-bookmarks)
