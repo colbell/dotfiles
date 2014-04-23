@@ -5,7 +5,7 @@
 (when (require 'rvm nil t)
   (rvm-autodetect-ruby))
 
-(add-hook 'projectile-mode-hook 'projectile-rails-on)
+;;(add-hook 'projectile-mode-hook 'projectile-rails-on)
 (require 'rspec-mode nil t)
 (require 'flymake-ruby nil t)
 
