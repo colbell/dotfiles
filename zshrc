@@ -64,12 +64,12 @@ export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/b
 #   PATH=$PATH:$HOME/apps/eclipse
 # fi
 
-if [ -d "$HOME/apps/android-sdk-linux/platform-tools" ]; then
-  PATH=$PATH:$HOME/apps/android-sdk-linux/platform-tools
+if [ -d "$HOME/android-sdk-linux/platform-tools" ]; then
+  PATH=$PATH:$HOME/android-sdk-linux/platform-tools
 fi
 
-if [ -d "$HOME/apps/android-sdk-linux/tools" ]; then
-  PATH=$PATH:$HOME/apps/android-sdk-linux/tools
+if [ -d "$HOME/android-sdk-linux/tools" ]; then
+  PATH=$PATH:$HOME/android-sdk-linux/tools
 fi
 
 if [[ -f "$HOME/.aws_keys" ]]; then
