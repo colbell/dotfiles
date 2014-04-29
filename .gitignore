@@ -123,3 +123,4 @@
 /bin/nb
 /config/LightTable/*
 /emacs.d/.cider-repl-history
+/emacs.d/cider-repl-history
