@@ -13,7 +13,7 @@ import XMonad.Actions.WindowMenu
 import XMonad.Config.Desktop (desktopLayoutModifiers)
 import XMonad.Config.Kde
 
-import XMonad.Hooks.FadeInactive
+-- import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.ICCCMFocus
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ManageDocks
@@ -27,7 +27,7 @@ import XMonad.Prompt ( XPConfig(..), XPPosition(..), defaultXPConfig
                      , deleteString, Direction1D(..)
                      , setSuccess, setDone )
 import XMonad.Prompt.Man
-import XMonad.Prompt.Theme
+-- import XMonad.Prompt.Theme
 import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.Window
 
@@ -42,7 +42,7 @@ import XMonad.Util.Themes
 
 myModMask    = mod4Mask
 
-myWorkspaces = ["1-emacs","2-shell","3-web","4-fm","5","6","7","8-ssh","9-mail"]
+myWorkspaces = ["1-emacs","2-shell","3-web","4-fm","5","6","7-ssh","8-im","9-mail"]
 
 myManageHook = scratchpadManageHookDefault <+>composeAll (
     [ manageHook kde4Config
