@@ -65,7 +65,7 @@
 (require 'cnb-modeline)        ;; Modeline config
 (require 'cnb-term)            ;; Terminal mode
 (require 'cnb-global-keys)     ;; Global key bindings
-(require 'cnb-jabber)          ;; Gtalk
+;;(require 'cnb-jabber)          ;; Gtalk
 (require 'cnb-win)             ;; Window handling
 (require 'cnb-print)           ;; Printing
 (require 'cnb-scrolling)       ;; Scrolling
