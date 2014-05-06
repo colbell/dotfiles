@@ -16,13 +16,12 @@
 (defun cnb-dired-back-to-top ()
   "Move to the first file name in the dired buffer"
   (interactive)
-
-  ; If dired-hide-details-mode enabled then there are 3 lines of
-  ; headings, else 4 lines.
   (let (line-nbr)
     (if (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
         (setq line-nbr 3)
       (setq line-nbr 4))
+    (if (and (boundp 'dired-omit-mode) dired-omit-mode)
+        (setq line-nbr 2))
     (beginning-of-buffer)
     (dired-next-line line-nbr)))
 
