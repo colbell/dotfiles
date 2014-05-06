@@ -22,7 +22,8 @@
                        cider
                        ;;clojure-cheatsheet
                        clojure-mode clojure-test-mode
-                       coffee-mode creole-mode crontab-mode crosshairs csv-mode
+                       coffee-mode color-identifiers-mode creole-mode
+                       crontab-mode crosshairs csv-mode
                        deft diminish dired+
                        discover
                        drag-stuff
