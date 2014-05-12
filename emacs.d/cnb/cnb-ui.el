@@ -129,6 +129,4 @@
 (toggle-truncate-lines 1)
 (setq-default truncate-lines t)
 
-;;(setq-default truncate-partial-width-windows t)
-
 (provide 'cnb-ui)

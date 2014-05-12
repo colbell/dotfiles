@@ -7,15 +7,16 @@
 ;;*==============================================
 ;; shift + arrow keys to move between windows
 ;;*==============================================
-(require 'windmove)
-(windmove-default-keybindings)
+;; (require 'windmove)
+;; (windmove-default-keybindings)
 
 
 ;;*==============================================
-;; Better C-x o binding.
+;; Better window switching
 ;;*==============================================
-(require 'switch-window nil t)
-(global-set-key (kbd "C-'") 'other-window)  ;; Old C-x o
-
+;; (when (require 'ace-window nil t)
+;;   (global-set-key (kbd "C-o") 'ace-window))
+(when (require 'switch-window nil t)
+  (global-set-key (kbd "C-x o") 'switch-window))
 
 (provide 'cnb-win)
