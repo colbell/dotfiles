@@ -83,7 +83,6 @@
 ;;                    (open-line 1)
 ;;                    (indent-according-to-mode)))
 
-(global-set-key (kbd "C-o") 'other-window)
 
 
 (provide 'cnb-global-keys)
