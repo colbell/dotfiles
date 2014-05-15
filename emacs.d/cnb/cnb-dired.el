@@ -16,7 +16,28 @@
 (defun cnb-dired-back-to-top ()
   "Move to the first file name in the dired buffer"
   (interactive)
-  (let (line-nbr)
+  (let (has-omit-mode has-hide-details-mode line-nbr)
+    (when (and (boundp 'dired-omit-mode) dired-omit-mode)
+      (setq has-omit-mode t))
+    (when (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
+      (setq has-hide-details-mode t))
+    (cond
+     ((and has-omit-mode has-hide-details-mode)
+      (setq line-nbr 1))
+     (has-omit-mode
+      (setq line-nbr 3))
+     (has-hide-details-mode
+      (setq line-nbr 3))
+     (t
+      (setq line-nbr 3)))
+    (message (number-to-string line-nbr))
+    (beginning-of-buffer)
+    (dired-next-line line-nbr)))
+
+(defun old-cnb-dired-back-to-top ()
+  "Move to the first file name in the dired buffer"
+  (interactive)
+  (let* (line-nbr)
     (if (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
         (setq line-nbr 3)
       (setq line-nbr 4))
