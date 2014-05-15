@@ -12,6 +12,10 @@
                                 eww-mode-hook completion-list-mode-hook))
   (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))
 
+
+;; Remove trailing whitespace prior to saving a file
+(add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
+
 ;;(global-whitespace-mode 1) slows session reopening
 
 ;; (defun cnb-ws-hook ()
