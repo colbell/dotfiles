@@ -167,8 +167,8 @@ def main():
             use_icons = False
 
     try:
-        desktopmenu = xdg.Menu.parse("/etc/xdg/menus/xfce-applications.menu")
-        #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applications.menu")
+        #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/xfce-applications.menu")
+        desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applications.menu")
         #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde-information.menu")
         #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/gnome-applications.menu")
     except xdg.Exceptions.ParsingError:
