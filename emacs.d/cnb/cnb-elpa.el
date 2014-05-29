@@ -14,7 +14,7 @@
   (interactive)
   (package-refresh-contents)
 
-  (setq cnb-packages '(ace-jump-mode ace-link
+  (setq cnb-packages '(ac-slime ace-jump-mode ace-link
                        ack-and-a-half anti-zenburn-theme
                        anzu
                        auctex auto-complete ;;auto-dim-other-buffers
@@ -60,6 +60,7 @@
                        ;;scpaste
                        scss-mode slim-mode
                        ;;shell-current-directory
+                       slime
                        smartscan
                        smartparens smooth-scrolling
                        ;;solarized-theme

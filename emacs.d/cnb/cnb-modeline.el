@@ -51,6 +51,8 @@
 ;; Dimnish minor-mode clutter
 (ignore-errors (diminish 'Eldoc-mode))
 (ignore-errors (diminish 'abbrev-mode))
+(ignore-errors (diminish 'anzu-mode))
+(ignore-errors (diminish 'color-identifiers-mode))
 (ignore-errors (diminish 'compilation-in-progress "COMP"))
 (ignore-errors (diminish 'diminish-mode))
 (ignore-errors (diminish 'drag-stuff-mode))
@@ -59,8 +61,8 @@
 (ignore-errors (diminish 'global-whitespace-mode))
 (ignore-errors (diminish 'helm-mode))
 (ignore-errors (diminish 'hi-lock-mode))
-(ignore-errors (diminish 'magit-mode))
 (ignore-errors (diminish 'magit-auto-revert-mode))
+(ignore-errors (diminish 'magit-mode))
 (ignore-errors (diminish 'projectile-mode "PRJ"))
 (ignore-errors (diminish 'projectile-rails-mode "PRJR"))
 (ignore-errors (diminish 'rinari-minor-mode "RIN"))
@@ -71,7 +73,6 @@
 (ignore-errors (diminish 'whitespace-mode))
 (ignore-errors (diminish 'yard-mode))
 (ignore-errors (diminish 'yas-minor-mode))
-(ignore-errors (diminish `anzu-mode))
 
 ;; Diminish major mode-clutter
 ;; From http://whattheemacsd.com/

@@ -122,7 +122,8 @@
 (add-hook 'ibuffer-mode-hook
           (lambda ()
             (ibuffer-auto-mode 1)
-            (ibuffer-switch-to-saved-filter-groups "default")))
+            (ibuffer-switch-to-saved-filter-groups "default")
+            (visual-line-mode -1)))
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
