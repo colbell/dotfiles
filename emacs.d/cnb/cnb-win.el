@@ -14,9 +14,9 @@
 ;;*==============================================
 ;; Better window switching
 ;;*==============================================
-;; (when (require 'ace-window nil t)
-;;   (global-set-key (kbd "C-o") 'ace-window))
-(when (require 'switch-window nil t)
-  (global-set-key (kbd "C-x o") 'switch-window))
+(when (require 'ace-window nil t)
+  (global-set-key (kbd "C-x o") 'ace-window))
+;; (when (require 'switch-window nil t)
+;;   (global-set-key (kbd "C-x o") 'switch-window))
 
 (provide 'cnb-win)

@@ -9,12 +9,24 @@
 
 (package-initialize)
 
+(defun cnb-package-menu-hook()
+  (visual-line-mode -1))
+
+(add-hook 'paradox-menu-mode-hook
+          (lambda ()
+            (cnb-package-menu-hook)))
+
+(add-hook 'package-menu-mode-hook
+          (lambda ()
+            (cnb-package-menu-hook)))
+
+
 (defun cnb-install-packages()
   "Install packages from package-manager"
   (interactive)
   (package-refresh-contents)
 
-  (setq cnb-packages '(ac-slime ace-jump-mode ace-link
+  (setq cnb-packages '(ac-slime ace-jump-mode ace-link ace-window
                        ack-and-a-half anti-zenburn-theme
                        anzu
                        auctex auto-complete ;;auto-dim-other-buffers
