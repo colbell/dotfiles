@@ -22,6 +22,7 @@
 (setq global-auto-revert-non-file-buffers t)
 
 (setq line-move-visual nil)
+(global-visual-line-mode 1)
 
 ;;(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG$" . diff-mode))
 
