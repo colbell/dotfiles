@@ -167,7 +167,9 @@
   (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
   (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
   (add-hook 'yaml-mode-hook
-            '(lambda () (define-key yaml-mode-map (kbd "RET") 'newline-and-indent))))
+            (lambda ()
+              (define-key yaml-mode-map (kbd "RET") 'newline-and-indent)
+              (electric-indent-local-mode -1))))
 
 
 ;;==============
