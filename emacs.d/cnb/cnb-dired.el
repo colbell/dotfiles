@@ -72,6 +72,6 @@
 (setq wdired-allow-to-change-permissions 't)
 (setq wdired-confirm-overwrite 't)
 
-(global-set-key (kbd "C-c C-d") 'dired-jump)
+;;(global-set-key (kbd "C-c C-d") 'dired-jump)
 
 (provide 'cnb-dired)
