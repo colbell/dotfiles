@@ -14,13 +14,15 @@
   (local-set-key (kbd "RET") 'newline-and-indent))
 ;;(add-hook 'haml-mode-hook (cnb-haml-setup))
 
-(eval-after-load 'haml-mode
-  '(progn (add-hook 'haml-mode-hook 'rvm-activate-corresponding-ruby)
-          (add-to-list 'auto-mode-alist '("\\.haml\\'" . haml-mode))
-          (add-to-list 'auto-mode-alist '("\\.hamlbars\\'" . haml-mode))))
-
-(when (require 'flymake-haml nil t)
-  (add-hook 'haml-mode-hook 'flymake-haml-load))
+(when (require 'haml-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.haml\\'" . haml-mode))
+  (add-to-list 'auto-mode-alist '("\\.hamlbars\\'" . haml-mode))
+  (add-hook 'haml-mode-hook
+            (lambda ()
+            (electric-indent-local-mode -1)
+            (rvm-activate-corresponding-ruby)))
+  (when (require 'flymake-haml nil t)
+    (add-hook 'haml-mode-hook 'flymake-haml-load)))
 
 
 ;;;; SASS
