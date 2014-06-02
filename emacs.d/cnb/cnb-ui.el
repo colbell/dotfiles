@@ -114,8 +114,8 @@
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 
-(if (boundp 'global-color-identifiers-mode)
-    (add-hook 'after-init-hook 'global-color-identifiers-mode))
+(when (require 'color-identifiers-mode nil t)
+  (global-color-identifiers-mode))
 
 ;;(tooltip-mode 1) ;; Show tooltips in echo area
 
