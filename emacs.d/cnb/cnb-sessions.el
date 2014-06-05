@@ -11,12 +11,12 @@
 ;;;; desktop
 
 ;; Remember open buffers
-(require 'desktop)
-(desktop-save-mode 1)
-(setq desktop-load-locked-desktop nil)
-(setq desktop-restore-eager 5) ;; Open first X immed then rest in background
-;;(setq desktop-restore-eager t)
-(add-to-list 'desktop-modes-not-to-save 'dired-mode)
+;; (require 'desktop)
+;; (desktop-save-mode 1)
+;; (setq desktop-load-locked-desktop nil)
+;; (setq desktop-restore-eager 5) ;; Open first X immed then rest in background
+;; ;;(setq desktop-restore-eager t)
+;; (add-to-list 'desktop-modes-not-to-save 'dired-mode)
 
 ;;;; savehist
 
