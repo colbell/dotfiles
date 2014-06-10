@@ -21,8 +21,12 @@
   (add-hook (intern (format "%s-hook" mode)) 'cnb-imenu-lisp-sections))
 
 
-;;;; CIDER
+;;;; CLOJURE
+(require 'clojure-mode-extra-font-locking nil t)
 
+
+;;;; CIDER
+(require 'cider nil t)
 (eval-after-load 'cider-mode
   '(progn
      (require 'cider-eldoc)
