@@ -8,6 +8,10 @@
           (lambda ()
             (load "dired-x")))
 
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (visual-line-mode -1)))
+
 ;;(add-hook 'dired-mode-hook 'turn-on-auto-revert-mode)
 
 (setq dired-recursive-copies 'always)
