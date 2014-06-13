@@ -5,6 +5,10 @@
 ;;==============
 (when (require 'browse-kill-ring nil t)
   (browse-kill-ring-default-keybindings)
+  (setq browse-kill-ring-highlight-current-entry t)
+  (setq browse-kill-ring-no-duplicates t)
+  (setq browse-kill-ring-display-duplicates nil)
+  (setq browse-kill-ring-highlight-inserted-item nil)
   (setq browse-kill-ring-quit-action 'save-and-restore))
 
 
