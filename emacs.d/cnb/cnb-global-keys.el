@@ -37,7 +37,11 @@
 
 (global-set-key (kbd "<f8> <f1>") 'repeat-complex-command)
 
+(global-set-key [f6]  'recentf-open-files)
+
 (global-set-key [f7]  'hl-line-flash)
+
+(global-set-key (kbd "C-h C-m") 'discover-my-major)
 
 ;; (global-set-key (kbd "<up>") (lambda () (interactive) (scroll-down 1)))
 ;; (global-set-key (kbd "<down>") (lambda () (interactive) (scroll-up 1)))

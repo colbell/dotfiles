@@ -38,7 +38,7 @@
                        coffee-mode color-identifiers-mode creole-mode
                        crontab-mode crosshairs csv-mode
                        deft diminish dired+
-                       discover
+                       discover discover-my-major
                        drag-stuff
                        ;;edit-server edit-server-htmlize
                        ;;enh-ruby-mode ensime

@@ -3,6 +3,9 @@
 ;;;; GIT
 
 (when (require 'magit nil t)
+  (add-hook 'magit-status-mode-hook
+            (lambda ()
+              (visual-line-mode -1)))
 
   (setq magit-diff-refine-hunk t)
   (setq magit-process-popup-time 60)
