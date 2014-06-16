@@ -34,7 +34,6 @@
                        cider cider-decompile cider-tracing
                        ;;clojure-cheatsheet
                        clojure-mode clojure-mode-extra-font-locking
-                       clojure-test-mode
                        coffee-mode color-identifiers-mode creole-mode
                        crontab-mode crosshairs csv-mode
                        deft diminish dired+
