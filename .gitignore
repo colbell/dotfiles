@@ -124,3 +124,5 @@
 /config/LightTable/*
 /emacs.d/.cider-repl-history
 /emacs.d/cider-repl-history
+/lein/repl-history
+/lein/self-installs/
