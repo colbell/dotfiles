@@ -71,8 +71,9 @@
                        ruby-refactor
                        rvm sass-mode sbt-mode scala-mode2
                        ;;scpaste
-                       scss-mode slim-mode
+                       scss-mode
                        ;;shell-current-directory
+                       slim-mode
                        slime
                        smartscan
                        smartparens smooth-scrolling
