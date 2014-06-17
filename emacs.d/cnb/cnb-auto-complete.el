@@ -2,18 +2,25 @@
 
 ;;;; auto-complete
 
-(when (require 'auto-complete-config nil t)
-  (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-  (ac-config-default)
+;; (when (require 'auto-complete-config nil t)
+;;   (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+;;   (ac-config-default)
 
-  (define-key ac-mode-map (kbd "C-c i") 'auto-complete)
+;;   (define-key ac-mode-map (kbd "C-c i") 'auto-complete)
 
-  ;;(add-to-list 'ac-modes 'enh-ruby-mode)
-  (add-to-list 'ac-modes 'haml-mode)
-  ;;(add-to-list 'ac-modes 'web-mode)
+;;   ;;(add-to-list 'ac-modes 'enh-ruby-mode)
+;;   (add-to-list 'ac-modes 'haml-mode)
+;;   ;;(add-to-list 'ac-modes 'web-mode)
 
-  (setq ac-auto-start nil))
+;;   (setq ac-auto-start nil))
 
+(when (require 'company nil t)
+
+  ;; Only show popup if last command was an editing one. I.E don't do
+  ;; after cursor keys.
+  (setq company-begin-commands '(self-insert-command))
+  (push 'company-robe company-backends)
+  (global-company-mode 1))
 
 ;;;; hippie-expand
 
