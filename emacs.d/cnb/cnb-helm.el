@@ -2,17 +2,29 @@
 
 ;;;; helm
 
-(require 'helm-config nil t)
-
 (when (require 'helm-config nil t)
-  (global-set-key "\M-x" 'helm-M-x)
+  (setq helm-candidate-number-limit 20)
 
+  ;; Speed helm up. From https://gist.github.com/antifuchs/9238468
+  (setq helm-idle-delay 0.0        ; update fast sources immediately (doesn't).
+        helm-input-idle-delay 0.01 ; this actually updates things relatively quickly.
+        helm-quick-update t
+        helm-M-x-requires-pattern nil
+        helm-ff-skip-boring-files t)
+
+  (global-set-key "\M-x" 'helm-M-x)
   (global-set-key [remap occur] 'helm-occur)
   (global-set-key [remap list-buffers] 'helm-buffers-list)
   (global-set-key [remap dabbrev-expand] 'helm-dabbrev)
   (global-set-key (kbd "C-c h") 'helm-mini)
   (global-set-key "\C-cf" 'helm-recentf)
   (helm-mode 1)
+
+
+;;;; helm-swoop
+  (when (require 'helm-swoop nil t)
+    (global-set-key (kbd "M-i") 'helm-swoop))
+
 
   ;;;; helm-rails
   (when (require 'helm-rails nil t)

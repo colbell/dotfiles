@@ -56,7 +56,7 @@
                        ;; git-messenger go-mode
                        goto-chg haml-mode handlebars-mode haskell-mode httpcode
                        helm helm-git helm-c-yasnippet helm-projectile helm-rails
-                       ibuffer-vc ;;icicles
+                       helm-swoop ibuffer-vc ;;icicles
                        ;;idle-highlight
                        inf-ruby inflections
                        jabber jump key-chord less-css-mode lua-mode magit
