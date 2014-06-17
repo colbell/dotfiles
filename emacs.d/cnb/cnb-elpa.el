@@ -26,15 +26,18 @@
   (interactive)
   (package-refresh-contents)
 
-  (setq cnb-packages '(ac-slime ace-jump-mode ace-link ace-window
+  (setq cnb-packages '(;;ac-slime
+                       ace-jump-mode ace-link ace-window
                        ack-and-a-half anti-zenburn-theme
                        anzu
-                       auctex auto-complete ;;auto-dim-other-buffers
+                       auctex ;;auto-complete ;;auto-dim-other-buffers
                        autopair bm bookmark+ browse-kill-ring ;;butler
                        cider cider-decompile cider-tracing
                        ;;clojure-cheatsheet
                        clojure-mode clojure-mode-extra-font-locking
-                       coffee-mode color-identifiers-mode creole-mode
+                       coffee-mode color-identifiers-mode
+                       company company-cider
+                       creole-mode
                        crontab-mode crosshairs csv-mode
                        deft diminish dired+
                        discover discover-my-major
