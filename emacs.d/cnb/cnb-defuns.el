@@ -158,7 +158,8 @@ Assumes that the frame is only split into two."
 
 
 (defun cnb-open-external()
-  "Open file associated with current buffer or files marked in dired buffer"
+  "Open file associated with current buffer or files marked in dired buffer
+in native application through xdg-open"
   (interactive)
   (let (my_files)
     (if (string-equal major-mode "dired-mode")
@@ -168,33 +169,5 @@ Assumes that the frame is only split into two."
     (when my_files
       (dolist (fn my_files)
         (start-process "" nil "xdg-open" fn)))))
-
-;; From http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
-(defun smarter-move-beginning-of-line (arg)
-  "Move point back to indentation of beginning of line.
-
-Move point to the first non-whitespace character on this line.
-If point is already there, move to the beginning of the line.
-Effectively toggle between the first non-whitespace character and
-the beginning of the line.
-
-If ARG is not nil or 1, move forward ARG - 1 lines first.  If
-point reaches the beginning or end of the buffer, stop there."
-  (interactive "^p")
-  (setq arg (or arg 1))
-
-  ;; Move lines first
-  (when (/= arg 1)
-    (let ((line-move-visual nil))
-      (forward-line (1- arg))))
-
-  (let ((orig-point (point)))
-    (back-to-indentation)
-    (when (= orig-point (point))
-      (move-beginning-of-line 1))))
-
-;; remap C-a to `smarter-move-beginning-of-line'
-(global-set-key [remap move-beginning-of-line]
-                'smarter-move-beginning-of-line)
 
 (provide 'cnb-defuns)
