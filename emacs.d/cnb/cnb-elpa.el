@@ -77,7 +77,7 @@
                        ;;shell-current-directory
                        slim-mode
                        slime
-                       smartscan
+                       ;;smartscan
                        smartparens smooth-scrolling
                        ;;solarized-theme
                        ;; sunrise-commander

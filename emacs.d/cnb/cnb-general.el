@@ -195,8 +195,8 @@
 (electric-layout-mode)
 
 
-(when (require 'smartscan nil t)
-  (global-smartscan-mode 1))
+;; (when (require 'smartscan nil t)
+;;   (global-smartscan-mode 1))
 
 
 ;;==============
