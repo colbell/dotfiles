@@ -19,8 +19,10 @@
   ;; Only show popup if last command was an editing one. I.E don't do
   ;; after cursor keys.
   (setq company-begin-commands '(self-insert-command))
+
   (push 'company-robe company-backends)
-  (global-company-mode 1))
+  (global-company-mode 1)
+  (global-set-key (kbd "C-c i") 'company-complete))
 
 ;;;; hippie-expand
 
