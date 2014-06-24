@@ -30,8 +30,8 @@
 
 (require 'cnb-elpa)            ;; Package manager stuff
 (require 'cnb-ui)              ;; Basic UI setup
-(require 'cnb-auto-complete)   ;; Completion
 (require 'cnb-keychord)        ;; Keychord setup
+(require 'cnb-auto-complete)   ;; Completion
 (require 'cnb-fringe)          ;; Fringe setup
 (require 'cnb-bookmarks)       ;; Bookmark config
 (require 'cnb-backups)         ;; File backups

@@ -23,7 +23,7 @@
 
 ;;(global-set-key (kbd "C-M-h") 'backward-kill-word)
 
-(global-set-key (kbd "M-/") 'hippie-expand)
+
 
 ;;(global-set-key (kbd "C-x \\") 'align-regexp)
 

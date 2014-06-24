@@ -16,12 +16,17 @@
 
 (when (require 'company nil t)
 
-  ;; Only show popup if last command was an editing one. I.E don't do
-  ;; after cursor keys.
-  (setq company-begin-commands '(self-insert-command))
+  ;; Only auto show popup if last command was an editing one. I.E don't do
+  ;; after cursor keys. Only need this is using auto-popup.
+  ;;(setq company-begin-commands '(self-insert-command))
 
   (push 'company-robe company-backends)
+  (push 'company-cider company-backends)
+
   (global-company-mode 1)
+
+  ;; Auto popup is irritating.
+  (setq company-idle-delay nil)
   (global-set-key (kbd "C-c i") 'company-complete))
 
 ;;;; hippie-expand
@@ -31,5 +36,7 @@
         try-complete-file-name try-expand-all-abbrevs
         try-expand-dabbrev try-expand-dabbrev-all-buffers
         try-expand-dabbrev-from-kill try-complete-lisp-symbol))
+
+(global-set-key (kbd "M-/") 'hippie-expand)
 
 (provide 'cnb-auto-complete)
