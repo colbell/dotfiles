@@ -37,6 +37,7 @@
                            (mode . lisp-mode)))
                ("clojure" (or (mode . clojure-mode)
                               (mode . clojure-test-mode)))
+               ("java" (mode . java-mode))
                ("js" (or
                       (mode . coffee-mode)
                       (mode . js-mode)
