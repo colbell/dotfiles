@@ -52,7 +52,7 @@
                        find-file-in-repository findr flymake flymake-coffee
                        flymake-cursor flymake-haml flymake-ruby flymake-sass
                        ;;furl
-                       git-gutter-fringe
+                       git-gutter
                        ;; git-messenger go-mode
                        goto-chg haml-mode handlebars-mode haskell-mode httpcode
                        helm helm-git helm-c-yasnippet helm-projectile helm-rails
