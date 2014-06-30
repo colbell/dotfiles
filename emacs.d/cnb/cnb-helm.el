@@ -10,7 +10,8 @@
         helm-input-idle-delay 0.01 ; this actually updates things relatively quickly.
         helm-quick-update t
         helm-M-x-requires-pattern nil
-        helm-ff-skip-boring-files t)
+        helm-ff-skip-boring-files t
+        enable-recursive-minibuffers t)
 
   (global-set-key "\M-x" 'helm-M-x)
   (global-set-key [remap occur] 'helm-occur)
@@ -18,6 +19,7 @@
   (global-set-key [remap dabbrev-expand] 'helm-dabbrev)
   (global-set-key (kbd "C-c h") 'helm-mini)
   (global-set-key "\C-cf" 'helm-recentf)
+  (global-set-key "\C-xb" 'helm-buffers-list)
   (helm-mode 1)
 
 
