@@ -45,7 +45,8 @@
     (interactive)
     (cider-interactive-eval
      "(require 'clojure.tools.namespace.repl)
-         (clojure.tools.namespace.repl/refresh)"))
+      (clojure.tools.namespace.repl/refresh)
+      (require 'clojure.repl)"))
 
   (define-key clojure-mode-map (kbd "M-r") 'cider-ns-refresh))
 
