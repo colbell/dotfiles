@@ -2,6 +2,14 @@
 
 ;;;; GIT
 
+;; Taken out as it causes random "Selecting deleted buffer" errors
+
+(when (require 'git-gutter nil t)
+  ;(setq git-gutter-fr:side 'right-fringe);; Causes probs with flycheck if on LHS
+  (global-git-gutter-mode)
+  ;;(git-gutter:linum-setup)
+  )
+
 (when (require 'magit nil t)
   (add-hook 'magit-status-mode-hook
             (lambda ()
