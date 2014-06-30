@@ -85,7 +85,7 @@
                        twilight-theme twittering-mode
                        ;;undo-tree
                        ;;volatile-highlights
-                       web-mode
+                       web-mode window-jump
                        yaml-mode yard-mode yasnippet
                        ;;yasnippet-bundle
                        zenburn-theme

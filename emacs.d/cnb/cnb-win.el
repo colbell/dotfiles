@@ -1,22 +1,21 @@
 (message (concat "[CNB] - Loading [" load-file-name "]"))
 
 (setq truncate-partial-width-windows nil)
-;;(global-set-key (kbd "C-c r") 'rotate-windows)
 
 
 ;;*==============================================
-;; shift + arrow keys to move between windows
+;; Select window by direction
 ;;*==============================================
-;; (require 'windmove)
-;; (windmove-default-keybindings)
-
+(when (require 'window-jump)
+  (global-set-key (kbd "C-c <up>") 'window-jump-up)
+  (global-set-key (kbd "C-c <down>") 'window-jump-down)
+  (global-set-key (kbd "C-c <left>") 'window-jump-left)
+  (global-set-key (kbd "C-c <right>") 'window-jump-right))
 
 ;;*==============================================
-;; Better window switching
+;; Select window by number
 ;;*==============================================
 (when (require 'ace-window nil t)
   (global-set-key (kbd "C-x o") 'ace-window))
-;; (when (require 'switch-window nil t)
-;;   (global-set-key (kbd "C-x o") 'switch-window))
 
 (provide 'cnb-win)
