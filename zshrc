@@ -42,6 +42,13 @@ export TERM=xterm-256color
 export HISTFILESIZE=
 export HISTSIZE=
 
+
+# Work around for Google Chrome not accepting keyboard input in addressbar
+# https://bugs.launchpad.net/ubuntu/+source/chromium-browser/+bug/1307648
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export CLUTTER_IM_MODULE=ibus
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 

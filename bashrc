@@ -27,6 +27,12 @@ if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
+# Work around for Google Chrome not accepting keyboard input in addressbar
+# https://bugs.launchpad.net/ubuntu/+source/chromium-browser/+bug/1307648
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export CLUTTER_IM_MODULE=ibus
+
 # Fix for running swing app under awesome
 #export AWT_TOOLKIT=MToolkit
 
