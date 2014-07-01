@@ -43,10 +43,9 @@
 
   (defun cider-ns-refresh ()
     (interactive)
-    (cider-interactive-eval
-     "(require 'clojure.tools.namespace.repl)
-      (clojure.tools.namespace.repl/refresh)
-      (require 'clojure.repl)"))
+    (cider-interactive-eval "(require 'clojure.tools.namespace.repl)")
+    (cider-interactive-eval "(use 'clojure.repl)")
+    (cider-interactive-eval "(clojure.tools.namespace.repl/refresh)"))
 
   (define-key clojure-mode-map (kbd "M-r") 'cider-ns-refresh))
 
