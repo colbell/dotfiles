@@ -24,7 +24,16 @@
 ;;;; CLOJURE
 (when (require 'clojure-mode nil t)
   (add-hook 'clojure-mode-hook 'cider-mode)
-  (require 'clojure-mode-extra-font-locking nil t))
+  (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
+  (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
+  (require 'clojure-mode-extra-font-locking nil t)
+
+  ;; Generate tags for all *.clj files
+  (defun cnb-create-clj-tags (dir-name)
+    "Create tags file."
+    (interactive "Directory: ")
+    (shell-command
+     (format "ctags --langdef=Clojure --langmap=Clojure:.clj --regex-Clojure='/[ \t\(]*def[a-z]* \([a-z!-]+\)/\1/'  --regex-Clojure='/[ \t\(]*ns \([a-z.]+\)/\1/' -f %s/TAGS -e -R %s" dir-name (directory-file-name dir-name)))))
 
 
 ;;;; CIDER
@@ -38,6 +47,7 @@
   (setq nrepl-hide-special-buffers t)
   (setq cider-show-error-buffer nil)
   (setq cider-auto-select-error-buffer nil)
+  (setq cider-repl-pop-to-buffer-on-connect nil)
   (setq cider-repl-history-file "~/.emacs.d/cider-repl-history")
   (setq cider-repl-history-size 1000)
 
