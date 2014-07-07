@@ -75,8 +75,9 @@
                        ;;scpaste
                        scss-mode
                        ;;shell-current-directory
+                       slamhound
                        slim-mode
-                       slime
+                       ;;slime
                        ;;smartscan
                        smartparens smooth-scrolling
                        ;;solarized-theme
