@@ -55,15 +55,13 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , resource  =? "desktop_window"    --> doIgnore
     , resource  =? "kdesktop"          --> doIgnore
     , className =? "MPlayer"           --> doFloat
-    , className =? "Gimp"              --> doFloat
+--    , className =? "Gimp"              --> doFloat
     , className =? "Plasma"            --> doFloat
     , className =? "Plasma-desktop"    --> doFloat
     , className =? "Knotes"            --> doFloat
     , className =? "Klipper"           --> doFloat
     , className =? "XCalc"             --> doFloat
     , className =? "emulator-arm"      --> doFloat
-    , className =? "Dolphin"           --> doShift "4-fm"
-    , className =? "chromium-browser"  --> doShift "3-web"
     ])
 
 myLayout = smartBorders $ showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| Mirror tiled ||| tabbed shrinkText myTabConfig |||  Full)
@@ -96,6 +94,7 @@ myTabConfig = defaultTheme {
     activeColor              = myBgColor,
     inactiveBorderColor      = myBgColor,
     inactiveTextColor        = "#EEEEEE",
+
     inactiveColor            = myBgColor,
     decoHeight               = 14
 }
