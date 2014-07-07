@@ -128,3 +128,4 @@
 /lein/self-installs/
 /emacs.d/ede-projects.el
 /lein/repl-port
+/lein/indices/
