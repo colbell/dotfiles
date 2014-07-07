@@ -29,6 +29,8 @@
 
 ;; (global-set-key (kbd "C-c k") 'browse-kill-ring)
 
+(global-unset-key "\C-o")  ; Make available as a personal prefix.
+
 (global-set-key (kbd "C-c C-e") 'flymake-display-err-menu-for-current-line)
 
 (define-key ctl-x-4-map "t" 'cnb-toggle-frame-split)

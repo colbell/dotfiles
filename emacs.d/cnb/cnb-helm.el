@@ -3,7 +3,7 @@
 ;;;; helm
 
 (when (require 'helm-config nil t)
-  (setq helm-candidate-number-limit 20)
+  (setq helm-candidate-number-limit 250)
 
   ;; Speed helm up. From https://gist.github.com/antifuchs/9238468
   (setq helm-idle-delay 0.0        ; update fast sources immediately (doesn't).
