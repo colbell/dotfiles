@@ -68,7 +68,7 @@ export CLUTTER_IM_MODULE=ibus
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(command-not-found custom-aliases rails)
+plugins=(command-not-found custom-aliases rails lein)
 
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
 
