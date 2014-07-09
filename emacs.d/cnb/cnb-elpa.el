@@ -40,7 +40,7 @@
                        creole-mode
                        crontab-mode crosshairs csv-mode
                        deft diminish dired+
-                       discover discover-my-major
+                       discover-my-major
                        drag-stuff
                        ;;edit-server edit-server-htmlize
                        ;;enh-ruby-mode ensime
