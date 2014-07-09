@@ -51,8 +51,8 @@
 ;;       (setq ad-return-value nil))))
 
 
-(when (require 'discover nil t)
-  (global-discover-mode 1))
+;; (when (require 'discover nil t)
+;;   (global-discover-mode 1))
 
 ;;==============
 ;; Markdown mode
