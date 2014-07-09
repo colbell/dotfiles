@@ -7,10 +7,10 @@
 ;; Select window by direction
 ;;*==============================================
 (when (require 'window-jump)
-  (global-set-key (kbd "C-<up>") 'window-jump-up)
-  (global-set-key (kbd "C-<down>") 'window-jump-down)
-  (global-set-key (kbd "C-<left>") 'window-jump-left)
-  (global-set-key (kbd "C-<right>") 'window-jump-right))
+  (global-set-key (kbd "C-S-<up>") 'window-jump-up)
+  (global-set-key (kbd "C-S-<down>") 'window-jump-down)
+  (global-set-key (kbd "C-S-<left>") 'window-jump-left)
+  (global-set-key (kbd "C-S-<right>") 'window-jump-right))
 
 ;;*==============================================
 ;; Select window by number
