@@ -34,17 +34,17 @@
   (load-theme 'zenburn t)
   ;;(load-theme 'manoj-dark t)
   ;;(load-theme 'twilight t)
-)
+  )
 
 (when (require 'rainbow-delimiters nil t)
   ;; I can't see the default colors in some color schemes
-  (require 'cl-lib)
-  (require 'color)
-  (cl-loop
-   for index from 1 to rainbow-delimiters-max-face-count
-   do
-   (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
-     (cl-callf color-saturate-name (face-foreground face) 75))
+  ;; (require 'cl-lib)
+  ;; (require 'color)
+  ;; (cl-loop
+  ;;  for index from 1 to rainbow-delimiters-max-face-count
+  ;;  do
+  ;;  (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
+  ;;    (cl-callf color-saturate-name (face-foreground face) 75))
 
   ;; Make unmatched parens stand out.
   (set-face-attribute 'rainbow-delimiters-unmatched-face nil
@@ -106,7 +106,7 @@
 ;; Don't let the cursor go into the minibuffer prompt
 (setq minibuffer-prompt-properties
       (quote (read-only t point-entered minibuffer-avoid-prompt
-                        face minibuffer-prompt))))
+                        face minibuffer-prompt)))
 
 (mouse-avoidance-mode 'exile)
 
