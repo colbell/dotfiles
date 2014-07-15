@@ -33,7 +33,8 @@
                        auctex ;;auto-complete ;;auto-dim-other-buffers
                        autopair bm bookmark+ browse-kill-ring ;;butler
                        cider cider-decompile cider-tracing
-                       ;;clojure-cheatsheet
+                       clj-refactor
+                       clojure-cheatsheet
                        clojure-mode clojure-mode-extra-font-locking
                        coffee-mode color-identifiers-mode
                        company company-cider
