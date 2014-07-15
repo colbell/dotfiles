@@ -28,13 +28,13 @@
 
 
 (ignore-errors
-  ;;(load-theme 'solarized-dark t)
+  (setq solarized-distinct-fringe-background nil
+  (load-theme 'solarized-dark t)))
   ;;(load-theme 'solarized-light t)
   ;;(load-theme 'wombat t)
-  (load-theme 'zenburn t)
+  ;;(load-theme 'zenburn t)
   ;;(load-theme 'manoj-dark t)
   ;;(load-theme 'twilight t)
-  )
 
 (when (require 'rainbow-delimiters nil t)
   ;; I can't see the default colors in some color schemes
