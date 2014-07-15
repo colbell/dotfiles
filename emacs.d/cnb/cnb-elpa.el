@@ -80,7 +80,7 @@
                        ;;slime
                        ;;smartscan
                        smartparens smooth-scrolling
-                       ;;solarized-theme
+                       solarized-theme
                        ;; sunrise-commander
                        switch-window
                        twilight-theme twittering-mode
