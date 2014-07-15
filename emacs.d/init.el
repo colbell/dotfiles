@@ -34,6 +34,7 @@
 (require 'cnb-elpa)            ;; Package manager stuff
 (require 'cnb-ui)              ;; Basic UI setup
 (require 'cnb-keychord)        ;; Keychord setup
+(require 'cnb-aliases)         ;; Aliases to common cmds
 (require 'cnb-auto-complete)   ;; Completion
 (require 'cnb-fringe)          ;; Fringe setup
 (require 'cnb-bookmarks)       ;; Bookmark config
@@ -62,7 +63,6 @@
 (require 'cnb-ws)              ;; Whitespace config
 (require 'cnb-yasnippet)       ;; ya-snippet config
 (require 'cnb-nonstd-cmds)     ;; Enable non-std commands
-(require 'cnb-aliases)         ;; Aliases to common cmds
 (require 'cnb-general)         ;; General stuff
 (require 'cnb-midnight)        ;; Cleanup unused buffers
 (require 'cnb-term)            ;; Terminal mode
