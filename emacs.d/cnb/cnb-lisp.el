@@ -38,6 +38,7 @@
 
 ;;;; CIDER
 (when (require 'cider nil t)
+  (defalias 'cveb 'cider-visit-error-buffer)
   (setq nrepl-log-messages t)
   (require 'cider-eldoc)
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
