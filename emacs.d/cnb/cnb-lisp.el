@@ -28,6 +28,16 @@
   (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
   (require 'clojure-mode-extra-font-locking nil t)
 
+  (when (require 'clj-refactor nil t)
+    (add-hook
+     'clojure-mode-hook
+     (lambda ()
+       (clj-refactor-mode 1)
+       (cljr-add-keybindings-with-prefix "C-o C-r"))))
+
+  (when (fboundp 'clojure-cheatsheet)
+    (defalias 'ccs 'clojure-cheatsheet))
+
   ;; Generate tags for all *.clj files
   (defun cnb-create-clj-tags (dir-name)
     "Create tags file."
