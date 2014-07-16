@@ -28,8 +28,8 @@
 
 
 (ignore-errors
-  (setq solarized-distinct-fringe-background nil
-  (load-theme 'solarized-dark t)))
+  (setq solarized-distinct-fringe-background nil)
+  (load-theme 'solarized-dark t))
   ;;(load-theme 'solarized-light t)
   ;;(load-theme 'wombat t)
   ;;(load-theme 'zenburn t)
