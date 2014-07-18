@@ -27,6 +27,10 @@
   (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
   (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
   (require 'clojure-mode-extra-font-locking nil t)
+  (require 'midje-mode nil t)
+  (require 'clojure-jump-to-file nil t)
+  (when (require 'align-cljlet nil t)
+    (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet))
 
   (when (require 'clj-refactor nil t)
     (add-hook

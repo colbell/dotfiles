@@ -28,7 +28,7 @@
 
   (setq cnb-packages '(;;ac-slime
                        ace-jump-mode ace-link ace-window
-                       ack-and-a-half anti-zenburn-theme
+                       ack-and-a-half align-cljlet anti-zenburn-theme
                        anzu
                        auctex ;;auto-complete ;;auto-dim-other-buffers
                        autopair bm bookmark+ browse-kill-ring ;;butler
@@ -36,8 +36,10 @@
                        clj-refactor
                        clojure-cheatsheet
                        clojure-mode clojure-mode-extra-font-locking
+                       clojure-test-mode ;; Deprecated but required by midje-mode
                        coffee-mode color-identifiers-mode
-                       company company-cider
+                       company
+                       ;;company-cider ;; Cider supports company directly.
                        creole-mode
                        crontab-mode crosshairs csv-mode
                        deft diminish dired+
@@ -61,8 +63,10 @@
                        ;;idle-highlight
                        inf-ruby inflections
                        jabber jump key-chord less-css-mode lua-mode magit
-                       markdown-mode mo-git-blame multiple-cursors muttrc-mode
-                       ;; mu4e-maildirs-extension powerline mode-compile php-mode
+                       markdown-mode midje-mode mo-git-blame
+                       multiple-cursors muttrc-mode
+                       ;; mu4e-maildirs-extension powerline mode-compile
+                       ;; php-mode
                        paradox
                        puppet-mode projectile ;;projectile-rails
                        rainbow-delimiters
