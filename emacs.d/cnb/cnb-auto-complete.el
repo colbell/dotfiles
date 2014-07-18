@@ -21,7 +21,8 @@
   ;;(setq company-begin-commands '(self-insert-command))
 
   (push 'company-robe company-backends)
-  (push 'company-cider company-backends)
+  ;; (when (require 'company-cider nil t)
+  ;;   (push 'company-cider company-backends))
 
   (global-company-mode 1)
 
