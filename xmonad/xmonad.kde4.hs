@@ -129,7 +129,7 @@ main = do
       where
         keys' =  [ ((myModMask , xK_Return),               dwmpromote)
                  , ((myModMask .|. shiftMask, xK_Return),  spawn "konsole")
-                 , ((myModMask .|. shiftMask, xK_z),       spawn "/usr/lib/kde4/libexec/kscreenlocker --forcelock")
+                 , ((myModMask .|. shiftMask, xK_z),       spawn "/usr/lib/kde4/libexec/kscreenlocker_greet --immeadiateLock")
                  , ((mod1Mask, xK_F4),                     kill)
 
                  , ((myModMask, xK_F1),                manPrompt myXPConfig)
