@@ -27,11 +27,6 @@
 
 (global-set-key "\C-oi" 'cnb-ispell-word-then-abbrev)
 
-(provide 'cnb-abbrev)
-
-(defun dp (arg)
-  "Display the value of the raw prefix arg."
-  (interactive "P")
-  (message "%s" arg))
-
 (global-set-key "\C-op" 'dp)
+
+(provide 'cnb-abbrev)
