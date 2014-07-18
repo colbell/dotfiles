@@ -12,10 +12,12 @@
   (global-set-key (kbd "C-S-<left>") 'window-jump-left)
   (global-set-key (kbd "C-S-<right>") 'window-jump-right))
 
+
 ;;*==============================================
 ;; Select window by number
 ;;*==============================================
 (when (require 'ace-window nil t)
+  (setq aw-scope 'frame)
   (global-set-key (kbd "C-x o") 'ace-window))
 
 (provide 'cnb-win)
