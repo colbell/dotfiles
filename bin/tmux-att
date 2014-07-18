@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Create/Attach tmux session with the same name as the curent directory.
+
+tmux new-session -As `basename $PWD`
