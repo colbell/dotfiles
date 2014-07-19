@@ -17,7 +17,7 @@
   (global-set-key [remap occur] 'helm-occur)
   (global-set-key [remap list-buffers] 'helm-buffers-list)
   (global-set-key [remap dabbrev-expand] 'helm-dabbrev)
-  (global-set-key (kbd "C-c h") 'helm-mini)
+  (global-set-key (kbd "C-o h") 'helm-mini)
   (global-set-key "\C-cf" 'helm-recentf)
   (global-set-key "\C-xb" 'helm-buffers-list)
   (helm-mode 1)
