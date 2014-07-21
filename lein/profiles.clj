@@ -6,8 +6,5 @@
                    [lein-kibit "0.0.8"]
                    [codox "0.8.10"]
                    [lein-midje "3.0.0"]]
-        :dependencies [[pjstadig/humane-test-output "0.6.0"]
-                       [slamhound "1.5.5"]]
-        :injections [(require 'pjstadig.humane-test-output)
-                     (pjstadig.humane-test-output/activate!)]
+        :dependencies [[slamhound "1.5.5"]]
         :aliases {"slamhound" ["run" "-m" "slam.hound"]}}}
