@@ -66,7 +66,6 @@
 (require 'cnb-general)         ;; General stuff
 (require 'cnb-midnight)        ;; Cleanup unused buffers
 (require 'cnb-term)            ;; Terminal mode
-(require 'cnb-global-keys)     ;; Global key bindings
 ;;(require 'cnb-jabber)          ;; Gtalk
 (require 'cnb-win)             ;; Window handling
 (require 'cnb-print)           ;; Printing
@@ -77,6 +76,7 @@
 (require 'cnb-smartparens)     ;; Smart parens
 (require 'cnb-sessions)        ;; Sessions
 (require 'cnb-modeline)        ;; Modeline config
+(require 'cnb-global-keys)     ;; Global key bindings
 
 (require 'time)
 (defun cnb-init-time()
