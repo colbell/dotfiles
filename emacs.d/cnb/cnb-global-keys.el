@@ -29,7 +29,6 @@
 
 ;; (global-set-key (kbd "C-c k") 'browse-kill-ring)
 
-(global-unset-key "\C-o")  ; Make available as a personal prefix.
 
 (global-set-key (kbd "C-c C-e") 'flymake-display-err-menu-for-current-line)
 
@@ -81,14 +80,14 @@
 (when (require 'expand-region nil t)
   (global-set-key (kbd "C-=") 'er/expand-region))
 
-;; Same as O in vim
-;; (global-set-key (kbd "C-o")
-;;                 '(lambda ()
-;;                    (interactive)
-;;                    (beginning-of-line)
-;;                    (open-line 1)
-;;                    (indent-according-to-mode)))
 
-
+;; Ctrl-x t key map for toggling modes. Idea from
+;; http://endlessparentheses.com/the-toggle-map-and-wizardry.html
+(define-prefix-command 'cnb/toggle-map)
+(define-key ctl-x-map "t" 'cnb/toggle-map)
+(define-key cnb/toggle-map "d" 'toggle-debug-on-error)
+(define-key cnb/toggle-map "l" 'linum-mode)
+(define-key cnb/toggle-map "r" 'dired-toggle-read-only)
+(define-key cnb/toggle-map "v" 'visual-line-mode)
 
 (provide 'cnb-global-keys)
