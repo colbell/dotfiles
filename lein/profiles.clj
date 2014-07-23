@@ -5,6 +5,6 @@
                    [lein-marginalia "0.7.1"]
                    [lein-kibit "0.0.8"]
                    [codox "0.8.10"]
-                   [lein-midje "3.0.0"]]
+                   [lein-midje "3.1.3"]]
         :dependencies [[slamhound "1.5.5"]]
         :aliases {"slamhound" ["run" "-m" "slam.hound"]}}}
