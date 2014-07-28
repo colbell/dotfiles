@@ -54,6 +54,7 @@
                         (mode . lua-mode)
                         (mode . python-mode)))
                ("markup" (or
+                          (mode . php-mode)
                           (mode . nxml-mode)
                           (mode . yaml-mode)
                           (mode . markdown-mode)
