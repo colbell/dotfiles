@@ -29,8 +29,9 @@
 
 (ignore-errors
   (setq solarized-distinct-fringe-background nil)
-  (load-theme 'solarized-dark t))
   ;;(load-theme 'solarized-light t)
+  (load-theme 'anti-zenburn))
+  ;;(load-theme 'solarized-dark t))
   ;;(load-theme 'wombat t)
   ;;(load-theme 'zenburn t)
   ;;(load-theme 'manoj-dark t)
