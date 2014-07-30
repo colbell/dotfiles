@@ -16,7 +16,7 @@
 #     object     foreground     background
 #
 color normal     white          default   # normal text
-color indicator  default        blue      # actual message
+color indicator  white          blue      # selected message
 color tree       blue           default   # thread arrows
 color status     default        default   # status line
 color error      brightred      default   # errors
@@ -27,7 +27,6 @@ color search     brightyellow   red       # search matches
 color tilde      white          default   # ~ at bottom of msg
 color markers    red            default   # + at beginning of wrapped lines
 color hdrdefault cyan           default   # default header lines
-#color hdrdefault blue           default   # default header lines
 color bold       red            default   # hiliting bold patterns in body
 color underline  green          default   # hiliting underlined patterns in body
 color quoted     brightyellow   default   # quoted text
@@ -46,8 +45,6 @@ color quoted9    brightred      default
 color header     green   default    "^date:"
 color header     yellow default    "^from:"
 color header     yellow default    "^subject:"
-#color header     red    default    "^to:"
-#color header     red    default    "^cc:"
 color header     green  default    "^to:"
 color header     green  default    "^cc:"
 
@@ -73,13 +70,10 @@ color body       yellow     default    "(\\[|\\])"
 #color index      yellow     default    "~n 5"
 #color index      brightred  default    "~n 6-"
 
-#color index      red        default     ~F         # Flagged
-color index      brightred  default     ~F         # Flagged
+color index      brightred  default   ~F         # Flagged
 color index      green      default   ~N         # New
 color index      yellow     default   ~O         # Old
 color index      default    magenta   ~T         # Tagged
 color index      black      red       ~D         # Deleted
-color index      magenta     default   ~fcol@baibell.org
-color index      magenta     default   ~fcbell@tickitondemand.com.au
-#color index      brightyellow black   ~tcol@squirrelsql.org
-
+color index      magenta    default   ~fcol@baibell.org
+color index      magenta    default   ~fcbell@tickitondemand.com.au
