@@ -198,6 +198,8 @@
 ;; (when (require 'smartscan nil t)
 ;;   (global-smartscan-mode 1))
 
+(when (require 'hungry-delete nil t)
+  (global-hungry-delete-mode))
 
 ;;==============
 ;; ctags
