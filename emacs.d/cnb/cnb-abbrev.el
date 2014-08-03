@@ -27,6 +27,4 @@
 
 (global-set-key "\C-oi" 'cnb-ispell-word-then-abbrev)
 
-(global-set-key "\C-op" 'dp)
-
 (provide 'cnb-abbrev)
