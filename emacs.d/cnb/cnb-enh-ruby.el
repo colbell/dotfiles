@@ -40,14 +40,14 @@
   (define-key enh-ruby-mode-map (kbd "RET")    'reindent-then-newline-and-indent)
   ;;(define-key enh-ruby-mode-map (kbd "C-c {")  'ruby-toggle-block)
 
-  (defun cnb-enh-ruby-setup ()
+  (defun cnb/enh-ruby-setup ()
     (yard-mode)
     (rspec-mode)
     (ruby-refactor-mode-launch)
     ;;(set-face-foreground 'enh-ruby-string-delimiter-face "tomato")
     )
 
-  (add-hook 'enh-ruby-mode-hook 'cnb-enh-ruby-setup))
+  (add-hook 'enh-ruby-mode-hook 'cnb/enh-ruby-setup))
 
 (provide 'cnb-enh-ruby)
 
@@ -85,5 +85,3 @@
 ;;                       ))
 
 ;;               (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")))
-
-

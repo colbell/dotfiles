@@ -32,7 +32,7 @@
 
 (global-set-key (kbd "C-c C-e") 'flymake-display-err-menu-for-current-line)
 
-(define-key ctl-x-4-map "t" 'cnb-toggle-frame-split)
+(define-key ctl-x-4-map "t" 'cnb/toggle-frame-split)
 
 (global-set-key (kbd "C-<return>") 'rectangle-mark-mode)
 
@@ -87,7 +87,7 @@
 (define-key ctl-x-map "t" 'cnb/toggle-map)
 (define-key cnb/toggle-map "d" 'toggle-debug-on-error)
 (define-key cnb/toggle-map "l" 'linum-mode)
-(define-key cnb/toggle-map "n" 'cnb-narrow-or-widen-dwim)
+(define-key cnb/toggle-map "n" 'cnb/narrow-or-widen-dwim)
 (define-key cnb/toggle-map "r" 'dired-toggle-read-only)
 (define-key cnb/toggle-map "v" 'visual-line-mode)
 

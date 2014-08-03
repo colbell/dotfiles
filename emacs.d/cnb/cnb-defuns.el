@@ -75,7 +75,7 @@
   (setq tab-width 8))
 
 ;; From http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
-(defun cnb-narrow-or-widen-dwim (p)
+(defun cnb/narrow-or-widen-dwim (p)
   "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
 Intelligently means: region, subtree, or defun, whichever applies
 first.
@@ -91,7 +91,7 @@ narrowed."
         (t (narrow-to-defun))))
 
 ;; From http://www.emacswiki.org/emacs-en/ToggleWindowSplit
-(defun cnb-toggle-frame-split ()
+(defun cnb/toggle-frame-split ()
   "If the frame is split vertically, split it horizontally or vice versa.
 Assumes that the frame is only split into two."
   (interactive)
@@ -148,14 +148,14 @@ Assumes that the frame is only split into two."
 
 
 ;; http://www.gnu.org/software/emms/configs/de-emms.el
-(defun cnb-toggle-playing ()
+(defun cnb/toggle-playing ()
   (interactive)
   (if emms-player-playing-p
       (emms-pause)
     (emms-start)))
 
 
-(defun cnb-add-dir ()
+(defun cnb/add-dir ()
   (interactive)
   (call-interactively 'emms-add-directory-tree)
   (emms-playlist-mode-go))
@@ -172,7 +172,7 @@ Assumes that the frame is only split into two."
         (add-to-list 'load-path name)))))
 
 
-(defun cnb-open-external()
+(defun cnb/open-external()
   "Open file associated with current buffer or files marked in dired buffer
 in native application through xdg-open"
   (interactive)

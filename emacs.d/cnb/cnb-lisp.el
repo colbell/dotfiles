@@ -6,7 +6,7 @@
   (key-chord-define lisp-mode-shared-map "qv" 'eval-region)
   (key-chord-define lisp-mode-shared-map "qb" 'eval-buffer))
 
-(defun cnb-imenu-lisp-sections ()
+(defun cnb/imenu-lisp-sections ()
   (setq imenu-prev-index-position-function nil)
   (add-to-list 'imenu-generic-expression '("Sections" "^;;;; \\(.+\\)$" 1) t))
 
@@ -18,7 +18,7 @@
                    scheme-mode))
 
 (dolist (mode lisp-modes)
-  (add-hook (intern (format "%s-hook" mode)) 'cnb-imenu-lisp-sections))
+  (add-hook (intern (format "%s-hook" mode)) 'cnb/imenu-lisp-sections))
 
 
 ;;;; CLOJURE
@@ -43,7 +43,7 @@
     (defalias 'ccs 'clojure-cheatsheet))
 
   ;; Generate tags for all *.clj files
-  (defun cnb-create-clj-tags (dir-name)
+  (defun cnb/create-clj-tags (dir-name)
     "Create tags file."
     (interactive "Directory: ")
     (shell-command

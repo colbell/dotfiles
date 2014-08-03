@@ -9,10 +9,10 @@
 
 ;;;; HAML
 
-(defun cnb-haml-setup()
+(defun cnb/haml-setup()
   (ignore-errors (robe-mode))
   (local-set-key (kbd "RET") 'newline-and-indent))
-;;(add-hook 'haml-mode-hook (cnb-haml-setup))
+;;(add-hook 'haml-mode-hook (cnb/haml-setup))
 
 (when (require 'haml-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.haml\\'" . haml-mode))

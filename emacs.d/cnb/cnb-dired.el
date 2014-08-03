@@ -17,7 +17,7 @@
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
 
-(defun cnb-dired-back-to-top ()
+(defun cnb/dired-back-to-top ()
   "Move to the first file name in the dired buffer"
   (interactive)
   (let (has-omit-mode has-hide-details-mode line-nbr)
@@ -38,7 +38,7 @@
     (beginning-of-buffer)
     (dired-next-line line-nbr)))
 
-(defun old-cnb-dired-back-to-top ()
+(defun cnb/old-dired-back-to-top ()
   "Move to the first file name in the dired buffer"
   (interactive)
   (let* (line-nbr)
@@ -50,7 +50,7 @@
     (beginning-of-buffer)
     (dired-next-line line-nbr)))
 
-(defun cnb-dired-jump-to-bottom ()
+(defun cnb/dired-jump-to-bottom ()
   "Jump to last file in dired buffer"
   (interactive)
   (end-of-buffer)
@@ -60,9 +60,9 @@
   ;; Change M-< instead of moving to the dired headings move to the first
   ;; file name.
   (define-key dired-mode-map
-    (vector 'remap 'beginning-of-buffer) 'cnb-dired-back-to-top)
+    (vector 'remap 'beginning-of-buffer) 'cnb/dired-back-to-top)
   (define-key dired-mode-map
-    (vector 'remap 'end-of-buffer) 'cnb-dired-jump-to-bottom))
+    (vector 'remap 'end-of-buffer) 'cnb/dired-jump-to-bottom))
 
 ;; Change M-> instead of moving to empty line at bottom  move to the last
 ;; file name.
