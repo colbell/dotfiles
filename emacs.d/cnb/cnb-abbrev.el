@@ -9,7 +9,7 @@
 ;;(add-hook 'text-mode-hook (lambda () (abbrev-mode 1)))
 (setq-default abbrev-mode t)
 
-(defun cnb-ispell-word-then-abbrev (p)
+(defun cnb/ispell-word-then-abbrev (p)
   "Call `ispell-word'. Then create an abbrev for the correction made.
    With prefix P, create local abbrev. Otherwise it will be global."
   (interactive "P")
@@ -25,6 +25,6 @@
         (if p global-abbrev-table local-abbrev-table)
         bef aft))))
 
-(global-set-key "\C-oi" 'cnb-ispell-word-then-abbrev)
+(global-set-key "\C-oi" 'cnb/ispell-word-then-abbrev)
 
 (provide 'cnb-abbrev)

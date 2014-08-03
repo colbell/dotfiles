@@ -80,7 +80,7 @@
 (require 'cnb-global-keys)     ;; Global key bindings
 
 (require 'time)
-(defun cnb-init-time()
+(defun cnb/init-time()
   (message (concat "Startup Time: " (emacs-init-time))))
 
-(add-hook 'after-init-hook 'cnb-init-time)
+(add-hook 'after-init-hook 'cnb/init-time)

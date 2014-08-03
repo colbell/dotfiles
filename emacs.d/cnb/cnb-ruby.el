@@ -12,7 +12,7 @@
 (eval-after-load 'ruby-refactor-mode
   '(progn (diminish 'ruby-refactor-mode "RR")))
 
-(defun cnb-ruby-setup ()
+(defun cnb/ruby-setup ()
   (setq imenu-generic-expression
         '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
   (yard-mode)
@@ -47,6 +47,6 @@
   (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 
-  (add-hook 'ruby-mode-hook 'cnb-ruby-setup))
+  (add-hook 'ruby-mode-hook 'cnb/ruby-setup))
 
 (provide 'cnb-ruby)

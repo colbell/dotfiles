@@ -84,7 +84,7 @@
 
   (setq mail-user-agent 'mu4e-user-agent)
 
-  (setq cnb-mu4e-account-alist
+  (setq cnb/mu4e-account-alist
         '(("home"
            (user-mail-address  "col@baibell.org")
            (mu4e-drafts-folder "/home/[Gmail].Drafts")
@@ -96,7 +96,7 @@
            (mu4e-sent-folder   "/kwela/[Gmail].Sent\  Mail")
            (mu4e-trash-folder  "/kwela/[Gmail].Trash"))))
 
-  (defun cnb-mu4e-set-account ()
+  (defun cnb/mu4e-set-account ()
     "Set the mu4e account for composing a message."
     (let* ((account
             (if mu4e-compose-parent-message
@@ -104,16 +104,16 @@
                   (string-match "/\\(.*?\\)/" maildir)
                   (match-string 1 maildir))
               (completing-read (format "Compose with account: (%s) "
-                                       (mapconcat #'(lambda (var) (car var)) cnb-mu4e-account-alist "/"))
-                               (mapcar #'(lambda (var) (car var)) cnb-mu4e-account-alist)
-                               nil t nil nil (caar cnb-mu4e-account-alist))))
-           (account-vars (cdr (assoc account cnb-mu4e-account-alist))))
+                                       (mapconcat #'(lambda (var) (car var)) cnb/mu4e-account-alist "/"))
+                               (mapcar #'(lambda (var) (car var)) cnb/mu4e-account-alist)
+                               nil t nil nil (caar cnb/mu4e-account-alist))))
+           (account-vars (cdr (assoc account cnb/mu4e-account-alist))))
       (if account-vars
           (mapc #'(lambda (var)
                     (set (car var) (cadr var)))
                 account-vars)
         (error "No email account found"))))
 
-  (add-hook 'mu4e-compose-pre-hook 'cnb-mu4e-set-account))
+  (add-hook 'mu4e-compose-pre-hook 'cnb/mu4e-set-account))
 
 (provide 'cnb-mu4e)
