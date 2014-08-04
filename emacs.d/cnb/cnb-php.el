@@ -1,8 +1,6 @@
 (message (concat "[CNB] - Loading [" load-file-name "]"))
 
 (defun cnb/php-mode-init ()
-  (setq case-fold-search t)
-  (setq indent-tabs-mode nil)
   (setq fill-column 78)
   (setq c-basic-offset 2)
   (c-set-offset 'arglist-cont 0)
