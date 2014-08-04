@@ -66,15 +66,6 @@
 
 
 ;;==============
-;; Smex - ido for <alt>x
-;;==============
-;;(require 'smex)
-;;(setq smex-save-file "~/.emacs.d/smex-items") ;; FIXME: doesn't work
-;;(setq smex-save-file (concat dotfiles-dir  "smex-items")) ;; FIXME: doesn't work
-;;(smex-initialize)
-
-
-;;==============
 ;; crontab editing
 ;;==============
 (add-to-list 'auto-mode-alist '("\\.cron\\(tab\\)?\\'" . crontab-mode))
