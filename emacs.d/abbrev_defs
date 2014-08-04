@@ -5,6 +5,8 @@
 
 (define-abbrev-table 'Info-edit-mode-abbrev-table '())
 
+(define-abbrev-table 'apropos-mode-abbrev-table '())
+
 (define-abbrev-table 'awk-mode-abbrev-table
   '(
    ))
@@ -90,7 +92,10 @@
 
 (define-abbrev-table 'gfm-mode-abbrev-table '())
 
-(define-abbrev-table 'git-commit-mode-abbrev-table '())
+(define-abbrev-table 'git-commit-mode-abbrev-table
+  '(
+    ("namesapce" "namespace" nil 0)
+   ))
 
 (define-abbrev-table 'git-rebase-mode-abbrev-table '())
 
