@@ -53,7 +53,8 @@
 (require 'cnb-cobol)           ;; COBOL mode config
 (require 'cnb-projectile)      ;; Projectile Project management
 (require 'cnb-ruby)            ;; Ruby mode config
-(require 'cnb-haml-sass-etc)   ;; HTML CSS modes
+(require 'cnb-css)             ;; CSS/SASS etc.
+(require 'cnb-html)            ;; HTML HAML modes
 (require 'cnb-lisp)            ;; Lisp, Clojure/cider etc.
 (require 'cnb-scala)           ;; Scala config
 (require 'cnb-js-coffee)       ;; Coffeescript, JS

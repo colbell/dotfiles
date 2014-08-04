@@ -1,11 +1,5 @@
 (message (concat "[CNB] - Loading [" load-file-name "]"))
 
-;;;; GENERAL
-
-;; Colorise CSS color codes
-(add-hook 'css-mode-hook 'rainbow-mode)
-(add-hook 'sass-mode-hook 'rainbow-mode)
-
 
 ;;;; HAML
 
@@ -25,29 +19,18 @@
     (add-hook 'haml-mode-hook 'flymake-haml-load)))
 
 
-;;;; SASS
-
-(when (require 'sass-mode nil t)
-  (add-to-list 'auto-mode-alist '("\\.sass\\'" . sass-mode))
-  (setq scss-compile-at-save nil))
-
-
-(when (require 'flymake-sass nil t)
-  (add-hook 'sass-mode-hook 'flymake-sass-load))
-
-
 ;;;; RHTML
 
 (when (require 'rhtml-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.rhtml\\'" . rhtml-mode))
-  (add-hook 'rhtml-mode-hook
-            (lambda () (rinari-launch))))
+  ;; (add-hook 'rhtml-mode-hook
+  ;;           (lambda () (rinari-launch)))
+  )
 
 
 ;;;; HANDLEBARS
 
-(when (require 'handlebars-mode nil t)
-  )
+(require 'handlebars-mode nil t)
 
 ;;(when (require 'slim-mode nil t)
 ;;  (add-to-list 'auto-mode-alist '("\\.emblem\\'" . slim-mode))) ;; Use Slim mode for emblem files - its close enuf.
@@ -68,4 +51,4 @@
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
 
-(provide 'cnb-haml-sass-etc)
+(provide 'cnb-html)
