@@ -13,12 +13,10 @@
   (visual-line-mode -1))
 
 (add-hook 'paradox-menu-mode-hook
-          (lambda ()
-            (cnb/package-menu-hook)))
+          (cnb/package-menu-hook))
 
 (add-hook 'package-menu-mode-hook
-          (lambda ()
-            (cnb/package-menu-hook)))
+          (cnb/package-menu-hook))
 
 
 (defun cnb/install-packages()
@@ -89,7 +87,8 @@
                        solarized-theme
                        ;; sunrise-commander
                        switch-window
-                       twilight-theme twittering-mode
+                       twilight-theme
+                       ;;twittering-mode
                        ;;undo-tree
                        ;;volatile-highlights
                        web-mode window-jump
@@ -100,6 +99,8 @@
 
   (dolist (p cnb/packages)
     (when (not (package-installed-p p))
-      (package-install p))))
+      (package-install p)))
+
+  (message "Package install completed."))
 
 (provide 'cnb-elpa)
