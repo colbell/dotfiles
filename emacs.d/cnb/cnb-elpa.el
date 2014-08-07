@@ -31,7 +31,8 @@
                        ack-and-a-half align-cljlet anti-zenburn-theme
                        anzu
                        auctex ;;auto-complete ;;auto-dim-other-buffers
-                       autopair bm bookmark+ browse-kill-ring ;;butler
+                       autopair better-registers bm bookmark+ browse-kill-ring
+                       ;;butler
                        cider cider-decompile cider-tracing
                        clj-refactor
                        clojure-cheatsheet

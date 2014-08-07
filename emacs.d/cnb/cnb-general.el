@@ -223,4 +223,9 @@
 ;;                        (server-passord . "user"))))))
 
 
+;; ;Better registers
+(when (require 'better-registers nil t)
+  (setq better-registers-save-file (concat dotfiles-dir "emacsregisters.el"))
+  (better-registers-install-save-registers-hook))
+
 (provide 'cnb-general)
