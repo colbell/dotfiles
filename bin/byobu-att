@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Create/Attach byobu-tmux session with the same name as the curent directory.
+
+byobu new-session -As `basename $PWD`
