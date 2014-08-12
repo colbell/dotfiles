@@ -13,10 +13,10 @@
   (visual-line-mode -1))
 
 (add-hook 'paradox-menu-mode-hook
-          (cnb/package-menu-hook))
+          'cnb/package-menu-hook)
 
 (add-hook 'package-menu-mode-hook
-          (cnb/package-menu-hook))
+          'cnb/package-menu-hook)
 
 
 (defun cnb/install-packages()
