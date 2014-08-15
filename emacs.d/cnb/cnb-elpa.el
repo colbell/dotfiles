@@ -65,7 +65,6 @@
                        markdown-mode midje-mode mo-git-blame
                        multiple-cursors muttrc-mode
                        ;; mu4e-maildirs-extension powerline mode-compile
-                       php-mode
                        paradox
                        puppet-mode projectile ;;projectile-rails
                        rainbow-delimiters
