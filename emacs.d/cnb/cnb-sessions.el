@@ -13,8 +13,9 @@
 ;; Remember open buffers
 (require 'desktop)
 (desktop-save-mode 1)
+(seytq desktop-restore-frames nil) ;; Probs with emacsclient
 (setq desktop-load-locked-desktop nil)
-(setq desktop-restore-eager 5) ;; Open first X immed then rest in background
+(setq desktop-restore-eager 10) ;; Open first X immed then rest in background
 ;;(setq desktop-restore-eager t)
 (add-to-list 'desktop-modes-not-to-save 'dired-mode)
 
