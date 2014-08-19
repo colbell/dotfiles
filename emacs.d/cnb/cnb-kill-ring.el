@@ -52,4 +52,4 @@
            (line-beginning-position 2)))))
 
 
-(provide 'cnb-undo)
+(provide 'cnb-kill-ring)
