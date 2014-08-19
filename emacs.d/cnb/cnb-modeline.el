@@ -84,7 +84,9 @@
      '(defadvice ,mode (after rename-modeline activate)
         (setq mode-name ,new-name))))
 
+;; Shorten major mode names
 (rename-modeline "js" js-mode "JS")
 (rename-modeline "lisp-mode" emacs-lisp-mode "EL")
+(rename-modeline "clojure-mode" emacs-lisp-mode "CLJ")
 
 (provide 'cnb-modeline)
