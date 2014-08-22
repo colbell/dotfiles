@@ -98,11 +98,13 @@
       shift-select-mode nil
       mouse-yank-at-point t
       ;;x-select-enable-clipboard t
-      delete-active-region nil
+      ;;delete-active-region nil
       ;;x-select-enable-primary t
       save-interprogram-paste-before-kill t
       require-final-newline t
       ediff-window-setup-function 'ediff-setup-windows-plain)
+
+(delete-selection-mode 1)
 
 ;; Don't let the cursor go into the minibuffer prompt
 (setq minibuffer-prompt-properties
