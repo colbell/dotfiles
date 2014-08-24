@@ -83,7 +83,7 @@
                        ;;slime
                        ;;smartscan
                        smartparens smooth-scrolling
-                       solarized-theme
+                       solarized-theme sr-speedbar
                        ;; sunrise-commander
                        switch-window
                        twilight-theme
