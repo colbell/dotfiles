@@ -76,6 +76,7 @@
 (require 'cnb-crosshairs)      ;; Screen crosshairs
 (require 'cnb-edit-server)     ;; Edit within Chrome
 (require 'cnb-smartparens)     ;; Smart parens
+(require 'cnb-speedbar)        ;; Speedbar
 (require 'cnb-sessions)        ;; Sessions
 (require 'cnb-modeline)        ;; Modeline config
 (require 'cnb-global-keys)     ;; Global key bindings
