@@ -129,3 +129,5 @@
 /lein/repl-port
 /lein/indices/
 /emacs.d/emacsregisters.el
+/byobu/.screenrc
+/byobu/.tmux.conf
