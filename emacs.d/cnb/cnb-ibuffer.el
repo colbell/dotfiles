@@ -63,7 +63,8 @@
                           (mode . html-mode)
                           (mode . rhtml-mode)
                           (name . ".rhtml")
-                          (mode . nXhtml-mode)))
+                          (mode . nXhtml-mode)
+                          (mode . web-mode)))
                ("conf" (or
                         (mode . muttrc-mode)
                         (mode . conf-xdefaults-mode)
