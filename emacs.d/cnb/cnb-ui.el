@@ -74,6 +74,7 @@
 (setq apropos-do-all t)
 (auto-image-file-mode)
 
+(global-prettify-symbols-mode +1)
 ;; Reuse existing window for compilation windows.
 (setq-default display-buffer-reuse-frames t)
 
