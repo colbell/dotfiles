@@ -61,8 +61,8 @@
 ;;(set-default-font "Inconsolata-11" nil t)
 ;;(set-frame-font "Ubuntu Mono-12" nil t)
 ;;(set-default-font "Ubuntu Mono-12" nil t)
-(set-frame-font "Source Code Pro-11" nil t)
-(set-default-font "Source Code Pro-11" nil t)
+(set-frame-font "Source Code Pro-10" nil t)
+(set-default-font "Source Code Pro-10" nil t)
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
