@@ -7,13 +7,17 @@
 ;; From Emacs starter kit
 (eval-after-load 'js
   '(progn (setq js-indent-level 2)
-          ;; fixes problem with pretty function font-lock
           (define-key js-mode-map (kbd ",") 'self-insert-command)
-          (font-lock-add-keywords
-           'js-mode `(("\\(function *\\)("
-                       (0 (progn (compose-region (match-beginning 1)
-                                                 (match-end 1) "\u0192")
-                                 nil)))))))
+          ;; fixes problem with pretty function font-lock
+          ;; (font-lock-add-keywords
+          ;;  'js-mode `(("\\(function *\\)("
+          ;;              (0 (progn (compose-region (match-beginning 1)
+          ;;                                        (match-end 1) "\u0192")
+          ;;                        nil)))))
+          (add-hook 'js-mode-hook
+                    (lambda ()
+                      (push '("function" . "\u0192") prettify-symbols-alist)))
+          ))
 
 ;;==============
 ;; Coffee script

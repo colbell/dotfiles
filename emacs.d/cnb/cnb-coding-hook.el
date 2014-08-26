@@ -7,7 +7,6 @@
 (defvar esk-coding-hook nil
   "Hook that gets run on activation of any programming mode.")
 
-
 (defun esk-add-watchwords ()
   (font-lock-add-keywords
    nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
@@ -16,17 +15,17 @@
 (defun esk-turn-on-whitespace ()
   (whitespace-mode t))
 
-(defun esk-pretty-lambdas ()
-  (font-lock-add-keywords
-   nil `(("(?\\(lambda\\>\\)"
-          (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                    ,(make-char 'greek-iso8859-7 107))
-                    nil)))))
-  (font-lock-add-keywords
-   nil `(("(?\\(function\\>\\)"
-          (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                    ,(make-char 'symbol 166))
-                    nil))))))
+;; (defun esk-pretty-lambdas ()
+;;   (font-lock-add-keywords
+;;    nil `(("(?\\(lambda\\>\\)"
+;;           (0 (progn (compose-region (match-beginning 1) (match-end 1)
+;;                                     ,(make-char 'greek-iso8859-7 107))
+;;                     nil)))))
+;;   (font-lock-add-keywords
+;;    nil `(("(?\\(function\\>\\)"
+;;           (0 (progn (compose-region (match-beginning 1) (match-end 1)
+;;                                     ,(make-char 'symbol 166))
+;;                     nil))))))
 
 (defun esk-run-coding-hook ()
   "Enable things that are convenient across all coding buffers."
@@ -39,7 +38,7 @@
 ;;(require 'linum)
 ;;(add-hook 'esk-coding-hook 'linum-on)
 ;;(add-hook 'esk-coding-hook 'imenu-add-menubar-index t)
-(add-hook 'esk-coding-hook 'esk-pretty-lambdas)
+;;(add-hook 'esk-coding-hook 'esk-pretty-lambdas)
 (add-hook 'esk-coding-hook 'esk-add-watchwords)
 (add-hook 'esk-coding-hook 'hs-minor-mode)
 (add-hook 'esk-coding-hook 'esk-turn-on-whitespace)
