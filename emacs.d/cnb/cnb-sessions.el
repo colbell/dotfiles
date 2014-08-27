@@ -18,10 +18,13 @@
 (setq desktop-restore-eager 10) ;; Open first X immed then rest in background
 ;;(setq desktop-restore-eager t)
 (add-to-list 'desktop-modes-not-to-save 'dired-mode)
+(setq desktop-globals-to-save (delete 'tags-file-name desktop-globals-to-save))
+(setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save))
+
+;; tags-file-name tags-table-list
 
 ;;;; savehist
 
-;; Remember mini-buffer history
 (setq history-length 250)
 (setq savehist-additional-variables
       '(search-ring regexp-search-ring kill-ring compile-history))
