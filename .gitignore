@@ -1,5 +1,6 @@
 /bin/eclipse
 /bin/hg-prompt/prompt.pyc
+/bin/lein
 /bin/nb
 /byobu/.screenrc
 /byobu/.ssh-agent
