@@ -107,6 +107,10 @@ if [ -d "$HOME/apps/scala/bin" ]; then
   export PATH="$SCALA_HOME/bin:$PATH"
 fi
 
+if [ -d "$HOME/apps/awseb/eb/linux/python2.7" ]; then
+  PATH=$HOME/apps/awseb/eb/linux/python2.7:$PATH
+fi
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 if [ -d "/usr/lib/jvm/java-7-oracle" ]; then
