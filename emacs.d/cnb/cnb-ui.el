@@ -33,10 +33,11 @@
   ;;(load-theme 'anti-zenburn))
   ;;(load-theme 'solarized-dark t)
   ;;(load-theme 'wombat t)
-  ;;(load-theme 'zenburn t)
+  (load-theme 'zenburn t)
   ;;(load-theme 'manoj-dark t)
   ;;(load-theme 'twilight t)
-  (load-theme 'leuven)
+  ;;(load-theme 'leuven)
+  ;;(load-theme 'oldlace)
   )
 
 (when (require 'rainbow-delimiters nil t)
