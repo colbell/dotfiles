@@ -28,7 +28,7 @@
                        ace-jump-mode ace-link ace-window
                        ack-and-a-half align-cljlet anti-zenburn-theme
                        anzu
-                       auctex ;;auto-complete ;;auto-dim-other-buffers
+                       auctex ;;auto-complete auto-dim-other-buffers
                        autopair better-registers bm bookmark+ browse-kill-ring
                        ;;butler
                        cider cider-decompile cider-tracing
@@ -65,7 +65,6 @@
                        markdown-mode midje-mode mo-git-blame
                        multiple-cursors muttrc-mode
                        ;; mu4e-maildirs-extension powerline mode-compile
-                       oldlace-theme
                        paradox
                        puppet-mode projectile ;;projectile-rails
                        rainbow-delimiters
