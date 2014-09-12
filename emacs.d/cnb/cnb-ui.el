@@ -120,8 +120,6 @@
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 
-(when (require 'color-identifiers-mode nil t)
-  (global-color-identifiers-mode))
 
 ;;(tooltip-mode 1) ;; Show tooltips in echo area
 
