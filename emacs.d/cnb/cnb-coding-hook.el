@@ -31,6 +31,14 @@
   "Enable things that are convenient across all coding buffers."
   (run-hooks 'esk-coding-hook))
 
+(when (require 'color-identifiers-mode nil t)
+  ;; Same as HTML mode
+  (add-to-list
+   'color-identifiers:modes-alist
+   `(web-mode . ("</?!?"
+                "\\_</?!?\\([a-zA-Z_$]\\(?:\\s_\\|\\sw\\)*\\)"
+                (nil font-lock-function-name-face))))
+  (add-hook 'after-init-hook 'global-color-identifiers-mode))
 
 ;;=======================
 ;; Things to do when you open a coding buffer.
