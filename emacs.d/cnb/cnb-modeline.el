@@ -41,10 +41,11 @@
 
 ;; Battery status
 (require 'battery)
-(when (and battery-status-function
-           (not (string-match-p "N/A"
-                                (battery-format "%B"
-                                                (funcall battery-status-function)))))
+(when
+    (and battery-status-function
+         (not (string-match-p "N/A"
+                              (battery-format "%B"
+                                              (funcall battery-status-function)))))
   (setq battery-mode-line-format "[%b%p%%%% %t]")
   (display-battery-mode 1))
 
@@ -87,6 +88,6 @@
 ;; Shorten major mode names
 (rename-modeline "js" js-mode "JS")
 (rename-modeline "lisp-mode" emacs-lisp-mode "EL")
-(rename-modeline "clojure-mode" emacs-lisp-mode "CLJ")
+(rename-modeline "clojure-mode" clojure-mode "CLJ")
 
 (provide 'cnb-modeline)
