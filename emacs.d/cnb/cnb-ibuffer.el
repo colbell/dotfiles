@@ -71,6 +71,7 @@
                         (mode . conf-mode)
                         (mode . conf-unix-mode)
                         (mode . conf-space-mode)
+                        (mode . conf-colon-mode)
                         (name . "\.env")))
                ("dired" (mode . dired-mode))
                ("browser" (or

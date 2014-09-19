@@ -91,5 +91,13 @@
 (define-key cnb/toggle-map "r" 'dired-toggle-read-only)
 (define-key cnb/toggle-map "v" 'visual-line-mode)
 
+;; Ctrl-x l for launching stuff.
+(define-prefix-command 'cnb/launcher-map)
+(define-key ctl-x-map "l" 'cnb/launcher-map)
+(define-key cnb/launcher-map "c" 'calc)
+(define-key cnb/launcher-map "d" 'ediff-buffers)
+(define-key cnb/launcher-map "f" 'find-dired)
+(define-key cnb/launcher-map "p" 'paradox-list-packages)
+(define-key cnb/launcher-map "t" 'proced)
 
 (provide 'cnb-global-keys)
