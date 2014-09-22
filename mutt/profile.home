@@ -20,6 +20,7 @@ unmailboxes *
 mailboxes `echo /var/mail/$USER` `echo $HOME/Maildir/home/*`
 
 set smtp_url="smtps://col@baibell.org@smtp.gmail.com"
+set smtp_pass=$my_pw_baibell
 
 folder-hook IN. "push <collapse-all>\n"
 

@@ -1,6 +1,17 @@
 # -*- mode: muttrc; -*-
 # vim:ft=muttrc
 
+# Create the file ~/.passwords with correct passwords
+#set my_pw_baibell = pass1
+#set my_pw_kwela = pass2
+#
+# Then encrypt it and remove the unencrypted one.
+# gpg -e ~/.passwords
+# rm .passwords
+
+# Load unencrypted passwords.
+source "gpg2 -dq $HOME/.passwords.gpg |"
+
 source ~/.mutt/profile.active
 
 source /etc/t-prot/Muttrc                  # t-prot script

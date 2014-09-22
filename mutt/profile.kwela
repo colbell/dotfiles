@@ -21,6 +21,7 @@ unmailboxes *
 mailboxes `echo /var/mail/$USER` `echo $HOME/Maildir/kwela/*`
 
 set smtp_url="smtps://colin@kwelasolutions.com@smtp.gmail.com"
+set smtp_pass=$my_pw_kwela
 
 folder-hook IN. "push <collapse-all>\n"
 
