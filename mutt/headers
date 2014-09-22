@@ -13,13 +13,14 @@ unignore priority: importance:                        # MS Outlook cals it impor
 unignore organization organisation                    # Because I'm curious
 unignore user-agent: x-agent: x-posting-agent:        # Mail client
 unignore x-mailer: x-newsreader: x-mailing-list:
-unignore Message-Id: In-Reply-To: References:
+unignore Message-Id:
+#unignore In-Reply-To: References:
 unignore x-info
 unignore x-editor                                     # Text editor used
 unignore x-operating-system:
 unignore x-message-flag
-unignore newsgroups: posted-and-mailed: posted-to:    # cc from newsgroups
-unignore x-also-posted-to: x-newsgroups: x-posted-to
+#unignore newsgroups: posted-and-mailed: posted-to:    # cc from newsgroups
+#unignore x-also-posted-to: x-newsgroups: x-posted-to
 unignore resent- x-resent                             # Was msg resent
 unignore x-spam-flag
 unignore x-spam-level
