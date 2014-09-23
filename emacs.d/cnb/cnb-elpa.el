@@ -25,7 +25,7 @@
   (package-refresh-contents)
 
   (setq cnb/packages '(;;ac-slime
-                       ace-jump-mode ace-link ace-window
+                       ace-jump-mode ace-jump-zap ace-link ace-window
                        ack-and-a-half align-cljlet anti-zenburn-theme
                        anzu
                        auctex ;;auto-complete auto-dim-other-buffers
