@@ -36,6 +36,10 @@
     (add-hook 'robe-mode-hook 'robe-ac-setup))
 
   (define-key ruby-mode-map (kbd "RET") 'newline-and-indent)
+
+  ;; I use C-x t for toggling globally
+  (define-key ruby-mode-map "\C-xt" nil)
+
   (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
