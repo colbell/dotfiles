@@ -31,11 +31,11 @@
                        auctex ;;auto-complete auto-dim-other-buffers
                        autopair better-registers bm bookmark+ browse-kill-ring
                        ;;butler
-                       cider cider-decompile cider-tracing
+                       cider cider-decompile ;;cider-tracing
                        clj-refactor
                        clojure-cheatsheet
                        clojure-mode clojure-mode-extra-font-locking
-                       clojure-test-mode ;; Deprecated but required by midje-mode
+                       ;;clojure-test-mode ;; Deprecated but required by midje-mode
                        coffee-mode color-identifiers-mode
                        company
                        ;;company-cider ;; Cider supports company directly.
@@ -62,7 +62,9 @@
                        ;;idle-highlight
                        inf-ruby inflections
                        jabber jump key-chord less-css-mode lua-mode magit
-                       markdown-mode midje-mode mo-git-blame
+                       markdown-mode
+                       ;;midje-mode
+                       mo-git-blame
                        multiple-cursors muttrc-mode
                        ;; mu4e-maildirs-extension powerline mode-compile
                        paradox
