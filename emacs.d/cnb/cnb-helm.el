@@ -20,15 +20,18 @@
   (global-set-key (kbd "C-o h") 'helm-mini)
   (global-set-key "\C-cf" 'helm-recentf)
   (global-set-key "\C-xb" 'helm-buffers-list)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (helm-mode 1)
 
 
-;;;; helm-swoop
+  ;;;; helm-swoop
+
   (when (require 'helm-swoop nil t)
     (global-set-key (kbd "M-i") 'helm-swoop))
 
 
   ;;;; helm-rails
+
   (when (require 'helm-rails nil t)
     ;; Define extra finders
     (helm-rails-def-resource 'authorizers "app/authorizers//" "^app/authorizers/(.+)$")
