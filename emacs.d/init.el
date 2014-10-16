@@ -31,6 +31,8 @@
 ;; I use keys that start with C-o for personal mappings.
 (global-unset-key "\C-o")
 
+(setq load-prefer-newer t)
+
 (require 'cnb-elpa)            ;; Package manager stuff
 (require 'cnb-ui)              ;; Basic UI setup
 (require 'cnb-keychord)        ;; Keychord setup
