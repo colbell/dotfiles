@@ -61,7 +61,7 @@
                        helm-swoop hungry-delete ibuffer-vc ;;icicles
                        ;;idle-highlight
                        inf-ruby inflections
-                       jabber jump key-chord less-css-mode lua-mode magit
+                       jabber jump key-chord less-css-mode log4j-mode lua-mode magit
                        markdown-mode
                        ;;midje-mode
                        mo-git-blame
