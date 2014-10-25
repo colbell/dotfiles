@@ -204,13 +204,8 @@
 ;; Seed the random number generator
 (random t)
 
-;;==============
-;; CUA mode, really only used for rectangular editing.
-;;==============
-;; (cua-mode t)
-;; (setq cua-enable-cua-keys nil)
-;; (setq cua-delete-selection nil)
-;; (cua-selection-mode t)
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
 
 
 ;; (when (require 'butler nil t)
