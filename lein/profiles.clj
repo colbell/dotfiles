@@ -8,6 +8,8 @@
                    [lein-midje "3.1.3"]
                    [jonase/eastwood "0.1.4"]
                    [lein-try "0.3.2"]
-                   [lein-pprint "1.1.1"]]
-        :dependencies [[slamhound "1.5.5"]]
+                   [lein-pprint "1.1.1"]
+                   [com.aphyr/prism "0.1.2"]]
+        :dependencies [[slamhound "1.5.5"]
+                       [com.aphyr/prism "0.1.2"]]
         :aliases {"slamhound" ["run" "-m" "slam.hound"]}}}
