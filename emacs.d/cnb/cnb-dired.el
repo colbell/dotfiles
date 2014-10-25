@@ -4,9 +4,9 @@
 (setq dired-dwim-target t)
 
 ;;(load "dired-x")
-(add-hook 'dired-load-hook
-          (lambda ()
-            (load "dired-x")))
+;; (add-hook 'dired-load-hook
+;;           (lambda ()
+;;             (load "dired-x")))
 
 (add-hook 'dired-mode-hook
           (lambda ()
@@ -16,6 +16,10 @@
 
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
+
+(setq diredp-hide-details-initially-flag nil)
+(when (require 'dired+ nil t)
+  (diredp-toggle-find-file-reuse-dir 1))
 
 (defun cnb/dired-back-to-top ()
   "Move to the first file name in the dired buffer"
