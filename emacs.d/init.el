@@ -20,9 +20,15 @@
 
 (eval '(setq inhibit-startup-echo-area-message "colbell"))
 
-(require 'cnb-defuns) ;; Utility functions incl add-subdirs-to-load-path
-
 ;; Add all vendor libraries to load path
+(defun add-subdirs-to-load-path(parent-dir)
+  "Add first level subdirectories in parent-dir to load path."
+  (dolist (f (directory-files parent-dir))
+    (let ((name (concat parent-dir "/" f)))
+      (when (and (file-directory-p name)
+                 (not (equal f ".."))
+                 (not (equal f ".")))
+        (add-to-list 'load-path name)))))
 (add-to-list 'load-path (concat personal-dotfiles-dir "/vendor"))
 (add-subdirs-to-load-path (concat personal-dotfiles-dir "/vendor"))
 
@@ -34,6 +40,8 @@
 (setq load-prefer-newer t)
 
 (require 'cnb-elpa)            ;; Package manager stuff
+(require 'cnb-dired)           ;; Dired config
+(require 'cnb-defuns)          ;; Utility functions
 (require 'cnb-ui)              ;; Basic UI setup
 (require 'cnb-keychord)        ;; Keychord setup
 (require 'cnb-aliases)         ;; Aliases to common cmds
@@ -48,7 +56,6 @@
 (require 'cnb-ibuffer)         ;; IBuffer config
 (require 'cnb-helm)            ;; Helm config
 ;;(require 'cnb-icicles)         ;; Icicles mode
-(require 'cnb-dired)           ;; Dired config
 (require 'cnb-coding-hook)     ;; Setup for coding buffers
 (require 'cnb-sc)              ;; Source Control config
 (require 'cnb-org)             ;; Org mode config
