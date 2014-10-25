@@ -161,17 +161,6 @@ Assumes that the frame is only split into two."
   (emms-playlist-mode-go))
 
 
-;; Found somewhere on the Internet
-(defun add-subdirs-to-load-path(parent-dir)
-  "Add first level subdirectories in parent-dir to load path."
-  (dolist (f (directory-files parent-dir))
-    (let ((name (concat parent-dir "/" f)))
-      (when (and (file-directory-p name)
-                 (not (equal f ".."))
-                 (not (equal f ".")))
-        (add-to-list 'load-path name)))))
-
-
 (defun cnb/open-external()
   "Open file associated with current buffer or files marked in dired buffer
 in native application through xdg-open"
