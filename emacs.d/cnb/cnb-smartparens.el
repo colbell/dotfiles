@@ -1,9 +1,9 @@
 (message (concat "[CNB] - Loading [" load-file-name "]"))
 
 (when (require 'smartparens-config nil t)
-  (require 'smartparens-ruby)
+  ;;(require 'smartparens-ruby)
   (require 'smartparens-html)
-  (require 'smartparens-latex)
+  ;;(require 'smartparens-latex)
 
   (smartparens-global-mode t)
 
@@ -32,6 +32,8 @@
 
   (define-key sp-keymap (kbd "C-M-k") 'sp-kill-sexp) ;; FIXME: Doesn't work
   (define-key sp-keymap (kbd "C-M-w") 'sp-copy-sexp)
-  )
+
+  (sp-with-modes '(html-mode sgml-mode web-mode)
+    (sp-local-pair "<" ">")))
 
 (provide 'cnb-smartparens)
