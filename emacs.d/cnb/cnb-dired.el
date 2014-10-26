@@ -1,6 +1,7 @@
 (message (concat "[CNB] - Loading [" load-file-name "]"))
 
-(setq dired-listing-switches "-alFh")
+;;(setq dired-listing-switches "-alFh")
+(setq dired-listing-switches "-alh")
 (setq dired-dwim-target t)
 
 ;;(load "dired-x")
@@ -60,13 +61,44 @@
   (end-of-buffer)
   (dired-next-line -1))
 
-(when (boundp 'dired-mode-map)
   ;; Change M-< instead of moving to the dired headings move to the first
   ;; file name.
-  (define-key dired-mode-map
-    (vector 'remap 'beginning-of-buffer) 'cnb/dired-back-to-top)
-  (define-key dired-mode-map
-    (vector 'remap 'end-of-buffer) 'cnb/dired-jump-to-bottom))
+(define-key dired-mode-map
+  (vector 'remap 'beginning-of-buffer) 'cnb/dired-back-to-top)
+(define-key dired-mode-map
+  (vector 'remap 'end-of-buffer) 'cnb/dired-jump-to-bottom)
+
+;; Sort dired.
+(defvar cnb/dired-sort-keymap (make-sparse-keymap))
+(define-key dired-mode-map "s" cnb/dired-sort-keymap)
+
+(define-key cnb/dired-sort-keymap "s"
+  (lambda () "sort by Size" (interactive)
+    (dired-sort-other (concat dired-listing-switches " -S"))))
+(define-key cnb/dired-sort-keymap "S"
+  (lambda () "sort by Size REV" (interactive)
+    (dired-sort-other (concat dired-listing-switches " -rS"))))
+(define-key cnb/dired-sort-keymap "n"
+  (lambda () "sort by Name REV" (interactive)
+    (dired-sort-other dired-listing-switches)))
+(define-key cnb/dired-sort-keymap "N"
+  (lambda () "sort by Name" (interactive)
+    (dired-sort-other (concat dired-listing-switches " -r"))))
+(define-key cnb/dired-sort-keymap "t"
+  (lambda () "sort by Name REV" (interactive)
+    (dired-sort-other (concat dired-listing-switches " -t"))))
+(define-key cnb/dired-sort-keymap "T"
+  (lambda () "sort by Name" (interactive)
+    (dired-sort-other (concat dired-listing-switches " -tr"))))
+(define-key cnb/dired-sort-keymap "e"
+  (lambda () "sort by Extension" (interactive)
+    (dired-sort-other (concat dired-listing-switches " -X"))))
+(define-key cnb/dired-sort-keymap "E"
+  (lambda () "sort by Extension (REV)" (interactive)
+    (dired-sort-other (concat dired-listing-switches " -rX"))))
+(define-key cnb/dired-sort-keymap "?"
+  (lambda () "sort help" (interactive)
+    (message "s/S Size; e/E Extension; t/T Time; n/N Name")))
 
 ;; Change M-> instead of moving to empty line at bottom  move to the last
 ;; file name.
