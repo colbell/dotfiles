@@ -2,7 +2,6 @@
 
 ;;;; GIT
 
-;; Taken out as it causes random "Selecting deleted buffer" errors
 
 (when (require 'git-gutter nil t)
   (git-gutter:linum-setup)
@@ -65,7 +64,12 @@
 
   (global-set-key (kbd "C-c g") 'magit-status))
 
+(defun cnb/git-msg-popup-hook ()
+  (magit-commit-mode))
+
 (when (require 'git-messenger nil t)
+  (setq git-messenger:show-detail t)
+  (add-hook 'git-messenger:popup-buffer-hook 'cnb/git-msg-popup-hook)
   (global-set-key (kbd "C-x v p") 'git-messenger:popup-message))
 
 (provide 'cnb-sc)
