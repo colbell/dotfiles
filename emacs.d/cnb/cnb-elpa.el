@@ -55,7 +55,7 @@
                        flymake-cursor flymake-haml flymake-ruby flymake-sass
                        ;;furl
                        git-gutter git-timemachine
-                       ;; git-messenger go-mode
+                       git-messenger ;;go-mode
                        goto-chg haml-mode handlebars-mode haskell-mode httpcode
                        helm helm-git helm-c-yasnippet helm-projectile helm-rails
                        helm-swoop hungry-delete ibuffer-vc ;;icicles
