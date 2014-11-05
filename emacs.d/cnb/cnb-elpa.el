@@ -36,7 +36,8 @@
                        clojure-cheatsheet
                        clojure-mode clojure-mode-extra-font-locking
                        ;;clojure-test-mode ;; Deprecated but required by midje-mode
-                       coffee-mode color-identifiers-mode
+                       coffee-mode
+                       ;;color-identifiers-mode
                        company
                        ;;company-cider ;; Cider supports company directly.
                        creole-mode
