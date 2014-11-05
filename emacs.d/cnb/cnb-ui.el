@@ -34,10 +34,10 @@
   ;;(load-theme 'deeper-blue t)
   ;;(load-theme 'solarized-dark t)
   ;;(load-theme 'wombat t)
-  (load-theme 'zenburn t)
+  ;;(load-theme 'zenburn t)
   ;;(load-theme 'manoj-dark t)
   ;;(load-theme 'twilight t)
-  ;;(load-theme 'leuven)
+  (load-theme 'leuven)
   )
 
 (when (require 'rainbow-delimiters nil t)
@@ -76,6 +76,7 @@
 (auto-image-file-mode)
 
 (global-prettify-symbols-mode +1)
+
 ;; Reuse existing window for compilation windows.
 (setq-default display-buffer-reuse-frames t)
 
