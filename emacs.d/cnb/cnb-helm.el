@@ -11,7 +11,12 @@
         helm-quick-update t
         helm-M-x-requires-pattern nil
         helm-ff-skip-boring-files t
-        enable-recursive-minibuffers t)
+        enable-recursive-minibuffers t
+        helm-buffers-fuzzy-matching t
+        helm-split-window-in-side-p t)
+
+  (when (executable-find "curl")
+    (setq helm-google-suggest-use-curl-p t))
 
   (global-set-key "\M-x" 'helm-M-x)
   (global-set-key [remap occur] 'helm-occur)

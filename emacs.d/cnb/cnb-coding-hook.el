@@ -36,8 +36,8 @@
   (add-to-list
    'color-identifiers:modes-alist
    `(web-mode . ("</?!?"
-                "\\_</?!?\\([a-zA-Z_$]\\(?:\\s_\\|\\sw\\)*\\)"
-                (nil font-lock-function-name-face))))
+                 "\\_</?!?\\([a-zA-Z_$]\\(?:\\s_\\|\\sw\\)*\\)"
+                 (nil font-lock-function-name-face))))
   (add-hook 'after-init-hook 'global-color-identifiers-mode))
 
 ;;=======================
