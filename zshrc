@@ -121,6 +121,8 @@ source $ZSH/oh-my-zsh.sh
 
 #unsetopt correct_all
 
+alias pkg-update='sudo etckeeper pre-install && sudo pacman -Syu && sudo etckeeper post-install'
+
 autoload -Uz compinit
 compinit
 
