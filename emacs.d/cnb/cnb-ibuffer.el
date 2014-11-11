@@ -53,11 +53,8 @@
                         (mode . haskell-mode)
                         (mode . lua-mode)
                         (mode . python-mode)))
-               ("markup" (or
+               ("web markup" (or
                           (mode . php-mode)
-                          (mode . nxml-mode)
-                          (mode . yaml-mode)
-                          (mode . markdown-mode)
                           (mode . haml-mode)
                           (mode . slim-mode)
                           (mode . html-mode)
@@ -65,6 +62,10 @@
                           (name . ".rhtml")
                           (mode . nXhtml-mode)
                           (mode . web-mode)))
+               ("markup" (or
+                          (mode . nxml-mode)
+                          (mode . yaml-mode)
+                          (mode . markdown-mode)))
                ("conf" (or
                         (mode . muttrc-mode)
                         (mode . conf-xdefaults-mode)
@@ -86,10 +87,6 @@
                        (mode . latex-mode)
                        (mode . org-mode)
                        (mode . muse-mode)))
-               ("helm" (or
-                        (mode . helm-mode)
-                        (name . "^\\*helm")
-                        ))
                ("shell-script" (mode . sh-mode))
                ("compilation" (or
                                (name . "^\\*Compile-Log\\*$")
@@ -121,7 +118,9 @@
                         ;;(mode . rmail-mode)
                         (mode . mu4e-view-mode)
                         (mode . mu4e-compose-mode)))
-               ))))
+               ("helm" (or
+                        (mode . helm-mode)
+                        (name . "^\\*helm")))))))
 
 (add-hook 'ibuffer-mode-hook
           (lambda ()
