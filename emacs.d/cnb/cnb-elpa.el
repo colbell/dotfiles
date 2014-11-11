@@ -26,7 +26,7 @@
 
   (setq cnb/packages '(;;ac-slime
                        ace-jump-mode ace-jump-zap ace-link ace-window
-                       ack-and-a-half align-cljlet anti-zenburn-theme
+                       ack-and-a-half align-cljlet;; anti-zenburn-theme
                        anzu
                        auctex ;;auto-complete auto-dim-other-buffers
                        autopair better-registers bm bookmark+ browse-kill-ring
@@ -86,7 +86,8 @@
                        ;;slime
                        ;;smartscan
                        smartparens smooth-scrolling
-                       solarized-theme sr-speedbar
+                       ;;solarized-theme
+                       sr-speedbar
                        ;; sunrise-commander
                        switch-window
                        twilight-theme
@@ -96,8 +97,7 @@
                        web-mode window-jump
                        yaml-mode yard-mode yasnippet
                        ;;yasnippet-bundle
-                       zenburn-theme
-                       ))
+                       zenburn-theme))
 
   (dolist (p cnb/packages)
     (when (not (package-installed-p p))
