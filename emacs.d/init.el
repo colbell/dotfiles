@@ -55,7 +55,6 @@
 (require 'cnb-lisp)            ;; Lisp, Clojure etc.
 (require 'cnb-ibuffer)         ;; IBuffer config
 (require 'cnb-helm)            ;; Helm config
-;;(require 'cnb-icicles)         ;; Icicles mode
 (require 'cnb-coding-hook)     ;; Setup for coding buffers
 (require 'cnb-sc)              ;; Source Control config
 (require 'cnb-org)             ;; Org mode config
