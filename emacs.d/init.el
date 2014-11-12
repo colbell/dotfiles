@@ -66,7 +66,6 @@
 (require 'cnb-lisp)            ;; Lisp, Clojure/cider etc.
 (require 'cnb-scala)           ;; Scala config
 (require 'cnb-js-coffee)       ;; Coffeescript, JS
-;;(require 'cnb-php)             ;; PHP
 (require 'cnb-kill-ring)       ;; Undo configuration
 (require 'cnb-twitter)         ;; Read twitter stream
 (require 'cnb-abbrev)          ;; Auto-correction
