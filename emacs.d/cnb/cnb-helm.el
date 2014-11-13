@@ -32,26 +32,26 @@
   ;;;; helm-swoop
 
   (when (require 'helm-swoop nil t)
-    (global-set-key (kbd "M-i") 'helm-swoop))
+    (global-set-key (kbd "M-i") 'helm-swoop)))
 
 
   ;;;; helm-rails
 
-  (when (require 'helm-rails nil t)
-    ;; Define extra finders
-    (helm-rails-def-resource 'authorizers "app/authorizers//" "^app/authorizers/(.+)$")
-    (helm-rails-def-resource 'cells "app/cells//" "^app/cells/(.+)$")
-    (helm-rails-def-resource 'decorators "app/decorators//" "^app/decorators/(.+)$")
-    (helm-rails-def-resource 'widgets "app/widgets//" "^app/widgets/(.+)$")
-    (helm-rails-def-resource 'workers "app/workers//" "^app/workers/(.+)$")
+  ;; (when (require 'helm-rails nil t)
+  ;;   ;; Define extra finders
+  ;;   (helm-rails-def-resource 'authorizers "app/authorizers//" "^app/authorizers/(.+)$")
+  ;;   (helm-rails-def-resource 'cells "app/cells//" "^app/cells/(.+)$")
+  ;;   (helm-rails-def-resource 'decorators "app/decorators//" "^app/decorators/(.+)$")
+  ;;   (helm-rails-def-resource 'widgets "app/widgets//" "^app/widgets/(.+)$")
+  ;;   (helm-rails-def-resource 'workers "app/workers//" "^app/workers/(.+)$")
 
-    (global-set-key (kbd "C-c r a") 'helm-rails-authorizers)
-    (global-set-key (kbd "C-c r c") 'helm-rails-controllers)
-    (global-set-key (kbd "C-c r d") 'helm-rails-decorators)
-    (global-set-key (kbd "C-c r m") 'helm-rails-models)
-    (global-set-key (kbd "C-c r s") 'helm-rails-specs)
-    (global-set-key (kbd "C-c r v") 'helm-rails-views)
-    (global-set-key (kbd "C-c r w") 'helm-rails-widgets)
-    (global-set-key (kbd "C-c r o") 'helm-rails-workers)))
+  ;;   (global-set-key (kbd "C-c r a") 'helm-rails-authorizers)
+  ;;   (global-set-key (kbd "C-c r c") 'helm-rails-controllers)
+  ;;   (global-set-key (kbd "C-c r d") 'helm-rails-decorators)
+  ;;   (global-set-key (kbd "C-c r m") 'helm-rails-models)
+  ;;   (global-set-key (kbd "C-c r s") 'helm-rails-specs)
+  ;;   (global-set-key (kbd "C-c r v") 'helm-rails-views)
+  ;;   (global-set-key (kbd "C-c r w") 'helm-rails-widgets)
+  ;;   (global-set-key (kbd "C-c r o") 'helm-rails-workers)))
 
 (provide 'cnb-helm)
