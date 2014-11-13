@@ -69,7 +69,7 @@
                        multiple-cursors muttrc-mode
                        ;; mu4e-maildirs-extension powerline mode-compile
                        paradox
-                       puppet-mode projectile ;;projectile-rails
+                       puppet-mode projectile projectile-rails
                        rainbow-delimiters
                        rainbow-mode rbenv rhtml-mode
                        ;; rinari
