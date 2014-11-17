@@ -22,9 +22,13 @@
     (ruby-block-mode t))
   (when (featurep 'flymake-ruby)
     (flymake-ruby-load))
+
+  (setq-local prettify-symbols-alist '(("lambda"  . ?λ)))
+
   (ignore-errors
     (ruby-refactor-mode-launch)
-  ;; (set (make-local-variable imenu-generic-expression)
+
+    ;; (set (make-local-variable imenu-generic-expression)
   ;;      '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
   ;;        ))
   ;;(subword-mode +1)
@@ -52,5 +56,6 @@
   (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 
   (add-hook 'ruby-mode-hook 'cnb/ruby-setup))
+
 
 (provide 'cnb-ruby)
