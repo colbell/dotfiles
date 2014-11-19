@@ -55,7 +55,6 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , resource  =? "desktop_window"    --> doIgnore
     , resource  =? "kdesktop"          --> doIgnore
     , className =? "MPlayer"           --> doFloat
---    , className =? "Gimp"              --> doFloat
     , className =? "Plasma"            --> doFloat
     , className =? "Plasma-desktop"    --> doFloat
     , className =? "Knotes"            --> doFloat
@@ -87,7 +86,7 @@ myHighlightedBgColor  = myBgColor
 myHighlightedFgColor  = "#FFA000"
 myCurrentWsBgColor    = myHighlightedBgColor
 myActiveBorderColor   = myHighlightedFgColor
-myInactiveBorderColor = "#d3d3d3"
+myInactiveBorderColor = "#89CFF0"
 
 myTabConfig = defaultTheme {
     activeBorderColor        = myBgColor, --myHighlightedFgColor,
