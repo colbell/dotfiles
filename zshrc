@@ -121,7 +121,9 @@ source $ZSH/oh-my-zsh.sh
 
 #unsetopt correct_all
 
-alias pkg-update='sudo etckeeper pre-install && sudo pacman -Syu && sudo etckeeper post-install'
+if grep -q 'ID=arch' /etc/os-release; then
+  alias pkg-update='sudo etckeeper pre-install && sudo pacman -Syu && sudo etckeeper post-install'
+fi
 
 autoload -Uz compinit
 compinit
