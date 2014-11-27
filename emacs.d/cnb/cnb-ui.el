@@ -33,7 +33,7 @@
   ;;(load-theme 'zenburn t)
   ;;(load-theme 'manoj-dark t)
   ;;(load-theme 'twilight t)
-  (load-theme 'leuven))
+  (load-theme 'leuven t))
 
 (when (require 'rainbow-delimiters nil t)
   ;; I can't see the default colors in some color schemes
