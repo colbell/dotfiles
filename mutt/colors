@@ -75,5 +75,7 @@ color index      green      default   ~N         # New
 color index      yellow     default   ~O         # Old
 color index      default    magenta   ~T         # Tagged
 color index      black      red       ~D         # Deleted
+color index      default    yellow    ~g         # Signed
 color index      magenta    default   ~fcol@baibell.org
 color index      magenta    default   ~fcbell@tickitondemand.com.au
+color index      magenta    default   ~fcolin@kwelasolutions.com
