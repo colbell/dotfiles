@@ -26,26 +26,29 @@ unignore x-spam-flag
 unignore x-spam-level
 unignore x-spam-score
 unignore x-spam-status
+unignore x-spam-rule
+unignore x-spam-probe
 unignore x-virus-scanned
 unignore x-virus-status
 unignore followup-to: mail-followup-to:
 unignore auto-submitted                               # ?
+unignore X-Fnord
 unignore x-pgp-key
 #unignore Received-SPF
 
 # Sequence headers.
-unhdr_order *
-hdr_order \
-From: Reply-To: \
-To: Cc: newsgroups: posted-to: x-newsgroups: x-posted-to: \
-Subject: Date: \
-x-message-flag: \
-User-Agent: X-Editor: X-Mailer: \
-X-Newsreader: X-Posting-Agent: \
-x-operating-system: \
-organisation: \
-Message-Id: In-Reply-To: References: \
-X-Resent- \
-Resent- \
-followup-to: mail-followup-to: \
-auto-submitted
+# unhdr_order *
+# hdr_order \
+# From: Reply-To: \
+# To: Cc: newsgroups: posted-to: x-newsgroups: x-posted-to: \
+# Subject: Date: \
+# x-message-flag: \
+# User-Agent: X-Editor: X-Mailer: \
+# X-Newsreader: X-Posting-Agent: \
+# x-operating-system: \
+# organisation: \
+# Message-Id: In-Reply-To: References: \
+# X-Resent- \
+# Resent- \
+# followup-to: mail-followup-to: \
+# auto-submitted

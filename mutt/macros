@@ -36,7 +36,7 @@ macro pager ,s <save-message>=[Gmail].Spam<enter>
 
 # Not only mark the thread as read and position to the next new/unread message
 # but also display that message which the default keybinding doesn't do.
-macro pager \cr <read-thread><display-message>
+# macro pager \cr <read-thread><display-message>
 
 
 # Searching mail via notmuch
