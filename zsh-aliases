@@ -1,0 +1,7 @@
+# -*- shell-script -*-
+
+if grep -q 'ID=arch' /etc/os-release; then
+  alias pkg-update='sudo etckeeper pre-install && sudo pacman -Syu && sudo etckeeper post-install'
+fi
+
+alias h='history'
