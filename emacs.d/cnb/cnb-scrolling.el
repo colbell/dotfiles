@@ -1,9 +1,9 @@
 (message (concat "[CNB] - Loading [" load-file-name "]"))
 
-(setq
- scroll-margin 0
- scroll-conservatively 100000)
- ;;scroll-preserve-screen-position t
+;; (setq
+;;  scroll-margin 0
+;;  scroll-conservatively 100000
+;;  scroll-preserve-screen-position t)
 
 (require 'smooth-scrolling nil t)
 
