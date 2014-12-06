@@ -86,7 +86,7 @@
 (define-prefix-command 'cnb/toggle-map)
 (define-key ctl-x-map "t" 'cnb/toggle-map)
 (define-key cnb/toggle-map "d" 'toggle-debug-on-error)
-(define-key cnb/toggle-map "l" 'linum-mode)
+(define-key cnb/toggle-map "l" 'nlinum-mode)
 (define-key cnb/toggle-map "n" 'cnb/narrow-or-widen-dwim)
 (define-key cnb/toggle-map "r" 'dired-toggle-read-only)
 (define-key cnb/toggle-map "v" 'visual-line-mode)
