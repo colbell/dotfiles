@@ -43,8 +43,8 @@
 ;;=======================
 ;; Things to do when you open a coding buffer.
 ;;=======================
-(require 'linum)
-(add-hook 'esk-coding-hook 'linum-on)
+(when (require 'nlinum nil t)
+  (add-hook 'esk-coding-hook 'nlinum-mode))
 
 ;;(add-hook 'esk-coding-hook 'imenu-add-menubar-index t)
 ;;(add-hook 'esk-coding-hook 'esk-pretty-lambdas)

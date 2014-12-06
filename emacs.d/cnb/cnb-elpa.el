@@ -68,6 +68,7 @@
                        mo-git-blame
                        multiple-cursors muttrc-mode
                        ;; mu4e-maildirs-extension powerline mode-compile
+                       nlinum
                        paradox
                        puppet-mode projectile projectile-rails
                        rainbow-delimiters
