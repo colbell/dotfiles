@@ -93,8 +93,11 @@
                                (mode . ruby-compilation-mode)))
                ("term" (or
                         (mode . term-mode)
-                        (mode . inf-ruby-mode)
                         (mode . sql-interactive-mode)))
+               ("repl" (or
+                        (mode . cider-repl-mode)
+                        (mode . inf-ruby-mode)
+                        (mode . nrepl-messages-mode)))
                ("source control" (or
                                   (mode . magit-mode)
                                   (mode . magit-commit-mode)
