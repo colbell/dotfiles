@@ -1,4 +1,4 @@
-{:user { :plugins [[cider/cider-nrepl "0.8.1"]
+{:user { :plugins [[cider/cider-nrepl "0.8.2-SNAPSHOT"]
                    [lein-ancient "0.5.5"]
                    [lein-annotations "0.1.0"]
                    [lein-bikeshed "0.1.8"]
