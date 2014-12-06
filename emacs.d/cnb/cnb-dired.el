@@ -105,7 +105,7 @@
 ;; Change M-> instead of moving to empty line at bottom  move to the last
 ;; file name.
 
-;; Allow <ALT>o to omit hidden files
+;; Allow <C-x><ALT>o to omit hidden files
 (require 'dired-x)
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\..+$"))
