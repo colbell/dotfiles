@@ -1,21 +1,15 @@
 # -*- shell-script -*-
 
-# Path to your oh-my-zsh configuration.
 export ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
 
 if [ -n "$INSIDE_EMACS" ]; then
     export ZSH_THEME="rawsyntax"
 else
-    export ZSH_THEME="robbyrussell"
+    #export ZSH_THEME="robbyrussell"
+    #export ZSH_THEME="alanpeabody"
+    #export ZSH_THEME="suvash"
+    export ZSH_THEME="gnzh"
 fi
-#export ZSH_THEME="alanpeabody"
-#export ZSH_THEME="suvash"
-#export ZSH_THEME="gnzh"
 
 export LANG='en_AU.utf8'
 export LC_CTYPE='en_AU.UTF-8'
@@ -125,6 +119,10 @@ if [ -f "$HOME/.zsh-aliases" ]; then
   source $HOME/.zsh-aliases
 fi
 
+if [ -f "$HOME/.zsh-funcs" ]; then
+  source $HOME/.zsh-funcs
+fi
+
 autoload -Uz compinit
 compinit
 
@@ -164,28 +162,5 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # %{$fg[green]%}%n@%m:%{$reset_color%}%{$fg[yellow]%}%~%{$reset_color%}
 # ${local_ruby}
 # ${smiley} %{$reset_color%}%# '
-
-
-P() {
-  echo $PATH | tr -s ':' '\n'
-}
-
-D()
-{
-  if [ $# -eq 0 ]; then
-    z=0
-    for i in `dirs`; do
-      echo $z $i
-      z=$((z+1))
-    done
-  elif [ $1 -gt 0 ]; then
-    pushd +$1
-  elif [ $1 -lt 0 ]; then
-    z=$1
-    popd +$((-z))
-  else
-    echo d: Broken
-  fi
-}
 
 #export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

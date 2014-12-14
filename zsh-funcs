@@ -1,0 +1,25 @@
+# -*- shell-script -*-
+
+# Pretty print current path.
+P() {
+  echo $PATH | tr -s ':' '\n'
+}
+
+# Pretty print directory history
+D()
+{
+  if [ $# -eq 0 ]; then
+    z=0
+    for i in `dirs`; do
+      echo $z $i
+      z=$((z+1))
+    done
+  elif [ $1 -gt 0 ]; then
+    pushd +$1
+  elif [ $1 -lt 0 ]; then
+    z=$1
+    popd +$((-z))
+  else
+    echo d: Broken
+  fi
+}
