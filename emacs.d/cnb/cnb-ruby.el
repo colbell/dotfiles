@@ -1,9 +1,34 @@
 (message (concat "[CNB] - Loading [" load-file-name "]"))
 
-;;;; RUBY
+(use-package ruby-mode
+  :ensure ruby-mode
+  :init
+  (progn
+    (setq imenu-generic-expression
+          '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
+    (yard-mode)
+    (outline-minor-mode)
+    (when (featurep 'ruby-block)
+      (ruby-block-mode t))
+    (when (featurep 'flymake-ruby)
+      (flymake-ruby-load))
 
-(when (require 'rvm nil t)
-  (rvm-autodetect-ruby))
+    (setq-local prettify-symbols-alist '(("lambda"  . ?λ)))
+
+    ;; I use C-x t for toggling globally
+    (define-key ruby-mode-map "\C-xt" nil)
+
+    (ignore-errors (ruby-refactor-mode-launch)
+
+
+   )
+    )
+
+(use-package rvm
+  :ensure rvm
+  :init
+  (progn
+    (rvm-autodetect-ruby)))
 
 ;;(add-hook 'projectile-mode-hook 'projectile-rails-on)
 (require 'rspec-mode nil t)
@@ -13,21 +38,6 @@
   '(progn (diminish 'ruby-refactor-mode "RR")))
 
 (defun cnb/ruby-setup ()
-  (setq imenu-generic-expression
-        '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
-  (yard-mode)
-  ;;(auto-fill-mode)
-  (outline-minor-mode)
-  (when (featurep 'ruby-block)
-    (ruby-block-mode t))
-  (when (featurep 'flymake-ruby)
-    (flymake-ruby-load))
-
-  (setq-local prettify-symbols-alist '(("lambda"  . ?λ)))
-
-  (ignore-errors
-    (ruby-refactor-mode-launch)
-
     ;; (set (make-local-variable imenu-generic-expression)
   ;;      '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
   ;;        ))
@@ -41,8 +51,6 @@
 
   (define-key ruby-mode-map (kbd "RET") 'newline-and-indent)
 
-  ;; I use C-x t for toggling globally
-  (define-key ruby-mode-map "\C-xt" nil)
 
   (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))

@@ -29,6 +29,7 @@ import XMonad.Prompt ( XPConfig(..), XPPosition(..), defaultXPConfig
 import XMonad.Prompt.Man
 -- import XMonad.Prompt.Theme
 import XMonad.Prompt.RunOrRaise
+import XMonad.Prompt.Ssh
 import XMonad.Prompt.Window
 
 import XMonad.Util.EZConfig(additionalKeys)
@@ -141,7 +142,7 @@ main = do
                  , ((myModMask .|. shiftMask, xK_g),   windowPromptBring myXPConfig { autoComplete = Just 500000 } )
                  , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
                  , ((myModMask, xK_o ),                windowMenu)
-
+                 , ((myModMask .|. controlMask, xK_h), sshPrompt myXPConfig)
                  , ((myModMask .|. controlMask, xK_w), swapPrevScreen)
                  , ((myModMask .|. controlMask, xK_e), swapNextScreen)
 
