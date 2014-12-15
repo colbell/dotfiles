@@ -12,13 +12,11 @@
 (setq load-prefer-newer t)
 
 
-(require 'org)
+;;(require 'org)
 (org-babel-load-file (concat personal-dotfiles-dir "/init.org"))
 
 ;;(require 'cnb-elpa)            ;; Package manager stuff
 (require 'cnb-lisp)            ;; Lisp, Clojure etc.
-(require 'cnb-nonstd-cmds)     ;; Enable non-std commands
-(require 'cnb-print)           ;; Printing
 (require 'cnb-modeline)        ;; Modeline config
 
 (require 'time)
