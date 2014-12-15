@@ -15,36 +15,20 @@
 (require 'org)
 (org-babel-load-file (concat personal-dotfiles-dir "/init.org"))
 
-;; Load settings set by the "Customize" interface.
-;; (setq custom-file (concat dotfiles-dir "emacs-custom.el"))
-;; (load custom-file t)
-
 
 ;;(require 'cnb-elpa)            ;; Package manager stuff
 (require 'cnb-defuns)          ;; Utility functions
-(require 'cnb-ui)              ;; Basic UI setup
 
-;;FIXME:
-(require 'cnb-keychord)        ;; Keychord setup
-
-(require 'cnb-rvm)             ;; Ruby version manager
 (require 'cnb-lisp)            ;; Lisp, Clojure etc.
 
-;;FIXME:
-(require 'cnb-coding-hook)     ;; Setup for coding buffers
-
-;;FIXME:
-(require 'cnb-ruby)            ;; Ruby mode config
 
 (require 'cnb-nonstd-cmds)     ;; Enable non-std commands
-(require 'cnb-term)            ;; Terminal mode
+
 (require 'cnb-print)           ;; Printing
 
 (require 'cnb-edit-server)     ;; Edit within Chrome
 ;;(require 'cnb-sessions)        ;; Sessions
 (require 'cnb-modeline)        ;; Modeline config
-(require 'cnb-org)             ;; Org mode config
-(require 'cnb-global-keys)     ;; Global key bindings
 
 (require 'time)
 (defun cnb/init-time()

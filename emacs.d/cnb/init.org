@@ -1,5 +1,16 @@
 #+TITLE: Emacs Configuration
-#+OPTIONS: toc:4 h:4
+#+OPTIONS: toc:5 h:5
+
+#+OPTIONS: html-link-use-abs-url:nil html-postamble:auto html-preamble:t
+#+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
+#+HTML_CONTAINER: div
+#+HTML_DOCTYPE: xhtml-strict
+#+HTML_HEAD_EXTRA: Emacs Configuration as pretty HTML. See <tt>init.org</tt> for the actual configuration source.
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT: view:info toc:5
+
 * Introduction
 ** On Emacs
 #+begin_quote
@@ -87,33 +98,30 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
 
 #+begin_src emacs-lisp
   (use-package diminish)
-    ;; :init
-    ;; (progn
-    ;;   (require 'diminish)))
 #+end_src
 
 *** Theme
 
 #+begin_src emacs-lisp
-  ;; (use-package zenburn-theme
-  ;;   :ensure zenburn-theme
-  ;;   :config
-  ;;   (progn
-  ;;     (load-theme 'zenburn t)))
-
   (use-package solarized-theme
     :ensure solarized-theme
-    :config
+    :defer t
+
+    :init
     (progn
-      (load-theme 'solarized-light t)))
+      (setq solarized-distinct-fringe-background t)
+      (setq solarized-scale-org-headlines nil)
+      (setq solarized-use-variable-pitch nil)
+      (setq solarized-use-more-italic t)
+      (setq solarized-use-less-bold +1)
+      (load-theme 'solarized-dark t)))
 
 #+end_src
 
 *** Font
 
 #+begin_src emacs-lisp
-(set-frame-font "Source Code Pro-10" nil t)
-(set-default-font "Source Code Pro-10" nil t)
+  (set-frame-font "Source Code Pro-10" nil t)
 #+end_src
 
 *** Remove Unnecessary Clutter
@@ -247,6 +255,15 @@ Don't let the cursor go into the minibuffer prompt
         (quote (read-only t point-entered minibuffer-avoid-prompt
                           face minibuffer-prompt)))
 #+end_src
+*** Line Numbers
+
+Show line numbers in fringe
+
+#+begin_src emacs-lisp
+(use-package nlinum
+  :ensure nlinum)
+#+end_src
+
 *** General
 
 Move mouse cursor when text cursor gets too close.
@@ -268,7 +285,24 @@ Use a visible bell instead of a beep.
   (setq visible-bell t)
 #+end_src
 
+Prompt to exit Emacs
+
+#+begin_src emacs-lisp
+  (setq confirm-kill-emacs 'y-or-n-p)
+#+end_src
+
 ** General
+*** Key Chords
+#+begin_src emacs-lisp
+  (use-package key-chord
+    :ensure key-chord
+
+    :init
+    (progn
+      (key-chord-mode 1)
+      (setq key-chord-two-keys-delay 0.2)))
+#+end_src
+
 *** Backup Files
 
 #+begin_src emacs-lisp
@@ -726,22 +760,13 @@ Formatting of white space.
       (setq whitespace-style '(face tabs empty trailing lines-tail))
       (set-default 'show-trailing-whitespace t)
       (setq whitespace-line-column 80)
+      (global-whitespace-mode)
       (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
 
       ;; Don't highlight WS in some modes.
       (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
                                       eww-mode-hook completion-list-mode-hook))
         (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
-#+end_src
-
-*** Registers
-#+begin_src emacs-lisp
-  ;; (use-package better-registers
-  ;;   :ensure better-registers
-  ;;   :config
-  ;;   (progn
-  ;;     (setq better-registers-save-file (concat dotfiles-dir "emacsregisters.el"))
-  ;;     (better-registers-install-save-registers-hook)))
 #+end_src
 
 *** Spelling
@@ -798,6 +823,7 @@ Helm is an interactive completion tool.
            ("C-x b"                . helm-buffers-list)
            ("C-x C-f"              . helm-find-files)
            ("C-h a"                . helm-apropos)
+           ("C-x C-i"              . imenu)
            ([remap occur]          . helm-occur)
            ([remap list-buffers]   . helm-buffers-list)
            ([remap dabbrev-expand] . helm-dabbrev)))
@@ -988,14 +1014,27 @@ Bind 'o' to links in Help and Info buffers
   (global-set-key (kbd "M-r") 'cnb/rotate-windows)
 #+end_src
 ** Selection
+
+Shift/arrow keys extend selection.
+
+#+begin_src emacs-lisp
+  (setq shift-select-mode t)
+#+end_src
+
+Smart selection.
+
 #+begin_src emacs-lisp
   (use-package expand-region
     :ensure expand-region
     :bind (("C-=" . er/expand-region)))
-
 #+end_src
 
 ** Copying, Killing and Moving
+*** Kill ring Integration
+#+begin_src emacs-lisp
+  (setq save-interprogram-paste-before-kill t)
+#+end_src
+
 *** Use Trash Folder
 
 Move deleted files to system trash folder.
@@ -1102,7 +1141,7 @@ line. http://www.emacswiki.org/emacs/SlickCopy
   (defalias 'qrr 'query-replace-regexp)
 #+end_src
 
-** Utiliies
+** Utilities
 
 Increase/decrease buffer font size.
 
@@ -1110,6 +1149,17 @@ Increase/decrease buffer font size.
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
 
+#+end_src
+
+*** Discover My Major
+
+Discover key bindings and their meaning for the current Emacs major mode.
+
+#+begin_src emacs-lisp
+  (use-package discover-my-major
+    :ensure discover-my-major
+    :bind (("C-h C-m" . discover-my-major))
+  )
 #+end_src
 
 ** Programming Utilities
@@ -1327,15 +1377,21 @@ Deal with parens in a smart way.
 #+end_src
 
 *** Flymake
+
+Run syntax checking in the background and highlight any errors.
+
 #+begin_src emacs-lisp
   (use-package flymake
     :ensure flymake
     :diminish flymake-mode
     :bind ("C-c C-e" . flymake-popup-current-error-menu))
+#+end_src
 
+Display flymake errors in the mini-buffer.
+
+#+begin_src emacs-lisp
   (use-package flymake-cursor
-      :ensure flymake-cursor)
-
+    :ensure flymake-cursor)
 #+end_src
 
 *** Diff
@@ -1360,9 +1416,81 @@ Deal with parens in a smart way.
 
 #+end_src
 
+*** Color Identifiers Mode
+
+Uniquely highlight each source code identifier based on its name.
+
+#+begin_src emacs-lisp
+  (use-package color-identifiers-mode
+    :ensure color-identifiers-mode
+    :diminish color-identifiers-mode
+    :commands global-color-identifiers-mode
+
+    :config
+    (progn
+      ;; Treat Web mode the same as HTML mode.
+      (add-to-list
+       'color-identifiers:modes-alist
+       `(web-mode . ("</?!?"
+                     "\\_</?!?\\([a-zA-Z_$]\\(?:\\s_\\|\\sw\\)*\\)"
+                     (nil font-lock-function-name-face))))
+      (add-hook 'after-init-hook 'global-color-identifiers-mode)))
+
+#+end_src
+
+*** Coding Hook
+
+Based on Emacs Starter Kit. Some standard functionality for coding buffers.
+#+begin_src emacs-lisp
+  (defvar cnb/coding-hook nil
+    "Hook that gets run on activation of any programming mode.")
+
+  (defun cnb/add-watchwords ()
+    "Tedxt to be emphaised in comments."
+    (font-lock-add-keywords
+     nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
+            1 font-lock-warning-face t))))
+
+  (defun cnb/run-coding-hook ()
+    "Enable things that are convenient across all coding buffers."
+    (run-hooks 'cnb/coding-hook))
+
+
+  ;;=======================
+  ;; Things to do when you open a coding buffer.
+  ;;=======================
+  (add-hook 'cnb/coding-hook 'nlinum-mode)
+  (add-hook 'cnb/coding-hook 'cnb/add-watchwords)
+  (add-hook 'cnb/coding-hook 'hs-minor-mode)
+  (add-hook 'cnb/coding-hook 'subword-mode)
+  (add-hook 'cnb/coding-hook 'flyspell-prog-mode t)
+
+  (when (fboundp 'yas/minor-mode)
+    (add-hook 'cnb/coding-hook 'yas/minor-mode))
+
+  (when (fboundp 'rainbow-delimiters-mode)
+    (add-hook 'cnb/coding-hook 'rainbow-delimiters-mode))
+
+
+  ;;=======================
+  ;; Modes to treat as coding buffers
+  ;;=======================
+  (add-hook 'prog-mode-hook        'cnb/run-coding-hook)
+  (add-hook 'conf-mode-hook        'cnb/run-coding-hook)
+  (add-hook 'css-mode-hook         'cnb/run-coding-hook)
+  (add-hook 'cucumber-mode-hook    'cnb/run-coding-hook)
+  (add-hook 'diff-hook             'cnb/run-coding-hook)
+  (add-hook 'feature-mode-hook     'cnb/run-coding-hook)
+  (add-hook 'markdown-mode-hook    'cnb/run-coding-hook)
+  (add-hook 'rhtml-mode-hook       'cnb/run-coding-hook)
+  (add-hook 'yaml-mode-hook        'cnb/run-coding-hook)
+  (add-hook 'lisp-interaction-mode 'cnb/run-coding-hook)
+
+#+end_src
+
 ** Programming Modes
 *** Clojure
-**** Source Code Mode.
+**** Clojure Mode.
 
 #+begin_src emacs-lisp
 (use-package clojure-mode
@@ -1486,6 +1614,107 @@ Clojure documentation.
                 '(lambda() (coffee-custom)))
       ))
 
+#+end_src
+
+*** Ruby
+**** Ruby Mode
+#+begin_src emacs-lisp
+  (use-package ruby-mode
+    :ensure ruby-mode
+    :mode (("Capfile$"     . ruby-mode)
+           ("Gemfile$"     . ruby-mode)
+           ("Rakefile$"    . ruby-mode)
+           ("Vagrantfile$" . ruby-mode)
+           ("\\.gemspec$"  . ruby-mode)
+           ("\\.prawn$"    . ruby-mode)
+           ("\\.rake$"     . ruby-mode)
+           ("\\.rjs$"      . ruby-mode)
+           ("\\.ru$"       . ruby-mode)
+           ("\\.rb$"       . ruby-mode))
+
+    :init
+    (progn
+      (defun cnb/ruby-setup ()
+        ;; (set (make-local-variable imenu-generic-expression)
+        ;;      '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
+        ;;        ))
+        ;;(subword-mode +1)
+        (robe-mode)
+        (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
+
+        (setq imenu-generic-expression
+              '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
+        (yard-mode)
+        (outline-minor-mode)
+        (when (featurep 'ruby-block)
+          (ruby-block-mode t))
+        (flymake-ruby-load)
+        (ignore-errors (ruby-refactor-mode-launch))
+        (setq-local prettify-symbols-alist '(("lambda"  . ?λ))))
+
+      ;; I use C-x t for toggling globally
+      (define-key ruby-mode-map "\C-xt" nil)
+
+      (add-hook 'ruby-mode-hook 'cnb/ruby-setup)
+      (define-key ruby-mode-map (kbd "RET") 'newline-and-indent)))
+#+end_src
+
+**** Ruby Refactoring
+#+begin_src emacs-lisp
+  (use-package ruby-refactor
+    :ensure ruby-refactor
+    :diminish ruby-refactor-mode)
+#+end_src
+
+**** RVM
+#+begin_src emacs-lisp
+  (use-package rvm
+    :ensure rvm
+    :init
+    (progn
+      (rvm-autodetect-ruby)))
+#+end_src
+**** Robe
+#+begin_src emacs-lisp
+    (use-package robe
+      :ensure robe
+      :diminish robe-mode)
+
+#+end_src
+**** Ruby Flymake
+
+#+begin_src emacs-lisp
+  (use-package flymake-ruby
+    :ensure flymake-ruby)
+#+end_src
+
+**** Yard Mode
+
+Font lock for Ruby Yard comments.
+
+#+begin_src emacs-lisp
+    (use-package yard-mode
+      :ensure yard-mode
+      :diminish yard-mode)
+#+end_src
+
+**** Inf-ruby
+#+begin_src emacs-lisp
+  (use-package inf-ruby
+    :ensure inf-ruby)
+#+end_src
+
+*** Rspec
+#+begin_src emacs-lisp
+  (use-package rspec-mode
+    :ensure rspec-mode)
+#+end_src
+
+*** Haskell
+
+#+begin_src emacs-lisp
+  (use-package haskell-mode
+    :ensure haskell-mode)
 #+end_src
 
 ** Markup Modes
@@ -1615,6 +1844,65 @@ Clojure documentation.
   (setq doc-view-continuous t)
 #+end_src
 
+*** Terminal
+#+begin_src emacs-lisp
+  (add-hook
+   'term-mode-hook
+   (function
+    (lambda ()
+      (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
+      (make-local-variable 'mouse-yank-at-point)
+      (make-local-variable 'transient-mark-mode)
+      (setq mouse-yank-at-point t)
+      (setq transient-mark-mode nil)
+      (auto-fill-mode -1)
+      (setq tab-width 2))))
+#+end_src
+
+*** Org
+#+begin_src emacs-lisp
+  (use-package org
+    :diminish org-mode)
+#+end_src
+
+#+begin_src emacs-lisp
+  (setq org-directory "~/Dropbox/org/")
+  (setq org-default-notes-file (concat org-directory "/organizer.org"))
+  (setq org-agenda-files (quote ("~/Dropbox/org/personal.org" "~/Dropbox/org/work.org")))
+
+  (add-hook 'org-mode-hook 'turn-off-auto-fill)
+#+end_src
+
+#+begin_src emacs-lisp
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
+                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
+
+  (setq org-todo-keyword-faces
+        (quote (("TODO" :foreground "red" :weight bold)
+                ("STARTED" :foreground "cyan" :weight bold)
+                ("DONE" :foreground "forest green" :weight bold)
+                ("WAITING" :foreground "orange" :weight bold)
+                ("HOLD" :foreground "magenta" :weight bold)
+                ("CANCELLED" :foreground "forest green" :weight bold)
+                ("PHONE" :foreground "forest green" :weight bold))))
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package deft
+    :ensure deft
+    :bind (("<f9>" . deft))
+
+    :init
+    (progn
+      (setq
+       deft-extension "org"
+       deft-directory(concat org-directory "deft/")
+       deft-text-mode 'org-mode
+       deft-extension "org")))
+
+#+end_src
+
 ** Web Browsers
 *** w3m
 #+begin_src emacs-lisp
@@ -1624,6 +1912,26 @@ Clojure documentation.
 #+end_src
 
 ** Key Maps
+*** Global Map
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "<f8> <f1>") 'repeat-complex-command)
+#+end_src
+
+When you drag and drop a file into an Emacs buffer open it instead of
+inserting it into the current buffer.
+
+#+begin_src emacs-lisp
+  (define-key global-map [ns-drag-file] 'ns-find-file)
+#+end_src
+
+I press these too often
+
+#+begin_src emacs-lisp
+  (global-unset-key (kbd "C-z"))
+  (global-unset-key (kbd "C-x C-z"))
+#+end_src
+
 *** Toggle Map
 
 Toggle various minor modes, based on an Endless Parentheses Blog [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][post]]
@@ -1670,23 +1978,33 @@ Remember current position in file.
 Remember open buffers.
 
 #+begin_src emacs-lisp
-  (use-package desktop
-    :demand
+    (use-package desktop
+      :demand t
 
-    :config
-    (progn
-     (desktop-save-mode 1)
-     (setq desktop-restore-frames nil) ;; Probs with emacsclient
-     (setq desktop-load-locked-desktop nil)
-     (setq desktop-restore-eager 10) ;; Open first X immed then rest in background
-     ;;(setq desktop-restore-eager t)
-     (add-to-list 'desktop-modes-not-to-save 'dired-mode)
-     (setq desktop-globals-to-save (delete 'tags-file-name desktop-globals-to-save))
-     (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save))))
+      :init
+      (progn
+       (desktop-save-mode 1)
+       (setq desktop-restore-frames nil) ;; Probs with emacsclient
+       (setq desktop-load-locked-desktop nil)
+       (setq desktop-restore-eager 10) ;; Open first X immed then rest in background
+       ;;(setq desktop-restore-eager t)
+
+       (setq desktop-globals-to-save (delete 'tags-file-name desktop-globals-to-save))
+       (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save)))
+
+      :config
+      (progn
+        (add-to-list 'desktop-modes-not-to-save 'dired-mode)))
 
 #+end_src
 
 ** Put somewhere
+
+
+#+begin_src emacs-lisp
+  (use-package httpcode
+    :ensure httpcode)
+#+end_src
 
 By default truncate long lines.
 
@@ -1704,16 +2022,57 @@ By default truncate long lines.
 
 
 
-;;(setq browse-url-browser-function 'browse-url-firefox)
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium-browser")
+  ;;(setq browse-url-browser-function 'browse-url-firefox)
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "chromium-browser")
 
-(setq compilation-scroll-output t)
-(global-auto-revert-mode t)
-(setq auto-revert-verbose nil)
-(setq global-auto-revert-non-file-buffers t)
+  (setq compilation-scroll-output t)
+  (global-auto-revert-mode t)
+  (setq auto-revert-verbose nil)
+  (setq global-auto-revert-non-file-buffers t)
+
+  (setq redisplay-dont-pause t)
+
+  (setq sentence-end-double-space nil)
+  (setq apropos-do-all t)
+  (auto-image-file-mode)
 
 
+
+  (set-default 'indent-tabs-mode nil)
+
+  (set-default 'imenu-auto-rescan t)
+
+  (setenv "PAGER" "cat")
+
+
+  (setq echo-keystrokes 0.1)
+
+
+  (setq shift-select-mode t
+        mouse-yank-at-point t
+        ;;save-interprogram-paste-before-kill t
+        require-final-newline t
+        ediff-window-setup-function 'ediff-setup-windows-plain)
+
+#+end_src
+
+
+#+begin_src emacs-lisp
+  (use-package ack-and-a-half
+    :ensure ack-and-a-half)
+
+  (use-package auctex
+    :ensure auctex
+    :defer)
+
+  (use-package csv-mode
+    :ensure csv-mode)
+
+  ;; Required by projectile.
+  (use-package f
+    :ensure f
+    :defer)
 #+end_src
 
 ** Load "Customize" Interface.
@@ -1725,12 +2084,19 @@ By default truncate long lines.
 ** Do I need these?
 
 #+begin_src emacs-lisp
-  ;; (setq truncate-partial-width-windows nil)
-  ;; (electric-layout-mode)
+      ;; (setq truncate-partial-width-windows nil)
+      ;; (electric-layout-mode)
+      ;; (setq completion-cycle-threshold 5)
+      ;; (setq redisplay-dont-pause t)
+      ;; How often do I key a comma without a trailing space?
+      ;; Commented out as I just can't stop pressing the space-bar
+      ;; (global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
+    (use-package findr
+      :ensure findr)
 
+  (use-package inflections
+    :ensure inflections)
 
-;; How often do I key a comma without a trailing space?
-;; Commented out as I just can't stop pressing the space-bar
-;;(global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
-
+  (use-package jump
+    :ensure jump)
 #+end_src
