@@ -15,22 +15,14 @@
 (require 'org)
 (org-babel-load-file (concat personal-dotfiles-dir "/init.org"))
 
-
 ;;(require 'cnb-elpa)            ;; Package manager stuff
-(require 'cnb-defuns)          ;; Utility functions
-
 (require 'cnb-lisp)            ;; Lisp, Clojure etc.
-
-
 (require 'cnb-nonstd-cmds)     ;; Enable non-std commands
-
 (require 'cnb-print)           ;; Printing
-
-(require 'cnb-edit-server)     ;; Edit within Chrome
-;;(require 'cnb-sessions)        ;; Sessions
 (require 'cnb-modeline)        ;; Modeline config
 
 (require 'time)
+
 (defun cnb/init-time()
   (message (concat "Startup Time: " (emacs-init-time))))
 
