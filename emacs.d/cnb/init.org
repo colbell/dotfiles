@@ -1152,6 +1152,46 @@ line. http://www.emacswiki.org/emacs/SlickCopy
   (defalias 'qrr 'query-replace-regexp)
 #+end_src
 
+** Printing
+#+begin_src emacs-lisp
+  (require 'printing)
+  (pr-update-menus t)
+
+  (setenv "CUPS_SERVER" "localhost")
+  (require 'cups nil t)
+
+  (setq ps-printer-name t)
+
+  (defun cnb-print-to-pdf ()
+    "Print the current buffer to a PDF"
+    (interactive)
+    (let ((ps-file (concat (buffer-name) ".ps"))
+          (pdf-file (concat (buffer-name) ".pdf")))
+      (ps-spool-buffer-with-faces)
+      (switch-to-buffer "*PostScript*")
+      (write-file ps-file)
+      (kill-buffer ps-file)
+      (shell-command
+       (concat "ps2pdf14 " ps-file " " pdf-file))
+      (delete-file ps-file)
+      (find-file pdf-file)
+      (message (concat "PDF Saved to: " (buffer-name) ".pdf"))))
+#+end_src
+
+** Enable Commands
+#+begin_src emacs-lisp
+  ;;(setq  disabled-command-hook nil)                 ;; Enable commands disabled by default for novice users
+  (put 'narrow-to-region 'disabled nil)               ;; ("C-x n n")
+  (put 'narrow-to-defun 'disabled nil)                ;; ("C-x n d")
+  (put 'narrow-to-page 'disabled nil)                 ;; ("C-x n p")
+  (put 'downcase-region 'disabled nil)                ;; ("C-x C-l")
+  (put 'upcase-region 'disabled nil)                  ;; ("C-x C-u")
+  (put 'dired-find-alternate-file 'disabled nil)      ;; 'a' in dired mode
+
+  ;; (put 'erase-buffer 'disabled nil)
+  ;; (global-set-key (kbd "C-c E")  'erase-buffer)
+#+end_src
+
 ** Utilities
 
 Increase/decrease buffer font size.
@@ -1425,6 +1465,12 @@ Display flymake errors in the mini-buffer.
       (setq speedbar-show-unknown-files t)
       (setq speedbar-verbosity-level 2)))
 
+#+end_src
+
+*** Rainbow Mode
+#+begin_src emacs-lisp
+  (use-package rainbow-mode
+    :ensure rainbow-mode)
 #+end_src
 
 *** Color Identifiers Mode
@@ -1823,6 +1869,12 @@ Font lock for Ruby Yard comments.
       (add-hook 'sass-mode-hook 'flymake-sass-load)))
 
 #+end_src
+*** Less CSS
+#+begin_src emacs-lisp
+  (use-package less-css-mode
+    :ensure less-css-mode)
+#+end_src
+
 *** Text
 #+begin_src emacs-lisp
   (add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -2010,6 +2062,17 @@ Remember open buffers.
 #+end_src
 
 ** Put somewhere
+
+#+begin_src emacs-lisp
+  (use-package esup
+    :ensure esup)
+
+  (use-package log4j-mode
+    :ensure log4j-mode)
+
+  (use-package lua-mode
+    :ensure lua-mode)
+#+end_src
 
 #+begin_src emacs-lisp
   ;; From http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
