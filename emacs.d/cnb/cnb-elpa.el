@@ -47,9 +47,9 @@
         '(
           ;;ace-jump-mode ace-jump-zap ace-link
                         ;;ace-window
-                        ack-and-a-half
+                        ;;ack-and-a-half
                         ;;align-cljlet;; anti-zenburn-theme
-                       auctex ;;auto-complete auto-dim-other-buffers
+                       ;;auctex ;;auto-complete auto-dim-other-buffers
                        ;;autopair
                        ;;better-registers
                        ;;bm
@@ -62,33 +62,34 @@
                        ;;clojure-cheatsheet
                        ;;clojure-mode clojure-mode-extra-font-locking
                        ;;clojure-test-mode ;; Deprecated but required by midje-mode
-                       coffee-mode
+                       ;;coffee-mode
                        ;;color-identifiers-mode
                        ;;company
                        ;;company-cider ;; Cider supports company directly.
-                       creole-mode
+                       ;;creole-mode
                        ;;crontab-mode
-                       crosshairs csv-mode
-                       deft
+          ;;crosshairs
+          ;;csv-mode
+            ;;           deft
                        ;;diminish
                        ;;dired+
-                       discover-my-major
+              ;;         discover-my-major
                        ;;drag-stuff
                        ;;edit-server edit-server-htmlize
                        ;;enh-ruby-mode ensime
                        ;;etags-select
                        esup
                        ;;expand-region
-                       f  ;; Required by projectile.
+                       ;;f
                        ;;feature-mode
                        ;;find-file-in-project
                        ;;find-file-in-repository
-                       findr
+                       ;;findr
                        ;;flymake
-                       flymake-coffee
+                       ;;flymake-coffee
                        ;;flymake-cursor
                        ;;flymake-haml
-                       flymake-ruby
+                       ;;flymake-ruby
                        ;;flymake-sass
                        ;;furl
                        ;;git-gutter
@@ -97,16 +98,21 @@
                        ;;goto-chg
                        ;;haml-mode
                        ;;handlebars-mode
-                       haskell-mode httpcode
+                       ;;haskell-mode httpcode
                        ;;helm
                        ;;helm-git
-                       helm-c-yasnippet helm-projectile helm-rails
+                       helm-c-yasnippet
+                       helm-projectile
+                       helm-rails
                        ;;helm-swoop
-                       hungry-delete ibuffer-vc ;;icicles
+                       ;;hungry-delete
+                       ;;ibuffer-vc ;;icicles
                        ;;idle-highlight
-                       inf-ruby inflections
+                       ;;inf-ruby
+                       ;;inflections
                        ;;jabber
-                       jump key-chord less-css-mode log4j-mode lua-mode
+                       ;; jump
+                       key-chord less-css-mode log4j-mode lua-mode
                        ;;magit
                        ;;markdown-mode
                        ;;midje-mode
@@ -146,7 +152,8 @@
                        ;;web-mode
                          ;;window-jump
                        ;;yaml-mode
-                           yard-mode yasnippet
+                       ;;yard-mode
+                       yasnippet
                        ;;yasnippet-bundle
                        zenburn-theme))
 

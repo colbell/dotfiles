@@ -22,19 +22,6 @@
 
 
 
-(defun tab-two ()
-  (interactive)
-  (setq tab-width 2))
-
-
-(defun tab-four ()
-  (interactive)
-  (setq tab-width 4))
-
-
-(defun tab-eight ()
-  (interactive)
-  (setq tab-width 8))
 
 ;; From http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
 (defun cnb/narrow-or-widen-dwim (p)
