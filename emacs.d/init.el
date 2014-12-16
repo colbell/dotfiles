@@ -11,17 +11,6 @@
 
 (setq load-prefer-newer t)
 
-
-;;(require 'org)
 (org-babel-load-file (concat personal-dotfiles-dir "/init.org"))
 
-;;(require 'cnb-elpa)            ;; Package manager stuff
-(require 'cnb-lisp)            ;; Lisp, Clojure etc.
-(require 'cnb-modeline)        ;; Modeline config
-
-(require 'time)
-
-(defun cnb/init-time()
-  (message (concat "Startup Time: " (emacs-init-time))))
-
-(add-hook 'after-init-hook 'cnb/init-time)
+(require 'cnb-lisp)
