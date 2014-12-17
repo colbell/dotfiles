@@ -2167,16 +2167,23 @@ Remember open buffers.
      (setq desktop-restore-eager 10)   ;; Open first X immed then rest in background
 
      (setq desktop-globals-to-save (delete 'tags-file-name desktop-globals-to-save))
-     (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save))
-
-     (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
-
-     (savehist-mode))
+     (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save)))
 
     :config
     (progn
       (add-to-list 'desktop-modes-not-to-save 'dired-mode)))
 #+end_src
+
+Remember command and search history.
+
+#+begin_src emacs-lisp
+  (use-package save-hist
+    :init
+    (progn
+      (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
+      (savehist-mode)))
+#+end_src
+
 
 ** Put somewhere
 
