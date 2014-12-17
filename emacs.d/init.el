@@ -7,8 +7,8 @@
 ;; I use keys that start with C-o for personal mappings.
 (global-unset-key "\C-o")
 
-(setq my-el-f (concat dotfiles-dir "/colbell.el"))
-(setq my-org-f (concat dotfiles-dir "/colbell.org"))
+(setq my-el-f (concat dotfiles-dir "colbell.el"))
+(setq my-org-f (concat dotfiles-dir "colbell.org"))
 
 ;; Use org-babel-load-file to compile colbell.org into colbell.el and
 ;; then load colbell.el. Only do this if colbell.el doesn't exist or
