@@ -5,7 +5,7 @@
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
 #+HTML_CONTAINER: div
 #+HTML_DOCTYPE: xhtml-strict
-#+HTML_HEAD_EXTRA: Emacs Configuration as pretty HTML. See <tt>init.org</tt> for the actual configuration source.
+#+HTML_HEAD_EXTRA: Emacs Configuration as pretty HTML. See <tt>colbell.org</tt> for the actual configuration source.
 #+HTML_LINK_HOME:
 #+HTML_LINK_UP:
 #+HTML_MATHJAX:
@@ -27,6 +27,8 @@ brighter; it simply makes everything else vanish.
 I'm currently converting my Emacs configuration to an Org file which
 can be loaded using =(org-babel-load-file /path/to/file)=. The
 original inspiration came from a blog post by [[http://sachachua.com/blog/2012/06/literate-programming-emacs-configuration-file/][Sacha Chua]].
+
+I'm also using the [[https://github.com/jwiegley/use-package][use-package]] macro to simplify package handing.
 
 * Settings
 ** Personal information
@@ -238,8 +240,19 @@ Don't let the cursor go into the minibuffer prompt
 Show line numbers in fringe
 
 #+begin_src emacs-lisp
-(use-package nlinum
-  :ensure nlinum)
+  (use-package nlinum
+    :ensure nlinum
+
+    :init
+    (progn
+      ;; precalculate the line number width to avoid horizontal jumps on scrolling.
+      ;; From: http://www.emacswiki.org/LineNumbers
+      (add-hook
+       'nlinum-mode-hook
+       (lambda ()
+         (setq nlinum--width
+               (length (number-to-string
+                        (count-lines (point-min) (point-max)))))))))
 #+end_src
 
 *** General
@@ -316,6 +329,7 @@ Show current key bindings
     :bind (("C-h b" . helm-descbinds)))
 #+end_src
 ** General
+*** Imenu
 *** Tabs
 
 Don't use them, use spaces instead. Default spacing to 2 spaces.
@@ -1413,21 +1427,20 @@ Deal with parens in a smart way.
 
 *** Snippets
 #+begin_src emacs-lisp
-    (use-package yasnippet
-      :ensure yasnippet
-      :diminish yas-minor-mode
+  (use-package yasnippet
+    :ensure yasnippet
+    :diminish yas-minor-mode
 
-      :bind (("C-S-c y" . yas-insert-snippet))
+    :init
+    (progn
+      (yas-global-mode 1)))
+      ;;(setq yas-prompt-functions '(yas-ido-prompt
+      ;;                             yas-completing-prompt))
 
-      :init
-      (progn
-        (yas-global-mode 1)
-        (setq yas-prompt-functions '(yas-ido-prompt
-                                     yas-completing-prompt))))
 
-    (use-package helm-c-yasnippet
-      :ensure helm-c-yasnippet
-      :bind (("C-c y" . helm-yas-complete)))
+  (use-package helm-c-yasnippet
+    :ensure helm-c-yasnippet
+    :bind (("C-c y" . helm-yas-complete)))
 #+end_src
 
 *** Company Mode
@@ -1529,6 +1542,21 @@ Uniquely highlight each source code identifier based on its name.
                      (nil font-lock-function-name-face))))
       (add-hook 'after-init-hook 'global-color-identifiers-mode)))
 
+#+end_src
+
+*** Eldoc
+
+Show min ibuffer hints for Emacs Lisp.
+#+begin_src emacs-lisp
+  (use-package "eldoc"
+    :diminish eldoc-mode
+    :commands eldoc-mode
+
+    :init
+    (progn
+    (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+    (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+    (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)))
 #+end_src
 
 *** Coding Hook
@@ -1712,47 +1740,41 @@ Clojure documentation.
 *** Ruby
 **** Ruby Mode
 #+begin_src emacs-lisp
-    (use-package ruby-mode
-      :ensure ruby-mode
-      :mode (("Capfile$"     . ruby-mode)
-             ("Gemfile$"     . ruby-mode)
-             ("Rakefile$"    . ruby-mode)
-             ("Vagrantfile$" . ruby-mode)
-             ("\\.gemspec$"  . ruby-mode)
-             ("\\.prawn$"    . ruby-mode)
-             ("\\.rake$"     . ruby-mode)
-             ("\\.rjs$"      . ruby-mode)
-             ("\\.ru$"       . ruby-mode)
-             ("\\.rb$"       . ruby-mode))
+  (use-package ruby-mode
+    :ensure ruby-mode
+    :mode (("Capfile$"     . ruby-mode)
+           ("Gemfile$"     . ruby-mode)
+           ("Rakefile$"    . ruby-mode)
+           ("Vagrantfile$" . ruby-mode)
+           ("\\.gemspec$"  . ruby-mode)
+           ("\\.prawn$"    . ruby-mode)
+           ("\\.rake$"     . ruby-mode)
+           ("\\.rjs$"      . ruby-mode)
+           ("\\.ru$"       . ruby-mode)
+           ("\\.rb$"       . ruby-mode))
 
-      :init
-      (progn
-        (defun cnb/ruby-setup ()
-          ;; (set (make-local-variable imenu-generic-expression)
-          ;;      '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)
-          ;;        ))
-          ;;(subword-mode +1)
-          (robe-mode)
-          (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
+    :init
+    (progn
+      (defun cnb/ruby-setup ()
+        (robe-mode)
+        (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
+        (setq imenu-generic-expression '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1)))
+        (yard-mode)
+        (outline-minor-mode)
+        (ruby-block-mode t)
+        (flymake-ruby-load)
+        (ignore-errors (ruby-refactor-mode-launch))
+        (setq-local prettify-symbols-alist '(("lambda"  . ?λ)))))
 
-          (setq imenu-generic-expression
-                '(("Methods"  "^\\( *\\(def\\) +.+\\)"          1)))
-          (yard-mode)
-          (outline-minor-mode)
-          (ruby-block-mode t)
-          (flymake-ruby-load)
-          (ignore-errors (ruby-refactor-mode-launch))
-          (setq-local prettify-symbols-alist '(("lambda"  . ?λ)))))
+    :config
+    (progn
+      ;; I use C-x t for toggling globally
+      (define-key ruby-mode-map "\C-xt" nil)
 
-      :config
-      (progn
-        ;; I use C-x t for toggling globally
-        (define-key ruby-mode-map "\C-xt" nil)
-
-        (add-hook 'ruby-mode-hook 'cnb/ruby-setup)
-        (define-key ruby-mode-map (kbd "RET") 'newline-and-indent)
-        )
+      (add-hook 'ruby-mode-hook 'cnb/ruby-setup)
+      (define-key ruby-mode-map (kbd "RET") 'newline-and-indent)
       )
+    )
 #+end_src
 
 **** Ruby Refactoring
@@ -1831,6 +1853,35 @@ Font lock for Ruby Yard comments.
 #+begin_src emacs-lisp
   (use-package haskell-mode
     :ensure haskell-mode)
+#+end_src
+
+*** Emacs Lisp
+
+Put each occurrence of "use-package" into an Imenu section called "Packages".
+
+#+begin_src emacs-lisp
+  (defun cnb/elisp-packages ()
+    (add-to-list 'imenu-generic-expression '("Packages" "(use-package \\([^)\n]*\\).*$" 1) t))
+
+  (add-hook 'emacs-lisp-mode-hook 'cnb/elisp-packages)
+#+end_src
+
+*** Lisp Like Modes
+#+begin_src emacs-lisp
+  (defun cnb/imenu-lisp-sections ()
+    (setq imenu-prev-index-position-function nil)   ;; FIXME: DO I need this?
+    (add-to-list 'imenu-generic-expression '("Sections" "^;;;; \\(.+\\)$" 1) t))
+
+  (setq lisp-modes '(common-lisp-mode
+                     clojure-mode
+                     emacs-lisp-mode
+                     ielm-mode
+                     lisp-interaction-mode
+                     lisp-mode
+                     scheme-mode))
+
+  (dolist (mode lisp-modes)
+    (add-hook (intern (format "%s-hook" mode)) 'cnb/imenu-lisp-sections))
 #+end_src
 
 ** Markup Modes
@@ -2133,6 +2184,10 @@ Remember open buffers.
 #+end_src
 
 ** Put somewhere
+
+#+begin_src emacs-lisp
+(defalias 'idm 'info-display-manual)
+#+end_src
 
 #+begin_src emacs-lisp
   (use-package esup
