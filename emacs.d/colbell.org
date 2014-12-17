@@ -2157,7 +2157,6 @@ Remember current position in file.
     (progn
       (setq-default save-place t)
       (setq save-place-file (expand-file-name "places" user-emacs-directory))))
-
 #+end_src
 
 Remember open buffers.
@@ -2172,15 +2171,17 @@ Remember open buffers.
        (setq desktop-restore-frames nil) ;; Probs with emacsclient
        (setq desktop-load-locked-desktop nil)
        (setq desktop-restore-eager 10) ;; Open first X immed then rest in background
-       ;;(setq desktop-restore-eager t)
 
        (setq desktop-globals-to-save (delete 'tags-file-name desktop-globals-to-save))
-       (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save)))
+       (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save))
+
+       (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
+
+       (savehist-mode))
 
       :config
       (progn
         (add-to-list 'desktop-modes-not-to-save 'dired-mode)))
-
 #+end_src
 
 ** Put somewhere
