@@ -1,14 +1,14 @@
 ;;(require 'cl)
 
-(setq dotfiles-dir (file-name-directory
-                    (or (buffer-file-name) load-file-name))) ;; Taken from emacs starter kit
-(setq personal-dotfiles-dir (concat dotfiles-dir "cnb"))
+(setq dotfiles-dir
+      (file-name-directory
+       (or (buffer-file-name) load-file-name))) ;; Taken from emacs starter kit
 
 ;; I use keys that start with C-o for personal mappings.
 (global-unset-key "\C-o")
 
-(setq my-el-f (concat personal-dotfiles-dir "/init.el"))
-(setq my-org-f (concat personal-dotfiles-dir "/init.org"))
+(setq my-el-f (concat dotfiles-dir "/colbell.el"))
+(setq my-org-f (concat dotfiles-dir "/colbell.org"))
 
 ;; Use org-babel-load-file to compile colbell.org into colbell.el and
 ;; then load colbell.el. Only do this if colbell.el doesn't exist or
