@@ -46,12 +46,6 @@ Seed the random number generator.
 
 *** Emacs Directories
 
-Add personal elisp directory to load path.
-
-#+begin_src emacs-lisp
-;;(add-to-list 'load-path personal-dotfiles-dir)
-#+end_src
-
 Add all vendor libraries to load path
 
 #+begin_src emacs-lisp
@@ -64,8 +58,8 @@ Add all vendor libraries to load path
                    (not (equal f ".")))
           (add-to-list 'load-path name)))))
 
-  (add-to-list 'load-path (concat dotfiles-dir "/vendor"))
-  (add-subdirs-to-load-path (concat dotfiles-dir "/vendor"))
+  (add-to-list 'load-path (expand-file-name "vendor" user-emacs-directory ))
+  (add-subdirs-to-load-path (expand-file-name "vendor" user-emacs-directory))
 #+end_src
 
 *** Package Manager
@@ -2162,26 +2156,26 @@ Remember current position in file.
 Remember open buffers.
 
 #+begin_src emacs-lisp
-    (use-package desktop
-      :demand t
+  (use-package desktop
+    :demand t
 
-      :init
-      (progn
-       (desktop-save-mode 1)
-       (setq desktop-restore-frames nil) ;; Probs with emacsclient
-       (setq desktop-load-locked-desktop nil)
-       (setq desktop-restore-eager 10) ;; Open first X immed then rest in background
+    :init
+    (progn
+     (desktop-save-mode 1)
+     (setq desktop-restore-frames nil) ;; Probs with emacsclient
+     (setq desktop-load-locked-desktop nil)
+     (setq desktop-restore-eager 10)   ;; Open first X immed then rest in background
 
-       (setq desktop-globals-to-save (delete 'tags-file-name desktop-globals-to-save))
-       (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save))
+     (setq desktop-globals-to-save (delete 'tags-file-name desktop-globals-to-save))
+     (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save))
 
-       (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
+     (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 
-       (savehist-mode))
+     (savehist-mode))
 
-      :config
-      (progn
-        (add-to-list 'desktop-modes-not-to-save 'dired-mode)))
+    :config
+    (progn
+      (add-to-list 'desktop-modes-not-to-save 'dired-mode)))
 #+end_src
 
 ** Put somewhere
@@ -2327,7 +2321,7 @@ By default truncate long lines.
 ** Load "Customize" Interface.
 
 #+begin_src emacs-lisp
-(setq custom-file (concat dotfiles-dir "/emacs-custom.el"))
+(setq custom-file (expand-file-name "emacs-custom.el" user-emacs-directory))
 (load custom-file t)
 #+end_src
 ** Do I need these?
