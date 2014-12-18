@@ -5,7 +5,7 @@
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
 #+HTML_CONTAINER: div
 #+HTML_DOCTYPE: xhtml-strict
-#+HTML_HEAD_EXTRA: Emacs Configuration as pretty HTML. See <tt>colbell.org</tt> for the actual configuration source.
+#+HTML_HEAD_EXTRA: Emacs Configuration as pretty HTML. See <tt>~/.emacs.d/colbell.org</tt> for the actual configuration source.
 #+HTML_LINK_HOME:
 #+HTML_LINK_UP:
 #+HTML_MATHJAX:
@@ -85,8 +85,13 @@ I use 'use-package' to tidy up my Emacs configuration.
 Paradox is a powerful UI for the package manager.
 
 #+begin_src emacs-lisp
-(use-package paradox
-  :ensure paradox)
+  (use-package paradox
+    :ensure paradox
+
+    :init
+    (progn
+      (setq paradox-github-token t)  ;; Don't ask for Github integration.
+      (setq paradox-display-download-count t)))
 #+end_src
 
 ** U.I.
@@ -1391,9 +1396,9 @@ Deal with parens in a smart way.
       (require 'smartparens-html)
       ;;(require 'smartparens-latex)
 
-      (smartparens-global-mode t)
+      (smartparens-global-mode)
 
-      (show-smartparens-global-mode t)
+      (show-smartparens-global-mode)
 
       (setq sp-autoescape-string-quote nil) ; Irritating.
 
@@ -1687,6 +1692,12 @@ Clojure documentation.
     :commands slamhound)
 #+end_src
 
+**** Snippets
+#+begin_src emacs-lisp
+  (use-package clojure-snippets
+    :ensure clojure-snippets)
+#+end_src
+
 *** Cucumber
 #+begin_src emacs-lisp
   (use-package feature-mode
@@ -1938,6 +1949,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 #+begin_src emacs-lisp
   (use-package web-mode
     :ensure web-mode
+    :bind (("C-c C-v" . browse-url-of-buffer))
 
     :mode (("\\.php\\'"       . web-mode)
            ("\\.phtml\\'"     . web-mode)
@@ -2161,7 +2173,7 @@ Remember open buffers.
 
     :init
     (progn
-     (desktop-save-mode 1)
+     (desktop-save-mode)
      (setq desktop-restore-frames nil) ;; Probs with emacsclient
      (setq desktop-load-locked-desktop nil)
      (setq desktop-restore-eager 10)   ;; Open first X immed then rest in background
@@ -2183,7 +2195,6 @@ Remember command and search history.
       (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
       (savehist-mode)))
 #+end_src
-
 
 ** Put somewhere
 
