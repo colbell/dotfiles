@@ -136,3 +136,5 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
+/emacs.d/helm-adaptive-history
+/emacs.d/async-bytecomp.log

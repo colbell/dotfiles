@@ -115,8 +115,8 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
       (setq solarized-distinct-fringe-background t)
       (setq solarized-scale-org-headlines nil)
       (setq solarized-use-variable-pitch nil)
-      (setq solarized-use-more-italic t)
-      (setq solarized-use-less-bold t)
+      ;;(setq solarized-use-more-italic t)
+      ;;(setq solarized-use-less-bold t)
       (load-theme 'solarized-light t)))
 
 #+end_src
@@ -124,7 +124,8 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
 *** Font
 
 #+begin_src emacs-lisp
-  (set-frame-font "Source Code Pro-10" nil t)
+  ;;(set-frame-font "Source Code Pro-10" nil t)
+  (set-frame-font "DejaVu Sans Mono-10" nil t)
 #+end_src
 
 *** Remove Unnecessary Clutter
@@ -522,8 +523,8 @@ Directory view/editing.
   (use-package wdired
     :init
     (progn
-      (setq wdired-allow-to-change-permissions 't)
-      (setq wdired-confirm-overwrite 't)))
+      (setq wdired-allow-to-change-permissions t)
+      (setq wdired-confirm-overwrite t)))
 
 #+end_src
 
@@ -1215,8 +1216,11 @@ line. http://www.emacswiki.org/emacs/SlickCopy
 #+end_src
 
 ** Enable Commands
+
+Enable commands disabled by default for novice users.
+
 #+begin_src emacs-lisp
-  ;;(setq  disabled-command-hook nil)                 ;; Enable commands disabled by default for novice users
+  ;;(setq  disabled-command-hook nil)
   (put 'narrow-to-region 'disabled nil)               ;; ("C-x n n")
   (put 'narrow-to-defun 'disabled nil)                ;; ("C-x n d")
   (put 'narrow-to-page 'disabled nil)                 ;; ("C-x n p")
@@ -1626,7 +1630,23 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
 
       (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
       (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
-      (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)))
+      (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)
+
+      (define-clojure-indent
+        (defroutes 'defun)
+        (GET 2)
+        (POST 2)
+        (PUT 2)
+        (DELETE 2)
+        (HEAD 2)
+        (ANY 2)
+        (context 2)
+        (for-all 1)
+        (such-that 1)
+        (let-routes 1)
+        (run-db 2)
+        (defspec 'defun))
+      ))
 #+end_src
 
 Extra font clocking for Clojure mode.
