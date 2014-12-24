@@ -31,6 +31,13 @@ original inspiration came from a blog post by [[http://sachachua.com/blog/2012/0
 I'm also using the [[https://github.com/jwiegley/use-package][use-package]] macro to simplify package handing.
 
 * Settings
+** Load "Customize" Interface.
+
+#+begin_src emacs-lisp
+(setq custom-file (expand-file-name "emacs-custom.el" user-emacs-directory))
+(load custom-file t)
+#+end_src
+
 ** Personal information
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Colin Noel Bell"
@@ -156,15 +163,28 @@ Don't use them.
 #+end_src
 
 *** Mode Line
+**** Smart Mode Line
+
+#+begin_src emacs-lisp
+  (use-package smart-mode-line
+    :ensure smart-mode-line
+    :init
+    (progn
+      (add-to-list 'sml/replacer-regexp-list '("^~/dotfiles/emacs\\.d/" ":ED:") t)
+      (sml/setup)))
+#+end_src
+
+**** Indicators
 
 Some useful stuff in the modeline.
 
 #+begin_src emacs-lisp
-  (line-number-mode t)
-  (column-number-mode t)
+  (column-number-mode)
   (size-indication-mode)
-  (display-time-mode t)
+  (display-time-mode)
 #+end_src
+
+**** Which Function
 
 For coding buffers show the name of the current function in the
 mode line.
@@ -175,6 +195,8 @@ mode line.
   (progn
     (which-func-mode 1))
 #+end_src
+
+**** Anzu
 
 For searches display the current match and total matches information
 in the mode line.
@@ -189,6 +211,8 @@ in the mode line.
       (global-anzu-mode +1)
       (setq anzu-search-threshold 1000)))
 #+end_src
+
+*** Battery Status
 
 Put the battery status in the mode-line.
 
@@ -461,7 +485,7 @@ Directory view/editing.
   (use-package dired
     :init
     (progn
-      (setq dired-listing-switches "-alh")
+      (setq dired-listing-switches "-alhGv --group-directories-first")
       (setq dired-dwim-target t)
       (setq dired-recursive-copies 'always)
       (setq dired-recursive-deletes 'always)
@@ -1612,6 +1636,33 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
 
 #+end_src
 
+*** Bug Reference
+
+Turn references to bug IDs into clickable links.
+
+#+begin_src emacs-lisp
+  (use-package bug-reference
+    :demand
+
+    :init
+    (progn
+      (add-hook 'text-mode-hook #'bug-reference-mode)
+      (add-hook 'magit-log-mode-hook #'bug-reference-mode)
+      ;; Force Magit log mode to load .dir-locals.el.
+      (add-hook 'magit-log-mode-hook #'hack-dir-local-variables-non-file-buffer)
+      (add-hook 'prog-mode-hook #'bug-reference-prog-mode)))
+#+end_src
+
+Add a .dir-locals.el to the root of the repository defining the link format and
+the bug repository. E.G the following will point TWEB-???? references to Jira.
+
+#+begin_src emacs-lisp[:eval never]
+  ((nil
+    .
+    ((bug-reference-url-format . "https://kwelasolutions.atlassian.net/browse/%s")
+     (bug-reference-bug-regexp . "\\(?2:TWEB-[0-9]+\\)"))))
+#+end_src
+
 ** Programming Modes
 *** Clojure
 **** Clojure Mode.
@@ -2356,12 +2407,6 @@ By default truncate long lines.
     :defer)
 #+end_src
 
-** Load "Customize" Interface.
-
-#+begin_src emacs-lisp
-(setq custom-file (expand-file-name "emacs-custom.el" user-emacs-directory))
-(load custom-file t)
-#+end_src
 ** Do I need these?
 
 #+begin_src emacs-lisp
