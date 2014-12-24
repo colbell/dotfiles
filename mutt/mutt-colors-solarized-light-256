@@ -131,9 +131,9 @@ color body          color160        default        "((@(([0-9a-z-]+\\.)*[0-9a-z-
 # Various smilies and the like
 color body          color233        color233        "<[Gg]>"                            # <g>
 color body          color233        color233        "<[Bb][Gg]>"                        # <bg>
-color body          color136        color233        " [;:]-*[})>{(<|]"                  # :-) etc...
+color body          color136        default         " [;:]-*[})>{(<|]"                  # :-) etc...
 # *bold*
-color body          color33         color233        "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
+color body          color33         default         "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
 mono  body          bold                            "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
 # _underline_
 color body          color33         color233        "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
