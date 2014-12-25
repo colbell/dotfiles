@@ -1130,12 +1130,16 @@ Delete all whitespace when deleting.
 (delete-selection-mode 1)
 #+end_src
 
-*** Ace interface to zap-to-char
+*** zap-to-char and zap-up-to-char
+
+M-z will execute =zap-to-char= while C-u M-z will execute
+=ace-jump-zap-to-char=. There is a similar mapping for the 'up to char' functions.
 
 #+begin_src emacs-lisp
-(use-package ace-jump-zap
-  :ensure ace-jump-zap
-  :bind (("M-z" . ace-jump-zap-to-char)))
+  (use-package ace-jump-zap
+    :ensure ace-jump-zap
+    :bind (("M-z" . ace-jump-zap-to-char-dwim)
+           ("C-M-z" . ace-jump-zap-up-to-char-dwim)))
 #+end_src
 
 *** Browse kill ring
