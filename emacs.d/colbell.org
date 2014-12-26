@@ -2264,7 +2264,7 @@ Remember open buffers.
 Remember command and search history.
 
 #+begin_src emacs-lisp
-  (use-package save-hist
+  (use-package savehist
     :init
     (progn
       (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
