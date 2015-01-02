@@ -1700,8 +1700,7 @@ the bug repository. E.G the following will point TWEB-???? references to Jira.
         (such-that 1)
         (let-routes 1)
         (run-db 2)
-        (defspec 'defun))
-      ))
+        (defspec 'defun))))
 #+end_src
 
 Extra font clocking for Clojure mode.
@@ -1737,27 +1736,27 @@ Clojure documentation.
 **** Cider Clojure IDE and REPL
 
 #+begin_src emacs-lisp
-(use-package cider
-  :ensure cider
+  (use-package cider
+    :ensure cider
 
-  :init
-  (progn
-    (defalias 'cveb 'cider-visit-error-buffer)
-    (setq nrepl-log-messages t)
-    (require 'cider-eldoc)
-    (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-    (add-hook 'cider-repl-mode-hook 'subword-mode)
-    ;;(add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
-    (setq cider-repl-use-clojure-font-lock t)
-    (setq nrepl-hide-special-buffers t)
-    (setq cider-show-error-buffer nil)
-    (setq cider-auto-select-error-buffer nil)
-    (setq cider-repl-pop-to-buffer-on-connect nil)
-    (setq cider-repl-history-file "~/.emacs.d/cider-repl-history")
-    (setq cider-repl-history-size 1000)))
+    :init
+    (progn
+      (defalias 'cveb 'cider-visit-error-buffer)
+      (setq nrepl-log-messages t)
+      (require 'cider-eldoc)
+      (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+      (add-hook 'cider-repl-mode-hook 'subword-mode)
+      (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
+      (setq cider-repl-use-clojure-font-lock t)
+      (setq nrepl-hide-special-buffers t)
+      (setq cider-show-error-buffer nil)
+      (setq cider-auto-select-error-buffer nil)
+      (setq cider-repl-pop-to-buffer-on-connect nil)
+      (setq cider-repl-history-file "~/.emacs.d/cider-repl-history")
+      (setq cider-repl-history-size 1000)))
 
-(use-package cider-decompile
-  :ensure cider-decompile)
+  (use-package cider-decompile
+    :ensure cider-decompile)
 #+end_src
 
 **** Slamhound
@@ -2121,6 +2120,21 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
       (setq transient-mark-mode nil)
       (auto-fill-mode -1)
       (setq tab-width 2))))
+#+end_src
+
+Close term buffers when terminal is exited.
+
+#+begin_src emacs-lisp
+  (defun cnb/term-exec-hook ()
+    (let* ((buff (current-buffer))
+           (proc (get-buffer-process buff)))
+      (set-process-sentinel
+       proc
+       `(lambda (process event)
+          (if (string= event "finished\n")
+              (kill-buffer ,buff))))))
+
+  (add-hook 'term-exec-hook 'cnb/term-exec-hook)
 #+end_src
 
 *** Org
