@@ -24,7 +24,7 @@ brighter; it simply makes everything else vanish.
 
 ** About This File
 
-I'm currently converting my Emacs configuration to an Org file which
+I've converted my Emacs configuration to an Org file which
 can be loaded using =(org-babel-load-file /path/to/file)=. The
 original inspiration came from a blog post by [[http://sachachua.com/blog/2012/06/literate-programming-emacs-configuration-file/][Sacha Chua]].
 
@@ -1934,6 +1934,12 @@ Font lock for Ruby Yard comments.
     :ensure haskell-mode)
 #+end_src
 
+*** Lua
+#+begin_src emacs-lisp
+  (use-package lua-mode
+    :ensure lua-mode)
+#+end_src
+
 *** Emacs Lisp
 
 Put each occurrence of "use-package" into an Imenu section called "Packages".
@@ -2181,6 +2187,12 @@ Close term buffers when terminal is exited.
 
 #+end_src
 
+*** log4j
+#+begin_src emacs-lisp
+  (use-package log4j-mode
+    :ensure log4j-mode)
+#+end_src
+
 ** Web Browsers
 *** w3m
 #+begin_src emacs-lisp
@@ -2295,11 +2307,6 @@ Remember command and search history.
   (use-package esup
     :ensure esup)
 
-  (use-package log4j-mode
-    :ensure log4j-mode)
-
-  (use-package lua-mode
-    :ensure lua-mode)
 #+end_src
 
 #+begin_src emacs-lisp
