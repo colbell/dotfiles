@@ -581,29 +581,30 @@ Enhancements for bookmarks.
 Visual Bookmarks
 
 #+begin_src emacs-lisp
-(defun cnb/bm-hook
-  (bm-buffer-save-all)
-  (bm-repository-save))
+  (defun cnb/bm-hook
+    (bm-buffer-save-all)
+    (bm-repository-save))
 
-(use-package bm
-  :ensure bm
-  :commands (bm-repository-load bm-buffer-restore bm-buffer-save bm-repository-save bm-buffer-save-all)
-  :init
-  (progn
-    (setq bm-restore-repository-on-load t)
-    (setq bm-repository-file (expand-file-name "bm-repository" user-emacs-directory))
-    (setq bm-repository-size 1024)
-    (setq-default bm-buffer-persistence t)
-    (setq bm-highlight-style 'bm-highlight-only-line)
-    (add-hook' after-init-hook 'bm-repository-load)
-    (add-hook 'find-file-hooks 'bm-buffer-restore)
-    (add-hook 'kill-buffer-hook 'bm-buffer-save)
-    (add-hook 'kill-emacs-hook '(lambda nil
-                                  (bm-buffer-save-all)
-                                  (bm-repository-save))))
-  :bind (("<C-f2>" . bm-toggle)
-         ("<f2>"   . bm-next)
-         ("<S-f2>" . bm-previous)))
+  (use-package bm
+    :ensure bm
+    :defer t
+    :commands (bm-repository-load bm-buffer-restore bm-buffer-save bm-repository-save bm-buffer-save-all)
+    :init
+    (progn
+      (setq bm-restore-repository-on-load t)
+      (setq bm-repository-file (expand-file-name "bm-repository" user-emacs-directory))
+      (setq bm-repository-size 1024)
+      (setq-default bm-buffer-persistence t)
+      (setq bm-highlight-style 'bm-highlight-only-line)
+      (add-hook' after-init-hook 'bm-repository-load)
+      (add-hook 'find-file-hooks 'bm-buffer-restore)
+      (add-hook 'kill-buffer-hook 'bm-buffer-save)
+      (add-hook 'kill-emacs-hook '(lambda nil
+                                    (bm-buffer-save-all)
+                                    (bm-repository-save))))
+    :bind (("<C-f2>" . bm-toggle)
+           ("<f2>"   . bm-next)
+           ("<S-f2>" . bm-previous)))
 #+end_src
 
 *** Mouse Wheel
