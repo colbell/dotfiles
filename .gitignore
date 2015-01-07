@@ -82,6 +82,7 @@
 /emacs.d/.svn
 /emacs.d/ac-comphist.dat
 /emacs.d/anything-c-adaptive-history
+/emacs.d/async-bytecomp.log
 /emacs.d/auto-save-list
 /emacs.d/backups/*
 /emacs.d/bm-repository
@@ -96,6 +97,7 @@
 /emacs.d/emacs-custom.el
 /emacs.d/emacs.bmk
 /emacs.d/emacsregisters.el
+/emacs.d/helm-adaptive-history
 /emacs.d/helm-c-adaptive-history
 /emacs.d/history
 /emacs.d/image-dired/
@@ -143,5 +145,3 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
-/emacs.d/helm-adaptive-history
-/emacs.d/async-bytecomp.log
