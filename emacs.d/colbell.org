@@ -2201,6 +2201,23 @@ Close term buffers when terminal is exited.
   (require 'w3m-load nil t) ;;w3m autoloads
 #+end_src
 
+** External Tools
+*** Definitions
+
+#+begin_src emacs-lisp
+  ;;(setq browse-url-browser-function 'browse-url-firefox)
+  (setq browse-url-browser-function 'browse-url-generic
+  browse-url-generic-program "chromium-browser")
+#+end_src
+
+*** Open files in external programs
+
+#+begin_src emacs-lisp
+  (use-package launch
+      :ensure t
+      :idle (global-launch-mode))
+#+end_src
+
 ** Key Maps
 *** Global Map
 
