@@ -1082,6 +1082,19 @@ Recent Files is a mode that keeps track of files that have been opened.
 
   (global-set-key (kbd "M-r") 'cnb/rotate-windows)
 #+end_src
+*** PopWin
+
+#+begin_src emacs-lisp
+    (use-package popwin
+      :ensure t
+      :defer t
+      :commands (popwin-mode)
+
+      :idle
+      (progn
+        (popwin-mode 1)))
+#+end_src
+
 ** Selection
 
 Shift/arrow keys extend selection.
