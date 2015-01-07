@@ -121,6 +121,12 @@
 /mutt/certificates
 /mutt/profile.active
 /my.cnf
+/newsbeuter/cache.db
+/newsbeuter/cache.db.lock
+/newsbeuter/error.log
+/newsbeuter/history.cmdline
+/newsbeuter/history.search
+/newsbeuter/urls
 /w3m/.arrived
 /w3m/.cookie
 /w3m/.sessions
