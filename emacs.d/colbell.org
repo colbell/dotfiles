@@ -191,6 +191,7 @@ mode line.
 
 #+begin_src emacs-lisp
   (use-package which-func)
+  :defer t
   :init
   (progn
     (which-func-mode 1))
@@ -447,6 +448,7 @@ Start Emacs server on first Emacs instance.
 Directory view/editing.
 
 #+begin_src emacs-lisp
+
   (defun cnb/dired-back-to-top ()
     "Move to the first file name in the dired buffer"
     (interactive)
@@ -1012,7 +1014,7 @@ Flag script files as executable on save.
    'executable-make-buffer-file-executable-if-script-p)
 #+end_src
 
-** File Finding
+** File Handling
 *** Follow All Symbolic Links
 
 #+begin_src emacs-lisp
@@ -1034,6 +1036,7 @@ Recent Files is a mode that keeps track of files that have been opened.
 #+begin_src emacs-lisp
   (use-package recentf
     :ensure recentf
+    :defer t
 
     :config
     (progn
@@ -1042,7 +1045,7 @@ Recent Files is a mode that keeps track of files that have been opened.
       (setq recentf-max-saved-items 250)
 
       ;; Files that we don't want to remember.
-      (setq recentf-exclude '("~$" "/tmp/" "/ssh:" "/sudo:"))
+      (setq recentf-exclude '("~$" "/tmp/" "/ssh:" "/sudo:" "/\\.git/.*\\'" "/home/colbell/.jabber-avatars/*"))
 
       ;; We don't want to remember the recentf database file itself.
       (add-to-list 'recentf-exclude recentf-save-file)
@@ -1052,14 +1055,14 @@ Recent Files is a mode that keeps track of files that have been opened.
       ;; names so we need to ignore each file twice. The function (file-truename)
       ;; will expand symlinks.
       (let ((exclude-files '("places" ".ido.last" "elpa/**/.*" "emacs.bmk"
-                             "url/cookies" "/home/colbell/.jabber-avatars/*")))
+                             "url/cookies")))
         (while exclude-files
           (let ((f (expand-file-name (car exclude-files) user-emacs-directory)))
             (add-to-list 'recentf-exclude f)
             (add-to-list 'recentf-exclude (file-truename f))
             (setq exclude-files (cdr exclude-files))))))
 
-    (recentf-mode 1))
+    (recentf-mode))
 #+end_src
 
 ** Windows
@@ -1480,8 +1483,9 @@ Deal with parens in a smart way.
   (use-package yasnippet
     :ensure yasnippet
     :diminish yas-minor-mode
+    :defer t
 
-    :init
+    :idle
     (progn
       (yas-global-mode 1)))
       ;;(setq yas-prompt-functions '(yas-ido-prompt
@@ -1497,6 +1501,7 @@ Deal with parens in a smart way.
 #+begin_src emacs-lisp
   (use-package company
     :ensure company
+    :defer t
     :diminish company-mode
 
     :config
