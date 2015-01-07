@@ -18,13 +18,15 @@
 folder-hook . unset strict_threads
 
 # Fix broken webmail
-charset-hook ^unknown-8bit$ windows-1252
-charset-hook ^x-user-defined$ windows-1252
-charset-hook ^iso-8859-1$ windows-1252
-charset-hook ^us-ascii$ windows-1252
-charset-hook ^none$ windows-1252
-charset-hook ^iso-8859-8-i$ iso-8859-8
-charset-hook ^gb2312$ gb18030
+# charset-hook ^unknown-8bit$ windows-1252
+# charset-hook ^x-user-defined$ windows-1252
+# charset-hook ^iso-8859-1$ windows-1252
+# charset-hook ^us-ascii$ windows-1252
+# charset-hook ^none$ windows-1252
+# charset-hook ^iso-8859-8-i$ iso-8859-8
+
+
+#charset-hook ^gb2312$ gb18030
 
 #folder-hook . 'push "<collapse-all>"'
 #folder-hook . "exec collapse-all"
