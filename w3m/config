@@ -21,30 +21,30 @@ system_charset UTF-8
 auto_detect 2
 document_charset UTF-8
 display_charset UTF-8
-cookie_avoid_wrong_number_of_dots 
-cookie_accept_domains 
-cookie_reject_domains 
+cookie_avoid_wrong_number_of_dots
+cookie_accept_domains
+cookie_reject_domains
 accept_bad_cookie 0
 accept_cookie 1
 show_cookie 1
 use_cookie 1
-ssl_ca_file 
+ssl_ca_file
 ssl_ca_path /etc/ssl/certs
-ssl_key_file 
-ssl_cert_file 
+ssl_key_file
+ssl_cert_file
 ssl_verify_server 1
-ssl_forbid_method 
+ssl_forbid_method
 no_cache 0
 noproxy_netaddr 0
-no_proxy 
-ftp_proxy 
-gopher_proxy 
-https_proxy 
-http_proxy 
+no_proxy
+ftp_proxy
+gopher_proxy
+https_proxy
+http_proxy
 use_proxy 1
 max_news 50
-nntpmode 
-nntpserver 
+nntpmode
+nntpserver
 dns_order 0
 meta_refresh 1
 follow_redirection 10
@@ -55,7 +55,8 @@ accept_media text/html, text/*;q=0.5, image/*, application/*, video/*, audio/*, 
 accept_encoding gzip, compress, bzip, bzip2, deflate
 accept_language en;q=1.0
 no_referer 0
-user_agent 
+user_agent
+siteconf_file ~/.w3m/siteconf
 pre_form_file ~/.w3m/pre_form
 ftppass_hostnamegen 0
 ftppasswd anonymous@
@@ -63,19 +64,19 @@ disable_secret_security_check 0
 passwd_file ~/.w3m/passwd
 use_lessopen 0
 bgextviewer 1
-extbrowser3 
-extbrowser2 
+extbrowser3
+extbrowser2
 extbrowser /usr/bin/chromium-browser
-mailer 
+mailer
 mailto_options 1
 editor sensible-editor
 urimethodmap ~/.w3m//urimethodmap, /etc/w3m/urimethodmap
 mailcap ~/.w3m/mailcap, /etc/w3m/mailcap, /etc/mailcap
 mime_types ~/.w3m/mime.types, /etc/mime.types
-index_file 
-cgi_bin 
-personal_document_root 
-document_root 
+index_file
+cgi_bin
+personal_document_root
+document_root
 keymap_file keymap
 preserve_timestamp 1
 auto_uncompress 0
@@ -111,7 +112,7 @@ image_color green
 anchor_color blue
 basic_color terminal
 color 1
-nextpage_topline 0
+nextpage_topline 1
 label_topline 0
 show_srch_str 1
 show_lnum 0
@@ -143,7 +144,7 @@ open_tab_dl_list 0
 open_tab_blank 0
 target_self 0
 frame 0
-pixel_per_line 14
-pixel_per_char 7
+pixel_per_line 15
+pixel_per_char 8
 indent_incr 4
 tabstop 8
