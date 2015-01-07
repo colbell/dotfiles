@@ -398,11 +398,16 @@ Don't clutter the disk with Emacs save files. Store them in =~/.emacs.d/backups=
 Start Emacs server on first Emacs instance.
 
 #+begin_src emacs-lisp
-  (require 'server)
-  (unless (server-running-p)
-    (server-start))
+  (use-package server
+    :defer t
+    :commands (server-running-p server-start)
 
-  (setenv "EDITOR" "emacsclient")
+    :idle
+    (progn
+      (unless (server-running-p)
+        (server-start))
+      (setenv "EDITOR" "emacsclient")))
+
 #+end_src
 *** Auto-correct
 #+begin_src emacs-lisp
