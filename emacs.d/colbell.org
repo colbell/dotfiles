@@ -635,8 +635,8 @@ Smooth mouse wheel scrolling.
         (scroll-up increment) (sit-for 0.06)
         (scroll-up increment))
 
-      (global-set-key [(mouse-5)] '(lambda () (interactive) (smooth-scroll 1)))
-      (global-set-key [(mouse-4)] '(lambda () (interactive) (smooth-scroll -1)))))
+      (global-set-key [(mouse-5)] (lambda () (interactive) (smooth-scroll 1)))
+      (global-set-key [(mouse-4)] (lambda () (interactive) (smooth-scroll -1)))))
 #+end_src
 
 *** Spelling
@@ -1838,7 +1838,7 @@ Clojure documentation.
         (flymake-coffee-load))
 
       (add-hook 'coffee-mode-hook
-                '(lambda() (coffee-custom)))
+                (lambda() (coffee-custom)))
       ))
 
 #+end_src
