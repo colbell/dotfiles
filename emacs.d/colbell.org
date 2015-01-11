@@ -780,6 +780,20 @@ Bind 'o' to links in Help and Info buffers
       (ace-link-setup-default)))
 #+end_src
 
+**** Ace ISearch
+
+Combine isearch, ace-jump-mode and helm-swoop.
+
+#+begin_src emacs-lisp
+  (use-package ace-isearch
+    :ensure t
+    :defer t
+
+    :init
+    (progn
+      (global-ace-isearch-mode +1)))
+#+end_src
+
 *** IBuffer
 
 IBuffer is an advanced replacement for BufferMenu.
