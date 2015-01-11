@@ -270,7 +270,7 @@ Show line numbers in fringe
 
     :init
     (progn
-      ;; precalculate the line number width to avoid horizontal jumps on scrolling.
+      ;; Precalculate the line number width to avoid horizontal jumps on scrolling.
       ;; From: http://www.emacswiki.org/LineNumbers
       (add-hook
        'nlinum-mode-hook
@@ -354,7 +354,6 @@ Show current key bindings
     :bind (("C-h b" . helm-descbinds)))
 #+end_src
 ** General
-*** Imenu
 *** Tabs
 
 Don't use them, use spaces instead. Default spacing to 2 spaces.
