@@ -431,7 +431,7 @@ Start Emacs server on first Emacs instance.
     (let ((bef (downcase (or (thing-at-point 'word) ""))) aft)
       ;; Hide the prefix arg from ispell-word
       (let ((current-prefix-arg nil))
-        (call-interactively 'ispell-word))
+        (call-interactively #'ispell-word))
       (setq aft (downcase (or (thing-at-point 'word) "")))
       (unless (string= aft bef)
         (message "\"%s\" now expands to \"%s\" %sally"
@@ -440,7 +440,7 @@ Start Emacs server on first Emacs instance.
           (if p local-abbrev-table global-abbrev-table)
           bef aft))))
 
-  (global-set-key "\C-oi" 'cnb/ispell-word-then-abbrev)
+  (global-set-key "\C-oi" #'cnb/ispell-word-then-abbrev)
 #+end_src
 *** Dired
 
@@ -601,13 +601,13 @@ Visual Bookmarks
       (setq bm-repository-file (expand-file-name "bm-repository" user-emacs-directory))
       (setq bm-repository-size 1024)
       (setq-default bm-buffer-persistence t)
-      (setq bm-highlight-style 'bm-highlight-only-line)
-      (add-hook' after-init-hook 'bm-repository-load)
-      (add-hook 'find-file-hooks 'bm-buffer-restore)
-      (add-hook 'kill-buffer-hook 'bm-buffer-save)
-      (add-hook 'kill-emacs-hook '(lambda nil
-                                    (bm-buffer-save-all)
-                                    (bm-repository-save))))
+      (setq bm-highlight-style #'bm-highlight-only-line)
+      (add-hook 'after-init-hook #'bm-repository-load)
+      (add-hook 'find-file-hooks #'bm-buffer-restore)
+      (add-hook 'kill-buffer-hook #'bm-buffer-save)
+      (add-hook 'kill-emacs-hook (lambda nil
+                                   (bm-buffer-save-all)
+                                   (bm-repository-save))))
     :bind (("<C-f2>" . bm-toggle)
            ("<f2>"   . bm-next)
            ("<S-f2>" . bm-previous)))
@@ -650,7 +650,7 @@ Helm Fly-spell
 
     :init
     (progn
-      (define-key flyspell-mode-map (kbd "C-;") 'helm-flyspell-correct)))
+      (define-key flyspell-mode-map (kbd "C-;") #'helm-flyspell-correct)))
 
 #+end_src
 
@@ -681,7 +681,7 @@ Dictionary Look-up
         (split-window-vertically)) ; gives us a split with the other win twice
       (switch-to-buffer nil))) ; restore the orig  win in this part of the frame
 
-  (define-key ctl-x-4-map "t" 'cnb/toggle-frame-split)
+  (define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
 
 #+end_src
 ** Buffers
@@ -803,7 +803,7 @@ IBuffer is an advanced replacement for BufferMenu.
                    ad-do-it
                    (ibuffer-jump-to-buffer current-buffer-name)))
 
-      (define-key ibuffer-mode-map "e" 'ibuffer-ediff-marked-buffers)
+      (define-key ibuffer-mode-map "e" #'ibuffer-ediff-marked-buffers)
       (setq ibuffer-default-sorting-mode 'alphabetic)
 
       (add-hook 'ibuffer-mode-hook
@@ -1010,7 +1010,7 @@ Flag script files as executable on save.
 #+begin_src emacs-lisp
   (add-hook
    'after-save-hook
-   'executable-make-buffer-file-executable-if-script-p)
+   #'executable-make-buffer-file-executable-if-script-p)
 #+end_src
 
 ** File Handling
@@ -1322,8 +1322,8 @@ Magit is a very cool GUI for Git.
                     (visual-line-mode -1)))
         (setq magit-diff-refine-hunk t)
         (setq magit-process-popup-time 60)
-        (add-hook 'magit-log-edit-mode-hook 'flyspell-mode)
-        (add-hook 'git-commit-mode-hook 'flyspell-mode))
+        (add-hook 'magit-log-edit-mode-hook #'flyspell-mode)
+        (add-hook 'git-commit-mode-hook #'flyspell-mode))
 
       :config
       (progn
@@ -1384,7 +1384,7 @@ Show commit details for the current line.
       (defun cnb/git-msg-popup-hook ()
         (magit-commit-mode))
       (setq git-messenger:show-detail t)
-      (add-hook 'git-messenger:popup-buffer-hook 'cnb/git-msg-popup-hook)))
+      (add-hook 'git-messenger:popup-buffer-hook #'cnb/git-msg-popup-hook)))
 #+end_src
 
 **** Git Timemachine
@@ -1594,7 +1594,7 @@ Uniquely highlight each source code identifier based on its name.
        `(web-mode . ("</?!?"
                      "\\_</?!?\\([a-zA-Z_$]\\(?:\\s_\\|\\sw\\)*\\)"
                      (nil font-lock-function-name-face))))
-      (add-hook 'after-init-hook 'global-color-identifiers-mode)))
+      (add-hook 'after-init-hook #'global-color-identifiers-mode)))
 
 #+end_src
 
@@ -1608,9 +1608,9 @@ Show min ibuffer hints for Emacs Lisp.
 
     :init
     (progn
-    (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-    (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-    (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)))
+    (add-hook #'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+    (add-hook #'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+    (add-hook #'ielm-mode-hook 'turn-on-eldoc-mode)))
 #+end_src
 
 *** Coding Hook
@@ -1634,32 +1634,32 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
   ;;=======================
   ;; Things to do when you open a coding buffer.
   ;;=======================
-  (add-hook 'cnb/coding-hook 'nlinum-mode)
-  (add-hook 'cnb/coding-hook 'cnb/add-watchwords)
-  (add-hook 'cnb/coding-hook 'hs-minor-mode)
-  (add-hook 'cnb/coding-hook 'subword-mode)
-  (add-hook 'cnb/coding-hook 'flyspell-prog-mode t)
+  (add-hook 'cnb/coding-hook #'nlinum-mode)
+  (add-hook 'cnb/coding-hook #'cnb/add-watchwords)
+  (add-hook 'cnb/coding-hook #'hs-minor-mode)
+  (add-hook 'cnb/coding-hook #'subword-mode)
+  (add-hook 'cnb/coding-hook #'flyspell-prog-mode t)
 
   (when (fboundp 'yas/minor-mode)
-    (add-hook 'cnb/coding-hook 'yas/minor-mode))
+    (add-hook 'cnb/coding-hook #'yas/minor-mode))
 
   (when (fboundp 'rainbow-delimiters-mode)
-    (add-hook 'cnb/coding-hook 'rainbow-delimiters-mode))
+    (add-hook 'cnb/coding-hook #'rainbow-delimiters-mode))
 
 
   ;;=======================
   ;; Modes to treat as coding buffers
   ;;=======================
-  (add-hook 'prog-mode-hook        'cnb/run-coding-hook)
-  (add-hook 'conf-mode-hook        'cnb/run-coding-hook)
-  (add-hook 'css-mode-hook         'cnb/run-coding-hook)
-  (add-hook 'cucumber-mode-hook    'cnb/run-coding-hook)
-  (add-hook 'diff-hook             'cnb/run-coding-hook)
-  (add-hook 'feature-mode-hook     'cnb/run-coding-hook)
-  (add-hook 'markdown-mode-hook    'cnb/run-coding-hook)
-  (add-hook 'rhtml-mode-hook       'cnb/run-coding-hook)
-  (add-hook 'yaml-mode-hook        'cnb/run-coding-hook)
-  (add-hook 'lisp-interaction-mode 'cnb/run-coding-hook)
+  (add-hook 'prog-mode-hook        #'cnb/run-coding-hook)
+  (add-hook 'conf-mode-hook        #'cnb/run-coding-hook)
+  (add-hook 'css-mode-hook         #'cnb/run-coding-hook)
+  (add-hook 'cucumber-mode-hook    #'cnb/run-coding-hook)
+  (add-hook 'diff-hook             #'cnb/run-coding-hook)
+  (add-hook 'feature-mode-hook     #'cnb/run-coding-hook)
+  (add-hook 'markdown-mode-hook    #'cnb/run-coding-hook)
+  (add-hook 'rhtml-mode-hook       #'cnb/run-coding-hook)
+  (add-hook 'yaml-mode-hook        #'cnb/run-coding-hook)
+  (add-hook 'lisp-interaction-mode #'cnb/run-coding-hook)
 
 #+end_src
 
@@ -1673,11 +1673,11 @@ Turn references to bug IDs into clickable links.
 
     :init
     (progn
-      (add-hook 'text-mode-hook #'bug-reference-mode)
-      (add-hook 'magit-log-mode-hook #'bug-reference-mode)
+      (add-hook #'text-mode-hook #'bug-reference-mode)
+      (add-hook #'magit-log-mode-hook #'bug-reference-mode)
       ;; Force Magit log mode to load .dir-locals.el.
-      (add-hook 'magit-log-mode-hook #'hack-dir-local-variables-non-file-buffer)
-      (add-hook 'prog-mode-hook #'bug-reference-prog-mode)))
+      (add-hook #'magit-log-mode-hook #'hack-dir-local-variables-non-file-buffer)
+      (add-hook #'prog-mode-hook #'bug-reference-prog-mode)))
 #+end_src
 
 Add a .dir-locals.el to the root of the repository defining the link format and
@@ -1700,7 +1700,7 @@ the bug repository. E.G the following will point TWEB-???? references to Jira.
 
     :init
     (progn
-      (add-hook 'clojure-mode-hook 'cider-mode)
+      (add-hook 'clojure-mode-hook #'cider-mode)
       (add-hook 'clojure-mode-hook
                 (lambda ()
                   (clj-refactor-mode 1)
@@ -1767,9 +1767,9 @@ Clojure documentation.
       (defalias 'cveb 'cider-visit-error-buffer)
       (setq nrepl-log-messages t)
       (require 'cider-eldoc)
-      (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-      (add-hook 'cider-repl-mode-hook 'subword-mode)
-      (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
+      (add-hook 'cider-mode-hook #'cider-turn-on-eldoc-mode)
+      (add-hook 'cider-repl-mode-hook #'subword-mode)
+      (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
       (setq cider-repl-use-clojure-font-lock t)
       (setq nrepl-hide-special-buffers t)
       (setq cider-show-error-buffer nil)
@@ -1873,8 +1873,8 @@ Clojure documentation.
       ;; I use C-x t for toggling globally
       (define-key ruby-mode-map "\C-xt" nil)
 
-      (add-hook 'ruby-mode-hook 'cnb/ruby-setup)
-      (define-key ruby-mode-map (kbd "RET") 'newline-and-indent)
+      (add-hook 'ruby-mode-hook #'cnb/ruby-setup)
+      (define-key ruby-mode-map (kbd "RET") #'newline-and-indent)
       )
     )
 #+end_src
@@ -1989,7 +1989,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
                      scheme-mode))
 
   (dolist (mode lisp-modes)
-    (add-hook (intern (format "%s-hook" mode)) 'cnb/imenu-lisp-sections))
+    (add-hook (intern (format "%s-hook" mode)) #'cnb/imenu-lisp-sections))
 #+end_src
 
 ** Markup Modes
@@ -2015,7 +2015,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
       :init
       (progn
-        (add-hook 'markdown-mode 'flyspell-mode)))
+        (add-hook 'markdown-mode #'flyspell-mode)))
 
 #+end_src
 
@@ -2074,7 +2074,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 *** CSS
 #+begin_src emacs-lisp
   (setq css-indent-offset 2)
-  (add-hook 'css-mode-hook 'rainbow-mode)
+  (add-hook 'css-mode-hook #'rainbow-mode)
 
 #+end_src
 
@@ -2090,8 +2090,8 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
     :init
     (progn
       (setq scss-compile-at-save nil)
-      (add-hook 'sass-mode-hook 'rainbow-mode)
-      (add-hook 'sass-mode-hook 'flymake-sass-load)))
+      (add-hook 'sass-mode-hook #'rainbow-mode)
+      (add-hook 'sass-mode-hook #'flymake-sass-load)))
 
 #+end_src
 *** Less CSS
@@ -2102,8 +2102,8 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
 *** Text
 #+begin_src emacs-lisp
-  (add-hook 'text-mode-hook 'turn-on-auto-fill)
-  (add-hook 'text-mode-hook 'turn-on-flyspell)
+  (add-hook 'text-mode-hook #'turn-on-auto-fill)
+  (add-hook 'text-mode-hook #'turn-on-flyspell)
 
 #+end_src
 
@@ -2163,7 +2163,7 @@ Close term buffers when terminal is exited.
           (if (string= event "finished\n")
               (kill-buffer ,buff))))))
 
-  (add-hook 'term-exec-hook 'cnb/term-exec-hook)
+  (add-hook 'term-exec-hook #'cnb/term-exec-hook)
 #+end_src
 
 *** Org
@@ -2177,7 +2177,7 @@ Close term buffers when terminal is exited.
   (setq org-default-notes-file (concat org-directory "/organizer.org"))
   (setq org-agenda-files (quote ("~/Dropbox/org/personal.org" "~/Dropbox/org/work.org")))
 
-  (add-hook 'org-mode-hook 'turn-off-auto-fill)
+  (add-hook 'org-mode-hook #'turn-off-auto-fill)
 #+end_src
 
 #+begin_src emacs-lisp
@@ -2394,8 +2394,8 @@ Remember command and search history.
       ;; To make work in Gmail compose window.
       (autoload 'edit-server-maybe-dehtmlize-buffer "edit-server-htmlize" "edit-server-htmlize" t)
       (autoload 'edit-server-maybe-htmlize-buffer   "edit-server-htmlize" "edit-server-htmlize" t)
-      (add-hook 'edit-server-start-hook 'edit-server-maybe-dehtmlize-buffer)
-      (add-hook 'edit-server-done-hook  'edit-server-maybe-htmlize-buffer)))
+      (add-hook 'edit-server-start-hook #'edit-server-maybe-dehtmlize-buffer)
+      (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer)))
 
 #+end_src
 
