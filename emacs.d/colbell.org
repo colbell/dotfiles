@@ -567,9 +567,12 @@ Don't want them.
 (setq initial-scratch-message nil)
 (eval '(setq inhibit-startup-echo-area-message "colbell"))
 #+end_src
+
 *** Bookmarks
 #+begin_src emacs-lisp
   (use-package bookmark
+    :defer t
+
     :init
     (progn
       (setq bookmark-save-flag 1) ; Save bookmarks instantly
@@ -581,6 +584,7 @@ Enhancements for bookmarks.
 
 #+begin_src emacs-lisp
   (use-package bookmark+
+    :defer t
     :ensure bookmark+)
 #+end_src
 
