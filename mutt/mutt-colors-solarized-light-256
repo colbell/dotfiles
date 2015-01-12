@@ -117,7 +117,7 @@ color body          color239        default         "[ ]?[*][^*]*[*][ ]" # more 
 
 color body          color160        default         "(BAD signature)"
 color body          color37         default         "(Good signature)"
-color body          color230        default         "^gpg: Good signature .*"
+color body          color37         default         "^gpg: Good signature .*"
 color body          color244        default         "^gpg: "
 color body          color244        color160        "^gpg: BAD signature from.*"
 mono  body          bold                            "^gpg: Good signature"
@@ -129,9 +129,9 @@ color body          color160        default        "([a-z][a-z0-9+-]*://(((([a-z
 color body          color160        default        "((@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]),)*@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]):)?[0-9a-z_.+%$-]+@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\])"
 
 # Various smilies and the like
-color body          color233        color233        "<[Gg]>"                            # <g>
-color body          color233        color233        "<[Bb][Gg]>"                        # <bg>
-color body          color136        default         " [;:]-*[})>{(<|]"                  # :-) etc...
+color body          color233        default         "<[Gg]>"                            # <g>
+color body          color233        default         "<[Bb][Gg]>"                        # <bg>
+color body          color233        default         " [;:]-*[})>{(<|]"                  # :-) etc...
 # *bold*
 color body          color33         default         "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
 mono  body          bold                            "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
