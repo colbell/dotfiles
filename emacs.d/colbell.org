@@ -33,6 +33,8 @@ I'm also using the [[https://github.com/jwiegley/use-package][use-package]] macr
 * Settings
 ** Load "Customize" Interface.
 
+Load all settings that were defined through the 'customize' interface.
+
 #+begin_src emacs-lisp
 (setq custom-file (expand-file-name "emacs-custom.el" user-emacs-directory))
 (load custom-file t)
@@ -44,8 +46,7 @@ I'm also using the [[https://github.com/jwiegley/use-package][use-package]] macr
         user-mail-address "col@baibell.org")
 #+END_SRC
 ** Initialization
-
-Seed the random number generator.
+*** Seed Random Number Generator
 
 #+begin_src emacs-lisp
   (random t)
@@ -124,7 +125,7 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
       (setq solarized-use-variable-pitch nil)
       ;;(setq solarized-use-more-italic t)
       ;;(setq solarized-use-less-bold t)
-      (load-theme 'solarized-light t)))
+      (load-theme 'solarized-dark t)))
 
 #+end_src
 
@@ -171,6 +172,7 @@ Don't use them.
     :init
     (progn
       (add-to-list 'sml/replacer-regexp-list '("^~/dotfiles/emacs\\.d/" ":ED:") t)
+      (add-to-list 'sml/replacer-regexp-list '("^~/src/kwela/src/webapp/work" ":KW:") t)
       (sml/setup)))
 #+end_src
 
@@ -489,6 +491,8 @@ Directory view/editing.
 
 
   (use-package dired
+    :defer t
+
     :init
     (progn
       (setq dired-listing-switches "-alhGv --group-directories-first")
@@ -538,12 +542,14 @@ Directory view/editing.
 
 
   (use-package dired-x
+    :defer t
     :config
     (progn
       ;; Remember -  <C-x><ALT>o to omit hidden files
       (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))))
 
   (use-package dired+
+    :defer t
     :ensure dired+
 
     :init
@@ -551,6 +557,7 @@ Directory view/editing.
       (diredp-toggle-find-file-reuse-dir 1)))
 
   (use-package wdired
+    :defer t
     :init
     (progn
       (setq wdired-allow-to-change-permissions t)
@@ -1003,22 +1010,22 @@ Close buffers that haven't been used in =clean-buffer-list-delay-general= days.
 Formatting of white space.
 
 #+begin_src emacs-lisp
-    (use-package whitespace
-      :diminish whitespace-mode
-      :diminish global-whitespace-mode
+  (use-package whitespace
+    :diminish whitespace-mode
+    :diminish global-whitespace-mode
 
-      :init
-      (progn
-        (setq whitespace-style '(face tabs empty trailing lines-tail))
-        (set-default 'show-trailing-whitespace t)
-        (setq whitespace-line-column 80)
-        (global-whitespace-mode)
-        (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
+    :init
+    (progn
+      (setq whitespace-style '(face tabs empty trailing lines-tail))
+      (set-default 'show-trailing-whitespace t)
+      (setq whitespace-line-column 80)
+      (global-whitespace-mode)
+      (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
 
-        ;; Don't highlight WS in some modes.
-        (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
-                                        eww-mode-hook completion-list-mode-hook))
-          (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
+      ;; Don't highlight WS in some modes.
+      (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
+                                      term-mode eww-mode-hook completion-list-mode-hook))
+        (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
 #+end_src
 
 *** Saving
