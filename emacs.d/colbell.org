@@ -31,6 +31,10 @@ original inspiration came from a blog post by [[http://sachachua.com/blog/2012/0
 I'm also using the [[https://github.com/jwiegley/use-package][use-package]] macro to simplify package handing.
 
 * Settings
+  :PROPERTIES:
+  :header-args: :results silent
+  :END:
+
 ** Load "Customize" Interface.
 
 Load all settings that were defined through the 'customize' interface.
@@ -41,10 +45,12 @@ Load all settings that were defined through the 'customize' interface.
 #+end_src
 
 ** Personal information
+
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Colin Noel Bell"
         user-mail-address "col@baibell.org")
 #+END_SRC
+
 ** Initialization
 *** Seed Random Number Generator
 
@@ -215,7 +221,7 @@ in the mode line.
       (setq anzu-search-threshold 1000)))
 #+end_src
 
-*** Battery Status
+**** Battery Status
 
 Put the battery status in the mode-line.
 
@@ -382,7 +388,7 @@ Don't use them, use spaces instead. Default spacing to 2 spaces.
   (setq backup-by-copying t) ;; Don't clobber symlinks, owner, group etc.
 #+end_src
 
-Don't clutter the disk with Emacs save files. Store them in =~/.emacs.d/backups=.
+Don't clutter the disk with Emacs save files. Store them in =~/.emacs.d/backups.
 
 #+begin_src emacs-lisp
 (setq version-control t)
@@ -449,6 +455,17 @@ Start Emacs server on first Emacs instance.
 Directory view/editing.
 
 #+begin_src emacs-lisp
+  (defun cnb/dired-get-size ()
+    "Get total size of all marked files. From http://oremacs.com/2015/01/12/dired-file-size/"
+    (interactive)
+    (let ((files (dired-get-marked-files)))
+      (with-temp-buffer
+        (apply 'call-process "/usr/bin/du" nil t nil "-sch" files)
+        (message
+         "Size of all marked files: %s"
+         (progn
+           (re-search-backward "\\(^[0-9.,]+[A-Za-z]+\\).*total$")
+           (match-string 1))))))
 
   (defun cnb/dired-back-to-top ()
     "Move to the first file name in the dired buffer"
@@ -491,7 +508,7 @@ Directory view/editing.
 
 
   (use-package dired
-    :defer t
+    ;;:defer t
 
     :init
     (progn
@@ -734,10 +751,8 @@ Drag mode. Allows dragging by alt left up etc.
 
 #+end_src
 
-#+RESULTS:
-: t
-
 **** Go to Last Change
+
 #+begin_src emacs-lisp
   (use-package goto-chg
     :ensure goto-chg
@@ -792,13 +807,13 @@ Bind 'o' to links in Help and Info buffers
 Combine isearch, ace-jump-mode and helm-swoop.
 
 #+begin_src emacs-lisp
-  (use-package ace-isearch
-    :ensure t
-    :defer t
+  ;; (use-package ace-isearch
+  ;;   :ensure t
+  ;;   :defer t
 
-    :init
-    (progn
-      (global-ace-isearch-mode +1)))
+  ;;   :init
+  ;;   (progn
+  ;;     (global-ace-isearch-mode +1)))
 #+end_src
 
 *** IBuffer
@@ -1002,9 +1017,6 @@ Close buffers that haven't been used in =clean-buffer-list-delay-general= days.
       (setq clean-buffer-list-delay-general 2)))
 #+end_src
 
-#+RESULTS:
-: t
-
 *** White Space
 
 Formatting of white space.
@@ -1118,14 +1130,14 @@ Recent Files is a mode that keeps track of files that have been opened.
 *** PopWin
 
 #+begin_src emacs-lisp
-    (use-package popwin
-      :ensure t
-      :defer t
-      :commands (popwin-mode)
+  (use-package popwin
+    :ensure t
+    :defer t
+    :commands (popwin-mode)
 
-      :idle
-      (progn
-        (popwin-mode 1)))
+    :idle
+    (progn
+      (popwin-mode 1)))
 #+end_src
 
 ** Selection
@@ -1313,13 +1325,13 @@ Increase/decrease buffer font size.
 #+begin_src emacs-lisp
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
-
 #+end_src
 
 *** Discover My Major
 
 Discover key bindings and their meaning for the current Emacs major mode.
 
+#+HEADER: :results silent
 #+begin_src emacs-lisp
   (use-package discover-my-major
     :ensure discover-my-major
@@ -1333,6 +1345,7 @@ Discover key bindings and their meaning for the current Emacs major mode.
 
 Magit is a very cool GUI for Git.
 
+#+HEADER: :results silent
 #+begin_src emacs-lisp
     (use-package magit
       :ensure magit
@@ -1380,6 +1393,7 @@ Magit is a very cool GUI for Git.
 
 Show Git status in the fringe.
 
+#+HEADER: :results silent
 #+begin_src emacs-lisp
     (use-package git-gutter
       :ensure git-gutter
@@ -1395,6 +1409,7 @@ Show Git status in the fringe.
 
 Show commit details for the current line.
 
+#+HEADER: :results silent
 #+begin_src emacs-lisp
   (defun cnb/git-msg-popup-hook ()
     (magit-commit-mode))
@@ -2131,7 +2146,6 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
   (add-hook 'text-mode-hook #'turn-on-flyspell)
 
 #+end_src
-
 ** Other Major Modes
 *** Crontab
 #+begin_src emacs-lisp
@@ -2233,6 +2247,21 @@ Close term buffers when terminal is exited.
        deft-text-mode 'org-mode
        deft-extension "org")))
 
+#+end_src
+
+*** TeX
+#+begin_src emacs-lisp
+  (use-package tex
+    (TeX-global-PDF-mode t)
+
+    (setq-default TeX-master nil)
+    (setq TeX-parse-self t)
+    (setq TeX-auto-save t)
+
+    (add-hook 'LaTeX-mode-hook #'visual-line-mode)
+    (add-hook 'LaTeX-mode-hook #'flyspell-mode)
+    (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
+    (add-hook 'LaTeX-mode-hook #'nlinum-mode))
 #+end_src
 
 *** log4j
