@@ -15,6 +15,9 @@ set shiftwidth=2        " Indentation width when using >> and << re-indentation
 set nobackup
 set expandtab           " Tabs are expanded to spaces
 
+syntax on
+filetype on
+
 set number
 
 source $VIMRUNTIME/vimrc_example.vim
