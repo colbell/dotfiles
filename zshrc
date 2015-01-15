@@ -37,9 +37,10 @@ autoload -U colors
 colors
 
 
-export HISTFILESIZE=
-export HISTSIZE=
-
+export HISTFILESIZE=2500        # Not sure if used.
+export HISTSIZE=$HISTFILESIZE   # Lines of hist stored in memory
+export SAVEHIST=2000            # Lines of hist stored on disk
+setopt EXTENDED_HISTORY         # save timestamp and runtime information
 
 # Work around for Google Chrome not accepting keyboard input in addressbar
 # https://bugs.launchpad.net/ubuntu/+source/chromium-browser/+bug/1307648
