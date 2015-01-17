@@ -25,9 +25,10 @@ set smtp_pass=$my_pw_baibell
 folder-hook IN. "push <collapse-all>\n"
 
 folder-hook IN.                 set sort=threads
+folder-hook INBOX               set sort=reverse-threads
 folder-hook Sent                set sort=reverse-date-sent
 folder-hook .*Gmail.*Sent.*     set sort=reverse-date-sent
 
 folder-hook .*Gmail.*Spam   'push "<limit>~N<enter>"'
-folder-hook INBOX           'push "<limit>~N|~O|~F<enter>"'
 folder-hook IN.             'push "<limit>~N|~O|~F|~P<enter>"'
+folder-hook INBOX           'push "<limit>~N|~O|~F<enter>"'
