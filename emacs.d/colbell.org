@@ -1102,6 +1102,17 @@ Recent Files is a mode that keeps track of files that have been opened.
 #+end_src
 
 ** Windows
+*** Winner Mode
+
+C-c left/right to undo/redo window configuration changes.
+
+#+begin_src emacs-lisp
+  (use-package winner
+    :init
+    (progn
+      (winner-mode)))
+#+end_src
+
 *** Rotate Windows
 #+begin_src emacs-lisp
   (defun cnb/rotate-windows ()
