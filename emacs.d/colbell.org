@@ -1351,6 +1351,15 @@ Discover key bindings and their meaning for the current Emacs major mode.
 #+end_src
 
 ** Programming Utilities
+*** Ediff
+#+begin_src emacs-lisp
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  (setq ediff-split-window-function 'split-window-horizontally)
+  (setq ediff-diff-options "-w")
+
+  (add-hook 'ediff-after-quit-hook-internal 'winner-undo)
+#+end_src
+
 *** Source Control
 **** Magit
 
@@ -2515,11 +2524,9 @@ By default truncate long lines.
   (setq shift-select-mode t
         mouse-yank-at-point t
         ;;save-interprogram-paste-before-kill t
-        require-final-newline t
-        ediff-window-setup-function 'ediff-setup-windows-plain)
+        require-final-newline t)
 
 #+end_src
-
 
 #+begin_src emacs-lisp
   (use-package ack-and-a-half
