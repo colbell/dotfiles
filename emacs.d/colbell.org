@@ -297,10 +297,11 @@ Move mouse cursor when text cursor gets too close.
 (mouse-avoidance-mode 'exile)
 #+end_src
 
-Blink text cursor forever. I like to know where the cursor is.
+Cursor configuration
 
 #+begin_src emacs-lisp
   (setq blink-cursor-blinks 0)
+  (setq-default cursor-type 'bar)
   (blink-cursor-mode)
 #+end_src
 
