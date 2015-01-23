@@ -719,7 +719,7 @@ Dictionary Look-up
 **** Ace Jump Mode
 #+begin_src emacs-lisp
   (use-package ace-jump-mode
-    :ensure ace-jump-mode
+    :ensure t
     :bind (("C-c SPC" . ace-jump-mode)))
 #+end_src
 
@@ -2057,14 +2057,16 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 ** Markup Modes
 *** YAML
 #+begin_src emacs-lisp
-  (use-package yaml-mode
-    :mode (("\\.yml$" . yaml-mode) ("\\.ya?ml$" . yaml-mode))
-    :config
-    (progn
-      (add-hook 'yaml-mode-hook
-                (lambda ()
-                  (define-key yaml-mode-map (kbd "RET") 'newline-and-indent)
-                  (electric-indent-local-mode -1)))))
+    (use-package yaml-mode
+      :mode (("\\.yml$" . yaml-mode) ("\\.ya?ml$" . yaml-mode))
+      :ensure t
+
+      :config
+      (progn
+        (add-hook 'yaml-mode-hook
+                  (lambda ()
+                    (define-key yaml-mode-map (kbd "RET") 'newline-and-indent)
+                    (electric-indent-local-mode -1)))))
 
 #+end_src
 
