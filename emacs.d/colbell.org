@@ -2304,14 +2304,6 @@ Close term buffers when terminal is exited.
 #+end_src
 
 ** Web Browsers
-*** w3m
-#+begin_src emacs-lisp
-  (setq w3m-default-display-inline-images t)
-  (setq w3m-use-cookies t)
-  (require 'w3m-load nil t) ;;w3m autoloads
-#+end_src
-
-** External Tools
 *** Definitions
 
 #+begin_src emacs-lisp
@@ -2320,6 +2312,14 @@ Close term buffers when terminal is exited.
   browse-url-generic-program "chromium-browser")
 #+end_src
 
+*** w3m
+#+begin_src emacs-lisp
+  (setq w3m-default-display-inline-images t)
+  (setq w3m-use-cookies t)
+  (require 'w3m-load nil t) ;;w3m autoloads
+#+end_src
+
+** External Tools
 *** Open files in external programs
 
 #+begin_src emacs-lisp
