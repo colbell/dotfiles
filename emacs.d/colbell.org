@@ -2379,6 +2379,22 @@ Launch various tools.
   (define-key cnb/launcher-map "t" 'proced)
 #+end_src
 
+*** Hydra
+#+begin_src emacs-lisp
+  (use-package hydra
+    :ensure t
+    :defer t
+
+    :config
+    (progn
+      (require 'hydra-examples)
+      (hydra-create "C-M-o"
+        '(("h" hydra-move-splitter-left "left")
+          ("j" hydra-move-splitter-down "down")
+          ("k" hydra-move-splitter-up "up")
+          ("l" hydra-move-splitter-right "right")))))
+#+end_src
+
 ** Session
 
 Remember current position in file.
