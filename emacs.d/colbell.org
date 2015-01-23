@@ -138,8 +138,9 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
 *** Font
 
 #+begin_src emacs-lisp
-  (set-frame-font "Source Code Pro-10" nil t)
+  ;;(set-frame-font "Source Code Pro-10" nil t)
   ;;(set-frame-font "DejaVu Sans Mono-10" nil t)
+  (set-frame-font "Inconsolata-11" nil t)
 #+end_src
 
 *** Remove Unnecessary Clutter
