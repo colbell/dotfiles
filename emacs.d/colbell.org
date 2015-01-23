@@ -2275,18 +2275,26 @@ Close term buffers when terminal is exited.
 
 *** TeX
 #+begin_src emacs-lisp
-  (use-package tex
-    (TeX-global-PDF-mode t)
+  (use-package auctex
+    :ensure t
+    :defer
 
-    (setq-default TeX-master nil)
-    (setq TeX-parse-self t)
-    (setq TeX-auto-save t)
-    (setq TeX-save-query nil)
+    :config
+    (progn
+      (TeX-global-PDF-mode t))
 
-    (add-hook 'LaTeX-mode-hook #'visual-line-mode)
-    (add-hook 'LaTeX-mode-hook #'flyspell-mode)
-    (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
-    (add-hook 'LaTeX-mode-hook #'nlinum-mode))
+    :init
+    (progn
+      (setq-default TeX-master nil)
+      (setq TeX-parse-self t)
+      (setq TeX-auto-save t)
+      (setq TeX-save-query nil)
+
+      (add-hook 'LaTeX-mode-hook #'visual-line-mode)
+      (add-hook 'LaTeX-mode-hook #'flyspell-mode)
+      (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
+      (add-hook 'LaTeX-mode-hook #'nlinum-mode)))
+
 #+end_src
 
 *** log4j
@@ -2536,9 +2544,6 @@ By default truncate long lines.
   (use-package ack-and-a-half
     :ensure ack-and-a-half)
 
-  (use-package auctex
-    :ensure auctex
-    :defer)
 
   (use-package csv-mode
     :ensure csv-mode)
