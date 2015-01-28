@@ -2437,7 +2437,9 @@ Remember command and search history.
     :init
     (progn
       (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
-      (savehist-mode)))
+      (savehist-mode)
+      (setq history-delete-duplicates t)
+      (setq savehist-save-minibuffer-history t)))
 #+end_src
 
 ** Put somewhere
