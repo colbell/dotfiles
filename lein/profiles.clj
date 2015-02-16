@@ -1,5 +1,5 @@
 {:user { :plugins [[cider/cider-nrepl "0.9.0-SNAPSHOT"]
-                   [lein-ancient "0.5.5"]
+                   [lein-ancient "0.6.2"]
                    [lein-annotations "0.1.0"]
                    [lein-bikeshed "0.2.0"]
                    [lein-marginalia "0.8.0"]
@@ -10,5 +10,5 @@
                    [lein-pprint "1.1.2"]
                    [com.aphyr/prism "0.1.2"]]
         :dependencies [[slamhound "1.5.5"]
-                       [com.aphyr/prism "0.1.2"]]
+                       [com.aphyr/prism "0.1.3"]]
         :aliases {"slamhound" ["run" "-m" "slam.hound"]}}}
