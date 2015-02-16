@@ -120,19 +120,23 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
 *** Theme
 
 #+begin_src emacs-lisp
-  (use-package solarized-theme
-    :ensure solarized-theme
-    :defer t
+  ;; (use-package solarized-theme
+  ;;   :ensure solarized-theme
 
-    :init
-    (progn
-      (setq solarized-distinct-fringe-background t)
-      (setq solarized-scale-org-headlines nil)
-      (setq solarized-use-variable-pitch nil)
-      ;;(setq solarized-use-more-italic t)
-      ;;(setq solarized-use-less-bold t)
-      (load-theme 'solarized-dark t)))
+  ;;   :init
+  ;;   (progn
+  ;;     (setq solarized-distinct-fringe-background t)
+  ;;     (setq solarized-scale-org-headlines nil)
+  ;;     (setq solarized-use-variable-pitch nil)
+  ;;     ;;(setq solarized-use-more-italic t)
+  ;;     ;;(setq solarized-use-less-bold t)
+  ;;     (load-theme 'solarized-dark t)))
 
+  (use-package gruvbox-theme
+     :ensure t
+     :init
+     (progn
+       (load-theme 'gruvbox)))
 #+end_src
 
 *** Font
@@ -203,6 +207,7 @@ mode line.
   :defer t
   :init
   (progn
+    (set-face-attribute 'which-func nil :foreground "orange")
     (which-func-mode 1))
 #+end_src
 
@@ -339,6 +344,16 @@ Helm is an interactive completion tool.
       (when (executable-find "curl")
         (setq helm-google-suggest-use-curl-p t))
 
+      (defun helm-backspace ()
+        "Forward to `backward-delete-char'. On error (read-only), quit without selecting."
+        (interactive)
+        (condition-case nil
+            (backward-delete-char 1)
+          (error
+           (helm-keyboard-quit))))
+
+  (define-key helm-map (kbd "DEL") 'helm-backspace)
+
       (helm-mode 1))
 
     :bind (("M-x"                  . helm-M-x)
@@ -371,17 +386,6 @@ Don't use them, use spaces instead. Default spacing to 2 spaces.
 #+begin_src emacs-lisp
   (set-default 'indent-tabs-mode nil)
   (setq-default tab-width 2)
-#+end_src
-
-*** Key Chords
-#+begin_src emacs-lisp
-  (use-package key-chord
-    :ensure key-chord
-
-    :init
-    (progn
-      (key-chord-mode 1)
-      (setq key-chord-two-keys-delay 0.2)))
 #+end_src
 
 *** Backup Files
@@ -2198,6 +2202,16 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
   (setq doc-view-resolution 192)  ;; makes PDFs look better
   (setq doc-view-continuous t)
 #+end_src
+*** PDF Tools
+#+begin_src emacs-lisp
+  (use-package pdf-tools
+    :ensure t
+    :defer t
+
+    :config
+    (progn
+      (pdf-tools-install)))
+#+end_src
 
 *** Terminal
 #+begin_src emacs-lisp
@@ -2329,6 +2343,16 @@ Close term buffers when terminal is exited.
 #+end_src
 
 ** Key Maps
+*** Key Chords
+#+begin_src emacs-lisp
+  (use-package key-chord
+    :ensure t
+
+    :init
+    (progn
+      (key-chord-mode +1)))
+#+end_src
+
 *** Global Map
 
 #+begin_src emacs-lisp
@@ -2383,16 +2407,30 @@ Launch various tools.
 #+begin_src emacs-lisp
   (use-package hydra
     :ensure t
-    :defer t
 
-    :config
+    :init
     (progn
       (require 'hydra-examples)
-      (hydra-create "C-M-o"
-        '(("h" hydra-move-splitter-left "left")
-          ("j" hydra-move-splitter-down "down")
-          ("k" hydra-move-splitter-up "up")
-          ("l" hydra-move-splitter-right "right")))))
+      (key-chord-define-global
+       "YY"
+       (defhydra cnb-hydra-win-functions (global-map "<f5>")
+         "window functions"
+         ("h" hydra-move-splitter-left "split L")
+         ("j" hydra-move-splitter-down "split D")
+         ("k" hydra-move-splitter-up "split U")
+         ("l" hydra-move-splitter-right "split R")
+
+         ("<left>" window-jump-left "jump L")
+         ("<down>" window-jump-down "jump D")
+         ("<up>" window-jump-up "jump U")
+         ("<right>" window-jump-right "jump R")
+
+         ("a" ace-window "ace")
+         ("s" (lambda () (interactive) (ace-window 4)) "swap")
+         ("d" (lambda () (interactive) (ace-window 16)) "delete")
+         )
+       )
+      ))
 #+end_src
 
 ** Session
