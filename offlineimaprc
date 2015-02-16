@@ -9,7 +9,7 @@ ui = ttyui
 #########################################################################
 [Account home]
 
-autorefresh = 10
+autorefresh = 20
 
 localrepository = home-local
 remoterepository = home-remote
@@ -38,7 +38,7 @@ folderfilter = lambda foldername: foldername not in '[Gmail]/All Mail'
 #########################################################################
 [Account kwela]
 
-autorefresh = 10
+autorefresh = 20
 
 localrepository = kwela-local
 remoterepository = kwela-remote
