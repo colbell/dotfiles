@@ -8,6 +8,6 @@
 
 \set COMP_KEYWORD_CASE upper
 
-\setenv LESS -imx4F
+\setenv LESS -imx4
 
 \timing on
