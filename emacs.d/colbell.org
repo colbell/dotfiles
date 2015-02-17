@@ -25,10 +25,10 @@ brighter; it simply makes everything else vanish.
 ** About This File
 
 I've converted my Emacs configuration to an Org file which
-can be loaded using =(org-babel-load-file /path/to/file)=. The
-original inspiration came from a blog post by [[http://sachachua.com/blog/2012/06/literate-programming-emacs-configuration-file/][Sacha Chua]].
+can be loaded using =(org-babel-load-file /path/to/file)=.
+The original inspiration came from a blog post by [[http://sachachua.com/blog/2012/06/literate-programming-emacs-configuration-file/][Sacha Chua]].
 
-I'm also using the [[https://github.com/jwiegley/use-package][use-package]] macro to simplify package handing.
+I'm also using [[https://github.com/jwiegley/use-package][use-package]] to simplify package handing.
 
 * Settings
   :PROPERTIES:
@@ -280,18 +280,18 @@ Show line numbers in fringe
 
 #+begin_src emacs-lisp
   (use-package nlinum
-    :ensure nlinum
+    :ensure t)
 
-    :init
-    (progn
-      ;; Precalculate the line number width to avoid horizontal jumps on scrolling.
-      ;; From: http://www.emacswiki.org/LineNumbers
-      (add-hook
-       'nlinum-mode-hook
-       (lambda ()
-         (setq nlinum--width
-               (length (number-to-string
-                        (count-lines (point-min) (point-max)))))))))
+    ;; :init
+    ;; (progn
+    ;;   ;; Precalculate the line number width to avoid horizontal jumps on scrolling.
+    ;;   ;; From: http://www.emacswiki.org/LineNumbers
+    ;;   (add-hook
+    ;;    'nlinum-mode-hook
+    ;;    (lambda ()
+    ;;      (setq nlinum--width
+    ;;            (length (number-to-string
+    ;;                     (count-lines (point-min) (point-max)))))))))
 #+end_src
 
 *** General
@@ -352,9 +352,12 @@ Helm is an interactive completion tool.
           (error
            (helm-keyboard-quit))))
 
-  (define-key helm-map (kbd "DEL") 'helm-backspace)
 
       (helm-mode 1))
+
+    :config
+    (progn
+      (define-key helm-map (kbd "DEL") 'helm-backspace))
 
     :bind (("M-x"                  . helm-M-x)
            ("M-y"                  . helm-show-kill-ring)
@@ -1028,22 +1031,24 @@ Close buffers that haven't been used in =clean-buffer-list-delay-general= days.
 Formatting of white space.
 
 #+begin_src emacs-lisp
-  (use-package whitespace
-    :diminish whitespace-mode
-    :diminish global-whitespace-mode
+    (use-package whitespace
+      :diminish whitespace-mode
+      :diminish global-whitespace-mode
 
-    :init
-    (progn
-      (setq whitespace-style '(face tabs empty trailing lines-tail))
-      (set-default 'show-trailing-whitespace t)
-      (setq whitespace-line-column 80)
-      (global-whitespace-mode)
-      (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
+      :init
+      (progn
+        (setq whitespace-style '(face tabs empty trailing lines-tail))
+        (set-default 'show-trailing-whitespace t)
+        (setq whitespace-line-column 80)
+        (global-whitespace-mode)
+        (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
 
-      ;; Don't highlight WS in some modes.
-      (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
-                                      term-mode eww-mode-hook completion-list-mode-hook))
-        (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
+        (setq whitespace-global-modes '(not org-mode))
+
+        ;; Don't highlight WS in some modes.
+        (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
+                                        term-mode eww-mode-hook completion-list-mode-hook))
+          (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
 #+end_src
 
 *** Saving
@@ -1700,7 +1705,7 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
   ;;=======================
   ;; Things to do when you open a coding buffer.
   ;;=======================
-  (add-hook 'cnb/coding-hook #'nlinum-mode)
+  ;;(add-hook 'cnb/coding-hook #'nlinum-mode)
   (add-hook 'cnb/coding-hook #'cnb/add-watchwords)
   (add-hook 'cnb/coding-hook #'hs-minor-mode)
   (add-hook 'cnb/coding-hook #'subword-mode)
@@ -2289,25 +2294,26 @@ Close term buffers when terminal is exited.
 
 *** TeX
 #+begin_src emacs-lisp
-  (use-package auctex
-    :ensure t
-    :defer
+    (use-package auctex
+      :ensure t
+      :defer
 
-    :config
-    (progn
-      (TeX-global-PDF-mode t))
+      :config
+      (progn
+        (TeX-global-PDF-mode t))
 
-    :init
-    (progn
-      (setq-default TeX-master nil)
-      (setq TeX-parse-self t)
-      (setq TeX-auto-save t)
-      (setq TeX-save-query nil)
+      :init
+      (progn
+        (setq-default TeX-master nil)
+        (setq TeX-parse-self t)
+        (setq TeX-auto-save t)
+        (setq TeX-save-query nil)
 
-      (add-hook 'LaTeX-mode-hook #'visual-line-mode)
-      (add-hook 'LaTeX-mode-hook #'flyspell-mode)
-      (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
-      (add-hook 'LaTeX-mode-hook #'nlinum-mode)))
+        (add-hook 'LaTeX-mode-hook #'visual-line-mode)
+        (add-hook 'LaTeX-mode-hook #'flyspell-mode)
+        (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
+        ;;(add-hook 'LaTeX-mode-hook #'nlinum-mode)
+        ))
 
 #+end_src
 
@@ -2345,12 +2351,12 @@ Close term buffers when terminal is exited.
 ** Key Maps
 *** Key Chords
 #+begin_src emacs-lisp
-  (use-package key-chord
-    :ensure t
+  ;; (use-package key-chord
+  ;;   :ensure t
 
-    :init
-    (progn
-      (key-chord-mode +1)))
+  ;;   :init
+  ;;   (progn
+  ;;     (key-chord-mode +1)))
 #+end_src
 
 *** Global Map
@@ -2373,64 +2379,67 @@ I press these too often
   (global-unset-key (kbd "C-x C-z"))
 #+end_src
 
-*** Toggle Map
-
-Toggle various minor modes, based on an Endless Parentheses Blog [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][post]]
-
-#+begin_src emacs-lisp
-  (define-prefix-command 'cnb/toggle-map)
-  (define-key ctl-x-map "t" 'cnb/toggle-map)
-
-  (define-key cnb/toggle-map "d" 'toggle-debug-on-error)
-  (define-key cnb/toggle-map "l" 'nlinum-mode)
-  (define-key cnb/toggle-map "n" 'cnb/narrow-or-widen-dwim)
-  (define-key cnb/toggle-map "r" 'dired-toggle-read-only)
-  (define-key cnb/toggle-map "s" 'subword-mode)
-  (define-key cnb/toggle-map "v" 'visual-line-mode)
-#+end_src
-
-*** Launcher Map
-
-Launch various tools.
-
-#+begin_src emacs-lisp
-  (define-prefix-command 'cnb/launcher-map)
-  (define-key ctl-x-map "l" 'cnb/launcher-map)
-  (define-key cnb/launcher-map "c" 'calc)
-  (define-key cnb/launcher-map "d" 'ediff-buffers)
-  (define-key cnb/launcher-map "f" 'find-dired)
-  (define-key cnb/launcher-map "p" 'paradox-list-packages)
-  (define-key cnb/launcher-map "t" 'proced)
-#+end_src
-
 *** Hydra
 #+begin_src emacs-lisp
-  (use-package hydra
-    :ensure t
+    (use-package hydra
+      :ensure t
 
-    :init
-    (progn
-      (require 'hydra-examples)
-      (key-chord-define-global
-       "YY"
-       (defhydra cnb-hydra-win-functions (global-map "<f5>")
-         "window functions"
-         ("h" hydra-move-splitter-left "split L")
-         ("j" hydra-move-splitter-down "split D")
-         ("k" hydra-move-splitter-up "split U")
-         ("l" hydra-move-splitter-right "split R")
+      :init
+      (progn
+        (require 'hydra-examples)
 
-         ("<left>" window-jump-left "jump L")
-         ("<down>" window-jump-down "jump D")
-         ("<up>" window-jump-up "jump U")
-         ("<right>" window-jump-right "jump R")
+        (global-set-key
+         (kbd "<f5> l")
+         (defhydra cnb-hydra-launch-functions (:color blue)
+           ("c" calc "calc")
+           ("d" ediff-buffers "ediff")
+           ("f" find-dired "find")
+           ("p" paradox-list-packages "packages")
+           ("t" proced "top")))
 
-         ("a" ace-window "ace")
-         ("s" (lambda () (interactive) (ace-window 4)) "swap")
-         ("d" (lambda () (interactive) (ace-window 16)) "delete")
-         )
-       )
-      ))
+        (global-set-key
+         (kbd "<f5> o")
+         (defhydra cnb-hydra-occur-functions ()
+           "error/occur functions"
+           ("h" first-error "first")
+           ("j" next-error "next")
+           ("k" previous-error "prev")))
+
+        (global-set-key
+         (kbd "<f5> t")
+         (defhydra cnb-hydra-toggle (:color blue)
+           "toggle"
+           ("a" abbrev-mode "abbrev")
+           ("d" toggle-debug-on-error "debug")
+           ("f" auto-fill-mode "fill")
+           ("l" nlinum-mode "linum")
+           ("n" cnb/narrow-or-widen-dwim "n/wx")
+           ("r" dired-toggle-read-only "R/O")
+           ("s" subword-mode "subword")
+           ("v" visual-line-mode "vlin")))
+
+        (global-set-key
+         (kbd "<f5> w")
+         (defhydra cnb-hydra-win-functions (:color amaranth)
+           "window functions"
+           ("h" hydra-move-splitter-left "mv L")
+           ("j" hydra-move-splitter-down "mv D")
+           ("k" hydra-move-splitter-up "mv U")
+           ("l" hydra-move-splitter-right "mv R")
+
+           ("<left>" window-jump-left "jump L")
+           ("<down>" window-jump-down "jump D")
+           ("<up>" window-jump-up "jump U")
+           ("<right>" window-jump-right "jump R")
+
+           ("a" ace-window "ace")
+           ("s" (lambda () (interactive) (ace-window 4)) "swap")
+           ("d" (lambda () (interactive) (ace-window 16)) "delete")
+           ("q" nil "quit"))))
+
+      :config
+      (progn
+        (set-face-attribute 'hydra-face-red nil :foreground "yellow")))
 #+end_src
 
 ** Session
