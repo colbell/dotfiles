@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
         cua-scroll-up
+        helm-confirm-and-exit-minibuffer
         smarter-move-beginning-of-line
         sp--self-insert-command
         ))
