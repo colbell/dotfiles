@@ -8,7 +8,7 @@ show-read-articles no
 notify-xterm       yes
 notify-screen      yes
 feed-sort-order    firsttag
-feedlist-format    "%4i %-10T %n %11u %t"
+feedlist-format    "%4i %-10T %11u %t"
 
 # Reloading.
 auto-reload        yes
