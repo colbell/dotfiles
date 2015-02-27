@@ -809,7 +809,8 @@ Select window by number.
 
     :init
     (progn
-      (setq aw-scope 'frame)))
+      (setq aw-scope 'frame)
+      (set-face-attribute 'aw-leading-char-face nil :height 3.0)))
 #+end_src
 
 **** Ace Link
@@ -1560,11 +1561,11 @@ Projectile is a Project Interaction Library.
          '(("app/decorators/" "/decorators/\\(.+\\)_decorator\\.rb$"))
          "app/decorators/${filename}_decorator.rb"))
 
-      (defun cnb/ projectile-rails-find-current-decorator ()
-             (interactive)
-             (projectile-rails-find-current-resource "app/decorators/"
-                                                     "/${singular}\\.rb$"
-                                                     'cnb/projectile-rails-find-decorator))
+      (defun cnb/projectile-rails-find-current-decorator ()
+        (interactive)
+        (projectile-rails-find-current-resource "app/decorators/"
+                                                "/${singular}\\.rb$"
+                                                'cnb/projectile-rails-find-decorator))
 
       ))
 #+end_src
@@ -2500,28 +2501,28 @@ I press these too often
          Find                              Run
   ----------------------------------------------------------------
       _m_: model                         _rs_: server
-    _s-m_: current model                 _rc_: console
+      _M_: current model                 _rc_: console
       _c_: controller                    _rr_: rake
-    _s-c_: current controller
+      _C_: current controller
       _d_: decorator
-    _s-d_: current decorator
+      _D_: current decorator
       _v_: view
-    _s-v_: current view
+      _V_: current view
     "
-             ("c"   projectile-rails-find-controller            nil)
-             ("s-c" projectile-rails-find-current-controller    nil :color blue)
-             ("d"   cnb/projectile-rails-find-decorator         nil)
-             ("s-d" cnb/projectile-rails-find-current-decorator nil)
-             ("m"   projectile-rails-find-model                 nil)
-             ("s-m" projectile-rails-find-current-model         nil)
-             ("v"   projectile-rails-find-view                  nil)
-             ("s-v" projectile-rails-find-current-view          nil)
+             ("c" projectile-rails-find-controller            nil)
+             ("C" projectile-rails-find-current-controller    nil)
+             ("d" cnb/projectile-rails-find-decorator         nil)
+             ("D" cnb/projectile-rails-find-current-decorator nil)
+             ("m" projectile-rails-find-model                 nil)
+             ("M" projectile-rails-find-current-model         nil)
+             ("v" projectile-rails-find-view                  nil)
+             ("V" projectile-rails-find-current-view          nil)
 
-             ("rs" projectile-rails-server                      nil)
-             ("rc" projectile-rails-console                     nil)
-             ("rr" projectile-rails-find-rake-task              nil)
+             ("rs" projectile-rails-server                    nil)
+             ("rc" projectile-rails-console                   nil)
+             ("rr" projectile-rails-find-rake-task            nil)
 
-             ("q"   nil                                         "cancel" :color blue)
+             ("q"   nil                                       "cancel" :color blue)
              ))
 
           (global-set-key
