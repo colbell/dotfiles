@@ -809,8 +809,11 @@ Select window by number.
 
     :init
     (progn
-      (setq aw-scope 'frame)
-      (set-face-attribute 'aw-leading-char-face nil :height 3.0)))
+      (setq aw-scope 'frame))
+
+    :config
+    (progn
+      (set-face-attribute 'aw-leading-char-face nil :height 2.0)))
 #+end_src
 
 **** Ace Link
@@ -1544,7 +1547,13 @@ Projectile is a Project Interaction Library.
 
     :init
     (progn
-      (add-hook 'projectile-mode-hook #'projectile-rails-on)))
+      (add-hook 'projectile-mode-hook #'projectile-rails-on)
+
+      (defun cnb/rails-server-hook ()
+        ;; If current focus is in a different window then that window is scrolled.
+        (setq-local compilation-scroll-output nil))
+
+      (add-hook 'projectile-rails-server-mode-hook #'cnb/rails-server-hook)))
 #+end_src
 
 #+begin_src emacs-lisp
