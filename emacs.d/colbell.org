@@ -2536,10 +2536,10 @@ Global hydra for toggling.
 
 Global hydra for window handling
 #+begin_src emacs-lisp
-    (global-set-key
-     (kbd "<f5> w")
-     (defhydra cnb-hydra-win-functions (:color amaranth)
-       "
+  (global-set-key
+   (kbd "<f5> w")
+   (defhydra cnb-hydra-win-functions (:color amaranth)
+     "
          Jump           Move Splitter    Split Window   ^^^^^^^^Ace
   -------------------------------------------------------------------
    _<left>_: Left        _h_: Left          _x_: Horiz       _s_: Swap
@@ -2547,37 +2547,37 @@ Global hydra for window handling
    _<down>_: Down        _j_: Down          _b_: Balance   ^^_m_: Maximize
      _<up>_: Up          _k_: Up
   "
-       ("<left>" window-jump-left nil)
-       ("<down>" window-jump-down nil)
-       ("<up>" window-jump-up nil)
-       ("<right>" window-jump-right nil)
+     ("<left>" window-jump-left nil)
+     ("<down>" window-jump-down nil)
+     ("<up>" window-jump-up nil)
+     ("<right>" window-jump-right nil)
 
-       ("h" hydra-move-splitter-left nil)
-       ("j" hydra-move-splitter-down nil)
-       ("k" hydra-move-splitter-up nil)
-       ("l" hydra-move-splitter-right nil)
-       ("b" balance-windows nil)
+     ("h" hydra-move-splitter-left nil)
+     ("j" hydra-move-splitter-down nil)
+     ("k" hydra-move-splitter-up nil)
+     ("l" hydra-move-splitter-right nil)
+     ("b" balance-windows nil)
 
-       ("u" winner-undo nil)
-       ("r" winner-redo nil)
+     ("u" winner-undo nil)
+     ("r" winner-redo nil)
 
-       ("x" (lambda ()
-              (interactive)
-              (split-window-below)
-              (windmove-down))
-        nil)
-       ("y" (lambda ()
-              (interactive)
-              (split-window-right)
-              (windmove-right))
-        nil)
+     ("x" (lambda ()
+            (interactive)
+            (split-window-below)
+            (windmove-down))
+      nil)
+     ("y" (lambda ()
+            (interactive)
+            (split-window-right)
+            (windmove-right))
+      nil)
 
-       ("a" ace-window nil)
-       ("s" (lambda () (interactive) (ace-window 4)) nil)
-       ("d" (lambda () (interactive) (ace-window 16)) nil)
-       ("m" ace-maximize-window nil :color blue)
+     ("a" ace-window nil)
+     ("s" (lambda () (interactive) (ace-window 4)) nil)
+     ("d" (lambda () (interactive) (ace-window 16)) nil)
+     ("m" ace-maximize-window nil :color blue)
 
-       ("q" nil "quit")))
+     ("q" nil "quit")))
 #+end_src
 
 
