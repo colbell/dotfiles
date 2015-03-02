@@ -100,7 +100,7 @@ Paradox is a powerful UI for the package manager.
 
 #+begin_src emacs-lisp
   (use-package paradox
-    :ensure paradox
+    :ensure t
 
     :init
     (progn
@@ -294,7 +294,7 @@ Show line numbers in fringe
     ;;    (lambda ()
     ;;      (setq nlinum--width
     ;;            (length (number-to-string
-    ;;                     (count-lines (point-min) (point-max)))))))))
+    ;;                     (+ 1 (count-lines (point-min) (point-max)))))))))
 #+end_src
 
 *** General
@@ -660,28 +660,6 @@ Visual Bookmarks
     :bind (("<C-f2>" . bm-toggle)
            ("<f2>"   . bm-next)
            ("<S-f2>" . bm-previous)))
-#+end_src
-
-*** Mouse Wheel
-
-Smooth mouse wheel scrolling.
-
-#+begin_src emacs-lisp
-  (use-package smooth-scrolling
-    :ensure smooth-scrolling
-
-    :config
-    (progn
-      (defun smooth-scroll (increment)
-        (scroll-up increment) (sit-for 0.05)
-        (scroll-up increment) (sit-for 0.02)
-        (scroll-up increment) (sit-for 0.02)
-        (scroll-up increment) (sit-for 0.05)
-        (scroll-up increment) (sit-for 0.06)
-        (scroll-up increment))
-
-      (global-set-key [(mouse-5)] (lambda () (interactive) (smooth-scroll 1)))
-      (global-set-key [(mouse-4)] (lambda () (interactive) (smooth-scroll -1)))))
 #+end_src
 
 *** Spelling
@@ -1465,14 +1443,14 @@ Show Git status in the fringe.
 
 #+HEADER: :results silent
 #+begin_src emacs-lisp
-    (use-package git-gutter
-      :ensure git-gutter
-      :diminish git-gutter-mode
+  (use-package git-gutter
+    :ensure git-gutter
+    :diminish git-gutter-mode
 
-      :config
-      (progn
-        (git-gutter:linum-setup)
-        (global-git-gutter-mode +1)))
+    :config
+    (progn
+      ;;(git-gutter:linum-setup)
+      (global-git-gutter-mode +1)))
 #+end_src
 
 **** Git Messenger
@@ -1765,11 +1743,11 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
   ;;=======================
   ;; Things to do when you open a coding buffer.
   ;;=======================
-  ;;(add-hook 'cnb/coding-hook #'nlinum-mode)
   (add-hook 'cnb/coding-hook #'cnb/add-watchwords)
   (add-hook 'cnb/coding-hook #'hs-minor-mode)
   (add-hook 'cnb/coding-hook #'subword-mode)
   (add-hook 'cnb/coding-hook #'flyspell-prog-mode t)
+  ;;(add-hook 'cnb/coding-hook #'nlinum-mode t)
 
   (when (fboundp 'yas/minor-mode)
     (add-hook 'cnb/coding-hook #'yas/minor-mode))
@@ -1916,7 +1894,7 @@ Clojure documentation.
 **** Slamhound
 #+begin_src emacs-lisp
   (use-package slamhound
-    :ensure slamhound
+    :ensure t
     :commands slamhound)
 #+end_src
 
@@ -2103,6 +2081,11 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
     (add-to-list 'imenu-generic-expression '("Packages" "(use-package \\([^)\n]*\\).*$" 1) t))
 
   (add-hook 'emacs-lisp-mode-hook 'cnb/elisp-packages)
+
+  (add-hook
+   'emacs-lisp-mode-hook
+   (lambda ()
+     (push '("defun" . 402) prettify-symbols-alist)))
 #+end_src
 
 *** Lisp Like Modes
@@ -2141,14 +2124,19 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
 *** Markdown
 #+begin_src emacs-lisp
-    (use-package markdown-mode
-      :ensure markdown-mode
-      :commands markdown-mode
-      :mode (("\\.md$" . markdown-mode) ("\\.markdown$" . markdown-mode))
+  (use-package markdown-mode
+    :ensure markdown-mode
+    :commands markdown-mode
+    :mode (("\\.md$" . markdown-mode) ("\\.markdown$" . markdown-mode))
 
-      :init
-      (progn
-        (add-hook 'markdown-mode #'flyspell-mode)))
+    :init
+    (progn
+      (add-hook 'markdown-mode #'flyspell-mode)))
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package gh-md
+    :ensure t)
 
 #+end_src
 
@@ -2375,7 +2363,7 @@ Close term buffers when terminal is exited.
         (add-hook 'LaTeX-mode-hook #'visual-line-mode)
         (add-hook 'LaTeX-mode-hook #'flyspell-mode)
         (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
-        ;;(add-hook 'LaTeX-mode-hook #'nlinum-mode)
+        ;;(add-hook 'LaTeX-mode-hook #'nlinum-mode t)
         ))
 
 #+end_src
@@ -2445,21 +2433,30 @@ I press these too often
 #+end_src
 
 *** Hydra
+
+Load package.
 #+begin_src emacs-lisp
-      (use-package hydra
-        :ensure t
+  (use-package hydra
+    :ensure t
 
-        :init
-        (progn
-          (require 'hydra-examples)
-          (hydra-add-font-lock)
+    :init
+    (progn
+      (require 'hydra-examples)
+      (hydra-add-font-lock))
 
-          (global-set-key
-           (kbd "<f5> e")
-           (defhydra rectangle-operations (:body-pre (rectangle-mark-mode 1)
-                                                     :foreign-keys run
-                                                     :post (deactivate-mark))
-             "
+    :config
+    (progn
+      (set-face-attribute 'hydra-face-red nil :foreground "yellow")))
+#+end_src
+
+Global hydra for Rectangle operations.
+#+begin_src emacs-lisp
+  (global-set-key
+   (kbd "<f5> e")
+   (defhydra rectangle-operations (:body-pre (rectangle-mark-mode 1)
+                                             :foreign-keys run
+                                             :post (deactivate-mark))
+     "
         rectangle operations
 
         arrow keys: extend region
@@ -2468,43 +2465,138 @@ I press these too often
         a:          align by input regexp
 
       "
-             ("<left>"   backward-char nil)
-             ("<right>"  forward-char  nil)
-             ("<up>"     previous-line nil)
-             ("<down>"   next-line     nil)
-             ("SPC"      rectangle-mark-mode    "mark")
-             ("d"        kill-rectangle         "delete")
-             ("c"        copy-rectangle-as-kill "copy")
-             ("y"        yank-rectangle         "yank")
-             ("f"        string-rectangle       "fill")
-             ("s"        open-rectangle         "shift")
-             ("a"        align-regexp           "align")
-             ("C-/"      undo                   "undo")
-             ("<escape>" nil))
-           )
+     ("<left>"   backward-char nil)
+     ("<right>"  forward-char  nil)
+     ("<up>"     previous-line nil)
+     ("<down>"   next-line     nil)
+     ("SPC"      rectangle-mark-mode    "mark")
+     ("d"        kill-rectangle         "delete")
+     ("c"        copy-rectangle-as-kill "copy")
+     ("y"        yank-rectangle         "yank")
+     ("f"        string-rectangle       "fill")
+     ("s"        open-rectangle         "shift")
+     ("a"        align-regexp           "align")
+     ("C-/"      undo                   "undo")
+     ("q"        nil)))
+#+end_src
 
-          (global-set-key
-           (kbd "<f5> l")
-           (defhydra cnb-hydra-launch-functions (:color blue)
-             "launch"
-             ("c" calc nil)
-             ("d" ediff-buffers "ediff")
-             ("f" find-dired "find")
-             ("p" paradox-list-packages "packages")
-             ("t" proced "top")))
 
-          (global-set-key
-           (kbd "<f5> o")
-           (defhydra cnb-hydra-occur-functions ()
-             "error/occur functions"
-             ("g" first-error "first")
-             ("j" next-error "next")
-             ("k" previous-error "prev")))
+Global hydra for launching.
+#+begin_src emacs-lisp
+  (global-set-key
+   (kbd "<f5> l")
+   (defhydra cnb-hydra-launch-functions (:color blue)
+     "launch"
+     ("c" calc nil)
+     ("d" ediff-buffers "ediff")
+     ("f" find-dired "find")
+     ("p" paradox-list-packages "packages")
+     ("t" proced "top")))
+#+end_src
 
-          (global-set-key
-           (kbd "<f5> r")
-           (defhydra cnb-hydra-projectile-rails (:color teal)
-             "
+
+Global hydra for occur/error
+#+begin_src emacs-lisp
+  (global-set-key
+   (kbd "<f5> o")
+   (defhydra cnb-hydra-occur-functions ()
+     "error/occur functions"
+     ("g" first-error "first")
+     ("j" next-error "next")
+     ("k" previous-error "prev")))
+#+end_src
+
+
+Global hydra for toggling.
+#+begin_src emacs-lisp
+  (global-set-key
+   (kbd "<f5> t")
+   (defhydra cnb-hydra-toggle (:color pink)
+     "
+      _a_ abbrev-mode:       %`abbrev-mode
+      _d_ debug-on-error:    %`debug-on-error
+      _f_ auto-fill-mode:    %`auto-fill-function
+      _g_ golden-ratio-mode: %`golden-ratio-mode
+      _l_ nlinum-mode:       %`nlinum-mode
+      _r_ readonly-mode:     %`buffer-read-only
+      _v_ visual-line-mode:  %`visual-line-mode
+      _w_ whitespace-mode:   %`whitespace-mode
+      "
+     ("a" abbrev-mode nil)
+     ("d" toggle-debug-on-error nil)
+     ("f" auto-fill-mode nil)
+     ("g" golden-ratio-mode nil)
+     ("l" nlinum-mode nil)
+     ("r" dired-toggle-read-only nil)
+     ("v" visual-line-mode nil)
+     ("w" whitespace-mode nil)
+     ("q" nil "cancel")))
+#+end_src
+
+
+Global hydra for window handling
+#+begin_src emacs-lisp
+    (global-set-key
+     (kbd "<f5> w")
+     (defhydra cnb-hydra-win-functions (:color amaranth)
+       "
+         Jump           Move Splitter    Split Window   ^^^^^^^^Ace
+  -------------------------------------------------------------------
+   _<left>_: Left        _h_: Left          _x_: Horiz       _s_: Swap
+  _<right>_: Right       _l_: Right         _y_: Vert        _d_: Delete
+   _<down>_: Down        _j_: Down          _b_: Balance   ^^_m_: Maximize
+     _<up>_: Up          _k_: Up
+  "
+       ("<left>" window-jump-left nil)
+       ("<down>" window-jump-down nil)
+       ("<up>" window-jump-up nil)
+       ("<right>" window-jump-right nil)
+
+       ("h" hydra-move-splitter-left nil)
+       ("j" hydra-move-splitter-down nil)
+       ("k" hydra-move-splitter-up nil)
+       ("l" hydra-move-splitter-right nil)
+       ("b" balance-windows nil)
+
+       ("u" winner-undo nil)
+       ("r" winner-redo nil)
+
+       ("x" (lambda ()
+              (interactive)
+              (split-window-below)
+              (windmove-down))
+        nil)
+       ("y" (lambda ()
+              (interactive)
+              (split-window-right)
+              (windmove-right))
+        nil)
+
+       ("a" ace-window nil)
+       ("s" (lambda () (interactive) (ace-window 4)) nil)
+       ("d" (lambda () (interactive) (ace-window 16)) nil)
+       ("m" ace-maximize-window nil :color blue)
+
+       ("q" nil "quit")))
+#+end_src
+
+
+Markdown mode hydras.
+#+begin_src emacs-lisp
+  (define-key markdown-mode-map (kbd "<f5> m")
+    (defhydra cnb-md-hydra (:color blue)
+      "markdown"
+      ("b" gh-md-render-buffer "render buffer via github")))
+#+end_src
+
+
+Projectile Rails mode hydras.
+#+begin_src emacs-lisp
+  (define-key
+    projectile-rails-mode-map
+    (kbd "<f5> r")
+    (defhydra cnb-hydra-projectile-rails (:color teal)
+      "
     projectile-rails
 
          Find                              Run
@@ -2518,80 +2610,21 @@ I press these too often
       _v_: view
       _V_: current view
     "
-             ("c" projectile-rails-find-controller            nil)
-             ("C" projectile-rails-find-current-controller    nil)
-             ("d" cnb/projectile-rails-find-decorator         nil)
-             ("D" cnb/projectile-rails-find-current-decorator nil)
-             ("m" projectile-rails-find-model                 nil)
-             ("M" projectile-rails-find-current-model         nil)
-             ("v" projectile-rails-find-view                  nil)
-             ("V" projectile-rails-find-current-view          nil)
+      ("c" projectile-rails-find-controller            nil)
+      ("C" projectile-rails-find-current-controller    nil)
+      ("d" cnb/projectile-rails-find-decorator         nil)
+      ("D" cnb/projectile-rails-find-current-decorator nil)
+      ("m" projectile-rails-find-model                 nil)
+      ("M" projectile-rails-find-current-model         nil)
+      ("v" projectile-rails-find-view                  nil)
+      ("V" projectile-rails-find-current-view          nil)
 
-             ("rs" projectile-rails-server                    nil)
-             ("rc" projectile-rails-console                   nil)
-             ("rr" projectile-rails-find-rake-task            nil)
+      ("rs" projectile-rails-server                    nil)
+      ("rc" projectile-rails-console                   nil)
+      ("rr" projectile-rails-find-rake-task            nil)
 
-             ("q"   nil                                       "cancel" :color blue)
-             ))
-
-          (global-set-key
-           (kbd "<f5> t")
-           (defhydra cnb-hydra-toggle (:color pink)
-             "
-          _a_ abbrev-mode:       %`abbrev-mode
-          _d_ debug-on-error:    %`debug-on-error
-          _f_ auto-fill-mode:    %`auto-fill-function
-          _g_ golden-ratio-mode: %`golden-ratio-mode
-          _l_ nlinum-mode:       %`nlinum-mode
-          _r_ readonly-mode:     %`buffer-read-only
-          _v_ visual-line-mode:  %`visual-line-mode
-          _w_ whitespace-mode:   %`whitespace-mode
-          "
-             ("a" abbrev-mode nil)
-             ("d" toggle-debug-on-error nil)
-             ("f" auto-fill-mode nil)
-             ("g" golden-ratio-mode nil)
-             ("l" nlinum-mode nil)
-             ("r" dired-toggle-read-only nil)
-             ("v" visual-line-mode nil)
-             ("w" whitespace-mode nil)
-             ("q" nil "cancel")))
-
-          (global-set-key
-           (kbd "<f5> w")
-           (defhydra cnb-hydra-win-functions (:color amaranth)
-             "window"
-             ("<left>" window-jump-left "jmp L")
-             ("<down>" window-jump-down "jmp D")
-             ("<up>" window-jump-up "jmp U")
-             ("<right>" window-jump-right "jmp R")
-
-             ("h" hydra-move-splitter-left "mv L")
-             ("j" hydra-move-splitter-down "mv D")
-             ("k" hydra-move-splitter-up "mv U")
-             ("l" hydra-move-splitter-right "mv R")
-
-             ("x" (lambda ()
-                    (interactive)
-                    (split-window-below)
-                    (windmove-down))
-              "horz")
-             ("y" (lambda ()
-                    (interactive)
-                    (split-window-right)
-                    (windmove-right))
-              "vert")
-
-             ("a" ace-window "ace")
-             ("s" (lambda () (interactive) (ace-window 4)) "swap")
-             ("d" (lambda () (interactive) (ace-window 16)) "delete")
-             ("m" ace-maximize-window "ace-one" :color blue)
-
-             ("q" nil "quit"))))
-
-        :config
-        (progn
-          (set-face-attribute 'hydra-face-red nil :foreground "yellow")))
+      ("q"   nil                                       "quit" :color blue)
+      ))
 #+end_src
 
 ** Session
@@ -2728,7 +2761,7 @@ By default truncate long lines.
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program "chromium-browser")
 
-  (setq compilation-scroll-output t)
+  ;;(setq compilation-scroll-output t)
   (global-auto-revert-mode t)
   (setq auto-revert-verbose nil)
   (setq global-auto-revert-non-file-buffers t)
