@@ -2604,6 +2604,46 @@ Markdown mode hydras.
 #+end_src
 
 
+Projectile mode hydras.
+#+begin_src emacs-lisp
+  (define-key
+    projectile-mode-map
+    (kbd "<f5> p")
+    (defhydra cnb-hydra-projectile (:color teal)
+      "
+    Projectile: %(projectile-project-root)
+
+       ^^Files                           ^^Buffers                   ^^Search               ^^Project
+  ---------------------------------------------------------------------------------------------------
+      _f_: find                         _i_: ibuffer                _s_: search (ag)       _p_: Switch
+      _F_: find in other window         _b_: switch to  buffer      _o_: multi-occur       _x_: cleanup
+      _d_: find in directory            _k_: kill all buffers       _u_: query-replace
+      _r_: recent files                 ^    ^                      _T_: regenerate tags
+      ^    ^                            ^    ^                      _t_: search tags
+
+    "
+      ("f" projectile-find-file                        nil)
+      ("F" projectile-find-file-other-window           nil)
+      ("d" projectile-find-file-in-directory           nil)
+      ("r" projectile-recentf                          nil)
+
+      ("i" projectile-ibuffer                          nil)
+      ("b" projectile-switch-to-buffer                 nil)
+      ("k" projectile-kill-buffers                     nil)
+
+      ("s" projectile-ag                               nil)
+      ("o" projectile-multi-occur                      nil)
+      ("u" projectile-replace                          nil)
+      ("t" projectile-find-tag                         nil)
+      ("T" projectile-regenerate-tags                  nil)
+
+      ("p" projectile-switch-project                   nil)
+      ("x" projectile-cleanup-known-projects           nil)
+
+      ("q"   nil                                       "quit" :color blue)))
+#+end_src
+
+
 Projectile Rails mode hydras.
 #+begin_src emacs-lisp
   (define-key
@@ -2611,7 +2651,7 @@ Projectile Rails mode hydras.
     (kbd "<f5> r")
     (defhydra cnb-hydra-projectile-rails (:color teal)
       "
-    projectile-rails
+    Projectile Rails: %(projectile-project-root)
 
          Find                              Run
   ----------------------------------------------------------------
