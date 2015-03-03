@@ -1528,6 +1528,7 @@ Projectile is a Project Interaction Library.
     (progn
       ;;(setq projectile-completion-system 'helm)
       (setq projectile-completion-system 'helm-comp-read)
+      (setq projectile-switch-project-action 'projectile-dired)
       (projectile-global-mode)))
 
   (use-package projectile-rails
