@@ -1542,7 +1542,8 @@ Projectile is a Project Interaction Library.
         ;; If current focus is in a different window then that window is scrolled.
         (setq-local compilation-scroll-output nil))
 
-      (add-hook 'projectile-rails-server-mode-hook #'cnb/rails-server-hook)))
+      ;;(add-hook 'projectile-rails-server-mode-hook #'cnb/rails-server-hook)
+))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -2460,6 +2461,7 @@ Load package.
       (set-face-attribute 'hydra-face-red nil :foreground "yellow")))
 #+end_src
 
+
 Global hydra for Rectangle operations.
 #+begin_src emacs-lisp
   (global-set-key
@@ -2772,7 +2774,7 @@ By default truncate long lines.
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program "chromium-browser")
 
-  ;;(setq compilation-scroll-output t)
+  (setq compilation-scroll-output t)
   (global-auto-revert-mode t)
   (setq auto-revert-verbose nil)
   (setq global-auto-revert-non-file-buffers t)
