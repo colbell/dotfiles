@@ -1293,9 +1293,20 @@ line. http://www.emacswiki.org/emacs/SlickCopy
 (global-set-key (kbd "C-c E")  'erase-buffer)
 #+end_src
 
-** Replacing
+** Search/Replace
 #+begin_src emacs-lisp
   (defalias 'qrr 'query-replace-regexp)
+#+end_src
+
+
+Front-end to Silver Searcher (ag)
+
+#+begin_src emacs-lisp
+  (use-package ag
+    :ensure t
+    :init
+    (progn
+      (setq ag-highlight-search t)))
 #+end_src
 
 ** Printing
