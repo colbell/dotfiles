@@ -9,6 +9,7 @@ notify-xterm       yes
 notify-screen      yes
 feed-sort-order    firsttag
 feedlist-format    "%4i %-10T %11u %t"
+articlelist-format "%4i %f %D %6L %-20a %?T?;%-17T; ?%t"
 
 # Reloading.
 auto-reload        yes
