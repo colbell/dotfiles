@@ -714,10 +714,11 @@ Dictionary Look-up
 ** Buffers
 *** Moving Around
 **** Ace Jump Mode
+
+Only required by other packages. I use ace-windows avi-* functions instead.
 #+begin_src emacs-lisp
   (use-package ace-jump-mode
-    :ensure t
-    :bind (("C-c SPC" . ace-jump-mode)))
+    :ensure t)
 #+end_src
 
 **** Move By Visual Lines
@@ -781,17 +782,28 @@ Select window by direction keys.
 Select window by number.
 
 #+begin_src emacs-lisp
-  (use-package ace-window
-    :ensure ace-window
-    :bind (("C-x o" . ace-window))
+      (use-package ace-window
+        :ensure ace-window
+        :bind (("C-x o"   . ace-window)
+               ("M-g SPC" . avi-goto-char)
+               ("M-g '"   . avi-goto-char-2)
+               ("M-g f"   . avi-goto-line)
+               ("M-g e"   . avi-goto-word-0)
+               ("M-g w"   . avi-goto-word-1))
 
-    :init
-    (progn
-      (setq aw-scope 'frame))
+        :init
+        (progn
+          (setq aw-scope 'frame)
+          (setq avi-background t)
+          (setq avi-keys (nconc (loop for i from ?0 to ?9 collect i)
+                                (loop for i from ?a to ?z collect i)
+                                (loop for i from ?A to ?Z collect i))))
 
-    :config
-    (progn
-      (set-face-attribute 'aw-leading-char-face nil :height 2.0)))
+        :config
+        (progn
+          ;;(require 'avy-jump)
+          ;;(setq avi-keys (append '(?0 ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?9) avi-keys))
+          (set-face-attribute 'aw-leading-char-face nil :height 2.0)))
 #+end_src
 
 **** Ace Link
@@ -1515,7 +1527,7 @@ Projectile is a Project Interaction Library.
   ;; Projectile doesn't include f but crashes if it isn't there.
   ;; TODO: Test if this is still a problem.
   (use-package f
-    :ensure f
+    :ensure t
     :init
     (progn
       (require 'f)))
@@ -1537,14 +1549,8 @@ Projectile is a Project Interaction Library.
 
     :init
     (progn
-      (add-hook 'projectile-mode-hook #'projectile-rails-on)
+      (add-hook 'projectile-mode-hook #'projectile-rails-on)))
 
-      (defun cnb/rails-server-hook ()
-        ;; If current focus is in a different window then that window is scrolled.
-        (setq-local compilation-scroll-output nil))
-
-      ;;(add-hook 'projectile-rails-server-mode-hook #'cnb/rails-server-hook)
-))
 #+end_src
 
 #+begin_src emacs-lisp
