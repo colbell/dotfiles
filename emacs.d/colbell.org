@@ -119,23 +119,23 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
 *** Theme
 
 #+begin_src emacs-lisp
-  ;; (use-package solarized-theme
-  ;;   :ensure t
-
-  ;;   :init
-  ;;   (progn
-  ;;     (setq solarized-distinct-fringe-background t)
-  ;;     (setq solarized-scale-org-headlines nil)
-  ;;     (setq solarized-use-variable-pitch nil)
-  ;;     ;;(setq solarized-use-more-italic t)
-  ;;     ;;(setq solarized-use-less-bold t)
-  ;;     (load-theme 'solarized-dark t)))
-
-  (use-package gruvbox-theme
+  (use-package solarized-theme
     :ensure t
+
     :init
     (progn
-      (load-theme 'gruvbox t)))
+      (setq solarized-distinct-fringe-background t)
+      (setq solarized-scale-org-headlines nil)
+      (setq solarized-use-variable-pitch nil)
+      ;;(setq solarized-use-more-italic t)
+      ;;(setq solarized-use-less-bold t)
+      (load-theme 'solarized-light t)))
+
+  ;; (use-package gruvbox-theme
+  ;;   :ensure t
+  ;;   :init
+  ;;   (progn
+  ;;     (load-theme 'gruvbox t)))
 #+end_src
 
 *** Font
@@ -1931,7 +1931,7 @@ Clojure documentation.
 
     :init
     (progn
-      (defun coffee-custom ()
+      (defun cnb/coffee-custom ()
         "coffee-mode-hook"
         (make-local-variable 'tab-width)
         (set 'tab-width 2)
@@ -1939,7 +1939,7 @@ Clojure documentation.
         (setq coffee-debug-mode t)
         (setq js-indent-level 2))
 
-      (add-hook 'coffee-mode-hook (lambda() (coffee-custom)))))
+      (add-hook 'coffee-mode-hook #'coffee-custom)))
 
 #+end_src
 
