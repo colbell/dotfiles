@@ -51,14 +51,13 @@ Load all settings that were defined through the 'customize' interface.
         user-mail-address "col@baibell.org")
 #+END_SRC
 
-** Initialization
-*** Seed Random Number Generator
+** Seed Random Number Generator
 
 #+begin_src emacs-lisp
   (random t)
 #+end_src
 
-*** Emacs Directories
+** Emacs Directories
 
 Add all vendor libraries to load path
 
@@ -76,24 +75,24 @@ Add all vendor libraries to load path
   (add-subdirs-to-load-path (expand-file-name "vendor" user-emacs-directory))
 #+end_src
 
-*** Package Manager
+** Package Manager
 
 Add package sources and initialize package manager.
 
 #+begin_src emacs-lisp
-(require 'package)
-(add-to-list 'package-archives '("melpa" .  "http://melpa.org/packages/") 'APPEND)
-(package-initialize)
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" .  "http://melpa.org/packages/") 'APPEND)
+  (package-initialize)
 #+end_src
 
 I use 'use-package' to tidy up my Emacs configuration.
 
 #+begin_src emacs-lisp
-(unless (require 'use-package nil t)
-  (progn
-    (package-refresh-contents)
-    (package-install 'use-package)
-    (require 'use-package)))
+  (unless (require 'use-package nil t)
+    (progn
+      (package-refresh-contents)
+      (package-install 'use-package)
+      (require 'use-package)))
 #+end_src
 
 Paradox is a powerful UI for the package manager.
@@ -121,7 +120,7 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
 
 #+begin_src emacs-lisp
   ;; (use-package solarized-theme
-  ;;   :ensure solarized-theme
+  ;;   :ensure t
 
   ;;   :init
   ;;   (progn
@@ -133,28 +132,34 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
   ;;     (load-theme 'solarized-dark t)))
 
   (use-package gruvbox-theme
-     :ensure t
-     :init
-     (progn
-       (load-theme 'gruvbox)))
+    :ensure t
+    :init
+    (progn
+      (load-theme 'gruvbox t)))
 #+end_src
 
 *** Font
 
 #+begin_src emacs-lisp
   ;;(set-frame-font "Source Code Pro-10" nil t)
-  ;;(set-frame-font "DejaVu Sans Mono-10" nil t)
+  ;;(set-frame-font "DejaVu Sans Mono-11" nil t)
   (set-frame-font "Inconsolata-11" nil t)
 #+end_src
 
 *** Remove Unnecessary Clutter
 
 #+begin_src emacs-lisp
-(when window-system
-  (tooltip-mode -1)
-  (tool-bar-mode -1)
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1))
+  (when window-system
+    (tooltip-mode -1)
+    (tool-bar-mode -1)
+    (menu-bar-mode -1)
+    (scroll-bar-mode -1))
+
+  (setq use-file-dialog nil)
+  (setq use-dialog-box nil)
+  (setq inhibit-startup-message t)
+  (setq initial-scratch-message nil)
+  (eval '(setq inhibit-startup-echo-area-message "colbell"))
 #+end_src
 
 *** Pretty Symbols
@@ -163,15 +168,6 @@ E.G. λ for lambda in coding buffers.
 
 #+begin_src emacs-lisp
 (global-prettify-symbols-mode)
-#+end_src
-
-*** GUI Dialogs
-
-Don't use them.
-
-#+begin_src emacs-lisp
-(setq use-file-dialog nil)
-(setq use-dialog-box nil)
 #+end_src
 
 *** Mode Line
@@ -185,7 +181,7 @@ Don't use them.
       (add-to-list 'sml/replacer-regexp-list '("^~/dotfiles/emacs\\.d/" ":ED:") t)
       (add-to-list 'sml/replacer-regexp-list '("^~/src/kwela/src/webapp/work" ":KW:") t)
       (sml/setup)
-      (sml/apply-theme 'automatic)
+      (sml/apply-theme 'automatic nil t)
       (set-face-attribute 'sml/charging nil :foreground "MediumSpringGreen")
 ))
 #+end_src
@@ -235,16 +231,16 @@ in the mode line.
 Put the battery status in the mode-line.
 
 #+begin_src emacs-lisp
-    (use-package battery
-      :init
-      (progn
-        (when
-            (and battery-status-function
-                 (not (string-match-p "N/A"
-                                      (battery-format "%B"
-                                                      (funcall battery-status-function)))))
-          (setq battery-mode-line-format "[%b%p%%%% %t]")
-          (display-battery-mode 1))))
+  (use-package battery
+    :init
+    (progn
+      (when
+          (and battery-status-function
+               (not (string-match-p "N/A"
+                                    (battery-format "%B"
+                                                    (funcall battery-status-function)))))
+        (setq battery-mode-line-format "[%b%p%%%% %t]")
+        (display-battery-mode 1))))
 #+end_src
 
 *** Crosshairs
@@ -603,16 +599,6 @@ Directory view/editing.
 
 #+end_src
 
-*** Startup Messages
-
-Don't want them.
-
-#+begin_src emacs-lisp
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
-(eval '(setq inhibit-startup-echo-area-message "colbell"))
-#+end_src
-
 *** Bookmarks
 #+begin_src emacs-lisp
   (use-package bookmark
@@ -711,9 +697,8 @@ Dictionary Look-up
   (define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
 
 #+end_src
-** Buffers
-*** Moving Around
-**** Ace Jump Mode
+** Moving Around
+*** Ace Jump Mode
 
 Only required by other packages. I use ace-windows avi-* functions instead.
 #+begin_src emacs-lisp
@@ -721,12 +706,12 @@ Only required by other packages. I use ace-windows avi-* functions instead.
     :ensure t)
 #+end_src
 
-**** Move By Visual Lines
+*** Move By Visual Lines
 #+begin_src emacs-lisp
   (setq line-move-visual nil)
 #+end_src
 
-**** Helm-swoop
+*** Helm-swoop
 
 This is a quick way to find lines.
 
@@ -737,7 +722,7 @@ This is a quick way to find lines.
       ("M-i" . helm-swoop))
 #+end_src
 
-**** Dragging
+*** Dragging
 
 Drag mode. Allows dragging by alt left up etc.
 
@@ -751,7 +736,7 @@ Drag mode. Allows dragging by alt left up etc.
 
 #+end_src
 
-**** Go to Last Change
+*** Go to Last Change
 
 #+begin_src emacs-lisp
   (use-package goto-chg
@@ -760,7 +745,7 @@ Drag mode. Allows dragging by alt left up etc.
            ("M-? ," . goto-last-change-reverse)))
 #+end_src
 
-**** Window Jump
+*** Window Jump
 
 Select window by direction keys.
 
@@ -777,7 +762,7 @@ Select window by direction keys.
            ("C-S-<right>" . window-jump-right)))
 #+end_src
 
-**** Ace Window
+*** Ace Window
 
 Select window by number.
 
@@ -806,7 +791,7 @@ Select window by number.
           (set-face-attribute 'aw-leading-char-face nil :height 2.0)))
 #+end_src
 
-**** Ace Link
+*** Ace Link
 
 Bind 'o' to links in Help and Info buffers
 #+begin_src emacs-lisp
@@ -817,20 +802,7 @@ Bind 'o' to links in Help and Info buffers
       (ace-link-setup-default)))
 #+end_src
 
-**** Ace ISearch
-
-Combine isearch, ace-jump-mode and helm-swoop.
-
-#+begin_src emacs-lisp
-  ;; (use-package ace-isearch
-  ;;   :ensure t
-  ;;   :defer t
-
-  ;;   :init
-  ;;   (progn
-  ;;     (global-ace-isearch-mode +1)))
-#+end_src
-
+** Buffers
 *** IBuffer
 
 IBuffer is an advanced replacement for BufferMenu.
@@ -1818,6 +1790,16 @@ the bug repository. E.G the following will point TWEB-???? references to Jira.
      (bug-reference-bug-regexp . "\\(?2:TWEB-[0-9]+\\)"))))
 #+end_src
 
+*** Flycheck
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :ensure t
+
+    :init
+    (progn
+      (add-hook 'after-init-hook #'global-flycheck-mode)))
+#+end_src
+
 ** Programming Modes
 *** Clojure
 **** Clojure Mode.
@@ -1943,9 +1925,6 @@ Clojure documentation.
 #+end_src
 *** Coffeescript
 #+begin_src emacs-lisp
-  (use-package flymake-coffee
-    :ensure flymake-coffee)
-
   (use-package coffee-mode
     :ensure coffee-mode
     :mode (("\\.coffee.erb$" . coffee-mode))
@@ -1958,12 +1937,9 @@ Clojure documentation.
         (set 'tab-width 2)
         (setq coffee-tab-width 2)
         (setq coffee-debug-mode t)
-        (setq js-indent-level 2)
-        (flymake-coffee-load))
+        (setq js-indent-level 2))
 
-      (add-hook 'coffee-mode-hook
-                (lambda() (coffee-custom)))
-      ))
+      (add-hook 'coffee-mode-hook (lambda() (coffee-custom)))))
 
 #+end_src
 
@@ -1992,7 +1968,6 @@ Clojure documentation.
         (yard-mode)
         (outline-minor-mode)
         (ruby-block-mode t)
-        (flymake-ruby-load)
         (ignore-errors (ruby-refactor-mode-launch))
         (setq-local prettify-symbols-alist '(("lambda"  . ?λ)))))
 
@@ -2002,9 +1977,7 @@ Clojure documentation.
       (define-key ruby-mode-map "\C-xt" nil)
 
       (add-hook 'ruby-mode-hook #'cnb/ruby-setup)
-      (define-key ruby-mode-map (kbd "RET") #'newline-and-indent)
-      )
-    )
+      (define-key ruby-mode-map (kbd "RET") #'newline-and-indent)))
 #+end_src
 
 **** Ruby Refactoring
@@ -2049,13 +2022,6 @@ Clojure documentation.
       :diminish robe-mode)
 
 #+end_src
-**** Ruby Flymake
-
-#+begin_src emacs-lisp
-  (use-package flymake-ruby
-    :ensure flymake-ruby)
-#+end_src
-
 **** Yard Mode
 
 Font lock for Ruby Yard comments.
@@ -2072,6 +2038,12 @@ Font lock for Ruby Yard comments.
     :ensure inf-ruby)
 #+end_src
 
+**** Ruby Tools
+#+begin_src emacs-lisp
+  (use-package ruby-tools
+       :ensure t)
+#+end_src
+
 *** Rspec
 #+begin_src emacs-lisp
   (use-package rspec-mode
@@ -2082,7 +2054,11 @@ Font lock for Ruby Yard comments.
 
 #+begin_src emacs-lisp
   (use-package haskell-mode
-    :ensure t)
+    :ensure t
+
+    :init
+    (progn
+      (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)))
 #+end_src
 
 *** Lua
@@ -2161,8 +2137,6 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
 *** HAML
 #+begin_src emacs-lisp
-  (use-package flymake-haml
-    :ensure flymake-haml)
 
   (use-package haml-mode
     :ensure haml-mode
@@ -2178,8 +2152,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
        'haml-mode-hook
        (lambda ()
          (electric-indent-local-mode -1)
-         (rvm-activate-corresponding-ruby)
-         (flymake-haml-load)))))
+         (rvm-activate-corresponding-ruby)))))
 
 #+end_src
 
@@ -2409,13 +2382,17 @@ Close term buffers when terminal is exited.
   (require 'w3m-load nil t) ;;w3m autoloads
 #+end_src
 
-** External Tools
-*** Open files in external programs
+** Open files in external programs
 
 #+begin_src emacs-lisp
   (use-package launch
       :ensure t
       :idle (global-launch-mode))
+#+end_src
+
+** Tramp
+#+begin_src emacs-lisp
+  (setq tramp-default-method "ssh")
 #+end_src
 
 ** Key Maps
@@ -2564,7 +2541,7 @@ Global hydra for window handling
   -------------------------------------------------------------------
    _<left>_: Left        _h_: Left          _x_: Horiz       _s_: Swap
   _<right>_: Right       _l_: Right         _y_: Vert        _d_: Delete
-   _<down>_: Down        _j_: Down          _b_: Balance   ^^_m_: Maximize
+   _<down>_: Down        _j_: Down          _b_: Balance     _m_: Maximize
      _<up>_: Up          _k_: Up
   "
      ("<left>" window-jump-left nil)
