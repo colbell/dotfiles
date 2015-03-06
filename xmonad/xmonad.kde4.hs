@@ -73,14 +73,13 @@ myInactiveBorderColor = "#89CFF0"
 
 myTabConfig :: Theme
 myTabConfig = defaultTheme {
-    activeBorderColor        = myBgColor, --myHighlightedFgColor,
-    activeTextColor          = myHighlightedFgColor,
-    activeColor              = myBgColor,
-    inactiveBorderColor      = myBgColor,
-    inactiveTextColor        = "#EEEEEE",
-
-    inactiveColor            = myBgColor,
-    decoHeight               = 14
+                activeBorderColor   = myBgColor
+              , activeTextColor     = myHighlightedFgColor
+              , activeColor         = myBgColor
+              , inactiveBorderColor = myBgColor
+              , inactiveTextColor   = "#EEEEEE"
+              , inactiveColor       = myBgColor
+              , decoHeight          = 14
 }
 
 mySWNConfig :: SWNConfig
