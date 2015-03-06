@@ -2058,7 +2058,8 @@ Font lock for Ruby Yard comments.
 
     :init
     (progn
-      (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)))
+      (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+      (add-hook 'haskell-mode-hook 'interactive-haskell-mode)))
 #+end_src
 
 *** Lua
