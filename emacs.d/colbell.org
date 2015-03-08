@@ -131,11 +131,7 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
       ;;(setq solarized-use-less-bold t)
       (load-theme 'solarized-light t)))
 
-  ;; (use-package gruvbox-theme
-  ;;   :ensure t
-  ;;   :init
-  ;;   (progn
-  ;;     (load-theme 'gruvbox t)))
+
 #+end_src
 
 *** Font
@@ -171,7 +167,8 @@ E.G. λ for lambda in coding buffers.
 #+end_src
 
 *** Mode Line
-**** Smart Mode Line
+
+Smart Mode Line
 
 #+begin_src emacs-lisp
   (use-package smart-mode-line
@@ -181,12 +178,10 @@ E.G. λ for lambda in coding buffers.
       (add-to-list 'sml/replacer-regexp-list '("^~/dotfiles/emacs\\.d/" ":ED:") t)
       (add-to-list 'sml/replacer-regexp-list '("^~/src/kwela/src/webapp/work" ":KW:") t)
       (sml/setup)
-      (sml/apply-theme 'automatic nil t)
-      (set-face-attribute 'sml/charging nil :foreground "MediumSpringGreen")
+      ;;(sml/apply-theme 'automatic nil t)
+      ;;(set-face-attribute 'sml/charging nil :foreground "MediumSpringGreen")
 ))
 #+end_src
-
-**** Indicators
 
 Some useful stuff in the modeline.
 
@@ -278,8 +273,8 @@ Don't let the cursor go into the minibuffer prompt
 Show line numbers in fringe
 
 #+begin_src emacs-lisp
-  (use-package nlinum
-    :ensure t)
+  ;; (use-package nlinum
+  ;;   :ensure t)
 
     ;; :init
     ;; (progn
@@ -1444,7 +1439,7 @@ Show Git status in the fringe.
 
     :config
     (progn
-      ;;(git-gutter:linum-setup)
+      (git-gutter:linum-setup)
       (global-git-gutter-mode +1)))
 #+end_src
 
@@ -2507,6 +2502,8 @@ Global hydra for occur/error
 
 Global hydra for toggling.
 #+begin_src emacs-lisp
+  (require 'linum)
+
   (global-set-key
    (kbd "<f5> t")
    (defhydra cnb-hydra-toggle (:color pink)
@@ -2515,7 +2512,7 @@ Global hydra for toggling.
       _d_ debug-on-error:    %`debug-on-error
       _f_ auto-fill-mode:    %`auto-fill-function
       _g_ golden-ratio-mode: %`golden-ratio-mode
-      _l_ nlinum-mode:       %`nlinum-mode
+      _l_ linum-mode:        %`linum-mode
       _r_ readonly-mode:     %`buffer-read-only
       _v_ visual-line-mode:  %`visual-line-mode
       _w_ whitespace-mode:   %`whitespace-mode
@@ -2524,7 +2521,7 @@ Global hydra for toggling.
      ("d" toggle-debug-on-error nil)
      ("f" auto-fill-mode nil)
      ("g" golden-ratio-mode nil)
-     ("l" nlinum-mode nil)
+     ("l" linum-mode nil)
      ("r" dired-toggle-read-only nil)
      ("v" visual-line-mode nil)
      ("w" whitespace-mode nil)
