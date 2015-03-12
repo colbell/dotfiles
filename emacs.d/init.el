@@ -1,3 +1,12 @@
+;;; package --- My Emacs configuration
+
+;;; Commentary:
+
+;; My Emacs configuaration is stored in colbell.org and is
+;; compiled into colbell.el via org-babel-load-file.
+
+;;; Code:
+
 ;; I use keys that start with C-o for personal mappings.
 (global-unset-key "\C-o")
 
