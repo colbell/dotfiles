@@ -2436,6 +2436,7 @@ I press these too often
 | red        | red            | Allow and Quit        | Continue        |
 | blue       | blue           | Allow and Quit        | Quit            |
 
+
 | color    | toggle                     |
 |----------+----------------------------|
 | red      |                            |
@@ -2541,18 +2542,19 @@ Global hydra for Rectangle operations.
 
 Global hydra for launching.
 #+begin_src emacs-lisp
-  (global-set-key
-   (kbd "<f5> l")
-   (defhydra cnb-hydra-launch-functions (:color blue)
-     "launch"
-     ("c" calc                      "calculator")
-     ("d" ediff-buffers             "ediff")
-     ("f" find-dired                "find")
-     ("m" man                       "man")
-     ("p" paradox-list-packages     "packages")
-     ("P" (paradox-list-packages t) "packages no fetch")
-     ("s"  ansi-term                "shell")
-     ("t" proced "top")))
+    (global-set-key
+     (kbd "<f5> l")
+     (defhydra cnb-hydra-launch-functions (:color blue)
+       "launch"
+       ("c" calc                      "calculator")
+       ("d" ediff-buffers             "ediff")
+       ("f" find-dired                "find")
+       ("m" man                       "man")
+       ("p" paradox-list-packages     "packages")
+       ("P" (paradox-list-packages t) "packages no fetch")
+       ("s" ansi-term                 "shell")
+       ("t" proced                    "top")
+       ("T" help-top                  "help-top")))
 #+end_src
 
 
