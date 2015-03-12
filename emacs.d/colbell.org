@@ -130,8 +130,6 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
       ;;(setq solarized-use-more-italic t)
       ;;(setq solarized-use-less-bold t)
       (load-theme 'solarized-light t)))
-
-
 #+end_src
 
 *** Font
@@ -177,10 +175,7 @@ Smart Mode Line
     (progn
       (add-to-list 'sml/replacer-regexp-list '("^~/dotfiles/emacs\\.d/" ":ED:") t)
       (add-to-list 'sml/replacer-regexp-list '("^~/src/kwela/src/webapp/work" ":KW:") t)
-      (sml/setup)
-      ;;(sml/apply-theme 'automatic nil t)
-      ;;(set-face-attribute 'sml/charging nil :foreground "MediumSpringGreen")
-))
+      (sml/setup)))
 #+end_src
 
 Some useful stuff in the modeline.
@@ -291,13 +286,11 @@ Show line numbers in fringe
 *** General
 
 Move mouse cursor when text cursor gets too close.
-
 #+begin_src emacs-lisp
 (mouse-avoidance-mode 'exile)
 #+end_src
 
 Cursor configuration
-
 #+begin_src emacs-lisp
   (setq blink-cursor-blinks 0)
   (setq-default cursor-type 'bar)
@@ -305,16 +298,20 @@ Cursor configuration
 #+end_src
 
 Use a visible bell instead of a beep.
-
 #+begin_src emacs-lisp
   (setq visible-bell t)
 #+end_src
 
 Prompt to exit Emacs
-
 #+begin_src emacs-lisp
   (setq confirm-kill-emacs 'y-or-n-p)
 #+end_src
+
+Highlight current line
+#+begin_src emacs-lisp
+  (global-hl-line-mode)
+#+end_src
+
 ** Helm
 Helm is an interactive completion tool.
 #+begin_src emacs-lisp
@@ -631,7 +628,7 @@ Visual Bookmarks
       (setq bm-repository-file (expand-file-name "bm-repository" user-emacs-directory))
       (setq bm-repository-size 1024)
       (setq-default bm-buffer-persistence t)
-      (setq bm-highlight-style #'bm-highlight-only-line)
+      (setq bm-highlight-style 'bm-highlight-line-and-fringe)
       (add-hook 'after-init-hook #'bm-repository-load)
       (add-hook 'find-file-hooks #'bm-buffer-restore)
       (add-hook 'kill-buffer-hook #'bm-buffer-save)
@@ -713,6 +710,11 @@ This is a quick way to find lines.
 #+begin_src emacs-lisp
   (use-package helm-swoop
     :ensure helm-swoop
+    :init
+    (progn
+      (setq helm-swoop-speed-or-color t)
+      (setq helm-swoop-use-line-number-face t))
+
     :bind
       ("M-i" . helm-swoop))
 #+end_src
@@ -762,28 +764,27 @@ Select window by direction keys.
 Select window by number.
 
 #+begin_src emacs-lisp
-      (use-package ace-window
-        :ensure ace-window
-        :bind (("C-x o"   . ace-window)
-               ("M-g SPC" . avi-goto-char)
-               ("M-g '"   . avi-goto-char-2)
-               ("M-g f"   . avi-goto-line)
-               ("M-g e"   . avi-goto-word-0)
-               ("M-g w"   . avi-goto-word-1))
+  (use-package ace-window
+    :ensure ace-window
+    :bind (("C-x o"   . ace-window)
+           ("M-g SPC" . avi-goto-char)
+           ("M-g '"   . avi-goto-char-2)
+           ("M-g f"   . avi-goto-line)
+           ("M-g e"   . avi-goto-word-0)
+           ("M-g w"   . avi-goto-word-1))
 
-        :init
-        (progn
-          (setq aw-scope 'frame)
-          (setq avi-background t)
-          (setq avi-keys (nconc (loop for i from ?0 to ?9 collect i)
-                                (loop for i from ?a to ?z collect i)
-                                (loop for i from ?A to ?Z collect i))))
+    :init
+    (progn
+      (setq aw-scope 'global)
+      (setq avi-background t)
+      (setq aw-flip-keys '("n"))
+      (setq avi-keys (nconc (loop for i from ?0 to ?9 collect i)
+                            (loop for i from ?a to ?z collect i)
+                            (loop for i from ?A to ?Z collect i))))
 
-        :config
-        (progn
-          ;;(require 'avy-jump)
-          ;;(setq avi-keys (append '(?0 ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?9) avi-keys))
-          (set-face-attribute 'aw-leading-char-face nil :height 2.0)))
+    :config
+    (progn
+      (set-face-attribute 'aw-leading-char-face nil :height 2.0)))
 #+end_src
 
 *** Ace Link
@@ -1139,7 +1140,8 @@ C-c left/right to undo/redo window configuration changes.
   (use-package golden-ratio
     :ensure t
     :defer t
-    :commands (golden-ratio-mode))
+    :commands (golden-ratio-mode)
+    :diminish golden-ratio-mode)
 #+end_src
 
 ** Selection
@@ -1439,7 +1441,7 @@ Show Git status in the fringe.
 
     :config
     (progn
-      (git-gutter:linum-setup)
+      ;;(git-gutter:linum-setup)
       (global-git-gutter-mode +1)))
 #+end_src
 
@@ -2426,6 +2428,22 @@ I press these too often
 
 *** Hydra
 
+| Body Color | Head Inherited | Executing NON-HEADS   | Executing HEADS |
+|------------+----------------+-----------------------+-----------------|
+| amaranth   | red            | Disallow and Continue | Continue        |
+| teal       | blue           | Disallow and Continue | Quit            |
+| pink       | red            | Allow and Continue    | Continue        |
+| red        | red            | Allow and Quit        | Continue        |
+| blue       | blue           | Allow and Quit        | Quit            |
+
+| color    | toggle                     |
+|----------+----------------------------|
+| red      |                            |
+| blue     | :exit t                    |
+| amaranth | :foreign-keys warn         |
+| teal     | :foreign-keys warn :exit t |
+| pink     | :foreign-keys run          |
+
 Load package.
 #+begin_src emacs-lisp
   (use-package hydra
@@ -2439,6 +2457,53 @@ Load package.
     :config
     (progn
       (set-face-attribute 'hydra-face-red nil :foreground "yellow")))
+#+end_src
+
+Global Hydra for Bookmarks.
+#+begin_src emacs-lisp
+  (global-set-key
+   (kbd "<f5> b")
+   (defhydra cnb-bookmarks (:color teal)
+     "
+     Bookmarks                  Visual Bookmarks
+    ---------------------------------------------------
+    _l_: list                    _s_: Show in current Buffer
+    _b_: goto                    _S_: Show in all buffers
+    _d_: delete                  _n_: Next
+    ^ ^                          _p_: Previous
+    ^ ^                          _t_: Toggle
+    ^ ^                          _x_: Set for a Regexp
+    ^ ^                          _A_: Cycle in all buffers: %`bm-cycle-all-buffers
+    ^ ^                          _T_: Temporary bookmarks:  %`temporary-bookmark-p
+    ^ ^                          _r_: Remove all from current buffer
+    ^ ^                          _R_: Remove all from ALL buffers
+    "
+     ("l" bookmark-bmenu-list nil)
+     ("b" bookmark-jump       nil)
+     ("d" bookmark-delete     nil)
+
+     ("s" bm-show             nil)
+     ("S" bm-show-all         nil)
+     ("n" bm-next             nil :color red)
+     ("p" bm-previous         nil :color red)
+     ("t" bm-toggle           nil :color red)
+     ("A" (lambda ()
+            (interactive)
+            (if bm-cycle-all-buffers
+                (setq bm-cycle-all-buffers nil)
+              (setq bm-cycle-all-buffers t)))
+      nil :color red)
+     ("x" bm-bookmark-regexp  nil :color red)
+     ("T" (lambda ()
+            (interactive)
+            (if temporary-bookmark-p
+                (setq temporary-bookmark-p nil)
+              (setq temporary-bookmark-p t)))
+      nil :color red)
+     ("r" bm-remove-all-current-buffer nil :color red)
+     ("R" bm-remove-all-all-buffers    nil :color red)
+
+     ("q" nil                 "quit")))
 #+end_src
 
 
@@ -2480,10 +2545,13 @@ Global hydra for launching.
    (kbd "<f5> l")
    (defhydra cnb-hydra-launch-functions (:color blue)
      "launch"
-     ("c" calc nil)
-     ("d" ediff-buffers "ediff")
-     ("f" find-dired "find")
-     ("p" paradox-list-packages "packages")
+     ("c" calc                      "calculator")
+     ("d" ediff-buffers             "ediff")
+     ("f" find-dired                "find")
+     ("m" man                       "man")
+     ("p" paradox-list-packages     "packages")
+     ("P" (paradox-list-packages t) "packages no fetch")
+     ("s"  ansi-term                "shell")
      ("t" proced "top")))
 #+end_src
 
@@ -2654,12 +2722,11 @@ Projectile Rails mode hydras.
       ("v" projectile-rails-find-view                  nil)
       ("V" projectile-rails-find-current-view          nil)
 
-      ("rs" projectile-rails-server                    nil)
-      ("rc" projectile-rails-console                   nil)
+      ("rs" projectile-rails-server                    nil :color red)
+      ("rc" projectile-rails-console                   nil :color red)
       ("rr" projectile-rails-find-rake-task            nil)
 
-      ("q"   nil                                       "quit" :color blue)
-      ))
+      ("q"   nil                                       "quit" :color blue)))
 #+end_src
 
 ** Session
