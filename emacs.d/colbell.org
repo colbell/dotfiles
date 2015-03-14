@@ -775,7 +775,7 @@ Select window by number.
 
     :init
     (progn
-      (setq aw-scope 'global)
+      (setq aw-scope 'frame)
       (setq avi-background t)
       (setq aw-flip-keys '("n"))
       (setq avi-keys (nconc (loop for i from ?0 to ?9 collect i)
@@ -784,6 +784,7 @@ Select window by number.
 
     :config
     (progn
+      (ace-window-display-mode)
       (set-face-attribute 'aw-leading-char-face nil :height 2.0)))
 #+end_src
 
@@ -2124,7 +2125,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
     :init
     (progn
-      (add-hook 'markdown-mode #'flyspell-mode)))
+      (add-hook 'markdown-mode-hook #'flyspell-mode)))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -2437,7 +2438,7 @@ I press these too often
 | blue       | blue           | Allow and Quit        | Quit            |
 
 
-| color    | toggle                     |
+| Color    | Toggle                     |
 |----------+----------------------------|
 | red      |                            |
 | blue     | :exit t                    |
@@ -2648,6 +2649,8 @@ Global hydra for window handling
 
 Markdown mode hydras.
 #+begin_src emacs-lisp
+  (require 'markdown-mode)
+
   (define-key markdown-mode-map (kbd "<f5> m")
     (defhydra cnb-md-hydra (:color blue)
       "markdown"
