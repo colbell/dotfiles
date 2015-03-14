@@ -15,9 +15,14 @@ set shiftwidth=2        " Indentation width when using >> and << re-indentation
 set nobackup
 set expandtab           " Tabs are expanded to spaces
 
-syntax on
-filetype on
+set hlsearch            " highlight the search
+set ls=2                " show a status line even if there's only one window
+
+
+
+filetype plugin on
+filetype indent on
 
 set number
 
-source $VIMRUNTIME/vimrc_example.vim
+" source $VIMRUNTIME/vimrc_example.vim
