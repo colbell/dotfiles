@@ -171,7 +171,7 @@ Smart Mode Line
 #+begin_src emacs-lisp
   (use-package smart-mode-line
     :ensure smart-mode-line
-    :init
+    :config
     (progn
       (add-to-list 'sml/replacer-regexp-list '("^~/dotfiles/emacs\\.d/" ":ED:") t)
       (add-to-list 'sml/replacer-regexp-list '("^~/src/kwela/src/webapp/work" ":KW:") t)
@@ -222,7 +222,7 @@ Put the battery status in the mode-line.
 
 #+begin_src emacs-lisp
   (use-package battery
-    :init
+    :config
     (progn
       (when
           (and battery-status-function
@@ -316,21 +316,21 @@ Highlight current line
 Helm is an interactive completion tool.
 #+begin_src emacs-lisp
   (use-package helm
-    :ensure helm
-    :diminish helm-mode
+    :ensure t
+    ;;:diminish helm-mode
 
-    :init
+    :config
     (progn
       (require 'helm-config)
       (setq helm-candidate-number-limit 250)
       (setq helm-idle-delay 0.0)        ; update fast sources immediately (doesn't).
       (setq helm-input-idle-delay 0.01) ; this actually updates things relatively quickly.
       (setq helm-quick-update t)
-      (setq helm-M-x-requires-pattern nil)
+      (setq helm-M-x-requires-pattern 0)
       (setq helm-ff-skip-boring-files t)
       (setq enable-recursive-minibuffers t)
       (setq helm-buffers-fuzzy-matching t)
-      (setq helm-split-window-in-side-p t)
+      (setq helm-split-window-in-side-p nil)
 
       (when (executable-find "curl")
         (setq helm-google-suggest-use-curl-p t))
@@ -343,33 +343,21 @@ Helm is an interactive completion tool.
           (error
            (helm-keyboard-quit))))
 
-
+      (define-key helm-map (kbd "DEL") 'helm-backspace)
       (helm-mode 1))
 
-    :config
-    (progn
-      (define-key helm-map (kbd "DEL") 'helm-backspace))
+    :bind (("M-x"                      . helm-M-x)
+           ("M-y"                      . helm-show-kill-ring)
+           ("C-o h"                    . helm-mini)
+           ("C-c f"                    . helm-recentf)
+           ("C-x b"                    . helm-buffers-list)
+           ("C-x C-f"                  . helm-find-files)
+           ("C-h a"                    . helm-apropos)
+           ("C-x C-i"                  . imenu)
+           ("<remap> <occur>"          . helm-occur)
+           ("<remap> <list-buffers>"   . helm-buffers-list)
+           ("<remap> <dabbrev-expand>" . helm-dabbrev)))
 
-    :bind (("M-x"                  . helm-M-x)
-           ("M-y"                  . helm-show-kill-ring)
-           ("C-o h"                . helm-mini)
-           ("C-c f"                . helm-recentf)
-           ("C-x b"                . helm-buffers-list)
-           ("C-x C-f"              . helm-find-files)
-           ("C-h a"                . helm-apropos)
-           ("C-x C-i"              . imenu)
-           ([remap occur]          . helm-occur)
-           ([remap list-buffers]   . helm-buffers-list)
-           ([remap dabbrev-expand] . helm-dabbrev)))
-#+end_src
-
-#+begin_src emacs-lisp
-  ;; (use-package helm-rails
-  ;;   :ensure t
-
-  ;;   :init
-  ;;   (progn
-  ;;     (require 'helm-rails)))
 #+end_src
 
 *** Helm-descbinds
@@ -419,7 +407,7 @@ Start Emacs server on first Emacs instance.
     :defer t
     :commands (server-running-p server-start)
 
-    :idle
+    :config
     (progn
       (unless (server-running-p)
         (server-start))
@@ -1056,7 +1044,7 @@ Recent Files is a mode that keeps track of files that have been opened.
 
 #+begin_src emacs-lisp
   (use-package recentf
-    :ensure recentf
+    :ensure t
     :defer t
 
     :config
@@ -1131,18 +1119,9 @@ C-c left/right to undo/redo window configuration changes.
     :defer t
     :commands (popwin-mode)
 
-    :idle
+    :config
     (progn
       (popwin-mode 1)))
-#+end_src
-
-*** Golden Ratio
-#+begin_src emacs-lisp
-  (use-package golden-ratio
-    :ensure t
-    :defer t
-    :commands (golden-ratio-mode)
-    :diminish golden-ratio-mode)
 #+end_src
 
 ** Selection
@@ -1342,7 +1321,7 @@ Enable commands disabled by default for novice users.
     :defer t
     :diminish company-mode
 
-    :idle
+    :config
     (progn
       (push 'company-robe company-backends)
       (global-company-mode 1)
@@ -1552,18 +1531,18 @@ Deal with parens in a smart way.
 
 #+begin_src emacs-lisp
   (use-package smartparens
-    :ensure smartparens
-    :diminish smartparens
+    :ensure t
+    ;;:diminish smartparens
 
     :config
     (progn
       (require 'smartparens-config nil t)
-      (require 'smartparens-html)
+      ;;(require 'smartparens-html)
       ;;(require 'smartparens-latex)
 
       (smartparens-global-mode)
 
-      (show-smartparens-global-mode)
+      ;;(show-smartparens-global-mode)
 
       (setq sp-autoescape-string-quote nil) ; Irritating.
 
@@ -1596,7 +1575,7 @@ Deal with parens in a smart way.
     :diminish yas-minor-mode
     :defer t
 
-    :idle
+    :config
     (progn
       (yas-global-mode 1)))
       ;;(setq yas-prompt-functions '(yas-ido-prompt
@@ -1806,7 +1785,7 @@ the bug repository. E.G the following will point TWEB-???? references to Jira.
   (use-package clojure-mode
     :ensure clojure-mode
 
-    :init
+    :config
     (progn
       (add-hook 'clojure-mode-hook #'cider-mode)
       (add-hook 'clojure-mode-hook
@@ -2009,7 +1988,7 @@ Clojure documentation.
 #+begin_src emacs-lisp
   (use-package rvm
     :ensure rvm
-    :init
+    :config
     (progn
       (rvm-autodetect-ruby)))
 #+end_src
@@ -2292,8 +2271,7 @@ Close term buffers when terminal is exited.
 
 *** Org
 #+begin_src emacs-lisp
-  (use-package org
-    :diminish org-mode)
+  (use-package org)
 #+end_src
 
 #+begin_src emacs-lisp
@@ -2386,7 +2364,7 @@ Close term buffers when terminal is exited.
 #+begin_src emacs-lisp
   (use-package launch
       :ensure t
-      :idle (global-launch-mode))
+      :config (global-launch-mode))
 #+end_src
 
 ** Tramp
@@ -2459,6 +2437,29 @@ Load package.
     :config
     (progn
       (set-face-attribute 'hydra-face-red nil :foreground "yellow")))
+#+end_src
+
+Help Hydra
+
+#+begin_src emacs-lisp
+  (global-set-key
+   (kbd "C-c h")
+
+   (defhydra hydra-apropos (:color blue
+                                   :hint nil)
+     "
+  _a_propos        _c_ommand
+  _d_ocumentation  _l_ibrary
+  _v_ariable       _u_ser-option
+  _m_an        valu_e_"
+     ("a" apropos)
+     ("d" apropos-documentation)
+     ("v" apropos-variable)
+     ("c" apropos-command)
+     ("l" apropos-library)
+     ("m" man)
+     ("u" apropos-user-option)
+     ("e" apropos-value)))
 #+end_src
 
 Global Hydra for Bookmarks.
@@ -2550,7 +2551,6 @@ Global hydra for launching.
        ("c" calc                      "calculator")
        ("d" ediff-buffers             "ediff")
        ("f" find-dired                "find")
-       ("m" man                       "man")
        ("p" paradox-list-packages     "packages")
        ("P" (paradox-list-packages t) "packages no fetch")
        ("s" ansi-term                 "shell")
@@ -2683,16 +2683,16 @@ Projectile mode hydras.
 
       ("i" projectile-ibuffer                          nil)
       ("b" projectile-switch-to-buffer                 nil)
-      ("k" projectile-kill-buffers                     nil)
+      ("k" projectile-kill-buffers                     nil :color red)
 
       ("s" projectile-ag                               nil)
       ("o" projectile-multi-occur                      nil)
       ("u" projectile-replace                          nil)
       ("t" projectile-find-tag                         nil)
-      ("T" projectile-regenerate-tags                  nil)
+      ("T" projectile-regenerate-tags                  nil :color red)
 
       ("p" projectile-switch-project                   nil)
-      ("x" projectile-cleanup-known-projects           nil)
+      ("x" projectile-cleanup-known-projects           nil :color red)
 
       ("q"   nil                                       "quit" :color blue)))
 #+end_src
@@ -2729,7 +2729,7 @@ Projectile Rails mode hydras.
 
       ("rs" projectile-rails-server                    nil :color red)
       ("rc" projectile-rails-console                   nil :color red)
-      ("rr" projectile-rails-find-rake-task            nil)
+      ("rr" projectile-rails-find-rake-task            nil :color red)
 
       ("q"   nil                                       "quit" :color blue)))
 #+end_src
