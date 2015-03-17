@@ -88,11 +88,15 @@ Add package sources and initialize package manager.
 I use 'use-package' to tidy up my Emacs configuration.
 
 #+begin_src emacs-lisp
-  (unless (require 'use-package nil t)
-    (progn
-      (package-refresh-contents)
-      (package-install 'use-package)
-      (require 'use-package)))
+  (eval-when-compile
+   (unless (require 'use-package nil t)
+     (progn
+       (package-refresh-contents)
+       (package-install 'use-package)
+       (require 'use-package))))
+
+  (require 'diminish)
+  (require 'bind-key)
 #+end_src
 
 Paradox is a powerful UI for the package manager.
@@ -346,17 +350,18 @@ Helm is an interactive completion tool.
       (define-key helm-map (kbd "DEL") 'helm-backspace)
       (helm-mode 1))
 
-    :bind (("M-x"                      . helm-M-x)
-           ("M-y"                      . helm-show-kill-ring)
-           ("C-o h"                    . helm-mini)
-           ("C-c f"                    . helm-recentf)
-           ("C-x b"                    . helm-buffers-list)
-           ("C-x C-f"                  . helm-find-files)
-           ("C-h a"                    . helm-apropos)
-           ("C-x C-i"                  . imenu)
-           ("<remap> <occur>"          . helm-occur)
-           ("<remap> <list-buffers>"   . helm-buffers-list)
-           ("<remap> <dabbrev-expand>" . helm-dabbrev)))
+    :bind (("M-x"                  . helm-M-x)
+           ("M-y"                  . helm-show-kill-ring)
+           ("C-o h"                . helm-mini)
+           ("C-c f"                . helm-recentf)
+           ;;("C-x b"              . helm-buffers-list)
+           ("C-x C-f"              . helm-find-files)
+           ("C-h a"                . helm-apropos)
+           ("C-x C-i"              . imenu)
+           ([remap occur]          . helm-occur)
+           ([remap list-buffers]   . helm-buffers-list)
+           ([remap dabbrev-expand] . helm-dabbrev)))
+
 
 #+end_src
 
@@ -867,10 +872,9 @@ IBuffer is an advanced replacement for BufferMenu.
                             (mode . coffee-mode)
                             (mode . js-mode)
                             (mode . espresso-mode)))
-                     ("scala" (or
-                               (mode . scala-mode)
-                               (mode . sbt-mode)))
                      ("code" (or
+                              (mode . scala-mode)
+                              (mode . sbt-mode)
                               (mode . haskell-mode)
                               (mode . lua-mode)
                               (mode . python-mode)))
@@ -1323,9 +1327,9 @@ Enable commands disabled by default for novice users.
 
     :config
     (progn
-      (push 'company-robe company-backends)
+      ;;(push 'company-robe company-backends)
       (global-company-mode 1)
-      (setq company-idle-delay nil))  ;; Auto popup is irritating.
+      (setq company-idle-delay 0.5))
 
     :bind ("C-c i" . company-complete))
 #+end_src
@@ -2370,6 +2374,9 @@ Close term buffers when terminal is exited.
 ** Tramp
 #+begin_src emacs-lisp
   (setq tramp-default-method "ssh")
+
+  ;; Numerous issues with tramp and zsh.
+  (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 #+end_src
 
 ** Key Maps
@@ -2582,7 +2589,6 @@ Global hydra for toggling.
       _a_ abbrev-mode:       %`abbrev-mode
       _d_ debug-on-error:    %`debug-on-error
       _f_ auto-fill-mode:    %`auto-fill-function
-      _g_ golden-ratio-mode: %`golden-ratio-mode
       _l_ linum-mode:        %`linum-mode
       _r_ readonly-mode:     %`buffer-read-only
       _v_ visual-line-mode:  %`visual-line-mode
@@ -2591,7 +2597,6 @@ Global hydra for toggling.
      ("a" abbrev-mode nil)
      ("d" toggle-debug-on-error nil)
      ("f" auto-fill-mode nil)
-     ("g" golden-ratio-mode nil)
      ("l" linum-mode nil)
      ("r" dired-toggle-read-only nil)
      ("v" visual-line-mode nil)
