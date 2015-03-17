@@ -803,7 +803,6 @@ IBuffer is an advanced replacement for BufferMenu.
 
     :config
     (progn
-      ;; http://curiousprogrammer.wordpress.com/2009/04/02/ibuffer/
       (defun ibuffer-ediff-marked-buffers ()
         "ediff 2 marked buffers"
         (interactive)
@@ -948,10 +947,7 @@ IBuffer is an advanced replacement for BufferMenu.
                               (mode . mu4e-headers-mode)
                               ;;(mode . rmail-mode)
                               (mode . mu4e-view-mode)
-                              (mode . mu4e-compose-mode)))
-                     ("helm" (or
-                              (mode . helm-mode)
-                              (name . "^\\*helm")))))))))
+                              (mode . mu4e-compose-mode)))))))))
 #+end_src
 
 *** Unique Buffer Names
