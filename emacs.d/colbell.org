@@ -1543,7 +1543,7 @@ Deal with parens in a smart way.
 
       (smartparens-global-mode)
 
-      ;;(show-smartparens-global-mode)
+      (show-smartparens-global-mode)
 
       (setq sp-autoescape-string-quote nil) ; Irritating.
 
@@ -1607,7 +1607,6 @@ Deal with parens in a smart way.
   (use-package rainbow-delimiters
     :ensure rainbow-delimiters)
 #+end_src
-
 *** Flymake
 
 Run syntax checking in the background and highlight any errors.
