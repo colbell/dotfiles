@@ -1331,6 +1331,13 @@ Increase/decrease buffer font size.
   (define-key global-map (kbd "C--") 'text-scale-decrease)
 #+end_src
 
+use the hc command to show HTTP response codes
+
+#+begin_src emacs-lisp
+  (use-package httpcode
+    :ensure httpcode)
+#+end_src
+
 *** Discover My Major
 
 Discover key bindings and their meaning for the current Emacs major mode.
@@ -2336,6 +2343,13 @@ Close term buffers when terminal is exited.
     :ensure log4j-mode)
 #+end_src
 
+*** CSV
+
+#+begin_src emacs-lisp
+  (use-package csv-mode
+    :ensure csv-mode)
+#+end_src
+
 ** Web Browsers
 *** Definitions
 
@@ -2444,10 +2458,12 @@ Help Hydra
    (defhydra hydra-apropos (:color blue
                                    :hint nil)
      "
+Apropos
+----------------------------
   _a_propos        _c_ommand
   _d_ocumentation  _l_ibrary
   _v_ariable       _u_ser-option
-  _m_an        valu_e_"
+  _m_anq        valu_e_"
      ("a" apropos)
      ("d" apropos-documentation)
      ("v" apropos-variable)
@@ -2835,11 +2851,6 @@ Remember command and search history.
 
 #+end_src
 
-#+begin_src emacs-lisp
-  (use-package httpcode
-    :ensure httpcode)
-#+end_src
-
 By default truncate long lines.
 
 #+begin_src emacs-lisp
@@ -2894,8 +2905,6 @@ By default truncate long lines.
     :ensure ack-and-a-half)
 
 
-  (use-package csv-mode
-    :ensure csv-mode)
 
   ;; Required by projectile.
   (use-package f
