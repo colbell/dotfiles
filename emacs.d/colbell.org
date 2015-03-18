@@ -272,8 +272,8 @@ Don't let the cursor go into the minibuffer prompt
 Show line numbers in fringe
 
 #+begin_src emacs-lisp
-  ;; (use-package nlinum
-  ;;   :ensure t)
+  (use-package nlinum
+    :ensure t)
 
     ;; :init
     ;; (progn
@@ -1416,13 +1416,14 @@ Show Git status in the fringe.
 #+HEADER: :results silent
 #+begin_src emacs-lisp
   (use-package git-gutter
-    :ensure git-gutter
+    :ensure t
     :diminish git-gutter-mode
 
     :config
     (progn
-      ;;(git-gutter:linum-setup)
-      (global-git-gutter-mode +1)))
+      ;;(setq git-gutter:lighter " GG")
+      (global-git-gutter-mode t)
+      (git-gutter:linum-setup)))
 #+end_src
 
 **** Git Messenger
@@ -1715,7 +1716,7 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
   (add-hook 'cnb/coding-hook #'hs-minor-mode)
   (add-hook 'cnb/coding-hook #'subword-mode)
   (add-hook 'cnb/coding-hook #'flyspell-prog-mode t)
-  ;;(add-hook 'cnb/coding-hook #'nlinum-mode t)
+  (add-hook 'cnb/coding-hook #'nlinum-mode t)
 
   (when (fboundp 'yas/minor-mode)
     (add-hook 'cnb/coding-hook #'yas/minor-mode))
@@ -2280,6 +2281,7 @@ Close term buffers when terminal is exited.
   (setq org-agenda-files (quote ("~/Dropbox/org/personal.org" "~/Dropbox/org/work.org")))
 
   (add-hook 'org-mode-hook #'turn-off-auto-fill)
+  (add-hook 'org-mode-hook #'nlinum-mode t)
 #+end_src
 
 #+begin_src emacs-lisp
@@ -2575,8 +2577,6 @@ Global hydra for occur/error
 
 Global hydra for toggling.
 #+begin_src emacs-lisp
-  (require 'linum)
-
   (global-set-key
    (kbd "<f5> t")
    (defhydra cnb-hydra-toggle (:color pink)
@@ -2584,7 +2584,7 @@ Global hydra for toggling.
       _a_ abbrev-mode:       %`abbrev-mode
       _d_ debug-on-error:    %`debug-on-error
       _f_ auto-fill-mode:    %`auto-fill-function
-      _l_ linum-mode:        %`linum-mode
+      _l_ nlinum-mode:       %`nlinum-mode
       _r_ readonly-mode:     %`buffer-read-only
       _v_ visual-line-mode:  %`visual-line-mode
       _w_ whitespace-mode:   %`whitespace-mode
@@ -2592,7 +2592,7 @@ Global hydra for toggling.
      ("a" abbrev-mode nil)
      ("d" toggle-debug-on-error nil)
      ("f" auto-fill-mode nil)
-     ("l" linum-mode nil)
+     ("l" nlinum-mode nil)
      ("r" dired-toggle-read-only nil)
      ("v" visual-line-mode nil)
      ("w" whitespace-mode nil)
