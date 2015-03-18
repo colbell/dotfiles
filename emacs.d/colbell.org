@@ -133,7 +133,7 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
       (setq solarized-use-variable-pitch nil)
       ;;(setq solarized-use-more-italic t)
       ;;(setq solarized-use-less-bold t)
-      (load-theme 'solarized-light t)))
+      (load-theme 'solarized-dark t)))
 #+end_src
 
 *** Font
