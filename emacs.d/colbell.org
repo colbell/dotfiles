@@ -272,19 +272,9 @@ Don't let the cursor go into the minibuffer prompt
 Show line numbers in fringe
 
 #+begin_src emacs-lisp
-  (use-package nlinum
-    :ensure t)
 
-    ;; :init
-    ;; (progn
-    ;;   ;; Precalculate the line number width to avoid horizontal jumps on scrolling.
-    ;;   ;; From: http://www.emacswiki.org/LineNumbers
-    ;;   (add-hook
-    ;;    'nlinum-mode-hook
-    ;;    (lambda ()
-    ;;      (setq nlinum--width
-    ;;            (length (number-to-string
-    ;;                     (+ 1 (count-lines (point-min) (point-max)))))))))
+(use-package nlinum
+    :ensure t)
 #+end_src
 
 *** General
@@ -993,24 +983,24 @@ Close buffers that haven't been used in =clean-buffer-list-delay-general= days.
 Formatting of white space.
 
 #+begin_src emacs-lisp
-    (use-package whitespace
-      :diminish whitespace-mode
-      :diminish global-whitespace-mode
+  (use-package whitespace
+    :diminish whitespace-mode
+    :diminish global-whitespace-mode
 
-      :init
-      (progn
-        (setq whitespace-style '(face tabs empty trailing lines-tail))
-        (set-default 'show-trailing-whitespace t)
-        (setq whitespace-line-column 80)
-        (global-whitespace-mode)
-        (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
+    :init
+    (progn
+      (setq whitespace-style '(face tabs empty trailing lines-tail))
+      (set-default 'show-trailing-whitespace t)
+      (setq whitespace-line-column 80)
+      (global-whitespace-mode)
+      (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
 
-        (setq whitespace-global-modes '(not org-mode))
+      (setq whitespace-global-modes '(not org-mode))
 
-        ;; Don't highlight WS in some modes.
-        (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
-                                        term-mode eww-mode-hook completion-list-mode-hook))
-          (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
+      ;; Don't highlight WS in some modes.
+      (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
+                                      term-mode eww-mode-hook completion-list-mode-hook))
+        (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
 #+end_src
 
 *** Saving
@@ -1024,7 +1014,8 @@ Flag script files as executable on save.
 #+end_src
 
 ** File Handling
-*** Follow All Symbolic Links
+
+When opening files follow all symbolic links.
 
 #+begin_src emacs-lisp
   (setq find-file-visit-truename t)
@@ -1054,7 +1045,9 @@ Recent Files is a mode that keeps track of files that have been opened.
       (setq recentf-max-saved-items 250)
 
       ;; Files that we don't want to remember.
-      (setq recentf-exclude '("~$" "/tmp/" "/ssh:" "/sudo:" "/\\.git/.*\\'" "/home/colbell/.jabber-avatars/*"))
+      (setq recentf-exclude '("~$" "/tmp/" "/ssh:"
+                              "/sudo:" "/\\.git/.*\\'"
+                              "/home/colbell/.jabber-avatars/*"))
 
       ;; We don't want to remember the recentf database file itself.
       (add-to-list 'recentf-exclude recentf-save-file)
