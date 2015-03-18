@@ -2314,26 +2314,25 @@ Close term buffers when terminal is exited.
 
 *** TeX
 #+begin_src emacs-lisp
-    (use-package auctex
-      :ensure t
-      :defer
+  (use-package auctex
+    :ensure t
+    :defer
 
-      :config
-      (progn
-        (TeX-global-PDF-mode t))
+    :config
+    (progn
+      (TeX-global-PDF-mode t))
 
-      :init
-      (progn
-        (setq-default TeX-master nil)
-        (setq TeX-parse-self t)
-        (setq TeX-auto-save t)
-        (setq TeX-save-query nil)
+    :init
+    (progn
+      (setq-default TeX-master nil)
+      (setq TeX-parse-self t)
+      (setq TeX-auto-save t)
+      (setq TeX-save-query nil)
 
-        (add-hook 'LaTeX-mode-hook #'visual-line-mode)
-        (add-hook 'LaTeX-mode-hook #'flyspell-mode)
-        (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
-        ;;(add-hook 'LaTeX-mode-hook #'nlinum-mode t)
-        ))
+      (add-hook 'LaTeX-mode-hook #'visual-line-mode)
+      (add-hook 'LaTeX-mode-hook #'flyspell-mode)
+      (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
+      (add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
 
 #+end_src
 
