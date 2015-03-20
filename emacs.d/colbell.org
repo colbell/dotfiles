@@ -111,8 +111,8 @@ Paradox is a powerful UI for the package manager.
       (setq paradox-display-download-count t)))
 #+end_src
 
-** U.I.
-*** Diminish
+** General configuration
+** Diminish
 
 Reduce clutter in the mode-line. Load it early as use-package uses it.
 
@@ -120,7 +120,7 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
   (use-package diminish)
 #+end_src
 
-*** Theme
+** Theme
 
 #+begin_src emacs-lisp
   (use-package solarized-theme
@@ -136,7 +136,21 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
       (load-theme 'solarized-dark t)))
 #+end_src
 
-*** Font
+Function that allows toggling between dark and light Solarized themes.
+
+#+begin_src emacs-lisp
+  (defun cnb/toggle-theme ()
+    "Toggle between Solarized light and dark"
+    (interactive)
+    (let* ((sol-dark 'solarized-dark)
+           (sol-light 'solarized-light)
+           (is-light (member sol-light custom-enabled-themes)))
+      (dolist (theme custom-enabled-themes)
+        (disable-theme theme))
+      (load-theme (if is-light sol-dark sol-light))))
+#+end_src
+
+** Font
 
 #+begin_src emacs-lisp
   ;;(set-frame-font "Source Code Pro-10" nil t)
@@ -144,7 +158,7 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
   (set-frame-font "Inconsolata-11" nil t)
 #+end_src
 
-*** Remove Unnecessary Clutter
+** Remove Unnecessary Clutter
 
 #+begin_src emacs-lisp
   (when window-system
@@ -160,7 +174,7 @@ Reduce clutter in the mode-line. Load it early as use-package uses it.
   (eval '(setq inhibit-startup-echo-area-message "colbell"))
 #+end_src
 
-*** Pretty Symbols
+** Pretty Symbols
 
 E.G. λ for lambda in coding buffers.
 
@@ -168,7 +182,7 @@ E.G. λ for lambda in coding buffers.
 (global-prettify-symbols-mode)
 #+end_src
 
-*** Mode Line
+** Mode Line
 
 Smart Mode Line
 
@@ -190,7 +204,7 @@ Some useful stuff in the modeline.
   (display-time-mode)
 #+end_src
 
-**** Which Function
+*** Which Function
 
 For coding buffers show the name of the current function in the
 mode line.
@@ -204,7 +218,7 @@ mode line.
     (which-func-mode 1))
 #+end_src
 
-**** Anzu
+*** Anzu
 
 For searches display the current match and total matches information
 in the mode line.
@@ -220,7 +234,7 @@ in the mode line.
       (setq anzu-search-threshold 1000)))
 #+end_src
 
-**** Battery Status
+*** Battery Status
 
 Put the battery status in the mode-line.
 
@@ -237,7 +251,7 @@ Put the battery status in the mode-line.
         (display-battery-mode 1))))
 #+end_src
 
-*** Crosshairs
+** Crosshairs
 
 #+begin_src emacs-lisp
   (use-package crosshairs
@@ -245,13 +259,7 @@ Put the battery status in the mode-line.
     :bind (("<f11>" . flash-crosshairs)))
 #+end_src
 
-*** Minibuffer
-
-Y/N for yes/no in prompts.
-
-#+begin_src emacs-lisp
-(defalias 'yes-or-no-p 'y-or-n-p)
-#+end_src
+** Minibuffer
 
 Give it some room.
 
@@ -267,17 +275,24 @@ Don't let the cursor go into the minibuffer prompt
         (quote (read-only t point-entered minibuffer-avoid-prompt
                           face minibuffer-prompt)))
 #+end_src
-*** Line Numbers
+** Line Numbers
 
 Show line numbers in fringe
 
 #+begin_src emacs-lisp
-
-(use-package nlinum
-    :ensure t)
+  (use-package nlinum
+    :ensure t
+    :config
+    (progn
+      (defun cnb/nlinum-mode-hook ()
+        "Stop horiz jumps on scrolling"
+        (setq nlinum--width
+              (length (number-to-string
+                       (count-lines (point-min) (point-max))))))
+      (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
 #+end_src
 
-*** General
+** General
 
 Move mouse cursor when text cursor gets too close.
 #+begin_src emacs-lisp
@@ -364,17 +379,7 @@ Show current key bindings
     :ensure helm-descbinds
     :bind (("C-h b" . helm-descbinds)))
 #+end_src
-** General
-*** Tabs
-
-Don't use them, use spaces instead. Default spacing to 2 spaces.
-
-#+begin_src emacs-lisp
-  (set-default 'indent-tabs-mode nil)
-  (setq-default tab-width 2)
-#+end_src
-
-*** Backup Files
+** Backup Files
 
 #+begin_src emacs-lisp
   (setq backup-by-copying t) ;; Don't clobber symlinks, owner, group etc.
@@ -393,7 +398,7 @@ Don't clutter the disk with Emacs save files. Store them in =~/.emacs.d/backups.
 (setq vc-make-backup-files t) ;; Make backups of files, even when they're in version control
 #+end_src
 
-*** Emacs Server
+** Emacs Server
 
 Start Emacs server on first Emacs instance.
 
@@ -409,7 +414,8 @@ Start Emacs server on first Emacs instance.
       (setenv "EDITOR" "emacsclient")))
 
 #+end_src
-*** Auto-correct
+** Auto-correct
+
 #+begin_src emacs-lisp
   (setq abbrev-file-name "~/.emacs.d/abbrev_defs")
   (setq save-abbrevs 'silently)
@@ -442,7 +448,25 @@ Start Emacs server on first Emacs instance.
 
   (global-set-key "\C-oi" #'cnb/ispell-word-then-abbrev)
 #+end_src
-*** Dired
+** Dired
+
+Open files in external application.
+
+#+begin_src emacs-lisp
+  (defun cnb/open-external()
+    "Open file associated with current buffer or files marked in dired buffer
+  in native application through xdg-open"
+    (interactive)
+    (let (my_files)
+      (if (string-equal major-mode "dired-mode")
+          (setq my_files (dired-get-marked-files))
+        (setq my_files (list (buffer-file-name))))
+
+      (when my_files
+        (dolist (fn my_files)
+          (start-process "" nil "xdg-open" fn)))))
+#+end_src
+
 
 Directory view/editing.
 
@@ -574,7 +598,7 @@ Directory view/editing.
 
 #+end_src
 
-*** Bookmarks
+** Bookmarks
 #+begin_src emacs-lisp
   (use-package bookmark
     :defer t
@@ -623,7 +647,7 @@ Visual Bookmarks
            ("<S-f2>" . bm-previous)))
 #+end_src
 
-*** Spelling
+** Spelling
 
 #+begin_src emacs-lisp
   (use-package flyspell
@@ -650,11 +674,14 @@ Dictionary Look-up
 
 #+end_src
 ** Frames
+
 #+begin_src emacs-lisp
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
   (setq-default display-buffer-reuse-frames t)
 #+end_src
-**** Toggle Frame Split
+
+Toggle Frame Split
+
 #+begin_src emacs-lisp
   ;; From http://www.emacswiki.org/emacs-en/ToggleWindowSplit
   (defun cnb/toggle-frame-split ()
@@ -950,23 +977,6 @@ IBuffer is an advanced replacement for BufferMenu.
       (setq uniquify-ignore-buffers-re "^\\*")))
 #+end_src
 
-*** UTF-8
-
-#+begin_src emacs-lisp
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-;; backwards compatibility as default-buffer-file-coding-system
-;; is deprecated in 23.2.
-(if (boundp 'buffer-file-coding-system)
-    (setq-default buffer-file-coding-system 'utf-8)
-  (setq default-buffer-file-coding-system 'utf-8))
-
-;; Treat clipboard input as UTF-8 string first; compound text next, etc.
-(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-#+end_src
-
 *** Midnight Mode
 
 Close buffers that haven't been used in =clean-buffer-list-delay-general= days.
@@ -1013,12 +1023,52 @@ Flag script files as executable on save.
    #'executable-make-buffer-file-executable-if-script-p)
 #+end_src
 
-** File Handling
+*** General
+
+Single spaces end sentences - not double spaces.
+
+#+begin_src emacs-lisp
+  (setq sentence-end-double-space nil)
+#+end_src
+
+By default truncate long lines.
+
+#+begin_src emacs-lisp
+  (toggle-truncate-lines 1)
+  (setq-default truncate-lines t)
+#+end_src
+
 
 When opening files follow all symbolic links.
 
 #+begin_src emacs-lisp
   (setq find-file-visit-truename t)
+#+end_src
+
+
+Don't use tabs, use spaces instead. Default spacing to 2 spaces.
+
+#+begin_src emacs-lisp
+  (set-default 'indent-tabs-mode nil)
+  (setq-default tab-width 2)
+#+end_src
+
+
+Use UTF-8
+
+#+begin_src emacs-lisp
+  (prefer-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  ;; backwards compatibility as default-buffer-file-coding-system
+  ;; is deprecated in 23.2.
+  (if (boundp 'buffer-file-coding-system)
+      (setq-default buffer-file-coding-system 'utf-8)
+    (setq default-buffer-file-coding-system 'utf-8))
+
+  ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 #+end_src
 
 *** Find in Repository
@@ -1248,10 +1298,6 @@ line. http://www.emacswiki.org/emacs/SlickCopy
 #+end_src
 
 ** Search/Replace
-#+begin_src emacs-lisp
-  (defalias 'qrr 'query-replace-regexp)
-#+end_src
-
 
 Front-end to Silver Searcher (ag)
 
@@ -1360,8 +1406,7 @@ Discover key bindings and their meaning for the current Emacs major mode.
   (add-hook 'ediff-after-quit-hook-internal 'winner-undo)
 #+end_src
 
-*** Source Control
-**** Magit
+*** Magit
 
 Magit is a very cool GUI for Git.
 
@@ -1409,7 +1454,7 @@ Magit is a very cool GUI for Git.
             (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
 #+end_src
 
-**** Git Gutter
+*** Git Gutter
 
 Show Git status in the fringe.
 
@@ -1426,7 +1471,7 @@ Show Git status in the fringe.
       (git-gutter:linum-setup)))
 #+end_src
 
-**** Git Messenger
+*** Git Messenger
 
 Show commit details for the current line.
 
@@ -1448,7 +1493,7 @@ Show commit details for the current line.
       (add-hook 'git-messenger:popup-buffer-hook #'cnb/git-msg-popup-hook)))
 #+end_src
 
-**** Git Timemachine
+*** Git Timemachine
 
 Show a file as at a particular commit.
 
@@ -1460,7 +1505,7 @@ Show a file as at a particular commit.
       (defalias 'gtm 'git-timemachine)))
 #+end_src
 
-**** Git Blame
+*** Git Blame
 
 An interactive, interative 'git blame' mode.
 
@@ -1777,9 +1822,8 @@ the bug repository. E.G the following will point TWEB-???? references to Jira.
       (add-hook 'after-init-hook #'global-flycheck-mode)))
 #+end_src
 
-** Programming Modes
-*** Clojure
-**** Clojure Mode.
+** Clojure
+*** Clojure Mode.
 
 #+begin_src emacs-lisp
   (use-package clojure-mode
@@ -1820,7 +1864,7 @@ Extra font clocking for Clojure mode.
   :ensure clojure-mode-extra-font-locking)
 #+end_src
 
-**** Cheat Sheet
+*** Cheat Sheet
 
 Clojure documentation.
 
@@ -1832,18 +1876,18 @@ Clojure documentation.
     (defalias 'ccs 'clojure-cheatsheet)))
 #+end_src
 
-**** Align let forms
+*** Align let forms
 #+begin_src emacs-lisp
 (use-package align-cljlet
   :ensure align-cljlet)
 #+end_src
-**** Refactoring
+*** Refactoring
 #+begin_src emacs-lisp
 (use-package clj-refactor
   :ensure clj-refactor)
 #+end_src
 
-**** Cider Clojure IDE and REPL
+*** Cider Clojure IDE and REPL
 
 #+begin_src emacs-lisp
   (use-package cider
@@ -1869,27 +1913,27 @@ Clojure documentation.
     :ensure cider-decompile)
 #+end_src
 
-**** Slamhound
+*** Slamhound
 #+begin_src emacs-lisp
   (use-package slamhound
     :ensure t
     :commands slamhound)
 #+end_src
 
-**** Snippets
+*** Snippets
 #+begin_src emacs-lisp
   (use-package clojure-snippets
     :ensure clojure-snippets)
 #+end_src
 
-*** Cucumber
+** Cucumber
 #+begin_src emacs-lisp
   (use-package feature-mode
     :ensure feature-mode
     :mode (("\.feature$" . feature-mode)))
 #+end_src
 
-*** Javascript
+** Javascript
 #+begin_src emacs-lisp
   (eval-after-load 'js
     '(progn
@@ -1900,7 +1944,7 @@ Clojure documentation.
         (lambda ()
           (push '("function" . "\u0192") prettify-symbols-alist)))))
 #+end_src
-*** Coffeescript
+** Coffeescript
 #+begin_src emacs-lisp
   (use-package coffee-mode
     :ensure coffee-mode
@@ -1920,8 +1964,8 @@ Clojure documentation.
 
 #+end_src
 
-*** Ruby
-**** Ruby Mode
+** Ruby
+*** Ruby Mode
 #+begin_src emacs-lisp
   (use-package ruby-mode
     :ensure ruby-mode
@@ -1957,34 +2001,34 @@ Clojure documentation.
       (define-key ruby-mode-map (kbd "RET") #'newline-and-indent)))
 #+end_src
 
-**** Ruby Refactoring
+*** Ruby Refactoring
 #+begin_src emacs-lisp
   (use-package ruby-refactor
     :ensure ruby-refactor
     :diminish ruby-refactor-mode)
 #+end_src
 
-**** Ruby Compilation
+*** Ruby Compilation
 #+begin_src emacs-lisp
   (use-package ruby-compilation
     :ensure ruby-compilation)
 #+end_src
 
-**** Ruby Block
+*** Ruby Block
 #+begin_src emacs-lisp
   (use-package ruby-block
     :ensure ruby-block
     :diminish ruby-block-mode)
 #+end_src
 
-**** RuboCop
+*** RuboCop
 #+begin_src emacs-lisp
     (use-package rubocop
       :ensure rubocop
       :diminish rubocop-mode)
 #+end_src
 
-**** RVM
+*** RVM
 #+begin_src emacs-lisp
   (use-package rvm
     :ensure rvm
@@ -1992,14 +2036,14 @@ Clojure documentation.
     (progn
       (rvm-autodetect-ruby)))
 #+end_src
-**** Robe
+*** Robe
 #+begin_src emacs-lisp
     (use-package robe
       :ensure robe
       :diminish robe-mode)
 
 #+end_src
-**** Yard Mode
+*** Yard Mode
 
 Font lock for Ruby Yard comments.
 
@@ -2009,25 +2053,25 @@ Font lock for Ruby Yard comments.
       :diminish yard-mode)
 #+end_src
 
-**** Inf-ruby
+*** Inf-ruby
 #+begin_src emacs-lisp
   (use-package inf-ruby
     :ensure inf-ruby)
 #+end_src
 
-**** Ruby Tools
+*** Ruby Tools
 #+begin_src emacs-lisp
   (use-package ruby-tools
        :ensure t)
 #+end_src
 
-*** Rspec
+** Rspec
 #+begin_src emacs-lisp
   (use-package rspec-mode
     :ensure rspec-mode)
 #+end_src
 
-*** Haskell
+** Haskell
 
 #+begin_src emacs-lisp
   (use-package haskell-mode
@@ -2039,13 +2083,13 @@ Font lock for Ruby Yard comments.
       (add-hook 'haskell-mode-hook 'interactive-haskell-mode)))
 #+end_src
 
-*** Lua
+** Lua
 #+begin_src emacs-lisp
   (use-package lua-mode
     :ensure t)
 #+end_src
 
-*** Emacs Lisp
+** Emacs Lisp
 
 Put each occurrence of "use-package" into an Imenu section called "Packages".
 
@@ -2061,7 +2105,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
      (push '("defun" . 402) prettify-symbols-alist)))
 #+end_src
 
-*** Lisp Like Modes
+** Lisp Like Modes
 #+begin_src emacs-lisp
   (defun cnb/imenu-lisp-sections ()
     (setq imenu-prev-index-position-function nil)   ;; FIXME: DO I need this?
@@ -2382,8 +2426,14 @@ Close term buffers when terminal is exited.
   (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 #+end_src
 
-** Key Maps
-*** Key Chords
+** Aliases
+#+begin_src emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)         ;; Y/N for yes/no in prompts.
+  (defalias 'idm 'info-display-manual)
+  (defalias 'qrr 'query-replace-regexp)
+#+end_src
+
+** Key Chords
 #+begin_src emacs-lisp
   ;; (use-package key-chord
   ;;   :ensure t
@@ -2393,7 +2443,7 @@ Close term buffers when terminal is exited.
   ;;     (key-chord-mode +1)))
 #+end_src
 
-*** Global Map
+** Global Key Map
 
 #+begin_src emacs-lisp
   (global-set-key (kbd "<f8> <f1>") 'repeat-complex-command)
@@ -2415,7 +2465,7 @@ I press these too often
   (global-unset-key (kbd "C-x C-z"))
 #+end_src
 
-*** Hydra
+** Hydra
 
 | Body Color | Head Inherited | Executing NON-HEADS   | Executing HEADS |
 |------------+----------------+-----------------------+-----------------|
@@ -2439,14 +2489,14 @@ Load package.
   (use-package hydra
     :ensure t
 
-    :init
-    (progn
-      (require 'hydra-examples)
-      (hydra-add-font-lock))
-
     :config
     (progn
-      (set-face-attribute 'hydra-face-red nil :foreground "yellow")))
+      (require 'hydra-examples)
+      (hydra-add-font-lock)))
+
+    ;; :config
+    ;; (progn
+    ;;   (set-face-attribute 'hydra-face-red nil :foreground "yellow")))
 #+end_src
 
 Help Hydra
@@ -2455,23 +2505,31 @@ Help Hydra
   (global-set-key
    (kbd "C-c h")
 
-   (defhydra hydra-apropos (:color blue
-                                   :hint nil)
+   (defhydra hydra-apropos(:color blue :hint nil)
      "
-Apropos
-----------------------------
+  Apropos
+  ----------------------------
   _a_propos        _c_ommand
   _d_ocumentation  _l_ibrary
   _v_ariable       _u_ser-option
-  _m_anq        valu_e_"
+  _m_an            valu_e_
+  _h_elm-apropos
+
+  Help
+  ----------------------------
+  major mode _b_indings
+  _q_uit"
      ("a" apropos)
      ("d" apropos-documentation)
      ("v" apropos-variable)
      ("c" apropos-command)
+     ("h" helm-apropos)
      ("l" apropos-library)
      ("m" man)
      ("u" apropos-user-option)
-     ("e" apropos-value)))
+     ("e" apropos-value)
+     ("b" helm-descbinds)
+     ("q" nil)))
 #+end_src
 
 Global Hydra for Bookmarks.
@@ -2594,16 +2652,20 @@ Global hydra for toggling.
       _f_ auto-fill-mode:    %`auto-fill-function
       _l_ nlinum-mode:       %`nlinum-mode
       _r_ readonly-mode:     %`buffer-read-only
+      _t_ truncate-lines     %`truncate-lines
+      _T_ theme:             %`custom-enabled-themes
       _v_ visual-line-mode:  %`visual-line-mode
       _w_ whitespace-mode:   %`whitespace-mode
       "
      ("a" abbrev-mode nil)
-     ("d" toggle-debug-on-error nil)
-     ("f" auto-fill-mode nil)
-     ("l" nlinum-mode nil)
+     ("d" toggle-debug-on-error  nil)
+     ("f" auto-fill-mode         nil)
+     ("l" nlinum-mode            nil)
      ("r" dired-toggle-read-only nil)
-     ("v" visual-line-mode nil)
-     ("w" whitespace-mode nil)
+     ("t" toggle-truncate-lines  nil)
+     ("T" cnb/toggle-theme       nil)
+     ("v" visual-line-mode       nil)
+     ("w" whitespace-mode        nil)
      ("q" nil "cancel")))
 #+end_src
 
@@ -2791,9 +2853,6 @@ Remember command and search history.
 
 ** Put somewhere
 
-#+begin_src emacs-lisp
-(defalias 'idm 'info-display-manual)
-#+end_src
 
 #+begin_src emacs-lisp
   (use-package esup
@@ -2820,18 +2879,6 @@ Remember command and search history.
 
 
 
-  (defun cnb/open-external()
-    "Open file associated with current buffer or files marked in dired buffer
-  in native application through xdg-open"
-    (interactive)
-    (let (my_files)
-      (if (string-equal major-mode "dired-mode")
-          (setq my_files (dired-get-marked-files))
-        (setq my_files (list (buffer-file-name))))
-
-      (when my_files
-        (dolist (fn my_files)
-          (start-process "" nil "xdg-open" fn)))))
 
 #+end_src
 
@@ -2849,13 +2896,6 @@ Remember command and search history.
       (add-hook 'edit-server-start-hook #'edit-server-maybe-dehtmlize-buffer)
       (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer)))
 
-#+end_src
-
-By default truncate long lines.
-
-#+begin_src emacs-lisp
-(toggle-truncate-lines 1)
-(setq-default truncate-lines t)
 #+end_src
 
 #+begin_src emacs-lisp
@@ -2878,7 +2918,7 @@ By default truncate long lines.
 
   (setq redisplay-dont-pause t)
 
-  (setq sentence-end-double-space nil)
+
   (setq apropos-do-all t)
   (auto-image-file-mode)
 
@@ -2918,7 +2958,6 @@ By default truncate long lines.
       ;; (setq truncate-partial-width-windows nil)
       ;; (electric-layout-mode)
       ;; (setq completion-cycle-threshold 5)
-      ;; (setq redisplay-dont-pause t)
       ;; How often do I key a comma without a trailing space?
       ;; Commented out as I just can't stop pressing the space-bar
       ;; (global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
