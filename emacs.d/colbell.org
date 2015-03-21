@@ -10,11 +10,9 @@
 #+HTML_LINK_UP:
 #+HTML_MATHJAX:
 #+INFOJS_OPT: view:info toc:5
+#+PROPERTY: header-args :results silent
 
 * Settings
-  :PROPERTIES:
-  :header-args: :results silent
-  :END:
 ** On Emacs
 
 #+begin_quote
@@ -43,7 +41,6 @@ Load all settings that were defined through the 'customize' interface.
 #+end_src
 
 ** Personal information
-
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Colin Noel Bell"
         user-mail-address "col@baibell.org")
@@ -97,7 +94,7 @@ I use 'use-package' to tidy up my Emacs configuration.
   ;; :diminish options.
   (use-package diminish)
   (require 'diminish)
-  (use-package 'bind-key)
+  (use-package bind-key)
   (require 'bind-key)
 #+end_src
 
@@ -113,21 +110,21 @@ Paradox is a powerful UI for the package manager.
       (setq paradox-display-download-count t)))
 #+end_src
 
-** General configuration
 ** Theme
 
 #+begin_src emacs-lisp
-  (use-package solarized-theme
-    :ensure t
+    (use-package solarized-theme
+      :ensure t
 
-    :init
-    (progn
-      (setq solarized-distinct-fringe-background t)
-      (setq solarized-scale-org-headlines nil)
-      (setq solarized-use-variable-pitch nil)
-      ;;(setq solarized-use-more-italic t)
-      ;;(setq solarized-use-less-bold t)
-      (load-theme 'solarized-dark t)))
+      :init
+      (progn
+        (setq solarized-distinct-fringe-background t)
+        (setq solarized-scale-org-headlines nil)
+        (setq solarized-use-variable-pitch nil)
+        (setq solarized-high-contrast-mode-line nil)
+        ;;(setq solarized-use-more-italic t)
+        ;;(setq solarized-use-less-bold t)
+        (load-theme 'solarized-dark t)))
 #+end_src
 
 Function that allows toggling between dark and light Solarized themes.
@@ -137,11 +134,11 @@ Function that allows toggling between dark and light Solarized themes.
     "Toggle between Solarized light and dark"
     (interactive)
     (let* ((dark-theme 'solarized-dark)
-           (light-thme 'solarized-light)
-           (is-light (member light-thme custom-enabled-themes)))
+           (light-theme 'solarized-light)
+           (is-light (member light-theme custom-enabled-themes)))
       (dolist (theme custom-enabled-themes)
         (disable-theme theme))
-      (load-theme (if is-light dark-theme sol-light))))
+      (load-theme (if is-light dark-theme light-theme))))
 #+end_src
 
 ** Font
