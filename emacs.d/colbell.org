@@ -11,7 +11,10 @@
 #+HTML_MATHJAX:
 #+INFOJS_OPT: view:info toc:5
 
-* Introduction
+* Settings
+  :PROPERTIES:
+  :header-args: :results silent
+  :END:
 ** On Emacs
 
 #+begin_quote
@@ -29,11 +32,6 @@ can be loaded using =(org-babel-load-file /path/to/file)=.
 The original inspiration came from a blog post by [[http://sachachua.com/blog/2012/06/literate-programming-emacs-configuration-file/][Sacha Chua]].
 
 I'm also using [[https://github.com/jwiegley/use-package][use-package]] to simplify package handing.
-
-* Settings
-  :PROPERTIES:
-  :header-args: :results silent
-  :END:
 
 ** Load "Customize" Interface.
 
@@ -89,13 +87,17 @@ I use 'use-package' to tidy up my Emacs configuration.
 
 #+begin_src emacs-lisp
   (eval-when-compile
-   (unless (require 'use-package nil t)
-     (progn
-       (package-refresh-contents)
-       (package-install 'use-package)
-       (require 'use-package))))
+    (unless (require 'use-package nil t)
+      (progn
+        (package-refresh-contents)
+        (package-install 'use-package)
+        (require 'use-package))))
 
+  ;; use-package needs these packages to use :bindkey and
+  ;; :diminish options.
+  (use-package diminish)
   (require 'diminish)
+  (use-package 'bind-key)
   (require 'bind-key)
 #+end_src
 
@@ -112,14 +114,6 @@ Paradox is a powerful UI for the package manager.
 #+end_src
 
 ** General configuration
-** Diminish
-
-Reduce clutter in the mode-line. Load it early as use-package uses it.
-
-#+begin_src emacs-lisp
-  (use-package diminish)
-#+end_src
-
 ** Theme
 
 #+begin_src emacs-lisp
@@ -142,12 +136,12 @@ Function that allows toggling between dark and light Solarized themes.
   (defun cnb/toggle-theme ()
     "Toggle between Solarized light and dark"
     (interactive)
-    (let* ((sol-dark 'solarized-dark)
-           (sol-light 'solarized-light)
-           (is-light (member sol-light custom-enabled-themes)))
+    (let* ((dark-theme 'solarized-dark)
+           (light-thme 'solarized-light)
+           (is-light (member light-thme custom-enabled-themes)))
       (dolist (theme custom-enabled-themes)
         (disable-theme theme))
-      (load-theme (if is-light sol-dark sol-light))))
+      (load-theme (if is-light dark-theme sol-light))))
 #+end_src
 
 ** Font
