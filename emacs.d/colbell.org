@@ -82,6 +82,7 @@ Add package sources and initialize package manager.
 I use 'use-package' to tidy up my Emacs configuration.
 
 #+begin_src emacs-lisp
+  (setq use-package-verbose t)
   (eval-when-compile
     (unless (require 'use-package nil t)
       (progn
@@ -148,6 +149,16 @@ Function that allows toggling between dark and light Solarized themes.
   (set-frame-font "Inconsolata-11" nil t)
 #+end_src
 
+* CSV minor mode
+
+This needs to be installed prior to ace-window otherwise it errors out. This occurs
+only when installing, not when loading.
+
+#+begin_src emacs-lisp
+  (use-package csv-mode
+    :ensure t)
+#+end_src
+
 * General
 
 Single spaces end sentences - not double spaces.
@@ -196,7 +207,7 @@ Use UTF-8
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 #+end_src
 
-* Remove Unnecessary Clutter
+Remove Unnecessary Clutter
 
 #+begin_src emacs-lisp
   (when window-system
@@ -212,12 +223,35 @@ Use UTF-8
   (eval '(setq inhibit-startup-echo-area-message "colbell"))
 #+end_src
 
-* Pretty Symbols
+Pretty Symbols
 
 E.G. λ for lambda in coding buffers.
 
 #+begin_src emacs-lisp
 (global-prettify-symbols-mode)
+#+end_src
+
+Crosshairs
+
+#+begin_src emacs-lisp
+  (use-package crosshairs
+    :ensure crosshairs
+    :bind (("<f11>" . flash-crosshairs)))
+#+end_src
+
+Show line numbers in fringe
+
+#+begin_src emacs-lisp
+  (use-package nlinum
+    :ensure t
+    :config
+    (progn
+      (defun cnb/nlinum-mode-hook ()
+        "Stop horiz jumps on scrolling"
+        (setq nlinum--width
+              (length (number-to-string
+                       (count-lines (point-min) (point-max))))))
+      (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
 #+end_src
 
 * Mode Line
@@ -289,14 +323,6 @@ Put the battery status in the mode-line.
         (display-battery-mode 1))))
 #+end_src
 
-* Crosshairs
-
-#+begin_src emacs-lisp
-  (use-package crosshairs
-    :ensure crosshairs
-    :bind (("<f11>" . flash-crosshairs)))
-#+end_src
-
 * Minibuffer
 
 Give it some room.
@@ -313,23 +339,6 @@ Don't let the cursor go into the minibuffer prompt
         (quote (read-only t point-entered minibuffer-avoid-prompt
                           face minibuffer-prompt)))
 #+end_src
-* Line Numbers
-
-Show line numbers in fringe
-
-#+begin_src emacs-lisp
-  (use-package nlinum
-    :ensure t
-    :config
-    (progn
-      (defun cnb/nlinum-mode-hook ()
-        "Stop horiz jumps on scrolling"
-        (setq nlinum--width
-              (length (number-to-string
-                       (count-lines (point-min) (point-max))))))
-      (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
-#+end_src
-
 * White Space
 
 Formatting of white space.
@@ -2245,15 +2254,14 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
     )
 #+end_src
 
-** Email
-**** Mutt Configuration
+** Mutt Configuration
 #+begin_src emacs-lisp
   (use-package muttrc-mode
     :ensure muttrc-mode
     :mode ("muttrc" . muttrc-mode))
 
 #+end_src
-**** Mutt Compose
+** Mutt Compose
 #+begin_src emacs-lisp
   (add-to-list 'auto-mode-alist '("/tmp/mutt" . mail-mode))
 #+end_src
@@ -2375,13 +2383,6 @@ Close term buffers when terminal is exited.
 #+begin_src emacs-lisp
   (use-package log4j-mode
     :ensure log4j-mode)
-#+end_src
-
-** CSV
-
-#+begin_src emacs-lisp
-  (use-package csv-mode
-    :ensure csv-mode)
 #+end_src
 
 * Web Browsers
@@ -2573,10 +2574,10 @@ Global Hydra for Bookmarks.
 Global hydra for Rectangle operations.
 #+begin_src emacs-lisp
   (global-set-key
-   (kbd "<f5> e")
-   (defhydra rectangle-operations (:body-pre (rectangle-mark-mode 1)
-                                             :foreign-keys run
-                                             :post (deactivate-mark))
+   (kbd "C-x SPC")
+   (defhydra hydra-rectangle (:pre (rectangle-mark-mode 1)
+                              :color pink
+                              :post (deactivate-mark))
      "
         rectangle operations
 
@@ -2590,7 +2591,6 @@ Global hydra for Rectangle operations.
      ("<right>"  forward-char  nil)
      ("<up>"     previous-line nil)
      ("<down>"   next-line     nil)
-     ("SPC"      rectangle-mark-mode    "mark")
      ("d"        kill-rectangle         "delete")
      ("c"        copy-rectangle-as-kill "copy")
      ("y"        yank-rectangle         "yank")
@@ -2931,10 +2931,8 @@ Remember command and search history.
 #+end_src
 
 #+begin_src emacs-lisp
-  (use-package ack-and-a-half
-    :ensure ack-and-a-half)
-
-
+  ;; (use-package ack-and-a-half
+  ;;   :ensure ack-and-a-half)
 
   ;; Required by projectile.
   (use-package f
