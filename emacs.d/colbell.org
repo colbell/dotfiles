@@ -1685,24 +1685,6 @@ Deal with parens in a smart way.
   (use-package rainbow-delimiters
     :ensure rainbow-delimiters)
 #+end_src
-** Flymake
-
-Run syntax checking in the background and highlight any errors.
-
-#+begin_src emacs-lisp
-  (use-package flymake
-    :ensure flymake
-    :diminish flymake-mode
-    :bind ("C-c C-e" . flymake-popup-current-error-menu))
-#+end_src
-
-Display flymake errors in the mini-buffer.
-
-#+begin_src emacs-lisp
-  (use-package flymake-cursor
-    :ensure flymake-cursor)
-#+end_src
-
 ** Diff
 #+begin_src emacs-lisp
   ;; Default to unified diffs that ignore white-space.
