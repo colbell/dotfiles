@@ -45,13 +45,22 @@ Load all settings that were defined through the 'customize' interface.
         user-mail-address "col@baibell.org")
 #+END_SRC
 
-* Seed Random Number Generator
+* Initialization
 
+Initialize random number generator.
 #+begin_src emacs-lisp
   (random t)
 #+end_src
 
-* Emacs Directories
+Add city times to display-time-world and helm-world-time.
+#+BEGIN_SRC emacs-lisp
+  (require 'time)
+  (add-to-list 'display-time-world-list '("Australia/Sydney" "Sydney"))
+  (add-to-list 'display-time-world-list '("Australia/Perth" "Perth"))
+  (add-to-list 'display-time-world-list '("Asia/Shanghai" "China"))
+#+END_SRC
+
+* Vendor Elisp Directories
 
 Add all vendor libraries to load path
 
@@ -83,18 +92,20 @@ I use 'use-package' to tidy up my Emacs configuration.
 
 #+begin_src emacs-lisp
   (setq use-package-verbose t)
-  (eval-when-compile
-    (unless (require 'use-package nil t)
-      (progn
-        (package-refresh-contents)
-        (package-install 'use-package)
-        (require 'use-package))))
+  (unless (require 'use-package nil t)
+    (progn
+      (package-refresh-contents)
+      (package-install 'use-package)
+      (require 'use-package)))
 
   ;; use-package needs these packages to use :bindkey and
   ;; :diminish options.
-  (use-package diminish)
+  (use-package diminish
+    :ensure t)
   (require 'diminish)
-  (use-package bind-key)
+
+  (use-package bind-key
+    :ensure t)
   (require 'bind-key)
 #+end_src
 
@@ -260,12 +271,13 @@ Smart Mode Line
 
 #+begin_src emacs-lisp
   (use-package smart-mode-line
-    :ensure smart-mode-line
+    :ensure t
     :config
     (progn
       (add-to-list 'sml/replacer-regexp-list '("^~/dotfiles/emacs\\.d/" ":ED:") t)
       (add-to-list 'sml/replacer-regexp-list '("^~/src/kwela/src/webapp/work" ":KW:") t)
       (sml/setup)))
+
 #+end_src
 
 Some useful stuff in the modeline.
@@ -458,6 +470,9 @@ Helm is an interactive completion tool.
       (setq enable-recursive-minibuffers t)
       (setq helm-buffers-fuzzy-matching t)
       (setq helm-split-window-in-side-p nil)
+      (setq helm-ff-file-name-history-use-recentf t)
+
+      (global-set-key (kbd "C-x c o") 'helm-occur)
 
       (when (executable-find "curl")
         (setq helm-google-suggest-use-curl-p t))
@@ -470,22 +485,27 @@ Helm is an interactive completion tool.
           (error
            (helm-keyboard-quit))))
 
-      (define-key helm-map (kbd "DEL") 'helm-backspace)
+      (define-key helm-map (kbd "DEL")   #'helm-backspace)
+
+      ;; Swap C-z and <tab>.
+      (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
+      (define-key helm-map (kbd "C-z")   #'helm-select-action)
+
+      ;; Make tab work in termianl
+      (define-key helm-map (kbd "C-i")   #'helm-execute-persistent-action)
+
       (helm-mode 1))
 
     :bind (("M-x"                  . helm-M-x)
            ("M-y"                  . helm-show-kill-ring)
-           ("C-o h"                . helm-mini)
            ("C-c f"                . helm-recentf)
-           ;;("C-x b"              . helm-buffers-list)
+           ("C-x b"                . helm-mini)
            ("C-x C-f"              . helm-find-files)
            ("C-h a"                . helm-apropos)
-           ("C-x C-i"              . imenu)
+           ("C-x C-i"              . helm-semantic-or-imenu)
            ([remap occur]          . helm-occur)
            ([remap list-buffers]   . helm-buffers-list)
            ([remap dabbrev-expand] . helm-dabbrev)))
-
-
 #+end_src
 
 ** Helm-descbinds
@@ -1116,6 +1136,13 @@ Flag script files as executable on save.
    #'executable-make-buffer-file-executable-if-script-p)
 #+end_src
 
+** ANSI Colors
+#+BEGIN_SRC emacs-lisp
+  (defun cnb/ansi-color-apply-buffer ()
+    "interactive function that renders buffer using ANSI colors"
+    (interactive)
+    (ansi-color-apply-on-region (point-min) (point-max)))
+#+END_SRC
 * Windows
 ** Winner Mode
 
@@ -1548,26 +1575,33 @@ Projectile is a Project Interaction Library.
 #+end_src
 
 #+begin_src emacs-lisp
-  (use-package helm-projectile
-    :ensure helm-projectile
-    :init
-    (progn
-      (helm-projectile-on)
+    (use-package helm-projectile
+      :ensure helm-projectile
+      :init
+      (progn
+        (helm-projectile-on)
 
-      (defun cnb/projectile-rails-find-decorator ()
-        (interactive)
-        (projectile-rails-find-resource
-         "decorator: "
-         '(("app/decorators/" "/decorators/\\(.+\\)_decorator\\.rb$"))
-         "app/decorators/${filename}_decorator.rb"))
+        (defun cnb/projectile-rails-find-authorizer ()
+          (interactive)
+          (projectile-rails-find-resource
+           "authorizer: "
+           '(("app/authorizers/" "/authorizers/\\(.+\\)_authorizer\\.rb$"))
+           "app/authorizers/${filename}_authorizer.rb"))
 
-      (defun cnb/projectile-rails-find-current-decorator ()
-        (interactive)
-        (projectile-rails-find-current-resource "app/decorators/"
-                                                "/${singular}\\.rb$"
-                                                'cnb/projectile-rails-find-decorator))
+        (defun cnb/projectile-rails-find-decorator ()
+          (interactive)
+          (projectile-rails-find-resource
+           "decorator: "
+           '(("app/decorators/" "/decorators/\\(.+\\)_decorator\\.rb$"))
+           "app/decorators/${filename}_decorator.rb"))
 
-      ))
+        (defun cnb/projectile-rails-find-current-decorator ()
+          (interactive)
+          (projectile-rails-find-current-resource "app/decorators/"
+                                                  "/${singular}\\.rb$"
+                                                  'cnb/projectile-rails-find-decorator))
+
+        ))
 #+end_src
 
 ** Smart Parens
@@ -1882,8 +1916,16 @@ Clojure documentation.
 #+end_src
 ** Refactoring
 #+begin_src emacs-lisp
-(use-package clj-refactor
-  :ensure clj-refactor)
+  (use-package clj-refactor
+    :ensure t)
+
+  ;; Helm interface to clj-refactor
+  (use-package cljr-helm
+    :ensure t
+
+    :config
+    (progn
+      (bind-key "C-c r" 'cljr-helm clojure-mode-map)))
 #+end_src
 
 ** Cider Clojure IDE and REPL
@@ -2020,6 +2062,19 @@ Clojure documentation.
     :diminish ruby-block-mode)
 #+end_src
 
+** Ruby Hash Syntax
+#+BEGIN_SRC emacs-lisp
+    (use-package ruby-hash-syntax
+      :ensure t
+      :config
+      (progn
+        (bind-key "C-c }" 'ruby-toggle-hash-syntax ruby-mode-map)))
+#+END_SRC
+** helm-rb
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-rb
+    :ensure t)
+#+END_SRC
 ** RuboCop
 #+begin_src emacs-lisp
     (use-package rubocop
@@ -2037,9 +2092,16 @@ Clojure documentation.
 #+end_src
 ** Robe
 #+begin_src emacs-lisp
-    (use-package robe
-      :ensure robe
-      :diminish robe-mode)
+  (use-package helm-robe
+    :ensure t)
+
+  (use-package robe
+    :ensure robe
+    :diminish robe-mode
+
+    :config
+    (progn
+      (setq robe-completing-read-func 'helm-robe-completing-read)))
 
 #+end_src
 ** Yard Mode
@@ -2064,6 +2126,11 @@ Font lock for Ruby Yard comments.
        :ensure t)
 #+end_src
 
+** Rails Log Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package rails-log-mode
+    :ensure t)
+#+END_SRC
 * Rspec
 #+begin_src emacs-lisp
   (use-package rspec-mode
@@ -2174,7 +2241,6 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
        (lambda ()
          (electric-indent-local-mode -1)
          (rvm-activate-corresponding-ruby)))))
-
 #+end_src
 
 ** Handlebars
@@ -2380,9 +2446,11 @@ Close term buffers when terminal is exited.
 #+end_src
 
 ** log4j
+
 #+begin_src emacs-lisp
   (use-package log4j-mode
-    :ensure log4j-mode)
+    :ensure t)
+
 #+end_src
 
 * Web Browsers
@@ -2485,9 +2553,6 @@ I press these too often
       (require 'hydra-examples)
       (hydra-add-font-lock)))
 
-    ;; :config
-    ;; (progn
-    ;;   (set-face-attribute 'hydra-face-red nil :foreground "yellow")))
 #+end_src
 
 ** Help Hydra
@@ -2500,8 +2565,9 @@ I press these too often
      "
   Apropos
   ----------------------------
-  _a_propos        _c_ommand
-  _d_ocumentation  _l_ibrary
+  _a_propos        desc_b_indings
+  _c_ommand        _d_ocumentation
+  helm-_i_nfo      _l_ibrary
   _v_ariable       _u_ser-option
   _m_an            valu_e_
   _h_elm-apropos
@@ -2515,8 +2581,9 @@ I press these too often
      ("v" apropos-variable)
      ("c" apropos-command)
      ("h" helm-apropos)
+     ("i" helm-info-at-point)
      ("l" apropos-library)
-     ("m" man)
+     ("m" helm-man-woman)
      ("u" apropos-user-option)
      ("e" apropos-value)
      ("b" helm-descbinds)
@@ -2580,12 +2647,8 @@ I press these too often
      "
         rectangle operations
 
-        arrow keys: extend region
-
-        f:          fill (replace) with input string
-        a:          align by input regexp
-
-      "
+        arrow keys extend region
+     "
      ("<left>"   backward-char nil)
      ("<right>"  forward-char  nil)
      ("<up>"     previous-line nil)
@@ -2602,18 +2665,31 @@ I press these too often
 
 ** Global hydra for launching.
 #+begin_src emacs-lisp
-    (global-set-key
-     (kbd "<f5> l")
-     (defhydra cnb-hydra-launch-functions (:color blue)
-       "launch"
-       ("c" calc                      "calculator")
-       ("d" ediff-buffers             "ediff")
-       ("f" find-dired                "find")
-       ("p" paradox-list-packages     "packages")
-       ("P" (paradox-list-packages t) "packages no fetch")
-       ("s" ansi-term                 "shell")
-       ("t" proced                    "top")
-       ("T" help-top                  "help-top")))
+  (global-set-key
+   (kbd "<f5> l")
+   (defhydra cnb-hydra-launch-functions (:color blue)
+     "
+  launch
+
+  _a_nsi-term
+  _c_alculator
+  e_d_iff buffers
+  _f_ind-dired
+  helm-f_i_nd
+  _p_ackage manager
+  _P_ackage manager no fetch
+  _t_op
+  helm-_T_op
+  "
+     ("a" ansi-term                 nil)
+     ("c" calc                      nil)
+     ("d" ediff-buffers             nil)
+     ("f" find-dired                nil)
+     ("i" helm-find                 nil)
+     ("p" paradox-list-packages     nil)
+     ("P" (paradox-list-packages t) nil)
+     ("t" proced                    nil)
+     ("T" helm-top                  nil)))
 #+end_src
 
 ** Global hydra for occur/error
@@ -2761,15 +2837,18 @@ I press these too often
 
          Find                              Run
   ----------------------------------------------------------------
-      _m_: model                         _rs_: server
-      _M_: current model                 _rc_: console
-      _c_: controller                    _rr_: rake
-      _C_: current controller
-      _d_: decorator
-      _D_: current decorator
-      _v_: view
-      _V_: current view
-    "
+      _a_: authorizer                    _rs_: server
+      _m_: model                         _rc_: console
+      _M_: current model                 _rr_: rake
+      _c_: controller
+      _C_: current controller            Logs
+      _d_: decorator                     ----
+      _D_: current decorator             _ld_: development
+      _v_: view                          _lp_: production
+      _V_: current view                  _lt_: test
+
+       "
+      ("a" cnb/projectile-rails-find-authorizer        nil)
       ("c" projectile-rails-find-controller            nil)
       ("C" projectile-rails-find-current-controller    nil)
       ("d" cnb/projectile-rails-find-decorator         nil)
@@ -2779,11 +2858,15 @@ I press these too often
       ("v" projectile-rails-find-view                  nil)
       ("V" projectile-rails-find-current-view          nil)
 
-      ("rs" projectile-rails-server                    nil :color red)
-      ("rc" projectile-rails-console                   nil :color red)
-      ("rr" projectile-rails-find-rake-task            nil :color red)
+      ("ld" rails-log-show-development nil)
+      ("lp" rails-log-show-production  nil)
+      ("lt" rails-log-show-test        nil)
 
-      ("q"   nil                                       "quit" :color blue)))
+      ("rs" projectile-rails-server         nil :color red)
+      ("rc" projectile-rails-console        nil :color red)
+      ("rr" projectile-rails-find-rake-task nil :color red)
+
+      ("q" nil "quit" :color blue)))
 #+end_src
 
 * Session
@@ -2893,7 +2976,8 @@ Remember command and search history.
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program "chromium-browser")
 
-  (setq compilation-scroll-output t)
+  ;;(setq compilation-scroll-output t)
+  (setq compilation-scroll-output 'first-error)
   (global-auto-revert-mode t)
   (setq auto-revert-verbose nil)
   (setq global-auto-revert-non-file-buffers t)
