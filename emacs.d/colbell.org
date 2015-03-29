@@ -247,7 +247,7 @@ E.G. λ for lambda in coding buffers.
 (global-prettify-symbols-mode)
 #+end_src
 
-Crosshairs
+F11 - flash crosshairs at text cursor position.
 
 #+begin_src emacs-lisp
   (use-package crosshairs
@@ -255,7 +255,7 @@ Crosshairs
     :bind (("<f11>" . flash-crosshairs)))
 #+end_src
 
-Show line numbers in fringe
+Show line numbers in fringe.
 
 #+begin_src emacs-lisp
   (use-package nlinum
