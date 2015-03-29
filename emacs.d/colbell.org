@@ -200,6 +200,11 @@ Don't use tabs, use spaces instead. Default spacing to 2 spaces.
   (setq-default tab-width 2)
 #+end_src
 
+When re-centering screen, first put it to top of screen.
+
+#+BEGIN_SRC emacs-lisp
+  (setq recenter-positions '(top middle bottom))
+#+END_SRC
 
 Use UTF-8
 
