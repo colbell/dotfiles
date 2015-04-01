@@ -553,8 +553,8 @@ Start Emacs server on first Emacs instance.
     :config
     (progn
       (unless (server-running-p)
-        (server-start))
-      (setenv "EDITOR" "emacsclient")))
+        (server-start))))
+      ;;(setenv "EDITOR" "emacsclient")))
 
 #+end_src
 * Auto-correct
@@ -1489,17 +1489,30 @@ Magit is a very cool GUI for Git.
 
 Show Git status in the fringe.
 
-#+HEADER: :results silent
+Git Gutter doesn't work with flycheck.
+
 #+begin_src emacs-lisp
-  (use-package git-gutter
+  ;; (use-package git-gutter
+  ;;   :ensure t
+  ;;   :diminish git-gutter-mode
+
+  ;;   :config
+  ;;   (progn
+  ;;     ;;(setq git-gutter:lighter " GG")
+  ;;     (global-git-gutter-mode t)
+  ;;     (git-gutter:linum-setup)))
+#+end_src
+
+Git gutter fringe works with Flycheck
+
+#+begin_src emacs-lisp
+  (use-package git-gutter-fringe
     :ensure t
-    :diminish git-gutter-mode
+    :diminish (git-gutter-mode . "GG")
 
     :config
     (progn
-      ;;(setq git-gutter:lighter " GG")
-      (global-git-gutter-mode t)
-      (git-gutter:linum-setup)))
+      (setq git-gutter-fr:side 'right-fringe)))
 #+end_src
 
 ** Git Messenger
@@ -2296,6 +2309,118 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
   (add-hook 'text-mode-hook #'turn-on-flyspell)
 
 #+end_src
+** Org
+#+begin_src emacs-lisp
+    (use-package org
+      :bind (("C-c a" . org-agenda)
+             ("C-c b" . org-iswitchb)
+             ("C-c c" . org-capture)
+             ("C-c l" . org-store-link))
+
+      :config
+      (progn
+        (setq org-directory "~/Dropbox/org/")
+        (setq org-default-notes-file (concat org-directory "refile.org"))
+        (setq org-agenda-files
+              (list (concat org-directory "personal.org")
+                    (concat org-directory "kwela.org")))
+
+        (add-hook 'org-mode-hook #'turn-off-auto-fill)
+        (add-hook 'org-mode-hook #'nlinum-mode t)
+
+        ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
+        (setq org-capture-templates
+              (quote (("t" "todo" entry (file (concat org-directory "refile.org"))
+                       "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+                      ("n" "note" entry (file (concat org-directory "refile.org"))
+                       "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t))))
+
+        (setq org-todo-keywords
+              (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
+                      (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
+
+        (setq org-todo-state-tags-triggers
+              (quote (("CANCELLED" ("CANCELLED" . t))
+                      ("WAITING" ("WAITING" . t))
+                      ("HOLD" ("WAITING") ("HOLD" . t))
+                      (done ("WAITING") ("HOLD"))
+                      ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+                      ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+                      ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+        ;; Allow refiling to any agenda file.
+        (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                         (org-agenda-files :maxlevel . 9))))
+
+        ;; Allow refile to create parent tasks with confirmation
+        (setq org-refile-allow-creating-parent-nodes (quote confirm))
+
+        (setq org-treat-S-cursor-todo-selection-as-state-change nil)
+
+        (setq org-enforce-todo-dependencies t)
+
+        ;; Dim blocked tasks
+        (setq org-agenda-dim-blocked-tasks t)
+
+        ;; Compact the block agenda view
+        (setq org-agenda-compact-blocks t)
+
+        (setq org-deadline-warning-days 15)
+
+        ;; Keep tasks with deadlines on the global todo lists
+        (setq org-agenda-todo-ignore-deadlines nil)
+
+        ;; Keep tasks with scheduled dates on the global todo lists
+        (setq org-agenda-todo-ignore-scheduled nil)
+
+        ;; Remove completed deadline tasks from the agenda view
+        (setq org-agenda-skip-deadline-if-done t)
+
+        ;; Remove completed scheduled tasks from the agenda view
+        (setq org-agenda-skip-scheduled-if-done t)
+        )
+      )
+
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package deft
+    :ensure deft
+    :bind (("<f9>" . deft))
+
+    :init
+    (progn
+      (setq
+       deft-extension "org"
+       deft-directory(concat org-directory "deft/")
+       deft-text-mode 'org-mode
+       deft-extension "org")))
+
+#+end_src
+
+** TeX
+#+begin_src emacs-lisp
+  (use-package auctex
+    :ensure t
+    :defer
+
+    :config
+    (progn
+      (TeX-global-PDF-mode t))
+
+    :init
+    (progn
+      (setq-default TeX-master nil)
+      (setq TeX-parse-self t)
+      (setq TeX-auto-save t)
+      (setq TeX-save-query nil)
+
+      (add-hook 'LaTeX-mode-hook #'visual-line-mode)
+      (add-hook 'LaTeX-mode-hook #'flyspell-mode)
+      (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
+      (add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
+
+#+end_src
+
 * Other Major Modes
 ** Crontab
 #+begin_src emacs-lisp
@@ -2362,74 +2487,6 @@ Close term buffers when terminal is exited.
               (kill-buffer ,buff))))))
 
   (add-hook 'term-exec-hook #'cnb/term-exec-hook)
-#+end_src
-
-** Org
-#+begin_src emacs-lisp
-  (use-package org)
-#+end_src
-
-#+begin_src emacs-lisp
-  (setq org-directory "~/Dropbox/org/")
-  (setq org-default-notes-file (concat org-directory "/organizer.org"))
-  (setq org-agenda-files (quote ("~/Dropbox/org/personal.org" "~/Dropbox/org/work.org")))
-
-  (add-hook 'org-mode-hook #'turn-off-auto-fill)
-  (add-hook 'org-mode-hook #'nlinum-mode t)
-#+end_src
-
-#+begin_src emacs-lisp
-  (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
-                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
-
-  (setq org-todo-keyword-faces
-        (quote (("TODO" :foreground "red" :weight bold)
-                ("STARTED" :foreground "cyan" :weight bold)
-                ("DONE" :foreground "forest green" :weight bold)
-                ("WAITING" :foreground "orange" :weight bold)
-                ("HOLD" :foreground "magenta" :weight bold)
-                ("CANCELLED" :foreground "forest green" :weight bold)
-                ("PHONE" :foreground "forest green" :weight bold))))
-#+end_src
-
-#+begin_src emacs-lisp
-  (use-package deft
-    :ensure deft
-    :bind (("<f9>" . deft))
-
-    :init
-    (progn
-      (setq
-       deft-extension "org"
-       deft-directory(concat org-directory "deft/")
-       deft-text-mode 'org-mode
-       deft-extension "org")))
-
-#+end_src
-
-** TeX
-#+begin_src emacs-lisp
-  (use-package auctex
-    :ensure t
-    :defer
-
-    :config
-    (progn
-      (TeX-global-PDF-mode t))
-
-    :init
-    (progn
-      (setq-default TeX-master nil)
-      (setq TeX-parse-self t)
-      (setq TeX-auto-save t)
-      (setq TeX-save-query nil)
-
-      (add-hook 'LaTeX-mode-hook #'visual-line-mode)
-      (add-hook 'LaTeX-mode-hook #'flyspell-mode)
-      (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
-      (add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
-
 #+end_src
 
 ** log4j
@@ -2656,8 +2713,8 @@ I press these too often
    (kbd "<f5> l")
    (defhydra cnb-hydra-launch-functions (:color blue)
      "
-  launch
-
+  Launch
+  --------------------------
   _a_nsi-term
   _c_alculator
   e_d_iff buffers
@@ -2856,6 +2913,99 @@ I press these too often
       ("q" nil "quit" :color blue)))
 #+end_src
 
+** Smartparens hydras
+#+BEGIN_SRC emacs-lisp
+  (define-key smartparens-mode-map (kbd "<f7>")
+    (defhydra hydra-learn-sp (:hint nil)
+      "
+    _B_ backward-sexp            -----
+    _F_ forward-sexp               _s_ splice-sexp
+    _L_ backward-down-sexp         _df_ splice-sexp-killing-forward
+    _H_ backward-up-sexp           _db_ splice-sexp-killing-backward
+  ^^------                         _da_ splice-sexp-killing-around
+    _k_ down-sexp                -----
+    _j_ up-sexp                    _C-s_ select-next-thing-exchange
+  -^^-----                         _C-p_ select-previous-thing
+    _n_ next-sexp                  _C-n_ select-next-thing
+    _p_ previous-sexp            -----
+    _a_ beginning-of-sexp          _C-f_ forward-symbol
+    _z_ end-of-sexp                _C-b_ backward-symbol
+  --^^-                          -----
+    _t_ transpose-sexp             _c_ convolute-sexp
+  -^^--                            _g_ absorb-sexp
+    _x_ delete-char                _q_ emit-sexp
+    _dw_ kill-word               -----
+    _dd_ kill-sexp                 _,b_ extract-before-sexp
+  -^^--                            _,a_ extract-after-sexp
+    _S_ unwrap-sexp              -----
+  -^^--                            _AP_ add-to-previous-sexp
+    _C-h_ forward-slurp-sexp       _AN_ add-to-next-sexp
+    _C-l_ forward-barf-sexp      -----
+    _C-S-h_ backward-slurp-sexp    _ join-sexp
+    _C-S-l_ backward-barf-sexp     _|_ split-sexp
+  "
+      ;; TODO: Use () and [] - + * | <space>
+      ("B" sp-backward-sexp );; similiar to VIM b
+      ("F" sp-forward-sexp );; similar to VIM f
+      ;;
+      ("L" sp-backward-down-sexp )
+      ("H" sp-backward-up-sexp )
+      ;;
+      ("k" sp-down-sexp ) ; root - towards the root
+      ("j" sp-up-sexp )
+      ;;
+      ("n" sp-next-sexp )
+      ("p" sp-previous-sexp )
+      ;; a..z
+      ("a" sp-beginning-of-sexp )
+      ("z" sp-end-of-sexp )
+      ;;
+      ("t" sp-transpose-sexp )
+      ;;
+      ("x" sp-delete-char )
+      ("dw" sp-kill-word )
+      ;;("ds" sp-kill-symbol ) ;; Prefer kill-sexp
+      ("dd" sp-kill-sexp )
+      ;;("yy" sp-copy-sexp ) ;; Don't like it. Pref visual selection
+      ;;
+      ("S" sp-unwrap-sexp ) ;; Strip!
+      ;;("wh" sp-backward-unwrap-sexp ) ;; Too similar to above
+      ;;
+      ("C-h" sp-forward-slurp-sexp )
+      ("C-l" sp-forward-barf-sexp )
+      ("C-S-h" sp-backward-slurp-sexp )
+      ("C-S-l" sp-backward-barf-sexp )
+      ;;
+      ;;("C-[" (bind (sp-wrap-with-pair "[")) ) ;;FIXME
+      ;;("C-(" (bind (sp-wrap-with-pair "(")) )
+      ;;
+      ("s" sp-splice-sexp )
+      ("df" sp-splice-sexp-killing-forward )
+      ("db" sp-splice-sexp-killing-backward )
+      ("da" sp-splice-sexp-killing-around )
+      ;;
+      ("C-s" sp-select-next-thing-exchange )
+      ("C-p" sp-select-previous-thing )
+      ("C-n" sp-select-next-thing )
+      ;;
+      ("C-f" sp-forward-symbol )
+      ("C-b" sp-backward-symbol )
+      ;;
+      ;;("C-t" sp-prefix-tag-object)
+      ;;("H-p" sp-prefix-pair-object)
+      ("c" sp-convolute-sexp )
+      ("g" sp-absorb-sexp )
+      ("q" sp-emit-sexp )
+      ;;
+      (",b" sp-extract-before-sexp )
+      (",a" sp-extract-after-sexp )
+      ;;
+      ("AP" sp-add-to-previous-sexp );; Difference to slurp?
+      ("AN" sp-add-to-next-sexp )
+      ;;
+      ("_" sp-join-sexp ) ;;Good
+      ("|" sp-split-sexp )))
+#+END_SRC
 * Session
 
 Remember current position in file.
@@ -3006,18 +3156,32 @@ Remember command and search history.
 * Do I need these?
 
 #+begin_src emacs-lisp
-      ;; (setq truncate-partial-width-windows nil)
-      ;; (electric-layout-mode)
-      ;; (setq completion-cycle-threshold 5)
-      ;; How often do I key a comma without a trailing space?
-      ;; Commented out as I just can't stop pressing the space-bar
-      ;; (global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
-    (use-package findr
-      :ensure findr)
+        ;; (setq truncate-partial-width-windows nil)
+        ;; (electric-layout-mode)
+        ;; (setq completion-cycle-threshold 5)
+        ;; How often do I key a comma without a trailing space?
+        ;; Commented out as I just can't stop pressing the space-bar
+        ;; (global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
+      (use-package findr
+        :ensure findr)
 
-  (use-package inflections
-    :ensure inflections)
+    (use-package inflections
+      :ensure inflections)
 
-  (use-package jump
-    :ensure jump)
+    (use-package jump
+      :ensure jump)
+
+
+
+
+
+
+  ;; (setq org-todo-keyword-faces
+  ;;       (quote (("TODO" :foreground "red" :weight bold)
+  ;;               ("STARTED" :foreground "cyan" :weight bold)
+  ;;               ("DONE" :foreground "forest green" :weight bold)
+  ;;               ("WAITING" :foreground "orange" :weight bold)
+  ;;               ("HOLD" :foreground "magenta" :weight bold)
+  ;;               ("CANCELLED" :foreground "forest green" :weight bold)
+  ;;               ("PHONE" :foreground "forest green" :weight bold))))
 #+end_src
