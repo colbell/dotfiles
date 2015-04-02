@@ -1,4 +1,6 @@
 -- -*- mode: haskell; -*-
+import Data.List
+
 import XMonad
 
 import qualified XMonad.StackSet as W
@@ -98,6 +100,13 @@ myXPConfig = defaultXPConfig
                 , promptBorderWidth     = 0
                 }
 
+
+-- Finder for window prompts. By default they only match
+-- the start of the window title. This also matches the
+-- middle of the title.
+myFinder :: String -> String -> Bool
+myFinder = isInfixOf
+
 main :: IO ()
 main = do
   xmonad $ kde4Config {
@@ -117,8 +126,8 @@ main = do
 
                , ((myModMask, xK_F1),                manPrompt myXPConfig)
 
-               , ((myModMask, xK_g),                 windowPromptGoto myXPConfig { autoComplete = Just 500000 } )
-               , ((myModMask .|. shiftMask, xK_g),   windowPromptBring myXPConfig { autoComplete = Just 500000 } )
+               , ((myModMask, xK_g),                 windowPromptGoto myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder} )
+               , ((myModMask .|. shiftMask, xK_g),   windowPromptBring myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder } )
                , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
                , ((myModMask, xK_o ),                windowMenu)
                , ((myModMask .|. controlMask, xK_h), sshPrompt myXPConfig)
