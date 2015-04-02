@@ -85,6 +85,7 @@ Add package sources and initialize package manager.
 #+begin_src emacs-lisp
   (require 'package)
   (add-to-list 'package-archives '("melpa" .  "http://melpa.org/packages/") 'APPEND)
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") 'APPEND)
   (package-initialize)
 #+end_src
 
@@ -352,9 +353,9 @@ Give it some room.
 Don't let the cursor go into the minibuffer prompt
 
 #+begin_src emacs-lisp
-  (setq minibuffer-prompt-properties
-        (quote (read-only t point-entered minibuffer-avoid-prompt
-                          face minibuffer-prompt)))
+   (setq minibuffer-prompt-properties
+         (quote (read-only t point-entered minibuffer-avoid-prompt
+                           face minibuffer-prompt)))
 #+end_src
 * White Space
 
@@ -496,8 +497,14 @@ Helm is an interactive completion tool.
       (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
       (define-key helm-map (kbd "C-z")   #'helm-select-action)
 
-      ;; Make tab work in termianl
+      ;; Make tab work in terminal.
       (define-key helm-map (kbd "C-i")   #'helm-execute-persistent-action)
+
+      ;; Lets see bookmarks in Helm Mini as well.
+      (setq helm-mini-default-sources '(helm-source-buffers-list
+                                    helm-source-recentf
+                                    helm-source-bookmarks
+                                    helm-source-buffer-not-found))
 
       (helm-mode 1))
 
@@ -882,6 +889,7 @@ Drag mode. Allows dragging by alt left up etc.
     :diminish drag-stuff-mode
     :init
     (progn
+      (setq drag-stuff-except-modes '(org-mode))
       (drag-stuff-global-mode t)))
 
 #+end_src
@@ -1494,7 +1502,7 @@ Git Gutter doesn't work with flycheck.
 #+begin_src emacs-lisp
   ;; (use-package git-gutter
   ;;   :ensure t
-  ;;   :diminish git-gutter-mode
+  ;;   :diminish (git-gutter-mode . "GG")
 
   ;;   :config
   ;;   (progn
@@ -1508,7 +1516,7 @@ Git gutter fringe works with Flycheck
 #+begin_src emacs-lisp
   (use-package git-gutter-fringe
     :ensure t
-    :diminish (git-gutter-mode . "GG")
+    :diminish (git-gutter-mode . "GGF")
 
     :config
     (progn
@@ -2311,74 +2319,87 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 #+end_src
 ** Org
 #+begin_src emacs-lisp
-    (use-package org
-      :bind (("C-c a" . org-agenda)
-             ("C-c b" . org-iswitchb)
-             ("C-c c" . org-capture)
-             ("C-c l" . org-store-link))
+  (use-package org
+    :ensure t
 
-      :config
-      (progn
-        (setq org-directory "~/Dropbox/org/")
-        (setq org-default-notes-file (concat org-directory "refile.org"))
-        (setq org-agenda-files
-              (list (concat org-directory "personal.org")
-                    (concat org-directory "kwela.org")))
+    :bind (("C-c a" . org-agenda)
+           ("C-c b" . org-iswitchb)
+           ("C-c c" . org-capture)
+           ("C-c l" . org-store-link))
 
-        (add-hook 'org-mode-hook #'turn-off-auto-fill)
-        (add-hook 'org-mode-hook #'nlinum-mode t)
+    :config
+    (progn
+      (setq org-directory "~/Dropbox/org/")
+      (setq org-default-notes-file (concat org-directory "refile.org"))
+      (setq org-agenda-files
+            (list (concat org-directory "personal.org")
+                  (concat org-directory "kwela.org")))
 
-        ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
-        (setq org-capture-templates
-              (quote (("t" "todo" entry (file (concat org-directory "refile.org"))
-                       "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-                      ("n" "note" entry (file (concat org-directory "refile.org"))
-                       "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t))))
+      (add-hook 'org-mode-hook #'turn-off-auto-fill)
+      (add-hook 'org-mode-hook #'nlinum-mode t)
 
-        (setq org-todo-keywords
-              (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
-                      (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
+      (setq org-html-checkbox-type 'unicode)
+      (setq org-html-checkbox-types
+            '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
+                       (off . "<span class=\"task-todo\">&#x2610;</span>")
+                       (trans . "<span class=\"task-in-progress\">[-]</span>"))))
 
-        (setq org-todo-state-tags-triggers
-              (quote (("CANCELLED" ("CANCELLED" . t))
-                      ("WAITING" ("WAITING" . t))
-                      ("HOLD" ("WAITING") ("HOLD" . t))
-                      (done ("WAITING") ("HOLD"))
-                      ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-                      ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
-                      ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
-        ;; Allow refiling to any agenda file.
-        (setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                         (org-agenda-files :maxlevel . 9))))
+      ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
+      (setq org-capture-templates
+            (quote (("t" "todo" entry (file (concat org-directory "refile.org"))
+                     "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+                    ("n" "note" entry (file (concat org-directory "refile.org"))
+                     "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+                    ("p" "Phone call" entry (file (concat org-directory "refile.org"))
+                     "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+                    )))
 
-        ;; Allow refile to create parent tasks with confirmation
-        (setq org-refile-allow-creating-parent-nodes (quote confirm))
+      (setq org-todo-keywords
+            (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
+                    (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
 
-        (setq org-treat-S-cursor-todo-selection-as-state-change nil)
+      (setq org-todo-state-tags-triggers
+            (quote (("CANCELLED" ("CANCELLED" . t))
+                    ("WAITING" ("WAITING" . t))
+                    ("HOLD" ("WAITING") ("HOLD" . t))
+                    (done ("WAITING") ("HOLD"))
+                    ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+                    ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+                    ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+      ;; Allow refiling to any agenda file.
+      (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                       (org-agenda-files :maxlevel . 9))))
 
-        (setq org-enforce-todo-dependencies t)
+      ;; Allow refile to create parent tasks with confirmation
+      (setq org-refile-allow-creating-parent-nodes (quote confirm))
 
-        ;; Dim blocked tasks
-        (setq org-agenda-dim-blocked-tasks t)
+      (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 
-        ;; Compact the block agenda view
-        (setq org-agenda-compact-blocks t)
+      (setq org-enforce-todo-dependencies t)
 
-        (setq org-deadline-warning-days 15)
+      (setq org-track-ordered-property-with-tag t)
 
-        ;; Keep tasks with deadlines on the global todo lists
-        (setq org-agenda-todo-ignore-deadlines nil)
+      ;; Dim blocked tasks
+      (setq org-agenda-dim-blocked-tasks t)
 
-        ;; Keep tasks with scheduled dates on the global todo lists
-        (setq org-agenda-todo-ignore-scheduled nil)
+      ;; Compact the block agenda view
+      (setq org-agenda-compact-blocks t)
 
-        ;; Remove completed deadline tasks from the agenda view
-        (setq org-agenda-skip-deadline-if-done t)
+      (setq org-deadline-warning-days 15)
 
-        ;; Remove completed scheduled tasks from the agenda view
-        (setq org-agenda-skip-scheduled-if-done t)
-        )
+      ;; Keep tasks with deadlines on the global todo lists
+      (setq org-agenda-todo-ignore-deadlines nil)
+
+      ;; Keep tasks with scheduled dates on the global todo lists
+      (setq org-agenda-todo-ignore-scheduled nil)
+
+      ;; Remove completed deadline tasks from the agenda view
+      (setq org-agenda-skip-deadline-if-done t)
+
+      ;; Remove completed scheduled tasks from the agenda view
+      (setq org-agenda-skip-scheduled-if-done t)
       )
+    )
 
 #+end_src
 
