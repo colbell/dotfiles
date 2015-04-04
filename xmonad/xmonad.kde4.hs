@@ -126,8 +126,8 @@ main = do
 
                , ((myModMask, xK_F1),                manPrompt myXPConfig)
 
-               , ((myModMask, xK_g),                 windowPromptGoto myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder} )
-               , ((myModMask .|. shiftMask, xK_g),   windowPromptBring myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder } )
+               , ((myModMask, xK_g),                 windowPromptGoto myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder, alwaysHighlight = True} )
+               , ((myModMask .|. shiftMask, xK_g),   windowPromptBring myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder, alwaysHighlight = True } )
                , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
                , ((myModMask, xK_o ),                windowMenu)
                , ((myModMask .|. controlMask, xK_h), sshPrompt myXPConfig)
