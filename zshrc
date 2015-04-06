@@ -21,6 +21,7 @@ export LC_CTYPE='en_AU.UTF-8'
 export MAIL=/var/mail/$USER
 
 export EDITOR=emacsclient
+export ALTERNATE_EDITOR=emacs
 setopt hist_ignore_all_dups
 
 export MANWIDTH=96
