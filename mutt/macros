@@ -6,11 +6,9 @@ macro   index   <F10>   "!muttprofile\n:source ~/.mutt/profile.active\n" "Call m
 # View the mailhops for a message
 macro pager ,h ":unset weed\n|~/bin/mailhops|less -c\n:set weed\n" "Show trace of mail routing"
 
-macro index   <left>   "c?"
+## macro index <left> "c?"
+macro index <left> "<change-folder>?<toggle-mailboxes>" "show incoming mailboxes list"
 
-# Replace urlview with w3m. Within w3m press : to see all links
-macro index \cb <pipe-entry>'w3m'<enter> 'Follow links in w3m'
-macro pager \cb <pipe-entry>'w3m'<enter> 'Follow links in w3m'
 
 # Add an email address to the ABook addressbook
 macro pager ,a  |'abook --add-email'\n
