@@ -14,7 +14,7 @@ articlelist-format "%4i %f %D %6L %-20a %?T?;%-17T; ?%t"
 # Reloading.
 auto-reload        yes
 reload-time        20
-reload-threads     2
+reload-threads     1
 
 
 # Podcasts
