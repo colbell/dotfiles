@@ -158,7 +158,7 @@ Function that allows toggling between dark and light Solarized themes.
 #+begin_src emacs-lisp
   ;;(set-frame-font "Source Code Pro-10" nil t)
   ;;(set-frame-font "DejaVu Sans Mono-11" nil t)
-  (set-frame-font "Inconsolata-11" nil t)
+  (set-frame-font "Inconsolata-12" nil t)
 #+end_src
 
 * CSV minor mode
@@ -271,6 +271,21 @@ Show line numbers in fringe.
       (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
 #+end_src
 
+
+Increase/decrease buffer font size.
+
+#+begin_src emacs-lisp
+  (define-key global-map (kbd "C-+") 'text-scale-increase)
+  (define-key global-map (kbd "C--") 'text-scale-decrease)
+#+end_src
+
+use the hc command to show HTTP response codes
+
+#+begin_src emacs-lisp
+  (use-package httpcode
+    :ensure httpcode)
+#+end_src
+
 * Mode Line
 
 Smart Mode Line
@@ -374,7 +389,7 @@ Formatting of white space.
       (global-whitespace-mode)
       (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
 
-      (setq whitespace-global-modes '(not org-mode))
+      (setq whitespace-global-modes '(not org-mode paradox-menu-mode))
 
       ;; Don't highlight WS in some modes.
       (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
@@ -1222,6 +1237,24 @@ Smart selection.
     :bind (("C-=" . er/expand-region)))
 #+end_src
 
+* Multiple Cursors
+#+BEGIN_SRC emacs-lisp
+  (use-package multiple-cursors
+    :ensure t
+    :defer t
+
+    :bind
+    (("C-c m t" . mc/mark-all-like-this)
+     ("C-c m m" . mc/mark-all-like-this-dwim)
+     ("C-c m l" . mc/edit-lines)
+     ("C-c m e" . mc/edit-ends-of-lines)
+     ("C-c m a" . mc/edit-beginnings-of-lines)
+     ("C-c m n" . mc/mark-next-like-this)
+     ("C-c m p" . mc/mark-previous-like-this)
+     ("C-c m s" . mc/mark-sgml-tag-pair)
+     ("C-c m d" . mc/mark-all-like-this-in-defun)))
+#+END_SRC
+
 * Copying, Killing and Moving
 ** Kill ring Integration
 #+begin_src emacs-lisp
@@ -1292,6 +1325,7 @@ M-z will execute =zap-to-char= while C-u M-z will execute
     :config
     (global-undo-tree-mode)
     (progn
+      ;; Keep region when undoing in region.
       (defadvice undo-tree-undo (around keep-region activate)
         (if (use-region-p)
             (let ((m (set-marker (make-marker) (mark)))
@@ -1392,6 +1426,20 @@ Enable commands disabled by default for novice users.
 #+end_src
 
 * Completion
+** Hippie Expansion
+#+begin_src emacs-lisp
+(use-package hippie-exp
+  :init
+  (progn
+    (setq hippie-expand-try-functions-list
+          '(try-complete-file-name-partially
+            try-complete-file-name try-expand-all-abbrevs
+            try-expand-dabbrev try-expand-dabbrev-all-buffers
+            try-expand-dabbrev-from-kill try-complete-lisp-symbol)))
+  :bind
+  ("M-/" . hippie-expand))
+#+end_src
+
 ** Company Mode
 #+begin_src emacs-lisp
   (use-package company
@@ -1407,23 +1455,7 @@ Enable commands disabled by default for novice users.
 
     :bind ("C-c i" . company-complete))
 #+end_src
-* Utilities
-
-Increase/decrease buffer font size.
-
-#+begin_src emacs-lisp
-  (define-key global-map (kbd "C-+") 'text-scale-increase)
-  (define-key global-map (kbd "C--") 'text-scale-decrease)
-#+end_src
-
-use the hc command to show HTTP response codes
-
-#+begin_src emacs-lisp
-  (use-package httpcode
-    :ensure httpcode)
-#+end_src
-
-** Discover My Major
+* Discover My Major
 
 Discover key bindings and their meaning for the current Emacs major mode.
 
@@ -1493,11 +1525,15 @@ Magit is a very cool GUI for Git.
             (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
 #+end_src
 
-** Git Gutter
+** WAITING Git Gutter                                          :WAITING:
+   - State "WAITING"       from "TODO"       [2015-04-07 Tue 11:23] \\
+     Need to work out the exact problem. It appears that either flycheck or
+     nlinum interferes with git-gutter. git-gutter-fringe works if its
+     configured to use the right gutter.
 
-Show Git status in the fringe.
+Show Git status on each line
 
-Git Gutter doesn't work with flycheck.
+Git Gutter doesn't work with flycheck/nlinum.
 
 #+begin_src emacs-lisp
   ;; (use-package git-gutter
@@ -1511,7 +1547,7 @@ Git Gutter doesn't work with flycheck.
   ;;     (git-gutter:linum-setup)))
 #+end_src
 
-Git gutter fringe works with Flycheck
+Git gutter fringe works with Flycheck/nlinum
 
 #+begin_src emacs-lisp
   (use-package git-gutter-fringe
@@ -1692,20 +1728,6 @@ Deal with parens in a smart way.
     :bind (("C-c y" . helm-yas-complete)))
 #+end_src
 
-** Hippie Expansion
-#+begin_src emacs-lisp
-(use-package hippie-exp
-  :init
-  (progn
-    (setq hippie-expand-try-functions-list
-          '(try-complete-file-name-partially
-            try-complete-file-name try-expand-all-abbrevs
-            try-expand-dabbrev try-expand-dabbrev-all-buffers
-            try-expand-dabbrev-from-kill try-complete-lisp-symbol)))
-  :bind
-  ("M-/" . hippie-expand))
-#+end_src
-
 ** Rainbow Delimiters
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
@@ -1810,6 +1832,7 @@ the bug repository. E.G the following will point TWEB-???? references to Jira.
 
     :init
     (progn
+      (setq flycheck-indication-mode 'left-fringe)
       (add-hook 'after-init-hook #'global-flycheck-mode)))
 #+end_src
 
@@ -1839,6 +1862,7 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
   (add-hook 'cnb/coding-hook #'subword-mode)
   (add-hook 'cnb/coding-hook #'flyspell-prog-mode t)
   (add-hook 'cnb/coding-hook #'nlinum-mode t)
+  (add-hook 'cnb/coding-hook #'outline-minor-mode t)
 
   (when (fboundp 'yas/minor-mode)
     (add-hook 'cnb/coding-hook #'yas/minor-mode))
@@ -2842,6 +2866,43 @@ I press these too often
      ("q" nil "quit")))
 #+end_src
 
+** Global hydra for outline mode
+#+BEGIN_SRC emacs-lisp
+  (defhydra hydra-outline (:color pink :hint nil)
+    "
+  ^Hide^             ^Show^           ^Move
+  ^^^^^^------------------------------------------------------
+  _z_: sublevels     _a_: all         _u_: up
+  _t_: body          _e_: entry       _n_: next visible
+  _o_: other         _i_: children    _p_: previous visible
+  _c_: entry         _k_: branches    _f_: forward same level
+  _l_: leaves        _s_: subtree     _b_: backward same level
+  _d_: subtree
+
+  "
+    ;; Hide
+    ("z" hide-sublevels)    ; Hide everything but the top-level headings
+    ("t" hide-body)         ; Hide everything but headings (all body lines)
+    ("o" hide-other)        ; Hide other branches
+    ("c" hide-entry)        ; Hide this entry's body
+    ("l" hide-leaves)       ; Hide body lines in this entry and sub-entries
+    ("d" hide-subtree)      ; Hide everything in this entry and sub-entries
+    ;; Show
+    ("a" show-all)          ; Show (expand) everything
+    ("e" show-entry)        ; Show this heading's body
+    ("i" show-children)     ; Show this heading's immediate child sub-headings
+    ("k" show-branches)     ; Show all sub-headings under this heading
+    ("s" show-subtree)      ; Show (expand) everything in this heading & below
+    ;; Move
+    ("u" outline-up-heading)                ; Up
+    ("n" outline-next-visible-heading)      ; Next
+    ("p" outline-previous-visible-heading)  ; Previous
+    ("f" outline-forward-same-level)        ; Forward - same level
+    ("b" outline-backward-same-level)       ; Backward - same level
+    ("q" nil "quit"))
+
+  (global-set-key (kbd "C-c #") 'hydra-outline/body)
+#+END_SRC
 ** Markdown mode hydras.
 #+begin_src emacs-lisp
   (require 'markdown-mode)
