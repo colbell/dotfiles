@@ -3,12 +3,12 @@
 export ZSH=$HOME/.oh-my-zsh
 
 if [ -n "$INSIDE_EMACS" ]; then
-    export ZSH_THEME="rawsyntax"
+    export ZSH_THEME="robbyrussell"
 else
-    #export ZSH_THEME="robbyrussell"
+    #export ZSH_THEME="gnzh"
     #export ZSH_THEME="alanpeabody"
-    #export ZSH_THEME="suvash"
-    export ZSH_THEME="gnzh"
+    #export ZSH_THEME="robbyrussell"
+    export ZSH_THEME="suvash"
 fi
 
 export LANG='en_AU.utf8'
@@ -22,6 +22,7 @@ export MAIL=/var/mail/$USER
 
 export EDITOR=emacsclient
 export ALTERNATE_EDITOR=emacs
+
 setopt hist_ignore_all_dups
 
 export MANWIDTH=96
