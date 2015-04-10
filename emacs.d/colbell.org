@@ -1,4 +1,4 @@
-#+TITLE:   Emacs Configuration
+#+TITLE:   Emacs Configuration File
 #+AUTHOR:  Colin Noel Bell
 #+EMAIL:   col@baibell.org
 #+OPTIONS: toc:5 h:5
@@ -105,11 +105,12 @@ brighter; it simply makes everything else vanish.
   (require 'bind-key)
 #+end_src
 
-Paradox is a powerful UI for the package manager.
+  Paradox is a powerful UI for the package manager.
 
 #+begin_src emacs-lisp
   (use-package paradox
     :ensure t
+    :defer t
 
     :init
     (progn
@@ -118,6 +119,8 @@ Paradox is a powerful UI for the package manager.
 #+end_src
 
 * Theme
+
+  Lets make Emacs pretty.
 
 #+begin_src emacs-lisp
   (use-package solarized-theme
@@ -134,7 +137,7 @@ Paradox is a powerful UI for the package manager.
       (load-theme 'solarized-dark t)))
 #+end_src
 
-Function that allows toggling between dark and light Solarized themes.
+  Function that allows toggling between dark and light Solarized themes.
 
 #+begin_src emacs-lisp
   (defun cnb/toggle-theme ()
@@ -577,7 +580,6 @@ Start Emacs server on first Emacs instance.
 
 #+begin_src emacs-lisp
   (use-package server
-    :defer t
     :commands (server-running-p server-start)
 
     :config
@@ -961,7 +963,7 @@ Select window by number.
     (progn
       (setq aw-scope 'frame)
       (setq avi-background t)
-      (setq aw-flip-keys '("n"))
+      (setq aw-flip-keys '("n"))  ;; 'n' will goto last window in ace-window
       (setq avi-keys (nconc (loop for i from ?0 to ?9 collect i)
                             (loop for i from ?a to ?z collect i)
                             (loop for i from ?A to ?Z collect i))))
@@ -1381,6 +1383,10 @@ line. http://www.emacswiki.org/emacs/SlickCopy
 * Search/Replace
 
 Front-end to Silver Searcher (ag)
+
+#+BEGIN_EXAMPLE
+apt-get install silversearcher-ag
+#+END_EXAMPLE
 
 #+begin_src emacs-lisp
   (use-package ag
@@ -2210,7 +2216,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
      'emacs-lisp-mode-hook
      (lambda ()
        (push '("defun" . 402) prettify-symbols-alist)
-       (push '("." . ?•)      prettify-symbols-alist)))
+       (push '("."     . ?•)  prettify-symbols-alist)))
 #+end_src
 
 * Lisp Like Modes
