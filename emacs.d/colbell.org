@@ -137,7 +137,7 @@ brighter; it simply makes everything else vanish.
       (load-theme 'solarized-dark t)))
 #+end_src
 
-  Function that allows toggling between dark and light Solarized themes.
+  Allow toggling between dark and light Solarized themes.
 
 #+begin_src emacs-lisp
   (defun cnb/toggle-theme ()
@@ -161,8 +161,8 @@ brighter; it simply makes everything else vanish.
 
 * CSV minor mode
 
-This needs to be installed prior to ace-window otherwise it errors out. This occurs
-only when installing, not when loading.
+  This needs to be installed prior to ace-window otherwise it errors
+  out. This occurs only when installing, not when loading.
 
 #+begin_src emacs-lisp
   (use-package csv-mode
@@ -171,12 +171,14 @@ only when installing, not when loading.
 
 * General
 
-Initialize random number generator.
+  Initialize random number generator.
+
 #+begin_src emacs-lisp
   (random t)
 #+end_src
 
-Add city times to display-time-world and helm-world-time.
+  Add city times to display-time-world and helm-world-time.
+
 #+BEGIN_SRC emacs-lisp
   (require 'time)
   (add-to-list 'display-time-world-list '("Australia/Sydney" "Sydney"))
@@ -184,41 +186,39 @@ Add city times to display-time-world and helm-world-time.
   (add-to-list 'display-time-world-list '("Asia/Shanghai" "China"))
 #+END_SRC
 
-Single spaces end sentences - not double spaces.
+  Single spaces end sentences - not double spaces.
 
 #+begin_src emacs-lisp
   (setq sentence-end-double-space nil)
 #+end_src
 
-By default truncate long lines.
+  By default truncate long lines.
 
 #+begin_src emacs-lisp
   (toggle-truncate-lines 1)
   (setq-default truncate-lines t)
 #+end_src
 
-
-When opening files follow all symbolic links.
+  When opening files follow all symbolic links.
 
 #+begin_src emacs-lisp
   (setq find-file-visit-truename t)
 #+end_src
 
-
-Don't use tabs, use spaces instead. Default spacing to 2 spaces.
+  Don't use tabs, use spaces instead. Default spacing to 2 spaces.
 
 #+begin_src emacs-lisp
   (set-default 'indent-tabs-mode nil)
   (setq-default tab-width 2)
 #+end_src
 
-When re-centering screen, first put it to top of screen.
+  When re-centering screen, first put it to top of screen.
 
 #+BEGIN_SRC emacs-lisp
   (setq recenter-positions '(top middle bottom))
 #+END_SRC
 
-Use UTF-8
+  Use UTF-8
 
 #+begin_src emacs-lisp
   (prefer-coding-system 'utf-8)
@@ -235,7 +235,7 @@ Use UTF-8
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 #+end_src
 
-Remove Unnecessary Clutter
+  Remove Unnecessary Clutter
 
 #+begin_src emacs-lisp
   (when window-system
@@ -251,15 +251,13 @@ Remove Unnecessary Clutter
   (eval '(setq inhibit-startup-echo-area-message "colbell"))
 #+end_src
 
-Pretty Symbols
-
-E.G. λ for lambda in coding buffers.
+  Pretty symbols, E.G. λ for lambda in coding buffers.
 
 #+begin_src emacs-lisp
-(global-prettify-symbols-mode)
+  (global-prettify-symbols-mode)
 #+end_src
 
-F11 - flash crosshairs at text cursor position.
+  F11 - flash crosshairs at text cursor position.
 
 #+begin_src emacs-lisp
   (use-package crosshairs
@@ -267,7 +265,7 @@ F11 - flash crosshairs at text cursor position.
     :bind (("<f11>" . flash-crosshairs)))
 #+end_src
 
-Show line numbers in fringe.
+  Show line numbers in fringe.
 
 #+begin_src emacs-lisp
   (use-package nlinum
@@ -282,15 +280,14 @@ Show line numbers in fringe.
       (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
 #+end_src
 
-
-Increase/decrease buffer font size.
+  Increase/decrease buffer font size.
 
 #+begin_src emacs-lisp
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
 #+end_src
 
-use the hc command to show HTTP response codes
+  Use the hc command to show HTTP response codes
 
 #+begin_src emacs-lisp
   (use-package httpcode
@@ -299,20 +296,20 @@ use the hc command to show HTTP response codes
 
 * Mode Line
 
-Smart Mode Line
+  Smart Mode Line
 
 #+begin_src emacs-lisp
   (use-package smart-mode-line
     :ensure t
     :config
     (progn
+      ;; Shorten some file paths in modeline.
       (add-to-list 'sml/replacer-regexp-list '("^~/dotfiles/emacs\\.d/" ":ED:") t)
       (add-to-list 'sml/replacer-regexp-list '("^~/src/kwela/src/webapp/work" ":KW:") t)
       (sml/setup)))
-
 #+end_src
 
-Some useful stuff in the modeline.
+  Some useful stuff in the modeline.
 
 #+begin_src emacs-lisp
   (column-number-mode)
@@ -322,8 +319,8 @@ Some useful stuff in the modeline.
 
 ** Which Function
 
-For coding buffers show the name of the current function in the
-mode line.
+   For coding buffers show the name of the current function in the
+   mode line.
 
 #+begin_src emacs-lisp
   (use-package which-func)
@@ -336,8 +333,8 @@ mode line.
 
 ** Anzu
 
-For searches display the current match and total matches information
-in the mode line.
+   For searches display the current match and total matches
+   information in the mode line.
 
 #+begin_src emacs-lisp
   (use-package anzu
@@ -352,7 +349,7 @@ in the mode line.
 
 ** Battery Status
 
-Put the battery status in the mode-line.
+   Put the battery status in the mode-line.
 
 #+begin_src emacs-lisp
   (use-package battery
@@ -369,14 +366,14 @@ Put the battery status in the mode-line.
 
 * Minibuffer
 
-Give it some room.
+  Give it some room.
 
 #+begin_src emacs-lisp
-(setq resize-mini-windows t)
-(setq max-mini-window-height 0.33)
+  (setq resize-mini-windows t)
+  (setq max-mini-window-height 0.33)
 #+end_src
 
-Don't let the cursor go into the minibuffer prompt
+  Don't let the cursor go into the minibuffer prompt
 
 #+begin_src emacs-lisp
    (setq minibuffer-prompt-properties
@@ -385,7 +382,7 @@ Don't let the cursor go into the minibuffer prompt
 #+end_src
 * White Space
 
-Formatting of white space.
+  Formatting of white space.
 
 #+begin_src emacs-lisp
   (use-package whitespace
@@ -410,34 +407,40 @@ Formatting of white space.
 
 * General
 
-Move mouse cursor when text cursor gets too close.
+  Move mouse cursor when text cursor gets too close.
+
 #+begin_src emacs-lisp
-(mouse-avoidance-mode 'exile)
+  (mouse-avoidance-mode 'exile)
 #+end_src
 
-Cursor configuration
+  Cursor configuration
+
 #+begin_src emacs-lisp
   (setq blink-cursor-blinks 0)
   (setq-default cursor-type 'bar)
   (blink-cursor-mode)
 #+end_src
 
-Use a visible bell instead of a beep.
+  Use a visible bell instead of a beep.
+
 #+begin_src emacs-lisp
   (setq visible-bell t)
 #+end_src
 
-Prompt to exit Emacs
+  Prompt to exit Emacs
+
 #+begin_src emacs-lisp
   (setq confirm-kill-emacs 'y-or-n-p)
 #+end_src
 
-Highlight current line
+  Highlight current line
 #+begin_src emacs-lisp
   (global-hl-line-mode)
 #+end_src
 
 * Find in Repository
+
+  Search the current source code repository for a file.
 
 #+begin_src emacs-lisp
   (use-package find-file-in-repository
@@ -447,7 +450,7 @@ Highlight current line
 
 * Recent Files
 
-Recent Files is a mode that keeps track of files that have been opened.
+  Recent Files is a mode that keeps track of files that have been opened.
 
 #+begin_src emacs-lisp
   (use-package recentf
@@ -484,7 +487,8 @@ Recent Files is a mode that keeps track of files that have been opened.
 #+end_src
 
 * Helm
-Helm is an interactive completion tool.
+  Helm is an interactive completion tool.
+
 #+begin_src emacs-lisp
   (use-package helm
     :ensure t
@@ -557,21 +561,24 @@ Show current key bindings
 #+end_src
 * Backup Files
 
+  Don't clobber symlinks, owner, group etc.
+
 #+begin_src emacs-lisp
-  (setq backup-by-copying t) ;; Don't clobber symlinks, owner, group etc.
+  (setq backup-by-copying t)
 #+end_src
 
-Don't clutter the disk with Emacs save files. Store them in =~/.emacs.d/backups.
+  Don't clutter the disk with Emacs save files. Store them in
+  =~/.emacs.d/backups=.
 
 #+begin_src emacs-lisp
-(setq version-control t)
-(setq kept-new-versions 6)
-(setq kept-old-versions 2)
-(setq delete-old-versions t)
-(setq backup-directory-alist
-      `(("." . ,(expand-file-name
-                 (concat user-emacs-directory "backups")))))
-(setq vc-make-backup-files t) ;; Make backups of files, even when they're in version control
+  (setq version-control t)
+  (setq kept-new-versions 6)
+  (setq kept-old-versions 2)
+  (setq delete-old-versions t)
+  (setq backup-directory-alist
+        `(("." . ,(expand-file-name
+                   (concat user-emacs-directory "backups")))))
+  (setq vc-make-backup-files t) ;; Make backups of files, even when they're in version control
 #+end_src
 
 * Emacs Server
@@ -1382,10 +1389,10 @@ line. http://www.emacswiki.org/emacs/SlickCopy
 
 * Search/Replace
 
-Front-end to Silver Searcher (ag)
+  Front-end to Silver Searcher (ag)
 
 #+BEGIN_EXAMPLE
-apt-get install silversearcher-ag
+  apt-get install silversearcher-ag
 #+END_EXAMPLE
 
 #+begin_src emacs-lisp
