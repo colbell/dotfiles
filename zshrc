@@ -27,17 +27,14 @@ setopt hist_ignore_all_dups
 
 export MANWIDTH=96
 
-#export TERM=xterm-256color
-#export TERM=screen-256color-bce
-#export TERM=screen-256color
-export TERM=linux
+# export TERM=linux
+export TERM=xterm-256color
 [ -n "$DISPLAY" ] && export TERM=xterm-256color
 [ -n "$TMUX" ] && export TERM=screen-256color
-[ -n "$EMACS" ] && export TERM=eterm-color
+[ -n "$INSIDE_EMACS" ] && export TERM=eterm-color
 
 autoload -U colors
 colors
-
 
 export HISTFILESIZE=2500        # Not sure if used.
 export HISTSIZE=$HISTFILESIZE   # Lines of hist stored in memory
