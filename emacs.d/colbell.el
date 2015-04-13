@@ -38,12 +38,11 @@
     (package-install 'use-package)
     (require 'use-package)))
 
-;; use-package needs these packages to use :bindkey and
+;; use-package needs these packages to use the :bindkey and
 ;; :diminish options.
 (use-package diminish
   :ensure t)
 (require 'diminish)
-
 (use-package bind-key
   :ensure t)
 (require 'bind-key)
@@ -55,7 +54,8 @@
   :init
   (progn
     (setq paradox-github-token t)  ;; Don't ask for Github integration.
-    (setq paradox-display-download-count t)))
+    (setq paradox-display-download-count t)
+    (setq paradox-spinner-type 'random)))
 
 (use-package solarized-theme
   :ensure t
@@ -78,7 +78,7 @@
          (is-light (member light-theme custom-enabled-themes)))
     (dolist (theme custom-enabled-themes)
       (disable-theme theme))
-    (load-theme (if is-light dark-theme light-theme))))
+    (load-theme (if is-light dark-theme light-theme) t)))
 
 ;;(set-frame-font "Source Code Pro-10" nil t)
 ;;(set-frame-font "DejaVu Sans Mono-11" nil t)
@@ -1656,6 +1656,26 @@ Assumes that the frame is only split into two                            . "
 (add-hook 'text-mode-hook #'turn-on-auto-fill)
 (add-hook 'text-mode-hook #'turn-on-flyspell)
 
+(use-package auctex
+  :ensure t
+  :defer
+
+  :config
+  (progn
+    (TeX-global-PDF-mode t))
+
+  :init
+  (progn
+    (setq-default TeX-master nil)
+    (setq TeX-parse-self t)
+    (setq TeX-auto-save t)
+    (setq TeX-save-query nil)
+
+    (add-hook 'LaTeX-mode-hook #'visual-line-mode)
+    (add-hook 'LaTeX-mode-hook #'flyspell-mode)
+    (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
+    (add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
+
 (use-package org
   :ensure t
 
@@ -1764,26 +1784,6 @@ Assumes that the frame is only split into two                            . "
      deft-directory(concat org-directory "deft/")
      deft-text-mode 'org-mode
      deft-extension "org")))
-
-(use-package auctex
-  :ensure t
-  :defer
-
-  :config
-  (progn
-    (TeX-global-PDF-mode t))
-
-  :init
-  (progn
-    (setq-default TeX-master nil)
-    (setq TeX-parse-self t)
-    (setq TeX-auto-save t)
-    (setq TeX-save-query nil)
-
-    (add-hook 'LaTeX-mode-hook #'visual-line-mode)
-    (add-hook 'LaTeX-mode-hook #'flyspell-mode)
-    (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
-    (add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
 
 (use-package crontab-mode
   :ensure crontab-mode
@@ -2357,12 +2357,9 @@ narrowed."
     (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer)))
 
 (use-package htmlize
-  :ensure htmlize)
-
+  :ensure t)
 
 (setq sql-input-ring-file-name "~/.emacs.d/sql_history")
-
-
 
 ;;(setq browse-url-browser-function 'browse-url-firefox)
 (setq browse-url-browser-function 'browse-url-generic
@@ -2376,20 +2373,14 @@ narrowed."
 
 ;;(setq redisplay-dont-pause t) obsolete in 24.5
 
-
 (setq apropos-do-all t)
 (auto-image-file-mode)
-
-
-
 
 (set-default 'imenu-auto-rescan t)
 
 (setenv "PAGER" "cat")
 
-
 (setq echo-keystrokes 0.1)
-
 
 (setq shift-select-mode t
       mouse-yank-at-point t
