@@ -27,6 +27,7 @@ brighter; it simply makes everything else vanish.
   I'm also using [[https://github.com/jwiegley/use-package][use-package]] to simplify package handing.
 
 * Editing warning
+
   Place a warning in the generated .el file.
 
 #+BEGIN_SRC emacs-lisp
@@ -49,6 +50,9 @@ brighter; it simply makes everything else vanish.
 #+end_src
 
 * Personal information
+
+  This is who I am.
+
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Colin Noel Bell"
         user-mail-address "col@baibell.org")
@@ -94,12 +98,11 @@ brighter; it simply makes everything else vanish.
       (package-install 'use-package)
       (require 'use-package)))
 
-  ;; use-package needs these packages to use :bindkey and
+  ;; use-package needs these packages to use the :bindkey and
   ;; :diminish options.
   (use-package diminish
     :ensure t)
   (require 'diminish)
-
   (use-package bind-key
     :ensure t)
   (require 'bind-key)
@@ -108,14 +111,15 @@ brighter; it simply makes everything else vanish.
   Paradox is a powerful UI for the package manager.
 
 #+begin_src emacs-lisp
-  (use-package paradox
-    :ensure t
-    :defer t
+    (use-package paradox
+      :ensure t
+      :defer t
 
-    :init
-    (progn
-      (setq paradox-github-token t)  ;; Don't ask for Github integration.
-      (setq paradox-display-download-count t)))
+      :init
+      (progn
+        (setq paradox-github-token t)  ;; Don't ask for Github integration.
+        (setq paradox-display-download-count t)
+        (setq paradox-spinner-type 'box-in-circle)))
 #+end_src
 
 * Theme
@@ -148,7 +152,7 @@ brighter; it simply makes everything else vanish.
            (is-light (member light-theme custom-enabled-themes)))
       (dolist (theme custom-enabled-themes)
         (disable-theme theme))
-      (load-theme (if is-light dark-theme light-theme))))
+      (load-theme (if is-light dark-theme light-theme) t)))
 #+end_src
 
 * Font
@@ -487,6 +491,7 @@ brighter; it simply makes everything else vanish.
 #+end_src
 
 * Helm
+
   Helm is an interactive completion tool.
 
 #+begin_src emacs-lisp
@@ -632,7 +637,7 @@ Start Emacs server on first Emacs instance.
 #+end_src
 * Dired
 
-Open files in external application.
+  Open files in external application.
 
 #+begin_src emacs-lisp
   (defun cnb/open-external()
@@ -650,7 +655,7 @@ Open files in external application.
 #+end_src
 
 
-Directory view/editing.
+  Directory view/editing.
 
 #+begin_src emacs-lisp
   (defun cnb/dired-get-size ()
@@ -2362,122 +2367,6 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
   (add-hook 'text-mode-hook #'turn-on-flyspell)
 
 #+end_src
-** Org
-#+begin_src emacs-lisp
-    (use-package org
-      :ensure t
-
-      :bind (("C-c a" . org-agenda)
-             ("C-c b" . org-iswitchb)
-             ("C-c c" . org-capture)
-             ("C-c l" . org-store-link))
-
-      :config
-      (progn
-        (setq org-directory "~/Dropbox/org/")
-        (setq org-default-notes-file (concat org-directory "refile.org"))
-        (setq org-agenda-files
-              (list (concat org-directory "personal.org")
-                    (concat org-directory "kwela.org")))
-
-        (add-hook 'org-mode-hook #'turn-off-auto-fill)
-        (add-hook 'org-mode-hook #'nlinum-mode t)
-
-        (setq org-html-checkbox-type 'unicode)
-        (setq org-html-checkbox-types
-              '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
-                         (off . "<span class=\"task-todo\">&#x2610;</span>")
-                         (trans . "<span class=\"task-in-progress\">[-]</span>"))))
-
-        ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
-        (setq org-capture-templates
-              (quote (("t" "todo" entry (file (concat org-directory "refile.org"))
-                       "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-                      ("n" "note" entry (file (concat org-directory "refile.org"))
-                       "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-                      ("p" "Phone call" entry (file (concat org-directory "refile.org"))
-                       "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                      )))
-
-        (setq org-todo-keywords
-              (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
-                      (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
-
-        (setq org-todo-keyword-faces
-              (quote (("TODO" :foreground "red" :weight bold)
-                      ("STARTED" :foreground "cyan" :weight bold)
-                      ("DONE" :foreground "forest green" :weight bold)
-                      ("WAITING" :foreground "orange" :weight bold)
-                      ("HOLD" :foreground "magenta" :weight bold)
-                      ("CANCELLED" :foreground "forest green" :weight bold)
-                      ("PHONE" :foreground "forest green" :weight bold))))
-
-        (setq org-todo-state-tags-triggers
-              (quote (("CANCELLED" ("CANCELLED" . t))
-                      ("WAITING" ("WAITING" . t))
-                      ("HOLD" ("WAITING") ("HOLD" . t))
-                      (done ("WAITING") ("HOLD"))
-                      ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-                      ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
-                      ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
-        ;; Allow refiling to any agenda file.
-        (setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                         (org-agenda-files :maxlevel . 9))))
-
-        ;; Allow refile to create parent tasks with confirmation
-        (setq org-refile-allow-creating-parent-nodes (quote confirm))
-
-        (setq org-treat-S-cursor-todo-selection-as-state-change nil)
-
-        (setq org-enforce-todo-dependencies t)
-
-        (setq org-track-ordered-property-with-tag t)
-
-        ;; Dim blocked tasks
-        (setq org-agenda-dim-blocked-tasks t)
-
-        ;; Compact the block agenda view
-        (setq org-agenda-compact-blocks t)
-
-        (setq org-deadline-warning-days 15)
-
-        ;; Keep tasks with deadlines on the global todo lists
-        (setq org-agenda-todo-ignore-deadlines nil)
-
-        ;; Keep tasks with scheduled dates on the global todo lists
-        (setq org-agenda-todo-ignore-scheduled nil)
-
-        ;; Remove completed deadline tasks from the agenda view
-        (setq org-agenda-skip-deadline-if-done t)
-
-        ;; Remove completed scheduled tasks from the agenda view
-        (setq org-agenda-skip-scheduled-if-done t)
-
-        (org-babel-do-load-languages
-         'org-babel-load-languages
-         '((ruby . t)
-           (sh . t)
-           (python . t)
-           (sql . t)
-           (emacs-lisp . t)))))
-
-#+end_src
-
-#+begin_src emacs-lisp
-  (use-package deft
-    :ensure deft
-    :bind (("<f9>" . deft))
-
-    :init
-    (progn
-      (setq
-       deft-extension "org"
-       deft-directory(concat org-directory "deft/")
-       deft-text-mode 'org-mode
-       deft-extension "org")))
-
-#+end_src
-
 ** TeX
 #+begin_src emacs-lisp
   (use-package auctex
@@ -2499,6 +2388,122 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
       (add-hook 'LaTeX-mode-hook #'flyspell-mode)
       (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
       (add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
+
+#+end_src
+
+* Org
+#+begin_src emacs-lisp
+  (use-package org
+    :ensure t
+
+    :bind (("C-c a" . org-agenda)
+           ("C-c b" . org-iswitchb)
+           ("C-c c" . org-capture)
+           ("C-c l" . org-store-link))
+
+    :config
+    (progn
+      (setq org-directory "~/Dropbox/org/")
+      (setq org-default-notes-file (concat org-directory "refile.org"))
+      (setq org-agenda-files
+            (list (concat org-directory "personal.org")
+                  (concat org-directory "kwela.org")))
+
+      (add-hook 'org-mode-hook #'turn-off-auto-fill)
+      (add-hook 'org-mode-hook #'nlinum-mode t)
+
+      (setq org-html-checkbox-type 'unicode)
+      (setq org-html-checkbox-types
+            '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
+                       (off . "<span class=\"task-todo\">&#x2610;</span>")
+                       (trans . "<span class=\"task-in-progress\">[-]</span>"))))
+
+      ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
+      (setq org-capture-templates
+            (quote (("t" "todo" entry (file (concat org-directory "refile.org"))
+                     "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+                    ("n" "note" entry (file (concat org-directory "refile.org"))
+                     "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+                    ("p" "Phone call" entry (file (concat org-directory "refile.org"))
+                     "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+                    )))
+
+      (setq org-todo-keywords
+            (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
+                    (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
+
+      (setq org-todo-keyword-faces
+            (quote (("TODO" :foreground "red" :weight bold)
+                    ("STARTED" :foreground "cyan" :weight bold)
+                    ("DONE" :foreground "forest green" :weight bold)
+                    ("WAITING" :foreground "orange" :weight bold)
+                    ("HOLD" :foreground "magenta" :weight bold)
+                    ("CANCELLED" :foreground "forest green" :weight bold)
+                    ("PHONE" :foreground "forest green" :weight bold))))
+
+      (setq org-todo-state-tags-triggers
+            (quote (("CANCELLED" ("CANCELLED" . t))
+                    ("WAITING" ("WAITING" . t))
+                    ("HOLD" ("WAITING") ("HOLD" . t))
+                    (done ("WAITING") ("HOLD"))
+                    ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+                    ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+                    ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+      ;; Allow refiling to any agenda file.
+      (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                       (org-agenda-files :maxlevel . 9))))
+
+      ;; Allow refile to create parent tasks with confirmation
+      (setq org-refile-allow-creating-parent-nodes (quote confirm))
+
+      (setq org-treat-S-cursor-todo-selection-as-state-change nil)
+
+      (setq org-enforce-todo-dependencies t)
+
+      (setq org-track-ordered-property-with-tag t)
+
+      ;; Dim blocked tasks
+      (setq org-agenda-dim-blocked-tasks t)
+
+      ;; Compact the block agenda view
+      (setq org-agenda-compact-blocks t)
+
+      (setq org-deadline-warning-days 15)
+
+      ;; Keep tasks with deadlines on the global todo lists
+      (setq org-agenda-todo-ignore-deadlines nil)
+
+      ;; Keep tasks with scheduled dates on the global todo lists
+      (setq org-agenda-todo-ignore-scheduled nil)
+
+      ;; Remove completed deadline tasks from the agenda view
+      (setq org-agenda-skip-deadline-if-done t)
+
+      ;; Remove completed scheduled tasks from the agenda view
+      (setq org-agenda-skip-scheduled-if-done t)
+
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '((ruby . t)
+         (sh . t)
+         (python . t)
+         (sql . t)
+         (emacs-lisp . t)))))
+
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package deft
+    :ensure deft
+    :bind (("<f9>" . deft))
+
+    :init
+    (progn
+      (setq
+       deft-extension "org"
+       deft-directory(concat org-directory "deft/")
+       deft-text-mode 'org-mode
+       deft-extension "org")))
 
 #+end_src
 
@@ -3173,6 +3178,12 @@ Remember command and search history.
       (setq savehist-save-minibuffer-history t)))
 #+end_src
 
+* Games
+#+BEGIN_SRC emacs-lisp
+  (use-package 2048-game
+    :ensure t)
+
+#+END_SRC
 * Put somewhere
 
 
@@ -3222,12 +3233,9 @@ Remember command and search history.
 
 #+begin_src emacs-lisp
   (use-package htmlize
-    :ensure htmlize)
-
+    :ensure t)
 
   (setq sql-input-ring-file-name "~/.emacs.d/sql_history")
-
-
 
   ;;(setq browse-url-browser-function 'browse-url-firefox)
   (setq browse-url-browser-function 'browse-url-generic
@@ -3241,20 +3249,14 @@ Remember command and search history.
 
   ;;(setq redisplay-dont-pause t) obsolete in 24.5
 
-
   (setq apropos-do-all t)
   (auto-image-file-mode)
-
-
-
 
   (set-default 'imenu-auto-rescan t)
 
   (setenv "PAGER" "cat")
 
-
   (setq echo-keystrokes 0.1)
-
 
   (setq shift-select-mode t
         mouse-yank-at-point t
