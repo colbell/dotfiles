@@ -18,7 +18,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
 import XMonad.Layout.Tabbed
 
-import XMonad.Prompt ( XPConfig(..), XPPosition(..), defaultXPConfig)
+import XMonad.Prompt (XPConfig(..), XPPosition(..), defaultXPConfig)
 import XMonad.Prompt.Man
 import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.Ssh
@@ -55,7 +55,9 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , className =? "emulator-arm"      --> doFloat
     ])
 
-myLayout = smartBorders $ showWName' mySWNConfig $ desktopLayoutModifiers (tiled ||| mirrorTiled ||| tabbed shrinkText myTabConfig |||  Full)
+myLayout = smartBorders $ showWName' mySWNConfig $
+           desktopLayoutModifiers
+           (tiled ||| mirrorTiled ||| tabbed shrinkText myTabConfig |||  Full)
     where
       tiled       = Tall nmaster delta ratio
       nmaster     = 1
@@ -126,8 +128,8 @@ main = do
 
                , ((myModMask, xK_F1),                manPrompt myXPConfig)
 
-               , ((myModMask, xK_g),                 windowPromptGoto myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder, alwaysHighlight = True} )
-               , ((myModMask .|. shiftMask, xK_g),   windowPromptBring myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder, alwaysHighlight = True } )
+               , ((myModMask, xK_g),                 windowPromptGoto myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder, alwaysHighlight = True })
+               , ((myModMask .|. shiftMask, xK_g),   windowPromptBring myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder, alwaysHighlight = True })
                , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
                , ((myModMask, xK_o ),                windowMenu)
                , ((myModMask .|. controlMask, xK_h), sshPrompt myXPConfig)
