@@ -55,7 +55,17 @@
   (progn
     (setq paradox-github-token t)  ;; Don't ask for Github integration.
     (setq paradox-display-download-count t)
-    (setq paradox-spinner-type 'random)))
+    (setq paradox-spinner-type 'box-in-circle)))
+
+(defun cnb/toggle-theme ()
+  "Toggle between light and dark themes."
+  (interactive)
+  (let* ((dark-theme 'solarized-dark)
+         (light-theme 'solarized-light)
+         (is-light (member light-theme custom-enabled-themes)))
+    (dolist (theme custom-enabled-themes)
+      (disable-theme theme))
+    (load-theme (if is-light dark-theme light-theme) t)))
 
 (use-package solarized-theme
   :ensure t
@@ -68,21 +78,11 @@
     (setq solarized-high-contrast-mode-line nil)
     ;;(setq solarized-use-more-italic t)
     ;;(setq solarized-use-less-bold t)
-    (load-theme 'solarized-dark t)))
+    ;;(load-theme 'solarized-dark t)
+    (cnb/toggle-theme)))
 
-(defun cnb/toggle-theme ()
-  "Toggle between Solarized light and dark"
-  (interactive)
-  (let* ((dark-theme 'solarized-dark)
-         (light-theme 'solarized-light)
-         (is-light (member light-theme custom-enabled-themes)))
-    (dolist (theme custom-enabled-themes)
-      (disable-theme theme))
-    (load-theme (if is-light dark-theme light-theme) t)))
-
-;;(set-frame-font "Source Code Pro-10" nil t)
-;;(set-frame-font "DejaVu Sans Mono-11" nil t)
-(set-frame-font "Inconsolata-12" nil t)
+(set-frame-font "Source Code Pro-10" nil t)
+(set-frame-font "DejaVu Sans Mono-11" nil t)
 
 (use-package csv-mode
   :ensure t)
@@ -1985,8 +1985,10 @@ _q_uit"
  (kbd "<f5> l")
  (defhydra cnb-hydra-launch-functions (:color blue)
    "
-Launch
---------------------------
+                                                                      ╭──────────┐
+ Tasks                                                                │ Launcher │
+╭─────────────────────────────────────────────────────────────────────┴──────────╯
+
 _a_nsi-term
 _c_alculator
 e_d_iff buffers
@@ -2016,72 +2018,79 @@ helm-_T_op
    ("k" previous-error "prev")))
 
 (global-set-key
- (kbd "<f5> t")
- (defhydra cnb-hydra-toggle (:color pink)
-   "
-    _a_ abbrev-mode:       %`abbrev-mode
-    _d_ debug-on-error:    %`debug-on-error
-    _f_ auto-fill-mode:    %`auto-fill-function
-    _l_ nlinum-mode:       %`nlinum-mode
-    _r_ readonly-mode:     %`buffer-read-only
-    _t_ truncate-lines     %`truncate-lines
-    _T_ theme:             %`custom-enabled-themes
-    _v_ visual-line-mode:  %`visual-line-mode
-    _w_ whitespace-mode:   %`whitespace-mode
-    "
-   ("a" abbrev-mode nil)
-   ("d" toggle-debug-on-error  nil)
-   ("f" auto-fill-mode         nil)
-   ("l" nlinum-mode            nil)
-   ("r" dired-toggle-read-only nil)
-   ("t" toggle-truncate-lines  nil)
-   ("T" cnb/toggle-theme       nil :color blue)
-   ("v" visual-line-mode       nil)
-   ("w" whitespace-mode        nil)
-   ("q" nil "cancel")))
+   (kbd "<f5> t")
+   (defhydra cnb-hydra-toggle (:color pink)
+     "
+                                                                                    ╭────────────┐
+                                                                                    │   Toggle   │
+╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
+       _a_ abbrev-mode:       %`abbrev-mode
+       _d_ debug-on-error:    %`debug-on-error
+       _f_ auto-fill-mode:    %`auto-fill-function
+       _l_ nlinum-mode:       %`nlinum-mode
+       _r_ readonly-mode:     %`buffer-read-only
+       _t_ truncate-lines     %`truncate-lines
+       _T_ theme:             %`custom-enabled-themes
+       _v_ visual-line-mode:  %`visual-line-mode
+       _w_ whitespace-mode:   %`whitespace-mode
+──────────────────────────────────────────────────────────────────────────────────────────────────
+      "
+     ("a" abbrev-mode nil)
+     ("d" toggle-debug-on-error  nil)
+     ("f" auto-fill-mode         nil)
+     ("l" nlinum-mode            nil)
+     ("r" dired-toggle-read-only nil)
+     ("t" toggle-truncate-lines  nil)
+     ("T" cnb/toggle-theme       nil :color blue)
+     ("v" visual-line-mode       nil)
+     ("w" whitespace-mode        nil)
+     ("q" nil "cancel")))
 
 (global-set-key
- (kbd "<f5> w")
- (defhydra cnb-hydra-win-functions (:color amaranth)
-   "
-       Jump           Move Splitter    Split Window   ^^^^^^^^Ace
--------------------------------------------------------------------
- _<left>_: Left        _h_: Left          _x_: Horiz       _s_: Swap
-_<right>_: Right       _l_: Right         _y_: Vert        _d_: Delete
- _<down>_: Down        _j_: Down          _b_: Balance     _m_: Maximize
-   _<up>_: Up          _k_: Up
-"
-   ("<left>" window-jump-left nil)
-   ("<down>" window-jump-down nil)
-   ("<up>" window-jump-up nil)
-   ("<right>" window-jump-right nil)
+   (kbd "<f5> w")
+   (defhydra cnb-hydra-win-functions (:color amaranth)
+     "
+                                                                                    ╭────────────┐
+         Jump           Move Splitter    Split Window   Ace                         │  Windows   │
+╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
 
-   ("h" hydra-move-splitter-left nil)
-   ("j" hydra-move-splitter-down nil)
-   ("k" hydra-move-splitter-up nil)
-   ("l" hydra-move-splitter-right nil)
-   ("b" balance-windows nil)
+   _<left>_: Left        _h_: Left          _x_: Horiz       _s_: Swap
+  _<right>_: Right       _l_: Right         _y_: Vert        _d_: Delete
+   _<down>_: Down        _j_: Down          _b_: Balance     _m_: Maximize
+     _<up>_: Up          _k_: Up
+──────────────────────────────────────────────────────────────────────────────────────────────────
+  "
+     ("<left>" window-jump-left nil)
+     ("<down>" window-jump-down nil)
+     ("<up>" window-jump-up nil)
+     ("<right>" window-jump-right nil)
 
-   ("u" winner-undo nil)
-   ("r" winner-redo nil)
+     ("h" hydra-move-splitter-left nil)
+     ("j" hydra-move-splitter-down nil)
+     ("k" hydra-move-splitter-up nil)
+     ("l" hydra-move-splitter-right nil)
+     ("b" balance-windows nil)
 
-   ("x" (lambda ()
-          (interactive)
-          (split-window-below)
-          (windmove-down))
-    nil)
-   ("y" (lambda ()
-          (interactive)
-          (split-window-right)
-          (windmove-right))
-    nil)
+     ("u" winner-undo nil)
+     ("r" winner-redo nil)
 
-   ("a" ace-window nil)
-   ("s" (lambda () (interactive) (ace-window 4)) nil)
-   ("d" (lambda () (interactive) (ace-window 16)) nil)
-   ("m" ace-maximize-window nil :color blue)
+     ("x" (lambda ()
+            (interactive)
+            (split-window-below)
+            (windmove-down))
+      nil)
+     ("y" (lambda ()
+            (interactive)
+            (split-window-right)
+            (windmove-right))
+      nil)
 
-   ("q" nil "quit")))
+     ("a" ace-window nil)
+     ("s" (lambda () (interactive) (ace-window 4)) nil)
+     ("d" (lambda () (interactive) (ace-window 16)) nil)
+     ("m" ace-maximize-window nil :color blue)
+
+     ("q" nil "quit")))
 
 (defhydra hydra-outline (:color pink :hint nil)
   "
@@ -2126,171 +2135,178 @@ _d_: subtree
     ("b" gh-md-render-buffer "render buffer via github")))
 
 (define-key
-  projectile-mode-map
-  (kbd "<f5> p")
-  (defhydra cnb-hydra-projectile (:color teal)
+    projectile-mode-map
+    (kbd "<f5> p")
+    (defhydra cnb-hydra-projectile (:color teal)
+      "
+     Root: %(projectile-project-root)
+                                                                                                    ╭────────────┐
+     Files                           Buffers                   Search               Projects        │ Projectile │
+╭───────────────────────────────────────────────────────────────────────────────────────────────────┴────────────╯
+
+     _f_: find                         _i_: ibuffer                _s_: search (ag)       _p_: Switch
+     _F_: find in other window         _b_: switch to  buffer      _o_: multi-occur       _x_: cleanup
+     _d_: find in directory            _k_: kill all buffers       _u_: query-replace
+     _r_: recent files                 ^    ^                      _T_: regenerate tags
+     ^    ^                            ^    ^                      _t_: search tags
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     "
-  Projectile: %(projectile-project-root)
+      ("f" projectile-find-file                        nil)
+      ("F" projectile-find-file-other-window           nil)
+      ("d" projectile-find-file-in-directory           nil)
+      ("r" projectile-recentf                          nil)
 
-     ^^Files                           ^^Buffers                   ^^Search               ^^Project
----------------------------------------------------------------------------------------------------
-    _f_: find                         _i_: ibuffer                _s_: search (ag)       _p_: Switch
-    _F_: find in other window         _b_: switch to  buffer      _o_: multi-occur       _x_: cleanup
-    _d_: find in directory            _k_: kill all buffers       _u_: query-replace
-    _r_: recent files                 ^    ^                      _T_: regenerate tags
-    ^    ^                            ^    ^                      _t_: search tags
+      ("i" projectile-ibuffer                          nil)
+      ("b" projectile-switch-to-buffer                 nil)
+      ("k" projectile-kill-buffers                     nil :color blue)
 
-  "
-    ("f" projectile-find-file                        nil)
-    ("F" projectile-find-file-other-window           nil)
-    ("d" projectile-find-file-in-directory           nil)
-    ("r" projectile-recentf                          nil)
+      ("s" projectile-ag                               nil)
+      ("o" projectile-multi-occur                      nil)
+      ("u" projectile-replace                          nil)
+      ("t" projectile-find-tag                         nil)
+      ("T" projectile-regenerate-tags                  nil :color red)
 
-    ("i" projectile-ibuffer                          nil)
-    ("b" projectile-switch-to-buffer                 nil)
-    ("k" projectile-kill-buffers                     nil :color blue)
+      ("p" projectile-switch-project                   nil)
+      ("x" projectile-cleanup-known-projects           nil :color red)
 
-    ("s" projectile-ag                               nil)
-    ("o" projectile-multi-occur                      nil)
-    ("u" projectile-replace                          nil)
-    ("t" projectile-find-tag                         nil)
-    ("T" projectile-regenerate-tags                  nil :color red)
-
-    ("p" projectile-switch-project                   nil)
-    ("x" projectile-cleanup-known-projects           nil :color red)
-
-    ("q"   nil                                       "quit" :color blue)))
+      ("q"   nil                                       "quit" :color blue)))
 
 (define-key
-  projectile-rails-mode-map
-  (kbd "<f5> r")
-  (defhydra cnb-hydra-projectile-rails (:color teal)
-    "
-  Projectile Rails: %(projectile-project-root)
+    projectile-rails-mode-map
+    (kbd "<f5> r")
+    (defhydra cnb-hydra-projectile-rails (:color teal)
+      "
+    Root: %(projectile-project-root)
+                                                                                     ╭────────────┐
+     Find                           Run                   Logs                       │   Rails    │
+╭────────────────────────────────────────────────────────────────────────────────────┴────────────╯
 
-       Find                              Run
-----------------------------------------------------------------
-    _a_: authorizer                    _rs_: server
-    _m_: model                         _rc_: console
-    _M_: current model                 _rr_: rake
-    _c_: controller
-    _C_: current controller            Logs
-    _d_: decorator                     ----
-    _D_: current decorator             _ld_: development
-    _v_: view                          _lp_: production
-    _V_: current view                  _lt_: test
+         Find                              Run
+  ----------------------------------------------------------------
+      _a_: authorizer                    _rs_: server
+      _m_: model                         _rc_: console
+      _M_: current model                 _rr_: rake
+      _c_: controller
+      _C_: current controller            Logs
+      _d_: decorator                     ----
+      _D_: current decorator             _ld_: development
+      _v_: view                          _lp_: production
+      _V_: current view                  _lt_: test
 
-     "
-    ("a" cnb/projectile-rails-find-authorizer        nil)
-    ("c" projectile-rails-find-controller            nil)
-    ("C" projectile-rails-find-current-controller    nil)
-    ("d" cnb/projectile-rails-find-decorator         nil)
-    ("D" cnb/projectile-rails-find-current-decorator nil)
-    ("m" projectile-rails-find-model                 nil)
-    ("M" projectile-rails-find-current-model         nil)
-    ("v" projectile-rails-find-view                  nil)
-    ("V" projectile-rails-find-current-view          nil)
+       "
+      ("a" cnb/projectile-rails-find-authorizer        nil)
+      ("c" projectile-rails-find-controller            nil)
+      ("C" projectile-rails-find-current-controller    nil)
+      ("d" cnb/projectile-rails-find-decorator         nil)
+      ("D" cnb/projectile-rails-find-current-decorator nil)
+      ("m" projectile-rails-find-model                 nil)
+      ("M" projectile-rails-find-current-model         nil)
+      ("v" projectile-rails-find-view                  nil)
+      ("V" projectile-rails-find-current-view          nil)
 
-    ("ld" rails-log-show-development nil)
-    ("lp" rails-log-show-production  nil)
-    ("lt" rails-log-show-test        nil)
+      ("ld" rails-log-show-development nil)
+      ("lp" rails-log-show-production  nil)
+      ("lt" rails-log-show-test        nil)
 
-    ("rs" projectile-rails-server         nil :color red)
-    ("rc" projectile-rails-console        nil :color red)
-    ("rr" projectile-rails-find-rake-task nil :color red)
+      ("rs" projectile-rails-server         nil :color red)
+      ("rc" projectile-rails-console        nil :color red)
+      ("rr" projectile-rails-find-rake-task nil :color red)
 
-    ("q" nil "quit" :color blue)))
+      ("q" nil "quit" :color blue)))
 
 (define-key smartparens-mode-map (kbd "<f7>")
-  (defhydra hydra-learn-sp (:hint nil)
-    "
-  _B_ backward-sexp            -----
-  _F_ forward-sexp               _s_ splice-sexp
-  _L_ backward-down-sexp         _df_ splice-sexp-killing-forward
-  _H_ backward-up-sexp           _db_ splice-sexp-killing-backward
-^^------                         _da_ splice-sexp-killing-around
-  _k_ down-sexp                -----
-  _j_ up-sexp                    _C-s_ select-next-thing-exchange
--^^-----                         _C-p_ select-previous-thing
-  _n_ next-sexp                  _C-n_ select-next-thing
-  _p_ previous-sexp            -----
-  _a_ beginning-of-sexp          _C-f_ forward-symbol
-  _z_ end-of-sexp                _C-b_ backward-symbol
---^^-                          -----
-  _t_ transpose-sexp             _c_ convolute-sexp
--^^--                            _g_ absorb-sexp
-  _x_ delete-char                _q_ emit-sexp
-  _dw_ kill-word               -----
-  _dd_ kill-sexp                 _,b_ extract-before-sexp
--^^--                            _,a_ extract-after-sexp
-  _S_ unwrap-sexp              -----
--^^--                            _AP_ add-to-previous-sexp
-  _C-h_ forward-slurp-sexp       _AN_ add-to-next-sexp
-  _C-l_ forward-barf-sexp      -----
-  _C-S-h_ backward-slurp-sexp    _ join-sexp
-  _C-S-l_ backward-barf-sexp     _|_ split-sexp
-"
-    ;; TODO: Use () and [] - + * | <space>
-    ("B" sp-backward-sexp );; similiar to VIM b
-    ("F" sp-forward-sexp );; similar to VIM f
-    ;;
-    ("L" sp-backward-down-sexp )
-    ("H" sp-backward-up-sexp )
-    ;;
-    ("k" sp-down-sexp ) ; root - towards the root
-    ("j" sp-up-sexp )
-    ;;
-    ("n" sp-next-sexp )
-    ("p" sp-previous-sexp )
-    ;; a..z
-    ("a" sp-beginning-of-sexp )
-    ("z" sp-end-of-sexp )
-    ;;
-    ("t" sp-transpose-sexp )
-    ;;
-    ("x" sp-delete-char )
-    ("dw" sp-kill-word )
-    ;;("ds" sp-kill-symbol ) ;; Prefer kill-sexp
-    ("dd" sp-kill-sexp )
-    ;;("yy" sp-copy-sexp ) ;; Don't like it. Pref visual selection
-    ;;
-    ("S" sp-unwrap-sexp ) ;; Strip!
-    ;;("wh" sp-backward-unwrap-sexp ) ;; Too similar to above
-    ;;
-    ("C-h" sp-forward-slurp-sexp )
-    ("C-l" sp-forward-barf-sexp )
-    ("C-S-h" sp-backward-slurp-sexp )
-    ("C-S-l" sp-backward-barf-sexp )
-    ;;
-    ;;("C-[" (bind (sp-wrap-with-pair "[")) ) ;;FIXME
-    ;;("C-(" (bind (sp-wrap-with-pair "(")) )
-    ;;
-    ("s" sp-splice-sexp )
-    ("df" sp-splice-sexp-killing-forward )
-    ("db" sp-splice-sexp-killing-backward )
-    ("da" sp-splice-sexp-killing-around )
-    ;;
-    ("C-s" sp-select-next-thing-exchange )
-    ("C-p" sp-select-previous-thing )
-    ("C-n" sp-select-next-thing )
-    ;;
-    ("C-f" sp-forward-symbol )
-    ("C-b" sp-backward-symbol )
-    ;;
-    ;;("C-t" sp-prefix-tag-object)
-    ;;("H-p" sp-prefix-pair-object)
-    ("c" sp-convolute-sexp )
-    ("g" sp-absorb-sexp )
-    ("q" sp-emit-sexp )
-    ;;
-    (",b" sp-extract-before-sexp )
-    (",a" sp-extract-after-sexp )
-    ;;
-    ("AP" sp-add-to-previous-sexp );; Difference to slurp?
-    ("AN" sp-add-to-next-sexp )
-    ;;
-    ("_" sp-join-sexp ) ;;Good
-    ("|" sp-split-sexp )))
+    (defhydra hydra-learn-sp (:hint nil)
+      "
+                                                                                    ╭─────────────┐
+                                                                                    │ Smartparens │
+╭───────────────────────────────────────────────────────────────────────────────────┴─────────────╯
+    _B_ backward-sexp            ─────
+    _F_ forward-sexp               _s_ splice-sexp
+    _L_ backward-down-sexp         _df_ splice-sexp-killing-forward
+    _H_ backward-up-sexp           _db_ splice-sexp-killing-backward
+  ^^──────                         _da_ splice-sexp-killing-around
+    _k_ down-sexp                ─────
+    _j_ up-sexp                    _C-s_ select-next-thing-exchange
+  ─^^─────                         _C-p_ select-previous-thing
+    _n_ next-sexp                  _C-n_ select-next-thing
+    _p_ previous-sexp            ─────
+    _a_ beginning-of-sexp          _C-f_ forward-symbol
+    _z_ end-of-sexp                _C-b_ backward-symbol
+  ──^^─                          ─────
+    _t_ transpose-sexp             _c_ convolute-sexp
+  ─^^──                            _g_ absorb-sexp
+    _x_ delete-char                _q_ emit-sexp
+    _dw_ kill-word               ─────
+    _dd_ kill-sexp                 _,b_ extract-before-sexp
+  ─^^──                            _,a_ extract-after-sexp
+    _S_ unwrap-sexp              ─────
+  ─^^──                            _AP_ add-to-previous-sexp
+    _C-h_ forward-slurp-sexp       _AN_ add-to-next-sexp
+    _C-l_ forward-barf-sexp      ─────
+    _C-S-h_ backward-slurp-sexp    _ join-sexp
+    _C-S-l_ backward-barf-sexp     _|_ split-sexp
+  "
+      ;; TODO: Use () and [] - + * | <space>
+      ("B" sp-backward-sexp );; similiar to VIM b
+      ("F" sp-forward-sexp );; similar to VIM f
+      ;;
+      ("L" sp-backward-down-sexp )
+      ("H" sp-backward-up-sexp )
+      ;;
+      ("k" sp-down-sexp ) ; root - towards the root
+      ("j" sp-up-sexp )
+      ;;
+      ("n" sp-next-sexp )
+      ("p" sp-previous-sexp )
+      ;; a..z
+      ("a" sp-beginning-of-sexp )
+      ("z" sp-end-of-sexp )
+      ;;
+      ("t" sp-transpose-sexp )
+      ;;
+      ("x" sp-delete-char )
+      ("dw" sp-kill-word )
+      ;;("ds" sp-kill-symbol ) ;; Prefer kill-sexp
+      ("dd" sp-kill-sexp )
+      ;;("yy" sp-copy-sexp ) ;; Don't like it. Pref visual selection
+      ;;
+      ("S" sp-unwrap-sexp ) ;; Strip!
+      ;;("wh" sp-backward-unwrap-sexp ) ;; Too similar to above
+      ;;
+      ("C-h" sp-forward-slurp-sexp )
+      ("C-l" sp-forward-barf-sexp )
+      ("C-S-h" sp-backward-slurp-sexp )
+      ("C-S-l" sp-backward-barf-sexp )
+      ;;
+      ;;("C-[" (bind (sp-wrap-with-pair "[")) ) ;;FIXME
+      ;;("C-(" (bind (sp-wrap-with-pair "(")) )
+      ;;
+      ("s" sp-splice-sexp )
+      ("df" sp-splice-sexp-killing-forward )
+      ("db" sp-splice-sexp-killing-backward )
+      ("da" sp-splice-sexp-killing-around )
+      ;;
+      ("C-s" sp-select-next-thing-exchange )
+      ("C-p" sp-select-previous-thing )
+      ("C-n" sp-select-next-thing )
+      ;;
+      ("C-f" sp-forward-symbol )
+      ("C-b" sp-backward-symbol )
+      ;;
+      ;;("C-t" sp-prefix-tag-object)
+      ;;("H-p" sp-prefix-pair-object)
+      ("c" sp-convolute-sexp )
+      ("g" sp-absorb-sexp )
+      ("q" sp-emit-sexp )
+      ;;
+      (",b" sp-extract-before-sexp )
+      (",a" sp-extract-after-sexp )
+      ;;
+      ("AP" sp-add-to-previous-sexp );; Difference to slurp?
+      ("AN" sp-add-to-next-sexp )
+      ;;
+      ("_" sp-join-sexp ) ;;Good
+      ("|" sp-split-sexp )))
 
 (use-package saveplace
   :demand
@@ -2324,6 +2340,9 @@ _d_: subtree
     (savehist-mode)
     (setq history-delete-duplicates t)
     (setq savehist-save-minibuffer-history t)))
+
+(use-package 2048-game
+  :ensure t)
 
 (use-package esup
   :ensure esup)
