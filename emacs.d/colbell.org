@@ -124,28 +124,11 @@ brighter; it simply makes everything else vanish.
 
 * Theme
 
-  Lets make Emacs pretty.
-
-#+begin_src emacs-lisp
-  (use-package solarized-theme
-    :ensure t
-
-    :init
-    (progn
-      (setq solarized-distinct-fringe-background t)
-      (setq solarized-scale-org-headlines nil)
-      (setq solarized-use-variable-pitch nil)
-      (setq solarized-high-contrast-mode-line nil)
-      ;;(setq solarized-use-more-italic t)
-      ;;(setq solarized-use-less-bold t)
-      (load-theme 'solarized-dark t)))
-#+end_src
-
-  Allow toggling between dark and light Solarized themes.
+  Allow toggling between dark and light themes.
 
 #+begin_src emacs-lisp
   (defun cnb/toggle-theme ()
-    "Toggle between Solarized light and dark"
+    "Toggle between light and dark themes."
     (interactive)
     (let* ((dark-theme 'solarized-dark)
            (light-theme 'solarized-light)
@@ -155,12 +138,29 @@ brighter; it simply makes everything else vanish.
       (load-theme (if is-light dark-theme light-theme) t)))
 #+end_src
 
+  Lets make Emacs pretty.
+
+#+begin_src emacs-lisp
+    (use-package solarized-theme
+      :ensure t
+
+      :init
+      (progn
+        (setq solarized-distinct-fringe-background t)
+        (setq solarized-scale-org-headlines nil)
+        (setq solarized-use-variable-pitch nil)
+        (setq solarized-high-contrast-mode-line nil)
+        ;;(setq solarized-use-more-italic t)
+        ;;(setq solarized-use-less-bold t)
+        ;;(load-theme 'solarized-dark t)
+        (cnb/toggle-theme)))
+#+end_src
+
 * Font
 
 #+begin_src emacs-lisp
-  ;;(set-frame-font "Source Code Pro-10" nil t)
-  ;;(set-frame-font "DejaVu Sans Mono-11" nil t)
-  (set-frame-font "Inconsolata-12" nil t)
+  (set-frame-font "Source Code Pro-10" nil t)
+  (set-frame-font "DejaVu Sans Mono-11" nil t)
 #+end_src
 
 * CSV minor mode
@@ -2801,8 +2801,10 @@ I press these too often
    (kbd "<f5> l")
    (defhydra cnb-hydra-launch-functions (:color blue)
      "
-  Launch
-  --------------------------
+                                                                        ╭──────────┐
+   Tasks                                                                │ Launcher │
+  ╭─────────────────────────────────────────────────────────────────────┴──────────╯
+
   _a_nsi-term
   _c_alculator
   e_d_iff buffers
@@ -2841,15 +2843,19 @@ I press these too often
    (kbd "<f5> t")
    (defhydra cnb-hydra-toggle (:color pink)
      "
-      _a_ abbrev-mode:       %`abbrev-mode
-      _d_ debug-on-error:    %`debug-on-error
-      _f_ auto-fill-mode:    %`auto-fill-function
-      _l_ nlinum-mode:       %`nlinum-mode
-      _r_ readonly-mode:     %`buffer-read-only
-      _t_ truncate-lines     %`truncate-lines
-      _T_ theme:             %`custom-enabled-themes
-      _v_ visual-line-mode:  %`visual-line-mode
-      _w_ whitespace-mode:   %`whitespace-mode
+                                                                                    ╭────────────┐
+                                                                                    │   Toggle   │
+╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
+       _a_ abbrev-mode:       %`abbrev-mode
+       _d_ debug-on-error:    %`debug-on-error
+       _f_ auto-fill-mode:    %`auto-fill-function
+       _l_ nlinum-mode:       %`nlinum-mode
+       _r_ readonly-mode:     %`buffer-read-only
+       _t_ truncate-lines     %`truncate-lines
+       _T_ theme:             %`custom-enabled-themes
+       _v_ visual-line-mode:  %`visual-line-mode
+       _w_ whitespace-mode:   %`whitespace-mode
+──────────────────────────────────────────────────────────────────────────────────────────────────
       "
      ("a" abbrev-mode nil)
      ("d" toggle-debug-on-error  nil)
@@ -2869,12 +2875,15 @@ I press these too often
    (kbd "<f5> w")
    (defhydra cnb-hydra-win-functions (:color amaranth)
      "
-         Jump           Move Splitter    Split Window   ^^^^^^^^Ace
-  -------------------------------------------------------------------
+                                                                                    ╭────────────┐
+         Jump           Move Splitter    Split Window   Ace                         │  Windows   │
+╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
+
    _<left>_: Left        _h_: Left          _x_: Horiz       _s_: Swap
   _<right>_: Right       _l_: Right         _y_: Vert        _d_: Delete
    _<down>_: Down        _j_: Down          _b_: Balance     _m_: Maximize
      _<up>_: Up          _k_: Up
+──────────────────────────────────────────────────────────────────────────────────────────────────
   "
      ("<left>" window-jump-left nil)
      ("<down>" window-jump-down nil)
@@ -2963,16 +2972,17 @@ I press these too often
     (kbd "<f5> p")
     (defhydra cnb-hydra-projectile (:color teal)
       "
-    Projectile: %(projectile-project-root)
+     Root: %(projectile-project-root)
+                                                                                                    ╭────────────┐
+     Files                           Buffers                   Search               Projects        │ Projectile │
+╭───────────────────────────────────────────────────────────────────────────────────────────────────┴────────────╯
 
-       ^^Files                           ^^Buffers                   ^^Search               ^^Project
-  ---------------------------------------------------------------------------------------------------
-      _f_: find                         _i_: ibuffer                _s_: search (ag)       _p_: Switch
-      _F_: find in other window         _b_: switch to  buffer      _o_: multi-occur       _x_: cleanup
-      _d_: find in directory            _k_: kill all buffers       _u_: query-replace
-      _r_: recent files                 ^    ^                      _T_: regenerate tags
-      ^    ^                            ^    ^                      _t_: search tags
-
+     _f_: find                         _i_: ibuffer                _s_: search (ag)       _p_: Switch
+     _F_: find in other window         _b_: switch to  buffer      _o_: multi-occur       _x_: cleanup
+     _d_: find in directory            _k_: kill all buffers       _u_: query-replace
+     _r_: recent files                 ^    ^                      _T_: regenerate tags
+     ^    ^                            ^    ^                      _t_: search tags
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     "
       ("f" projectile-find-file                        nil)
       ("F" projectile-find-file-other-window           nil)
@@ -3002,7 +3012,10 @@ I press these too often
     (kbd "<f5> r")
     (defhydra cnb-hydra-projectile-rails (:color teal)
       "
-    Projectile Rails: %(projectile-project-root)
+    Root: %(projectile-project-root)
+                                                                                     ╭────────────┐
+     Find                           Run                   Logs                       │   Rails    │
+╭────────────────────────────────────────────────────────────────────────────────────┴────────────╯
 
          Find                              Run
   ----------------------------------------------------------------
@@ -3043,29 +3056,32 @@ I press these too often
   (define-key smartparens-mode-map (kbd "<f7>")
     (defhydra hydra-learn-sp (:hint nil)
       "
-    _B_ backward-sexp            -----
+                                                                                    ╭─────────────┐
+                                                                                    │ Smartparens │
+╭───────────────────────────────────────────────────────────────────────────────────┴─────────────╯
+    _B_ backward-sexp            ─────
     _F_ forward-sexp               _s_ splice-sexp
     _L_ backward-down-sexp         _df_ splice-sexp-killing-forward
     _H_ backward-up-sexp           _db_ splice-sexp-killing-backward
-  ^^------                         _da_ splice-sexp-killing-around
-    _k_ down-sexp                -----
+  ^^──────                         _da_ splice-sexp-killing-around
+    _k_ down-sexp                ─────
     _j_ up-sexp                    _C-s_ select-next-thing-exchange
-  -^^-----                         _C-p_ select-previous-thing
+  ─^^─────                         _C-p_ select-previous-thing
     _n_ next-sexp                  _C-n_ select-next-thing
-    _p_ previous-sexp            -----
+    _p_ previous-sexp            ─────
     _a_ beginning-of-sexp          _C-f_ forward-symbol
     _z_ end-of-sexp                _C-b_ backward-symbol
-  --^^-                          -----
+  ──^^─                          ─────
     _t_ transpose-sexp             _c_ convolute-sexp
-  -^^--                            _g_ absorb-sexp
+  ─^^──                            _g_ absorb-sexp
     _x_ delete-char                _q_ emit-sexp
-    _dw_ kill-word               -----
+    _dw_ kill-word               ─────
     _dd_ kill-sexp                 _,b_ extract-before-sexp
-  -^^--                            _,a_ extract-after-sexp
-    _S_ unwrap-sexp              -----
-  -^^--                            _AP_ add-to-previous-sexp
+  ─^^──                            _,a_ extract-after-sexp
+    _S_ unwrap-sexp              ─────
+  ─^^──                            _AP_ add-to-previous-sexp
     _C-h_ forward-slurp-sexp       _AN_ add-to-next-sexp
-    _C-l_ forward-barf-sexp      -----
+    _C-l_ forward-barf-sexp      ─────
     _C-S-h_ backward-slurp-sexp    _ join-sexp
     _C-S-l_ backward-barf-sexp     _|_ split-sexp
   "
@@ -3185,7 +3201,6 @@ Remember command and search history.
 
 #+END_SRC
 * Put somewhere
-
 
 #+begin_src emacs-lisp
   (use-package esup
