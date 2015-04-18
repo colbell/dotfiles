@@ -160,7 +160,7 @@ brighter; it simply makes everything else vanish.
 
 #+begin_src emacs-lisp
   (set-frame-font "Source Code Pro-10" nil t)
-  (set-frame-font "DejaVu Sans Mono-11" nil t)
+  ;;(set-frame-font "DejaVu Sans Mono-11" nil t)
 #+end_src
 
 * CSV minor mode
@@ -174,6 +174,13 @@ brighter; it simply makes everything else vanish.
 #+end_src
 
 * General
+
+  Init File profiler.
+
+#+begin_src emacs-lisp
+  (use-package esup
+    :ensure esup)
+#+end_src
 
   Initialize random number generator.
 
@@ -272,15 +279,16 @@ brighter; it simply makes everything else vanish.
   Show line numbers in fringe.
 
 #+begin_src emacs-lisp
+  (defun cnb/nlinum-mode-hook ()
+    "Stop horiz jumps on scrolling"
+    (setq nlinum--width
+          (length (number-to-string
+                   (count-lines (point-min) (point-max))))))
+
   (use-package nlinum
     :ensure t
     :config
     (progn
-      (defun cnb/nlinum-mode-hook ()
-        "Stop horiz jumps on scrolling"
-        (setq nlinum--width
-              (length (number-to-string
-                       (count-lines (point-min) (point-max))))))
       (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
 #+end_src
 
@@ -297,6 +305,52 @@ brighter; it simply makes everything else vanish.
   (use-package httpcode
     :ensure httpcode)
 #+end_src
+
+  Move mouse cursor when text cursor gets too close.
+
+#+begin_src emacs-lisp
+  (mouse-avoidance-mode 'exile)
+#+end_src
+
+  Cursor configuration
+
+#+begin_src emacs-lisp
+  (setq blink-cursor-blinks 0)
+  (setq-default cursor-type 'bar)
+  (blink-cursor-mode)
+#+end_src
+
+  Use a visible bell instead of a beep.
+
+#+begin_src emacs-lisp
+  (setq visible-bell t)
+#+end_src
+
+  Prompt to exit Emacs
+
+#+begin_src emacs-lisp
+  (setq confirm-kill-emacs 'y-or-n-p)
+#+end_src
+
+  Highlight current line
+
+#+begin_src emacs-lisp
+  (global-hl-line-mode)
+#+end_src
+
+  SQL mode history file.
+
+#+BEGIN_SRC emacs-lisp
+  (setq sql-input-ring-file-name "~/.emacs.d/sql_history")
+#+END_SRC
+
+  Open links in appropriate browser.
+
+#+BEGIN_SRC emacs-lisp
+  ;;(setq browse-url-browser-function 'browse-url-firefox)
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "chromium-browser")
+#+END_SRC
 
 * Mode Line
 
@@ -354,18 +408,18 @@ brighter; it simply makes everything else vanish.
 ** Battery Status
 
    Put the battery status in the mode-line.
-
+*** TODO Causes 'invalid face sml/battery...' error.
 #+begin_src emacs-lisp
-  (use-package battery
-    :config
-    (progn
-      (when
-          (and battery-status-function
-               (not (string-match-p "N/A"
-                                    (battery-format "%B"
-                                                    (funcall battery-status-function)))))
-        (setq battery-mode-line-format "[%b%p%%%% %t]")
-        (display-battery-mode 1))))
+  ;; (use-package battery
+  ;;   :config
+  ;;   (progn
+  ;;     (when
+  ;;         (and battery-status-function
+  ;;              (not (string-match-p "N/A"
+  ;;                                   (battery-format "%B"
+  ;;                                                   (funcall battery-status-function)))))
+  ;;       (setq battery-mode-line-format "[%b%p%%%% %t]")
+  ;;       (display-battery-mode 1))))
 #+end_src
 
 * Minibuffer
@@ -401,45 +455,12 @@ brighter; it simply makes everything else vanish.
       (global-whitespace-mode)
       (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
 
-      (setq whitespace-global-modes '(not org-mode paradox-menu-mode term-mode))
+      ;;(setq whitespace-global-modes '(not org-mode paradox-menu-mode term-mode))
 
-      ;; Don't highlight WS in some modes.
-      (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
+      ;; Don't highlight trailing WS in some modes.
+      (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook cider-repl-mode
                                       term-mode-hook eww-mode-hook completion-list-mode-hook))
         (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
-#+end_src
-
-* General
-
-  Move mouse cursor when text cursor gets too close.
-
-#+begin_src emacs-lisp
-  (mouse-avoidance-mode 'exile)
-#+end_src
-
-  Cursor configuration
-
-#+begin_src emacs-lisp
-  (setq blink-cursor-blinks 0)
-  (setq-default cursor-type 'bar)
-  (blink-cursor-mode)
-#+end_src
-
-  Use a visible bell instead of a beep.
-
-#+begin_src emacs-lisp
-  (setq visible-bell t)
-#+end_src
-
-  Prompt to exit Emacs
-
-#+begin_src emacs-lisp
-  (setq confirm-kill-emacs 'y-or-n-p)
-#+end_src
-
-  Highlight current line
-#+begin_src emacs-lisp
-  (global-hl-line-mode)
 #+end_src
 
 * Find in Repository
@@ -601,6 +622,22 @@ Start Emacs server on first Emacs instance.
       ;;(setenv "EDITOR" "emacsclient")))
 
 #+end_src
+* Edit Text Areas in Chrome
+
+#+begin_src emacs-lisp
+  ;; Editing within Chrome. You need the "Edit with Emacs" Chrome plugin
+  ;; installed in Chrome.
+  (use-package edit-server
+    :ensure t
+    :ensure edit-server-htmlize
+
+    :init
+    (progn
+      (add-hook 'edit-server-start-hook #'edit-server-maybe-dehtmlize-buffer)
+      (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer)
+      (edit-server-start)))
+#+end_src
+
 * Auto-correct
 
 #+begin_src emacs-lisp
@@ -1580,6 +1617,7 @@ Git gutter fringe works with Flycheck/nlinum
 
     :config
     (progn
+
       (setq git-gutter-fr:side 'right-fringe)))
 #+end_src
 
@@ -1915,35 +1953,36 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
 ** Clojure Mode.
 
 #+begin_src emacs-lisp
-  (use-package clojure-mode
-    :ensure clojure-mode
+      (use-package clojure-mode
+        :ensure clojure-mode
 
-    :config
-    (progn
-      (add-hook 'clojure-mode-hook #'cider-mode)
-      (add-hook 'clojure-mode-hook
-                (lambda ()
-                  (clj-refactor-mode 1)
-                  (cljr-add-keybindings-with-prefix "C-o C-r")))
+        :config
+        (progn
+          (add-hook 'clojure-mode-hook #'cider-mode)
+          (add-hook 'clojure-mode-hook
+                    (lambda ()
+                      (clj-refactor-mode 1)
+                      (cljr-add-keybindings-with-prefix "C-o C-r")
+                      (push '("defn" . "\u0192") prettify-symbols-alist)))
 
-      (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
-      (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
-      (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)
+          (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
+          (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
+          (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)
 
-      (define-clojure-indent
-        (defroutes 'defun)
-        (GET 2)
-        (POST 2)
-        (PUT 2)
-        (DELETE 2)
-        (HEAD 2)
-        (ANY 2)
-        (context 2)
-        (for-all 1)
-        (such-that 1)
-        (let-routes 1)
-        (run-db 2)
-        (defspec 'defun))))
+          (define-clojure-indent
+            (defroutes 'defun)
+            (GET 2)
+            (POST 2)
+            (PUT 2)
+            (DELETE 2)
+            (HEAD 2)
+            (ANY 2)
+            (context 2)
+            (for-all 1)
+            (such-that 1)
+            (let-routes 1)
+            (run-db 2)
+            (defspec 'defun))))
 #+end_src
 
 Extra font clocking for Clojure mode.
@@ -2217,16 +2256,15 @@ Font lock for Ruby Yard comments.
 Put each occurrence of "use-package" into an Imenu section called "Packages".
 
 #+begin_src emacs-lisp
-    (defun cnb/elisp-packages ()
-      (add-to-list 'imenu-generic-expression '("Packages" "(use-package \\([^)\n]*\\).*$" 1) t))
+  (defun cnb/elisp-packages ()
+    (add-to-list 'imenu-generic-expression '("Packages" "(use-package \\([^)\n]*\\).*$" 1) t))
 
-    (add-hook 'emacs-lisp-mode-hook 'cnb/elisp-packages)
+  (add-hook 'emacs-lisp-mode-hook 'cnb/elisp-packages)
 
-    (add-hook
-     'emacs-lisp-mode-hook
-     (lambda ()
-       (push '("defun" . 402) prettify-symbols-alist)
-       (push '("."     . ?•)  prettify-symbols-alist)))
+  (add-hook
+   'emacs-lisp-mode-hook
+   (lambda ()
+     (push '("defun" . 402) prettify-symbols-alist)))
 #+end_src
 
 * Lisp Like Modes
@@ -2369,26 +2407,26 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 #+end_src
 ** TeX
 #+begin_src emacs-lisp
-  (use-package auctex
-    :ensure t
-    :defer
+    (use-package auctex
+      :ensure t
+      :defer
 
-    :config
-    (progn
-      (TeX-global-PDF-mode t))
+      :config
+      (progn
+        (TeX-global-PDF-mode t))
 
-    :init
-    (progn
-      (setq-default TeX-master nil)
-      (setq TeX-parse-self t)
-      (setq TeX-auto-save t)
-      (setq TeX-save-query nil)
+      :init
+      (progn
+        ;;(setq-default TeX-master nil)
+        (setq TeX-parse-self t)
+        (setq TeX-auto-save t)
+        (setq TeX-save-query nil)
+        ;;(setq TeX-PDF-mode t)
 
-      (add-hook 'LaTeX-mode-hook #'visual-line-mode)
-      (add-hook 'LaTeX-mode-hook #'flyspell-mode)
-      (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
-      (add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
-
+        (add-hook 'LaTeX-mode-hook #'visual-line-mode)
+        (add-hook 'LaTeX-mode-hook #'flyspell-mode)
+        (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
+        (add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
 #+end_src
 
 * Org
@@ -2728,8 +2766,10 @@ I press these too often
    (kbd "<f5> b")
    (defhydra cnb-bookmarks (:color teal)
      "
-     Bookmarks                  Visual Bookmarks
-    ---------------------------------------------------
+                                                                                    ╭────────────┐
+     Bookmarks                  Visual Bookmarks                                    │ Bookmarks  │
+╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
+
     _l_: list                    _s_: Show in current Buffer
     _b_: goto                    _S_: Show in all buffers
     _d_: delete                  _n_: Next
@@ -2771,59 +2811,60 @@ I press these too often
 
 ** Global hydra for Rectangle operations.
 #+begin_src emacs-lisp
-  (global-set-key
-   (kbd "C-x SPC")
-   (defhydra hydra-rectangle (:pre (rectangle-mark-mode 1)
-                              :color pink
-                              :post (deactivate-mark))
-     "
+  (defhydra hydra-rectangle (:body-pre (rectangle-mark-mode 1)
+                                       :color pink
+                                       :post (deactivate-mark))
+    "
         rectangle operations
 
         arrow keys extend region
      "
-     ("<left>"   backward-char nil)
-     ("<right>"  forward-char  nil)
-     ("<up>"     previous-line nil)
-     ("<down>"   next-line     nil)
-     ("d"        kill-rectangle         "delete")
-     ("c"        copy-rectangle-as-kill "copy")
-     ("y"        yank-rectangle         "yank")
-     ("f"        string-rectangle       "fill")
-     ("s"        open-rectangle         "shift")
-     ("a"        align-regexp           "align")
-     ("C-/"      undo                   "undo")
-     ("q"        nil)))
+    ("<left>"   backward-char nil)
+    ("<right>"  forward-char  nil)
+    ("<up>"     previous-line nil)
+    ("<down>"   next-line     nil)
+    ("d"        kill-rectangle         "delete")
+    ("c"        copy-rectangle-as-kill "copy")
+    ("y"        yank-rectangle         "yank")
+    ("f"        string-rectangle       "fill")
+    ("s"        open-rectangle         "shift")
+    ("a"        align-regexp           "align")
+    ("C-/"      undo                   "undo")
+    ("q"        nil))
+
+  (global-set-key (kbd "C-x SPC") 'hydra-rectangle)
+
 #+end_src
 
 ** Global hydra for launching.
 #+begin_src emacs-lisp
-  (global-set-key
-   (kbd "<f5> l")
-   (defhydra cnb-hydra-launch-functions (:color blue)
-     "
+   (global-set-key
+    (kbd "<f5> l")
+    (defhydra cnb-hydra-launch-functions (:color blue)
+      "
                                                                         ╭──────────┐
-   Tasks                                                                │ Launcher │
+                                                                        │ Launcher │
   ╭─────────────────────────────────────────────────────────────────────┴──────────╯
-
-  _a_nsi-term
-  _c_alculator
-  e_d_iff buffers
-  _f_ind-dired
-  helm-f_i_nd
-  _p_ackage manager
-  _P_ackage manager no fetch
-  _t_op
-  helm-_T_op
-  "
-     ("a" ansi-term                 nil)
-     ("c" calc                      nil)
-     ("d" ediff-buffers             nil)
-     ("f" find-dired                nil)
-     ("i" helm-find                 nil)
-     ("p" paradox-list-packages     nil)
-     ("P" (paradox-list-packages t) nil)
-     ("t" proced                    nil)
-     ("T" helm-top                  nil)))
+    _a_: ansi-term                      _p_: package manager
+    _c_: calculator                     _P_: package manager no fetch
+    _d_: ediff buffers                  _t_: top
+    _f_: find-dired                     _T_: helm-top
+    _i_: helm-find                      _e_: proced
+    ^ ^                                 _l_: list-processes
+  ───────────────────────────────────────────────────────────────────────────────────
+   "
+      ("a" ansi-term                 nil)
+      ("c" calc                      nil)
+      ("d" ediff-buffers             nil)
+      ("f" find-dired                nil)
+      ("i" helm-find                 nil)
+      ("p" paradox-list-packages     nil)
+      ("P" (paradox-list-packages t) nil)
+      ("t" proced                    nil)
+      ("T" helm-top                  nil)
+      ("e" proced                    nil)
+      ("l" list-processes            nil)
+      ("q" nil                       "cancel")))
 #+end_src
 
 ** Global hydra for occur/error
@@ -2876,13 +2917,13 @@ I press these too often
    (defhydra cnb-hydra-win-functions (:color amaranth)
      "
                                                                                     ╭────────────┐
-         Jump           Move Splitter    Split Window   Ace                         │  Windows   │
+    Jump           Move Splitter    Split Window   Ace                              │  Windows   │
 ╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
 
-   _<left>_: Left        _h_: Left          _x_: Horiz       _s_: Swap
-  _<right>_: Right       _l_: Right         _y_: Vert        _d_: Delete
-   _<down>_: Down        _j_: Down          _b_: Balance     _m_: Maximize
-     _<up>_: Up          _k_: Up
+   ←: Left        _h_: Left          _x_: Horiz       _s_: Swap
+   →: Right       _l_: Right         _y_: Vert        _d_: Delete
+   ↓: Down        _j_: Down          _b_: Balance     _m_: Maximize
+   ↑: Up          _k_: Up
 ──────────────────────────────────────────────────────────────────────────────────────────────────
   "
      ("<left>" window-jump-left nil)
@@ -3012,24 +3053,22 @@ I press these too often
     (kbd "<f5> r")
     (defhydra cnb-hydra-projectile-rails (:color teal)
       "
-    Root: %(projectile-project-root)
-                                                                                     ╭────────────┐
-     Find                           Run                   Logs                       │   Rails    │
-╭────────────────────────────────────────────────────────────────────────────────────┴────────────╯
+      Root: %(projectile-project-root)
+                                                                                       ╭────────────┐
+          Find                           Run                  Logs                     │   Rails    │
+  ╭────────────────────────────────────────────────────────────────────────────────────┴────────────╯
 
-         Find                              Run
-  ----------------------------------------------------------------
-      _a_: authorizer                    _rs_: server
-      _m_: model                         _rc_: console
-      _M_: current model                 _rr_: rake
-      _c_: controller
-      _C_: current controller            Logs
-      _d_: decorator                     ----
-      _D_: current decorator             _ld_: development
-      _v_: view                          _lp_: production
-      _V_: current view                  _lt_: test
+          _a_: authorizer                  _rs_: server           _ld_: development
+          _m_: model                       _rc_: console          _lp_: production
+          _M_: current model               _rr_: rake             _lt_: test
+          _c_: controller
+          _C_: current controller
+          _d_: decorator
+          _D_: current decorator
+          _v_: view
+          _V_: current view
 
-       "
+         "
       ("a" cnb/projectile-rails-find-authorizer        nil)
       ("c" projectile-rails-find-controller            nil)
       ("C" projectile-rails-find-current-controller    nil)
@@ -3052,7 +3091,7 @@ I press these too often
 #+end_src
 
 ** Smartparens hydras
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-linumsp
   (define-key smartparens-mode-map (kbd "<f7>")
     (defhydra hydra-learn-sp (:hint nil)
       "
@@ -3203,12 +3242,6 @@ Remember command and search history.
 * Put somewhere
 
 #+begin_src emacs-lisp
-  (use-package esup
-    :ensure esup)
-
-#+end_src
-
-#+begin_src emacs-lisp
   ;; From http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
   (defun cnb/narrow-or-widen-dwim (p)
     "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
@@ -3224,37 +3257,12 @@ Remember command and search history.
            (narrow-to-region (region-beginning) (region-end)))
           ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
           (t (narrow-to-defun))))
-
-
-
-
-#+end_src
-
-
-#+begin_src emacs-lisp
-  ;; Editing within Chrome
-  (use-package edit-server
-    :ensure edit-server
-
-    :init
-    (progn
-      ;; To make work in Gmail compose window.
-      (autoload 'edit-server-maybe-dehtmlize-buffer "edit-server-htmlize" "edit-server-htmlize" t)
-      (autoload 'edit-server-maybe-htmlize-buffer   "edit-server-htmlize" "edit-server-htmlize" t)
-      (add-hook 'edit-server-start-hook #'edit-server-maybe-dehtmlize-buffer)
-      (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer)))
-
 #+end_src
 
 #+begin_src emacs-lisp
   (use-package htmlize
     :ensure t)
 
-  (setq sql-input-ring-file-name "~/.emacs.d/sql_history")
-
-  ;;(setq browse-url-browser-function 'browse-url-firefox)
-  (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "chromium-browser")
 
   ;;(setq compilation-scroll-output t)
   (setq compilation-scroll-output 'first-error)

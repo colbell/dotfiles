@@ -82,10 +82,13 @@
     (cnb/toggle-theme)))
 
 (set-frame-font "Source Code Pro-10" nil t)
-(set-frame-font "DejaVu Sans Mono-11" nil t)
+;;(set-frame-font "DejaVu Sans Mono-11" nil t)
 
 (use-package csv-mode
   :ensure t)
+
+(use-package esup
+  :ensure esup)
 
 (random t)
 
@@ -137,15 +140,16 @@
   :ensure crosshairs
   :bind (("<f11>" . flash-crosshairs)))
 
+(defun cnb/nlinum-mode-hook ()
+  "Stop horiz jumps on scrolling"
+  (setq nlinum--width
+        (length (number-to-string
+                 (count-lines (point-min) (point-max))))))
+
 (use-package nlinum
   :ensure t
   :config
   (progn
-    (defun cnb/nlinum-mode-hook ()
-      "Stop horiz jumps on scrolling"
-      (setq nlinum--width
-            (length (number-to-string
-                     (count-lines (point-min) (point-max))))))
     (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
 
 (define-key global-map (kbd "C-+") 'text-scale-increase)
@@ -153,6 +157,24 @@
 
 (use-package httpcode
   :ensure httpcode)
+
+(mouse-avoidance-mode 'exile)
+
+(setq blink-cursor-blinks 0)
+(setq-default cursor-type 'bar)
+(blink-cursor-mode)
+
+(setq visible-bell t)
+
+(setq confirm-kill-emacs 'y-or-n-p)
+
+(global-hl-line-mode)
+
+(setq sql-input-ring-file-name "~/.emacs.d/sql_history")
+
+;;(setq browse-url-browser-function 'browse-url-firefox)
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "chromium-browser")
 
 (use-package smart-mode-line
   :ensure t
@@ -183,16 +205,16 @@
     (global-anzu-mode +1)
     (setq anzu-search-threshold 1000)))
 
-(use-package battery
-  :config
-  (progn
-    (when
-        (and battery-status-function
-             (not (string-match-p "N/A"
-                                  (battery-format "%B"
-                                                  (funcall battery-status-function)))))
-      (setq battery-mode-line-format "[%b%p%%%% %t]")
-      (display-battery-mode 1))))
+;; (use-package battery
+;;   :config
+;;   (progn
+;;     (when
+;;         (and battery-status-function
+;;              (not (string-match-p "N/A"
+;;                                   (battery-format "%B"
+;;                                                   (funcall battery-status-function)))))
+;;       (setq battery-mode-line-format "[%b%p%%%% %t]")
+;;       (display-battery-mode 1))))
 
 (setq resize-mini-windows t)
 (setq max-mini-window-height 0.33)
@@ -213,24 +235,12 @@
     (global-whitespace-mode)
     (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
 
-    (setq whitespace-global-modes '(not org-mode paradox-menu-mode term-mode))
+    ;;(setq whitespace-global-modes '(not org-mode paradox-menu-mode term-mode))
 
-    ;; Don't highlight WS in some modes.
-    (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
+    ;; Don't highlight trailing WS in some modes.
+    (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook cider-repl-mode
                                     term-mode-hook eww-mode-hook completion-list-mode-hook))
       (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
-
-(mouse-avoidance-mode 'exile)
-
-(setq blink-cursor-blinks 0)
-(setq-default cursor-type 'bar)
-(blink-cursor-mode)
-
-(setq visible-bell t)
-
-(setq confirm-kill-emacs 'y-or-n-p)
-
-(global-hl-line-mode)
 
 (use-package find-file-in-repository
   :ensure find-file-in-repository
@@ -350,6 +360,18 @@
     (unless (server-running-p)
       (server-start))))
     ;;(setenv "EDITOR" "emacsclient")))
+
+;; Editing within Chrome. You need the "Edit with Emacs" Chrome plugin
+;; installed in Chrome.
+(use-package edit-server
+  :ensure t
+  :ensure edit-server-htmlize
+
+  :init
+  (progn
+    (add-hook 'edit-server-start-hook #'edit-server-maybe-dehtmlize-buffer)
+    (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer)
+    (edit-server-start)))
 
 (setq abbrev-file-name "~/.emacs.d/abbrev_defs")
 (setq save-abbrevs 'silently)
@@ -1086,6 +1108,7 @@ Assumes that the frame is only split into two                            . "
 
   :config
   (progn
+
     (setq git-gutter-fr:side 'right-fringe)))
 
 (defun cnb/git-msg-popup-hook ()
@@ -1339,7 +1362,8 @@ Assumes that the frame is only split into two                            . "
     (add-hook 'clojure-mode-hook
               (lambda ()
                 (clj-refactor-mode 1)
-                (cljr-add-keybindings-with-prefix "C-o C-r")))
+                (cljr-add-keybindings-with-prefix "C-o C-r")
+                (push '("defn" . "\u0192") prettify-symbols-alist)))
 
     (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
     (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
@@ -1551,8 +1575,7 @@ Assumes that the frame is only split into two                            . "
 (add-hook
  'emacs-lisp-mode-hook
  (lambda ()
-   (push '("defun" . 402) prettify-symbols-alist)
-   (push '("."     . ?•)  prettify-symbols-alist)))
+   (push '("defun" . 402) prettify-symbols-alist)))
 
 (defun cnb/imenu-lisp-sections ()
   (setq imenu-prev-index-position-function nil)   ;; FIXME: DO I need this?
@@ -1666,10 +1689,11 @@ Assumes that the frame is only split into two                            . "
 
   :init
   (progn
-    (setq-default TeX-master nil)
+    ;;(setq-default TeX-master nil)
     (setq TeX-parse-self t)
     (setq TeX-auto-save t)
     (setq TeX-save-query nil)
+    ;;(setq TeX-PDF-mode t)
 
     (add-hook 'LaTeX-mode-hook #'visual-line-mode)
     (add-hook 'LaTeX-mode-hook #'flyspell-mode)
@@ -1915,99 +1939,101 @@ _q_uit"
    ("q" nil)))
 
 (global-set-key
- (kbd "<f5> b")
- (defhydra cnb-bookmarks (:color teal)
-   "
-   Bookmarks                  Visual Bookmarks
-  ---------------------------------------------------
-  _l_: list                    _s_: Show in current Buffer
-  _b_: goto                    _S_: Show in all buffers
-  _d_: delete                  _n_: Next
-  ^ ^                          _p_: Previous
-  ^ ^                          _t_: Toggle
-  ^ ^                          _x_: Set for a Regexp
-  ^ ^                          _A_: Cycle in all buffers: %`bm-cycle-all-buffers
-  ^ ^                          _T_: Temporary bookmarks:  %`temporary-bookmark-p
-  ^ ^                          _r_: Remove all from current buffer
-  ^ ^                          _R_: Remove all from ALL buffers
+   (kbd "<f5> b")
+   (defhydra cnb-bookmarks (:color teal)
+     "
+                                                                                    ╭────────────┐
+     Bookmarks                  Visual Bookmarks                                    │ Bookmarks  │
+╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
+
+    _l_: list                    _s_: Show in current Buffer
+    _b_: goto                    _S_: Show in all buffers
+    _d_: delete                  _n_: Next
+    ^ ^                          _p_: Previous
+    ^ ^                          _t_: Toggle
+    ^ ^                          _x_: Set for a Regexp
+    ^ ^                          _A_: Cycle in all buffers: %`bm-cycle-all-buffers
+    ^ ^                          _T_: Temporary bookmarks:  %`temporary-bookmark-p
+    ^ ^                          _r_: Remove all from current buffer
+    ^ ^                          _R_: Remove all from ALL buffers
+    "
+     ("l" bookmark-bmenu-list nil)
+     ("b" bookmark-jump       nil)
+     ("d" bookmark-delete     nil)
+
+     ("s" bm-show             nil)
+     ("S" bm-show-all         nil)
+     ("n" bm-next             nil :color red)
+     ("p" bm-previous         nil :color red)
+     ("t" bm-toggle           nil :color red)
+     ("A" (lambda ()
+            (interactive)
+            (if bm-cycle-all-buffers
+                (setq bm-cycle-all-buffers nil)
+              (setq bm-cycle-all-buffers t)))
+      nil :color red)
+     ("x" bm-bookmark-regexp  nil :color red)
+     ("T" (lambda ()
+            (interactive)
+            (if temporary-bookmark-p
+                (setq temporary-bookmark-p nil)
+              (setq temporary-bookmark-p t)))
+      nil :color red)
+     ("r" bm-remove-all-current-buffer nil :color red)
+     ("R" bm-remove-all-all-buffers    nil :color red)
+
+     ("q" nil                 "quit")))
+
+(defhydra hydra-rectangle (:body-pre (rectangle-mark-mode 1)
+                                     :color pink
+                                     :post (deactivate-mark))
   "
-   ("l" bookmark-bmenu-list nil)
-   ("b" bookmark-jump       nil)
-   ("d" bookmark-delete     nil)
-
-   ("s" bm-show             nil)
-   ("S" bm-show-all         nil)
-   ("n" bm-next             nil :color red)
-   ("p" bm-previous         nil :color red)
-   ("t" bm-toggle           nil :color red)
-   ("A" (lambda ()
-          (interactive)
-          (if bm-cycle-all-buffers
-              (setq bm-cycle-all-buffers nil)
-            (setq bm-cycle-all-buffers t)))
-    nil :color red)
-   ("x" bm-bookmark-regexp  nil :color red)
-   ("T" (lambda ()
-          (interactive)
-          (if temporary-bookmark-p
-              (setq temporary-bookmark-p nil)
-            (setq temporary-bookmark-p t)))
-    nil :color red)
-   ("r" bm-remove-all-current-buffer nil :color red)
-   ("R" bm-remove-all-all-buffers    nil :color red)
-
-   ("q" nil                 "quit")))
-
-(global-set-key
- (kbd "C-x SPC")
- (defhydra hydra-rectangle (:pre (rectangle-mark-mode 1)
-                            :color pink
-                            :post (deactivate-mark))
-   "
       rectangle operations
 
       arrow keys extend region
    "
-   ("<left>"   backward-char nil)
-   ("<right>"  forward-char  nil)
-   ("<up>"     previous-line nil)
-   ("<down>"   next-line     nil)
-   ("d"        kill-rectangle         "delete")
-   ("c"        copy-rectangle-as-kill "copy")
-   ("y"        yank-rectangle         "yank")
-   ("f"        string-rectangle       "fill")
-   ("s"        open-rectangle         "shift")
-   ("a"        align-regexp           "align")
-   ("C-/"      undo                   "undo")
-   ("q"        nil)))
+  ("<left>"   backward-char nil)
+  ("<right>"  forward-char  nil)
+  ("<up>"     previous-line nil)
+  ("<down>"   next-line     nil)
+  ("d"        kill-rectangle         "delete")
+  ("c"        copy-rectangle-as-kill "copy")
+  ("y"        yank-rectangle         "yank")
+  ("f"        string-rectangle       "fill")
+  ("s"        open-rectangle         "shift")
+  ("a"        align-regexp           "align")
+  ("C-/"      undo                   "undo")
+  ("q"        nil))
+
+(global-set-key (kbd "C-x SPC") 'hydra-rectangle)
 
 (global-set-key
- (kbd "<f5> l")
- (defhydra cnb-hydra-launch-functions (:color blue)
-   "
+  (kbd "<f5> l")
+  (defhydra cnb-hydra-launch-functions (:color blue)
+    "
                                                                       ╭──────────┐
- Tasks                                                                │ Launcher │
+                                                                      │ Launcher │
 ╭─────────────────────────────────────────────────────────────────────┴──────────╯
-
-_a_nsi-term
-_c_alculator
-e_d_iff buffers
-_f_ind-dired
-helm-f_i_nd
-_p_ackage manager
-_P_ackage manager no fetch
-_t_op
-helm-_T_op
-"
-   ("a" ansi-term                 nil)
-   ("c" calc                      nil)
-   ("d" ediff-buffers             nil)
-   ("f" find-dired                nil)
-   ("i" helm-find                 nil)
-   ("p" paradox-list-packages     nil)
-   ("P" (paradox-list-packages t) nil)
-   ("t" proced                    nil)
-   ("T" helm-top                  nil)))
+  _a_: ansi-term                      _p_: package manager
+  _c_: calculator                     _P_: package manager no fetch
+  _d_: ediff buffers                  _t_: top
+  _f_: find-dired                     _T_: helm-top
+  _i_: helm-find                      _e_: proced
+  ^ ^                                 _l_: list-processes
+───────────────────────────────────────────────────────────────────────────────────
+ "
+    ("a" ansi-term                 nil)
+    ("c" calc                      nil)
+    ("d" ediff-buffers             nil)
+    ("f" find-dired                nil)
+    ("i" helm-find                 nil)
+    ("p" paradox-list-packages     nil)
+    ("P" (paradox-list-packages t) nil)
+    ("t" proced                    nil)
+    ("T" helm-top                  nil)
+    ("e" proced                    nil)
+    ("l" list-processes            nil)
+    ("q" nil                       "cancel")))
 
 (global-set-key
  (kbd "<f5> o")
@@ -2051,13 +2077,13 @@ helm-_T_op
    (defhydra cnb-hydra-win-functions (:color amaranth)
      "
                                                                                     ╭────────────┐
-         Jump           Move Splitter    Split Window   Ace                         │  Windows   │
+    Jump           Move Splitter    Split Window   Ace                              │  Windows   │
 ╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
 
-   _<left>_: Left        _h_: Left          _x_: Horiz       _s_: Swap
-  _<right>_: Right       _l_: Right         _y_: Vert        _d_: Delete
-   _<down>_: Down        _j_: Down          _b_: Balance     _m_: Maximize
-     _<up>_: Up          _k_: Up
+   ←: Left        _h_: Left          _x_: Horiz       _s_: Swap
+   →: Right       _l_: Right         _y_: Vert        _d_: Delete
+   ↓: Down        _j_: Down          _b_: Balance     _m_: Maximize
+   ↑: Up          _k_: Up
 ──────────────────────────────────────────────────────────────────────────────────────────────────
   "
      ("<left>" window-jump-left nil)
@@ -2172,141 +2198,45 @@ _d_: subtree
       ("q"   nil                                       "quit" :color blue)))
 
 (define-key
-    projectile-rails-mode-map
-    (kbd "<f5> r")
-    (defhydra cnb-hydra-projectile-rails (:color teal)
-      "
+  projectile-rails-mode-map
+  (kbd "<f5> r")
+  (defhydra cnb-hydra-projectile-rails (:color teal)
+    "
     Root: %(projectile-project-root)
                                                                                      ╭────────────┐
-     Find                           Run                   Logs                       │   Rails    │
+        Find                           Run                  Logs                     │   Rails    │
 ╭────────────────────────────────────────────────────────────────────────────────────┴────────────╯
 
-         Find                              Run
-  ----------------------------------------------------------------
-      _a_: authorizer                    _rs_: server
-      _m_: model                         _rc_: console
-      _M_: current model                 _rr_: rake
-      _c_: controller
-      _C_: current controller            Logs
-      _d_: decorator                     ----
-      _D_: current decorator             _ld_: development
-      _v_: view                          _lp_: production
-      _V_: current view                  _lt_: test
+        _a_: authorizer                  _rs_: server           _ld_: development
+        _m_: model                       _rc_: console          _lp_: production
+        _M_: current model               _rr_: rake             _lt_: test
+        _c_: controller
+        _C_: current controller
+        _d_: decorator
+        _D_: current decorator
+        _v_: view
+        _V_: current view
 
        "
-      ("a" cnb/projectile-rails-find-authorizer        nil)
-      ("c" projectile-rails-find-controller            nil)
-      ("C" projectile-rails-find-current-controller    nil)
-      ("d" cnb/projectile-rails-find-decorator         nil)
-      ("D" cnb/projectile-rails-find-current-decorator nil)
-      ("m" projectile-rails-find-model                 nil)
-      ("M" projectile-rails-find-current-model         nil)
-      ("v" projectile-rails-find-view                  nil)
-      ("V" projectile-rails-find-current-view          nil)
+    ("a" cnb/projectile-rails-find-authorizer        nil)
+    ("c" projectile-rails-find-controller            nil)
+    ("C" projectile-rails-find-current-controller    nil)
+    ("d" cnb/projectile-rails-find-decorator         nil)
+    ("D" cnb/projectile-rails-find-current-decorator nil)
+    ("m" projectile-rails-find-model                 nil)
+    ("M" projectile-rails-find-current-model         nil)
+    ("v" projectile-rails-find-view                  nil)
+    ("V" projectile-rails-find-current-view          nil)
 
-      ("ld" rails-log-show-development nil)
-      ("lp" rails-log-show-production  nil)
-      ("lt" rails-log-show-test        nil)
+    ("ld" rails-log-show-development nil)
+    ("lp" rails-log-show-production  nil)
+    ("lt" rails-log-show-test        nil)
 
-      ("rs" projectile-rails-server         nil :color red)
-      ("rc" projectile-rails-console        nil :color red)
-      ("rr" projectile-rails-find-rake-task nil :color red)
+    ("rs" projectile-rails-server         nil :color red)
+    ("rc" projectile-rails-console        nil :color red)
+    ("rr" projectile-rails-find-rake-task nil :color red)
 
-      ("q" nil "quit" :color blue)))
-
-(define-key smartparens-mode-map (kbd "<f7>")
-    (defhydra hydra-learn-sp (:hint nil)
-      "
-                                                                                    ╭─────────────┐
-                                                                                    │ Smartparens │
-╭───────────────────────────────────────────────────────────────────────────────────┴─────────────╯
-    _B_ backward-sexp            ─────
-    _F_ forward-sexp               _s_ splice-sexp
-    _L_ backward-down-sexp         _df_ splice-sexp-killing-forward
-    _H_ backward-up-sexp           _db_ splice-sexp-killing-backward
-  ^^──────                         _da_ splice-sexp-killing-around
-    _k_ down-sexp                ─────
-    _j_ up-sexp                    _C-s_ select-next-thing-exchange
-  ─^^─────                         _C-p_ select-previous-thing
-    _n_ next-sexp                  _C-n_ select-next-thing
-    _p_ previous-sexp            ─────
-    _a_ beginning-of-sexp          _C-f_ forward-symbol
-    _z_ end-of-sexp                _C-b_ backward-symbol
-  ──^^─                          ─────
-    _t_ transpose-sexp             _c_ convolute-sexp
-  ─^^──                            _g_ absorb-sexp
-    _x_ delete-char                _q_ emit-sexp
-    _dw_ kill-word               ─────
-    _dd_ kill-sexp                 _,b_ extract-before-sexp
-  ─^^──                            _,a_ extract-after-sexp
-    _S_ unwrap-sexp              ─────
-  ─^^──                            _AP_ add-to-previous-sexp
-    _C-h_ forward-slurp-sexp       _AN_ add-to-next-sexp
-    _C-l_ forward-barf-sexp      ─────
-    _C-S-h_ backward-slurp-sexp    _ join-sexp
-    _C-S-l_ backward-barf-sexp     _|_ split-sexp
-  "
-      ;; TODO: Use () and [] - + * | <space>
-      ("B" sp-backward-sexp );; similiar to VIM b
-      ("F" sp-forward-sexp );; similar to VIM f
-      ;;
-      ("L" sp-backward-down-sexp )
-      ("H" sp-backward-up-sexp )
-      ;;
-      ("k" sp-down-sexp ) ; root - towards the root
-      ("j" sp-up-sexp )
-      ;;
-      ("n" sp-next-sexp )
-      ("p" sp-previous-sexp )
-      ;; a..z
-      ("a" sp-beginning-of-sexp )
-      ("z" sp-end-of-sexp )
-      ;;
-      ("t" sp-transpose-sexp )
-      ;;
-      ("x" sp-delete-char )
-      ("dw" sp-kill-word )
-      ;;("ds" sp-kill-symbol ) ;; Prefer kill-sexp
-      ("dd" sp-kill-sexp )
-      ;;("yy" sp-copy-sexp ) ;; Don't like it. Pref visual selection
-      ;;
-      ("S" sp-unwrap-sexp ) ;; Strip!
-      ;;("wh" sp-backward-unwrap-sexp ) ;; Too similar to above
-      ;;
-      ("C-h" sp-forward-slurp-sexp )
-      ("C-l" sp-forward-barf-sexp )
-      ("C-S-h" sp-backward-slurp-sexp )
-      ("C-S-l" sp-backward-barf-sexp )
-      ;;
-      ;;("C-[" (bind (sp-wrap-with-pair "[")) ) ;;FIXME
-      ;;("C-(" (bind (sp-wrap-with-pair "(")) )
-      ;;
-      ("s" sp-splice-sexp )
-      ("df" sp-splice-sexp-killing-forward )
-      ("db" sp-splice-sexp-killing-backward )
-      ("da" sp-splice-sexp-killing-around )
-      ;;
-      ("C-s" sp-select-next-thing-exchange )
-      ("C-p" sp-select-previous-thing )
-      ("C-n" sp-select-next-thing )
-      ;;
-      ("C-f" sp-forward-symbol )
-      ("C-b" sp-backward-symbol )
-      ;;
-      ;;("C-t" sp-prefix-tag-object)
-      ;;("H-p" sp-prefix-pair-object)
-      ("c" sp-convolute-sexp )
-      ("g" sp-absorb-sexp )
-      ("q" sp-emit-sexp )
-      ;;
-      (",b" sp-extract-before-sexp )
-      (",a" sp-extract-after-sexp )
-      ;;
-      ("AP" sp-add-to-previous-sexp );; Difference to slurp?
-      ("AN" sp-add-to-next-sexp )
-      ;;
-      ("_" sp-join-sexp ) ;;Good
-      ("|" sp-split-sexp )))
+    ("q" nil "quit" :color blue)))
 
 (use-package saveplace
   :demand
@@ -2344,9 +2274,6 @@ _d_: subtree
 (use-package 2048-game
   :ensure t)
 
-(use-package esup
-  :ensure esup)
-
 ;; From http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
 (defun cnb/narrow-or-widen-dwim (p)
   "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
@@ -2363,26 +2290,9 @@ narrowed."
         ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
         (t (narrow-to-defun))))
 
-;; Editing within Chrome
-(use-package edit-server
-  :ensure edit-server
-
-  :init
-  (progn
-    ;; To make work in Gmail compose window.
-    (autoload 'edit-server-maybe-dehtmlize-buffer "edit-server-htmlize" "edit-server-htmlize" t)
-    (autoload 'edit-server-maybe-htmlize-buffer   "edit-server-htmlize" "edit-server-htmlize" t)
-    (add-hook 'edit-server-start-hook #'edit-server-maybe-dehtmlize-buffer)
-    (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer)))
-
 (use-package htmlize
   :ensure t)
 
-(setq sql-input-ring-file-name "~/.emacs.d/sql_history")
-
-;;(setq browse-url-browser-function 'browse-url-firefox)
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium-browser")
 
 ;;(setq compilation-scroll-output t)
 (setq compilation-scroll-output 'first-error)
