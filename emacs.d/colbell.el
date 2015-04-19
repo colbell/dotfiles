@@ -1108,7 +1108,7 @@ Assumes that the frame is only split into two                            . "
 
   :config
   (progn
-
+    (global-git-gutter-mode)
     (setq git-gutter-fr:side 'right-fringe)))
 
 (defun cnb/git-msg-popup-hook ()

@@ -1617,7 +1617,7 @@ Git gutter fringe works with Flycheck/nlinum
 
     :config
     (progn
-
+      (global-git-gutter-mode)
       (setq git-gutter-fr:side 'right-fringe)))
 #+end_src
 
