@@ -90,7 +90,7 @@ mySWNConfig :: SWNConfig
 mySWNConfig = defaultSWNConfig {
                 swn_color   = myActiveBorderColor
               , swn_fade    = 2.0
-              , swn_bgcolor = myInactiveBorderColor}
+              , swn_bgcolor = myBgColor}
 
 myXPConfig :: XPConfig
 myXPConfig = defaultXPConfig
