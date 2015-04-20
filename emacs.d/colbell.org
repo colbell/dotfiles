@@ -999,28 +999,28 @@ Select window by direction keys.
 Select window by number.
 
 #+begin_src emacs-lisp
-  (use-package ace-window
-    :ensure ace-window
-    :bind (("C-x o"   . ace-window)
-           ("M-g SPC" . avi-goto-char)
-           ("M-g '"   . avi-goto-char-2)
-           ("M-g f"   . avi-goto-line)
-           ("M-g e"   . avi-goto-word-0)
-           ("M-g w"   . avi-goto-word-1))
+    (use-package ace-window
+      :ensure ace-window
+      :bind (("<f7>"    . ace-window)
+             ("M-g SPC" . avi-goto-char)
+             ("M-g '"   . avi-goto-char-2)
+             ("M-g f"   . avi-goto-line)
+             ("M-g e"   . avi-goto-word-0)
+             ("M-g w"   . avi-goto-word-1))
 
-    :init
-    (progn
-      (setq aw-scope 'frame)
-      (setq avi-background t)
-      (setq aw-flip-keys '("n"))  ;; 'n' will goto last window in ace-window
-      (setq avi-keys (nconc (loop for i from ?0 to ?9 collect i)
-                            (loop for i from ?a to ?z collect i)
-                            (loop for i from ?A to ?Z collect i))))
+      :init
+      (progn
+        (setq aw-scope 'frame)
+        (setq avi-background t)
+        (setq aw-flip-keys '("n"))  ;; 'n' will goto last window in ace-window
+        (setq avi-keys (nconc (loop for i from ?0 to ?9 collect i)
+                              (loop for i from ?a to ?z collect i)
+                              (loop for i from ?A to ?Z collect i))))
 
-    :config
-    (progn
-      (ace-window-display-mode)
-      (set-face-attribute 'aw-leading-char-face nil :height 2.0)))
+      :config
+      (progn
+        (ace-window-display-mode)
+        (set-face-attribute 'aw-leading-char-face nil :height 2.0)))
 #+end_src
 
 ** Ace Link
@@ -1699,33 +1699,41 @@ Projectile is a Project Interaction Library.
 #+end_src
 
 #+begin_src emacs-lisp
-    (use-package helm-projectile
-      :ensure helm-projectile
-      :init
-      (progn
-        (helm-projectile-on)
+  (use-package helm-projectile
+    :ensure helm-projectile
+    :init
+    (progn
+      (helm-projectile-on)
 
-        (defun cnb/projectile-rails-find-authorizer ()
-          (interactive)
-          (projectile-rails-find-resource
-           "authorizer: "
-           '(("app/authorizers/" "/authorizers/\\(.+\\)_authorizer\\.rb$"))
-           "app/authorizers/${filename}_authorizer.rb"))
+      (add-to-list 'projectile-rails-resource-name-re-list "/app/authorizers/\\(?:.+/\\)?\\(.+\\)\\.rb\\'")
+      (defun cnb/projectile-rails-find-authorizer ()
+        (interactive)
+        (projectile-rails-find-resource
+         "authorizer: "
+         '(("app/authorizers/" "/authorizers/\\(.+\\)_authorizer\\.rb$"))
+         "app/authorizers/${filename}_authorizer.rb"))
 
-        (defun cnb/projectile-rails-find-decorator ()
-          (interactive)
-          (projectile-rails-find-resource
-           "decorator: "
-           '(("app/decorators/" "/decorators/\\(.+\\)_decorator\\.rb$"))
-           "app/decorators/${filename}_decorator.rb"))
+      (defun cnb/projectile-rails-find-current-authorizer ()
+        (interactive)
+        (projectile-rails-find-current-resource "app/authorizers/"
+                                                "/${singular}\\.rb$"
+                                                'cnb/projectile-rails-find-authorizer))
 
-        (defun cnb/projectile-rails-find-current-decorator ()
-          (interactive)
-          (projectile-rails-find-current-resource "app/decorators/"
-                                                  "/${singular}\\.rb$"
-                                                  'cnb/projectile-rails-find-decorator))
+      (add-to-list 'projectile-rails-resource-name-re-list "/app/decorators/\\(?:.+/\\)?\\(.+\\)\\.rb\\'")
+      (defun cnb/projectile-rails-find-decorator ()
+        (interactive)
+        (projectile-rails-find-resource
+         "decorator: "
+         '(("app/decorators/" "/decorators/\\(.+\\)_decorator\\.rb$"))
+         "app/decorators/${filename}_decorator.rb"))
 
-        ))
+      (defun cnb/projectile-rails-find-current-decorator ()
+        (interactive)
+        (projectile-rails-find-current-resource "app/decorators/"
+                                                "/${singular}\\.rb$"
+                                                'cnb/projectile-rails-find-decorator))
+
+      ))
 #+end_src
 
 ** Smart Parens
@@ -2236,13 +2244,14 @@ Font lock for Ruby Yard comments.
 * Haskell
 
 #+begin_src emacs-lisp
-  (use-package haskell-mode
-    :ensure t
+    (use-package haskell-mode
+      :ensure t
 
-    :init
-    (progn
-      (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-      (add-hook 'haskell-mode-hook 'interactive-haskell-mode)))
+      :init
+      (progn
+        (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+        (add-hook 'haskell-mode-hook #'rainbow-mode)
+        (add-hook 'haskell-mode-hook 'interactive-haskell-mode)))
 #+end_src
 
 * Lua
@@ -2762,51 +2771,51 @@ I press these too often
 
 ** Global Hydra for Bookmarks.
 #+begin_src emacs-lisp
-  (global-set-key
-   (kbd "<f5> b")
-   (defhydra cnb-bookmarks (:color teal)
-     "
-                                                                                    ╭────────────┐
-     Bookmarks                  Visual Bookmarks                                    │ Bookmarks  │
-╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
+    (global-set-key
+     (kbd "<f5> b")
+     (defhydra cnb-bookmarks (:color teal)
+       "
+                                                                                      ╭────────────┐
+       Bookmarks                  Visual Bookmarks                                    │ Bookmarks  │
+  ╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
 
-    _l_: list                    _s_: Show in current Buffer
-    _b_: goto                    _S_: Show in all buffers
-    _d_: delete                  _n_: Next
-    ^ ^                          _p_: Previous
-    ^ ^                          _t_: Toggle
-    ^ ^                          _x_: Set for a Regexp
-    ^ ^                          _A_: Cycle in all buffers: %`bm-cycle-all-buffers
-    ^ ^                          _T_: Temporary bookmarks:  %`temporary-bookmark-p
-    ^ ^                          _r_: Remove all from current buffer
-    ^ ^                          _R_: Remove all from ALL buffers
-    "
-     ("l" bookmark-bmenu-list nil)
-     ("b" bookmark-jump       nil)
-     ("d" bookmark-delete     nil)
+      _l_: list                    _s_: Show in current Buffer
+      _b_: goto                    _S_: Show in all buffers
+      _d_: delete                  _n_: Next
+      ^ ^                          _p_: Previous
+      ^ ^                          _t_: Toggle
+      ^ ^                          _x_: Set for a Regexp
+      ^ ^                          _A_: Cycle in all buffers: %`bm-cycle-all-buffers
+      ^ ^                          _T_: Temporary bookmarks:  %`temporary-bookmark-p
+      ^ ^                          _r_: Remove all from current buffer
+      ^ ^                          _R_: Remove all from ALL buffers
+  "
+       ("l" bookmark-bmenu-list nil)
+       ("b" bookmark-jump       nil)
+       ("d" bookmark-delete     nil)
 
-     ("s" bm-show             nil)
-     ("S" bm-show-all         nil)
-     ("n" bm-next             nil :color red)
-     ("p" bm-previous         nil :color red)
-     ("t" bm-toggle           nil :color red)
-     ("A" (lambda ()
-            (interactive)
-            (if bm-cycle-all-buffers
-                (setq bm-cycle-all-buffers nil)
-              (setq bm-cycle-all-buffers t)))
-      nil :color red)
-     ("x" bm-bookmark-regexp  nil :color red)
-     ("T" (lambda ()
-            (interactive)
-            (if temporary-bookmark-p
-                (setq temporary-bookmark-p nil)
-              (setq temporary-bookmark-p t)))
-      nil :color red)
-     ("r" bm-remove-all-current-buffer nil :color red)
-     ("R" bm-remove-all-all-buffers    nil :color red)
+       ("s" bm-show             nil)
+       ("S" bm-show-all         nil)
+       ("n" bm-next             nil :color red)
+       ("p" bm-previous         nil :color red)
+       ("t" bm-toggle           nil :color red)
+       ("A" (lambda ()
+              (interactive)
+              (if bm-cycle-all-buffers
+                  (setq bm-cycle-all-buffers nil)
+                (setq bm-cycle-all-buffers t)))
+        nil :color red)
+       ("x" bm-bookmark-regexp  nil :color red)
+       ("T" (lambda ()
+              (interactive)
+              (if temporary-bookmark-p
+                  (setq temporary-bookmark-p nil)
+                (setq temporary-bookmark-p t)))
+        nil :color red)
+       ("r" bm-remove-all-current-buffer nil :color red)
+       ("R" bm-remove-all-all-buffers    nil :color red)
 
-     ("q" nil                 "quit")))
+       ("q" nil                 "quit")))
 #+end_src
 
 ** Global hydra for Rectangle operations.
@@ -3059,8 +3068,9 @@ I press these too often
   ╭────────────────────────────────────────────────────────────────────────────────────┴────────────╯
 
           _a_: authorizer                  _rs_: server           _ld_: development
-          _m_: model                       _rc_: console          _lp_: production
-          _M_: current model               _rr_: rake             _lt_: test
+          _A_: current authorizer          _rc_: console          _lp_: production
+          _m_: model                       _rr_: rake             _lt_: test
+          _M_: current model
           _c_: controller
           _C_: current controller
           _d_: decorator
@@ -3069,15 +3079,16 @@ I press these too often
           _V_: current view
 
          "
-      ("a" cnb/projectile-rails-find-authorizer        nil)
-      ("c" projectile-rails-find-controller            nil)
-      ("C" projectile-rails-find-current-controller    nil)
-      ("d" cnb/projectile-rails-find-decorator         nil)
-      ("D" cnb/projectile-rails-find-current-decorator nil)
-      ("m" projectile-rails-find-model                 nil)
-      ("M" projectile-rails-find-current-model         nil)
-      ("v" projectile-rails-find-view                  nil)
-      ("V" projectile-rails-find-current-view          nil)
+      ("a" cnb/projectile-rails-find-authorizer         nil)
+      ("A" cnb/projectile-rails-find-current-authorizer nil)
+      ("c" projectile-rails-find-controller             nil)
+      ("C" projectile-rails-find-current-controller     nil)
+      ("d" cnb/projectile-rails-find-decorator          nil)
+      ("D" cnb/projectile-rails-find-current-decorator  nil)
+      ("m" projectile-rails-find-model                  nil)
+      ("M" projectile-rails-find-current-model          nil)
+      ("v" projectile-rails-find-view                   nil)
+      ("V" projectile-rails-find-current-view           nil)
 
       ("ld" rails-log-show-development nil)
       ("lp" rails-log-show-production  nil)
@@ -3091,8 +3102,8 @@ I press these too often
 #+end_src
 
 ** Smartparens hydras
-#+BEGIN_SRC emacs-linumsp
-  (define-key smartparens-mode-map (kbd "<f7>")
+#+BEGIN_SRC emacs-lisp
+  (define-key smartparens-mode-map (kbd "<f5> s")
     (defhydra hydra-learn-sp (:hint nil)
       "
                                                                                     ╭─────────────┐
