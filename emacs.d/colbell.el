@@ -27,6 +27,7 @@
 (add-subdirs-to-load-path (expand-file-name "vendor" user-emacs-directory))
 
 (require 'package)
+(setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" .  "http://melpa.org/packages/") 'APPEND)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") 'APPEND)
 (package-initialize)
