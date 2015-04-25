@@ -34,6 +34,12 @@ myWorkspaces :: [WorkspaceId]
 myWorkspaces = ["1-emacs", "2-shell", "3-web", "4-fm", "5", "6", "7-ssh",
                 "8-im", "9-mail"]
 
+myTerm :: String
+myTerm = "konsole"
+
+myScreenLocker :: String
+myScreenLocker = "/usr/lib/kde4/libexec/kscreenlocker_greet --immediateLock"
+
 myManageHook :: ManageHook
 myManageHook = scratchpadManageHookDefault <+>composeAll (
     [ manageHook kde4Config
@@ -119,11 +125,12 @@ main = do
              , layoutHook         = myLayout
              , normalBorderColor  = myInactiveBorderColor
              , focusedBorderColor = "#ff4500"
+             , focusFollowsMouse  = False
              } `additionalKeys` keys'
     where
       keys' =  [ ((myModMask , xK_Return),               dwmpromote)
-               , ((myModMask .|. shiftMask, xK_Return),  spawn "konsole")
-               , ((myModMask .|. shiftMask, xK_z),       spawn "/usr/lib/kde4/libexec/kscreenlocker_greet --immediateLock")
+               , ((myModMask .|. shiftMask, xK_Return),  spawn myTerm)
+               , ((myModMask .|. shiftMask, xK_z),       spawn myScreenLocker)
                , ((mod1Mask, xK_F4),                     kill)
 
                , ((myModMask, xK_F1),                manPrompt myXPConfig)
