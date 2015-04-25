@@ -125,36 +125,37 @@ brighter; it simply makes everything else vanish.
 
 * Theme
 
-  Allow toggling between dark and light themes.
+  Allow toggling between themes.
 
 #+begin_src emacs-lisp
   (defun cnb/toggle-theme ()
-    "Toggle between light and dark themes."
+    "Toggle between themes."
     (interactive)
-    (let* ((dark-theme 'solarized-dark)
-           (light-theme 'solarized-light)
-           (is-light (member light-theme custom-enabled-themes)))
-      (dolist (theme custom-enabled-themes)
-        (disable-theme theme))
-      (load-theme (if is-light dark-theme light-theme) t)))
+    (let ((next-theme
+           (cond ((member 'zenburn custom-enabled-themes) 'solarized-dark)
+                 ((member 'solarized-dark custom-enabled-themes) 'solarized-light)
+                 (t 'zenburn))))
+      (dolist (theme custom-enabled-themes) (disable-theme theme))
+      (load-theme next-theme t)))
 #+end_src
 
   Lets make Emacs pretty.
 
 #+begin_src emacs-lisp
-    (use-package solarized-theme
-      :ensure t
+      (use-package solarized-theme
+        :ensure t
+        :ensure zenburn-theme
 
-      :init
-      (progn
-        (setq solarized-distinct-fringe-background t)
-        (setq solarized-scale-org-headlines nil)
-        (setq solarized-use-variable-pitch nil)
-        (setq solarized-high-contrast-mode-line nil)
-        ;;(setq solarized-use-more-italic t)
-        ;;(setq solarized-use-less-bold t)
-        ;;(load-theme 'solarized-dark t)
-        (cnb/toggle-theme)))
+        :init
+        (progn
+          (setq solarized-distinct-fringe-background t)
+          (setq solarized-scale-org-headlines nil)
+          (setq solarized-use-variable-pitch nil)
+          (setq solarized-high-contrast-mode-line nil)
+          ;;(setq solarized-use-more-italic t)
+          ;;(setq solarized-use-less-bold t)
+          ;;(load-theme 'solarized-dark t)
+          (cnb/toggle-theme)))
 #+end_src
 
 * Font
@@ -459,8 +460,10 @@ brighter; it simply makes everything else vanish.
       ;;(setq whitespace-global-modes '(not org-mode paradox-menu-mode term-mode))
 
       ;; Don't highlight trailing WS in some modes.
-      (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook cider-repl-mode
-                                      term-mode-hook eww-mode-hook completion-list-mode-hook))
+      (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
+                                      cider-repl-mode term-mode-hook
+                                      eww-mode-hook completion-list-mode-hook
+                                      undo-tree-visualizer-mode-hook))
         (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
 #+end_src
 
@@ -2914,7 +2917,7 @@ I press these too often
      ("l" nlinum-mode            nil)
      ("r" dired-toggle-read-only nil)
      ("t" toggle-truncate-lines  nil)
-     ("T" cnb/toggle-theme       nil :color blue)
+     ("T" cnb/toggle-theme       nil)
      ("v" visual-line-mode       nil)
      ("w" whitespace-mode        nil)
      ("q" nil "cancel")))
@@ -3018,42 +3021,42 @@ I press these too often
 
 ** Projectile mode hydras.
 #+begin_src emacs-lisp
-  (define-key
-    projectile-mode-map
-    (kbd "<f5> p")
-    (defhydra cnb-hydra-projectile (:color teal)
+    (define-key
+      projectile-mode-map
+      (kbd "<f5> p")
+      (defhydra cnb-hydra-projectile (:color teal)
+        "
+       Root: %(if (projectile-project-p) (projectile-project-root))
+                                                                                                      ╭────────────┐
+       Files                           Buffers                   Search               Projects        │ Projectile │
+  ╭───────────────────────────────────────────────────────────────────────────────────────────────────┴────────────╯
+
+       _f_: find                         _i_: ibuffer                _s_: search (ag)       _p_: Switch
+       _F_: find in other window         _b_: switch to  buffer      _o_: multi-occur       _x_: cleanup
+       _d_: find in directory            _k_: kill all buffers       _u_: query-replace
+       _r_: recent files                 ^    ^                      _T_: regenerate tags
+       ^    ^                            ^    ^                      _t_: search tags
+  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
       "
-     Root: %(projectile-project-root)
-                                                                                                    ╭────────────┐
-     Files                           Buffers                   Search               Projects        │ Projectile │
-╭───────────────────────────────────────────────────────────────────────────────────────────────────┴────────────╯
+        ("f" projectile-find-file                        nil)
+        ("F" projectile-find-file-other-window           nil)
+        ("d" projectile-find-file-in-directory           nil)
+        ("r" projectile-recentf                          nil)
 
-     _f_: find                         _i_: ibuffer                _s_: search (ag)       _p_: Switch
-     _F_: find in other window         _b_: switch to  buffer      _o_: multi-occur       _x_: cleanup
-     _d_: find in directory            _k_: kill all buffers       _u_: query-replace
-     _r_: recent files                 ^    ^                      _T_: regenerate tags
-     ^    ^                            ^    ^                      _t_: search tags
-──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-    "
-      ("f" projectile-find-file                        nil)
-      ("F" projectile-find-file-other-window           nil)
-      ("d" projectile-find-file-in-directory           nil)
-      ("r" projectile-recentf                          nil)
+        ("i" projectile-ibuffer                          nil)
+        ("b" projectile-switch-to-buffer                 nil)
+        ("k" projectile-kill-buffers                     nil :color blue)
 
-      ("i" projectile-ibuffer                          nil)
-      ("b" projectile-switch-to-buffer                 nil)
-      ("k" projectile-kill-buffers                     nil :color blue)
+        ("s" projectile-ag                               nil)
+        ("o" projectile-multi-occur                      nil)
+        ("u" projectile-replace                          nil)
+        ("t" projectile-find-tag                         nil)
+        ("T" projectile-regenerate-tags                  nil :color red)
 
-      ("s" projectile-ag                               nil)
-      ("o" projectile-multi-occur                      nil)
-      ("u" projectile-replace                          nil)
-      ("t" projectile-find-tag                         nil)
-      ("T" projectile-regenerate-tags                  nil :color red)
+        ("p" projectile-switch-project                   nil)
+        ("x" projectile-cleanup-known-projects           nil :color red)
 
-      ("p" projectile-switch-project                   nil)
-      ("x" projectile-cleanup-known-projects           nil :color red)
-
-      ("q"   nil                                       "quit" :color blue)))
+        ("q"   nil                                       "quit" :color blue)))
 #+end_src
 
 ** Projectile Rails mode hydras.
@@ -3204,7 +3207,7 @@ Remember current position in file.
 
 #+begin_src emacs-lisp
   (use-package saveplace
-    :demand
+    ;;:demand
 
     :init
     (progn
@@ -3215,22 +3218,23 @@ Remember current position in file.
 Remember open buffers.
 
 #+begin_src emacs-lisp
-  (use-package desktop
-    :demand t
+  ;; Problems with projectile mode. Reuses to load desktop.
+  ;; (use-package desktop
+  ;;   :demand t
 
-    :init
-    (progn
-     (desktop-save-mode)
-     (setq desktop-restore-frames nil) ;; Probs with emacsclient
-     (setq desktop-load-locked-desktop nil)
-     (setq desktop-restore-eager 10)   ;; Open first X immed then rest in background
+  ;;   :init
+  ;;   (progn
+  ;;     (desktop-save-mode)
+  ;;     ;;(setq desktop-restore-frames nil) ;; Probs with emacsclient
+  ;;     (setq desktop-load-locked-desktop nil)
+  ;;     (setq desktop-restore-eager 10)   ;; Open first X immed then rest in background
 
-     (setq desktop-globals-to-save (delete 'tags-file-name desktop-globals-to-save))
-     (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save)))
+  ;;     (setq desktop-globals-to-save (delete 'tags-file-name desktop-globals-to-save))
+  ;;     (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save)))
 
-    :config
-    (progn
-      (add-to-list 'desktop-modes-not-to-save 'dired-mode)))
+  ;;   :config
+  ;;   (progn
+  ;;     (add-to-list 'desktop-modes-not-to-save 'dired-mode)))
 #+end_src
 
 Remember command and search history.

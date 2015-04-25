@@ -59,17 +59,18 @@
     (setq paradox-spinner-type 'box-in-circle)))
 
 (defun cnb/toggle-theme ()
-  "Toggle between light and dark themes."
+  "Toggle between themes."
   (interactive)
-  (let* ((dark-theme 'solarized-dark)
-         (light-theme 'solarized-light)
-         (is-light (member light-theme custom-enabled-themes)))
-    (dolist (theme custom-enabled-themes)
-      (disable-theme theme))
-    (load-theme (if is-light dark-theme light-theme) t)))
+  (let ((next-theme
+         (cond ((member 'zenburn custom-enabled-themes) 'solarized-dark)
+               ((member 'solarized-dark custom-enabled-themes) 'solarized-light)
+               (t 'zenburn))))
+    (dolist (theme custom-enabled-themes) (disable-theme theme))
+    (load-theme next-theme t)))
 
 (use-package solarized-theme
   :ensure t
+  :ensure zenburn-theme
 
   :init
   (progn
@@ -239,8 +240,10 @@
     ;;(setq whitespace-global-modes '(not org-mode paradox-menu-mode term-mode))
 
     ;; Don't highlight trailing WS in some modes.
-    (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook cider-repl-mode
-                                    term-mode-hook eww-mode-hook completion-list-mode-hook))
+    (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
+                                    cider-repl-mode term-mode-hook
+                                    eww-mode-hook completion-list-mode-hook
+                                    undo-tree-visualizer-mode-hook))
       (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
 
 (use-package find-file-in-repository
@@ -2077,7 +2080,7 @@ _q_uit"
      ("l" nlinum-mode            nil)
      ("r" dired-toggle-read-only nil)
      ("t" toggle-truncate-lines  nil)
-     ("T" cnb/toggle-theme       nil :color blue)
+     ("T" cnb/toggle-theme       nil)
      ("v" visual-line-mode       nil)
      ("w" whitespace-mode        nil)
      ("q" nil "cancel")))
@@ -2175,7 +2178,7 @@ _d_: subtree
     (kbd "<f5> p")
     (defhydra cnb-hydra-projectile (:color teal)
       "
-     Root: %(projectile-project-root)
+     Root: %(if (projectile-project-p) (projectile-project-root))
                                                                                                     ╭────────────┐
      Files                           Buffers                   Search               Projects        │ Projectile │
 ╭───────────────────────────────────────────────────────────────────────────────────────────────────┴────────────╯
@@ -2345,29 +2348,30 @@ _d_: subtree
       ("|" sp-split-sexp )))
 
 (use-package saveplace
-  :demand
+  ;;:demand
 
   :init
   (progn
     (setq-default save-place t)
     (setq save-place-file (expand-file-name "places" user-emacs-directory))))
 
-(use-package desktop
-  :demand t
+;; Problems with projectile mode. Reuses to load desktop.
+;; (use-package desktop
+;;   :demand t
 
-  :init
-  (progn
-   (desktop-save-mode)
-   (setq desktop-restore-frames nil) ;; Probs with emacsclient
-   (setq desktop-load-locked-desktop nil)
-   (setq desktop-restore-eager 10)   ;; Open first X immed then rest in background
+;;   :init
+;;   (progn
+;;     (desktop-save-mode)
+;;     ;;(setq desktop-restore-frames nil) ;; Probs with emacsclient
+;;     (setq desktop-load-locked-desktop nil)
+;;     (setq desktop-restore-eager 10)   ;; Open first X immed then rest in background
 
-   (setq desktop-globals-to-save (delete 'tags-file-name desktop-globals-to-save))
-   (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save)))
+;;     (setq desktop-globals-to-save (delete 'tags-file-name desktop-globals-to-save))
+;;     (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save)))
 
-  :config
-  (progn
-    (add-to-list 'desktop-modes-not-to-save 'dired-mode)))
+;;   :config
+;;   (progn
+;;     (add-to-list 'desktop-modes-not-to-save 'dired-mode)))
 
 (use-package savehist
   :init
