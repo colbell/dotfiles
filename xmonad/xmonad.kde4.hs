@@ -126,6 +126,7 @@ main = do
              , normalBorderColor  = myInactiveBorderColor
              , focusedBorderColor = "#ff4500"
              , focusFollowsMouse  = False
+             , clickJustFocuses   = False
              } `additionalKeys` keys'
     where
       keys' =  [ ((myModMask , xK_Return),               dwmpromote)
