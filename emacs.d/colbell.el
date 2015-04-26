@@ -361,8 +361,7 @@
 
   :config
   (progn
-    (unless (server-running-p)
-      (server-start))))
+    (unless (server-running-p) (server-start))))
     ;;(setenv "EDITOR" "emacsclient")))
 
 ;; Editing within Chrome. You need the "Edit with Emacs" Chrome plugin
@@ -1156,6 +1155,7 @@ Assumes that the frame is only split into two                            . "
     ;;(setq projectile-completion-system 'helm)
     (setq projectile-completion-system 'helm-comp-read)
     (setq projectile-switch-project-action 'projectile-dired)
+    (setq projectile-enable-caching t)
     (projectile-global-mode)))
 
 (use-package projectile-rails
@@ -1247,12 +1247,11 @@ Assumes that the frame is only split into two                            . "
   :config
   (progn
     (yas-global-mode 1)))
-    ;;(setq yas-prompt-functions '(yas-ido-prompt
-    ;;                             yas-completing-prompt))
 
 
 (use-package helm-c-yasnippet
   :ensure helm-c-yasnippet
+  :defer t
   :bind (("C-c y" . helm-yas-complete)))
 
 (use-package rainbow-delimiters
