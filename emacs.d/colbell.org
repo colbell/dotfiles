@@ -621,8 +621,7 @@ Start Emacs server on first Emacs instance.
 
     :config
     (progn
-      (unless (server-running-p)
-        (server-start))))
+      (unless (server-running-p) (server-start))))
       ;;(setenv "EDITOR" "emacsclient")))
 
 #+end_src
@@ -1690,6 +1689,7 @@ Projectile is a Project Interaction Library.
       ;;(setq projectile-completion-system 'helm)
       (setq projectile-completion-system 'helm-comp-read)
       (setq projectile-switch-project-action 'projectile-dired)
+      (setq projectile-enable-caching t)
       (projectile-global-mode)))
 
   (use-package projectile-rails
@@ -1793,12 +1793,11 @@ Deal with parens in a smart way.
     :config
     (progn
       (yas-global-mode 1)))
-      ;;(setq yas-prompt-functions '(yas-ido-prompt
-      ;;                             yas-completing-prompt))
 
 
   (use-package helm-c-yasnippet
     :ensure helm-c-yasnippet
+    :defer t
     :bind (("C-c y" . helm-yas-complete)))
 #+end_src
 
