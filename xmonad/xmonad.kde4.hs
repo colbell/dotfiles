@@ -53,6 +53,7 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , resource  =? "kdesktop"          --> doIgnore
     , className =? "MPlayer"           --> doFloat
     , className =? "Plasma"            --> doFloat
+    , className =? "plasmashell"       --> doIgnore
     , className =? "Plasma-desktop"    --> doFloat
     , className =? "Knotes"            --> doFloat
     , className =? "Klipper"           --> doFloat
@@ -125,8 +126,8 @@ main = do
              , layoutHook         = myLayout
              , normalBorderColor  = myInactiveBorderColor
              , focusedBorderColor = "#ff4500"
-             , focusFollowsMouse  = False
-             , clickJustFocuses   = False
+             , focusFollowsMouse  = True
+             -- , clickJustFocuses   = False
              } `additionalKeys` keys'
     where
       keys' =  [ ((myModMask , xK_Return),               dwmpromote)
