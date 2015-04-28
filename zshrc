@@ -83,13 +83,23 @@ if [ -d "$HOME/android-sdk-linux/tools" ]; then
   PATH=$PATH:$HOME/android-sdk-linux/tools
 fi
 
-if [[ -f "$HOME/.aws_keys" ]]; then
-  source "$HOME/.aws_keys";
-fi
-
 ### Added by the Heroku Toolbelt
 if [ -d "/usr/local/heroku/bin" ]; then
   export PATH="/usr/local/heroku/bin:$PATH"
+fi
+
+if [ -d "$HOME/apps/eb" ]; then
+  export PATH="$PATH:$HOME/apps/eb"
+fi
+
+
+# Emacs seems to need a trailing : character on the path otherwise
+# it ignores the value of $PATH and just uses the standard system path.
+export PATH="$PATH:"
+
+
+if [[ -f "$HOME/.aws_keys" ]]; then
+  source "$HOME/.aws_keys";
 fi
 
 if [ -d "$HOME/.rbenv/bin" ]; then
@@ -97,20 +107,20 @@ if [ -d "$HOME/.rbenv/bin" ]; then
   eval "$(rbenv init -)"
 fi
 
-if [ -d "$HOME/apps/scala/bin" ]; then
-  export SCALA_HOME=$HOME/apps/scala
-  export PATH="$SCALA_HOME/bin:$PATH"
-fi
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+# if [ -d "$HOME/apps/scala/bin" ]; then
+#   export SCALA_HOME=$HOME/apps/scala
+#   export PATH="$SCALA_HOME/bin:$PATH"
+# fi
 
 # if [ -d "$HOME/apps/awseb/eb/linux/python2.7" ]; then
 #   PATH=$HOME/apps/awseb/eb/linux/python2.7:$PATH
 # fi
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
-if [ -d "/usr/lib/jvm/java-7-oracle" ]; then
-  export JAVA_HOME="/usr/lib/jvm/java-7-oracle"
-fi
+# if [ -d "/usr/lib/jvm/java-7-oracle" ]; then
+#   export JAVA_HOME="/usr/lib/jvm/java-7-oracle"
+# fi
 
 source $ZSH/oh-my-zsh.sh
 
