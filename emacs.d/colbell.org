@@ -3046,7 +3046,7 @@ I press these too often
        _r_: recent files                 ^    ^                      _T_: regenerate tags
        _h_: project home                 ^    ^                      _t_: search tags
   ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-         "
+       "
         ("f" projectile-find-file                        nil)
         ("F" projectile-find-file-other-window           nil)
         ("d" projectile-find-file-in-directory           nil)
@@ -3097,8 +3097,8 @@ I press these too often
     ╭────────────────────────────────────────────────────────────────────────────────────┴──────────────╯
 
             _ld_: development               _lp_: production        _lt_: test
-    ─────────────────────────────────────────────────────────────────────────────────────────────────────
-           "
+
+      "
         ("a" cnb/projectile-rails-find-authorizer         nil)
         ("A" cnb/projectile-rails-find-current-authorizer nil)
         ("c" projectile-rails-find-controller             nil)
