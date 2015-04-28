@@ -39,7 +39,7 @@
     (package-install 'use-package)
     (require 'use-package)))
 
-;; use-package needs these packages to use the :bindkey and
+;; use-package needs these packages to use the :bind and
 ;; :diminish options.
 (use-package diminish
   :ensure t)
@@ -115,11 +115,7 @@
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-;; backwards compatibility as default-buffer-file-coding-system
-;; is deprecated in 23.2.
-(if (boundp 'buffer-file-coding-system)
-    (setq-default buffer-file-coding-system 'utf-8)
-  (setq default-buffer-file-coding-system 'utf-8))
+(setq-default buffer-file-coding-system 'utf-8)
 
 ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
@@ -195,8 +191,8 @@
 :defer t
 :init
 (progn
-  (set-face-attribute 'which-func nil :foreground "orange")
-  (which-func-mode 1))
+  ;;(set-face-attribute 'which-func nil :foreground "orange")
+  (which-function-mode))
 
 (use-package anzu
   :ensure anzu
@@ -420,8 +416,14 @@ in native application through xdg-open"
       (dolist (fn my_files)
         (start-process "" nil "xdg-open" fn)))))
 
+(setq dired-guess-shell-alist-user
+      '(("\\.pdf\\'" "okular")
+        ("\\.tex\\'" "pdflatex")
+        ("\\.ods\\'\\|\\.xlsx?\\'\\|\\.docx?\\'\\|\\.csv\\'" "libreoffice")))
+
 (defun cnb/dired-get-size ()
-  "Get total size of all marked files. From http://oremacs.com/2015/01/12/dired-file-size/"
+  "Get total size of all marked files."
+  ;;  From http://oremacs.com/2015/01/12/dired-file-size/
   (interactive)
   (let ((files (dired-get-marked-files)))
     (with-temp-buffer
@@ -479,8 +481,8 @@ in native application through xdg-open"
   (progn
     (setq dired-listing-switches "-alhGv --group-directories-first")
     (setq dired-dwim-target t)
-    (setq dired-recursive-copies 'always)
-    (setq dired-recursive-deletes 'always)
+    (setq dired-recursive-copies 'always) ; Don't ask
+    (setq dired-recursive-deletes 'top)   ; Ask once
     (setq diredp-hide-details-initially-flag nil)
 
     (when (boundp 'dired-mode-map)
@@ -1564,6 +1566,9 @@ Assumes that the frame is only split into two                            . "
 (use-package rails-log-mode
   :ensure t)
 
+(use-package foreman-mode
+  :ensure t)
+
 (use-package rspec-mode
   :ensure rspec-mode)
 
@@ -2017,7 +2022,7 @@ _q_uit"
   ("C-/"      undo                   "undo")
   ("q"        nil))
 
-(global-set-key (kbd "C-x SPC") 'hydra-rectangle)
+(global-set-key (kbd "C-x SPC") 'hydra-rectangle/body)
 
 (global-set-key
   (kbd "<f5> l")
@@ -2184,15 +2189,16 @@ _d_: subtree
 
      _f_: find                         _i_: ibuffer                _s_: search (ag)       _p_: Switch
      _F_: find in other window         _b_: switch to  buffer      _o_: multi-occur       _x_: cleanup
-     _d_: find in directory            _k_: kill all buffers       _u_: query-replace
+     _d_: find in directory            _k_: kill all buffers       _u_: query-replace     _I_: info
      _r_: recent files                 ^    ^                      _T_: regenerate tags
-     ^    ^                            ^    ^                      _t_: search tags
+     _h_: project home                 ^    ^                      _t_: search tags
 ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-    "
+       "
       ("f" projectile-find-file                        nil)
       ("F" projectile-find-file-other-window           nil)
       ("d" projectile-find-file-in-directory           nil)
       ("r" projectile-recentf                          nil)
+      ("h" projectile-dired                            nil)
 
       ("i" projectile-ibuffer                          nil)
       ("b" projectile-switch-to-buffer                 nil)
@@ -2206,6 +2212,7 @@ _d_: subtree
 
       ("p" projectile-switch-project                   nil)
       ("x" projectile-cleanup-known-projects           nil :color red)
+      ("I" projectile-project-info                     nil)
 
       ("q"   nil                                       "quit" :color blue)))
 
@@ -2215,21 +2222,26 @@ _d_: subtree
   (defhydra cnb-hydra-projectile-rails (:color teal)
     "
     Root: %(projectile-project-root)
-                                                                                     ╭────────────┐
-        Find                           Run                  Logs                     │   Rails    │
-╭────────────────────────────────────────────────────────────────────────────────────┴────────────╯
+                                                                                     ╭──────────────┐
+                                                                                     │ Rails - Find │
+╭────────────────────────────────────────────────────────────────────────────────────┴──────────────╯
 
-        _a_: authorizer                  _rs_: server           _ld_: development
-        _A_: current authorizer          _rc_: console          _lp_: production
-        _m_: model                       _rr_: rake             _lt_: test
-        _M_: current model
-        _c_: controller
-        _C_: current controller
-        _d_: decorator
-        _D_: current decorator
-        _v_: view
-        _V_: current view
+         _a_: authorizer                 _m_: model              _c_: controller
+         _A_: current authorizer         _M_: current model      _C_: current controller
+         _d_: decorator                  _v_: view
+         _D_: current decorator          _V_: current view
+                                                                                     ╭──────────────┐
+                                                                                     │ Rails - Run  │
+╭────────────────────────────────────────────────────────────────────────────────────┴──────────────╯
 
+        _rs_: server                    _rc_: console           _rr_: rake
+         _f_: foreman
+                                                                                     ╭──────────────┐
+                                                                                     │ Rails - Logs │
+╭────────────────────────────────────────────────────────────────────────────────────┴──────────────╯
+
+        _ld_: development               _lp_: production        _lt_: test
+─────────────────────────────────────────────────────────────────────────────────────────────────────
        "
     ("a" cnb/projectile-rails-find-authorizer         nil)
     ("A" cnb/projectile-rails-find-current-authorizer nil)
@@ -2249,6 +2261,11 @@ _d_: subtree
     ("rs" projectile-rails-server         nil :color red)
     ("rc" projectile-rails-console        nil :color red)
     ("rr" projectile-rails-find-rake-task nil :color red)
+    ("f"  (lambda ()
+            (interactive)
+            (setenv "PORT" "5000")
+            (foreman))
+     nil)
 
     ("q" nil "quit" :color blue)))
 
