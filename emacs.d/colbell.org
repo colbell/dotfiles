@@ -263,7 +263,7 @@ brighter; it simply makes everything else vanish.
   Pretty symbols, E.G. λ for lambda in coding buffers.
 
 #+begin_src emacs-lisp
-  (global-prettify-symbols-mode)
+  ;;(global-prettify-symbols-mode)
 #+end_src
 
   F11 - flash crosshairs at text cursor position.
@@ -2006,36 +2006,36 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
 ** Clojure Mode.
 
 #+begin_src emacs-lisp
-  (use-package clojure-mode
-    :ensure clojure-mode
+    (use-package clojure-mode
+      :ensure clojure-mode
 
-    :config
-    (progn
-      (add-hook 'clojure-mode-hook #'cider-mode)
-      (add-hook 'clojure-mode-hook
-                (lambda ()
-                  (clj-refactor-mode 1)
-                  (cljr-add-keybindings-with-prefix "C-o C-r")
-                  (push '("defn" . "\u0192") prettify-symbols-alist)))
+      :config
+      (progn
+        (add-hook 'clojure-mode-hook #'cider-mode)
+        (add-hook 'clojure-mode-hook
+                  (lambda ()
+                    (clj-refactor-mode 1)
+                    (cljr-add-keybindings-with-prefix "C-o C-r")))
+                    ;;(push '("defn" . "\u0192") prettify-symbols-alist)
 
-      (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
-      (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
-      (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)
+        (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
+        (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
+        (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)
 
-      (define-clojure-indent
-        (defroutes 'defun)
-        (GET 2)
-        (POST 2)
-        (PUT 2)
-        (DELETE 2)
-        (HEAD 2)
-        (ANY 2)
-        (context 2)
-        (for-all 1)
-        (such-that 1)
-        (let-routes 1)
-        (run-db 2)
-        (defspec 'defun))))
+        (define-clojure-indent
+          (defroutes 'defun)
+          (GET 2)
+          (POST 2)
+          (PUT 2)
+          (DELETE 2)
+          (HEAD 2)
+          (ANY 2)
+          (context 2)
+          (for-all 1)
+          (such-that 1)
+          (let-routes 1)
+          (run-db 2)
+          (defspec 'defun))))
 #+end_src
 
 Extra font clocking for Clojure mode.
@@ -2129,11 +2129,11 @@ Clojure documentation.
   (eval-after-load 'js
     '(progn
        (setq js-indent-level 2)
-       (define-key js-mode-map (kbd ",") 'self-insert-command)
-       (add-hook
-        'js-mode-hook
-        (lambda ()
-          (push '("function" . "\u0192") prettify-symbols-alist)))))
+       (define-key js-mode-map (kbd ",") 'self-insert-command)))
+       ;; (add-hook
+       ;;  'js-mode-hook
+       ;;  (lambda ()
+       ;;    (push '("function" . "\u0192") prettify-symbols-alist)))
 #+end_src
 * Coffeescript
 #+begin_src emacs-lisp
@@ -2180,8 +2180,8 @@ Clojure documentation.
         (yard-mode)
         (outline-minor-mode)
         (ruby-block-mode t)
-        (ignore-errors (ruby-refactor-mode-launch))
-        (setq-local prettify-symbols-alist '(("lambda"  . ?λ)))))
+        (ignore-errors (ruby-refactor-mode-launch))))
+        ;;(setq-local prettify-symbols-alist '(("lambda"  . ?λ)))
 
     :config
     (progn
@@ -2322,10 +2322,10 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
   (add-hook 'emacs-lisp-mode-hook 'cnb/elisp-packages)
 
-  (add-hook
-   'emacs-lisp-mode-hook
-   (lambda ()
-     (push '("defun" . 402) prettify-symbols-alist)))
+  ;; (add-hook
+  ;;  'emacs-lisp-mode-hook
+  ;;  (lambda ()
+  ;;    (push '("defun" . 402) prettify-symbols-alist)))
 #+end_src
 
 * Lisp Like Modes

@@ -132,7 +132,7 @@
 (setq initial-scratch-message nil)
 (eval '(setq inhibit-startup-echo-area-message "colbell"))
 
-(global-prettify-symbols-mode)
+;;(global-prettify-symbols-mode)
 
 (use-package crosshairs
   :ensure crosshairs
@@ -1399,8 +1399,8 @@ Assumes that the frame is only split into two                            . "
     (add-hook 'clojure-mode-hook
               (lambda ()
                 (clj-refactor-mode 1)
-                (cljr-add-keybindings-with-prefix "C-o C-r")
-                (push '("defn" . "\u0192") prettify-symbols-alist)))
+                (cljr-add-keybindings-with-prefix "C-o C-r")))
+                ;;(push '("defn" . "\u0192") prettify-symbols-alist)
 
     (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
     (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
@@ -1482,11 +1482,11 @@ Assumes that the frame is only split into two                            . "
 (eval-after-load 'js
   '(progn
      (setq js-indent-level 2)
-     (define-key js-mode-map (kbd ",") 'self-insert-command)
-     (add-hook
-      'js-mode-hook
-      (lambda ()
-        (push '("function" . "\u0192") prettify-symbols-alist)))))
+     (define-key js-mode-map (kbd ",") 'self-insert-command)))
+     ;; (add-hook
+     ;;  'js-mode-hook
+     ;;  (lambda ()
+     ;;    (push '("function" . "\u0192") prettify-symbols-alist)))
 
 (use-package coffee-mode
   :ensure coffee-mode
@@ -1526,8 +1526,8 @@ Assumes that the frame is only split into two                            . "
       (yard-mode)
       (outline-minor-mode)
       (ruby-block-mode t)
-      (ignore-errors (ruby-refactor-mode-launch))
-      (setq-local prettify-symbols-alist '(("lambda"  . ?λ)))))
+      (ignore-errors (ruby-refactor-mode-launch))))
+      ;;(setq-local prettify-symbols-alist '(("lambda"  . ?λ)))
 
   :config
   (progn
@@ -1615,10 +1615,10 @@ Assumes that the frame is only split into two                            . "
 
 (add-hook 'emacs-lisp-mode-hook 'cnb/elisp-packages)
 
-(add-hook
- 'emacs-lisp-mode-hook
- (lambda ()
-   (push '("defun" . 402) prettify-symbols-alist)))
+;; (add-hook
+;;  'emacs-lisp-mode-hook
+;;  (lambda ()
+;;    (push '("defun" . 402) prettify-symbols-alist)))
 
 (defun cnb/imenu-lisp-sections ()
   (setq imenu-prev-index-position-function nil)   ;; FIXME: DO I need this?
