@@ -7,11 +7,11 @@
              [lein-bikeshed "0.2.0"]              ; Code smells
              [jonase/eastwood "0.2.1"]            ; CLJ lint tool
              [lein-kibit "0.1.2"]                 ; Static code analyzer
-             [codox "0.8.11"]                     ; Generate API doc
+             [refactor-nrepl "1.0.5"]             ; Refactoring tools
+             [codox "0.8.12"]                     ; Generate API doc
              [lein-midje "3.1.3"]                 ; Testing framework
              [lein-pprint "1.1.2"]                ; Pretty pint
-             [com.aphyr/prism "0.1.3"]            ; Autorun tests
-             [refactor-nrepl "1.0.4"]]            ; Refactoring tools
+             [com.aphyr/prism "0.1.3"]]           ; Autorun tests
 
   :dependencies [[slamhound "1.5.5"]              ; ns cleanup
                  [com.aphyr/prism "0.1.3"]]       ; Autorun tests
