@@ -892,6 +892,30 @@ Assumes that the frame is only split into two                            . "
   (progn
     (popwin-mode 1)))
 
+(defun cnb/quit-bottom-side-windows ()
+  "Quit side windows at bottom of frame and bury its buffer"
+  (interactive)
+  (dolist (win (window-at-side-list))
+    (quit-window nil win)))
+
+(global-set-key (kbd "C-c q") #'cnb/quit-bottom-side-windows)
+
+(add-to-list
+ 'display-buffer-alist
+ `(,(rx bos "*Flycheck errors*" eos)
+   (display-buffer-reuse-window display-buffer-in-side-window)
+   (reusable-frames . visible)
+   (side            . bottom)
+   (window-height   . 0.2)))
+
+(add-to-list
+ 'display-buffer-alist
+ `(,(rx bos "*rspec-compilation*" eos)
+   (display-buffer-reuse-window display-buffer-in-side-window)
+   (reusable-frames . visible)
+   (side            . bottom)
+   (window-height   . 0.2)))
+
 (setq shift-select-mode t)
 
 (use-package expand-region
@@ -1040,7 +1064,7 @@ Assumes that the frame is only split into two                            . "
 
   :config
   (progn
-    ;;(push 'company-robe company-backends)
+    (push 'company-robe company-backends)
     (global-company-mode 1)
     (setq company-idle-delay 0.5))
 
@@ -1410,7 +1434,8 @@ Assumes that the frame is only split into two                            . "
   :ensure align-cljlet)
 
 (use-package clj-refactor
-  :ensure t)
+  :ensure t
+  :diminish clj-refactor-mode)
 
 ;; Helm interface to clj-refactor
 (use-package cljr-helm
@@ -1437,6 +1462,7 @@ Assumes that the frame is only split into two                            . "
     (setq cider-auto-select-error-buffer nil)
     (setq cider-repl-pop-to-buffer-on-connect nil)
     (setq cider-repl-history-file "~/.emacs.d/cider-repl-history")
+    (setq cider-lein-command "~/bin/lein") ;FIXME: Should be found in path.
     (setq cider-repl-history-size 1000)))
 
 (use-package cider-decompile
@@ -2170,6 +2196,30 @@ _d_: subtree
 
 (global-set-key (kbd "C-c #") 'hydra-outline/body)
 
+(defhydra cnb-hydra-foreman (:color blue)
+  "
+      Root: %(if (projectile-project-p) (projectile-project-root))
+                                                                              ╭─────────┐
+                                                                              │ Foreman │
+    ╭─────────────────────────────────────────────────────────────────────────┴─────────╯
+      _f_: foreman          _b_: foreman-view-buffer
+      _s_: foreman-start    _r_: foreman-restart        _k_: foreman-stop
+
+    "
+  ("f"  (lambda ()
+          (interactive)
+          (setenv "PORT" "5000")
+          (foreman))
+   nil)
+  ("b" foreman-view-buffer nil)
+  ("s" foreman-start       nil)
+  ("r" foreman-restart     nil)
+  ("k" foreman-stop        nil)
+
+  ("q" nil "quit"))
+
+(define-key projectile-rails-mode-map (kbd "<f5> f") 'cnb-hydra-foreman/body)
+
 (require 'markdown-mode)
 
 (define-key markdown-mode-map (kbd "<f5> m")
@@ -2193,7 +2243,7 @@ _d_: subtree
      _r_: recent files                 ^    ^                      _T_: regenerate tags
      _h_: project home                 ^    ^                      _t_: search tags
 ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-       "
+     "
       ("f" projectile-find-file                        nil)
       ("F" projectile-find-file-other-window           nil)
       ("d" projectile-find-file-in-directory           nil)
@@ -2221,28 +2271,27 @@ _d_: subtree
   (kbd "<f5> r")
   (defhydra cnb-hydra-projectile-rails (:color teal)
     "
-    Root: %(projectile-project-root)
+    Root: %(if (projectile-project-p) (projectile-project-root))
                                                                                      ╭──────────────┐
                                                                                      │ Rails - Find │
 ╭────────────────────────────────────────────────────────────────────────────────────┴──────────────╯
 
-         _a_: authorizer                 _m_: model              _c_: controller
-         _A_: current authorizer         _M_: current model      _C_: current controller
+         _a_: authorizer                 _m_: model                _c_: controller
+         _A_: current authorizer         _M_: current model        _C_: current controller
          _d_: decorator                  _v_: view
          _D_: current decorator          _V_: current view
                                                                                      ╭──────────────┐
                                                                                      │ Rails - Run  │
 ╭────────────────────────────────────────────────────────────────────────────────────┴──────────────╯
 
-        _rs_: server                    _rc_: console           _rr_: rake
-         _f_: foreman
+          _i_: irb console              _rr_: rake
                                                                                      ╭──────────────┐
                                                                                      │ Rails - Logs │
 ╭────────────────────────────────────────────────────────────────────────────────────┴──────────────╯
 
-        _ld_: development               _lp_: production        _lt_: test
-─────────────────────────────────────────────────────────────────────────────────────────────────────
-       "
+         _ld_: development               _lp_: production          _lt_: test
+
+  "
     ("a" cnb/projectile-rails-find-authorizer         nil)
     ("A" cnb/projectile-rails-find-current-authorizer nil)
     ("c" projectile-rails-find-controller             nil)
@@ -2258,14 +2307,9 @@ _d_: subtree
     ("lp" rails-log-show-production  nil)
     ("lt" rails-log-show-test        nil)
 
-    ("rs" projectile-rails-server         nil :color red)
-    ("rc" projectile-rails-console        nil :color red)
+    ("rs" projectile-rails-server         nil)
+    ("i" projectile-rails-console         nil)
     ("rr" projectile-rails-find-rake-task nil :color red)
-    ("f"  (lambda ()
-            (interactive)
-            (setenv "PORT" "5000")
-            (foreman))
-     nil)
 
     ("q" nil "quit" :color blue)))
 
