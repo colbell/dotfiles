@@ -5,6 +5,4 @@ if grep -q 'ID=arch' /etc/os-release; then
 fi
 
 alias h='history'
-
-alias e="emacsclient -t"
-alias E="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
+alias sduo=sudo
