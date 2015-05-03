@@ -1377,11 +1377,11 @@ Move deleted files to system trash folder.
 Delete all whitespace when deleting.
 
 #+begin_src emacs-lisp
-  (use-package hungry-delete
-    :ensure hungry-delete
-    :init
-    (progn
-      (global-hungry-delete-mode)))
+  ;; (use-package hungry-delete
+  ;;   :ensure hungry-delete
+  ;;   :init
+  ;;   (progn
+  ;;     (global-hungry-delete-mode)))
 #+end_src
 
 ** Delete Selection When Typing

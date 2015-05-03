@@ -941,11 +941,11 @@ Assumes that the frame is only split into two                            . "
 
 (setq delete-by-moving-to-trash t)
 
-(use-package hungry-delete
-  :ensure hungry-delete
-  :init
-  (progn
-    (global-hungry-delete-mode)))
+;; (use-package hungry-delete
+;;   :ensure hungry-delete
+;;   :init
+;;   (progn
+;;     (global-hungry-delete-mode)))
 
 (delete-selection-mode 1)
 
