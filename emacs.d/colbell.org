@@ -142,20 +142,20 @@ brighter; it simply makes everything else vanish.
   Lets make Emacs pretty.
 
 #+begin_src emacs-lisp
-      (use-package solarized-theme
-        :ensure t
-        :ensure zenburn-theme
+  (use-package solarized-theme
+    :ensure t
+    :ensure zenburn-theme
 
-        :init
-        (progn
-          (setq solarized-distinct-fringe-background t)
-          (setq solarized-scale-org-headlines nil)
-          (setq solarized-use-variable-pitch nil)
-          (setq solarized-high-contrast-mode-line nil)
-          ;;(setq solarized-use-more-italic t)
-          ;;(setq solarized-use-less-bold t)
-          ;;(load-theme 'solarized-dark t)
-          (cnb/toggle-theme)))
+    :init
+    (progn
+      (setq solarized-distinct-fringe-background t)
+      (setq solarized-scale-org-headlines nil)
+      (setq solarized-use-variable-pitch nil)
+      (setq solarized-high-contrast-mode-line nil)
+      ;;(setq solarized-use-more-italic t)
+      ;;(setq solarized-use-less-bold t)
+      ;;(load-theme 'solarized-dark t)
+      (cnb/toggle-theme)))
 #+end_src
 
 * Font

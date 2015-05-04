@@ -20,3 +20,5 @@
                        (nth 5 (file-attributes my-org-f))))
       (org-babel-load-file my-org-f)
     (load my-el-f)))
+
+;;;init.el ends here
