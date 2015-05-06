@@ -112,15 +112,15 @@ brighter; it simply makes everything else vanish.
   Paradox is a powerful UI for the package manager.
 
 #+begin_src emacs-lisp
-    (use-package paradox
-      :ensure t
-      :defer t
+  (use-package paradox
+    :ensure t
+    :defer t
 
-      :init
-      (progn
-        (setq paradox-github-token t)  ;; Don't ask for Github integration.
-        (setq paradox-display-download-count t)
-        (setq paradox-spinner-type 'box-in-circle)))
+    :init
+    (progn
+      (setq paradox-github-token t)  ;; Don't ask for Github integration.
+      (setq paradox-display-download-count t)
+      (setq paradox-spinner-type 'box-in-circle)))
 #+end_src
 
 * Theme
@@ -175,6 +175,31 @@ brighter; it simply makes everything else vanish.
     :ensure t)
 #+end_src
 
+* Global Key Map
+
+#+begin_src emacs-lisp
+
+  ;; I use keys that start with C-o for personal mappings.
+  (global-unset-key "\C-o")
+
+  (global-set-key (kbd "<f8> <f1>") 'repeat-complex-command)
+
+  (global-set-key (kbd "C-x C-r") (lambda () (interactive) (revert-buffer nil t)))
+#+end_src
+
+When you drag and drop a file into an Emacs buffer open it instead of
+inserting it into the current buffer.
+
+#+begin_src emacs-lisp
+  (define-key global-map [ns-drag-file] 'ns-find-file)
+#+end_src
+
+I press these too often
+
+#+begin_src emacs-lisp
+  (global-unset-key (kbd "C-z"))
+  (global-unset-key (kbd "C-x C-z"))
+#+end_src
 * General
 
   Init File profiler.
@@ -459,7 +484,8 @@ brighter; it simply makes everything else vanish.
       (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
                                       cider-repl-mode term-mode-hook
                                       eww-mode-hook completion-list-mode-hook
-                                      undo-tree-visualizer-mode-hook))
+                                      undo-tree-visualizer-mode-hook
+                                      comint-mode-hook))
         (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
 #+end_src
 
@@ -697,6 +723,13 @@ Start Emacs server on first Emacs instance.
         '(("\\.pdf\\'" "okular")
           ("\\.tex\\'" "pdflatex")
           ("\\.ods\\'\\|\\.xlsx?\\'\\|\\.docx?\\'\\|\\.csv\\'" "libreoffice")))
+#+END_SRC
+
+  Minor mode to enable previewing in a dired buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package peep-dired
+    :ensure t)
 #+END_SRC
 
   Directory view/editing.
@@ -1007,28 +1040,28 @@ Select window by direction keys.
 Select window by number.
 
 #+begin_src emacs-lisp
-    (use-package ace-window
-      :ensure ace-window
-      :bind (("<f7>"    . ace-window)
-             ("M-g SPC" . avi-goto-char)
-             ("M-g '"   . avi-goto-char-2)
-             ("M-g f"   . avi-goto-line)
-             ("M-g e"   . avi-goto-word-0)
-             ("M-g w"   . avi-goto-word-1))
+  (use-package ace-window
+    :ensure ace-window
+    :bind (("<f7>"    . ace-window)
+           ("M-g SPC" . avi-goto-char)
+           ("M-g '"   . avi-goto-char-2)
+           ("M-g l"   . avi-goto-line)
+           ("M-g e"   . avi-goto-word-0)
+           ("M-g w"   . avi-goto-word-1))
 
-      :init
-      (progn
-        (setq aw-scope 'frame)
-        (setq avi-background t)
-        (setq aw-flip-keys '("n"))  ;; 'n' will goto last window in ace-window
-        (setq avi-keys (nconc (loop for i from ?0 to ?9 collect i)
-                              (loop for i from ?a to ?z collect i)
-                              (loop for i from ?A to ?Z collect i))))
+    :init
+    (progn
+      (setq aw-scope 'frame)
+      (setq avi-background t)
+      (setq aw-flip-keys '("n")))  ;; 'n' will goto last window in ace-window.
+      ;; (setq avi-keys (nconc (loop for i from ?0 to ?9 collect i)
+      ;;                       (loop for i from ?a to ?z collect i)
+      ;;                       (loop for i from ?A to ?Z collect i)))
 
-      :config
-      (progn
-        (ace-window-display-mode)
-        (set-face-attribute 'aw-leading-char-face nil :height 2.0)))
+    :config
+    (progn
+      (ace-window-display-mode)
+      (set-face-attribute 'aw-leading-char-face nil :height 2.0)))
 #+end_src
 
 ** Ace Link
@@ -1392,14 +1425,11 @@ Delete all whitespace when deleting.
 
 ** zap-to-char and zap-up-to-char
 
-M-z will execute =zap-to-char= while C-u M-z will execute
-=ace-jump-zap-to-char=. There is a similar mapping for the 'up to char' functions.
-
 #+begin_src emacs-lisp
   (use-package ace-jump-zap
     :ensure ace-jump-zap
-    :bind (("M-z" . ace-jump-zap-to-char-dwim)
-           ("C-M-z" . ace-jump-zap-up-to-char-dwim)))
+    :bind (("M-z"   . ace-jump-zap-to-char)
+           ("C-M-z" . ace-jump-zap-up-to-char)))
 #+end_src
 
 ** Browse kill ring
@@ -1556,7 +1586,7 @@ Enable commands disabled by default for novice users.
 
       :config
       (progn
-        (push 'company-robe company-backends)
+        ;;(push 'company-robe company-backends)
         (global-company-mode 1)
         (setq company-idle-delay 0.5))
 
@@ -2734,27 +2764,6 @@ Close term buffers when terminal is exited.
   ;;     (key-chord-mode +1)))
 #+end_src
 
-* Global Key Map
-
-#+begin_src emacs-lisp
-  (global-set-key (kbd "<f8> <f1>") 'repeat-complex-command)
-
-  (global-set-key (kbd "C-x C-r") (lambda () (interactive) (revert-buffer nil t)))
-#+end_src
-
-When you drag and drop a file into an Emacs buffer open it instead of
-inserting it into the current buffer.
-
-#+begin_src emacs-lisp
-  (define-key global-map [ns-drag-file] 'ns-find-file)
-#+end_src
-
-I press these too often
-
-#+begin_src emacs-lisp
-  (global-unset-key (kbd "C-z"))
-  (global-unset-key (kbd "C-x C-z"))
-#+end_src
 * Hydra
 
 | Body Color | Head Inherited | Executing NON-HEADS   | Executing HEADS |
@@ -3015,7 +3024,7 @@ I press these too often
      ("a" ace-window nil)
      ("s" (lambda () (interactive) (ace-window 4)) nil)
      ("d" (lambda () (interactive) (ace-window 16)) nil)
-     ("m" ace-maximize-window nil :color blue)
+     ("m" ace-maximize-window nil)
 
      ("q" nil "quit")))
 #+end_src
@@ -3059,29 +3068,29 @@ I press these too often
 #+END_SRC
 ** Hydra for controlling foreman processes
 #+BEGIN_SRC emacs-lisp
-    (defhydra cnb-hydra-foreman (:color blue)
+  (defhydra cnb-hydra-foreman (:color blue)
+    "
+        Root: %(if (projectile-project-p) (projectile-project-root))
+                                                                                ╭─────────┐
+                                                                                │ Foreman │
+      ╭─────────────────────────────────────────────────────────────────────────┴─────────╯
+        _f_: foreman          _b_: foreman-view-buffer
+        _s_: foreman-start    _r_: foreman-restart        _k_: foreman-stop
+
       "
-          Root: %(if (projectile-project-p) (projectile-project-root))
-                                                                                  ╭─────────┐
-                                                                                  │ Foreman │
-        ╭─────────────────────────────────────────────────────────────────────────┴─────────╯
-          _f_: foreman          _b_: foreman-view-buffer
-          _s_: foreman-start    _r_: foreman-restart        _k_: foreman-stop
+    ("f"  (lambda ()
+            (interactive)
+            (setenv "PORT" "5000")
+            (foreman))
+     nil)
+    ("b" foreman-view-buffer nil)
+    ("s" foreman-start       nil)
+    ("r" foreman-restart     nil)
+    ("k" foreman-stop        nil)
 
-        "
-      ("f"  (lambda ()
-              (interactive)
-              (setenv "PORT" "5000")
-              (foreman))
-       nil)
-      ("b" foreman-view-buffer nil)
-      ("s" foreman-start       nil)
-      ("r" foreman-restart     nil)
-      ("k" foreman-stop        nil)
+    ("q" nil "quit"))
 
-      ("q" nil "quit"))
-
-    (define-key projectile-rails-mode-map (kbd "<f5> f") 'cnb-hydra-foreman/body)
+  (define-key projectile-rails-mode-map (kbd "<f5> f") 'cnb-hydra-foreman/body)
 #+END_SRC
 ** Markdown mode hydras.
 #+begin_src emacs-lisp
