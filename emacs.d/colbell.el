@@ -89,6 +89,18 @@
 (use-package csv-mode
   :ensure t)
 
+;; I use keys that start with C-o for personal mappings.
+(global-unset-key "\C-o")
+
+(global-set-key (kbd "<f8> <f1>") 'repeat-complex-command)
+
+(global-set-key (kbd "C-x C-r") (lambda () (interactive) (revert-buffer nil t)))
+
+(define-key global-map [ns-drag-file] 'ns-find-file)
+
+(global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-x C-z"))
+
 (use-package esup
   :ensure esup)
 
@@ -239,7 +251,8 @@
     (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
                                     cider-repl-mode term-mode-hook
                                     eww-mode-hook completion-list-mode-hook
-                                    undo-tree-visualizer-mode-hook))
+                                    undo-tree-visualizer-mode-hook
+                                    comint-mode-hook))
       (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
 
 (use-package find-file-in-repository
@@ -420,6 +433,9 @@ in native application through xdg-open"
       '(("\\.pdf\\'" "okular")
         ("\\.tex\\'" "pdflatex")
         ("\\.ods\\'\\|\\.xlsx?\\'\\|\\.docx?\\'\\|\\.csv\\'" "libreoffice")))
+
+(use-package peep-dired
+  :ensure t)
 
 (defun cnb/dired-get-size ()
   "Get total size of all marked files."
@@ -660,7 +676,7 @@ Assumes that the frame is only split into two                            . "
   :bind (("<f7>"    . ace-window)
          ("M-g SPC" . avi-goto-char)
          ("M-g '"   . avi-goto-char-2)
-         ("M-g f"   . avi-goto-line)
+         ("M-g l"   . avi-goto-line)
          ("M-g e"   . avi-goto-word-0)
          ("M-g w"   . avi-goto-word-1))
 
@@ -668,10 +684,10 @@ Assumes that the frame is only split into two                            . "
   (progn
     (setq aw-scope 'frame)
     (setq avi-background t)
-    (setq aw-flip-keys '("n"))  ;; 'n' will goto last window in ace-window
-    (setq avi-keys (nconc (loop for i from ?0 to ?9 collect i)
-                          (loop for i from ?a to ?z collect i)
-                          (loop for i from ?A to ?Z collect i))))
+    (setq aw-flip-keys '("n")))  ;; 'n' will goto last window in ace-window.
+    ;; (setq avi-keys (nconc (loop for i from ?0 to ?9 collect i)
+    ;;                       (loop for i from ?a to ?z collect i)
+    ;;                       (loop for i from ?A to ?Z collect i)))
 
   :config
   (progn
@@ -951,8 +967,8 @@ Assumes that the frame is only split into two                            . "
 
 (use-package ace-jump-zap
   :ensure ace-jump-zap
-  :bind (("M-z" . ace-jump-zap-to-char-dwim)
-         ("C-M-z" . ace-jump-zap-up-to-char-dwim)))
+  :bind (("M-z"   . ace-jump-zap-to-char)
+         ("C-M-z" . ace-jump-zap-up-to-char)))
 
 (use-package browse-kill-ring
   :ensure browse-kill-ring
@@ -1064,7 +1080,7 @@ Assumes that the frame is only split into two                            . "
 
   :config
   (progn
-    (push 'company-robe company-backends)
+    ;;(push 'company-robe company-backends)
     (global-company-mode 1)
     (setq company-idle-delay 0.5))
 
@@ -1933,15 +1949,6 @@ browse-url-generic-program "chromium-browser")
 ;;   (progn
 ;;     (key-chord-mode +1)))
 
-(global-set-key (kbd "<f8> <f1>") 'repeat-complex-command)
-
-(global-set-key (kbd "C-x C-r") (lambda () (interactive) (revert-buffer nil t)))
-
-(define-key global-map [ns-drag-file] 'ns-find-file)
-
-(global-unset-key (kbd "C-z"))
-(global-unset-key (kbd "C-x C-z"))
-
 (use-package hydra
   :ensure t
 
@@ -2157,7 +2164,7 @@ _q_uit"
      ("a" ace-window nil)
      ("s" (lambda () (interactive) (ace-window 4)) nil)
      ("d" (lambda () (interactive) (ace-window 16)) nil)
-     ("m" ace-maximize-window nil :color blue)
+     ("m" ace-maximize-window nil)
 
      ("q" nil "quit")))
 
