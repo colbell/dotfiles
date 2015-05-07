@@ -56,6 +56,7 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , className =? "Klipper"           --> doFloat
     , className =? "XCalc"             --> doFloat
     , className =? "Kcalc"             --> doFloat
+    , className =? "ksmserver"         --> doIgnore
     , className =? "emulator-arm"      --> doFloat
     ])
 
