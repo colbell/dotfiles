@@ -373,8 +373,6 @@
     (unless (server-running-p) (server-start))))
     ;;(setenv "EDITOR" "emacsclient")))
 
-;; Editing within Chrome. You need the "Edit with Emacs" Chrome plugin
-;; installed in Chrome.
 (use-package edit-server
   :ensure t
   :ensure edit-server-htmlize

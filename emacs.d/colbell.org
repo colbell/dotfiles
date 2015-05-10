@@ -250,7 +250,7 @@ I press these too often
   (setq-default tab-width 2)
 #+end_src
 
-  When re-centering screen, first put it to top of screen.
+  When re-centering screen (<ctrl l), first put it to top of screen.
 
 #+BEGIN_SRC emacs-lisp
   (setq recenter-positions '(top middle bottom))
@@ -649,9 +649,10 @@ Start Emacs server on first Emacs instance.
 #+end_src
 * Edit Text Areas in Chrome
 
+  Editing within Chrome. You need the "Edit with Emacs" Chrome plugin
+  installed in Chrome.
+
 #+begin_src emacs-lisp
-  ;; Editing within Chrome. You need the "Edit with Emacs" Chrome plugin
-  ;; installed in Chrome.
   (use-package edit-server
     :ensure t
     :ensure edit-server-htmlize
