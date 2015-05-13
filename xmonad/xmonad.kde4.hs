@@ -32,7 +32,7 @@ myModMask = mod4Mask
 
 myWorkspaces :: [WorkspaceId]
 myWorkspaces = ["1-emacs", "2-shell", "3-web", "4-fm", "5", "6", "7-ssh",
-                "8-im", "9-mail"]
+                "8-vms", "9-mail"]
 
 myTerm :: String
 myTerm = "konsole"
