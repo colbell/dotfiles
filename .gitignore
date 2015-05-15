@@ -145,3 +145,5 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
+/xmonad/lib/XMonad/Config/Mate.hi
+/xmonad/lib/XMonad/Config/Mate.o
