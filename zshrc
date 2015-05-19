@@ -41,6 +41,11 @@ export HISTSIZE=$HISTFILESIZE   # Lines of hist stored in memory
 export SAVEHIST=2000            # Lines of hist stored on disk
 setopt EXTENDED_HISTORY         # save timestamp and runtime information
 
+# Recent versions of Fedora have renamed qmake.
+if grep -iq 'id=fedora' /etc/os-release; then
+  export QMAKE=/usr/bin/qmake-qt4
+fi
+
 # Work around for Google Chrome not accepting keyboard input in addressbar
 # https://bugs.launchpad.net/ubuntu/+source/chromium-browser/+bug/1307648
 export GTK_IM_MODULE=ibus
@@ -92,12 +97,6 @@ if [ -d "$HOME/apps/eb" ]; then
   export PATH="$PATH:$HOME/apps/eb"
 fi
 
-
-# Emacs seems to need a trailing : character on the path otherwise
-# it ignores the value of $PATH and just uses the standard system path.
-export PATH="$PATH:"
-
-
 if [[ -f "$HOME/.aws_keys" ]]; then
   source "$HOME/.aws_keys";
 fi
@@ -108,6 +107,10 @@ if [ -d "$HOME/.rbenv/bin" ]; then
 fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+# Emacs seems to need a trailing : character on the path otherwise
+# it ignores the value of $PATH and just uses the standard system path.
+export PATH="$PATH:"
 
 # if [ -d "$HOME/apps/scala/bin" ]; then
 #   export SCALA_HOME=$HOME/apps/scala
