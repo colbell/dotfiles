@@ -55,6 +55,7 @@ myManageHook = scratchpadManageHookDefault <+>composeAll (
     , className =? "Plasma-desktop"    --> doFloat
     , className =? "Knotes"            --> doFloat
     , className =? "Klipper"           --> doFloat
+    , className =? "stjerm"            --> doFloat
     , className =? "XCalc"             --> doFloat
     , className =? "Kcalc"             --> doFloat
     , className =? "ksmserver"         --> doIgnore
