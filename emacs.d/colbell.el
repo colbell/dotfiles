@@ -96,6 +96,8 @@
 
 (global-set-key (kbd "C-x C-r") (lambda () (interactive) (revert-buffer nil t)))
 
+(global-set-key (kbd "M-=") #'count-words)
+
 (define-key global-map [ns-drag-file] 'ns-find-file)
 
 (global-unset-key (kbd "C-z"))
@@ -2496,12 +2498,17 @@ narrowed."
 (use-package htmlize
   :ensure t)
 
+;; cycle through amounts of spacing
+(global-set-key (kbd "M-SPC") 'cycle-spacing)
 
 ;;(setq compilation-scroll-output t)
 (setq compilation-scroll-output 'first-error)
 (global-auto-revert-mode t)
 (setq auto-revert-verbose nil)
 (setq global-auto-revert-non-file-buffers t)
+
+(setq scroll-preserve-screen-position 'always)
+
 
 ;;(setq redisplay-dont-pause t) obsolete in 24.5
 
