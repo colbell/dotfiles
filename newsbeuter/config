@@ -1,5 +1,5 @@
 #browser           "w3m %u"
-browser            "chromium-browser %u"
+browser            "firefox %u"
 confirm-exit       yes
 error-log          "~/.newsbeuter/error.log"
 datetime-format    "%d/%b/%y"
