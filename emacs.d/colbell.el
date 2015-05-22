@@ -590,7 +590,7 @@ in native application through xdg-open"
     (setq bm-repository-file (expand-file-name "bm-repository" user-emacs-directory))
     (setq bm-repository-size 1024)
     (setq-default bm-buffer-persistence t)
-    (setq bm-highlight-style 'bm-highlight-line-and-fringe)
+    (setq bm-highlight-style 'bm-highlight-only-fringe)
     (add-hook 'after-init-hook #'bm-repository-load)
     (add-hook 'find-file-hooks #'bm-buffer-restore)
     (add-hook 'kill-buffer-hook #'bm-buffer-save)
@@ -1098,18 +1098,20 @@ Assumes that the frame is only split into two                            . "
 (add-hook 'ediff-after-quit-hook-internal 'winner-undo)
 
 (defun magit-toggle-whitespace ()
-  "Toggle showing whitespace in Magit buffers."
+  "Toggle showing whitespace differences in Magit diff buffers."
   (interactive)
   (if (member "-w" magit-diff-options)
       (progn
         (setq magit-diff-options (remove "-w" magit-diff-options))
+        (message "Show whitespace")
         (magit-refresh))
     (progn
       (add-to-list 'magit-diff-options "-w")
+      (message "Hide whitespace")
       (magit-refresh))))
 
 (use-package magit
-  :ensure magit
+  :ensure t
   :diminish magit-auto-revert-mode
 
   :bind (("C-c g" . magit-status))
@@ -1117,9 +1119,10 @@ Assumes that the frame is only split into two                            . "
   :init
   (progn
     (setq magit-diff-refine-hunk t)
-    (setq magit-process-popup-time 6)
+    (setq magit-process-popup-time 10)
     (setq magit-auto-revert-mode t)
     (setq magit-last-seen-setup-instructions "1.4.0")
+    (setq magit-completing-read-function #'helm--completing-read-default)
 
     (add-hook 'magit-log-edit-mode-hook #'flyspell-mode)
     (add-hook 'git-commit-mode-hook #'flyspell-mode)
@@ -1932,7 +1935,7 @@ Assumes that the frame is only split into two                            . "
         (auto-fill-mode -1)
         (setq tab-width 2)
         (setq explicit-shell-file-name "/bin/zsh")
-        (setq magit-completing-read-function #'helm--completing-read-default)
+
 )))
 
 (defun cnb/term-exec-hook ()
