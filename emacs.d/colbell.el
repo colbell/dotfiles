@@ -184,9 +184,8 @@
 
 (setq sql-input-ring-file-name "~/.emacs.d/sql_history")
 
-;;(setq browse-url-browser-function 'browse-url-firefox)
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium-browser")
+(setq browse-url-browser-function 'browse-url-text-xterm)
+(setq browse-url-text-browser "w3m")
 
 (use-package smart-mode-line
   :ensure t
@@ -295,7 +294,7 @@
 
 (use-package helm
   :ensure t
-  ;;:diminish helm-mode
+  :diminish helm-mode
 
   :config
   (progn
@@ -612,7 +611,15 @@ in native application through xdg-open"
     (define-key flyspell-mode-map (kbd "C-;") #'helm-flyspell-correct)))
 
 (use-package helm-words
-  :ensure helm-words)
+  :ensure t
+
+  :config
+  (progn
+    (use-package dictionary
+      :ensure t))
+
+  :bind (("C-c d" . helm-words-at-point)
+         ("C-c D" . helm-words)))
 
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 (setq-default display-buffer-reuse-frames t)
@@ -1152,7 +1159,7 @@ Assumes that the frame is only split into two                            . "
 
 (use-package git-gutter-fringe
   :ensure t
-  :diminish (git-gutter-mode . "GGF")
+  :diminish git-gutter-mode
 
   :config
   (progn
@@ -1193,7 +1200,7 @@ Assumes that the frame is only split into two                            . "
 
 (use-package projectile
   :ensure t
-  :diminish (projectile-mode . " P")
+  :diminish projectile-mode
 
   :init
   (progn
@@ -1205,7 +1212,7 @@ Assumes that the frame is only split into two                            . "
 
 (use-package projectile-rails
   :ensure t
-  :diminish (projectile-rails-mode . " R")
+  :diminish projectile-rails-mode
 
   :init
   (progn
@@ -1859,6 +1866,8 @@ Assumes that the frame is only split into two                            . "
 
     (setq org-track-ordered-property-with-tag t)
 
+    (setq org-src-fontify-natively t)
+
     ;; Dim blocked tasks
     (setq org-agenda-dim-blocked-tasks t)
 
@@ -1878,6 +1887,8 @@ Assumes that the frame is only split into two                            . "
 
     ;; Remove completed scheduled tasks from the agenda view
     (setq org-agenda-skip-scheduled-if-done t)
+
+    (setq org-src-fontify-natively t)
 
     (org-babel-do-load-languages
      'org-babel-load-languages

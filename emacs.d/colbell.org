@@ -372,9 +372,8 @@ I press these too often
   Open links in appropriate browser.
 
 #+BEGIN_SRC emacs-lisp
-  ;;(setq browse-url-browser-function 'browse-url-firefox)
-  (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "chromium-browser")
+  (setq browse-url-browser-function 'browse-url-text-xterm)
+  (setq browse-url-text-browser "w3m")
 #+END_SRC
 
 * Mode Line
@@ -546,7 +545,7 @@ I press these too often
 #+begin_src emacs-lisp
   (use-package helm
     :ensure t
-    ;;:diminish helm-mode
+    :diminish helm-mode
 
     :config
     (progn
@@ -938,7 +937,15 @@ Dictionary Look-up
 
 #+begin_src emacs-lisp
   (use-package helm-words
-    :ensure helm-words)
+    :ensure t
+
+    :config
+    (progn
+      (use-package dictionary
+        :ensure t))
+
+    :bind (("C-c d" . helm-words-at-point)
+           ("C-c D" . helm-words)))
 
 #+end_src
 * Frames
@@ -1694,7 +1701,7 @@ Git gutter fringe works with Flycheck/nlinum
 #+begin_src emacs-lisp
   (use-package git-gutter-fringe
     :ensure t
-    :diminish (git-gutter-mode . "GGF")
+    :diminish git-gutter-mode
 
     :config
     (progn
@@ -1760,7 +1767,7 @@ Projectile is a Project Interaction Library.
 
   (use-package projectile
     :ensure t
-    :diminish (projectile-mode . " P")
+    :diminish projectile-mode
 
     :init
     (progn
@@ -1772,7 +1779,7 @@ Projectile is a Project Interaction Library.
 
   (use-package projectile-rails
     :ensure t
-    :diminish (projectile-rails-mode . " R")
+    :diminish projectile-rails-mode
 
     :init
     (progn
@@ -2625,6 +2632,8 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
       (setq org-track-ordered-property-with-tag t)
 
+      (setq org-src-fontify-natively t)
+
       ;; Dim blocked tasks
       (setq org-agenda-dim-blocked-tasks t)
 
@@ -2644,6 +2653,8 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
       ;; Remove completed scheduled tasks from the agenda view
       (setq org-agenda-skip-scheduled-if-done t)
+
+      (setq org-src-fontify-natively t)
 
       (org-babel-do-load-languages
        'org-babel-load-languages
