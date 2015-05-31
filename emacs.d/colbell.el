@@ -63,8 +63,8 @@
   (interactive)
   (let ((next-theme
          (cond ((member 'zenburn custom-enabled-themes) 'solarized-dark)
-               ((member 'solarized-dark custom-enabled-themes) 'solarized-light)
-               (t 'zenburn))))
+               ((member 'solarized-dark custom-enabled-themes) 'zenburn)
+               (t 'solarized-light))))
     (dolist (theme custom-enabled-themes) (disable-theme theme))
     (load-theme next-theme t)))
 
@@ -589,7 +589,7 @@ in native application through xdg-open"
     (setq bm-repository-file (expand-file-name "bm-repository" user-emacs-directory))
     (setq bm-repository-size 1024)
     (setq-default bm-buffer-persistence t)
-    (setq bm-highlight-style 'bm-highlight-only-fringe)
+    (setq bm-highlight-style 'bm-highlight-only-line)
     (add-hook 'after-init-hook #'bm-repository-load)
     (add-hook 'find-file-hooks #'bm-buffer-restore)
     (add-hook 'kill-buffer-hook #'bm-buffer-save)
@@ -2251,11 +2251,11 @@ _d_: subtree
                                                                               ╭─────────┐
                                                                               │ Foreman │
     ╭─────────────────────────────────────────────────────────────────────────┴─────────╯
-      _f_: foreman          _b_: foreman-view-buffer
+      _v_: view             _b_: foreman-view-buffer
       _s_: foreman-start    _r_: foreman-restart        _k_: foreman-stop
 
     "
-  ("f"  (lambda ()
+  ("v"  (lambda ()
           (interactive)
           (setenv "PORT" "5000")
           (foreman))
