@@ -62,7 +62,7 @@
   "Toggle between themes."
   (interactive)
   (let ((next-theme
-         (cond ((member 'zenburn custom-enabled-themes) 'solarized-dark)
+         (cond ((member 'solarized-light custom-enabled-themes) 'solarized-dark)
                ((member 'solarized-dark custom-enabled-themes) 'zenburn)
                (t 'solarized-light))))
     (dolist (theme custom-enabled-themes) (disable-theme theme))
@@ -159,10 +159,10 @@
                  (count-lines (point-min) (point-max))))))
 
 (use-package nlinum
-  :ensure t
-  :config
-  (progn
-    (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
+  :ensure t)
+  ;; :config
+  ;; (progn
+  ;;   (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
 
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
@@ -683,7 +683,7 @@ Assumes that the frame is only split into two                            . "
   :bind (("<f7>"    . ace-window)
          ("M-g SPC" . avi-goto-char)
          ("M-g '"   . avi-goto-char-2)
-         ("M-g l"   . avi-goto-line)
+         ("M-g M-g" . avi-goto-line)
          ("M-g e"   . avi-goto-word-0)
          ("M-g w"   . avi-goto-word-1))
 
@@ -706,6 +706,17 @@ Assumes that the frame is only split into two                            . "
   :config
   (progn
     (ace-link-setup-default)))
+
+(defun cnb/goto-line ()
+  "Show line numbers when running goto-line"
+  (interactive)
+  (unwind-protect
+      (progn
+        (nlinum-mode 1)
+        (goto-line (read-number "Line: ")))
+    (nlinum-mode -1)))
+
+(global-set-key [remap goto-line] 'cnb/goto-line)
 
 (defun ibuffer-ediff-marked-buffers ()
   "ediff 2 marked buffers"
@@ -1372,49 +1383,49 @@ Assumes that the frame is only split into two                            . "
     (add-hook 'after-init-hook #'global-flycheck-mode)))
 
 (defvar cnb/coding-hook nil
-  "Hook that gets run on activation of any programming mode.")
+    "Hook that gets run on activation of any programming mode.")
 
-(defun cnb/add-watchwords ()
-  "Tedxt to be emphaised in comments."
-  (font-lock-add-keywords
-   nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
-          1 font-lock-warning-face t))))
+  (defun cnb/add-watchwords ()
+    "Tedxt to be emphaised in comments."
+    (font-lock-add-keywords
+     nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
+            1 font-lock-warning-face t))))
 
-(defun cnb/run-coding-hook ()
-  "Enable things that are convenient across all coding buffers."
-  (run-hooks 'cnb/coding-hook))
-
-
-;;=======================
-;; Things to do when you open a coding buffer.
-;;=======================
-(add-hook 'cnb/coding-hook #'cnb/add-watchwords)
-(add-hook 'cnb/coding-hook #'hs-minor-mode)
-(add-hook 'cnb/coding-hook #'subword-mode)
-(add-hook 'cnb/coding-hook #'flyspell-prog-mode t)
-(add-hook 'cnb/coding-hook #'nlinum-mode t)
-(add-hook 'cnb/coding-hook #'outline-minor-mode t)
-
-(when (fboundp 'yas/minor-mode)
-  (add-hook 'cnb/coding-hook #'yas/minor-mode))
-
-(when (fboundp 'rainbow-delimiters-mode)
-  (add-hook 'cnb/coding-hook #'rainbow-delimiters-mode))
+  (defun cnb/run-coding-hook ()
+    "Enable things that are convenient across all coding buffers."
+    (run-hooks 'cnb/coding-hook))
 
 
-;;=======================
-;; Modes to treat as coding buffers
-;;=======================
-(add-hook 'prog-mode-hook        #'cnb/run-coding-hook)
-(add-hook 'conf-mode-hook        #'cnb/run-coding-hook)
-(add-hook 'css-mode-hook         #'cnb/run-coding-hook)
-(add-hook 'cucumber-mode-hook    #'cnb/run-coding-hook)
-(add-hook 'diff-hook             #'cnb/run-coding-hook)
-(add-hook 'feature-mode-hook     #'cnb/run-coding-hook)
-(add-hook 'markdown-mode-hook    #'cnb/run-coding-hook)
-(add-hook 'rhtml-mode-hook       #'cnb/run-coding-hook)
-(add-hook 'yaml-mode-hook        #'cnb/run-coding-hook)
-(add-hook 'lisp-interaction-mode #'cnb/run-coding-hook)
+  ;;=======================
+  ;; Things to do when you open a coding buffer.
+  ;;=======================
+  (add-hook 'cnb/coding-hook #'cnb/add-watchwords)
+  (add-hook 'cnb/coding-hook #'hs-minor-mode)
+  (add-hook 'cnb/coding-hook #'subword-mode)
+  (add-hook 'cnb/coding-hook #'flyspell-prog-mode t)
+;;  (add-hook 'cnb/coding-hook #'nlinum-mode t)
+  (add-hook 'cnb/coding-hook #'outline-minor-mode t)
+
+  (when (fboundp 'yas/minor-mode)
+    (add-hook 'cnb/coding-hook #'yas/minor-mode))
+
+  (when (fboundp 'rainbow-delimiters-mode)
+    (add-hook 'cnb/coding-hook #'rainbow-delimiters-mode))
+
+
+  ;;=======================
+  ;; Modes to treat as coding buffers
+  ;;=======================
+  (add-hook 'prog-mode-hook        #'cnb/run-coding-hook)
+  (add-hook 'conf-mode-hook        #'cnb/run-coding-hook)
+  (add-hook 'css-mode-hook         #'cnb/run-coding-hook)
+  (add-hook 'cucumber-mode-hook    #'cnb/run-coding-hook)
+  (add-hook 'diff-hook             #'cnb/run-coding-hook)
+  (add-hook 'feature-mode-hook     #'cnb/run-coding-hook)
+  (add-hook 'markdown-mode-hook    #'cnb/run-coding-hook)
+  (add-hook 'rhtml-mode-hook       #'cnb/run-coding-hook)
+  (add-hook 'yaml-mode-hook        #'cnb/run-coding-hook)
+  (add-hook 'lisp-interaction-mode #'cnb/run-coding-hook)
 
 (use-package clojure-mode
   :ensure clojure-mode
@@ -1716,7 +1727,7 @@ Assumes that the frame is only split into two                            . "
          ("\\.mustache\\'"  . web-mode)
          ("\\.djhtml\\'"    . web-mode)
          ("\\.html?\\'"     . web-mode)
-         ("\\.scss\\'"      . web-mode)
+         ;;("\\.scss\\'"      . web-mode)
          ("\\.css\\'"       . web-mode))
 
   :init
@@ -1727,6 +1738,9 @@ Assumes that the frame is only split into two                            . "
 
 ;; (setq css-indent-offset 2)
 ;; (add-hook 'css-mode-hook #'rainbow-mode)
+
+(use-package scss-mode
+  :ensure t)
 
 ;; (use-package flymake-sass
 ;;   :ensure flymake-sass)
@@ -1766,8 +1780,8 @@ Assumes that the frame is only split into two                            . "
 
     (add-hook 'LaTeX-mode-hook #'visual-line-mode)
     (add-hook 'LaTeX-mode-hook #'flyspell-mode)
-    (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
-    (add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
+    (add-hook 'LaTeX-mode-hook #'turn-on-reftex)))
+    ;;(add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
 
 (use-package org
   :ensure t
@@ -1786,7 +1800,7 @@ Assumes that the frame is only split into two                            . "
                 (concat org-directory "kwela.org")))
 
     (add-hook 'org-mode-hook #'turn-off-auto-fill)
-    (add-hook 'org-mode-hook #'nlinum-mode t)
+    ;;(add-hook 'org-mode-hook #'nlinum-mode t)
 
     ;; For jekyll
     (require 'ox-publish)
