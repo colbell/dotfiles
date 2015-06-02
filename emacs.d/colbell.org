@@ -132,7 +132,7 @@ brighter; it simply makes everything else vanish.
     "Toggle between themes."
     (interactive)
     (let ((next-theme
-           (cond ((member 'zenburn custom-enabled-themes) 'solarized-dark)
+           (cond ((member 'solarized-light custom-enabled-themes) 'solarized-dark)
                  ((member 'solarized-dark custom-enabled-themes) 'zenburn)
                  (t 'solarized-light))))
       (dolist (theme custom-enabled-themes) (disable-theme theme))
@@ -311,10 +311,10 @@ I press these too often
                    (count-lines (point-min) (point-max))))))
 
   (use-package nlinum
-    :ensure t
-    :config
-    (progn
-      (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
+    :ensure t)
+    ;; :config
+    ;; (progn
+    ;;   (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
 #+end_src
 
   Increase/decrease buffer font size.
@@ -1055,7 +1055,7 @@ Select window by number.
     :bind (("<f7>"    . ace-window)
            ("M-g SPC" . avi-goto-char)
            ("M-g '"   . avi-goto-char-2)
-           ("M-g l"   . avi-goto-line)
+           ("M-g M-g" . avi-goto-line)
            ("M-g e"   . avi-goto-word-0)
            ("M-g w"   . avi-goto-word-1))
 
@@ -1083,6 +1083,20 @@ Bind 'o' to links in Help and Info buffers
     :config
     (progn
       (ace-link-setup-default)))
+#+end_src
+
+** goto-line
+#+begin_src emacs-lisp
+  (defun cnb/goto-line ()
+    "Show line numbers when running goto-line"
+    (interactive)
+    (unwind-protect
+        (progn
+          (nlinum-mode 1)
+          (goto-line (read-number "Line: ")))
+      (nlinum-mode -1)))
+
+  (global-set-key [remap goto-line] 'cnb/goto-line)
 #+end_src
 
 * Buffers
@@ -2019,7 +2033,7 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
   (add-hook 'cnb/coding-hook #'hs-minor-mode)
   (add-hook 'cnb/coding-hook #'subword-mode)
   (add-hook 'cnb/coding-hook #'flyspell-prog-mode t)
-  (add-hook 'cnb/coding-hook #'nlinum-mode t)
+;;  (add-hook 'cnb/coding-hook #'nlinum-mode t)
   (add-hook 'cnb/coding-hook #'outline-minor-mode t)
 
   (when (fboundp 'yas/minor-mode)
@@ -2463,7 +2477,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
            ("\\.mustache\\'"  . web-mode)
            ("\\.djhtml\\'"    . web-mode)
            ("\\.html?\\'"     . web-mode)
-           ("\\.scss\\'"      . web-mode)
+           ;;("\\.scss\\'"      . web-mode)
            ("\\.css\\'"       . web-mode))
 
     :init
@@ -2481,6 +2495,11 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 #+end_src
 
 ** SASS
+#+begin_src emacs-lisp
+  (use-package scss-mode
+    :ensure t)
+#+end_src
+
 #+begin_src emacs-lisp
   ;; (use-package flymake-sass
   ;;   :ensure flymake-sass)
@@ -2529,8 +2548,8 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
         (add-hook 'LaTeX-mode-hook #'visual-line-mode)
         (add-hook 'LaTeX-mode-hook #'flyspell-mode)
-        (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
-        (add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
+        (add-hook 'LaTeX-mode-hook #'turn-on-reftex)))
+        ;;(add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
 #+end_src
 
 * Org
@@ -2552,7 +2571,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
                   (concat org-directory "kwela.org")))
 
       (add-hook 'org-mode-hook #'turn-off-auto-fill)
-      (add-hook 'org-mode-hook #'nlinum-mode t)
+      ;;(add-hook 'org-mode-hook #'nlinum-mode t)
 
       ;; For jekyll
       (require 'ox-publish)
