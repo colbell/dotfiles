@@ -62,9 +62,9 @@
   "Toggle between themes."
   (interactive)
   (let ((next-theme
-         (cond ((member 'solarized-light custom-enabled-themes) 'solarized-dark)
-               ((member 'solarized-dark custom-enabled-themes) 'zenburn)
-               (t 'solarized-light))))
+         (cond ((member 'solarized-light custom-enabled-themes) 'zenburn)
+               ((member 'solarized-dark custom-enabled-themes) 'solarized-light)
+               (t 'solarized-dark))))
     (dolist (theme custom-enabled-themes) (disable-theme theme))
     (load-theme next-theme t)))
 
