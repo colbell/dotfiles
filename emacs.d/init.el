@@ -18,4 +18,5 @@
       (org-babel-load-file my-org-f)
     (load my-el-f)))
 
-;;;init.el ends here
+(provide 'init)
+;;; init.el ends here

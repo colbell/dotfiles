@@ -2783,9 +2783,9 @@ Close term buffers when terminal is exited.
 ** Definitions
 
 #+begin_src emacs-lisp
-  ;;(setq browse-url-browser-function 'browse-url-firefox)
-  (setq browse-url-browser-function 'browse-url-generic
-  browse-url-generic-program "chromium-browser")
+  (setq browse-url-browser-function 'browse-url-firefox)
+  ;; (setq browse-url-browser-function 'browse-url-generic
+  ;;       browse-url-generic-program "chromium-browser")
 #+end_src
 
 ** w3m
