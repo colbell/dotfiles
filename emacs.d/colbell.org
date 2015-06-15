@@ -84,8 +84,8 @@ brighter; it simply makes everything else vanish.
 #+begin_src emacs-lisp
   (require 'package)
   (setq package-enable-at-startup nil)
-  (add-to-list 'package-archives '("melpa" .  "http://melpa.org/packages/") 'APPEND)
-  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") 'APPEND)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") 'APPEND)
+  (add-to-list 'package-archives '("org"   . "http://orgmode.org/elpa/")   'APPEND)
   (package-initialize)
 #+end_src
 
@@ -116,7 +116,7 @@ brighter; it simply makes everything else vanish.
     :ensure t
     :defer t
 
-    :init
+    :config
     (progn
       (setq paradox-github-token t)  ;; Don't ask for Github integration.
       (setq paradox-display-download-count t)
@@ -172,6 +172,7 @@ brighter; it simply makes everything else vanish.
 
 #+begin_src emacs-lisp
   (use-package csv-mode
+    :defer t
     :ensure t)
 #+end_src
 
@@ -208,7 +209,9 @@ I press these too often
 
 #+begin_src emacs-lisp
   (use-package esup
-    :ensure esup)
+    :ensure esup
+    :commands esup
+    :defer t)
 #+end_src
 
   Initialize random number generator.
@@ -304,17 +307,18 @@ I press these too often
   Show line numbers in fringe.
 
 #+begin_src emacs-lisp
-  (defun cnb/nlinum-mode-hook ()
-    "Stop horiz jumps on scrolling"
-    (setq nlinum--width
-          (length (number-to-string
-                   (count-lines (point-min) (point-max))))))
+    ;;(defun cnb/nlinum-mode-hook ()
+    ;;  "Stop horiz jumps on scrolling"
+    ;;  (setq nlinum--width
+    ;;        (length (number-to-string
+    ;;                (count-lines (point-min) (point-max))))))
 
-  (use-package nlinum
-    :ensure t)
-    ;; :config
-    ;; (progn
-    ;;   (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
+    (use-package nlinum
+      :commands nlinum-mode
+      :ensure t)
+      ;;:config
+      ;;(progn
+      ;;  (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
 #+end_src
 
   Increase/decrease buffer font size.
@@ -328,6 +332,7 @@ I press these too often
 
 #+begin_src emacs-lisp
   (use-package httpcode
+    :commands hc
     :ensure httpcode)
 #+end_src
 
@@ -528,7 +533,7 @@ I press these too often
       ;; names so we need to ignore each file twice. The function (file-truename)
       ;; will expand symlinks.
       (let ((exclude-files '("places" ".ido.last" "elpa/**/.*" "emacs.bmk"
-                             "url/cookies")))
+                             "url/cookies" "bookmarks")))
         (while exclude-files
           (let ((f (expand-file-name (car exclude-files) user-emacs-directory)))
             (add-to-list 'recentf-exclude f)
@@ -545,6 +550,7 @@ I press these too often
 #+begin_src emacs-lisp
   (use-package helm
     :ensure t
+    :defer t
     :diminish helm-mode
 
     :config
@@ -731,137 +737,106 @@ Start Emacs server on first Emacs instance.
 
 #+BEGIN_SRC emacs-lisp
   (use-package peep-dired
+    :defer t
     :ensure t)
 #+END_SRC
 
   Directory view/editing.
 
 #+begin_src emacs-lisp
-  (defun cnb/dired-get-size ()
-    "Get total size of all marked files."
-    ;;  From http://oremacs.com/2015/01/12/dired-file-size/
-    (interactive)
-    (let ((files (dired-get-marked-files)))
-      (with-temp-buffer
-        (apply 'call-process "/usr/bin/du" nil t nil "-sch" files)
-        (message
-         "Size of all marked files: %s"
-         (progn
-           (re-search-backward "\\(^[0-9.,]+[A-Za-z]+\\).*total$")
-           (match-string 1))))))
+    (defun cnb/dired-get-size ()
+      "Get total size of all marked files."
+      ;;  From http://oremacs.com/2015/01/12/dired-file-size/
+      (interactive)
+      (let ((files (dired-get-marked-files)))
+        (with-temp-buffer
+          (apply 'call-process "/usr/bin/du" nil t nil "-sch" files)
+          (message
+           "Size of all marked files: %s"
+           (progn
+             (re-search-backward "\\(^[0-9.,]+[A-Za-z]+\\).*total$")
+             (match-string 1))))))
 
-  (defun cnb/dired-back-to-top ()
-    "Move to the first file name in the dired buffer"
-    (interactive)
-    (let (has-omit-mode has-hide-details-mode line-nbr)
-      (when (and (boundp 'dired-omit-mode) dired-omit-mode)
-        (setq has-omit-mode t))
-      (when (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
-        (setq has-hide-details-mode t))
-      (cond
-       ((and has-omit-mode has-hide-details-mode)
-        (setq line-nbr 1))
-       (has-omit-mode
-        (setq line-nbr 3))
-       (has-hide-details-mode
-        (setq line-nbr 3))
-       (t
-        (setq line-nbr 3)))
-      (message (number-to-string line-nbr))
-      (beginning-of-buffer)
-      (dired-next-line line-nbr)))
+    (defun cnb/dired-back-to-top ()
+      "Move to the first file name in the dired buffer"
+      (interactive)
+      (let (has-omit-mode has-hide-details-mode line-nbr)
+        (when (and (boundp 'dired-omit-mode) dired-omit-mode)
+          (setq has-omit-mode t))
+        (when (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
+          (setq has-hide-details-mode t))
+        (cond
+         ((and has-omit-mode has-hide-details-mode)
+          (setq line-nbr 1))
+         (has-omit-mode
+          (setq line-nbr 3))
+         (has-hide-details-mode
+          (setq line-nbr 3))
+         (t
+          (setq line-nbr 3)))
+        (message (number-to-string line-nbr))
+        (beginning-of-buffer)
+        (dired-next-line line-nbr)))
 
-  (defun cnb/old-dired-back-to-top ()
-    "Move to the first file name in the dired buffer"
-    (interactive)
-    (let* (line-nbr)
-      (if (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
-          (setq line-nbr 3)
-        (setq line-nbr 4))
-      (if (and (boundp 'dired-omit-mode) dired-omit-mode)
-          (setq line-nbr 2))
-      (beginning-of-buffer)
-      (dired-next-line line-nbr)))
+    (defun cnb/old-dired-back-to-top ()
+      "Move to the first file name in the dired buffer"
+      (interactive)
+      (let* (line-nbr)
+        (if (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
+            (setq line-nbr 3)
+          (setq line-nbr 4))
+        (if (and (boundp 'dired-omit-mode) dired-omit-mode)
+            (setq line-nbr 2))
+        (beginning-of-buffer)
+        (dired-next-line line-nbr)))
 
-  (defun cnb/dired-jump-to-bottom ()
-    "Jump to last file in dired buffer"
-    (interactive)
-    (end-of-buffer)
-    (dired-next-line -1))
-
-
-  (use-package dired
-    ;;:defer t
-
-    :init
-    (progn
-      (setq dired-listing-switches "-alhGv --group-directories-first")
-      (setq dired-dwim-target t)
-      (setq dired-recursive-copies 'always) ; Don't ask
-      (setq dired-recursive-deletes 'top)   ; Ask once
-      (setq diredp-hide-details-initially-flag nil)
-
-      (when (boundp 'dired-mode-map)
-        (define-key dired-mode-map
-          (vector 'remap 'beginning-of-buffer) 'cnb/dired-back-to-top)
-
-        (define-key dired-mode-map
-          (vector 'remap 'end-of-buffer) 'cnb/dired-jump-to-bottom)
-
-        ;; Sort dired.
-        (defvar cnb/dired-sort-keymap (make-sparse-keymap))
-        (define-key dired-mode-map "s" cnb/dired-sort-keymap)
-
-        (define-key cnb/dired-sort-keymap "s"
-          (lambda () "sort by Size" (interactive)
-            (dired-sort-other (concat dired-listing-switches " -S"))))
-        (define-key cnb/dired-sort-keymap "S"
-          (lambda () "sort by Size REV" (interactive)
-            (dired-sort-other (concat dired-listing-switches " -rS"))))
-        (define-key cnb/dired-sort-keymap "n"
-          (lambda () "sort by Name REV" (interactive)
-            (dired-sort-other dired-listing-switches)))
-        (define-key cnb/dired-sort-keymap "N"
-          (lambda () "sort by Name" (interactive)
-            (dired-sort-other (concat dired-listing-switches " -r"))))
-        (define-key cnb/dired-sort-keymap "t"
-          (lambda () "sort by Name REV" (interactive)
-            (dired-sort-other (concat dired-listing-switches " -t"))))
-        (define-key cnb/dired-sort-keymap "T"
-          (lambda () "sort by Name" (interactive)
-            (dired-sort-other (concat dired-listing-switches " -tr"))))
-        (define-key cnb/dired-sort-keymap "e"
-          (lambda () "sort by Extension" (interactive)
-            (dired-sort-other (concat dired-listing-switches " -X"))))
-        (define-key cnb/dired-sort-keymap "E"
-          (lambda () "sort by Extension (REV)" (interactive)
-            (dired-sort-other (concat dired-listing-switches " -rX"))))
-        (define-key cnb/dired-sort-keymap "?"
-          (lambda () "sort help" (interactive)
-            (message "s/S Size; e/E Extension; t/T Time; n/N Name"))))))
+    (defun cnb/dired-jump-to-bottom ()
+      "Jump to last file in dired buffer"
+      (interactive)
+      (end-of-buffer)
+      (dired-next-line -1))
 
 
-  (use-package dired-x
-    :defer t
-    :config
-    (progn
-      ;; Remember -  <C-x><ALT>o to omit hidden files
-      (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))))
+    (use-package dired
+      :config
+      (progn
+        (setq dired-listing-switches "-alhGv --group-directories-first")
+        (setq dired-dwim-target t)
+        (setq dired-recursive-copies 'always) ; Don't ask
+        (setq dired-recursive-deletes 'top)   ; Ask once
+        (setq diredp-hide-details-initially-flag nil)
 
-  (use-package dired+
-    :defer t
-    :ensure dired+
+        (when (boundp 'dired-mode-map)
+          (define-key dired-mode-map
+            (vector 'remap 'beginning-of-buffer) 'cnb/dired-back-to-top)
 
-    :init
-    (progn
-      (diredp-toggle-find-file-reuse-dir 1)))
+          (define-key dired-mode-map
+             (vector 'remap 'end-of-buffer) 'cnb/dired-jump-to-bottom))))
 
-  (use-package wdired
-    :defer t
-    :init
-    (progn
-      (setq wdired-allow-to-change-permissions t)
-      (setq wdired-confirm-overwrite t)))
+
+    (use-package dired-x
+      :defer t
+
+      :config
+      (progn
+        ;; Remember -  <C-x><ALT>o to omit hidden files
+        (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))))
+
+    (use-package dired+
+      :defer t
+      :ensure dired+
+
+      :config
+      (progn
+        (diredp-toggle-find-file-reuse-dir 1)))
+
+    (use-package wdired
+      :defer t
+
+      :config
+      (progn
+        (setq wdired-allow-to-change-permissions t)
+        (setq wdired-confirm-overwrite t)))
 
 #+end_src
 
@@ -869,20 +844,14 @@ Start Emacs server on first Emacs instance.
 #+begin_src emacs-lisp
   (use-package bookmark
     :defer t
+    :ensure bookmark+
 
-    :init
+    :config
     (progn
+      (require 'bookmark+)
       (setq bookmark-save-flag 1) ; Save bookmarks instantly
       (setq bookmark-default-file
             (expand-file-name "emacs.bmk" user-emacs-directory))))
-#+end_src
-
-Enhancements for bookmarks.
-
-#+begin_src emacs-lisp
-  (use-package bookmark+
-    :defer t
-    :ensure bookmark+)
 #+end_src
 
 Visual Bookmarks
@@ -896,7 +865,8 @@ Visual Bookmarks
     :ensure bm
     :defer t
     :commands (bm-repository-load bm-buffer-restore bm-buffer-save bm-repository-save bm-buffer-save-all)
-    :init
+
+    :config
     (progn
       (setq bm-restore-repository-on-load t)
       (setq bm-repository-file (expand-file-name "bm-repository" user-emacs-directory))
@@ -918,19 +888,13 @@ Visual Bookmarks
 
 #+begin_src emacs-lisp
   (use-package flyspell
-    :diminish flyspell-mode)
-#+end_src
-
-Helm Fly-spell
-
-#+begin_src emacs-lisp
-  (use-package helm-flyspell
+    :defer t
     :ensure helm-flyspell
+    :diminish flyspell-mode
 
-    :init
-    (progn
-      (define-key flyspell-mode-map (kbd "C-;") #'helm-flyspell-correct)))
-
+    :config
+    (progn)
+    (define-key flyspell-mode-map (kbd "C-;") #'helm-flyspell-correct))
 #+end_src
 
 Dictionary Look-up
@@ -938,6 +902,7 @@ Dictionary Look-up
 #+begin_src emacs-lisp
   (use-package helm-words
     :ensure t
+    :defer t
 
     :config
     (progn
@@ -980,6 +945,7 @@ Toggle Frame Split
 Only required by other packages. I use ace-windows avi-* functions instead.
 #+begin_src emacs-lisp
   (use-package ace-jump-mode
+    :defer t
     :ensure t)
 #+end_src
 
@@ -995,7 +961,7 @@ This is a quick way to find lines.
 #+begin_src emacs-lisp
   (use-package helm-swoop
     :ensure helm-swoop
-    :init
+    :config
     (progn
       (setq helm-swoop-speed-or-color t)
       (setq helm-swoop-use-line-number-face t))
@@ -1009,13 +975,15 @@ This is a quick way to find lines.
 Drag mode. Allows dragging by alt left up etc.
 
 #+begin_src emacs-lisp
-  (use-package drag-stuff
-    :ensure drag-stuff
-    :diminish drag-stuff-mode
-    :init
-    (progn
-      (setq drag-stuff-except-modes '(org-mode))
-      (drag-stuff-global-mode t)))
+    (use-package drag-stuff
+      :ensure drag-stuff
+      :diminish drag-stuff-mode
+      :defer t
+
+      :config
+      (progn
+        (setq drag-stuff-except-modes '(org-mode))
+        (drag-stuff-global-mode t)))
 
 #+end_src
 
@@ -1080,6 +1048,8 @@ Bind 'o' to links in Help and Info buffers
 #+begin_src emacs-lisp
   (use-package ace-link
     :ensure ace-link
+    :defer t
+
     :config
     (progn
       (ace-link-setup-default)))
@@ -1105,155 +1075,155 @@ Bind 'o' to links in Help and Info buffers
 IBuffer is an advanced replacement for BufferMenu.
 
 #+begin_src emacs-lisp
-  (defun ibuffer-ediff-marked-buffers ()
-    "ediff 2 marked buffers"
-    (interactive)
-    (let* ((marked-buffers (ibuffer-get-marked-buffers))
-           (len (length marked-buffers)))
-      (unless (= 2 len)
-        (error (format "%s buffer%s been marked (needs to be 2)"
-                       len (if (= len 1) " has" "s have"))))
-      (ediff-buffers (car marked-buffers) (cadr marked-buffers))))
+    (defun ibuffer-ediff-marked-buffers ()
+      "ediff 2 marked buffers"
+      (interactive)
+      (let* ((marked-buffers (ibuffer-get-marked-buffers))
+             (len (length marked-buffers)))
+        (unless (= 2 len)
+          (error (format "%s buffer%s been marked (needs to be 2)"
+                         len (if (= len 1) " has" "s have"))))
+        (ediff-buffers (car marked-buffers) (cadr marked-buffers))))
 
-  (use-package ibuffer
-    :bind (("C-x C-b" . ibuffer))
+    (use-package ibuffer
+      :bind (("C-x C-b" . ibuffer))
 
-    :config
-    (progn
-      (defadvice ibuffer (around ibuffer-point-to-most-recent activate) ()
-                 "Open ibuffer with cursor at most recently viewed buffer."
-                 (let ((current-buffer-name (buffer-name)))
-                   ad-do-it
-                   (ibuffer-jump-to-buffer current-buffer-name)))
+      :config
+      (progn
+        (defadvice ibuffer (around ibuffer-point-to-most-recent activate) ()
+                   "Open ibuffer with cursor at most recently viewed buffer."
+                   (let ((current-buffer-name (buffer-name)))
+                     ad-do-it
+                     (ibuffer-jump-to-buffer current-buffer-name)))
 
-      (define-key ibuffer-mode-map "e" #'ibuffer-ediff-marked-buffers)
-      (setq ibuffer-default-sorting-mode 'alphabetic)
+        (define-key ibuffer-mode-map "e" #'ibuffer-ediff-marked-buffers)
+        (setq ibuffer-default-sorting-mode 'alphabetic)
 
-      (add-hook 'ibuffer-mode-hook
-                (lambda ()
-                  (ibuffer-auto-mode)
-                  (ibuffer-switch-to-saved-filter-groups "default")
-                  (visual-line-mode -1)))
+        (add-hook 'ibuffer-mode-hook
+                  (lambda ()
+                    (ibuffer-auto-mode)
+                    (ibuffer-switch-to-saved-filter-groups "default")
+                    (visual-line-mode -1)))
 
-      ;; Replace the filename filter with a file name/directory name filter
-      (eval-after-load "ibuf-ext"
-        '(define-ibuffer-filter filename
-             "Toggle current view to buffers with file or directory name matching QUALIFIER."
-           (:description "filename"
-                         :reader (read-from-minibuffer "Filter by file/directory name (regexp): "))
-           (ibuffer-awhen (or (buffer-local-value 'buffer-file-name buf)
-                              (buffer-local-value 'dired-directory buf))
-             (string-match qualifier it)))))
+        ;; Replace the filename filter with a file name/directory name filter
+        (eval-after-load "ibuf-ext"
+          '(define-ibuffer-filter filename
+               "Toggle current view to buffers with file or directory name matching QUALIFIER."
+             (:description "filename"
+                           :reader (read-from-minibuffer "Filter by file/directory name (regexp): "))
+             (ibuffer-awhen (or (buffer-local-value 'buffer-file-name buf)
+                                (buffer-local-value 'dired-directory buf))
+               (string-match qualifier it)))))
 
-    :init
-    (progn
-      (setq ibuffer-expert t) ;; Don't prompt closing unmodified buffers
-      (setq ibuffer-show-empty-filter-groups nil)
+      :init
+      (progn
+        (setq ibuffer-expert t) ;; Don't prompt closing unmodified buffers
+        (setq ibuffer-show-empty-filter-groups nil)
 
-      (setq ibuffer-formats
-            '((mark modified read-only" "
-                    (name 30 30 :left :elide)
-                    " "
-                    (size 9 -1 :right)
-                    " "
-                    (mode 16 16 :left :elide)
-                    " " filename-and-process)
-              (mark " "
-                    (name 16 -1)
-                    " " filename)))
+        (setq ibuffer-formats
+              '((mark modified read-only" "
+                      (name 30 30 :left :elide)
+                      " "
+                      (size 9 -1 :right)
+                      " "
+                      (mode 16 16 :left :elide)
+                      " " filename-and-process)
+                (mark " "
+                      (name 16 -1)
+                      " " filename)))
 
-      (setq ibuffer-saved-filter-groups
-            (quote (("default"
-                     ("ruby" (or
-                              (mode . rinari-mode)
-                              (mode . enh-ruby-mode)
-                              (mode . ruby-mode)))
-                     ("lisp" (or (mode . emacs-lisp-mode)
-                                 (mode . lisp-interaction-mode)
-                                 (mode . lisp-mode)))
-                     ("clojure" (or (mode . clojure-mode)
-                                    (mode . clojure-test-mode)))
-                     ("java" (mode . java-mode))
-                     ("js" (or
-                            (mode . coffee-mode)
-                            (mode . js-mode)
-                            (mode . espresso-mode)))
-                     ("code" (or
-                              (mode . scala-mode)
-                              (mode . sbt-mode)
-                              (mode . haskell-mode)
-                              (mode . lua-mode)
-                              (mode . python-mode)))
-                     ("web markup" (or
-                                    (mode . sass-mode)
-                                    (mode . css-mode)
-                                    (mode . scss-mode)
-                                    (mode . php-mode)
-                                    (mode . haml-mode)
-                                    (mode . slim-mode)
-                                    (mode . html-mode)
-                                    (mode . rhtml-mode)
-                                    (name . ".rhtml")
-                                    (mode . nXhtml-mode)
-                                    (mode . web-mode)))
-                     ("markup" (or
-                                (mode . nxml-mode)
-                                (mode . yaml-mode)
-                                (mode . markdown-mode)))
-                     ("conf" (or
-                              (mode . muttrc-mode)
-                              (mode . conf-xdefaults-mode)
-                              (mode . conf-mode)
-                              (mode . conf-unix-mode)
-                              (mode . conf-space-mode)
-                              (mode . conf-colon-mode)
-                              (name . "\.env")))
-                     ("dired" (mode . dired-mode))
-                     ("browser" (or
-                                 (mode . doc-view-mode)
-                                 (mode . eww-mode)
-                                 (mode . help-mode)
-                                 (mode . Man-mode)
-                                 (mode . woman-mode)))
-                     ("org" (or
-                             (name . "^\\*Calendar\\*$")
-                             (name . "^diary$")
-                             (mode . latex-mode)
-                             (mode . org-mode)
-                             (mode . muse-mode)))
-                     ("shell-script" (mode . sh-mode))
-                     ("compilation" (or
-                                     (name . "^\\*Compile-Log\\*$")
-                                     (mode . ruby-compilation-mode)))
-                     ("term" (or
-                              (mode . term-mode)
-                              (mode . sql-interactive-mode)))
-                     ("repl" (or
-                              (mode . cider-repl-mode)
-                              (mode . inf-ruby-mode)
-                              (mode . nrepl-messages-mode)))
-                     ("source control" (or
-                                        (mode . magit-mode)
-                                        (mode . magit-commit-mode)
-                                        (mode . magit-status-mode)
-                                        (mode . git-commit-mode)
-                                        (name . "^magit")
-                                        (name . "magit")))
-                     ("jabber" (or
-                                (mode . jabber-roster-mode)
-                                (mode . jabber-chat-mode)))
-                     ("mail" (or
-                              (mode . bbdb-mode)
-                              (mode . gnus-article-mode)
-                              (mode . gnus-group-mode)
-                              (mode . gnus-summary-mode)
-                              (name . "\.bbdb")
-                              (name . "\.newsrc-dribble")
-                              (mode . mu4e-main-mode)
-                              (mode . mu4e-headers-mode)
-                              ;;(mode . rmail-mode)
-                              (mode . mu4e-view-mode)
-                              (mode . mu4e-compose-mode)))))))))
+        (setq ibuffer-saved-filter-groups
+              (quote (("default"
+                       ("ruby" (or
+                                (mode . rinari-mode)
+                                (mode . enh-ruby-mode)
+                                (mode . ruby-mode)))
+                       ("lisp" (or (mode . emacs-lisp-mode)
+                                   (mode . lisp-interaction-mode)
+                                   (mode . lisp-mode)))
+                       ("clojure" (or (mode . clojure-mode)
+                                      (mode . clojure-test-mode)))
+                       ("java" (mode . java-mode))
+                       ("js" (or
+                              (mode . coffee-mode)
+                              (mode . js-mode)
+                              (mode . espresso-mode)))
+                       ("code" (or
+                                (mode . scala-mode)
+                                (mode . sbt-mode)
+                                (mode . haskell-mode)
+                                (mode . lua-mode)
+                                (mode . python-mode)))
+                       ("web markup" (or
+                                      (mode . sass-mode)
+                                      (mode . css-mode)
+                                      (mode . scss-mode)
+                                      (mode . php-mode)
+                                      (mode . haml-mode)
+                                      (mode . slim-mode)
+                                      (mode . html-mode)
+                                      (mode . rhtml-mode)
+                                      (name . ".rhtml")
+                                      (mode . nXhtml-mode)
+                                      (mode . web-mode)))
+                       ("markup" (or
+                                  (mode . nxml-mode)
+                                  (mode . yaml-mode)
+                                  (mode . markdown-mode)))
+                       ("conf" (or
+                                (mode . muttrc-mode)
+                                (mode . conf-xdefaults-mode)
+                                (mode . conf-mode)
+                                (mode . conf-unix-mode)
+                                (mode . conf-space-mode)
+                                (mode . conf-colon-mode)
+                                (name . "\.env")))
+                       ("dired" (mode . dired-mode))
+                       ("browser" (or
+                                   (mode . doc-view-mode)
+                                   (mode . eww-mode)
+                                   (mode . help-mode)
+                                   (mode . Man-mode)
+                                   (mode . woman-mode)))
+                       ("org" (or
+                               (name . "^\\*Calendar\\*$")
+                               (name . "^diary$")
+                               (mode . latex-mode)
+                               (mode . org-mode)
+                               (mode . muse-mode)))
+                       ("shell-script" (mode . sh-mode))
+                       ("compilation" (or
+                                       (name . "^\\*Compile-Log\\*$")
+                                       (mode . ruby-compilation-mode)))
+                       ("term" (or
+                                (mode . term-mode)
+                                (mode . sql-interactive-mode)))
+                       ("repl" (or
+                                (mode . cider-repl-mode)
+                                (mode . inf-ruby-mode)
+                                (mode . nrepl-messages-mode)))
+                       ("source control" (or
+                                          (mode . magit-mode)
+                                          (mode . magit-commit-mode)
+                                          (mode . magit-status-mode)
+                                          (mode . git-commit-mode)
+                                          (name . "^magit")
+                                          (name . "magit")))
+                       ("jabber" (or
+                                  (mode . jabber-roster-mode)
+                                  (mode . jabber-chat-mode)))
+                       ("mail" (or
+                                (mode . bbdb-mode)
+                                (mode . gnus-article-mode)
+                                (mode . gnus-group-mode)
+                                (mode . gnus-summary-mode)
+                                (name . "\.bbdb")
+                                (name . "\.newsrc-dribble")
+                                (mode . mu4e-main-mode)
+                                (mode . mu4e-headers-mode)
+                                ;;(mode . rmail-mode)
+                                (mode . mu4e-view-mode)
+                                (mode . mu4e-compose-mode)))))))))
 #+end_src
 
 ** Unique Buffer Names
@@ -1336,7 +1306,7 @@ C-c left/right to undo/redo window configuration changes.
 #+begin_src emacs-lisp
   (use-package popwin
     :ensure t
-    :defer t
+
     :commands (popwin-mode)
 
     :config
@@ -1461,6 +1431,7 @@ Delete all whitespace when deleting.
 #+begin_src emacs-lisp
   (use-package browse-kill-ring
     :ensure browse-kill-ring
+    :defer t
 
     :config
     (progn
@@ -1538,7 +1509,8 @@ line. http://www.emacswiki.org/emacs/SlickCopy
 #+begin_src emacs-lisp
   (use-package ag
     :ensure t
-    :init
+
+    :config
     (progn
       (setq ag-highlight-search t)))
 #+end_src
@@ -1750,11 +1722,13 @@ Show commit details for the current line.
 Show a file as at a particular commit.
 
 #+begin_src emacs-lisp
-  (use-package git-timemachine
-    :ensure git-timemachine
-    :init
-    (progn
-      (defalias 'gtm 'git-timemachine)))
+    (use-package git-timemachine
+      :ensure git-timemachine
+      :defer t
+
+      :init
+      (progn
+        (defalias 'gtm 'git-timemachine)))
 #+end_src
 
 ** Git Blame
@@ -1762,8 +1736,9 @@ Show a file as at a particular commit.
 An interactive, interative 'git blame' mode.
 
 #+begin_src emacs-lisp
-  (use-package mo-git-blame
-    :ensure mo-git-blame)
+    (use-package mo-git-blame
+      :ensure t
+      :defer t)
 #+end_src
 
 ** Projectile
@@ -1771,39 +1746,43 @@ An interactive, interative 'git blame' mode.
 Projectile is a Project Interaction Library.
 
 #+begin_src emacs-lisp
-  ;; Projectile doesn't include f but crashes if it isn't there.
-  ;; TODO: Test if this is still a problem.
-  (use-package f
-    :ensure t
-    :init
-    (progn
-      (require 'f)))
+    ;; Projectile doesn't include f but crashes if it isn't there.
+    ;; TODO: Test if this is still a problem.
+    (use-package f
+      :ensure t
+      :init
+      (progn
+        (require 'f)))
 
-  (use-package projectile
-    :ensure t
-    :diminish projectile-mode
+    (use-package projectile
+      :ensure t
+      :diminish projectile-mode
+      :defer t
 
-    :init
-    (progn
-      ;;(setq projectile-completion-system 'helm)
-      (setq projectile-completion-system 'helm-comp-read)
-      (setq projectile-switch-project-action 'projectile-dired)
-      (setq projectile-enable-caching t)
-      (projectile-global-mode)))
+      :config
+      (progn
+        ;;(setq projectile-completion-system 'helm)
+        (setq projectile-completion-system 'helm-comp-read)
+        (setq projectile-switch-project-action 'projectile-dired)
+        (setq projectile-enable-caching t)
+        (projectile-global-mode)))
 
-  (use-package projectile-rails
-    :ensure t
-    :diminish projectile-rails-mode
+    (use-package projectile-rails
+      :ensure t
+      :defer t
+      :diminish projectile-rails-mode
 
-    :init
-    (progn
-      (add-hook 'projectile-mode-hook #'projectile-rails-on)))
+      :init
+      (progn
+        (add-hook 'projectile-mode-hook #'projectile-rails-on)))
 
 #+end_src
 
 #+begin_src emacs-lisp
   (use-package helm-projectile
     :ensure helm-projectile
+    :defer t
+
     :init
     (progn
       (helm-projectile-on)
@@ -1834,9 +1813,7 @@ Projectile is a Project Interaction Library.
         (interactive)
         (projectile-rails-find-current-resource "app/decorators/"
                                                 "/${singular}\\.rb$"
-                                                'cnb/projectile-rails-find-decorator))
-
-      ))
+                                                'cnb/projectile-rails-find-decorator))))
 #+end_src
 
 ** Smart Parens
@@ -1903,6 +1880,7 @@ Deal with parens in a smart way.
 ** Rainbow Delimiters
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
+    :defer t
     :ensure rainbow-delimiters)
 #+end_src
 ** Diff
@@ -1929,8 +1907,9 @@ Deal with parens in a smart way.
 
 ** Rainbow Mode
 #+begin_src emacs-lisp
-  (use-package rainbow-mode
-    :ensure rainbow-mode)
+    (use-package rainbow-mode
+      :defer t
+      :ensure rainbow-mode)
 #+end_src
 
 ** Color Identifiers Mode
@@ -2063,43 +2042,45 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
 ** Clojure Mode.
 
 #+begin_src emacs-lisp
-    (use-package clojure-mode
-      :ensure clojure-mode
+      (use-package clojure-mode
+        :ensure clojure-mode
+        :defer t
 
-      :config
-      (progn
-        (add-hook 'clojure-mode-hook #'cider-mode)
-        (add-hook 'clojure-mode-hook
-                  (lambda ()
-                    (clj-refactor-mode 1)
-                    (cljr-add-keybindings-with-prefix "C-o C-r")))
-                    ;;(push '("defn" . "\u0192") prettify-symbols-alist)
+        :config
+        (progn
+          (add-hook 'clojure-mode-hook #'cider-mode)
+          (add-hook 'clojure-mode-hook
+                    (lambda ()
+                      (clj-refactor-mode 1)
+                      (cljr-add-keybindings-with-prefix "C-o C-r")))
+                      ;;(push '("defn" . "\u0192") prettify-symbols-alist)
 
-        (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
-        (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
-        (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)
+          (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
+          (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
+          (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)
 
-        (define-clojure-indent
-          (defroutes 'defun)
-          (GET 2)
-          (POST 2)
-          (PUT 2)
-          (DELETE 2)
-          (HEAD 2)
-          (ANY 2)
-          (context 2)
-          (for-all 1)
-          (such-that 1)
-          (let-routes 1)
-          (run-db 2)
-          (defspec 'defun))))
+          (define-clojure-indent
+            (defroutes 'defun)
+            (GET 2)
+            (POST 2)
+            (PUT 2)
+            (DELETE 2)
+            (HEAD 2)
+            (ANY 2)
+            (context 2)
+            (for-all 1)
+            (such-that 1)
+            (let-routes 1)
+            (run-db 2)
+            (defspec 'defun))))
 #+end_src
 
 Extra font clocking for Clojure mode.
 
 #+begin_src emacs-lisp
-(use-package clojure-mode-extra-font-locking
-  :ensure clojure-mode-extra-font-locking)
+  (use-package clojure-mode-extra-font-locking
+    :ensure clojure-mode-extra-font-locking
+    :defer t)
 #+end_src
 
 ** Cheat Sheet
@@ -2109,6 +2090,8 @@ Clojure documentation.
 #+begin_src emacs-lisp
 (use-package clojure-cheatsheet
   :ensure clojure-cheatsheet
+  :defer t
+
   :init
   (progn
     (defalias 'ccs 'clojure-cheatsheet)))
@@ -2117,17 +2100,20 @@ Clojure documentation.
 ** Align let forms
 #+begin_src emacs-lisp
 (use-package align-cljlet
-  :ensure align-cljlet)
+  :ensure align-cljlet
+  :defer t)
 #+end_src
 ** Refactoring
 #+begin_src emacs-lisp
   (use-package clj-refactor
     :ensure t
+    :defer t
     :diminish clj-refactor-mode)
 
   ;; Helm interface to clj-refactor
   (use-package cljr-helm
     :ensure t
+    :defer t
 
     :config
     (progn
@@ -2139,6 +2125,7 @@ Clojure documentation.
 #+begin_src emacs-lisp
   (use-package cider
     :ensure cider
+    :defer t
 
     :init
     (progn
@@ -2158,6 +2145,7 @@ Clojure documentation.
       (setq cider-repl-history-size 1000)))
 
   (use-package cider-decompile
+    :defer t
     :ensure cider-decompile)
 #+end_src
 
@@ -2165,6 +2153,7 @@ Clojure documentation.
 #+begin_src emacs-lisp
   (use-package slamhound
     :ensure t
+    :defer t
     :commands slamhound)
 #+end_src
 
@@ -2280,6 +2269,7 @@ Clojure documentation.
 ** helm-rb
 #+BEGIN_SRC emacs-lisp
   (use-package helm-rb
+    :defer t
     :ensure t)
 #+END_SRC
 ** RuboCop
@@ -2300,11 +2290,13 @@ Clojure documentation.
 ** Robe
 #+begin_src emacs-lisp
   (use-package helm-robe
+    :defer t
     :ensure t)
 
   (use-package robe
     :ensure robe
     :diminish robe-mode
+    :defer t
 
     :config
     (progn
@@ -2342,11 +2334,13 @@ Font lock for Ruby Yard comments.
 * Foreman
 #+BEGIN_SRC emacs-lisp
   (use-package foreman-mode
+    :defer t
     :ensure t)
 #+END_SRC
 * Rspec
 #+begin_src emacs-lisp
   (use-package rspec-mode
+    :defer t
     :ensure rspec-mode)
 #+end_src
 
@@ -2355,6 +2349,7 @@ Font lock for Ruby Yard comments.
 #+begin_src emacs-lisp
     (use-package haskell-mode
       :ensure t
+      :defer t
 
       :init
       (progn
@@ -2366,6 +2361,7 @@ Font lock for Ruby Yard comments.
 * Lua
 #+begin_src emacs-lisp
   (use-package lua-mode
+    :defer t
     :ensure t)
 #+end_src
 
@@ -2406,16 +2402,17 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 * Markup Modes
 ** YAML
 #+begin_src emacs-lisp
-    (use-package yaml-mode
-      :mode (("\\.yml$" . yaml-mode) ("\\.ya?ml$" . yaml-mode))
-      :ensure t
+  (use-package yaml-mode
+    :mode (("\\.yml$" . yaml-mode) ("\\.ya?ml$" . yaml-mode))
+    :ensure t
+    :defer t
 
-      :config
-      (progn
-        (add-hook 'yaml-mode-hook
-                  (lambda ()
-                    (define-key yaml-mode-map (kbd "RET") 'newline-and-indent)
-                    (electric-indent-local-mode -1)))))
+    :config
+    (progn
+      (add-hook 'yaml-mode-hook
+                (lambda ()
+                  (define-key yaml-mode-map (kbd "RET") 'newline-and-indent)
+                  (electric-indent-local-mode -1)))))
 
 #+end_src
 
@@ -2497,6 +2494,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 ** SASS
 #+begin_src emacs-lisp
   (use-package scss-mode
+    :defer t
     :ensure t)
 #+end_src
 
@@ -2532,7 +2530,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 #+begin_src emacs-lisp
     (use-package auctex
       :ensure t
-      :defer
+      :defer t
 
       :config
       (progn
@@ -2715,6 +2713,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 #+begin_src emacs-lisp
   (use-package muttrc-mode
     :ensure muttrc-mode
+    :defer t
     :mode ("muttrc" . muttrc-mode))
 
 #+end_src
@@ -2740,20 +2739,20 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
 ** Terminal
 #+begin_src emacs-lisp
-      (add-hook
-       'term-mode-hook
-       (function
-        (lambda ()
-          (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
-          (make-local-variable 'mouse-yank-at-point)
-          (make-local-variable 'transient-mark-mode)
-          (setq mouse-yank-at-point t)
-          (setq transient-mark-mode nil)
-          (auto-fill-mode -1)
-          (setq tab-width 2)
-          (setq explicit-shell-file-name "/bin/zsh")
+  (add-hook
+   'term-mode-hook
+   (function
+    (lambda ()
+      (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
+      (make-local-variable 'mouse-yank-at-point)
+      (make-local-variable 'transient-mark-mode)
+      (setq mouse-yank-at-point t)
+      (setq transient-mark-mode nil)
+      (auto-fill-mode -1)
+      (setq tab-width 2)
+      (setq explicit-shell-file-name "/bin/zsh")
 
-  )))
+      )))
 #+end_src
 
 Close term buffers when terminal is exited.
@@ -2775,6 +2774,7 @@ Close term buffers when terminal is exited.
 
 #+begin_src emacs-lisp
   (use-package log4j-mode
+    :defer t
     :ensure t)
 
 #+end_src
@@ -3405,6 +3405,7 @@ Remember command and search history.
 * Games
 #+BEGIN_SRC emacs-lisp
   (use-package 2048-game
+    :defer t
     :ensure t)
 
 #+END_SRC
@@ -3430,6 +3431,7 @@ Remember command and search history.
 
 #+begin_src emacs-lisp
   (use-package htmlize
+    :defer t
     :ensure t)
 
   ;; cycle through amounts of spacing
