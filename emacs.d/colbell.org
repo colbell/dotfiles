@@ -3166,6 +3166,60 @@ Close term buffers when terminal is exited.
       ("b" gh-md-render-buffer "render buffer via github")))
 #+end_src
 
+** Dired Hydras
+   #+begin_src emacs-lisp
+     (defhydra hydra-dired-sort (:color red)
+       "
+                                                                                     ╭────────────┐
+                                                                                     │ Dired Sort │
+                 ╭───────────────────────────────────────────────────────────────────┴────────────╯
+                   _n_: name                           _N_: name rev
+                   _e_: ext                            _E_: ext rev
+                   _s_: size                           _S_: size rev
+                   _t_: last modified                  _T_: last modified rev
+                 ───────────────────────────────────────────────────────────────────────────────────
+                  "
+       ("s" (lambda ()
+              (interactive)
+              (dired-sort-other (concat dired-listing-switches " -S")))
+        nil)
+       ("S" (lambda ()
+              (interactive)
+              (dired-sort-other (concat dired-listing-switches " -rS")))
+        nil)
+
+       ("e" (lambda ()
+              (interactive)
+              (dired-sort-other (concat dired-listing-switches " -X")))
+        nil)
+       ("E" (lambda ()
+              (interactive)
+              (dired-sort-other (concat dired-listing-switches " -rX")))
+        nil)
+
+       ("t" (lambda ()
+              (interactive)
+              (dired-sort-other (concat dired-listing-switches " -t")))
+        nil)
+       ("T" (lambda ()
+              (interactive)
+              (dired-sort-other (concat dired-listing-switches " -rt")))
+        nil)
+
+       ("n" (lambda ()
+               (interactive)
+               (dired-sort-other dired-listing-switches))
+        nil)
+       ("N" (lambda ()
+              (interactive)
+              (dired-sort-other (concat dired-listing-switches " -r")))
+        nil)
+
+       ("q" nil                       "cancel"))
+
+     (define-key dired-mode-map (kbd "s") 'hydra-dired-sort/body)
+   #+end_src
+
 ** Projectile mode hydras
 #+begin_src emacs-lisp
     (define-key
