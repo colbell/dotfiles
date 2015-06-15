@@ -28,8 +28,8 @@
 
 (require 'package)
 (setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("melpa" .  "http://melpa.org/packages/") 'APPEND)
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") 'APPEND)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") 'APPEND)
+(add-to-list 'package-archives '("org"   . "http://orgmode.org/elpa/")   'APPEND)
 (package-initialize)
 
 (setq use-package-verbose t)
@@ -52,7 +52,7 @@
   :ensure t
   :defer t
 
-  :init
+  :config
   (progn
     (setq paradox-github-token t)  ;; Don't ask for Github integration.
     (setq paradox-display-download-count t)
@@ -87,6 +87,7 @@
 ;;(set-frame-font "DejaVu Sans Mono-11" nil t)
 
 (use-package csv-mode
+  :defer t
   :ensure t)
 
 ;; I use keys that start with C-o for personal mappings.
@@ -104,7 +105,9 @@
 (global-unset-key (kbd "C-x C-z"))
 
 (use-package esup
-  :ensure esup)
+  :ensure esup
+  :commands esup
+  :defer t)
 
 (random t)
 
@@ -152,22 +155,24 @@
   :ensure crosshairs
   :bind (("<f11>" . flash-crosshairs)))
 
-(defun cnb/nlinum-mode-hook ()
-  "Stop horiz jumps on scrolling"
-  (setq nlinum--width
-        (length (number-to-string
-                 (count-lines (point-min) (point-max))))))
+;;(defun cnb/nlinum-mode-hook ()
+;;  "Stop horiz jumps on scrolling"
+;;  (setq nlinum--width
+;;        (length (number-to-string
+;;                (count-lines (point-min) (point-max))))))
 
 (use-package nlinum
+  :commands nlinum-mode
   :ensure t)
-  ;; :config
-  ;; (progn
-  ;;   (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
+  ;;:config
+  ;;(progn
+  ;;  (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
 
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
 (use-package httpcode
+  :commands hc
   :ensure httpcode)
 
 (mouse-avoidance-mode 'exile)
@@ -283,7 +288,7 @@
     ;; names so we need to ignore each file twice. The function (file-truename)
     ;; will expand symlinks.
     (let ((exclude-files '("places" ".ido.last" "elpa/**/.*" "emacs.bmk"
-                           "url/cookies")))
+                           "url/cookies" "bookmarks")))
       (while exclude-files
         (let ((f (expand-file-name (car exclude-files) user-emacs-directory)))
           (add-to-list 'recentf-exclude f)
@@ -294,6 +299,7 @@
 
 (use-package helm
   :ensure t
+  :defer t
   :diminish helm-mode
 
   :config
@@ -434,146 +440,146 @@ in native application through xdg-open"
         ("\\.ods\\'\\|\\.xlsx?\\'\\|\\.docx?\\'\\|\\.csv\\'" "libreoffice")))
 
 (use-package peep-dired
+  :defer t
   :ensure t)
 
 (defun cnb/dired-get-size ()
-  "Get total size of all marked files."
-  ;;  From http://oremacs.com/2015/01/12/dired-file-size/
-  (interactive)
-  (let ((files (dired-get-marked-files)))
-    (with-temp-buffer
-      (apply 'call-process "/usr/bin/du" nil t nil "-sch" files)
-      (message
-       "Size of all marked files: %s"
-       (progn
-         (re-search-backward "\\(^[0-9.,]+[A-Za-z]+\\).*total$")
-         (match-string 1))))))
+    "Get total size of all marked files."
+    ;;  From http://oremacs.com/2015/01/12/dired-file-size/
+    (interactive)
+    (let ((files (dired-get-marked-files)))
+      (with-temp-buffer
+        (apply 'call-process "/usr/bin/du" nil t nil "-sch" files)
+        (message
+         "Size of all marked files: %s"
+         (progn
+           (re-search-backward "\\(^[0-9.,]+[A-Za-z]+\\).*total$")
+           (match-string 1))))))
 
-(defun cnb/dired-back-to-top ()
-  "Move to the first file name in the dired buffer"
-  (interactive)
-  (let (has-omit-mode has-hide-details-mode line-nbr)
-    (when (and (boundp 'dired-omit-mode) dired-omit-mode)
-      (setq has-omit-mode t))
-    (when (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
-      (setq has-hide-details-mode t))
-    (cond
-     ((and has-omit-mode has-hide-details-mode)
-      (setq line-nbr 1))
-     (has-omit-mode
-      (setq line-nbr 3))
-     (has-hide-details-mode
-      (setq line-nbr 3))
-     (t
-      (setq line-nbr 3)))
-    (message (number-to-string line-nbr))
-    (beginning-of-buffer)
-    (dired-next-line line-nbr)))
+  (defun cnb/dired-back-to-top ()
+    "Move to the first file name in the dired buffer"
+    (interactive)
+    (let (has-omit-mode has-hide-details-mode line-nbr)
+      (when (and (boundp 'dired-omit-mode) dired-omit-mode)
+        (setq has-omit-mode t))
+      (when (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
+        (setq has-hide-details-mode t))
+      (cond
+       ((and has-omit-mode has-hide-details-mode)
+        (setq line-nbr 1))
+       (has-omit-mode
+        (setq line-nbr 3))
+       (has-hide-details-mode
+        (setq line-nbr 3))
+       (t
+        (setq line-nbr 3)))
+      (message (number-to-string line-nbr))
+      (beginning-of-buffer)
+      (dired-next-line line-nbr)))
 
-(defun cnb/old-dired-back-to-top ()
-  "Move to the first file name in the dired buffer"
-  (interactive)
-  (let* (line-nbr)
-    (if (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
-        (setq line-nbr 3)
-      (setq line-nbr 4))
-    (if (and (boundp 'dired-omit-mode) dired-omit-mode)
-        (setq line-nbr 2))
-    (beginning-of-buffer)
-    (dired-next-line line-nbr)))
+  (defun cnb/old-dired-back-to-top ()
+    "Move to the first file name in the dired buffer"
+    (interactive)
+    (let* (line-nbr)
+      (if (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
+          (setq line-nbr 3)
+        (setq line-nbr 4))
+      (if (and (boundp 'dired-omit-mode) dired-omit-mode)
+          (setq line-nbr 2))
+      (beginning-of-buffer)
+      (dired-next-line line-nbr)))
 
-(defun cnb/dired-jump-to-bottom ()
-  "Jump to last file in dired buffer"
-  (interactive)
-  (end-of-buffer)
-  (dired-next-line -1))
-
-
-(use-package dired
-  ;;:defer t
-
-  :init
-  (progn
-    (setq dired-listing-switches "-alhGv --group-directories-first")
-    (setq dired-dwim-target t)
-    (setq dired-recursive-copies 'always) ; Don't ask
-    (setq dired-recursive-deletes 'top)   ; Ask once
-    (setq diredp-hide-details-initially-flag nil)
-
-    (when (boundp 'dired-mode-map)
-      (define-key dired-mode-map
-        (vector 'remap 'beginning-of-buffer) 'cnb/dired-back-to-top)
-
-      (define-key dired-mode-map
-        (vector 'remap 'end-of-buffer) 'cnb/dired-jump-to-bottom)
-
-      ;; Sort dired.
-      (defvar cnb/dired-sort-keymap (make-sparse-keymap))
-      (define-key dired-mode-map "s" cnb/dired-sort-keymap)
-
-      (define-key cnb/dired-sort-keymap "s"
-        (lambda () "sort by Size" (interactive)
-          (dired-sort-other (concat dired-listing-switches " -S"))))
-      (define-key cnb/dired-sort-keymap "S"
-        (lambda () "sort by Size REV" (interactive)
-          (dired-sort-other (concat dired-listing-switches " -rS"))))
-      (define-key cnb/dired-sort-keymap "n"
-        (lambda () "sort by Name REV" (interactive)
-          (dired-sort-other dired-listing-switches)))
-      (define-key cnb/dired-sort-keymap "N"
-        (lambda () "sort by Name" (interactive)
-          (dired-sort-other (concat dired-listing-switches " -r"))))
-      (define-key cnb/dired-sort-keymap "t"
-        (lambda () "sort by Name REV" (interactive)
-          (dired-sort-other (concat dired-listing-switches " -t"))))
-      (define-key cnb/dired-sort-keymap "T"
-        (lambda () "sort by Name" (interactive)
-          (dired-sort-other (concat dired-listing-switches " -tr"))))
-      (define-key cnb/dired-sort-keymap "e"
-        (lambda () "sort by Extension" (interactive)
-          (dired-sort-other (concat dired-listing-switches " -X"))))
-      (define-key cnb/dired-sort-keymap "E"
-        (lambda () "sort by Extension (REV)" (interactive)
-          (dired-sort-other (concat dired-listing-switches " -rX"))))
-      (define-key cnb/dired-sort-keymap "?"
-        (lambda () "sort help" (interactive)
-          (message "s/S Size; e/E Extension; t/T Time; n/N Name"))))))
+  (defun cnb/dired-jump-to-bottom ()
+    "Jump to last file in dired buffer"
+    (interactive)
+    (end-of-buffer)
+    (dired-next-line -1))
 
 
-(use-package dired-x
-  :defer t
-  :config
-  (progn
-    ;; Remember -  <C-x><ALT>o to omit hidden files
-    (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))))
+  (use-package dired
+    :config
+    (progn
+      (setq dired-listing-switches "-alhGv --group-directories-first")
+      (setq dired-dwim-target t)
+      (setq dired-recursive-copies 'always) ; Don't ask
+      (setq dired-recursive-deletes 'top)   ; Ask once
+      (setq diredp-hide-details-initially-flag nil)
 
-(use-package dired+
-  :defer t
-  :ensure dired+
+      (when (boundp 'dired-mode-map)
+        (define-key dired-mode-map
+          (vector 'remap 'beginning-of-buffer) 'cnb/dired-back-to-top)
 
-  :init
-  (progn
-    (diredp-toggle-find-file-reuse-dir 1)))
+        ;; (define-key dired-mode-map
+        ;;   (vector 'remap 'end-of-buffer) 'cnb/dired-jump-to-bottom)
 
-(use-package wdired
-  :defer t
-  :init
-  (progn
-    (setq wdired-allow-to-change-permissions t)
-    (setq wdired-confirm-overwrite t)))
+        ;; Sort dired.
+        ;; (defvar cnb/dired-sort-keymap (make-sparse-keymap))
+        ;; (define-key dired-mode-map "s" cnb/dired-sort-keymap)
+
+        ;; (define-key cnb/dired-sort-keymap "s"
+        ;;   (lambda () "sort by Size" (interactive)
+        ;;     (dired-sort-other (concat dired-listing-switches " -S"))))
+        ;; (define-key cnb/dired-sort-keymap "S"
+        ;;   (lambda () "sort by Size REV" (interactive)
+        ;;     (dired-sort-other (concat dired-listing-switches " -rS"))))
+        ;; (define-key cnb/dired-sort-keymap "n"
+        ;;   (lambda () "sort by Name REV" (interactive)
+        ;;     (dired-sort-other dired-listing-switches)))
+        ;; (define-key cnb/dired-sort-keymap "N"
+        ;;   (lambda () "sort by Name" (interactive)
+        ;;     (dired-sort-other (concat dired-listing-switches " -r"))))
+        ;; (define-key cnb/dired-sort-keymap "t"
+        ;;   (lambda () "sort by Name REV" (interactive)
+        ;;     (dired-sort-other (concat dired-listing-switches " -t"))))
+        ;; (define-key cnb/dired-sort-keymap "T"
+        ;;   (lambda () "sort by Name" (interactive)
+        ;;     (dired-sort-other (concat dired-listing-switches " -tr"))))
+        ;; (define-key cnb/dired-sort-keymap "e"
+        ;;   (lambda () "sort by Extension" (interactive)
+        ;;     (dired-sort-other (concat dired-listing-switches " -X"))))
+        ;; (define-key cnb/dired-sort-keymap "E"
+        ;;   (lambda () "sort by Extension (REV)" (interactive)
+        ;;     (dired-sort-other (concat dired-listing-switches " -rX"))))
+        ;; (define-key cnb/dired-sort-keymap "?"
+        ;;   (lambda () "sort help" (interactive)
+        ;;     (message "s/S Size; e/E Extension; t/T Time; n/N Name")))
+)))
+
+
+  (use-package dired-x
+    :defer t
+
+    :config
+    (progn
+      ;; Remember -  <C-x><ALT>o to omit hidden files
+      (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))))
+
+  (use-package dired+
+    :defer t
+    :ensure dired+
+
+    :config
+    (progn
+      (diredp-toggle-find-file-reuse-dir 1)))
+
+  (use-package wdired
+    :defer t
+
+    :config
+    (progn
+      (setq wdired-allow-to-change-permissions t)
+      (setq wdired-confirm-overwrite t)))
 
 (use-package bookmark
   :defer t
+  :ensure bookmark+
 
-  :init
+  :config
   (progn
+    (require 'bookmark+)
     (setq bookmark-save-flag 1) ; Save bookmarks instantly
     (setq bookmark-default-file
           (expand-file-name "emacs.bmk" user-emacs-directory))))
-
-(use-package bookmark+
-  :defer t
-  :ensure bookmark+)
 
 (defun cnb/bm-hook
   (bm-buffer-save-all)
@@ -583,7 +589,8 @@ in native application through xdg-open"
   :ensure bm
   :defer t
   :commands (bm-repository-load bm-buffer-restore bm-buffer-save bm-repository-save bm-buffer-save-all)
-  :init
+
+  :config
   (progn
     (setq bm-restore-repository-on-load t)
     (setq bm-repository-file (expand-file-name "bm-repository" user-emacs-directory))
@@ -601,17 +608,17 @@ in native application through xdg-open"
          ("<S-f2>" . bm-previous)))
 
 (use-package flyspell
-  :diminish flyspell-mode)
-
-(use-package helm-flyspell
+  :defer t
   :ensure helm-flyspell
+  :diminish flyspell-mode
 
-  :init
-  (progn
-    (define-key flyspell-mode-map (kbd "C-;") #'helm-flyspell-correct)))
+  :config
+  (progn)
+  (define-key flyspell-mode-map (kbd "C-;") #'helm-flyspell-correct))
 
 (use-package helm-words
   :ensure t
+  :defer t
 
   :config
   (progn
@@ -640,13 +647,14 @@ Assumes that the frame is only split into two                            . "
 (define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
 
 (use-package ace-jump-mode
+  :defer t
   :ensure t)
 
 (setq line-move-visual nil)
 
 (use-package helm-swoop
   :ensure helm-swoop
-  :init
+  :config
   (progn
     (setq helm-swoop-speed-or-color t)
     (setq helm-swoop-use-line-number-face t))
@@ -657,7 +665,9 @@ Assumes that the frame is only split into two                            . "
 (use-package drag-stuff
   :ensure drag-stuff
   :diminish drag-stuff-mode
-  :init
+  :defer t
+
+  :config
   (progn
     (setq drag-stuff-except-modes '(org-mode))
     (drag-stuff-global-mode t)))
@@ -703,6 +713,8 @@ Assumes that the frame is only split into two                            . "
 
 (use-package ace-link
   :ensure ace-link
+  :defer t
+
   :config
   (progn
     (ace-link-setup-default)))
@@ -919,7 +931,7 @@ Assumes that the frame is only split into two                            . "
 
 (use-package popwin
   :ensure t
-  :defer t
+
   :commands (popwin-mode)
 
   :config
@@ -990,6 +1002,7 @@ Assumes that the frame is only split into two                            . "
 
 (use-package browse-kill-ring
   :ensure browse-kill-ring
+  :defer t
 
   :config
   (progn
@@ -1042,7 +1055,8 @@ Assumes that the frame is only split into two                            . "
 
 (use-package ag
   :ensure t
-  :init
+
+  :config
   (progn
     (setq ag-highlight-search t)))
 
@@ -1194,12 +1208,15 @@ Assumes that the frame is only split into two                            . "
 
 (use-package git-timemachine
   :ensure git-timemachine
+  :defer t
+
   :init
   (progn
     (defalias 'gtm 'git-timemachine)))
 
 (use-package mo-git-blame
-  :ensure mo-git-blame)
+  :ensure t
+  :defer t)
 
 ;; Projectile doesn't include f but crashes if it isn't there.
 ;; TODO: Test if this is still a problem.
@@ -1212,8 +1229,9 @@ Assumes that the frame is only split into two                            . "
 (use-package projectile
   :ensure t
   :diminish projectile-mode
+  :defer t
 
-  :init
+  :config
   (progn
     ;;(setq projectile-completion-system 'helm)
     (setq projectile-completion-system 'helm-comp-read)
@@ -1223,6 +1241,7 @@ Assumes that the frame is only split into two                            . "
 
 (use-package projectile-rails
   :ensure t
+  :defer t
   :diminish projectile-rails-mode
 
   :init
@@ -1231,6 +1250,8 @@ Assumes that the frame is only split into two                            . "
 
 (use-package helm-projectile
   :ensure helm-projectile
+  :defer t
+
   :init
   (progn
     (helm-projectile-on)
@@ -1261,9 +1282,7 @@ Assumes that the frame is only split into two                            . "
       (interactive)
       (projectile-rails-find-current-resource "app/decorators/"
                                               "/${singular}\\.rb$"
-                                              'cnb/projectile-rails-find-decorator))
-
-    ))
+                                              'cnb/projectile-rails-find-decorator))))
 
 (use-package smartparens
   :ensure t
@@ -1318,6 +1337,7 @@ Assumes that the frame is only split into two                            . "
   :bind (("C-c y" . helm-yas-complete)))
 
 (use-package rainbow-delimiters
+  :defer t
   :ensure rainbow-delimiters)
 
 ;; Default to unified diffs that ignore white-space.
@@ -1336,6 +1356,7 @@ Assumes that the frame is only split into two                            . "
     (setq speedbar-verbosity-level 2)))
 
 (use-package rainbow-mode
+  :defer t
   :ensure rainbow-mode)
 
 (use-package color-identifiers-mode
@@ -1429,6 +1450,7 @@ Assumes that the frame is only split into two                            . "
 
 (use-package clojure-mode
   :ensure clojure-mode
+  :defer t
 
   :config
   (progn
@@ -1459,24 +1481,30 @@ Assumes that the frame is only split into two                            . "
       (defspec 'defun))))
 
 (use-package clojure-mode-extra-font-locking
-  :ensure clojure-mode-extra-font-locking)
+  :ensure clojure-mode-extra-font-locking
+  :defer t)
 
 (use-package clojure-cheatsheet
   :ensure clojure-cheatsheet
+  :defer t
+
   :init
   (progn
     (defalias 'ccs 'clojure-cheatsheet)))
 
 (use-package align-cljlet
-  :ensure align-cljlet)
+  :ensure align-cljlet
+  :defer t)
 
 (use-package clj-refactor
   :ensure t
+  :defer t
   :diminish clj-refactor-mode)
 
 ;; Helm interface to clj-refactor
 (use-package cljr-helm
   :ensure t
+  :defer t
 
   :config
   (progn
@@ -1484,6 +1512,7 @@ Assumes that the frame is only split into two                            . "
 
 (use-package cider
   :ensure cider
+  :defer t
 
   :init
   (progn
@@ -1503,10 +1532,12 @@ Assumes that the frame is only split into two                            . "
     (setq cider-repl-history-size 1000)))
 
 (use-package cider-decompile
+  :defer t
   :ensure cider-decompile)
 
 (use-package slamhound
   :ensure t
+  :defer t
   :commands slamhound)
 
 (use-package clojure-snippets
@@ -1592,6 +1623,7 @@ Assumes that the frame is only split into two                            . "
     (bind-key "C-c }" 'ruby-toggle-hash-syntax ruby-mode-map)))
 
 (use-package helm-rb
+  :defer t
   :ensure t)
 
 (use-package rubocop
@@ -1605,11 +1637,13 @@ Assumes that the frame is only split into two                            . "
     (rvm-autodetect-ruby)))
 
 (use-package helm-robe
+  :defer t
   :ensure t)
 
 (use-package robe
   :ensure robe
   :diminish robe-mode
+  :defer t
 
   :config
   (progn
@@ -1630,13 +1664,16 @@ Assumes that the frame is only split into two                            . "
   :ensure t)
 
 (use-package foreman-mode
+  :defer t
   :ensure t)
 
 (use-package rspec-mode
+  :defer t
   :ensure rspec-mode)
 
 (use-package haskell-mode
   :ensure t
+  :defer t
 
   :init
   (progn
@@ -1645,6 +1682,7 @@ Assumes that the frame is only split into two                            . "
     (add-hook 'haskell-mode-hook 'interactive-haskell-mode)))
 
 (use-package lua-mode
+  :defer t
   :ensure t)
 
 (defun cnb/elisp-packages ()
@@ -1675,6 +1713,7 @@ Assumes that the frame is only split into two                            . "
 (use-package yaml-mode
   :mode (("\\.yml$" . yaml-mode) ("\\.ya?ml$" . yaml-mode))
   :ensure t
+  :defer t
 
   :config
   (progn
@@ -1740,6 +1779,7 @@ Assumes that the frame is only split into two                            . "
 ;; (add-hook 'css-mode-hook #'rainbow-mode)
 
 (use-package scss-mode
+  :defer t
   :ensure t)
 
 ;; (use-package flymake-sass
@@ -1764,7 +1804,7 @@ Assumes that the frame is only split into two                            . "
 
 (use-package auctex
   :ensure t
-  :defer
+  :defer t
 
   :config
   (progn
@@ -1933,6 +1973,7 @@ Assumes that the frame is only split into two                            . "
 
 (use-package muttrc-mode
   :ensure muttrc-mode
+  :defer t
   :mode ("muttrc" . muttrc-mode))
 
 (add-to-list 'auto-mode-alist '("/tmp/mutt" . mail-mode))
@@ -1949,19 +1990,19 @@ Assumes that the frame is only split into two                            . "
     (pdf-tools-install)))
 
 (add-hook
-     'term-mode-hook
-     (function
-      (lambda ()
-        (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
-        (make-local-variable 'mouse-yank-at-point)
-        (make-local-variable 'transient-mark-mode)
-        (setq mouse-yank-at-point t)
-        (setq transient-mark-mode nil)
-        (auto-fill-mode -1)
-        (setq tab-width 2)
-        (setq explicit-shell-file-name "/bin/zsh")
+ 'term-mode-hook
+ (function
+  (lambda ()
+    (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
+    (make-local-variable 'mouse-yank-at-point)
+    (make-local-variable 'transient-mark-mode)
+    (setq mouse-yank-at-point t)
+    (setq transient-mark-mode nil)
+    (auto-fill-mode -1)
+    (setq tab-width 2)
+    (setq explicit-shell-file-name "/bin/zsh")
 
-)))
+    )))
 
 (defun cnb/term-exec-hook ()
   (let* ((buff (current-buffer))
@@ -1975,11 +2016,12 @@ Assumes that the frame is only split into two                            . "
 (add-hook 'term-exec-hook #'cnb/term-exec-hook)
 
 (use-package log4j-mode
+  :defer t
   :ensure t)
 
-;;(setq browse-url-browser-function 'browse-url-firefox)
-(setq browse-url-browser-function 'browse-url-generic
-browse-url-generic-program "chromium-browser")
+(setq browse-url-browser-function 'browse-url-firefox)
+;; (setq browse-url-browser-function 'browse-url-generic
+;;       browse-url-generic-program "chromium-browser")
 
 (setq w3m-default-display-inline-images t)
 (setq w3m-use-cookies t)
@@ -2505,6 +2547,7 @@ _d_: subtree
     (setq savehist-save-minibuffer-history t)))
 
 (use-package 2048-game
+  :defer t
   :ensure t)
 
 ;; From http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
@@ -2524,6 +2567,7 @@ narrowed."
         (t (narrow-to-defun))))
 
 (use-package htmlize
+  :defer t
   :ensure t)
 
 ;; cycle through amounts of spacing
