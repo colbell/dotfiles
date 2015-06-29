@@ -423,14 +423,19 @@ I press these too often
    For searches display the current match and total matches
    information in the mode line.
 
+   For search and replace preview the change if using the anzu functions.
+
 #+begin_src emacs-lisp
   (use-package anzu
     :ensure anzu
     :diminish anzu-mode
 
+    :bind (("M-%"   . anzu-query-replace)
+           ("C-M-%" . anzu-query-replace-regexp))
+
     :init
     (progn
-      (global-anzu-mode +1)
+      (global-anzu-mode)
       (setq anzu-search-threshold 1000)))
 #+end_src
 
@@ -1980,11 +1985,17 @@ the bug repository. E.G the following will point TWEB-???? references to Jira.
 #+begin_src emacs-lisp
   (use-package flycheck
     :ensure t
+    :ensure flycheck-pos-tip
 
     :init
     (progn
       (setq flycheck-indication-mode 'left-fringe)
-      (add-hook 'after-init-hook #'global-flycheck-mode)))
+      (add-hook 'after-init-hook #'global-flycheck-mode)
+      )
+
+    :config
+    (progn
+      (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
 #+end_src
 
 ** Coding Hook
@@ -2170,7 +2181,7 @@ Clojure documentation.
     :mode (("\.feature$" . feature-mode)))
 #+end_src
 
-* Javascript
+<* Javascript
 #+begin_src emacs-lisp
   (eval-after-load 'js
     '(progn
@@ -2856,7 +2867,6 @@ Close term buffers when terminal is exited.
     (progn
       (require 'hydra-examples)
       (hydra-add-font-lock)))
-
 #+end_src
 
 ** Help Hydra
@@ -3014,34 +3024,41 @@ Close term buffers when terminal is exited.
 
 ** Global hydra for toggling.
 #+begin_src emacs-lisp
-  (global-set-key
-   (kbd "<f5> t")
-   (defhydra cnb-hydra-toggle (:color pink)
-     "
-                                                                                    ╭────────────┐
-                                                                                    │   Toggle   │
-╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
-       _a_ abbrev-mode:       %`abbrev-mode
-       _d_ debug-on-error:    %`debug-on-error
-       _f_ auto-fill-mode:    %`auto-fill-function
-       _l_ nlinum-mode:       %`nlinum-mode
-       _r_ readonly-mode:     %`buffer-read-only
-       _t_ truncate-lines     %`truncate-lines
-       _T_ theme:             %`custom-enabled-themes
-       _v_ visual-line-mode:  %`visual-line-mode
-       _w_ whitespace-mode:   %`whitespace-mode
-──────────────────────────────────────────────────────────────────────────────────────────────────
-      "
-     ("a" abbrev-mode nil)
-     ("d" toggle-debug-on-error  nil)
-     ("f" auto-fill-mode         nil)
-     ("l" nlinum-mode            nil)
-     ("r" dired-toggle-read-only nil)
-     ("t" toggle-truncate-lines  nil)
-     ("T" cnb/toggle-theme       nil)
-     ("v" visual-line-mode       nil)
-     ("w" whitespace-mode        nil)
-     ("q" nil "cancel")))
+    (global-set-key
+     (kbd "<f5> t")
+     (defhydra cnb-hydra-toggle (:color pink)
+       "
+                                                                                      ╭────────────┐
+                                                                                      │   Toggle   │
+  ╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
+         _a_ abbrev-mode:       %`abbrev-mode
+         _d_ debug-on-error:    %`debug-on-error
+         _f_ auto-fill-mode:    %`auto-fill-function
+         _l_ nlinum-mode:       %`nlinum-mode
+         _r_ readonly-mode:     %`buffer-read-only
+         _t_ truncate-lines     %`truncate-lines
+         _T_ theme:             %`custom-enabled-themes
+         _v_ visual-line-mode:  %`visual-line-mode
+         _w_ whitespace-mode:   %`whitespace-mode
+         _y_ flycheck           %`flycheck-display-errors-function
+  ──────────────────────────────────────────────────────────────────────────────────────────────────
+        "
+       ("a" abbrev-mode nil)
+       ("d" toggle-debug-on-error  nil)
+       ("f" auto-fill-mode         nil)
+       ("l" nlinum-mode            nil)
+       ("r" dired-toggle-read-only nil)
+       ("t" toggle-truncate-lines  nil)
+       ("T" cnb/toggle-theme       nil)
+       ("v" visual-line-mode       nil)
+       ("w" whitespace-mode        nil)
+       ("y" (lambda ()
+              (interactive)
+              (if (equal flycheck-display-errors-function #'flycheck-pos-tip-error-messages)
+                  (setq flycheck-display-errors-function #'flycheck-display-error-messages)
+                (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+        nil)
+       ("q" nil "cancel")))
 #+end_src
 
 ** Global hydra for window handling
