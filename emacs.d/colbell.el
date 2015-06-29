@@ -216,9 +216,12 @@
   :ensure anzu
   :diminish anzu-mode
 
+  :bind (("M-%"   . anzu-query-replace)
+         ("C-M-%" . anzu-query-replace-regexp))
+
   :init
   (progn
-    (global-anzu-mode +1)
+    (global-anzu-mode)
     (setq anzu-search-threshold 1000)))
 
 ;; (use-package battery
@@ -444,131 +447,98 @@ in native application through xdg-open"
   :ensure t)
 
 (defun cnb/dired-get-size ()
-    "Get total size of all marked files."
-    ;;  From http://oremacs.com/2015/01/12/dired-file-size/
-    (interactive)
-    (let ((files (dired-get-marked-files)))
-      (with-temp-buffer
-        (apply 'call-process "/usr/bin/du" nil t nil "-sch" files)
-        (message
-         "Size of all marked files: %s"
-         (progn
-           (re-search-backward "\\(^[0-9.,]+[A-Za-z]+\\).*total$")
-           (match-string 1))))))
+  "Get total size of all marked files."
+  ;;  From http://oremacs.com/2015/01/12/dired-file-size/
+  (interactive)
+  (let ((files (dired-get-marked-files)))
+    (with-temp-buffer
+      (apply 'call-process "/usr/bin/du" nil t nil "-sch" files)
+      (message
+       "Size of all marked files: %s"
+       (progn
+         (re-search-backward "\\(^[0-9.,]+[A-Za-z]+\\).*total$")
+         (match-string 1))))))
 
-  (defun cnb/dired-back-to-top ()
-    "Move to the first file name in the dired buffer"
-    (interactive)
-    (let (has-omit-mode has-hide-details-mode line-nbr)
-      (when (and (boundp 'dired-omit-mode) dired-omit-mode)
-        (setq has-omit-mode t))
-      (when (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
-        (setq has-hide-details-mode t))
-      (cond
-       ((and has-omit-mode has-hide-details-mode)
-        (setq line-nbr 1))
-       (has-omit-mode
-        (setq line-nbr 3))
-       (has-hide-details-mode
-        (setq line-nbr 3))
-       (t
-        (setq line-nbr 3)))
-      (message (number-to-string line-nbr))
-      (beginning-of-buffer)
-      (dired-next-line line-nbr)))
+(defun cnb/dired-back-to-top ()
+  "Move to the first file name in the dired buffer"
+  (interactive)
+  (let (has-omit-mode has-hide-details-mode line-nbr)
+    (when (and (boundp 'dired-omit-mode) dired-omit-mode)
+      (setq has-omit-mode t))
+    (when (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
+      (setq has-hide-details-mode t))
+    (cond
+     ((and has-omit-mode has-hide-details-mode)
+      (setq line-nbr 1))
+     (has-omit-mode
+      (setq line-nbr 3))
+     (has-hide-details-mode
+      (setq line-nbr 3))
+     (t
+      (setq line-nbr 3)))
+    (message (number-to-string line-nbr))
+    (beginning-of-buffer)
+    (dired-next-line line-nbr)))
 
-  (defun cnb/old-dired-back-to-top ()
-    "Move to the first file name in the dired buffer"
-    (interactive)
-    (let* (line-nbr)
-      (if (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
-          (setq line-nbr 3)
-        (setq line-nbr 4))
-      (if (and (boundp 'dired-omit-mode) dired-omit-mode)
-          (setq line-nbr 2))
-      (beginning-of-buffer)
-      (dired-next-line line-nbr)))
+(defun cnb/old-dired-back-to-top ()
+  "Move to the first file name in the dired buffer"
+  (interactive)
+  (let* (line-nbr)
+    (if (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
+        (setq line-nbr 3)
+      (setq line-nbr 4))
+    (if (and (boundp 'dired-omit-mode) dired-omit-mode)
+        (setq line-nbr 2))
+    (beginning-of-buffer)
+    (dired-next-line line-nbr)))
 
-  (defun cnb/dired-jump-to-bottom ()
-    "Jump to last file in dired buffer"
-    (interactive)
-    (end-of-buffer)
-    (dired-next-line -1))
-
-
-  (use-package dired
-    :config
-    (progn
-      (setq dired-listing-switches "-alhGv --group-directories-first")
-      (setq dired-dwim-target t)
-      (setq dired-recursive-copies 'always) ; Don't ask
-      (setq dired-recursive-deletes 'top)   ; Ask once
-      (setq diredp-hide-details-initially-flag nil)
-
-      (when (boundp 'dired-mode-map)
-        (define-key dired-mode-map
-          (vector 'remap 'beginning-of-buffer) 'cnb/dired-back-to-top)
-
-        ;; (define-key dired-mode-map
-        ;;   (vector 'remap 'end-of-buffer) 'cnb/dired-jump-to-bottom)
-
-        ;; Sort dired.
-        ;; (defvar cnb/dired-sort-keymap (make-sparse-keymap))
-        ;; (define-key dired-mode-map "s" cnb/dired-sort-keymap)
-
-        ;; (define-key cnb/dired-sort-keymap "s"
-        ;;   (lambda () "sort by Size" (interactive)
-        ;;     (dired-sort-other (concat dired-listing-switches " -S"))))
-        ;; (define-key cnb/dired-sort-keymap "S"
-        ;;   (lambda () "sort by Size REV" (interactive)
-        ;;     (dired-sort-other (concat dired-listing-switches " -rS"))))
-        ;; (define-key cnb/dired-sort-keymap "n"
-        ;;   (lambda () "sort by Name REV" (interactive)
-        ;;     (dired-sort-other dired-listing-switches)))
-        ;; (define-key cnb/dired-sort-keymap "N"
-        ;;   (lambda () "sort by Name" (interactive)
-        ;;     (dired-sort-other (concat dired-listing-switches " -r"))))
-        ;; (define-key cnb/dired-sort-keymap "t"
-        ;;   (lambda () "sort by Name REV" (interactive)
-        ;;     (dired-sort-other (concat dired-listing-switches " -t"))))
-        ;; (define-key cnb/dired-sort-keymap "T"
-        ;;   (lambda () "sort by Name" (interactive)
-        ;;     (dired-sort-other (concat dired-listing-switches " -tr"))))
-        ;; (define-key cnb/dired-sort-keymap "e"
-        ;;   (lambda () "sort by Extension" (interactive)
-        ;;     (dired-sort-other (concat dired-listing-switches " -X"))))
-        ;; (define-key cnb/dired-sort-keymap "E"
-        ;;   (lambda () "sort by Extension (REV)" (interactive)
-        ;;     (dired-sort-other (concat dired-listing-switches " -rX"))))
-        ;; (define-key cnb/dired-sort-keymap "?"
-        ;;   (lambda () "sort help" (interactive)
-        ;;     (message "s/S Size; e/E Extension; t/T Time; n/N Name")))
-)))
+(defun cnb/dired-jump-to-bottom ()
+  "Jump to last file in dired buffer"
+  (interactive)
+  (end-of-buffer)
+  (dired-next-line -1))
 
 
-  (use-package dired-x
-    :defer t
+(use-package dired
+  :config
+  (progn
+    (setq dired-listing-switches "-alhGv --group-directories-first")
+    (setq dired-dwim-target t)
+    (setq dired-recursive-copies 'always) ; Don't ask
+    (setq dired-recursive-deletes 'top)   ; Ask once
+    (setq diredp-hide-details-initially-flag nil)
 
-    :config
-    (progn
-      ;; Remember -  <C-x><ALT>o to omit hidden files
-      (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))))
+    (when (boundp 'dired-mode-map)
+      (define-key dired-mode-map
+        (vector 'remap 'beginning-of-buffer) 'cnb/dired-back-to-top)
 
-  (use-package dired+
-    :defer t
-    :ensure dired+
+      (define-key dired-mode-map
+         (vector 'remap 'end-of-buffer) 'cnb/dired-jump-to-bottom))))
 
-    :config
-    (progn
-      (diredp-toggle-find-file-reuse-dir 1)))
 
-  (use-package wdired
-    :defer t
+(use-package dired-x
+  :defer t
 
-    :config
-    (progn
-      (setq wdired-allow-to-change-permissions t)
-      (setq wdired-confirm-overwrite t)))
+  :config
+  (progn
+    ;; Remember -  <C-x><ALT>o to omit hidden files
+    (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))))
+
+(use-package dired+
+  :defer t
+  :ensure dired+
+
+  :config
+  (progn
+    (diredp-toggle-find-file-reuse-dir 1)))
+
+(use-package wdired
+  :defer t
+
+  :config
+  (progn
+    (setq wdired-allow-to-change-permissions t)
+    (setq wdired-confirm-overwrite t)))
 
 (use-package bookmark
   :defer t
@@ -1397,11 +1367,17 @@ Assumes that the frame is only split into two                            . "
 
 (use-package flycheck
   :ensure t
+  :ensure flycheck-pos-tip
 
   :init
   (progn
     (setq flycheck-indication-mode 'left-fringe)
-    (add-hook 'after-init-hook #'global-flycheck-mode)))
+    (add-hook 'after-init-hook #'global-flycheck-mode)
+    )
+
+  :config
+  (progn
+    (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
 
 (defvar cnb/coding-hook nil
     "Hook that gets run on activation of any programming mode.")
@@ -2207,6 +2183,7 @@ _q_uit"
        _T_ theme:             %`custom-enabled-themes
        _v_ visual-line-mode:  %`visual-line-mode
        _w_ whitespace-mode:   %`whitespace-mode
+       _y_ flycheck           %`flycheck-display-errors-function
 ──────────────────────────────────────────────────────────────────────────────────────────────────
       "
      ("a" abbrev-mode nil)
@@ -2218,6 +2195,12 @@ _q_uit"
      ("T" cnb/toggle-theme       nil)
      ("v" visual-line-mode       nil)
      ("w" whitespace-mode        nil)
+     ("y" (lambda ()
+            (interactive)
+            (if (equal flycheck-display-errors-function #'flycheck-pos-tip-error-messages)
+                (setq flycheck-display-errors-function #'flycheck-display-error-messages)
+              (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+      nil)
      ("q" nil "cancel")))
 
 (global-set-key
@@ -2331,6 +2314,57 @@ _d_: subtree
   (defhydra cnb-md-hydra (:color blue)
     "markdown"
     ("b" gh-md-render-buffer "render buffer via github")))
+
+(defhydra hydra-dired-sort (:color red)
+  "
+                                                                                ╭────────────┐
+                                                                                │ Dired Sort │
+            ╭───────────────────────────────────────────────────────────────────┴────────────╯
+              _n_: name                           _N_: name rev
+              _e_: ext                            _E_: ext rev
+              _s_: size                           _S_: size rev
+              _t_: last modified                  _T_: last modified rev
+            ───────────────────────────────────────────────────────────────────────────────────
+             "
+  ("s" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -S")))
+   nil)
+  ("S" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -rS")))
+   nil)
+
+  ("e" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -X")))
+   nil)
+  ("E" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -rX")))
+   nil)
+
+  ("t" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -t")))
+   nil)
+  ("T" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -rt")))
+   nil)
+
+  ("n" (lambda ()
+          (interactive)
+          (dired-sort-other dired-listing-switches))
+   nil)
+  ("N" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -r")))
+   nil)
+
+  ("q" nil                       "cancel"))
+
+(define-key dired-mode-map (kbd "s") 'hydra-dired-sort/body)
 
 (define-key
     projectile-mode-map
