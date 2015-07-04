@@ -866,6 +866,13 @@ Assumes that the frame is only split into two                            . "
  'after-save-hook
  #'executable-make-buffer-file-executable-if-script-p)
 
+(defun cnb/save-buffers ()
+  "When you shift focus to a non-Emacs window save all buffers."
+  (interactive)
+  (save-some-buffers t))
+
+(add-hook 'focus-out-hook #'cnb/save-buffers)
+
 (defun cnb/ansi-color-apply-buffer ()
   "interactive function that renders buffer using ANSI colors"
   (interactive)
@@ -1100,47 +1107,49 @@ Assumes that the frame is only split into two                            . "
 (add-hook 'ediff-after-quit-hook-internal 'winner-undo)
 
 (defun magit-toggle-whitespace ()
-  "Toggle showing whitespace differences in Magit diff buffers."
-  (interactive)
-  (if (member "-w" magit-diff-options)
-      (progn
-        (setq magit-diff-options (remove "-w" magit-diff-options))
-        (message "Show whitespace")
-        (magit-refresh))
-    (progn
-      (add-to-list 'magit-diff-options "-w")
-      (message "Hide whitespace")
-      (magit-refresh))))
-
-(use-package magit
-  :ensure t
-  :diminish magit-auto-revert-mode
-
-  :bind (("C-c g" . magit-status))
-
-  :init
-  (progn
-    (setq magit-diff-refine-hunk t)
-    (setq magit-process-popup-time 10)
-    (setq magit-auto-revert-mode t)
-    (setq magit-last-seen-setup-instructions "1.4.0")
-    (setq magit-completing-read-function #'helm--completing-read-default)
-
-    (add-hook 'magit-log-edit-mode-hook #'flyspell-mode)
-    (add-hook 'git-commit-mode-hook #'flyspell-mode)
-    (add-hook
-     'magit-status-mode-hook
-     (lambda ()
-       (visual-line-mode -1))))
-
-  :config
-  (progn
-    (if git-rebase-mode-map
+    "Toggle showing whitespace differences in Magit diff buffers."
+    (interactive)
+    (if (member "-w" magit-diff-options)
         (progn
-          (define-key git-rebase-mode-map (kbd "M-d") 'git-rebase-move-line-down)
-          (define-key git-rebase-mode-map (kbd "M-u") 'git-rebase-move-line-up)))
-    (if magit-status-mode-map
-        (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
+          (setq magit-diff-options (remove "-w" magit-diff-options))
+          (message "Show whitespace")
+          (magit-refresh))
+      (progn
+        (add-to-list 'magit-diff-options "-w")
+        (message "Hide whitespace")
+        (magit-refresh))))
+
+  (use-package magit
+    :ensure t
+    ;; :diminish magit-auto-revert-mode
+
+    :bind (("C-c g" . magit-status))
+
+    :init
+    (progn
+      (setq magit-diff-refine-hunk t)
+      (setq magit-process-popup-time 10)
+      (setq magit-auto-revert-mode t)
+      (setq magit-last-seen-setup-instructions "1.4.0")
+      (setq magit-completing-read-function #'helm--completing-read-default)
+
+      (add-hook 'magit-log-edit-mode-hook #'flyspell-mode)
+      (add-hook 'git-commit-mode-hook #'flyspell-mode)
+      (add-hook
+       'magit-status-mode-hook
+       (lambda ()
+         (visual-line-mode -1))))
+
+    ;; :config
+    ;; (progn
+    ;;   (if git-rebase-mode-map
+    ;;       (progn
+    ;;         (define-key git-rebase-mode-map (kbd "M-d") 'git-rebase-move-line-down)
+    ;;         (define-key git-rebase-mode-map (kbd "M-u") 'git-rebase-move-line-up)))
+    ;;   (if magit-status-mode-map
+    ;;       (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace)))
+
+)
 
 ;; (use-package git-gutter
 ;;   :ensure t
