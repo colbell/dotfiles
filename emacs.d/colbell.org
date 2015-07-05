@@ -290,35 +290,20 @@ I press these too often
   (eval '(setq inhibit-startup-echo-area-message "colbell"))
 #+end_src
 
-  Pretty symbols, E.G. λ for lambda in coding buffers.
-
-#+begin_src emacs-lisp
-  ;;(global-prettify-symbols-mode)
-#+end_src
-
   F11 - flash crosshairs at text cursor position.
 
 #+begin_src emacs-lisp
   (use-package crosshairs
     :ensure crosshairs
+    :commands flash-crosshairs
     :bind (("<f11>" . flash-crosshairs)))
 #+end_src
 
   Show line numbers in fringe.
 
 #+begin_src emacs-lisp
-    ;;(defun cnb/nlinum-mode-hook ()
-    ;;  "Stop horiz jumps on scrolling"
-    ;;  (setq nlinum--width
-    ;;        (length (number-to-string
-    ;;                (count-lines (point-min) (point-max))))))
-
-    (use-package nlinum
-      :commands nlinum-mode
-      :ensure t)
-      ;;:config
-      ;;(progn
-      ;;  (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
+  (use-package nlinum
+    :ensure t)
 #+end_src
 
   Increase/decrease buffer font size.
