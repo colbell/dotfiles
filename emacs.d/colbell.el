@@ -149,24 +149,13 @@
 (setq initial-scratch-message nil)
 (eval '(setq inhibit-startup-echo-area-message "colbell"))
 
-;;(global-prettify-symbols-mode)
-
 (use-package crosshairs
   :ensure crosshairs
+  :commands flash-crosshairs
   :bind (("<f11>" . flash-crosshairs)))
 
-;;(defun cnb/nlinum-mode-hook ()
-;;  "Stop horiz jumps on scrolling"
-;;  (setq nlinum--width
-;;        (length (number-to-string
-;;                (count-lines (point-min) (point-max))))))
-
 (use-package nlinum
-  :commands nlinum-mode
   :ensure t)
-  ;;:config
-  ;;(progn
-  ;;  (add-hook 'nlinum-mode-hook #'cnb/nlinum-mode-hook)))
 
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
@@ -1106,6 +1095,9 @@ Assumes that the frame is only split into two                            . "
 
 (add-hook 'ediff-after-quit-hook-internal 'winner-undo)
 
+(defun cnb/magit-status-mode-hook ()
+  (visual-line-mode -1))
+
 (use-package magit
   :ensure t
   ;; :diminish magit-auto-revert-mode
@@ -1113,7 +1105,7 @@ Assumes that the frame is only split into two                            . "
   :bind (("C-c g"   . magit-status)
          ("C-x M-g" . magit-dispatch-popup))
 
-  :init
+  :config
   (progn
     (setq magit-diff-refine-hunk t)
     (setq magit-process-popup-time 30)
@@ -1123,19 +1115,7 @@ Assumes that the frame is only split into two                            . "
 
     ;;(add-hook 'magit-log-edit-mode-hook #'flyspell-mode)
     (add-hook 'git-commit-mode-hook #'flyspell-mode)
-    (add-hook
-     'magit-status-mode-hook
-     (lambda ()
-       (visual-line-mode -1))))
-
-  :config
-  (progn
-    ;;   (if git-rebase-mode-map
-    ;;       (progn
-    ;;         (define-key git-rebase-mode-map (kbd "M-d") 'git-rebase-move-line-down)
-    ;;         (define-key git-rebase-mode-map (kbd "M-u") 'git-rebase-move-line-up)))
-    )
-  )
+    (add-hook 'magit-status-mode-hook #'cnb/magit-status-mode-hook)))
 
 ;; (use-package git-gutter
 ;;   :ensure t
