@@ -411,7 +411,7 @@
         (if p local-abbrev-table global-abbrev-table)
         bef aft))))
 
-(global-set-key "\C-oi" #'cnb/ispell-word-then-abbrev)
+;;(global-set-key "\C-oi" #'cnb/ispell-word-then-abbrev)
 
 (defun cnb/open-external()
   "Open file associated with current buffer or files marked in dired buffer
@@ -489,6 +489,8 @@ in native application through xdg-open"
 
 
 (use-package dired
+  :defer t
+
   :config
   (progn
     (setq dired-listing-switches "-alhGv --group-directories-first")
@@ -1290,7 +1292,7 @@ Assumes that the frame is only split into two                            . "
 
 (use-package sr-speedbar
   :ensure sr-speedbar
-  :bind (("C-o s" . sr-speedbar-toggle))
+  ;;:bind (("C-o s" . sr-speedbar-toggle))
 
   :init
   (progn
@@ -1347,12 +1349,11 @@ Assumes that the frame is only split into two                            . "
   :init
   (progn
     (setq flycheck-indication-mode 'left-fringe)
-    (add-hook 'after-init-hook #'global-flycheck-mode)
-    )
+    (add-hook 'after-init-hook #'global-flycheck-mode))
 
   :config
   (progn
-    (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+    (setq flycheck-display-errors-function #'flycheck-display-error-messages)))
 
 (defvar cnb/coding-hook nil
     "Hook that gets run on activation of any programming mode.")
