@@ -693,7 +693,7 @@ Start Emacs server on first Emacs instance.
           (if p local-abbrev-table global-abbrev-table)
           bef aft))))
 
-  (global-set-key "\C-oi" #'cnb/ispell-word-then-abbrev)
+  ;;(global-set-key "\C-oi" #'cnb/ispell-word-then-abbrev)
 #+end_src
 * Dired
 
@@ -734,99 +734,101 @@ Start Emacs server on first Emacs instance.
   Directory view/editing.
 
 #+begin_src emacs-lisp
-    (defun cnb/dired-get-size ()
-      "Get total size of all marked files."
-      ;;  From http://oremacs.com/2015/01/12/dired-file-size/
-      (interactive)
-      (let ((files (dired-get-marked-files)))
-        (with-temp-buffer
-          (apply 'call-process "/usr/bin/du" nil t nil "-sch" files)
-          (message
-           "Size of all marked files: %s"
-           (progn
-             (re-search-backward "\\(^[0-9.,]+[A-Za-z]+\\).*total$")
-             (match-string 1))))))
+  (defun cnb/dired-get-size ()
+    "Get total size of all marked files."
+    ;;  From http://oremacs.com/2015/01/12/dired-file-size/
+    (interactive)
+    (let ((files (dired-get-marked-files)))
+      (with-temp-buffer
+        (apply 'call-process "/usr/bin/du" nil t nil "-sch" files)
+        (message
+         "Size of all marked files: %s"
+         (progn
+           (re-search-backward "\\(^[0-9.,]+[A-Za-z]+\\).*total$")
+           (match-string 1))))))
 
-    (defun cnb/dired-back-to-top ()
-      "Move to the first file name in the dired buffer"
-      (interactive)
-      (let (has-omit-mode has-hide-details-mode line-nbr)
-        (when (and (boundp 'dired-omit-mode) dired-omit-mode)
-          (setq has-omit-mode t))
-        (when (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
-          (setq has-hide-details-mode t))
-        (cond
-         ((and has-omit-mode has-hide-details-mode)
-          (setq line-nbr 1))
-         (has-omit-mode
-          (setq line-nbr 3))
-         (has-hide-details-mode
-          (setq line-nbr 3))
-         (t
-          (setq line-nbr 3)))
-        (message (number-to-string line-nbr))
-        (beginning-of-buffer)
-        (dired-next-line line-nbr)))
+  (defun cnb/dired-back-to-top ()
+    "Move to the first file name in the dired buffer"
+    (interactive)
+    (let (has-omit-mode has-hide-details-mode line-nbr)
+      (when (and (boundp 'dired-omit-mode) dired-omit-mode)
+        (setq has-omit-mode t))
+      (when (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
+        (setq has-hide-details-mode t))
+      (cond
+       ((and has-omit-mode has-hide-details-mode)
+        (setq line-nbr 1))
+       (has-omit-mode
+        (setq line-nbr 3))
+       (has-hide-details-mode
+        (setq line-nbr 3))
+       (t
+        (setq line-nbr 3)))
+      (message (number-to-string line-nbr))
+      (beginning-of-buffer)
+      (dired-next-line line-nbr)))
 
-    (defun cnb/old-dired-back-to-top ()
-      "Move to the first file name in the dired buffer"
-      (interactive)
-      (let* (line-nbr)
-        (if (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
-            (setq line-nbr 3)
-          (setq line-nbr 4))
-        (if (and (boundp 'dired-omit-mode) dired-omit-mode)
-            (setq line-nbr 2))
-        (beginning-of-buffer)
-        (dired-next-line line-nbr)))
+  (defun cnb/old-dired-back-to-top ()
+    "Move to the first file name in the dired buffer"
+    (interactive)
+    (let* (line-nbr)
+      (if (and (boundp 'dired-hide-details-mode) dired-hide-details-mode)
+          (setq line-nbr 3)
+        (setq line-nbr 4))
+      (if (and (boundp 'dired-omit-mode) dired-omit-mode)
+          (setq line-nbr 2))
+      (beginning-of-buffer)
+      (dired-next-line line-nbr)))
 
-    (defun cnb/dired-jump-to-bottom ()
-      "Jump to last file in dired buffer"
-      (interactive)
-      (end-of-buffer)
-      (dired-next-line -1))
-
-
-    (use-package dired
-      :config
-      (progn
-        (setq dired-listing-switches "-alhGv --group-directories-first")
-        (setq dired-dwim-target t)
-        (setq dired-recursive-copies 'always) ; Don't ask
-        (setq dired-recursive-deletes 'top)   ; Ask once
-        (setq diredp-hide-details-initially-flag nil)
-
-        (when (boundp 'dired-mode-map)
-          (define-key dired-mode-map
-            (vector 'remap 'beginning-of-buffer) 'cnb/dired-back-to-top)
-
-          (define-key dired-mode-map
-             (vector 'remap 'end-of-buffer) 'cnb/dired-jump-to-bottom))))
+  (defun cnb/dired-jump-to-bottom ()
+    "Jump to last file in dired buffer"
+    (interactive)
+    (end-of-buffer)
+    (dired-next-line -1))
 
 
-    (use-package dired-x
-      :defer t
+  (use-package dired
+    :defer t
 
-      :config
-      (progn
-        ;; Remember -  <C-x><ALT>o to omit hidden files
-        (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))))
+    :config
+    (progn
+      (setq dired-listing-switches "-alhGv --group-directories-first")
+      (setq dired-dwim-target t)
+      (setq dired-recursive-copies 'always) ; Don't ask
+      (setq dired-recursive-deletes 'top)   ; Ask once
+      (setq diredp-hide-details-initially-flag nil)
 
-    (use-package dired+
-      :defer t
-      :ensure dired+
+      (when (boundp 'dired-mode-map)
+        (define-key dired-mode-map
+          (vector 'remap 'beginning-of-buffer) 'cnb/dired-back-to-top)
 
-      :config
-      (progn
-        (diredp-toggle-find-file-reuse-dir 1)))
+        (define-key dired-mode-map
+           (vector 'remap 'end-of-buffer) 'cnb/dired-jump-to-bottom))))
 
-    (use-package wdired
-      :defer t
 
-      :config
-      (progn
-        (setq wdired-allow-to-change-permissions t)
-        (setq wdired-confirm-overwrite t)))
+  (use-package dired-x
+    :defer t
+
+    :config
+    (progn
+      ;; Remember -  <C-x><ALT>o to omit hidden files
+      (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))))
+
+  (use-package dired+
+    :defer t
+    :ensure dired+
+
+    :config
+    (progn
+      (diredp-toggle-find-file-reuse-dir 1)))
+
+  (use-package wdired
+    :defer t
+
+    :config
+    (progn
+      (setq wdired-allow-to-change-permissions t)
+      (setq wdired-confirm-overwrite t)))
 
 #+end_src
 
@@ -1874,7 +1876,7 @@ Deal with parens in a smart way.
 #+begin_src emacs-lisp
   (use-package sr-speedbar
     :ensure sr-speedbar
-    :bind (("C-o s" . sr-speedbar-toggle))
+    ;;:bind (("C-o s" . sr-speedbar-toggle))
 
     :init
     (progn
@@ -1966,12 +1968,11 @@ the bug repository. E.G the following will point TWEB-???? references to Jira.
     :init
     (progn
       (setq flycheck-indication-mode 'left-fringe)
-      (add-hook 'after-init-hook #'global-flycheck-mode)
-      )
+      (add-hook 'after-init-hook #'global-flycheck-mode))
 
     :config
     (progn
-      (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+      (setq flycheck-display-errors-function #'flycheck-display-error-messages)))
 #+end_src
 
 ** Coding Hook
