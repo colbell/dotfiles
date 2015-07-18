@@ -34,8 +34,8 @@ myWorkspaces :: [WorkspaceId]
 myWorkspaces = ["1-emacs", "2-shell", "3-web", "4-fm", "5", "6", "7-ssh",
                 "8-im", "9-mail"]
 
-myTerm :: String
-myTerm = "mate-terminal"
+-- myTerm :: String
+-- myTerm = "mate-terminal"
 
 myManageHook :: ManageHook
 myManageHook = scratchpadManageHookDefault <+>composeAll (
@@ -131,7 +131,7 @@ main = do
              } `additionalKeys` keys'
     where
       keys' =  [ ((myModMask , xK_Return),               dwmpromote)
-               , ((myModMask .|. shiftMask, xK_Return),  spawn myTerm)
+               -- , ((myModMask .|. shiftMask, xK_Return),  spawn myTerm)
                , ((mod1Mask, xK_F4),                     kill)
 
                , ((myModMask, xK_F1),                manPrompt myXPConfig)
