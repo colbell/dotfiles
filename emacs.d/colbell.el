@@ -636,7 +636,7 @@ Assumes that the frame is only split into two                            . "
 
 (use-package ace-window
   :ensure ace-window
-  :bind (("M-p"     . ace-window)
+  :bind (("<f7>"    . ace-window)
          ("M-g SPC" . avy-goto-char)
          ("M-g '"   . avy-goto-char-2)
          ("M-g M-g" . avy-goto-line)
