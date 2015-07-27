@@ -1582,7 +1582,6 @@ Discover key bindings and their meaning for the current Emacs major mode.
 
 Magit is a very cool GUI for Git.
 
-#+HEADER: :results silent
 #+begin_src emacs-lisp
   (defun cnb/magit-status-mode-hook ()
     (visual-line-mode -1))
@@ -1596,7 +1595,7 @@ Magit is a very cool GUI for Git.
 
     :config
     (progn
-      (setq magit-diff-refine-hunk t)
+      (setq magit-diff-refine-hunk nil)
       (setq magit-process-popup-time 30)
       ;;(setq magit-auto-revert-mode t)
       ;;(setq magit-last-seen-setup-instructions "1.4.0")
@@ -1606,8 +1605,6 @@ Magit is a very cool GUI for Git.
       (add-hook 'git-commit-mode-hook #'flyspell-mode)
       (add-hook 'magit-status-mode-hook #'cnb/magit-status-mode-hook)))
 #+end_src
-
-** (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 ** WAITING Git Gutter                                          :WAITING:
    - State "WAITING"       from "TODO"       [2015-04-07 Tue 11:23] \\
      Need to work out the exact problem. It appears that either flycheck or
