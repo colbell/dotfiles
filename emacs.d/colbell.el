@@ -607,10 +607,6 @@ Assumes that the frame is only split into two                            . "
 
 (define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
 
-(use-package ace-jump-mode
-  :defer t
-  :ensure t)
-
 (setq line-move-visual nil)
 
 (use-package helm-swoop
@@ -638,32 +634,21 @@ Assumes that the frame is only split into two                            . "
   :bind (("M-? ." . goto-last-change)
          ("M-? ," . goto-last-change-reverse)))
 
-(use-package window-jump
-  :ensure window-jump
-  :init
-  (progn
-    (setq wj-wrap t))
-
-  :bind (("C-S-<up>"    . window-jump-up)
-         ("C-S-<down>"  . window-jump-down)
-         ("C-S-<left>"  . window-jump-left)
-         ("C-S-<right>" . window-jump-right)))
-
 (use-package ace-window
   :ensure ace-window
-  :bind (("<f7>"    . ace-window)
-         ("M-g SPC" . avi-goto-char)
-         ("M-g '"   . avi-goto-char-2)
-         ("M-g M-g" . avi-goto-line)
-         ("M-g e"   . avi-goto-word-0)
-         ("M-g w"   . avi-goto-word-1))
+  :bind (("M-p"     . ace-window)
+         ("M-g SPC" . avy-goto-char)
+         ("M-g '"   . avy-goto-char-2)
+         ("M-g M-g" . avy-goto-line)
+         ("M-g e"   . avy-goto-word-0)
+         ("M-g w"   . avy-goto-word-1))
 
   :init
   (progn
     (setq aw-scope 'frame)
-    (setq avi-background t)
+    (setq aw-background t)
     (setq aw-flip-keys '("n")))  ;; 'n' will goto last window in ace-window.
-    ;; (setq avi-keys (nconc (loop for i from ?0 to ?9 collect i)
+    ;; (setq avy-keys (nconc (loop for i from ?0 to ?9 collect i)
     ;;                       (loop for i from ?a to ?z collect i)
     ;;                       (loop for i from ?A to ?Z collect i)))
 
@@ -962,11 +947,6 @@ Assumes that the frame is only split into two                            . "
 ;;     (global-hungry-delete-mode)))
 
 (delete-selection-mode 1)
-
-(use-package ace-jump-zap
-  :ensure ace-jump-zap
-  :bind (("M-z"   . ace-jump-zap-to-char)
-         ("C-M-z" . ace-jump-zap-up-to-char)))
 
 (use-package browse-kill-ring
   :ensure browse-kill-ring
@@ -2184,20 +2164,15 @@ _q_uit"
    (defhydra cnb-hydra-win-functions (:color amaranth)
      "
                                                                                     ╭────────────┐
-    Jump           Move Splitter    Split Window   Ace                              │  Windows   │
+   Move Splitter    Split Window   Ace                                              │  Windows   │
 ╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
 
-   ←: Left        _h_: Left          _x_: Horiz       _s_: Swap
-   →: Right       _l_: Right         _y_: Vert        _d_: Delete
-   ↓: Down        _j_: Down          _b_: Balance     _m_: Maximize
-   ↑: Up          _k_: Up
+   _h_: Left          _x_: Horiz       _s_: Swap
+   _l_: Right         _y_: Vert        _d_: Delete
+   _j_: Down          _b_: Balance     _m_: Maximize
+   _k_: Up
 ──────────────────────────────────────────────────────────────────────────────────────────────────
   "
-     ("<left>" window-jump-left nil)
-     ("<down>" window-jump-down nil)
-     ("<up>" window-jump-up nil)
-     ("<right>" window-jump-right nil)
-
      ("h" hydra-move-splitter-left nil)
      ("j" hydra-move-splitter-down nil)
      ("k" hydra-move-splitter-up nil)
