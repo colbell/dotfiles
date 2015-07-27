@@ -1089,11 +1089,12 @@ Assumes that the frame is only split into two                            . "
 
   :config
   (progn
-    (setq magit-diff-refine-hunk t)
+    (setq magit-diff-refine-hunk nil)
     (setq magit-process-popup-time 30)
     ;;(setq magit-auto-revert-mode t)
     ;;(setq magit-last-seen-setup-instructions "1.4.0")
     (setq magit-completing-read-function #'helm--completing-read-default)
+    (setq magit-push-always-verify nil)
 
     ;;(add-hook 'magit-log-edit-mode-hook #'flyspell-mode)
     (add-hook 'git-commit-mode-hook #'flyspell-mode)

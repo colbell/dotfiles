@@ -1600,6 +1600,7 @@ Magit is a very cool GUI for Git.
       ;;(setq magit-auto-revert-mode t)
       ;;(setq magit-last-seen-setup-instructions "1.4.0")
       (setq magit-completing-read-function #'helm--completing-read-default)
+      (setq magit-push-always-verify nil)
 
       ;;(add-hook 'magit-log-edit-mode-hook #'flyspell-mode)
       (add-hook 'git-commit-mode-hook #'flyspell-mode)
