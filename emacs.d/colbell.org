@@ -932,15 +932,6 @@ Toggle Frame Split
 
 #+end_src
 * Moving Around
-** Ace Jump Mode
-
-Only required by other packages. I use ace-windows avi-* functions instead.
-#+begin_src emacs-lisp
-  (use-package ace-jump-mode
-    :defer t
-    :ensure t)
-#+end_src
-
 ** Move By Visual Lines
 #+begin_src emacs-lisp
   (setq line-move-visual nil)
@@ -988,23 +979,6 @@ Drag mode. Allows dragging by alt left up etc.
            ("M-? ," . goto-last-change-reverse)))
 #+end_src
 
-** Window Jump
-
-Select window by direction keys.
-
-#+begin_src emacs-lisp
-  (use-package window-jump
-    :ensure window-jump
-    :init
-    (progn
-      (setq wj-wrap t))
-
-    :bind (("C-S-<up>"    . window-jump-up)
-           ("C-S-<down>"  . window-jump-down)
-           ("C-S-<left>"  . window-jump-left)
-           ("C-S-<right>" . window-jump-right)))
-#+end_src
-
 ** Ace Window
 
 Select window by number.
@@ -1012,19 +986,19 @@ Select window by number.
 #+begin_src emacs-lisp
   (use-package ace-window
     :ensure ace-window
-    :bind (("<f7>"    . ace-window)
-           ("M-g SPC" . avi-goto-char)
-           ("M-g '"   . avi-goto-char-2)
-           ("M-g M-g" . avi-goto-line)
-           ("M-g e"   . avi-goto-word-0)
-           ("M-g w"   . avi-goto-word-1))
+    :bind (("M-p"     . ace-window)
+           ("M-g SPC" . avy-goto-char)
+           ("M-g '"   . avy-goto-char-2)
+           ("M-g M-g" . avy-goto-line)
+           ("M-g e"   . avy-goto-word-0)
+           ("M-g w"   . avy-goto-word-1))
 
     :init
     (progn
       (setq aw-scope 'frame)
-      (setq avi-background t)
+      (setq aw-background t)
       (setq aw-flip-keys '("n")))  ;; 'n' will goto last window in ace-window.
-      ;; (setq avi-keys (nconc (loop for i from ?0 to ?9 collect i)
+      ;; (setq avy-keys (nconc (loop for i from ?0 to ?9 collect i)
       ;;                       (loop for i from ?a to ?z collect i)
       ;;                       (loop for i from ?A to ?Z collect i)))
 
@@ -1418,15 +1392,6 @@ Delete all whitespace when deleting.
 
 #+begin_src emacs-lisp
 (delete-selection-mode 1)
-#+end_src
-
-** zap-to-char and zap-up-to-char
-
-#+begin_src emacs-lisp
-  (use-package ace-jump-zap
-    :ensure ace-jump-zap
-    :bind (("M-z"   . ace-jump-zap-to-char)
-           ("C-M-z" . ace-jump-zap-up-to-char)))
 #+end_src
 
 ** Browse kill ring
@@ -3040,51 +3005,46 @@ Close term buffers when terminal is exited.
 
 ** Global hydra for window handling
 #+begin_src emacs-lisp
-  (global-set-key
-   (kbd "<f5> w")
-   (defhydra cnb-hydra-win-functions (:color amaranth)
-     "
-                                                                                    ╭────────────┐
-    Jump           Move Splitter    Split Window   Ace                              │  Windows   │
-╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
+    (global-set-key
+     (kbd "<f5> w")
+     (defhydra cnb-hydra-win-functions (:color amaranth)
+       "
+                                                                                      ╭────────────┐
+     Move Splitter    Split Window   Ace                                              │  Windows   │
+  ╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
 
-   ←: Left        _h_: Left          _x_: Horiz       _s_: Swap
-   →: Right       _l_: Right         _y_: Vert        _d_: Delete
-   ↓: Down        _j_: Down          _b_: Balance     _m_: Maximize
-   ↑: Up          _k_: Up
-──────────────────────────────────────────────────────────────────────────────────────────────────
-  "
-     ("<left>" window-jump-left nil)
-     ("<down>" window-jump-down nil)
-     ("<up>" window-jump-up nil)
-     ("<right>" window-jump-right nil)
+     _h_: Left          _x_: Horiz       _s_: Swap
+     _l_: Right         _y_: Vert        _d_: Delete
+     _j_: Down          _b_: Balance     _m_: Maximize
+     _k_: Up
+  ──────────────────────────────────────────────────────────────────────────────────────────────────
+    "
+       ("h" hydra-move-splitter-left nil)
+       ("j" hydra-move-splitter-down nil)
+       ("k" hydra-move-splitter-up nil)
+       ("l" hydra-move-splitter-right nil)
+       ("b" balance-windows nil)
 
-     ("h" hydra-move-splitter-left nil)
-     ("j" hydra-move-splitter-down nil)
-     ("k" hydra-move-splitter-up nil)
-     ("l" hydra-move-splitter-right nil)
-     ("b" balance-windows nil)
+       ("u" winner-undo nil)
+       ("r" winner-redo nil)
 
-     ("u" winner-undo nil)
-     ("r" winner-redo nil)
+       ("x" (lambda ()
+              (interactive)
+              (split-window-below)
+              (windmove-down))
+        nil)
+       ("y" (lambda ()
+              (interactive)
+              (split-window-right)
+              (windmove-right))
+        nil)
 
-     ("x" (lambda ()
-            (interactive)
-            (split-window-below)
-            (windmove-down))
-      nil)
-     ("y" (lambda ()
-            (interactive)
-            (split-window-right)
-            (windmove-right))
-      nil)
+       ("a" ace-window nil)
+       ("s" (lambda () (interactive) (ace-window 4)) nil)
+       ("d" (lambda () (interactive) (ace-window 16)) nil)
+       ("m" ace-maximize-window nil)
 
-     ("a" ace-window nil)
-     ("s" (lambda () (interactive) (ace-window 4)) nil)
-     ("d" (lambda () (interactive) (ace-window 16)) nil)
-     ("m" ace-maximize-window nil)
-
-     ("q" nil "quit")))
+       ("q" nil "quit")))
 #+end_src
 
 ** Global hydra for outline mode
