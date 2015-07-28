@@ -56,7 +56,8 @@
   (progn
     (setq paradox-github-token t)  ;; Don't ask for Github integration.
     (setq paradox-display-download-count t)
-    (setq paradox-spinner-type 'box-in-circle)))
+    (setq paradox-spinner-type 'box-in-circle)
+    (setq paradox-execute-asynchronously t)))
 
 (defun cnb/toggle-theme ()
   "Toggle between themes."
@@ -688,6 +689,7 @@ Assumes that the frame is only split into two                            . "
 
 (use-package ibuffer
   :bind (("C-x C-b" . ibuffer))
+  :ensure ibuffer-vc
 
   :config
   (progn
@@ -698,12 +700,15 @@ Assumes that the frame is only split into two                            . "
                  (ibuffer-jump-to-buffer current-buffer-name)))
 
     (define-key ibuffer-mode-map "e" #'ibuffer-ediff-marked-buffers)
-    (setq ibuffer-default-sorting-mode 'alphabetic)
+    ;;(setq ibuffer-default-sorting-mode 'alphabetic)
 
     (add-hook 'ibuffer-mode-hook
               (lambda ()
                 (ibuffer-auto-mode)
-                (ibuffer-switch-to-saved-filter-groups "default")
+                ;;(ibuffer-switch-to-saved-filter-groups "default")
+                (ibuffer-vc-set-filter-groups-by-vc-root)
+                (unless (eq ibuffer-sorting-mode 'alphabetic)
+                  (ibuffer-do-sort-by-alphabetic))
                 (visual-line-mode -1)))
 
     ;; Replace the filename filter with a file name/directory name filter
@@ -728,103 +733,107 @@ Assumes that the frame is only split into two                            . "
                   (size 9 -1 :right)
                   " "
                   (mode 16 16 :left :elide)
-                  " " filename-and-process)
-            (mark " "
+                  " "
+                  (vc-status 16 16 :left)
+                  " "
+                  filename-and-process)
+            (mark vc-status-mini " "
                   (name 16 -1)
                   " " filename)))
 
-    (setq ibuffer-saved-filter-groups
-          (quote (("default"
-                   ("ruby" (or
-                            (mode . rinari-mode)
-                            (mode . enh-ruby-mode)
-                            (mode . ruby-mode)))
-                   ("lisp" (or (mode . emacs-lisp-mode)
-                               (mode . lisp-interaction-mode)
-                               (mode . lisp-mode)))
-                   ("clojure" (or (mode . clojure-mode)
-                                  (mode . clojure-test-mode)))
-                   ("java" (mode . java-mode))
-                   ("js" (or
-                          (mode . coffee-mode)
-                          (mode . js-mode)
-                          (mode . espresso-mode)))
-                   ("code" (or
-                            (mode . scala-mode)
-                            (mode . sbt-mode)
-                            (mode . haskell-mode)
-                            (mode . lua-mode)
-                            (mode . python-mode)))
-                   ("web markup" (or
-                                  (mode . sass-mode)
-                                  (mode . css-mode)
-                                  (mode . scss-mode)
-                                  (mode . php-mode)
-                                  (mode . haml-mode)
-                                  (mode . slim-mode)
-                                  (mode . html-mode)
-                                  (mode . rhtml-mode)
-                                  (name . ".rhtml")
-                                  (mode . nXhtml-mode)
-                                  (mode . web-mode)))
-                   ("markup" (or
-                              (mode . nxml-mode)
-                              (mode . yaml-mode)
-                              (mode . markdown-mode)))
-                   ("conf" (or
-                            (mode . muttrc-mode)
-                            (mode . conf-xdefaults-mode)
-                            (mode . conf-mode)
-                            (mode . conf-unix-mode)
-                            (mode . conf-space-mode)
-                            (mode . conf-colon-mode)
-                            (name . "\.env")))
-                   ("dired" (mode . dired-mode))
-                   ("browser" (or
-                               (mode . doc-view-mode)
-                               (mode . eww-mode)
-                               (mode . help-mode)
-                               (mode . Man-mode)
-                               (mode . woman-mode)))
-                   ("org" (or
-                           (name . "^\\*Calendar\\*$")
-                           (name . "^diary$")
-                           (mode . latex-mode)
-                           (mode . org-mode)
-                           (mode . muse-mode)))
-                   ("shell-script" (mode . sh-mode))
-                   ("compilation" (or
-                                   (name . "^\\*Compile-Log\\*$")
-                                   (mode . ruby-compilation-mode)))
-                   ("term" (or
-                            (mode . term-mode)
-                            (mode . sql-interactive-mode)))
-                   ("repl" (or
-                            (mode . cider-repl-mode)
-                            (mode . inf-ruby-mode)
-                            (mode . nrepl-messages-mode)))
-                   ("source control" (or
-                                      (mode . magit-mode)
-                                      (mode . magit-commit-mode)
-                                      (mode . magit-status-mode)
-                                      (mode . git-commit-mode)
-                                      (name . "^magit")
-                                      (name . "magit")))
-                   ("jabber" (or
-                              (mode . jabber-roster-mode)
-                              (mode . jabber-chat-mode)))
-                   ("mail" (or
-                            (mode . bbdb-mode)
-                            (mode . gnus-article-mode)
-                            (mode . gnus-group-mode)
-                            (mode . gnus-summary-mode)
-                            (name . "\.bbdb")
-                            (name . "\.newsrc-dribble")
-                            (mode . mu4e-main-mode)
-                            (mode . mu4e-headers-mode)
-                            ;;(mode . rmail-mode)
-                            (mode . mu4e-view-mode)
-                            (mode . mu4e-compose-mode)))))))))
+    ;; (setq ibuffer-saved-filter-groups
+    ;;       (quote (("default"
+    ;;                ("ruby" (or
+    ;;                         (mode . rinari-mode)
+    ;;                         (mode . enh-ruby-mode)
+    ;;                         (mode . ruby-mode)))
+    ;;                ("lisp" (or (mode . emacs-lisp-mode)
+    ;;                            (mode . lisp-interaction-mode)
+    ;;                            (mode . lisp-mode)))
+    ;;                ("clojure" (or (mode . clojure-mode)
+    ;;                               (mode . clojure-test-mode)))
+    ;;                ("java" (mode . java-mode))
+    ;;                ("js" (or
+    ;;                       (mode . coffee-mode)
+    ;;                       (mode . js-mode)
+    ;;                       (mode . espresso-mode)))
+    ;;                ("code" (or
+    ;;                         (mode . scala-mode)
+    ;;                         (mode . sbt-mode)
+    ;;                         (mode . haskell-mode)
+    ;;                         (mode . lua-mode)
+    ;;                         (mode . python-mode)))
+    ;;                ("web markup" (or
+    ;;                               (mode . sass-mode)
+    ;;                               (mode . css-mode)
+    ;;                               (mode . scss-mode)
+    ;;                               (mode . php-mode)
+    ;;                               (mode . haml-mode)
+    ;;                               (mode . slim-mode)
+    ;;                               (mode . html-mode)
+    ;;                               (mode . rhtml-mode)
+    ;;                               (name . ".rhtml")
+    ;;                               (mode . nXhtml-mode)
+    ;;                               (mode . web-mode)))
+    ;;                ("markup" (or
+    ;;                           (mode . nxml-mode)
+    ;;                           (mode . yaml-mode)
+    ;;                           (mode . markdown-mode)))
+    ;;                ("conf" (or
+    ;;                         (mode . muttrc-mode)
+    ;;                         (mode . conf-xdefaults-mode)
+    ;;                         (mode . conf-mode)
+    ;;                         (mode . conf-unix-mode)
+    ;;                         (mode . conf-space-mode)
+    ;;                         (mode . conf-colon-mode)
+    ;;                         (name . "\.env")))
+    ;;                ("dired" (mode . dired-mode))
+    ;;                ("browser" (or
+    ;;                            (mode . doc-view-mode)
+    ;;                            (mode . eww-mode)
+    ;;                            (mode . help-mode)
+    ;;                            (mode . Man-mode)
+    ;;                            (mode . woman-mode)))
+    ;;                ("org" (or
+    ;;                        (name . "^\\*Calendar\\*$")
+    ;;                        (name . "^diary$")
+    ;;                        (mode . latex-mode)
+    ;;                        (mode . org-mode)
+    ;;                        (mode . muse-mode)))
+    ;;                ("shell-script" (mode . sh-mode))
+    ;;                ("compilation" (or
+    ;;                                (name . "^\\*Compile-Log\\*$")
+    ;;                                (mode . ruby-compilation-mode)))
+    ;;                ("term" (or
+    ;;                         (mode . term-mode)
+    ;;                         (mode . sql-interactive-mode)))
+    ;;                ("repl" (or
+    ;;                         (mode . cider-repl-mode)
+    ;;                         (mode . inf-ruby-mode)
+    ;;                         (mode . nrepl-messages-mode)))
+    ;;                ("source control" (or
+    ;;                                   (mode . magit-mode)
+    ;;                                   (mode . magit-commit-mode)
+    ;;                                   (mode . magit-status-mode)
+    ;;                                   (mode . git-commit-mode)
+    ;;                                   (name . "^magit")
+    ;;                                   (name . "magit")))
+    ;;                ("jabber" (or
+    ;;                           (mode . jabber-roster-mode)
+    ;;                           (mode . jabber-chat-mode)))
+    ;;                ("mail" (or
+    ;;                         (mode . bbdb-mode)
+    ;;                         (mode . gnus-article-mode)
+    ;;                         (mode . gnus-group-mode)
+    ;;                         (mode . gnus-summary-mode)
+    ;;                         (name . "\.bbdb")
+    ;;                         (name . "\.newsrc-dribble")
+    ;;                         (mode . mu4e-main-mode)
+    ;;                         (mode . mu4e-headers-mode)
+    ;;                         ;;(mode . rmail-mode)
+    ;;                         (mode . mu4e-view-mode)
+    ;;                         (mode . mu4e-compose-mode)))))))
+    ))
 
 (use-package uniquify
   :init
@@ -1089,7 +1098,7 @@ Assumes that the frame is only split into two                            . "
 
   :config
   (progn
-    (setq magit-diff-refine-hunk nil)
+    (setq magit-diff-refine-hunk 'all)
     (setq magit-process-popup-time 30)
     ;;(setq magit-auto-revert-mode t)
     ;;(setq magit-last-seen-setup-instructions "1.4.0")
