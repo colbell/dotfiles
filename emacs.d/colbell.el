@@ -1086,19 +1086,17 @@ Assumes that the frame is only split into two                            . "
 
 (add-hook 'ediff-after-quit-hook-internal 'winner-undo)
 
-(defun cnb/magit-status-mode-hook ()
-  (visual-line-mode -1))
+;; (defun cnb/magit-status-mode-hook ()
+;;   (visual-line-mode -1))
 
 (use-package magit
   :ensure t
-  ;; :diminish magit-auto-revert-mode
-
   :bind (("C-c g"   . magit-status)
          ("C-x M-g" . magit-dispatch-popup))
 
   :config
   (progn
-    (setq magit-diff-refine-hunk 'all)
+    ;;(setq magit-diff-refine-hunk 'all)
     (setq magit-process-popup-time 30)
     ;;(setq magit-auto-revert-mode t)
     ;;(setq magit-last-seen-setup-instructions "1.4.0")
@@ -1107,7 +1105,8 @@ Assumes that the frame is only split into two                            . "
 
     ;;(add-hook 'magit-log-edit-mode-hook #'flyspell-mode)
     (add-hook 'git-commit-mode-hook #'flyspell-mode)
-    (add-hook 'magit-status-mode-hook #'cnb/magit-status-mode-hook)))
+    ;;(add-hook 'magit-status-mode-hook #'cnb/magit-status-mode-hook)
+    ))
 
 ;; (use-package git-gutter
 ;;   :ensure t
