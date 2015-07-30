@@ -4,6 +4,7 @@
 # Fancy (and pointless) headers on outgoing email.
 my_hdr X-Operating-System: GNU/Linux, kernel `uname -r`, `uptime | sed s/.*up/up/ | sed s/,[[:space:]0-9]*users.*$//`
 my_hdr X-Editor: `emacs -nw -no-init-file -no-site-file --version | head -n 1`
+my_hdr X-Clacks-Overhead: GNU James Noel Bell
 
 # Which headers to display.
 ignore *                                              # Ignore all
