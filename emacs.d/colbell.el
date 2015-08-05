@@ -124,7 +124,7 @@
 
 (setq find-file-visit-truename t)
 
-(set-default 'indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 
 (setq recenter-positions '(top middle bottom))
@@ -176,8 +176,6 @@
 (setq confirm-kill-emacs 'y-or-n-p)
 
 (global-hl-line-mode)
-
-(setq sql-input-ring-file-name "~/.emacs.d/sql_history")
 
 (setq browse-url-browser-function 'browse-url-text-xterm)
 (setq browse-url-text-browser "w3m")
@@ -242,7 +240,10 @@
     (set-default 'show-trailing-whitespace t)
     (setq whitespace-line-column 80)
     (global-whitespace-mode)
-    (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
+
+    ;; Don't do this as Postgresql text dumps may have trailing tab characters
+    ;; for some columns.
+    ;;(add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
 
     ;;(setq whitespace-global-modes '(not org-mode paradox-menu-mode term-mode))
 
@@ -992,20 +993,24 @@ Assumes that the frame is only split into two                            . "
     )
   )
 
-(defadvice kill-ring-save (before slick-copy activate compile)
-  "When called interactively with no active region, copy a single line instead."
-  (interactive
-   (if mark-active (list (region-beginning) (region-end))
-     (message "Copied line")
-     (list (line-beginning-position)
-           (line-beginning-position 2)))))
+(use-package easy-kill
+  :ensure t
+  :bind (([remap kill-ring-save] . easy-kill)))
 
-(defadvice kill-region (before slick-cut activate compile)
-  "When called interactively with no active region, kill a single line instead."
-  (interactive
-   (if mark-active (list (region-beginning) (region-end))
-     (list (line-beginning-position)
-           (line-beginning-position 2)))))
+;; (defadvice kill-ring-save (before slick-copy activate compile)
+;;   "When called interactively with no active region, copy a single line instead."
+;;   (interactive
+;;    (if mark-active (list (region-beginning) (region-end))
+;;      (message "Copied line")
+;;      (list (line-beginning-position)
+;;            (line-beginning-position 2)))))
+
+;; (defadvice kill-region (before slick-cut activate compile)
+;;   "When called interactively with no active region, kill a single line instead."
+;;   (interactive
+;;    (if mark-active (list (region-beginning) (region-end))
+;;      (list (line-beginning-position)
+;;            (line-beginning-position 2)))))
 
 (put 'erase-buffer 'disabled nil)
 (global-set-key (kbd "C-c E")  'erase-buffer)
@@ -1220,13 +1225,13 @@ Assumes that the frame is only split into two                            . "
                                               "/${singular}\\.rb$"
                                               'cnb/projectile-rails-find-decorator))))
 
-(use-package smartparens
-  :ensure t
+(use-package smartparens-config
+  :ensure smartparens
   ;;:diminish smartparens
 
   :config
   (progn
-    (require 'smartparens-config nil t)
+    ;;(require 'smartparens-config nil t)
     ;;(require 'smartparens-html)
     ;;(require 'smartparens-latex)
 
@@ -1625,6 +1630,11 @@ Assumes that the frame is only split into two                            . "
 (use-package lua-mode
   :defer t
   :ensure t)
+
+(setq sql-input-ring-file-name "~/.emacs.d/sql_history")
+(add-hook 'sql-mode-hook
+          (lambda ()
+            (setq indent-tabs-mode t)))
 
 (defun cnb/elisp-packages ()
   (add-to-list 'imenu-generic-expression '("Packages" "(use-package \\([^)\n]*\\).*$" 1) t))
