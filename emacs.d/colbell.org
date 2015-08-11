@@ -2786,6 +2786,7 @@ Close term buffers when terminal is exited.
   (defalias 'yes-or-no-p 'y-or-n-p)         ;; Y/N for yes/no in prompts.
   (defalias 'idm 'info-display-manual)
   (defalias 'qrr 'query-replace-regexp)
+  (defalias 'dtw 'delete-trailing-whitespace)
 #+end_src
 
 * Key Chords
