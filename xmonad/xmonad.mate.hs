@@ -1,6 +1,8 @@
 -- -*- mode: haskell; -*-
 import Data.List
 
+import System.Posix.Env (putEnv)
+
 import XMonad
 
 import qualified XMonad.StackSet as W
@@ -118,6 +120,7 @@ myFinder = isInfixOf
 
 main :: IO ()
 main = do
+  putEnv "_JAVA_AWT_WM_NONREPARENTING=1"
   xmonad $ mateConfig {
                workspaces         = myWorkspaces
              , manageHook         = myManageHook
