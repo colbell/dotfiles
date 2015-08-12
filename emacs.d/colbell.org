@@ -3380,6 +3380,15 @@ Close term buffers when terminal is exited.
       ("_" sp-join-sexp ) ;;Good
       ("|" sp-split-sexp )))
 #+END_SRC
+* ws-butler
+#+begin_src emacs-lisp
+  (use-package ws-butler
+    :ensure t
+    :config
+    (progn
+      (add-hook 'ruby-mode-hook 'ws-butler-mode)))
+ #+end_src
+
 * Session
 
 Remember current position in file.
