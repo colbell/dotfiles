@@ -2517,6 +2517,12 @@ _d_: subtree
       ("_" sp-join-sexp ) ;;Good
       ("|" sp-split-sexp )))
 
+(use-package ws-butler
+  :ensure t
+  :config
+  (progn
+    (add-hook 'ruby-mode-hook 'ws-butler-mode)))
+
 (use-package saveplace
   ;;:demand
 
