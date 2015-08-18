@@ -1541,16 +1541,16 @@ Enable commands disabled by default for novice users.
 * Completion
 ** Hippie Expansion
 #+begin_src emacs-lisp
-(use-package hippie-exp
-  :init
-  (progn
-    (setq hippie-expand-try-functions-list
-          '(try-complete-file-name-partially
-            try-complete-file-name try-expand-all-abbrevs
-            try-expand-dabbrev try-expand-dabbrev-all-buffers
-            try-expand-dabbrev-from-kill try-complete-lisp-symbol)))
-  :bind
-  ("M-/" . hippie-expand))
+  (use-package hippie-exp
+    :init
+    (progn
+      (setq hippie-expand-try-functions-list
+            '(try-complete-file-name-partially
+              try-complete-file-name try-expand-all-abbrevs
+              try-expand-dabbrev try-expand-dabbrev-all-buffers
+              try-expand-dabbrev-from-kill try-complete-lisp-symbol)))
+    :bind
+    ("M-/" . hippie-expand))
 #+end_src
 
 ** Company Mode
@@ -3386,6 +3386,7 @@ Close term buffers when terminal is exited.
     :ensure t
     :config
     (progn
+      (add-hook 'css-mode-hook 'ws-butler-mode)
       (add-hook 'ruby-mode-hook 'ws-butler-mode)))
  #+end_src
 

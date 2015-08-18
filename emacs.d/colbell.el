@@ -2521,6 +2521,7 @@ _d_: subtree
   :ensure t
   :config
   (progn
+    (add-hook 'css-mode-hook 'ws-butler-mode)
     (add-hook 'ruby-mode-hook 'ws-butler-mode)))
 
 (use-package saveplace
