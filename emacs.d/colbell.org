@@ -457,30 +457,34 @@ I press these too often
   Formatting of white space.
 
 #+begin_src emacs-lisp
-    (use-package whitespace
-      :diminish whitespace-mode
-      :diminish global-whitespace-mode
+  (use-package whitespace
+    :diminish whitespace-mode
+    :diminish global-whitespace-mode
 
-      :init
-      (progn
-        (setq whitespace-style '(face tabs empty trailing lines-tail))
-        (set-default 'show-trailing-whitespace t)
-        (setq whitespace-line-column 80)
-        (global-whitespace-mode)
+    :init
+    (progn
+      (setq whitespace-style '(face tabs empty trailing lines-tail))
+      (set-default 'show-trailing-whitespace t)
+      (setq whitespace-line-column 80)
+      (global-whitespace-mode)
 
-        ;; Don't do this as Postgresql text dumps may have trailing tab characters
-        ;; for some columns.
-        ;;(add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
+      ;; Don't do this as Postgresql text dumps may have trailing tab characters
+      ;; for some columns.
+      ;;(add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
 
-        ;;(setq whitespace-global-modes '(not org-mode paradox-menu-mode term-mode))
+      ;;(setq whitespace-global-modes '(not org-mode paradox-menu-mode term-mode))
 
-        ;; Don't highlight trailing WS in some modes.
-        (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
-                                        cider-repl-mode term-mode-hook
-                                        eww-mode-hook completion-list-mode-hook
-                                        undo-tree-visualizer-mode-hook
-                                        comint-mode-hook))
-          (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
+      ;; Don't highlight trailing WS in some modes.
+      (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
+                                      cider-repl-mode term-mode-hook
+                                      eww-mode-hook completion-list-mode-hook
+                                      undo-tree-visualizer-mode-hook
+                                      comint-mode-hook))
+        (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
+
+  (use-package shrink-whitespace
+    :ensure t
+    :bind (("M-SPC" . shrink-whitespace)))
 #+end_src
 
 * Find in Repository
@@ -964,7 +968,7 @@ Drag mode. Allows dragging by alt left up etc.
       :config
       (progn
         (setq drag-stuff-except-modes '(org-mode))
-        (drag-stuff-global-mode t)))
+        (drag-stuff-global-mode)))
 
 #+end_src
 
@@ -972,9 +976,10 @@ Drag mode. Allows dragging by alt left up etc.
 
 #+begin_src emacs-lisp
   (use-package goto-chg
-    :ensure goto-chg
-    :bind (("M-? ." . goto-last-change)
-           ("M-? ," . goto-last-change-reverse)))
+    :ensure t
+    :config
+    (progn
+      (defalias 'glc 'goto-last-change)))
 #+end_src
 
 ** Ace Window
@@ -1311,7 +1316,7 @@ C-c left/right to undo/redo window configuration changes.
   (global-set-key (kbd "C-c q") #'cnb/quit-bottom-side-windows)
 #+END_SRC
 
-   Position Flycheck errors window in side window at bottom of frame.
+   Position some windows in side window at bottom of frame.
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list
@@ -1321,11 +1326,7 @@ C-c left/right to undo/redo window configuration changes.
      (reusable-frames . visible)
      (side            . bottom)
      (window-height   . 0.2)))
-#+END_SRC
 
-   Position RSpec compilation in side window at bottom of frame.
-
-#+BEGIN_SRC emacs-lisp
   (add-to-list
    'display-buffer-alist
    `(,(rx bos "*rspec-compilation*" eos)
@@ -1333,6 +1334,25 @@ C-c left/right to undo/redo window configuration changes.
      (reusable-frames . visible)
      (side            . bottom)
      (window-height   . 0.2)))
+
+  (add-to-list
+   'display-buffer-alist
+   `(,(rx bos "*ruby*" eos)
+     (display-buffer-reuse-window display-buffer-in-side-window)
+     (reusable-frames . visible)
+     (side            . bottom)
+     (window-height   . 0.2)))
+
+  (add-to-list
+   'display-buffer-alist
+   `(,"\\*rails.*-log*"
+     (display-buffer-reuse-window display-buffer-in-side-window)
+     (reusable-frames . visible)
+     (side            . bottom)
+     (window-height   . 0.2)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
 #+END_SRC
 * Selection
 
@@ -1974,7 +1994,7 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
   (add-hook 'cnb/coding-hook #'hs-minor-mode)
   (add-hook 'cnb/coding-hook #'subword-mode)
   (add-hook 'cnb/coding-hook #'flyspell-prog-mode t)
-;;  (add-hook 'cnb/coding-hook #'nlinum-mode t)
+  (add-hook 'cnb/coding-hook #'nlinum-mode t)
   (add-hook 'cnb/coding-hook #'outline-minor-mode t)
 
   (when (fboundp 'yas/minor-mode)
@@ -3469,9 +3489,6 @@ Remember command and search history.
   (use-package htmlize
     :defer t
     :ensure t)
-
-  ;; cycle through amounts of spacing
-  (global-set-key (kbd "M-SPC") 'cycle-spacing)
 
   ;;(setq compilation-scroll-output t)
   (setq compilation-scroll-output 'first-error)
