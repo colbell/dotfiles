@@ -361,6 +361,12 @@ I press these too often
   (setq browse-url-text-browser "w3m")
 #+END_SRC
 
+  Always start a new tags list.
+
+#+BEGIN_SRC emacs-lisp
+  (setq tags-add-tables nil)
+#+END_SRC
+
 * Mode Line
 
   Smart Mode Line
