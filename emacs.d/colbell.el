@@ -255,6 +255,10 @@
                                     comint-mode-hook))
       (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
 
+(use-package shrink-whitespace
+  :ensure t
+  :bind (("M-SPC" . shrink-whitespace)))
+
 (use-package find-file-in-repository
   :ensure find-file-in-repository
   :bind (("C-x f" . find-file-in-repository)))
@@ -629,12 +633,13 @@ Assumes that the frame is only split into two                            . "
   :config
   (progn
     (setq drag-stuff-except-modes '(org-mode))
-    (drag-stuff-global-mode t)))
+    (drag-stuff-global-mode)))
 
 (use-package goto-chg
-  :ensure goto-chg
-  :bind (("M-? ." . goto-last-change)
-         ("M-? ," . goto-last-change-reverse)))
+  :ensure t
+  :config
+  (progn
+    (defalias 'glc 'goto-last-change)))
 
 (use-package ace-window
   :ensure ace-window
@@ -924,6 +929,24 @@ Assumes that the frame is only split into two                            . "
    (reusable-frames . visible)
    (side            . bottom)
    (window-height   . 0.2)))
+
+(add-to-list
+ 'display-buffer-alist
+ `(,(rx bos "*ruby*" eos)
+   (display-buffer-reuse-window display-buffer-in-side-window)
+   (reusable-frames . visible)
+   (side            . bottom)
+   (window-height   . 0.2)))
+
+(add-to-list
+ 'display-buffer-alist
+ `(,"\\*rails.*-log*"
+   (display-buffer-reuse-window display-buffer-in-side-window)
+   (reusable-frames . visible)
+   (side            . bottom)
+   (window-height   . 0.2)))
+
+
 
 (setq shift-select-mode t)
 
@@ -1350,49 +1373,49 @@ Assumes that the frame is only split into two                            . "
     (setq flycheck-display-errors-function #'flycheck-display-error-messages)))
 
 (defvar cnb/coding-hook nil
-    "Hook that gets run on activation of any programming mode.")
+  "Hook that gets run on activation of any programming mode.")
 
-  (defun cnb/add-watchwords ()
-    "Tedxt to be emphaised in comments."
-    (font-lock-add-keywords
-     nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
-            1 font-lock-warning-face t))))
+(defun cnb/add-watchwords ()
+  "Tedxt to be emphaised in comments."
+  (font-lock-add-keywords
+   nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
+          1 font-lock-warning-face t))))
 
-  (defun cnb/run-coding-hook ()
-    "Enable things that are convenient across all coding buffers."
-    (run-hooks 'cnb/coding-hook))
-
-
-  ;;=======================
-  ;; Things to do when you open a coding buffer.
-  ;;=======================
-  (add-hook 'cnb/coding-hook #'cnb/add-watchwords)
-  (add-hook 'cnb/coding-hook #'hs-minor-mode)
-  (add-hook 'cnb/coding-hook #'subword-mode)
-  (add-hook 'cnb/coding-hook #'flyspell-prog-mode t)
-;;  (add-hook 'cnb/coding-hook #'nlinum-mode t)
-  (add-hook 'cnb/coding-hook #'outline-minor-mode t)
-
-  (when (fboundp 'yas/minor-mode)
-    (add-hook 'cnb/coding-hook #'yas/minor-mode))
-
-  (when (fboundp 'rainbow-delimiters-mode)
-    (add-hook 'cnb/coding-hook #'rainbow-delimiters-mode))
+(defun cnb/run-coding-hook ()
+  "Enable things that are convenient across all coding buffers."
+  (run-hooks 'cnb/coding-hook))
 
 
-  ;;=======================
-  ;; Modes to treat as coding buffers
-  ;;=======================
-  (add-hook 'prog-mode-hook        #'cnb/run-coding-hook)
-  (add-hook 'conf-mode-hook        #'cnb/run-coding-hook)
-  (add-hook 'css-mode-hook         #'cnb/run-coding-hook)
-  (add-hook 'cucumber-mode-hook    #'cnb/run-coding-hook)
-  (add-hook 'diff-hook             #'cnb/run-coding-hook)
-  (add-hook 'feature-mode-hook     #'cnb/run-coding-hook)
-  (add-hook 'markdown-mode-hook    #'cnb/run-coding-hook)
-  (add-hook 'rhtml-mode-hook       #'cnb/run-coding-hook)
-  (add-hook 'yaml-mode-hook        #'cnb/run-coding-hook)
-  (add-hook 'lisp-interaction-mode #'cnb/run-coding-hook)
+;;=======================
+;; Things to do when you open a coding buffer.
+;;=======================
+(add-hook 'cnb/coding-hook #'cnb/add-watchwords)
+(add-hook 'cnb/coding-hook #'hs-minor-mode)
+(add-hook 'cnb/coding-hook #'subword-mode)
+(add-hook 'cnb/coding-hook #'flyspell-prog-mode t)
+(add-hook 'cnb/coding-hook #'nlinum-mode t)
+(add-hook 'cnb/coding-hook #'outline-minor-mode t)
+
+(when (fboundp 'yas/minor-mode)
+  (add-hook 'cnb/coding-hook #'yas/minor-mode))
+
+(when (fboundp 'rainbow-delimiters-mode)
+  (add-hook 'cnb/coding-hook #'rainbow-delimiters-mode))
+
+
+;;=======================
+;; Modes to treat as coding buffers
+;;=======================
+(add-hook 'prog-mode-hook        #'cnb/run-coding-hook)
+(add-hook 'conf-mode-hook        #'cnb/run-coding-hook)
+(add-hook 'css-mode-hook         #'cnb/run-coding-hook)
+(add-hook 'cucumber-mode-hook    #'cnb/run-coding-hook)
+(add-hook 'diff-hook             #'cnb/run-coding-hook)
+(add-hook 'feature-mode-hook     #'cnb/run-coding-hook)
+(add-hook 'markdown-mode-hook    #'cnb/run-coding-hook)
+(add-hook 'rhtml-mode-hook       #'cnb/run-coding-hook)
+(add-hook 'yaml-mode-hook        #'cnb/run-coding-hook)
+(add-hook 'lisp-interaction-mode #'cnb/run-coding-hook)
 
 (use-package clojure-mode
   :ensure clojure-mode
@@ -2581,9 +2604,6 @@ narrowed."
 (use-package htmlize
   :defer t
   :ensure t)
-
-;; cycle through amounts of spacing
-(global-set-key (kbd "M-SPC") 'cycle-spacing)
 
 ;;(setq compilation-scroll-output t)
 (setq compilation-scroll-output 'first-error)
