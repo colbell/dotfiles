@@ -63,9 +63,9 @@
   "Toggle between themes."
   (interactive)
   (let ((next-theme
-         (cond ((member 'solarized-light custom-enabled-themes) 'zenburn)
-               ((member 'solarized-dark custom-enabled-themes) 'solarized-light)
-               (t 'solarized-dark))))
+         (cond ((member 'solarized-light custom-enabled-themes) 'solarized-dark)
+               ((member 'zenburn custom-enabled-themes) 'solarized-light)
+               (t 'zenburn))))
     (dolist (theme custom-enabled-themes) (disable-theme theme))
     (load-theme next-theme t)))
 
@@ -156,7 +156,11 @@
   :bind (("<f11>" . flash-crosshairs)))
 
 (use-package nlinum
-  :ensure t)
+  :ensure t
+
+  :config
+  (progn
+    (global-nlinum-mode)))
 
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
@@ -179,6 +183,10 @@
 
 (setq browse-url-browser-function 'browse-url-text-xterm)
 (setq browse-url-text-browser "w3m")
+
+(setq tags-add-tables nil)
+
+(setq large-file-warning-threshold 20000000)
 
 (use-package smart-mode-line
   :ensure t
@@ -1393,7 +1401,7 @@ Assumes that the frame is only split into two                            . "
 (add-hook 'cnb/coding-hook #'hs-minor-mode)
 (add-hook 'cnb/coding-hook #'subword-mode)
 (add-hook 'cnb/coding-hook #'flyspell-prog-mode t)
-(add-hook 'cnb/coding-hook #'nlinum-mode t)
+;;(add-hook 'cnb/coding-hook #'nlinum-mode t)
 (add-hook 'cnb/coding-hook #'outline-minor-mode t)
 
 (when (fboundp 'yas/minor-mode)

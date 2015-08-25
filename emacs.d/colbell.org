@@ -133,9 +133,9 @@ brighter; it simply makes everything else vanish.
     "Toggle between themes."
     (interactive)
     (let ((next-theme
-           (cond ((member 'solarized-light custom-enabled-themes) 'zenburn)
-                 ((member 'solarized-dark custom-enabled-themes) 'solarized-light)
-                 (t 'solarized-dark))))
+           (cond ((member 'solarized-light custom-enabled-themes) 'solarized-dark)
+                 ((member 'zenburn custom-enabled-themes) 'solarized-light)
+                 (t 'zenburn))))
       (dolist (theme custom-enabled-themes) (disable-theme theme))
       (load-theme next-theme t)))
 #+end_src
@@ -303,8 +303,12 @@ I press these too often
   Show line numbers in fringe.
 
 #+begin_src emacs-lisp
-  (use-package nlinum
-    :ensure t)
+    (use-package nlinum
+      :ensure t
+
+      :config
+      (progn
+        (global-nlinum-mode)))
 #+end_src
 
   Increase/decrease buffer font size.
@@ -365,6 +369,12 @@ I press these too often
 
 #+BEGIN_SRC emacs-lisp
   (setq tags-add-tables nil)
+#+END_SRC
+
+  I've got some TAGS files that are nearly 20MB in size.
+
+#+BEGIN_SRC emacs-lisp
+  (setq large-file-warning-threshold 20000000)
 #+END_SRC
 
 * Mode Line
@@ -2000,7 +2010,7 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
   (add-hook 'cnb/coding-hook #'hs-minor-mode)
   (add-hook 'cnb/coding-hook #'subword-mode)
   (add-hook 'cnb/coding-hook #'flyspell-prog-mode t)
-  (add-hook 'cnb/coding-hook #'nlinum-mode t)
+  ;;(add-hook 'cnb/coding-hook #'nlinum-mode t)
   (add-hook 'cnb/coding-hook #'outline-minor-mode t)
 
   (when (fboundp 'yas/minor-mode)
