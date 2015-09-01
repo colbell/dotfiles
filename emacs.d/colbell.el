@@ -29,7 +29,6 @@
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") 'APPEND)
-(add-to-list 'package-archives '("org"   . "http://orgmode.org/elpa/")   'APPEND)
 (package-initialize)
 
 (setq use-package-verbose t)
@@ -1808,6 +1807,8 @@ Assumes that the frame is only split into two                            . "
 
 (use-package org
   :ensure t
+
+  :pin "gnu"
 
   :bind (("C-c a" . org-agenda)
          ("C-c b" . org-iswitchb)
