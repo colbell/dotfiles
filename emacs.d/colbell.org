@@ -112,16 +112,16 @@ brighter; it simply makes everything else vanish.
   Paradox is a powerful UI for the package manager.
 
 #+begin_src emacs-lisp
-    (use-package paradox
-      :ensure t
-      :defer t
+  ;; (use-package paradox
+  ;;   :ensure t
+  ;;   :defer t
 
-      :config
-      (progn
-        (setq paradox-github-token t)  ;; Don't ask for Github integration.
-        (setq paradox-display-download-count t)
-        (setq paradox-spinner-type 'box-in-circle)
-        (setq paradox-execute-asynchronously t)))
+  ;;   :config
+  ;;   (progn
+  ;;     (setq paradox-github-token t)  ;; Don't ask for Github integration.
+  ;;     (setq paradox-display-download-count t)
+  ;;     (setq paradox-spinner-type 'box-in-circle)
+  ;;     (setq paradox-execute-asynchronously t)))
 #+end_src
 
 * Theme
@@ -668,15 +668,15 @@ Start Emacs server on first Emacs instance.
   installed in Chrome.
 
 #+begin_src emacs-lisp
-  (use-package edit-server
-    :ensure t
-    :ensure edit-server-htmlize
+  ;; (use-package edit-server
+  ;;   :ensure t
+  ;;   :ensure edit-server-htmlize
 
-    :init
-    (progn
-      (add-hook 'edit-server-start-hook #'edit-server-maybe-dehtmlize-buffer)
-      (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer)
-      (edit-server-start)))
+  ;;   :init
+  ;;   (progn
+  ;;     (add-hook 'edit-server-start-hook #'edit-server-maybe-dehtmlize-buffer)
+  ;;     (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer)
+  ;;     (edit-server-start)))
 #+end_src
 
 * Auto-correct
@@ -1631,27 +1631,28 @@ Discover key bindings and their meaning for the current Emacs major mode.
 Magit is a very cool GUI for Git.
 
 #+begin_src emacs-lisp
-    ;; (defun cnb/magit-status-mode-hook ()
-    ;;   (visual-line-mode -1))
+  ;; (defun cnb/magit-status-mode-hook ()
+  ;;   (visual-line-mode -1))
 
-    (use-package magit
-      :ensure t
-      :bind (("C-c g"   . magit-status)
-             ("C-x M-g" . magit-dispatch-popup))
+  (use-package magit
+    :ensure t
+    :bind (("C-c g"   . magit-status)
+           ("C-x M-g" . magit-dispatch-popup))
 
-      :config
-      (progn
-        ;;(setq magit-diff-refine-hunk 'all)
-        (setq magit-process-popup-time 30)
-        ;;(setq magit-auto-revert-mode t)
-        ;;(setq magit-last-seen-setup-instructions "1.4.0")
-        (setq magit-completing-read-function #'helm--completing-read-default)
-        (setq magit-push-always-verify nil)
+    :config
+    (progn
+      ;;(setq magit-diff-refine-hunk 'all)
+      (setq magit-process-popup-time 30)
+      ;;(setq magit-auto-revert-mode t)
+      ;;(setq magit-last-seen-setup-instructions "1.4.0")
+      (setq magit-completing-read-function #'helm--completing-read-default)
+      (setq magit-push-always-verify nil)
+      (setq magit-revert-buffers t)
 
-        ;;(add-hook 'magit-log-edit-mode-hook #'flyspell-mode)
-        (add-hook 'git-commit-mode-hook #'flyspell-mode)
-        ;;(add-hook 'magit-status-mode-hook #'cnb/magit-status-mode-hook)
-        ))
+      ;;(add-hook 'magit-log-edit-mode-hook #'flyspell-mode)
+      (add-hook 'git-commit-mode-hook #'flyspell-mode)
+      ;;(add-hook 'magit-status-mode-hook #'cnb/magit-status-mode-hook)
+      ))
 #+end_src
 ** WAITING Git Gutter                                          :WAITING:
    - State "WAITING"       from "TODO"       [2015-04-07 Tue 11:23] \\
@@ -2679,6 +2680,10 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
       (setq org-src-fontify-natively t)
 
+      (setq org-list-description-max-indent 5)
+
+      (setq org-adapt-indentation nil)
+
       (org-babel-do-load-languages
        'org-babel-load-languages
        '((ruby . t)
@@ -2998,8 +3003,8 @@ Close term buffers when terminal is exited.
       ("d" ediff-buffers             nil)
       ("f" find-dired                nil)
       ("i" helm-find                 nil)
-      ("p" paradox-list-packages     nil)
-      ("P" (paradox-list-packages t) nil)
+      ("p" list-packages     nil)
+      ("P" (list-packages t) nil)
       ("t" proced                    nil)
       ("T" helm-top                  nil)
       ("e" proced                    nil)
