@@ -48,16 +48,16 @@
   :ensure t)
 (require 'bind-key)
 
-(use-package paradox
-  :ensure t
-  :defer t
+;; (use-package paradox
+;;   :ensure t
+;;   :defer t
 
-  :config
-  (progn
-    (setq paradox-github-token t)  ;; Don't ask for Github integration.
-    (setq paradox-display-download-count t)
-    (setq paradox-spinner-type 'box-in-circle)
-    (setq paradox-execute-asynchronously t)))
+;;   :config
+;;   (progn
+;;     (setq paradox-github-token t)  ;; Don't ask for Github integration.
+;;     (setq paradox-display-download-count t)
+;;     (setq paradox-spinner-type 'box-in-circle)
+;;     (setq paradox-execute-asynchronously t)))
 
 (defun cnb/toggle-theme ()
   "Toggle between themes."
@@ -386,15 +386,15 @@
     (unless (server-running-p) (server-start))))
     ;;(setenv "EDITOR" "emacsclient")))
 
-(use-package edit-server
-  :ensure t
-  :ensure edit-server-htmlize
+;; (use-package edit-server
+;;   :ensure t
+;;   :ensure edit-server-htmlize
 
-  :init
-  (progn
-    (add-hook 'edit-server-start-hook #'edit-server-maybe-dehtmlize-buffer)
-    (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer)
-    (edit-server-start)))
+;;   :init
+;;   (progn
+;;     (add-hook 'edit-server-start-hook #'edit-server-maybe-dehtmlize-buffer)
+;;     (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer)
+;;     (edit-server-start)))
 
 (setq abbrev-file-name "~/.emacs.d/abbrev_defs")
 (setq save-abbrevs 'silently)
@@ -1138,6 +1138,7 @@ Assumes that the frame is only split into two                            . "
     ;;(setq magit-last-seen-setup-instructions "1.4.0")
     (setq magit-completing-read-function #'helm--completing-read-default)
     (setq magit-push-always-verify nil)
+    (setq magit-revert-buffers t)
 
     ;;(add-hook 'magit-log-edit-mode-hook #'flyspell-mode)
     (add-hook 'git-commit-mode-hook #'flyspell-mode)
@@ -1926,6 +1927,10 @@ Assumes that the frame is only split into two                            . "
 
     (setq org-src-fontify-natively t)
 
+    (setq org-list-description-max-indent 5)
+
+    (setq org-adapt-indentation nil)
+
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((ruby . t)
@@ -2158,8 +2163,8 @@ _q_uit"
     ("d" ediff-buffers             nil)
     ("f" find-dired                nil)
     ("i" helm-find                 nil)
-    ("p" paradox-list-packages     nil)
-    ("P" (paradox-list-packages t) nil)
+    ("p" list-packages     nil)
+    ("P" (list-packages t) nil)
     ("t" proced                    nil)
     ("T" helm-top                  nil)
     ("e" proced                    nil)
