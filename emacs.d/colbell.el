@@ -688,7 +688,7 @@ Assumes that the frame is only split into two                            . "
         (goto-line (read-number "Line: ")))
     (nlinum-mode -1)))
 
-(global-set-key [remap goto-line] 'cnb/goto-line)
+;;(global-set-key [remap goto-line] 'cnb/goto-line)
 
 (defun ibuffer-ediff-marked-buffers ()
   "ediff 2 marked buffers"
@@ -1436,7 +1436,6 @@ Assumes that the frame is only split into two                            . "
               (lambda ()
                 (clj-refactor-mode 1)
                 (cljr-add-keybindings-with-prefix "C-o C-r")))
-                ;;(push '("defn" . "\u0192") prettify-symbols-alist)
 
     (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
     (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
