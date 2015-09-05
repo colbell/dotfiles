@@ -1050,7 +1050,7 @@ Bind 'o' to links in Help and Info buffers
           (goto-line (read-number "Line: ")))
       (nlinum-mode -1)))
 
-  (global-set-key [remap goto-line] 'cnb/goto-line)
+  ;;(global-set-key [remap goto-line] 'cnb/goto-line)
 #+end_src
 
 * Buffers
@@ -2040,40 +2040,39 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
 ** Clojure Mode.
 
 #+begin_src emacs-lisp
-      (use-package clojure-mode
-        :ensure clojure-mode
-        :defer t
+  (use-package clojure-mode
+    :ensure clojure-mode
+    :defer t
 
-        :config
-        (progn
-          (add-hook 'clojure-mode-hook #'cider-mode)
-          (add-hook 'clojure-mode-hook
-                    (lambda ()
-                      (clj-refactor-mode 1)
-                      (cljr-add-keybindings-with-prefix "C-o C-r")))
-                      ;;(push '("defn" . "\u0192") prettify-symbols-alist)
+    :config
+    (progn
+      (add-hook 'clojure-mode-hook #'cider-mode)
+      (add-hook 'clojure-mode-hook
+                (lambda ()
+                  (clj-refactor-mode 1)
+                  (cljr-add-keybindings-with-prefix "C-o C-r")))
 
-          (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
-          (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
-          (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)
+      (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
+      (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
+      (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)
 
-          (define-clojure-indent
-            (defroutes 'defun)
-            (GET 2)
-            (POST 2)
-            (PUT 2)
-            (DELETE 2)
-            (HEAD 2)
-            (ANY 2)
-            (context 2)
-            (for-all 1)
-            (such-that 1)
-            (let-routes 1)
-            (run-db 2)
-            (defspec 'defun))))
+      (define-clojure-indent
+        (defroutes 'defun)
+        (GET 2)
+        (POST 2)
+        (PUT 2)
+        (DELETE 2)
+        (HEAD 2)
+        (ANY 2)
+        (context 2)
+        (for-all 1)
+        (such-that 1)
+        (let-routes 1)
+        (run-db 2)
+        (defspec 'defun))))
 #+end_src
 
-Extra font clocking for Clojure mode.
+Extra font locking for Clojure mode.
 
 #+begin_src emacs-lisp
   (use-package clojure-mode-extra-font-locking
