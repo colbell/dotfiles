@@ -2023,7 +2023,7 @@ Assumes that the frame is only split into two                            . "
 ;; Numerous issues with tramp and zsh.
 (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 
-(defalias 'yes-or-no-p 'y-or-n-p)         ;; Y/N for yes/no in prompts.
+;;(defalias 'yes-or-no-p 'y-or-n-p)         ;; Y/N for yes/no in prompts.
 (defalias 'idm 'info-display-manual)
 (defalias 'qrr 'query-replace-regexp)
 (defalias 'dtw 'delete-trailing-whitespace)
