@@ -511,6 +511,7 @@ in native application through xdg-open"
     (setq dired-recursive-copies 'always) ; Don't ask
     (setq dired-recursive-deletes 'top)   ; Ask once
     (setq diredp-hide-details-initially-flag nil)
+    (setq dired-deletion-confirmer 'y-or-n-p)
 
     (when (boundp 'dired-mode-map)
       (define-key dired-mode-map
@@ -1427,10 +1428,12 @@ Assumes that the frame is only split into two                            . "
 
 (use-package clojure-mode
   :ensure clojure-mode
+  :ensure flycheck-clojure
   :defer t
 
   :config
   (progn
+    (eval-after-load 'flycheck '(flycheck-clojure-setup))
     (add-hook 'clojure-mode-hook #'cider-mode)
     (add-hook 'clojure-mode-hook
               (lambda ()
