@@ -47,16 +47,16 @@
   :ensure t)
 (require 'bind-key)
 
-;; (use-package paradox
-;;   :ensure t
-;;   :defer t
+(use-package paradox
+  :ensure t
+  :defer t
 
-;;   :config
-;;   (progn
-;;     (setq paradox-github-token t)  ;; Don't ask for Github integration.
-;;     (setq paradox-display-download-count t)
-;;     (setq paradox-spinner-type 'box-in-circle)
-;;     (setq paradox-execute-asynchronously t)))
+  :config
+  (progn
+    (setq paradox-github-token t)  ;; Don't ask for Github integration.
+    (setq paradox-display-download-count t)
+    (setq paradox-spinner-type 'box-in-circle)
+    (setq paradox-execute-asynchronously t)))
 
 (defun cnb/toggle-theme ()
   "Toggle between themes."
@@ -2166,7 +2166,7 @@ _q_uit"
     ("d" ediff-buffers             nil)
     ("f" find-dired                nil)
     ("i" helm-find                 nil)
-    ("p" list-packages     nil)
+    ("p" paradox-list-packages     nil)
     ("P" (list-packages t) nil)
     ("t" proced                    nil)
     ("T" helm-top                  nil)
