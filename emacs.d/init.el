@@ -17,13 +17,16 @@
 ;; You may delete these explanatory comments.
 ;(package-initialize)
 
-(let ((my-el-f (expand-file-name "colbell.el" user-emacs-directory))
-      (my-org-f (expand-file-name "colbell.org" user-emacs-directory)))
-  (if (or (not (file-exists-p my-el-f))
-          (time-less-p (nth 5 (file-attributes my-el-f))
-                       (nth 5 (file-attributes my-org-f))))
-      (org-babel-load-file my-org-f)
-    (load my-el-f)))
+(setq gc-cons-threshold 100000000)
+
+(let ((file-name-handler-alist nil))  ;; Speeds startup
+  (let ((my-el-f (expand-file-name "colbell.el" user-emacs-directory))
+        (my-org-f (expand-file-name "colbell.org" user-emacs-directory)))
+    (if (or (not (file-exists-p my-el-f))
+            (time-less-p (nth 5 (file-attributes my-el-f))
+                         (nth 5 (file-attributes my-org-f))))
+        (org-babel-load-file my-org-f)
+      (load my-el-f)))  )
 
 (provide 'init)
 ;;; init.el ends here
