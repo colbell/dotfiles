@@ -926,7 +926,8 @@ Assumes that the frame is only split into two                            . "
  'display-buffer-alist
  `(,(rx bos "*Flycheck errors*" eos)
    (display-buffer-reuse-window display-buffer-in-side-window)
-   (reusable-frames . visible)
+
+   (reusable-frames . t)
    (side            . bottom)
    (window-height   . 0.2)))
 
@@ -934,7 +935,7 @@ Assumes that the frame is only split into two                            . "
  'display-buffer-alist
  `(,(rx bos "*rspec-compilation*" eos)
    (display-buffer-reuse-window display-buffer-in-side-window)
-   (reusable-frames . visible)
+   (reusable-frames . t)
    (side            . bottom)
    (window-height   . 0.2)))
 
@@ -942,7 +943,7 @@ Assumes that the frame is only split into two                            . "
  'display-buffer-alist
  `(,(rx bos "*ruby*" eos)
    (display-buffer-reuse-window display-buffer-in-side-window)
-   (reusable-frames . visible)
+   (reusable-frames . t)
    (side            . bottom)
    (window-height   . 0.2)))
 
@@ -950,7 +951,7 @@ Assumes that the frame is only split into two                            . "
  'display-buffer-alist
  `(,"\\*rails.*-log*"
    (display-buffer-reuse-window display-buffer-in-side-window)
-   (reusable-frames . visible)
+   (reusable-frames . t)
    (side            . bottom)
    (window-height   . 0.2)))
 

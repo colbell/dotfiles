@@ -15,18 +15,18 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-;(package-initialize)
+;;(package-initialize)
 
-(setq gc-cons-threshold 100000000)
+(setq gc-cons-threshold 100000000)  ;; Speeds startup - approx 2 secs faster
 
-(let ((file-name-handler-alist nil))  ;; Speeds startup
+(let ((file-name-handler-alist nil))  ;; Speeds startup - approx 1 sec faster
   (let ((my-el-f (expand-file-name "colbell.el" user-emacs-directory))
         (my-org-f (expand-file-name "colbell.org" user-emacs-directory)))
     (if (or (not (file-exists-p my-el-f))
             (time-less-p (nth 5 (file-attributes my-el-f))
                          (nth 5 (file-attributes my-org-f))))
         (org-babel-load-file my-org-f)
-      (load my-el-f)))  )
+      (load my-el-f))))
 
 (provide 'init)
 ;;; init.el ends here
