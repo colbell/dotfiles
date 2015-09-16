@@ -1339,7 +1339,8 @@ C-c left/right to undo/redo window configuration changes.
    'display-buffer-alist
    `(,(rx bos "*Flycheck errors*" eos)
      (display-buffer-reuse-window display-buffer-in-side-window)
-     (reusable-frames . visible)
+
+     (reusable-frames . t)
      (side            . bottom)
      (window-height   . 0.2)))
 
@@ -1347,7 +1348,7 @@ C-c left/right to undo/redo window configuration changes.
    'display-buffer-alist
    `(,(rx bos "*rspec-compilation*" eos)
      (display-buffer-reuse-window display-buffer-in-side-window)
-     (reusable-frames . visible)
+     (reusable-frames . t)
      (side            . bottom)
      (window-height   . 0.2)))
 
@@ -1355,7 +1356,7 @@ C-c left/right to undo/redo window configuration changes.
    'display-buffer-alist
    `(,(rx bos "*ruby*" eos)
      (display-buffer-reuse-window display-buffer-in-side-window)
-     (reusable-frames . visible)
+     (reusable-frames . t)
      (side            . bottom)
      (window-height   . 0.2)))
 
@@ -1363,7 +1364,7 @@ C-c left/right to undo/redo window configuration changes.
    'display-buffer-alist
    `(,"\\*rails.*-log*"
      (display-buffer-reuse-window display-buffer-in-side-window)
-     (reusable-frames . visible)
+     (reusable-frames . t)
      (side            . bottom)
      (window-height   . 0.2)))
 #+END_SRC
