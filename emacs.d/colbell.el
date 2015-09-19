@@ -380,7 +380,7 @@
 (use-package server
   :commands (server-running-p server-start)
 
-  :config
+  :init
   (progn
     (unless (server-running-p) (server-start))))
     ;;(setenv "EDITOR" "emacsclient")))
@@ -908,10 +908,9 @@ Assumes that the frame is only split into two                            . "
 (use-package popwin
   :ensure t
 
-  :commands (popwin-mode)
-
-  :config
+  :init
   (progn
+    (require 'popwin)
     (popwin-mode 1)))
 
 (defun cnb/quit-bottom-side-windows ()
