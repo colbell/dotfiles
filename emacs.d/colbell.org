@@ -655,7 +655,7 @@ Start Emacs server on first Emacs instance.
   (use-package server
     :commands (server-running-p server-start)
 
-    :config
+    :init
     (progn
       (unless (server-running-p) (server-start))))
       ;;(setenv "EDITOR" "emacsclient")))
@@ -1308,14 +1308,13 @@ C-c left/right to undo/redo window configuration changes.
 ** PopWin
 
 #+begin_src emacs-lisp
-  (use-package popwin
-    :ensure t
+    (use-package popwin
+      :ensure t
 
-    :commands (popwin-mode)
-
-    :config
-    (progn
-      (popwin-mode 1)))
+      :init
+      (progn
+        (require 'popwin)
+        (popwin-mode 1)))
 #+end_src
 
 ** Positioning
