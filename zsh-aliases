@@ -6,3 +6,5 @@ fi
 
 alias h='history'
 alias sduo=sudo
+alias ,='ls -CFs'
+alias r='ls -ltr'

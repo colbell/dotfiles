@@ -23,8 +23,6 @@ export MAIL=/var/mail/$USER
 export EDITOR=emacsclient
 export ALTERNATE_EDITOR=emacs
 
-setopt hist_ignore_all_dups
-
 export MANWIDTH=96
 
 # export TERM=linux
@@ -40,6 +38,8 @@ export HISTFILESIZE=2500        # Not sure if used.
 export HISTSIZE=$HISTFILESIZE   # Lines of hist stored in memory
 export SAVEHIST=2000            # Lines of hist stored on disk
 setopt EXTENDED_HISTORY         # save timestamp and runtime information
+setopt HIST_IGNORE_ALL_DUPS
+export HISTIGNORE=",:r:h:l"
 
 # Recent versions of Fedora have renamed qmake.
 if grep -iq 'id=fedora' /etc/os-release; then
