@@ -320,6 +320,7 @@
     (setq helm-buffers-fuzzy-matching t)
     (setq helm-split-window-in-side-p nil)
     (setq helm-ff-file-name-history-use-recentf t)
+    (setq helm-ff-transformer-show-only-basename t) ;; Toggle with C-]
 
     (global-set-key (kbd "C-x c o") 'helm-occur)
 
@@ -345,9 +346,9 @@
 
     ;; Lets see bookmarks in Helm Mini as well.
     (setq helm-mini-default-sources '(helm-source-buffers-list
-                                  helm-source-recentf
-                                  helm-source-bookmarks
-                                  helm-source-buffer-not-found))
+                                      helm-source-recentf
+                                      helm-source-bookmarks
+                                      helm-source-buffer-not-found))
 
     (helm-mode 1))
 
@@ -716,7 +717,8 @@ Assumes that the frame is only split into two                            . "
     (define-key ibuffer-mode-map "e" #'ibuffer-ediff-marked-buffers)
     ;;(setq ibuffer-default-sorting-mode 'alphabetic)
 
-    (add-hook 'ibuffer-mode-hook
+
+    (add-hook 'ibuffer-hook
               (lambda ()
                 (ibuffer-auto-mode)
                 ;;(ibuffer-switch-to-saved-filter-groups "default")
@@ -1808,139 +1810,142 @@ Assumes that the frame is only split into two                            . "
     ;;(add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
 
 (use-package org
-  :ensure t
+    :ensure t
 
-  :pin "gnu"
+    :pin "gnu"
 
-  :bind (("C-c a" . org-agenda)
-         ("C-c b" . org-iswitchb)
-         ("C-c c" . org-capture)
-         ("C-c l" . org-store-link))
+    :bind (("C-c a" . org-agenda)
+           ("C-c b" . org-iswitchb)
+           ("C-c c" . org-capture)
+           ("C-c l" . org-store-link))
 
-  :config
-  (progn
-    (setq org-directory "~/Dropbox/org/")
-    (setq org-default-notes-file (concat org-directory "refile.org"))
-    (setq org-agenda-files
-          (list (concat org-directory "personal.org")
-                (concat org-directory "kwela.org")))
+    :config
+    (progn
+      (require 'ob-tangle)
+      (setq org-directory "~/Dropbox/org/")
+      (setq org-default-notes-file (concat org-directory "refile.org"))
+      (setq org-agenda-files
+            (list (concat org-directory "personal.org")
+                  (concat org-directory "kwela.org")))
 
-    (add-hook 'org-mode-hook #'turn-off-auto-fill)
-    ;;(add-hook 'org-mode-hook #'nlinum-mode t)
+      (add-hook 'org-mode-hook #'turn-off-auto-fill)
+      ;;(add-hook 'org-mode-hook #'nlinum-mode t)
 
-    ;; For jekyll
-    (require 'ox-publish)
-    (setq org-publish-project-alist
-          '(
-            ("org-mysite"
-             ;; Path to your org files.
-             :base-directory "~/src/play/mysite/org"
-             :base-extension "org"
+      ;; For jekyll
+      (require 'ox-publish)
+      (setq org-publish-project-alist
+            '(
+              ("org-mysite"
+               ;; Path to your org files.
+               :base-directory "~/src/play/mysite/org"
+               :base-extension "org"
 
-             ;; Path to your Jekyll project.
-             :publishing-directory "~/src/play/mysite/"
-             :recursive t
-             :publishing-function org-html-publish-to-html
-             :headline-levels 4
-             :html-extension "html"
-             :body-only t ;; Only export section between <body> </body>
-             :with-toc nil)
+               ;; Path to your Jekyll project.
+               :publishing-directory "~/src/play/mysite/"
+               :recursive t
+               :publishing-function org-html-publish-to-html
+               :headline-levels 4
+               :html-extension "html"
+               :body-only t ;; Only export section between <body> </body>
+               :with-toc nil)
 
-            ("org-static-mysite"
-             :base-directory "~/src/play/mysite/org/"
-             :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
-             :publishing-directory "~/src/play/mysite/"
-             :recursive t
-             :publishing-function org-publish-attachment
-             :with-toc nil)
+              ("org-static-mysite"
+               :base-directory "~/src/play/mysite/org/"
+               :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+               :publishing-directory "~/src/play/mysite/"
+               :recursive t
+               :publishing-function org-publish-attachment
+               :with-toc nil)
 
-            ("mysite" :components ("org-mysite" "org-static-mysite"))))
+              ("mysite" :components ("org-mysite" "org-static-mysite"))))
 
-    (setq org-html-checkbox-type 'unicode)
-    (setq org-html-checkbox-types
-          '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
-                     (off . "<span class=\"task-todo\">&#x2610;</span>")
-                     (trans . "<span class=\"task-in-progress\">[-]</span>"))))
+      (setq org-html-checkbox-type 'unicode)
+      (setq org-html-checkbox-types
+            '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
+                       (off . "<span class=\"task-todo\">&#x2610;</span>")
+                       (trans . "<span class=\"task-in-progress\">[-]</span>"))))
 
-    ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
-    (setq org-capture-templates
-          (quote (("t" "todo" entry (file (concat org-directory "refile.org"))
-                   "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-                  ("n" "note" entry (file (concat org-directory "refile.org"))
-                   "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-                  ("p" "Phone call" entry (file (concat org-directory "refile.org"))
-                   "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                  )))
+      ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
+      (setq org-capture-templates
+            (quote (("t" "todo" entry (file (concat org-directory "refile.org"))
+                     "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+                    ("n" "note" entry (file (concat org-directory "refile.org"))
+                     "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+                    ("p" "Phone call" entry (file (concat org-directory "refile.org"))
+                     "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+                    )))
 
-    (setq org-todo-keywords
-          (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
-                  (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
+      (setq org-todo-keywords
+            (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
+                    (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
 
-    (setq org-todo-keyword-faces
-          (quote (("TODO" :foreground "red" :weight bold)
-                  ("STARTED" :foreground "cyan" :weight bold)
-                  ("DONE" :foreground "forest green" :weight bold)
-                  ("WAITING" :foreground "orange" :weight bold)
-                  ("HOLD" :foreground "magenta" :weight bold)
-                  ("CANCELLED" :foreground "forest green" :weight bold)
-                  ("PHONE" :foreground "forest green" :weight bold))))
+      (setq org-todo-keyword-faces
+            (quote (("TODO" :foreground "red" :weight bold)
+                    ("STARTED" :foreground "cyan" :weight bold)
+                    ("DONE" :foreground "forest green" :weight bold)
+                    ("WAITING" :foreground "orange" :weight bold)
+                    ("HOLD" :foreground "magenta" :weight bold)
+                    ("CANCELLED" :foreground "forest green" :weight bold)
+                    ("PHONE" :foreground "forest green" :weight bold))))
 
-    (setq org-todo-state-tags-triggers
-          (quote (("CANCELLED" ("CANCELLED" . t))
-                  ("WAITING" ("WAITING" . t))
-                  ("HOLD" ("WAITING") ("HOLD" . t))
-                  (done ("WAITING") ("HOLD"))
-                  ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-                  ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
-                  ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
-    ;; Allow refiling to any agenda file.
-    (setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                     (org-agenda-files :maxlevel . 9))))
+      (setq org-todo-state-tags-triggers
+            (quote (("CANCELLED" ("CANCELLED" . t))
+                    ("WAITING" ("WAITING" . t))
+                    ("HOLD" ("WAITING") ("HOLD" . t))
+                    (done ("WAITING") ("HOLD"))
+                    ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+                    ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+                    ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+      ;; Allow refiling to any agenda file.
+      (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                       (org-agenda-files :maxlevel . 9))))
 
-    ;; Allow refile to create parent tasks with confirmation
-    (setq org-refile-allow-creating-parent-nodes (quote confirm))
+      ;; Allow refile to create parent tasks with confirmation
+      (setq org-refile-allow-creating-parent-nodes (quote confirm))
 
-    (setq org-treat-S-cursor-todo-selection-as-state-change nil)
+      (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 
-    (setq org-enforce-todo-dependencies t)
+      (setq org-enforce-todo-dependencies t)
 
-    (setq org-track-ordered-property-with-tag t)
+      (setq org-track-ordered-property-with-tag t)
 
-    (setq org-src-fontify-natively t)
+      ;;(setq org-src-fontify-natively t)
 
-    ;; Dim blocked tasks
-    (setq org-agenda-dim-blocked-tasks t)
+      ;; Dim blocked tasks
+      (setq org-agenda-dim-blocked-tasks t)
 
-    ;; Compact the block agenda view
-    (setq org-agenda-compact-blocks t)
+      ;; Compact the block agenda view
+      (setq org-agenda-compact-blocks t)
 
-    (setq org-deadline-warning-days 15)
+      (setq org-deadline-warning-days 15)
 
-    ;; Keep tasks with deadlines on the global todo lists
-    (setq org-agenda-todo-ignore-deadlines nil)
+      ;; Keep tasks with deadlines on the global todo lists
+      (setq org-agenda-todo-ignore-deadlines nil)
 
-    ;; Keep tasks with scheduled dates on the global todo lists
-    (setq org-agenda-todo-ignore-scheduled nil)
+      ;; Keep tasks with scheduled dates on the global todo lists
+      (setq org-agenda-todo-ignore-scheduled nil)
 
-    ;; Remove completed deadline tasks from the agenda view
-    (setq org-agenda-skip-deadline-if-done t)
+      ;; Remove completed deadline tasks from the agenda view
+      (setq org-agenda-skip-deadline-if-done t)
 
-    ;; Remove completed scheduled tasks from the agenda view
-    (setq org-agenda-skip-scheduled-if-done t)
+      ;; Remove completed scheduled tasks from the agenda view
+      (setq org-agenda-skip-scheduled-if-done t)
 
-    (setq org-src-fontify-natively t)
+      (setq org-src-fontify-natively t)
 
-    (setq org-list-description-max-indent 5)
+      (setq org-list-description-max-indent 5)
 
-    (setq org-adapt-indentation nil)
+      (setq org-adapt-indentation nil)
 
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((ruby . t)
-       (sh . t)
-       (python . t)
-       (sql . t)
-       (emacs-lisp . t)))))
+      ;; (org-babel-do-load-languages
+      ;;  'org-babel-load-languages
+      ;;  '((emacs-lisp . t)
+      ;;    (ruby . t)
+      ;;    (sh . t)
+      ;;    (python . t)
+      ;;    (sql . t)
+      ;;    ))
+))
 
 (use-package deft
   :ensure deft
