@@ -320,7 +320,8 @@
     (setq helm-buffers-fuzzy-matching t)
     (setq helm-split-window-in-side-p nil)
     (setq helm-ff-file-name-history-use-recentf t)
-    (setq helm-ff-transformer-show-only-basename t) ;; Toggle with C-]
+    (setq helm-buffer-details-flag nil)
+    (setq helm-ff-transformer-show-only-basename t)
 
     (global-set-key (kbd "C-x c o") 'helm-occur)
 
@@ -1141,6 +1142,7 @@ Assumes that the frame is only split into two                            . "
     (setq magit-completing-read-function #'helm--completing-read-default)
     (setq magit-push-always-verify nil)
     (setq magit-revert-buffers t)
+    (setq magit-popup-use-prefix-argument 'default)
 
     ;;(add-hook 'magit-log-edit-mode-hook #'flyspell-mode)
     (add-hook 'git-commit-mode-hook #'flyspell-mode)
@@ -1381,7 +1383,7 @@ Assumes that the frame is only split into two                            . "
 
   :config
   (progn
-    (setq flycheck-display-errors-function #'flycheck-display-error-messages)))
+    (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
 
 (defvar cnb/coding-hook nil
   "Hook that gets run on activation of any programming mode.")
@@ -1950,8 +1952,9 @@ Assumes that the frame is only split into two                            . "
 (use-package deft
   :ensure deft
   :bind (("<f9>" . deft))
+  :commands deft
 
-  :init
+  :config
   (progn
     (setq
      deft-extension "org"
@@ -2309,11 +2312,7 @@ _d_: subtree
       _s_: foreman-start    _r_: foreman-restart        _k_: foreman-stop
 
     "
-  ("v"  (lambda ()
-          (interactive)
-          (setenv "PORT" "5000")
-          (foreman))
-   nil)
+  ("v" foreman             nil)
   ("b" foreman-view-buffer nil)
   ("s" foreman-start       nil)
   ("r" foreman-restart     nil)
@@ -2573,7 +2572,7 @@ _d_: subtree
 
   :init
   (progn
-    (setq-default save-place t)
+    (setq-default save-place-mode t)
     (setq save-place-file (expand-file-name "places" user-emacs-directory))))
 
 ;; Problems with projectile mode. Reuses to load desktop.
