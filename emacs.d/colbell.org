@@ -2014,9 +2014,9 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
   (add-hook 'cnb/coding-hook #'cnb/add-watchwords)
   (add-hook 'cnb/coding-hook #'hs-minor-mode)
   (add-hook 'cnb/coding-hook #'subword-mode)
-  (add-hook 'cnb/coding-hook #'flyspell-prog-mode t)
-  ;;(add-hook 'cnb/coding-hook #'nlinum-mode t)
-  (add-hook 'cnb/coding-hook #'outline-minor-mode t)
+  (add-hook 'cnb/coding-hook #'flyspell-prog-mode)
+  ;; (add-hook 'cnb/coding-hook #'nlinum-mode)
+  (add-hook 'cnb/coding-hook #'outline-minor-mode)
 
   (when (fboundp 'yas/minor-mode)
     (add-hook 'cnb/coding-hook #'yas/minor-mode))
@@ -2228,15 +2228,13 @@ Clojure documentation.
         (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
         (setq imenu-generic-expression '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1)))
         (yard-mode)
-        (outline-minor-mode)
         (ruby-block-mode t)
         (ignore-errors (ruby-refactor-mode-launch))))
-        ;;(setq-local prettify-symbols-alist '(("lambda"  . ?λ)))
 
     :config
     (progn
       ;; I use C-x t for toggling globally
-      (define-key ruby-mode-map "\C-xt" nil)
+      ;; (define-key ruby-mode-map "\C-xt" nil)
 
       (add-hook 'ruby-mode-hook #'cnb/ruby-setup)
       (define-key ruby-mode-map (kbd "RET") #'newline-and-indent)))
@@ -2664,7 +2662,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
         (setq org-track-ordered-property-with-tag t)
 
-        ;;(setq org-src-fontify-natively t)
+        (setq org-src-fontify-natively t)
 
         ;; Dim blocked tasks
         (setq org-agenda-dim-blocked-tasks t)
@@ -2692,15 +2690,14 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
         (setq org-adapt-indentation nil)
 
-        ;; (org-babel-do-load-languages
-        ;;  'org-babel-load-languages
-        ;;  '((emacs-lisp . t)
-        ;;    (ruby . t)
-        ;;    (sh . t)
-        ;;    (python . t)
-        ;;    (sql . t)
-        ;;    ))
-  ))
+        (org-babel-do-load-languages
+         'org-babel-load-languages
+         '((emacs-lisp . t)
+           (ruby . t)
+           (sh . t)
+           (python . t)
+           (sql . t)
+           ))))
 
 #+end_src
 
@@ -3026,7 +3023,7 @@ Close term buffers when terminal is exited.
 ** Global hydra for occur/error
 #+begin_src emacs-lisp
   (global-set-key
-   (kbd "<f5> o")
+   (kbd "<f5> c")
    (defhydra cnb-hydra-occur-functions ()
      "error/occur functions"
      ("g" first-error "first")
@@ -3119,7 +3116,7 @@ Close term buffers when terminal is exited.
 
 ** Global hydra for outline mode
 #+BEGIN_SRC emacs-lisp
-  (defhydra hydra-outline (:color pink :hint nil)
+  (defhydra hydra-outline (:hint nil)
     "
   ^Hide^             ^Show^           ^Move
   ^^^^^^------------------------------------------------------
@@ -3152,7 +3149,7 @@ Close term buffers when terminal is exited.
     ("b" outline-backward-same-level)       ; Backward - same level
     ("q" nil "quit"))
 
-  (global-set-key (kbd "C-c #") 'hydra-outline/body)
+  (global-set-key (kbd "<f5> o") 'hydra-outline/body)
 #+END_SRC
 ** Hydra for controlling foreman processes
 #+BEGIN_SRC emacs-lisp
@@ -3493,6 +3490,13 @@ Remember command and search history.
     :ensure t)
 
 #+END_SRC
+* Finalisation
+
+Try to fix "org-export-as: Wrong number of arguments: #[(templates)"
+error when exporting from org to HTML, PDF etc.
+#+begin_src emacs-lisp
+  (org-reload)
+#+end_src
 * Put somewhere
 
 #+begin_src emacs-lisp
