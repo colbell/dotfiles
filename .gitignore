@@ -33,7 +33,7 @@
 /config/gtk-2.0/*
 /config/gtk-3.0/*
 /config/gtk-3.0/bookmarks
-/config/gtk-3.0/settings.ini b/config/gtk-3.0/settings.ini
+/config/gtk-3.0/settings.ini
 /config/gxine/*
 /config/htop/htoprc
 /config/indicators/*

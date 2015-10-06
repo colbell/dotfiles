@@ -1984,20 +1984,23 @@ Assumes that the frame is only split into two                            . "
   (progn
     (pdf-tools-install)))
 
+(setq explicit-shell-file-name "/bin/zsh")
+
 (add-hook
  'term-mode-hook
  (function
   (lambda ()
     (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
     (make-local-variable 'mouse-yank-at-point)
-    (make-local-variable 'transient-mark-mode)
     (setq mouse-yank-at-point t)
+    (make-local-variable 'transient-mark-mode)
     (setq transient-mark-mode nil)
-    (auto-fill-mode -1)
-    (setq tab-width 2)
-    (setq explicit-shell-file-name "/bin/zsh")
 
-    )))
+    ;; ya-snippet interferes with term modes tab completion.
+    (yas-minor-mode -1)
+
+    (auto-fill-mode -1)
+    (setq tab-width 2))))
 
 (defun cnb/term-exec-hook ()
   (let* ((buff (current-buffer))
@@ -2569,10 +2572,11 @@ _d_: subtree
 
   :init
   (progn
-    (setq-default save-place-mode t)
+    (save-place-mode)
+    (setq save-place-forget-unreadable-files nil)  ;; performance
     (setq save-place-file (expand-file-name "places" user-emacs-directory))))
 
-;; Problems with projectile mode. Reuses to load desktop.
+;; Problems with projectile mode. Refuses to load desktop.
 ;; (use-package desktop
 ;;   :demand t
 
