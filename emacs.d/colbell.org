@@ -2758,20 +2758,23 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
 
 ** Terminal
 #+begin_src emacs-lisp
+  (setq explicit-shell-file-name "/bin/zsh")
+
   (add-hook
    'term-mode-hook
    (function
     (lambda ()
       (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
       (make-local-variable 'mouse-yank-at-point)
-      (make-local-variable 'transient-mark-mode)
       (setq mouse-yank-at-point t)
+      (make-local-variable 'transient-mark-mode)
       (setq transient-mark-mode nil)
-      (auto-fill-mode -1)
-      (setq tab-width 2)
-      (setq explicit-shell-file-name "/bin/zsh")
 
-      )))
+      ;; ya-snippet interferes with term modes tab completion.
+      (yas-minor-mode -1)
+
+      (auto-fill-mode -1)
+      (setq tab-width 2))))
 #+end_src
 
 Close term buffers when terminal is exited.
@@ -3440,19 +3443,20 @@ Close term buffers when terminal is exited.
 Remember current position in file.
 
 #+begin_src emacs-lisp
-  (use-package saveplace
-    ;;:demand
+    (use-package saveplace
+      ;;:demand
 
-    :init
-    (progn
-      (setq-default save-place-mode t)
-      (setq save-place-file (expand-file-name "places" user-emacs-directory))))
+      :init
+      (progn
+        (save-place-mode)
+        (setq save-place-forget-unreadable-files nil)  ;; performance
+        (setq save-place-file (expand-file-name "places" user-emacs-directory))))
 #+end_src
 
 Remember open buffers.
 
 #+begin_src emacs-lisp
-  ;; Problems with projectile mode. Reuses to load desktop.
+  ;; Problems with projectile mode. Refuses to load desktop.
   ;; (use-package desktop
   ;;   :demand t
 
