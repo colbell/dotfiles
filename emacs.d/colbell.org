@@ -2461,6 +2461,7 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
        'haml-mode-hook
        (lambda ()
          (electric-indent-local-mode -1)
+         (ruby-tools-mode)
          (rvm-activate-corresponding-ruby)))))
 #+end_src
 

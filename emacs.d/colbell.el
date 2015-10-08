@@ -1734,6 +1734,7 @@ Assumes that the frame is only split into two                            . "
      'haml-mode-hook
      (lambda ()
        (electric-indent-local-mode -1)
+       (ruby-tools-mode)
        (rvm-activate-corresponding-ruby)))))
 
 (use-package handlebars-mode
