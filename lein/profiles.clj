@@ -16,4 +16,11 @@
   :dependencies [[slamhound "1.5.5"]              ; ns cleanup
                  [com.aphyr/prism "0.1.3"]]       ; Autorun tests
 
-  :aliases {"slamhound" ["run" "-m" "slam.hound"]}}}
+  :aliases {"slamhound" ["run" "-m" "slam.hound"]}}
+
+ ;; :repl-options
+ ;; { :init
+ ;;   (do
+ ;;     (require '[clojure.java.javadoc :refer [javadoc]])
+ ;;     (clojure.java.javadoc/add-local-javadoc "/usr/share/doc/openjdk-8-doc/api/"))}
+ }
