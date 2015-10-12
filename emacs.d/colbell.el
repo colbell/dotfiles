@@ -62,9 +62,9 @@
   "Toggle between themes."
   (interactive)
   (let ((next-theme
-         (cond ((member 'solarized-light custom-enabled-themes) 'solarized-dark)
-               ((member 'zenburn custom-enabled-themes) 'solarized-light)
-               (t 'zenburn))))
+         (cond ((member 'solarized-dark custom-enabled-themes) 'solarized-light)
+               ((member 'solarized-light custom-enabled-themes) 'zenburn)
+               (t 'solarized-dark))))
     (dolist (theme custom-enabled-themes) (disable-theme theme))
     (load-theme next-theme t)))
 
@@ -318,7 +318,7 @@
     (setq helm-ff-skip-boring-files t)
     (setq enable-recursive-minibuffers t)
     (setq helm-buffers-fuzzy-matching t)
-    (setq helm-split-window-in-side-p nil)
+    (setq helm-split-window-in-side-p t)
     (setq helm-ff-file-name-history-use-recentf t)
     (setq helm-buffer-details-flag nil)
     (setq helm-ff-transformer-show-only-basename t)
@@ -931,7 +931,7 @@ Assumes that the frame is only split into two                            . "
 
    (reusable-frames . t)
    (side            . bottom)
-   (window-height   . 0.2)))
+   (window-height   . 0.3)))
 
 (add-to-list
  'display-buffer-alist
@@ -939,7 +939,7 @@ Assumes that the frame is only split into two                            . "
    (display-buffer-reuse-window display-buffer-in-side-window)
    (reusable-frames . t)
    (side            . bottom)
-   (window-height   . 0.2)))
+   (window-height   . 0.3)))
 
 (add-to-list
  'display-buffer-alist
@@ -947,7 +947,7 @@ Assumes that the frame is only split into two                            . "
    (display-buffer-reuse-window display-buffer-in-side-window)
    (reusable-frames . t)
    (side            . bottom)
-   (window-height   . 0.2)))
+   (window-height   . 0.3)))
 
 (add-to-list
  'display-buffer-alist
@@ -955,7 +955,21 @@ Assumes that the frame is only split into two                            . "
    (display-buffer-reuse-window display-buffer-in-side-window)
    (reusable-frames . t)
    (side            . bottom)
-   (window-height   . 0.2)))
+   (window-height   . 0.4)))
+
+(add-to-list
+ 'display-buffer-alist
+ '("\\`\\*helm.*\\*\\'"
+   (display-buffer-in-side-window)
+   (inhibit-same-window . t)
+   (window-height . 0.4)))
+
+
+;; This MUST be after the general helm case otherwise it won't be used
+;; and the helm help buffer will not be displayed.
+(add-to-list
+ 'display-buffer-alist
+ '("*.*Helm.*Help.**"))
 
 
 
