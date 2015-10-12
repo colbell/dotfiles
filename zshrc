@@ -20,8 +20,13 @@ export LC_CTYPE='en_AU.UTF-8'
 #export MAIL=~/Mailbox
 export MAIL=/var/mail/$USER
 
-export EDITOR=emacsclient
-export ALTERNATE_EDITOR=emacs
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR=emacsclient
+  export ALTERNATE_EDITOR=emacs
+fi
 
 export MANWIDTH=96
 
@@ -40,6 +45,9 @@ export SAVEHIST=2000            # Lines of hist stored on disk
 setopt EXTENDED_HISTORY         # save timestamp and runtime information
 setopt HIST_IGNORE_ALL_DUPS
 export HISTIGNORE=",:r:h:l"
+
+# Display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
 
 # Recent versions of Fedora have renamed qmake.
 if grep -iq 'id=fedora' /etc/os-release; then
