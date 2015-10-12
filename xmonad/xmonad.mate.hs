@@ -36,8 +36,11 @@ myWorkspaces :: [WorkspaceId]
 myWorkspaces = ["1-emacs", "2-shell", "3-web", "4-fm", "5", "6", "7-ssh",
                 "8-im", "9-mail"]
 
--- myTerm :: String
--- myTerm = "mate-terminal"
+-- Mate/gnome terminals don't work for ssh/man prompts etc.
+myPromptTerminal :: String
+myPromptTerminal = "xterm"
+myTerminal :: String
+myTerminal = "mate-terminal"
 
 myManageHook :: ManageHook
 myManageHook = scratchpadManageHookDefault <+>composeAll (
@@ -130,11 +133,12 @@ main = do
              , normalBorderColor  = myInactiveBorderColor
              , focusedBorderColor = "#ff4500"
              , focusFollowsMouse  = True
+             , terminal           = myPromptTerminal
              -- , clickJustFocuses   = False
              } `additionalKeys` keys'
     where
       keys' =  [ ((myModMask , xK_Return),               dwmpromote)
-               -- , ((myModMask .|. shiftMask, xK_Return),  spawn myTerm)
+               , ((myModMask .|. shiftMask, xK_Return),  spawn myTerminal)
                , ((mod1Mask, xK_F4),                     kill)
 
                , ((myModMask, xK_F1),                manPrompt myXPConfig)
