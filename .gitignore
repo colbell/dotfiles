@@ -178,3 +178,4 @@
 /config/notificationhelper
 /config/libaccounts-glib
 /config/software-center
+emacs.d/.mc-lists.el
