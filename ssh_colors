@@ -1,0 +1,3 @@
+aws-uat,green,black
+aws-sandbox,white,black
+aws-prod,red,black
