@@ -17,9 +17,46 @@
 ;; You may delete these explanatory comments.
 ;;(package-initialize)
 
+
+;; Remove Unnecessary Clutter early to avoid momentary display. I also turn off
+;; the menu-bar in .Xresources in order to stop the momentary flicker.
+(when window-system
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tooltip-mode -1))
+
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+(eval '(setq inhibit-startup-echo-area-message "colbell"))
+
 (setq gc-cons-threshold 100000000)  ;; Speeds startup - approx 2 secs faster
 
 (let ((file-name-handler-alist nil))  ;; Speeds startup - approx 1 sec faster
+  ;; Initialize package manager.
+  (require 'package)
+  (setq package-enable-at-startup nil)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") 'APPEND)
+  (package-initialize)
+
+  ;; I use 'use-package' to tidy up my Emacs configuration.
+  (unless (package-installed-p 'use-package)
+    (progn
+      (package-refresh-contents)
+      (package-install 'use-package)))
+
+  (eval-when-compile
+    (require 'use-package))
+
+  ;; use-package needs these packages to use the :bind and
+  ;; :diminish options.
+  (use-package diminish :ensure t)
+  (require 'diminish)
+  (use-package bind-key :ensure t)
+  (require 'bind-key)
+
+  ;; Generate and load or just load the configuration file.
+
   (let ((my-el-f (expand-file-name "colbell.el" user-emacs-directory))
         (my-org-f (expand-file-name "colbell.org" user-emacs-directory)))
     (if (or (not (file-exists-p my-el-f))
