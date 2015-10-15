@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Local command for ssh. Specify it in ~/.ssh/config. Chanegs terminal
+# colors depending on the host. Colors are specified in ~/.ssh_colors
+#
+# ~/.ssh_colors example
+# E.G
+#
+# myserver,green,black
+#
+# ~/.ssh/config example
+#
+# LocalCommand ssh_pre_cmd "%n"
+# PermitLocalCommand yes
+
+myterm=$(ps -p$PPID --no-headers | tr -s " " | cut -d' ' -f5)
+if [ $myterm="xterm" ]; then
+    ip=$1
+    found=$(cat ~/.ssh_colors | grep $ip | wc -l)
+    if [ $found -gt 0 ];
+    then
+        fg=$(cat ~/.ssh_colors | grep $ip | cut -d"," -f2)
+        bg=$(cat ~/.ssh_colors | grep $ip | cut -d"," -f3)
+        xtermcontrol --fg=$fg --bg=$bg
+    fi
+fi
