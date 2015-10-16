@@ -34,8 +34,9 @@
 
 (let ((file-name-handler-alist nil))  ;; Speeds startup - approx 1 sec faster
   ;; Initialize package manager.
-  (require 'package)
   (setq package-enable-at-startup nil)
+  (require 'package)
+
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") 'APPEND)
   (package-initialize)
 

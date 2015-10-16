@@ -3075,10 +3075,11 @@ Close term buffers when terminal is exited.
   ("q" nil "quit" :exit t))
 
 (global-set-key (kbd "<f5> z") #'hydra-zoom/body)
-#+end_srcx
+#+end_src
+
 ** Hydra for controlling foreman processes
 
-#+BEGIN_SRC emacs-lisp
+#+begin_SRC emacs-lisp
   (defhydra cnb-hydra-foreman (:color blue)
     "
         Root: %(if (projectile-project-p) (projectile-project-root))
@@ -3098,7 +3099,7 @@ Close term buffers when terminal is exited.
     ("q" nil "quit"))
 
   (define-key projectile-rails-mode-map (kbd "<f5> f") 'cnb-hydra-foreman/body)
-#+END_SRC
+#+end_src
 ** Markdown mode hydras.
 #+begin_src emacs-lisp
   (require 'markdown-mode)

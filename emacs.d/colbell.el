@@ -2193,6 +2193,16 @@ _d_: subtree       ^^               _g_: org goto
 
 (global-set-key (kbd "<f5> g") #'hydra-goto/body)
 
+(defhydra hydra-zoom ()
+  "zoom"
+  ("+" text-scale-increase "+")
+  ("=" text-scale-increase "+") ;; cuz its easier
+  ("-" text-scale-decrease "-")
+  ("0" (text-scale-adjust 0) "reset")
+  ("q" nil "quit" :exit t))
+
+(global-set-key (kbd "<f5> z") #'hydra-zoom/body)
+
 (defhydra cnb-hydra-foreman (:color blue)
   "
       Root: %(if (projectile-project-p) (projectile-project-root))
