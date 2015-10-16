@@ -40,9 +40,6 @@
   :ensure t
   :init
   (progn
-    ;; Shorten some file paths in modeline.
-    ;; (add-to-list 'sml/replacer-regexp-list '("^~/dotfiles/emacs\\.d/" ":ED:") t)
-    ;; (add-to-list 'sml/replacer-regexp-list '("^~/src/kwela/src/webapp/work" ":KW:") t)
     (sml/setup)))
 
 (use-package solarized-theme
@@ -100,7 +97,6 @@
 (cnb/disable-theme)
 (load-theme 'monokai t)
 
-;; Usefule in mode-line.
 (column-number-mode)
 (size-indication-mode)
 (display-time-mode)
@@ -112,9 +108,6 @@
 (put 'upcase-region 'disabled nil)               ;; ("C-x C-u")
 (put 'dired-find-alternate-file 'disabled nil)   ;; 'a' in dired mode
 
-;; (put 'erase-buffer 'disabled nil)
-;; (global-set-key (kbd "C-c E")  'erase-buffer)
-
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -122,10 +115,18 @@
 (setq-default buffer-file-coding-system 'utf-8)
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
+(global-auto-revert-mode t)
+(setq auto-revert-verbose nil)
+(setq global-auto-revert-non-file-buffers t)
+
 (setq sentence-end-double-space nil)
 
 (toggle-truncate-lines 1)
 (setq-default truncate-lines t)
+
+(setq delete-by-moving-to-trash t)
+
+(delete-selection-mode 1)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
@@ -141,8 +142,12 @@
 
 (setq visible-bell t)
 
+(setq recenter-positions '(top middle bottom))
+
 (set-frame-font "Source Code Pro-10" nil t)
 ;;(set-frame-font "DejaVu Sans Mono-11" nil t)
+
+(random t)
 
 (use-package csv-mode
   :defer t
@@ -167,16 +172,12 @@
   :commands esup
   :defer t)
 
-(random t)
-
 (require 'time)
 (add-to-list 'display-time-world-list '("Australia/Sydney" "Sydney"))
 (add-to-list 'display-time-world-list '("Australia/Perth" "Perth"))
 (add-to-list 'display-time-world-list '("Asia/Shanghai" "China"))
 
 (setq find-file-visit-truename t)
-
-(setq recenter-positions '(top middle bottom))
 
 (use-package crosshairs
   :ensure crosshairs
@@ -207,18 +208,6 @@
 :init
 (progn
   (which-function-mode))
-
-(use-package anzu
-  :ensure anzu
-  :diminish anzu-mode
-
-  :bind (("M-%"   . anzu-query-replace)
-         ("C-M-%" . anzu-query-replace-regexp))
-
-  :init
-  (progn
-    (global-anzu-mode)
-    (setq anzu-search-threshold 1000)))
 
 (use-package battery
   :config
@@ -647,23 +636,21 @@ in native application through xdg-open"
     (defalias 'glc 'goto-last-change)))
 
 (use-package ace-window
-    :ensure ace-window
-    :bind (("<f7>" . ace-window))
+  :ensure ace-window
+  :bind (("<f7>" . ace-window))
 
-    :init
-    (progn
-      (setq aw-scope 'frame)
-      (setq aw-background t)
-      (setq aw-flip-keys '("n")))  ;; 'n' will goto last window in ace-window.
-      ;; (setq avy-keys (nconc (loop for i from ?0 to ?9 collect i)
-      ;;                       (loop for i from ?a to ?z collect i)
-      ;;                       (loop for i from ?A to ?Z collect i)))
+  :init
+  (progn
+    (setq aw-scope 'frame)
+    (setq aw-background t)
+    (setq aw-flip-keys '("n")))  ;; 'n' will goto last window in ace-window.
+  ;; (setq avy-keys (nconc (loop for i from ?0 to ?9 collect i)
+  ;;                       (loop for i from ?a to ?z collect i)
+  ;;                       (loop for i from ?A to ?Z collect i)))
 
-    :config
-    (progn
-      (ace-window-display-mode)
-      ;;(set-face-attribute 'aw-leading-char-face nil :height 2.0)
-))
+  :config
+  (progn
+    (ace-window-display-mode)))
 
 (use-package ace-link
   :ensure ace-link
@@ -701,7 +688,6 @@ in native application through xdg-open"
     (add-hook 'ibuffer-hook
               (lambda ()
                 (ibuffer-auto-mode)
-                ;;(ibuffer-switch-to-saved-filter-groups "default")
                 (ibuffer-vc-set-filter-groups-by-vc-root)
                 (unless (eq ibuffer-sorting-mode 'alphabetic)
                   (ibuffer-do-sort-by-alphabetic))
@@ -858,7 +844,7 @@ in native application through xdg-open"
 
 
 
-(setq shift-select-mode t)
+(setq shift-select-mode nil)
 
 (use-package expand-region
   :ensure expand-region
@@ -879,10 +865,6 @@ in native application through xdg-open"
          ("C-c m d" . mc/mark-all-like-this-in-defun)))
 
 (setq save-interprogram-paste-before-kill t)
-
-(setq delete-by-moving-to-trash t)
-
-(delete-selection-mode 1)
 
 (use-package browse-kill-ring
   :ensure browse-kill-ring
@@ -938,15 +920,24 @@ in native application through xdg-open"
 ;;      (list (line-beginning-position)
 ;;            (line-beginning-position 2)))))
 
-(put 'erase-buffer 'disabled nil)
-(global-set-key (kbd "C-c E")  'erase-buffer)
-
 (use-package ag
   :ensure t
 
   :config
   (progn
     (setq ag-highlight-search t)))
+
+(use-package anzu
+  :ensure anzu
+  :diminish anzu-mode
+
+  :bind (("M-%"   . anzu-query-replace)
+         ("C-M-%" . anzu-query-replace-regexp))
+
+  :init
+  (progn
+    (global-anzu-mode)
+    (setq anzu-search-threshold 1000)))
 
 (require 'printing)
 (pr-update-menus t)
@@ -1077,12 +1068,15 @@ in native application through xdg-open"
 
 ;; Projectile doesn't include f but crashes if it isn't there.
 ;; TODO: Test if this is still a problem.
-(use-package f
-  :ensure t
-  :init
-  (progn
-    (require 'f)))
+;; (use-package f
+;;   :ensure t
+;;   :ensure f
 
+;;   :init
+;;   (progn
+;;     (require 'f)))
+
+;; Required by projectile.
 (use-package projectile
   :ensure t
   :diminish projectile-mode
@@ -1212,7 +1206,11 @@ in native application through xdg-open"
     (setq speedbar-verbosity-level 2)))
 
 (use-package rainbow-mode
-  :ensure rainbow-mode)
+  :ensure rainbow-mode
+  :init
+  (progn
+    (setq rainbow-html-colors t)
+    (setq rainbow-x-colors t)))
 
 (use-package color-identifiers-mode
   :ensure color-identifiers-mode
@@ -1689,8 +1687,10 @@ in native application through xdg-open"
     ;;(add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
 
 (use-package org
-  :ensure t
+  :pin "gnu")
 
+(use-package org
+  :ensure t
   :pin "gnu"
 
   :bind (("C-c a" . org-agenda)
@@ -1707,7 +1707,7 @@ in native application through xdg-open"
           (list (concat org-directory "personal.org")
                 (concat org-directory "kwela.org")))
 
-    (add-hook 'org-mode-hook #'turn-off-auto-fill)
+    ;;(add-hook 'org-mode-hook #'turn-off-auto-fill)
     ;;(add-hook 'org-mode-hook #'nlinum-mode t)
 
     ;; For jekyll
@@ -1787,8 +1787,6 @@ in native application through xdg-open"
     (setq org-enforce-todo-dependencies t)
 
     (setq org-track-ordered-property-with-tag t)
-
-    (setq org-src-fontify-natively t)
 
     ;; Dim blocked tasks
     (setq org-agenda-dim-blocked-tasks t)
@@ -2222,17 +2220,17 @@ _d_: subtree       ^^               _g_: org goto
     "markdown"
     ("b" gh-md-render-buffer "render buffer via github")))
 
-(defhydra hydra-dired-sort (:color red)
+(defhydra hydra-dired-sort (:exit t :foreign-keys warn)
   "
-                                                                                ╭────────────┐
-                                                                                │ Dired Sort │
-            ╭───────────────────────────────────────────────────────────────────┴────────────╯
-              _n_: name                           _N_: name rev
-              _e_: ext                            _E_: ext rev
-              _s_: size                           _S_: size rev
-              _t_: last modified                  _T_: last modified rev
-            ───────────────────────────────────────────────────────────────────────────────────
-             "
+                                                                                  ╭────────────┐
+                                                                                  │ Dired Sort │
+              ╭───────────────────────────────────────────────────────────────────┴────────────╯
+                _n_: name                           _N_: name rev
+                _e_: ext                            _E_: ext rev
+                _s_: size                           _S_: size rev
+                _t_: last modified                  _T_: last modified rev
+              ───────────────────────────────────────────────────────────────────────────────────
+               "
   ("s" (lambda ()
          (interactive)
          (dired-sort-other (concat dired-listing-switches " -S")))
@@ -2261,8 +2259,8 @@ _d_: subtree       ^^               _g_: org goto
    nil)
 
   ("n" (lambda ()
-          (interactive)
-          (dired-sort-other dired-listing-switches))
+         (interactive)
+         (dired-sort-other dired-listing-switches))
    nil)
   ("N" (lambda ()
          (interactive)
@@ -2527,9 +2525,6 @@ narrowed."
 
 (setq compilation-scroll-output t)
 ;;(setq compilation-scroll-output 'first-error)
-(global-auto-revert-mode t)
-(setq auto-revert-verbose nil)
-(setq global-auto-revert-non-file-buffers t)
 
 (setq scroll-preserve-screen-position 'always)
 
@@ -2543,7 +2538,7 @@ narrowed."
 
 (setenv "PAGER" "cat")
 
-(setq echo-keystrokes 0.1)
+(setq echo-keystrokes 1.0)
 
 (setq shift-select-mode t
       mouse-yank-at-point t
@@ -2555,11 +2550,6 @@ narrowed."
 
 ;; (use-package ack-and-a-half
 ;;   :ensure ack-and-a-half)
-
-;; Required by projectile.
-(use-package f
-  :ensure f
-  :defer)
 
 ;; (setq truncate-partial-width-windows nil)
 ;; (electric-layout-mode)
