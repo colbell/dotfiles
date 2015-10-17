@@ -964,22 +964,6 @@ Toggle Frame Split
 (setq line-move-visual nil)
 #+end_src
 
-** Helm-swoop
-
-This is a quick way to find lines.
-
-#+begin_src emacs-lisp
-(use-package helm-swoop
-  :ensure helm-swoop
-  :config
-  (progn
-    (setq helm-swoop-speed-or-color t)
-    (setq helm-swoop-use-line-number-face t))
-
-  :bind
-  ("M-i" . helm-swoop))
-#+end_src
-
 ** Dragging
 
 Drag mode. Allows dragging by alt left up etc.
@@ -1394,7 +1378,6 @@ line. http://www.emacswiki.org/emacs/SlickCopy
 #+end_src
 
 * Search/Replace
-
 ** Silver Searcher (ag)
 
 #+begin_src sh
@@ -1428,6 +1411,30 @@ For search and replace preview the change if using the anzu functions.
   (progn
     (global-anzu-mode)
     (setq anzu-search-threshold 1000)))
+#+end_src
+
+** Helm-swoop
+
+This is a quick way to find lines.
+
+#+begin_src emacs-lisp
+(use-package helm-swoop
+  :ensure helm-swoop
+  :config
+  (progn
+    (setq helm-swoop-speed-or-color t)
+    (setq helm-swoop-use-line-number-face t))
+
+  :bind
+  ("M-i" . helm-swoop))
+#+end_src
+
+** Swiper
+
+#+begin_src emacs-lisp
+(use-package swiper
+  :ensure t
+  :bind ("C-s" . swiper))
 #+end_src
 
 * Printing
@@ -3447,6 +3454,12 @@ error when exporting from org to HTML, PDF etc.
            (narrow-to-region (region-beginning) (region-end)))
           ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
           (t (narrow-to-defun))))
+#+end_src
+
+#+begin_src emacs-lisp 
+(use-package command-log-mode
+  :defer t
+  :ensure t)
 #+end_src
 
 #+begin_src emacs-lisp
