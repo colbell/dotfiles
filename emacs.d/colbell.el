@@ -610,16 +610,6 @@ in native application through xdg-open"
 
 (setq line-move-visual nil)
 
-(use-package helm-swoop
-  :ensure helm-swoop
-  :config
-  (progn
-    (setq helm-swoop-speed-or-color t)
-    (setq helm-swoop-use-line-number-face t))
-
-  :bind
-  ("M-i" . helm-swoop))
-
 (use-package drag-stuff
   :ensure drag-stuff
   :diminish drag-stuff-mode
@@ -938,6 +928,20 @@ in native application through xdg-open"
   (progn
     (global-anzu-mode)
     (setq anzu-search-threshold 1000)))
+
+(use-package helm-swoop
+  :ensure helm-swoop
+  :config
+  (progn
+    (setq helm-swoop-speed-or-color t)
+    (setq helm-swoop-use-line-number-face t))
+
+  :bind
+  ("M-i" . helm-swoop))
+
+(use-package swiper
+  :ensure t
+  :bind ("C-s" . swiper))
 
 (require 'printing)
 (pr-update-menus t)
@@ -2528,6 +2532,10 @@ narrowed."
          (narrow-to-region (region-beginning) (region-end)))
         ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
         (t (narrow-to-defun))))
+
+(use-package command-log-mode
+  :defer t
+  :ensure t)
 
 (use-package htmlize
   :defer t
