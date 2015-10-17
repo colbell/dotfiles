@@ -1014,7 +1014,8 @@ in native application through xdg-open"
     (setq magit-process-popup-time 30)
     ;;(setq magit-auto-revert-mode t)
     ;;(setq magit-last-seen-setup-instructions "1.4.0")
-    (setq magit-completing-read-function #'helm--completing-read-default)
+    ;;(setq magit-completing-read-function #'helm--completing-read-default)
+    (setq magit-completing-read-function #'ivy-completing-read)
     (setq magit-push-always-verify nil)
     (setq magit-revert-buffers t)
     (setq magit-popup-use-prefix-argument 'default)
@@ -1088,8 +1089,8 @@ in native application through xdg-open"
 
   :config
   (progn
-    ;;(setq projectile-completion-system 'helm)
-    (setq projectile-completion-system 'helm-comp-read)
+    ;;(setq projectile-completion-system 'helm-comp-read)
+    (setq projectile-completion-system 'ivy)
     (setq projectile-switch-project-action 'projectile-dired)
     (setq projectile-enable-caching t)
     (projectile-global-mode)))
