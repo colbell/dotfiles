@@ -25,17 +25,6 @@
 (add-to-list 'load-path (expand-file-name "vendor" user-emacs-directory ))
 (add-subdirs-to-load-path (expand-file-name "vendor" user-emacs-directory))
 
-(use-package paradox
-  :ensure t
-  :defer t
-
-  :config
-  (progn
-    (setq paradox-github-token t)  ;; Don't ask for Github integration.
-    (setq paradox-display-download-count t)
-    (setq paradox-spinner-type 'box-in-circle)
-    (setq paradox-execute-asynchronously t)))
-
 (use-package smart-mode-line
   :ensure t
   :init
@@ -126,7 +115,7 @@
 
 (setq delete-by-moving-to-trash t)
 
-(delete-selection-mode 1)
+;;(delete-selection-mode 1)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
@@ -273,7 +262,9 @@
     ;; Files that we don't want to remember.
     (setq recentf-exclude '("~$" "/tmp/" "/ssh:"
                             "/sudo:" "/\\.git/.*\\'"
-                            "/home/colbell/.jabber-avatars/*"))
+                            "/home/colbell/.jabber-avatars/*"
+                            "COMMIT_MSG" "COMMIT_EDITMSG" "github.*txt$"
+                            ".*png$"))
 
     ;; We don't want to remember the recentf database file itself.
     (add-to-list 'recentf-exclude recentf-save-file)
@@ -936,12 +927,15 @@ in native application through xdg-open"
     (setq helm-swoop-speed-or-color t)
     (setq helm-swoop-use-line-number-face t))
 
-  :bind
-  ("M-i" . helm-swoop))
+  :bind ("M-i" . helm-swoop))
 
 (use-package swiper
   :ensure t
-  :bind ("C-s" . swiper))
+  :bind ("C-s" . swiper)
+
+  :init
+  (progn
+    (setq ivy-display-style 'fancy)))
 
 (require 'printing)
 (pr-update-menus t)
@@ -1014,8 +1008,8 @@ in native application through xdg-open"
     (setq magit-process-popup-time 30)
     ;;(setq magit-auto-revert-mode t)
     ;;(setq magit-last-seen-setup-instructions "1.4.0")
-    ;;(setq magit-completing-read-function #'helm--completing-read-default)
-    (setq magit-completing-read-function #'ivy-completing-read)
+    (setq magit-completing-read-function #'helm--completing-read-default)
+    ;;(setq magit-completing-read-function #'ivy-completing-read)
     (setq magit-push-always-verify nil)
     (setq magit-revert-buffers t)
     (setq magit-popup-use-prefix-argument 'default)
@@ -1089,8 +1083,8 @@ in native application through xdg-open"
 
   :config
   (progn
-    ;;(setq projectile-completion-system 'helm-comp-read)
-    (setq projectile-completion-system 'ivy)
+    (setq projectile-completion-system 'helm-comp-read)
+    ;;(setq projectile-completion-system 'ivy)
     (setq projectile-switch-project-action 'projectile-dired)
     (setq projectile-enable-caching t)
     (projectile-global-mode)))
@@ -2507,6 +2501,17 @@ _d_: subtree       ^^               _g_: org goto
     (savehist-mode)
     (setq history-delete-duplicates t)
     (setq savehist-save-minibuffer-history t)))
+
+(use-package paradox
+  :ensure t
+  :defer t
+
+  :config
+  (progn
+    (setq paradox-github-token t)  ;; Don't ask for Github integration.
+    (setq paradox-display-download-count t)
+    (setq paradox-spinner-type 'box-in-circle)
+    (setq paradox-execute-asynchronously t)))
 
 (use-package 2048-game
   :defer t
