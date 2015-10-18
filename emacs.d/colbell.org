@@ -93,23 +93,6 @@ much empty now that ELPA exists.
 (add-subdirs-to-load-path (expand-file-name "vendor" user-emacs-directory))
 #+end_src
 
-* Paradox
-
-Paradox is a powerful UI for the package manager.
-
-#+begin_src emacs-lisp
-(use-package paradox
-  :ensure t
-  :defer t
-
-  :config
-  (progn
-    (setq paradox-github-token t)  ;; Don't ask for Github integration.
-    (setq paradox-display-download-count t)
-    (setq paradox-spinner-type 'box-in-circle)
-    (setq paradox-execute-asynchronously t)))
-#+end_src
-
 * Smart Mode Line
 
 This is needed prior to setting the theme.
@@ -263,7 +246,7 @@ Move deleted files to system trash folder.
 Delete selection when typing.
 
 #+begin_src emacs-lisp
-(delete-selection-mode 1)
+;;(delete-selection-mode 1)
 #+end_src
 
 Don't use tabs, use spaces instead. Default spacing to 2 spaces.
@@ -542,7 +525,9 @@ Recent Files is a mode that keeps track of files that have been opened.
     ;; Files that we don't want to remember.
     (setq recentf-exclude '("~$" "/tmp/" "/ssh:"
                             "/sudo:" "/\\.git/.*\\'"
-                            "/home/colbell/.jabber-avatars/*"))
+                            "/home/colbell/.jabber-avatars/*"
+                            "COMMIT_MSG" "COMMIT_EDITMSG" "github.*txt$"
+                            ".*png$"))
 
     ;; We don't want to remember the recentf database file itself.
     (add-to-list 'recentf-exclude recentf-save-file)
@@ -1425,8 +1410,7 @@ This is a quick way to find lines.
     (setq helm-swoop-speed-or-color t)
     (setq helm-swoop-use-line-number-face t))
 
-  :bind
-  ("M-i" . helm-swoop))
+  :bind ("M-i" . helm-swoop))
 #+end_src
 
 ** Swiper
@@ -1434,7 +1418,12 @@ This is a quick way to find lines.
 #+begin_src emacs-lisp
 (use-package swiper
   :ensure t
-  :bind ("C-s" . swiper))
+  :bind ("C-s" . swiper)
+
+  :init
+  (progn
+    (setq ivy-display-style 'fancy)))
+
 #+end_src
 
 * Printing
@@ -1535,8 +1524,8 @@ Magit is a very cool GUI for Git.
       (setq magit-process-popup-time 30)
       ;;(setq magit-auto-revert-mode t)
       ;;(setq magit-last-seen-setup-instructions "1.4.0")
-      ;;(setq magit-completing-read-function #'helm--completing-read-default)
-      (setq magit-completing-read-function #'ivy-completing-read)
+      (setq magit-completing-read-function #'helm--completing-read-default)
+      ;;(setq magit-completing-read-function #'ivy-completing-read)
       (setq magit-push-always-verify nil)
       (setq magit-revert-buffers t)
       (setq magit-popup-use-prefix-argument 'default)
@@ -1650,8 +1639,8 @@ Projectile is a Project Interaction Library.
 
   :config
   (progn
-    ;;(setq projectile-completion-system 'helm-comp-read)
-    (setq projectile-completion-system 'ivy)
+    (setq projectile-completion-system 'helm-comp-read)
+    ;;(setq projectile-completion-system 'ivy)
     (setq projectile-switch-project-action 'projectile-dired)
     (setq projectile-enable-caching t)
     (projectile-global-mode)))
@@ -3417,6 +3406,23 @@ Remember command and search history.
       (savehist-mode)
       (setq history-delete-duplicates t)
       (setq savehist-save-minibuffer-history t)))
+#+end_src
+
+* Paradox
+
+Paradox is a powerful UI for the package manager.
+
+#+begin_src emacs-lisp
+(use-package paradox
+  :ensure t
+  :defer t
+
+  :config
+  (progn
+    (setq paradox-github-token t)  ;; Don't ask for Github integration.
+    (setq paradox-display-download-count t)
+    (setq paradox-spinner-type 'box-in-circle)
+    (setq paradox-execute-asynchronously t)))
 #+end_src
 
 * Games
