@@ -235,6 +235,7 @@ By default truncate long lines.
 #+begin_src emacs-lisp
 (toggle-truncate-lines 1)
 (setq-default truncate-lines t)
+(setq truncate-partial-width-windows nil)
 #+end_src
 
 Move deleted files to system trash folder.
@@ -275,6 +276,12 @@ Cursor configuration
 (setq blink-cursor-blinks 0)
 (setq-default cursor-type 'bar)
 (blink-cursor-mode)
+#+end_src
+
+Move by logical lines
+
+#+begin_src emacs-lisp
+(setq line-move-visual nil)
 #+end_src
 
 Use a visible bell instead of a beep.
@@ -352,12 +359,12 @@ Init File profiler.
 
 Add city times to display-time-world and helm-world-time.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'time)
 (add-to-list 'display-time-world-list '("Australia/Sydney" "Sydney"))
 (add-to-list 'display-time-world-list '("Australia/Perth" "Perth"))
 (add-to-list 'display-time-world-list '("Asia/Shanghai" "China"))
-#+END_SRC
+#+end_src
 
 When opening files follow all symbolic links.
 
@@ -680,54 +687,54 @@ Start Emacs server on first Emacs instance.
 * Auto-correct
 
 #+begin_src emacs-lisp
-  (setq abbrev-file-name "~/.emacs.d/abbrev_defs")
-  (setq save-abbrevs 'silently)
+(setq abbrev-file-name "~/.emacs.d/abbrev_defs")
+(setq save-abbrevs 'silently)
 
-  (if (file-exists-p abbrev-file-name)
-      (quietly-read-abbrev-file))
+(if (file-exists-p abbrev-file-name)
+    (quietly-read-abbrev-file))
 
-  ;;(add-hook 'text-mode-hook (lambda () (abbrev-mode 1)))
-  (setq-default abbrev-mode t)
+;;(add-hook 'text-mode-hook (lambda () (abbrev-mode 1)))
+(setq-default abbrev-mode t)
 
-  ;; Hide in mode line.
-  (diminish 'abbrev-mode)
+;; Hide in mode line.
+(diminish 'abbrev-mode)
 
-  ;; From http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html
-  (defun cnb/ispell-word-then-abbrev (p)
-    "Call `ispell-word'. Then create an abbrev for the correction made.
+;; From http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html
+(defun cnb/ispell-word-then-abbrev (p)
+  "Call `ispell-word'. Then create an abbrev for the correction made.
      With prefix P, create local abbrev. Otherwise it will be global."
-    (interactive "P")
-    (let ((bef (downcase (or (thing-at-point 'word) ""))) aft)
-      ;; Hide the prefix arg from ispell-word
-      (let ((current-prefix-arg nil))
-        (call-interactively #'ispell-word))
-      (setq aft (downcase (or (thing-at-point 'word) "")))
-      (unless (string= aft bef)
-        (message "\"%s\" now expands to \"%s\" %sally"
-                 bef aft (if p "loc" "glob"))
-        (define-abbrev
-          (if p local-abbrev-table global-abbrev-table)
-          bef aft))))
+  (interactive "P")
+  (let ((bef (downcase (or (thing-at-point 'word) ""))) aft)
+    ;; Hide the prefix arg from ispell-word
+    (let ((current-prefix-arg nil))
+      (call-interactively #'ispell-word))
+    (setq aft (downcase (or (thing-at-point 'word) "")))
+    (unless (string= aft bef)
+      (message "\"%s\" now expands to \"%s\" %sally"
+               bef aft (if p "loc" "glob"))
+      (define-abbrev
+        (if p local-abbrev-table global-abbrev-table)
+        bef aft))))
 
-  ;;(global-set-key "\C-oi" #'cnb/ispell-word-then-abbrev)
+;;(global-set-key "\C-oi" #'cnb/ispell-word-then-abbrev)
 #+end_src
 * Dired
 
-  Open files in external application.
+Open files in external application.
 
 #+begin_src emacs-lisp
-  (defun cnb/open-external()
-    "Open file associated with current buffer or files marked in dired buffer
+(defun cnb/open-external()
+  "Open file associated with current buffer or files marked in dired buffer
   in native application through xdg-open"
-    (interactive)
-    (let (my_files)
-      (if (string-equal major-mode "dired-mode")
-          (setq my_files (dired-get-marked-files))
-        (setq my_files (list (buffer-file-name))))
+  (interactive)
+  (let (my_files)
+    (if (string-equal major-mode "dired-mode")
+        (setq my_files (dired-get-marked-files))
+      (setq my_files (list (buffer-file-name))))
 
-      (when my_files
-        (dolist (fn my_files)
-          (start-process "" nil "xdg-open" fn)))))
+    (when my_files
+      (dolist (fn my_files)
+        (start-process "" nil "xdg-open" fn)))))
 #+end_src
 
   Add some external programs for =! (dired-do-shell-command)=
@@ -845,16 +852,16 @@ Start Emacs server on first Emacs instance.
 
 * Bookmarks
 #+begin_src emacs-lisp
-  (use-package bookmark
-    :defer t
-    :ensure bookmark+
+(use-package bookmark
+  :defer t
+  :ensure bookmark+
 
-    :config
-    (progn
-      (require 'bookmark+)
-      (setq bookmark-save-flag 1) ; Save bookmarks instantly
-      (setq bookmark-default-file
-            (expand-file-name "emacs.bmk" user-emacs-directory))))
+  :config
+  (progn
+    (require 'bookmark+)
+    (setq bookmark-save-flag 1) ; Save bookmarks instantly
+    (setq bookmark-default-file
+          (expand-file-name "emacs.bmk" user-emacs-directory))))
 #+end_src
 
 Visual Bookmarks
@@ -905,17 +912,17 @@ Visual Bookmarks
 Dictionary Look-up
 
 #+begin_src emacs-lisp
-  (use-package helm-words
-    :ensure t
-    :defer t
+(use-package helm-words
+  :ensure t
+  :defer t
 
-    :config
-    (progn
-      (use-package dictionary
-        :ensure t))
+  :config
+  (progn
+    (use-package dictionary
+      :ensure t))
 
-    :bind (("C-c d" . helm-words-at-point)
-           ("C-c D" . helm-words)))
+  :bind (("C-c d" . helm-words-at-point)
+         ("C-c D" . helm-words)))
 
 #+end_src
 * Frames
@@ -944,11 +951,6 @@ Toggle Frame Split
 
 #+end_src
 * Moving Around
-** Move By Visual Lines
-#+begin_src emacs-lisp
-(setq line-move-visual nil)
-#+end_src
-
 ** Dragging
 
 Drag mode. Allows dragging by alt left up etc.
@@ -1428,58 +1430,58 @@ This is a quick way to find lines.
 
 * Printing
 #+begin_src emacs-lisp
-  (require 'printing)
-  (pr-update-menus t)
+(require 'printing)
+(pr-update-menus t)
 
-  (setenv "CUPS_SERVER" "localhost")
-  (require 'cups nil t)
+(setenv "CUPS_SERVER" "localhost")
+(require 'cups nil t)
 
-  (setq ps-printer-name t)
+(setq ps-printer-name t)
 
-  (defun cnb-print-to-pdf ()
-    "Print the current buffer to a PDF"
-    (interactive)
-    (let ((ps-file (concat (buffer-name) ".ps"))
-          (pdf-file (concat (buffer-name) ".pdf")))
-      (ps-spool-buffer-with-faces)
-      (switch-to-buffer "*PostScript*")
-      (write-file ps-file)
-      (kill-buffer ps-file)
-      (shell-command
-       (concat "ps2pdf14 " ps-file " " pdf-file))
-      (delete-file ps-file)
-      (find-file pdf-file)
-      (message (concat "PDF Saved to: " (buffer-name) ".pdf"))))
+(defun cnb-print-to-pdf ()
+  "Print the current buffer to a PDF"
+  (interactive)
+  (let ((ps-file (concat (buffer-name) ".ps"))
+        (pdf-file (concat (buffer-name) ".pdf")))
+    (ps-spool-buffer-with-faces)
+    (switch-to-buffer "*PostScript*")
+    (write-file ps-file)
+    (kill-buffer ps-file)
+    (shell-command
+     (concat "ps2pdf14 " ps-file " " pdf-file))
+    (delete-file ps-file)
+    (find-file pdf-file)
+    (message (concat "PDF Saved to: " (buffer-name) ".pdf"))))
 #+end_src
 
 * Completion
 ** Hippie Expansion
 #+begin_src emacs-lisp
-  (use-package hippie-exp
-    :init
-    (progn
-      (setq hippie-expand-try-functions-list
-            '(try-complete-file-name-partially
-              try-complete-file-name try-expand-all-abbrevs
-              try-expand-dabbrev try-expand-dabbrev-all-buffers
-              try-expand-dabbrev-from-kill try-complete-lisp-symbol)))
-    :bind
-    ("M-/" . hippie-expand))
+(use-package hippie-exp
+  :init
+  (progn
+    (setq hippie-expand-try-functions-list
+          '(try-complete-file-name-partially
+            try-complete-file-name try-expand-all-abbrevs
+            try-expand-dabbrev try-expand-dabbrev-all-buffers
+            try-expand-dabbrev-from-kill try-complete-lisp-symbol)))
+  :bind
+  ("M-/" . hippie-expand))
 #+end_src
 
 ** Company Mode
 #+begin_src emacs-lisp
-    (use-package company
-      :ensure t
-      :diminish company-mode
+(use-package company
+  :ensure t
+  :diminish company-mode
 
-      :init
-      (progn
-        ;;(push 'company-robe company-backends)
-        (global-company-mode 1)
-        (setq company-idle-delay 0.5))
+  :init
+  (progn
+    ;;(push 'company-robe company-backends)
+    (global-company-mode 1)
+    (setq company-idle-delay 0.5))
 
-      :bind ("C-c i" . company-complete))
+  :bind ("C-c i" . company-complete))
 #+end_src
 * Discover My Major
 
@@ -2690,15 +2692,16 @@ Close term buffers when terminal is exited.
 #+end_src
 
 * Web Browsers
-** Definitions
+
+Default browser
 
 #+begin_src emacs-lisp
-  (setq browse-url-browser-function 'browse-url-firefox)
-  ;; (setq browse-url-browser-function 'browse-url-generic
-  ;;       browse-url-generic-program "chromium-browser")
+;;(setq browse-url-browser-function 'browse-url-firefox)
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "chromium-browser")
 #+end_src
 
-** w3m
+w3m
 #+begin_src emacs-lisp
   (setq w3m-default-display-inline-images t)
   (setq w3m-use-cookies t)
@@ -2708,9 +2711,9 @@ Close term buffers when terminal is exited.
 * Open files in external programs
 
 #+begin_src emacs-lisp
-  (use-package launch
-      :ensure t
-      :config (global-launch-mode))
+(use-package launch
+  :ensure t
+  :config (global-launch-mode))
 #+end_src
 
 * Tramp
@@ -2723,20 +2726,9 @@ Close term buffers when terminal is exited.
 
 * Aliases
 #+begin_src emacs-lisp
-  ;;(defalias 'yes-or-no-p 'y-or-n-p)         ;; Y/N for yes/no in prompts.
-  (defalias 'idm 'info-display-manual)
-  (defalias 'qrr 'query-replace-regexp)
-  (defalias 'dtw 'delete-trailing-whitespace)
-#+end_src
-
-* Key Chords
-#+begin_src emacs-lisp
-  ;; (use-package key-chord
-  ;;   :ensure t
-
-  ;;   :init
-  ;;   (progn
-  ;;     (key-chord-mode +1)))
+;;(defalias 'yes-or-no-p 'y-or-n-p)         ;; Y/N for yes/no in prompts.
+(defalias 'qrr 'query-replace-regexp)
+(defalias 'dtw 'delete-trailing-whitespace)
 #+end_src
 
 * Hydra
@@ -3512,19 +3504,8 @@ error when exporting from org to HTML, PDF etc.
 * Do I need these?
 
 #+begin_src emacs-lisp
-  ;; (setq truncate-partial-width-windows nil)
-  ;; (electric-layout-mode)
-  ;; (setq completion-cycle-threshold 5)
-  ;; How often do I key a comma without a trailing space?
-  ;; Commented out as I just can't stop pressing the space-bar
-  ;; (global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
-  ;; (use-package findr
-  ;;   :ensure t)
-
-  ;; (use-package inflections
-  ;;   :ensure t)
-
-  ;; (use-package jump
-  ;;   :ensure t)
-
+(setq completion-cycle-threshold 5)
+;; How often do I key a comma without a trailing space?
+;; Commented out as I just can't stop pressing the space-bar
+;; (global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
 #+end_src
