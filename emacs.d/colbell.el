@@ -112,6 +112,7 @@
 
 (toggle-truncate-lines 1)
 (setq-default truncate-lines t)
+(setq truncate-partial-width-windows nil)
 
 (setq delete-by-moving-to-trash t)
 
@@ -128,6 +129,8 @@
 (setq blink-cursor-blinks 0)
 (setq-default cursor-type 'bar)
 (blink-cursor-mode)
+
+(setq line-move-visual nil)
 
 (setq visible-bell t)
 
@@ -393,7 +396,7 @@
 ;; From http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html
 (defun cnb/ispell-word-then-abbrev (p)
   "Call `ispell-word'. Then create an abbrev for the correction made.
-   With prefix P, create local abbrev. Otherwise it will be global."
+     With prefix P, create local abbrev. Otherwise it will be global."
   (interactive "P")
   (let ((bef (downcase (or (thing-at-point 'word) ""))) aft)
     ;; Hide the prefix arg from ispell-word
@@ -411,7 +414,7 @@
 
 (defun cnb/open-external()
   "Open file associated with current buffer or files marked in dired buffer
-in native application through xdg-open"
+  in native application through xdg-open"
   (interactive)
   (let (my_files)
     (if (string-equal major-mode "dired-mode")
@@ -598,8 +601,6 @@ in native application through xdg-open"
     (switch-to-buffer nil))) ; restore the orig  win in this part of the frame
 
 (define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
-
-(setq line-move-visual nil)
 
 (use-package drag-stuff
   :ensure drag-stuff
@@ -1893,17 +1894,17 @@ in native application through xdg-open"
   :defer t
   :ensure t)
 
-(setq browse-url-browser-function 'browse-url-firefox)
-;; (setq browse-url-browser-function 'browse-url-generic
-;;       browse-url-generic-program "chromium-browser")
+;;(setq browse-url-browser-function 'browse-url-firefox)
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "chromium-browser")
 
 (setq w3m-default-display-inline-images t)
 (setq w3m-use-cookies t)
 (require 'w3m-load nil t) ;;w3m autoloads
 
 (use-package launch
-    :ensure t
-    :config (global-launch-mode))
+  :ensure t
+  :config (global-launch-mode))
 
 (setq tramp-default-method "ssh")
 
@@ -1911,16 +1912,8 @@ in native application through xdg-open"
 (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 
 ;;(defalias 'yes-or-no-p 'y-or-n-p)         ;; Y/N for yes/no in prompts.
-(defalias 'idm 'info-display-manual)
 (defalias 'qrr 'query-replace-regexp)
 (defalias 'dtw 'delete-trailing-whitespace)
-
-;; (use-package key-chord
-;;   :ensure t
-
-;;   :init
-;;   (progn
-;;     (key-chord-mode +1)))
 
 (use-package hydra
   :ensure t
@@ -2575,17 +2568,7 @@ narrowed."
 ;; (use-package ack-and-a-half
 ;;   :ensure ack-and-a-half)
 
-;; (setq truncate-partial-width-windows nil)
-;; (electric-layout-mode)
-;; (setq completion-cycle-threshold 5)
+(setq completion-cycle-threshold 5)
 ;; How often do I key a comma without a trailing space?
 ;; Commented out as I just can't stop pressing the space-bar
 ;; (global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
-;; (use-package findr
-;;   :ensure t)
-
-;; (use-package inflections
-;;   :ensure t)
-
-;; (use-package jump
-;;   :ensure t)
