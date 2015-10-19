@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Run the system file maanger
+if [ $XDG_SESSION_DESKTOP='mate' ]; then
+  caja --no-desktop --browser ''
+fi
