@@ -12,5 +12,8 @@ fi
 alias sduo=sudo
 
 alias h='history'
+
+alias openports='netstat --all --numeric --programs --inet'
+
 alias ,='ls -CFs'
 alias r='ls -ltr'
