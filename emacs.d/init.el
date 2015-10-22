@@ -49,12 +49,14 @@
   (eval-when-compile
     (require 'use-package))
 
+  (setq use-package-verbose t)
+
   ;; use-package needs these packages to use the :bind and
   ;; :diminish options.
   (use-package diminish :ensure t)
-  ;;(require 'diminish)
+  (require 'diminish)
   (use-package bind-key :ensure t)
-  ;;(require 'bind-key)
+  (require 'bind-key)
 
   ;; Generate and load or just load the configuration file.
 

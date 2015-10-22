@@ -219,6 +219,46 @@
       (quote (read-only t point-entered minibuffer-avoid-prompt
                         face minibuffer-prompt)))
 
+(use-package hydra
+  :ensure t
+
+  :config
+  (progn
+    (require 'hydra-examples)
+    (hydra-add-font-lock)))
+
+(setq apropos-do-all t)
+
+(defhydra hydra-apropos(:color blue :hint nil)
+  "
+  Apropos
+  ----------------------------
+  _a_propos        desc_b_indings
+  _c_ommand        _d_ocumentation
+  helm-_i_nfo      _l_ibrary
+  _v_ariable       _u_ser-option
+  _m_an            valu_e_
+  _h_elm-apropos
+
+  Help
+  ----------------------------
+  major mode _b_indings
+  _q_uit"
+  ("a" apropos)
+  ("d" apropos-documentation)
+  ("v" apropos-variable)
+  ("c" apropos-command)
+  ("h" helm-apropos)
+  ("i" helm-info-at-point)
+  ("l" apropos-library)
+  ("m" helm-man-woman)
+  ("u" apropos-user-option)
+  ("e" apropos-value)
+  ("b" helm-descbinds)
+  ("q" nil))
+
+(global-set-key (kbd "C-c h") #'hydra-apropos/body)
+
 (use-package whitespace
   :diminish whitespace-mode
   :diminish global-whitespace-mode
@@ -302,7 +342,7 @@
     (setq helm-ff-skip-boring-files t)
     (setq enable-recursive-minibuffers t)
     (setq helm-buffers-fuzzy-matching t)
-    (setq helm-split-window-in-side-p t)
+    ;;(setq helm-split-window-in-side-p t)
     (setq helm-ff-file-name-history-use-recentf t)
     (setq helm-buffer-details-flag nil)
     (setq helm-ff-transformer-show-only-basename t)
@@ -525,6 +565,57 @@
     (setq wdired-allow-to-change-permissions t)
     (setq wdired-confirm-overwrite t)))
 
+(defhydra hydra-dired-sort (:exit t :foreign-keys warn)
+  "
+                                                                                  ╭────────────┐
+                                                                                  │ Dired Sort │
+              ╭───────────────────────────────────────────────────────────────────┴────────────╯
+                _n_: name                           _N_: name rev
+                _e_: ext                            _E_: ext rev
+                _s_: size                           _S_: size rev
+                _t_: last modified                  _T_: last modified rev
+              ───────────────────────────────────────────────────────────────────────────────────
+               "
+  ("s" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -S")))
+   nil)
+  ("S" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -rS")))
+   nil)
+
+  ("e" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -X")))
+   nil)
+  ("E" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -rX")))
+   nil)
+
+  ("t" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -t")))
+   nil)
+  ("T" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -rt")))
+   nil)
+
+  ("n" (lambda ()
+         (interactive)
+         (dired-sort-other dired-listing-switches))
+   nil)
+  ("N" (lambda ()
+         (interactive)
+         (dired-sort-other (concat dired-listing-switches " -r")))
+   nil)
+
+  ("q" nil                       "cancel"))
+
+(define-key dired-mode-map (kbd "s") 'hydra-dired-sort/body)
+
 (use-package bookmark
   :defer t
   :ensure bookmark+
@@ -543,17 +634,20 @@
 (use-package bm
   :ensure bm
   :defer t
-  :commands (bm-repository-load bm-buffer-restore bm-buffer-save bm-repository-save bm-buffer-save-all)
+  :commands (bm-repository-load bm-buffer-restore bm-buffer-save
+                                bm-repository-save bm-buffer-save-all
+                                bm-cycle-all-buffers)
 
   :bind (("C-<f2>" . bm-toggle)
          ("<f2>"   . bm-next)
          ("S-<f2>" . bm-previous))
 
-  :config
+  :init
   (progn
     (setq bm-restore-repository-on-load t)
     (setq bm-repository-file (expand-file-name "bm-repository" user-emacs-directory))
     (setq bm-repository-size 1024)
+    (setq bm-cycle-all-buffers nil)
     (setq-default bm-buffer-persistence t)
     (setq bm-highlight-style 'bm-highlight-only-line)
     (add-hook 'after-init-hook #'bm-repository-load)
@@ -561,8 +655,53 @@
     (add-hook 'kill-buffer-hook #'bm-buffer-save)
     (add-hook 'kill-emacs-hook (lambda nil
                                  (bm-buffer-save-all)
-                                 (bm-repository-save))))
-  )
+                                 (bm-repository-save)))))
+
+(defhydra hydra-bookmarks (:color teal)
+  "
+                                                                                      ╭────────────┐
+       Bookmarks                  Visual Bookmarks                                    │ Bookmarks  │
+  ╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
+
+      _l_: list                    _s_: Show in current Buffer
+      _j_: goto                    _S_: Show in all buffers
+      _d_: delete                  _n_: Next
+      _f_: find file               _p_: Previous
+      ^ ^                          _t_: Toggle
+      ^ ^                          _x_: Set for a Regexp
+      ^ ^                          _A_: Cycle in all buffers: %`bm-cycle-all-buffers
+      ^ ^                          _T_: Temporary bookmarks:  %`temporary-bookmark-p
+      ^ ^                          _r_: Remove all from current buffer
+      ^ ^                          _R_: Remove all from ALL buffers
+  "
+  ("l" bookmark-bmenu-list nil)
+  ("j" bookmark-jump       nil)
+  ("d" bookmark-delete     nil)
+
+  ("s" bm-show             nil)
+  ("S" bm-show-all         nil)
+  ("n" bm-next             nil :color red)
+  ("p" bm-previous         nil :color red)
+  ("t" bm-toggle           nil :color red)
+  ("A" (lambda ()
+         (interactive)
+         (if bm-cycle-all-buffers
+             (setq bm-cycle-all-buffers nil)
+           (setq bm-cycle-all-buffers t)))
+   nil :color red)
+  ("x" bm-bookmark-regexp  nil :color red)
+  ("T" (lambda ()
+         (interactive)
+         (if temporary-bookmark-p
+             (setq temporary-bookmark-p nil)
+           (setq temporary-bookmark-p t)))
+   nil :color red)
+  ("r" bm-remove-all-current-buffer nil :color red)
+  ("R" bm-remove-all-all-buffers    nil :color red)
+
+  ("q" nil "quit"))
+
+(global-set-key (kbd "<f5> b") 'hydra-bookmarks/body)
 
 (use-package flyspell
   :defer t
@@ -611,14 +750,19 @@
     (setq drag-stuff-except-modes '(org-mode))
     (drag-stuff-global-mode)))
 
-(use-package goto-chg
+(use-package avy
   :ensure t
-  :config
+
+  :init
   (progn
-    (defalias 'glc 'goto-last-change)))
+    ;; (setq avy-keys (nconc (loop for i from ?0 to ?9 collect i)
+    ;;                       (loop for i from ?a to ?z collect i)
+    ;;                       (loop for i from ?A to ?Z collect i)))
+    (setq avy-all-windows nil)
+    (avy-setup-default)))
 
 (use-package ace-window
-  :ensure ace-window
+  :ensure t
   :bind (("<f7>" . ace-window))
 
   :init
@@ -626,9 +770,6 @@
     (setq aw-scope 'frame)
     (setq aw-background t)
     (setq aw-flip-keys '("n")))  ;; 'n' will goto last window in ace-window.
-  ;; (setq avy-keys (nconc (loop for i from ?0 to ?9 collect i)
-  ;;                       (loop for i from ?a to ?z collect i)
-  ;;                       (loop for i from ?A to ?Z collect i)))
 
   :config
   (progn
@@ -640,6 +781,44 @@
   :init
   (progn
     (ace-link-setup-default)))
+
+(defhydra hydra-goto (:exit t :foreign-keys warn)
+  "
+                                                                                      ╭────────────┐
+     Goto                         Errors                                              │   Goto     │
+  ╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
+
+     _c_: Char                      _f_: First
+     _C_: Char-2                    _j_: Next
+     _g_: Char at word start        _k_: Previous
+     _G_: Word start
+     _u_: Subword
+     _l_: Line
+     _L_: avy-line
+     _w_: Window
+     _i_: helm-swoop                _._: Repeat
+  ──────────────────────────────────────────────────────────────────────────────────────────────────
+"
+  ("c" avy-goto-char      nil)
+  ("C" avy-goto-char-2    nil)
+  ("g" avy-goto-word-1    nil)
+  ("G" avy-goto-word-0    nil)
+  ("u" avy-goto-subword-1 nil)
+  ("l" goto-line          nil)
+  ("L" avy-goto-line      nil)
+
+  ("w" ace-window         nil)
+  ("i" helm-swoop         nil)
+
+  ("f" first-error        nil :exit nil)
+  ("j" next-error         nil  :exit nil)
+  ("k" previous-error     nil  :exit nil)
+
+  ("." hydra-repeat       nil  :exit nil)
+
+  ("q" nil "quit"))
+
+(global-set-key (kbd "M-g") #'hydra-goto/body)
 
 (defun ibuffer-ediff-marked-buffers ()
   "ediff 2 marked buffers"
@@ -761,13 +940,13 @@
 
 (global-set-key (kbd "M-r") 'cnb/rotate-windows)
 
-(use-package popwin
-  :ensure t
+;; (use-package popwin
+;;   :ensure t
 
-  :init
-  (progn
-    (require 'popwin)
-    (popwin-mode 1)))
+;;   :init
+;;   (progn
+;;     (require 'popwin)
+;;     (popwin-mode 1)))
 
 (defun cnb/quit-bottom-side-windows ()
   "Quit side windows at bottom of frame and bury its buffer"
@@ -810,21 +989,61 @@
    (side            . bottom)
    (window-height   . 0.4)))
 
-(add-to-list
- 'display-buffer-alist
- '("\\`\\*helm.*\\*\\'"
-   (display-buffer-in-side-window)
-   (inhibit-same-window . t)
-   (window-height . 0.4)))
-
+;; (add-to-list
+;;  'display-buffer-alist
+;;  '("\\`\\*helm.*\\*\\'"
+;;    (display-buffer-in-side-window)
+;;    (inhibit-same-window . t)
+;;    (window-height . 0.4)))
 
 ;; This MUST be after the general helm case otherwise it won't be used
 ;; and the helm help buffer will not be displayed.
-(add-to-list
- 'display-buffer-alist
- '("*.*Helm.*Help.**"))
+;; (add-to-list
+;;  'display-buffer-alist
+;;  '("*.*Helm.*Help.**"))
 
 
+
+(global-set-key
+ (kbd "<f5> w")
+ (defhydra cnb-hydra-win-functions (:color amaranth)
+   "
+                                                                                      ╭────────────┐
+     Move Splitter    Split Window   Ace                                              │  Windows   │
+  ╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
+
+     _h_: Left          _x_: Horiz       _s_: Swap
+     _l_: Right         _y_: Vert        _d_: Delete
+     _j_: Down          _b_: Balance     _m_: Maximize
+     _k_: Up
+  ──────────────────────────────────────────────────────────────────────────────────────────────────
+    "
+   ("h" hydra-move-splitter-left nil)
+   ("j" hydra-move-splitter-down nil)
+   ("k" hydra-move-splitter-up nil)
+   ("l" hydra-move-splitter-right nil)
+   ("b" balance-windows nil)
+
+   ("u" winner-undo nil)
+   ("r" winner-redo nil)
+
+   ("x" (lambda ()
+          (interactive)
+          (split-window-below)
+          (windmove-down))
+    nil)
+   ("y" (lambda ()
+          (interactive)
+          (split-window-right)
+          (windmove-right))
+    nil)
+
+   ("a" ace-window nil)
+   ("s" (lambda () (interactive) (ace-window 4)) nil)
+   ("d" (lambda () (interactive) (ace-window 16)) nil)
+   ("m" ace-maximize-window nil)
+
+   ("q" nil "quit")))
 
 (setq shift-select-mode nil)
 
@@ -902,6 +1121,24 @@
 ;;      (list (line-beginning-position)
 ;;            (line-beginning-position 2)))))
 
+(defhydra hydra-transpose ()
+  "Transpose"
+  ("c" transpose-chars "characters")
+  ("w" transpose-words "words")
+  ("l" transpose-lines "lines")
+  ("s" transpose-sentences "sentences")
+  ("p" transpose-paragraphs "paragraphs")
+
+  ("x" sp-transpose-sexp "paragraphs")
+
+  ("o" org-transpose-words "Org mode words")
+  ("e" org-transpose-elements "Org mode elements")
+  ("t" org-table-transpose-table-at-point "Org mode table")
+
+  ("q" nil "cancel" :exit t))
+
+(global-set-key (kbd "C-c t") #'hydra-transpose/body)
+
 (use-package ag
   :ensure t
 
@@ -929,14 +1166,6 @@
     (setq helm-swoop-use-line-number-face t))
 
   :bind ("M-i" . helm-swoop))
-
-(use-package swiper
-  :ensure t
-  :bind ("C-s" . swiper)
-
-  :init
-  (progn
-    (setq ivy-display-style 'fancy)))
 
 (require 'printing)
 (pr-update-menus t)
@@ -1135,6 +1364,45 @@
                                               "/${singular}\\.rb$"
                                               'cnb/projectile-rails-find-decorator))))
 
+(define-key
+  projectile-mode-map
+  (kbd "<f5> p")
+  (defhydra cnb-hydra-projectile (:color teal)
+    "
+       Root: %(if (projectile-project-p) (projectile-project-root))
+                                                                                                      ╭────────────┐
+       Files                           Buffers                   Search               Projects        │ Projectile │
+  ╭───────────────────────────────────────────────────────────────────────────────────────────────────┴────────────╯
+
+       _f_: find                         _i_: ibuffer                _s_: search (ag)       _p_: Switch
+       _F_: find in other window         _b_: switch to  buffer      _o_: multi-occur       _x_: cleanup
+       _d_: find in directory            _k_: kill all buffers       _u_: query-replace     _I_: info
+       _r_: recent files                 ^    ^                      _T_: regenerate tags
+       _h_: project home                 ^    ^                      _t_: search tags
+  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+       "
+    ("f" projectile-find-file                        nil)
+    ("F" projectile-find-file-other-window           nil)
+    ("d" projectile-find-file-in-directory           nil)
+    ("r" projectile-recentf                          nil)
+    ("h" projectile-dired                            nil)
+
+    ("i" projectile-ibuffer                          nil)
+    ("b" projectile-switch-to-buffer                 nil)
+    ("k" projectile-kill-buffers                     nil :color blue)
+
+    ("s" projectile-ag                               nil)
+    ("o" projectile-multi-occur                      nil)
+    ("u" projectile-replace                          nil)
+    ("t" projectile-find-tag                         nil)
+    ("T" projectile-regenerate-tags                  nil :color red)
+
+    ("p" projectile-switch-project                   nil)
+    ("x" projectile-cleanup-known-projects           nil :color red)
+    ("I" projectile-project-info                     nil)
+
+    ("q"   nil                                       "quit" :color blue)))
+
 (use-package smartparens-config
   :ensure smartparens
   ;;:diminish smartparens
@@ -1171,6 +1439,100 @@
 
     (sp-with-modes '(html-mode sgml-mode web-mode)
       (sp-local-pair "<" ">"))))
+
+(define-key smartparens-mode-map (kbd "<f5> s")
+  (defhydra hydra-learn-sp (:hint nil)
+    "
+                                                                                    ╭─────────────┐
+                                                                                    │ Smartparens │
+╭───────────────────────────────────────────────────────────────────────────────────┴─────────────╯
+    _B_ backward-sexp            ─────
+    _F_ forward-sexp               _s_ splice-sexp
+    _L_ backward-down-sexp         _df_ splice-sexp-killing-forward
+    _H_ backward-up-sexp           _db_ splice-sexp-killing-backward
+  ^^──────                         _da_ splice-sexp-killing-around
+    _k_ down-sexp                ─────
+    _j_ up-sexp                    _C-s_ select-next-thing-exchange
+  ─^^─────                         _C-p_ select-previous-thing
+    _n_ next-sexp                  _C-n_ select-next-thing
+    _p_ previous-sexp            ─────
+    _a_ beginning-of-sexp          _C-f_ forward-symbol
+    _z_ end-of-sexp                _C-b_ backward-symbol
+  ──^^─                          ─────
+    _t_ transpose-sexp             _c_ convolute-sexp
+  ─^^──                            _g_ absorb-sexp
+    _x_ delete-char                _q_ emit-sexp
+    _dw_ kill-word               ─────
+    _dd_ kill-sexp                 _,b_ extract-before-sexp
+  ─^^──                            _,a_ extract-after-sexp
+    _S_ unwrap-sexp              ─────
+  ─^^──                            _AP_ add-to-previous-sexp
+    _C-h_ forward-slurp-sexp       _AN_ add-to-next-sexp
+    _C-l_ forward-barf-sexp      ─────
+    _C-S-h_ backward-slurp-sexp    _ join-sexp
+    _C-S-l_ backward-barf-sexp     _|_ split-sexp
+  "
+    ;; TODO: Use () and [] - + * | <space>
+    ("B" sp-backward-sexp );; similiar to VIM b
+    ("F" sp-forward-sexp );; similar to VIM f
+    ;;
+    ("L" sp-backward-down-sexp )
+    ("H" sp-backward-up-sexp )
+    ;;
+    ("k" sp-down-sexp ) ; root - towards the root
+    ("j" sp-up-sexp )
+    ;;
+    ("n" sp-next-sexp )
+    ("p" sp-previous-sexp )
+    ;; a..z
+    ("a" sp-beginning-of-sexp )
+    ("z" sp-end-of-sexp )
+    ;;
+    ("t" sp-transpose-sexp )
+    ;;
+    ("x" sp-delete-char )
+    ("dw" sp-kill-word )
+    ;;("ds" sp-kill-symbol ) ;; Prefer kill-sexp
+    ("dd" sp-kill-sexp )
+    ;;("yy" sp-copy-sexp ) ;; Don't like it. Pref visual selection
+    ;;
+    ("S" sp-unwrap-sexp ) ;; Strip!
+    ;;("wh" sp-backward-unwrap-sexp ) ;; Too similar to above
+    ;;
+    ("C-h" sp-forward-slurp-sexp )
+    ("C-l" sp-forward-barf-sexp )
+    ("C-S-h" sp-backward-slurp-sexp )
+    ("C-S-l" sp-backward-barf-sexp )
+    ;;
+    ;;("C-[" (bind (sp-wrap-with-pair "[")) ) ;;FIXME
+    ;;("C-(" (bind (sp-wrap-with-pair "(")) )
+    ;;
+    ("s" sp-splice-sexp )
+    ("df" sp-splice-sexp-killing-forward )
+    ("db" sp-splice-sexp-killing-backward )
+    ("da" sp-splice-sexp-killing-around )
+    ;;
+    ("C-s" sp-select-next-thing-exchange )
+    ("C-p" sp-select-previous-thing )
+    ("C-n" sp-select-next-thing )
+    ;;
+    ("C-f" sp-forward-symbol )
+    ("C-b" sp-backward-symbol )
+    ;;
+    ;;("C-t" sp-prefix-tag-object)
+    ;;("H-p" sp-prefix-pair-object)
+    ("c" sp-convolute-sexp )
+    ("g" sp-absorb-sexp )
+    ("q" sp-emit-sexp )
+    ;;
+    (",b" sp-extract-before-sexp )
+    (",a" sp-extract-after-sexp )
+    ;;
+    ("AP" sp-add-to-previous-sexp );; Difference to slurp?
+    ("AN" sp-add-to-next-sexp )
+    ;;
+    ("_" sp-join-sexp ) ;;Good
+    ("|" sp-split-sexp )))
 
 (use-package yasnippet
   :ensure yasnippet
@@ -1385,7 +1747,7 @@
     (setq nrepl-hide-special-buffers t)
     (setq cider-show-error-buffer nil)
     (setq cider-auto-select-error-buffer nil)
-    (setq cider-repl-pop-to-buffer-on-connect nil)
+    (setq cider-repl-pop-to-buffer-on-connect t)
     (setq cider-repl-history-file "~/.emacs.d/cider-repl-history")
     (setq cider-lein-command "~/bin/lein") ;FIXME: Should be found in path.
     (setq cider-repl-history-size 1000)))
@@ -1401,10 +1763,6 @@
 
 (use-package clojure-snippets
   :ensure clojure-snippets)
-
-(use-package feature-mode
-  :ensure feature-mode
-  :mode (("\.feature$" . feature-mode)))
 
 (eval-after-load 'js
   '(progn
@@ -1520,13 +1878,76 @@
 (use-package rails-log-mode
   :ensure t)
 
+(define-key
+  projectile-rails-mode-map
+  (kbd "<f5> r")
+  (defhydra cnb-hydra-projectile-rails (:color teal)
+    "
+    Root: %(if (projectile-project-p) (projectile-project-root))
+                                                                                     ╭──────────────┐
+                                                                                     │ Rails - Find │
+╭────────────────────────────────────────────────────────────────────────────────────┴──────────────╯
+
+         _a_: authorizer                 _m_: model                _c_: controller
+         _A_: current authorizer         _M_: current model        _C_: current controller
+         _d_: decorator                  _v_: view
+         _D_: current decorator          _V_: current view
+                                                                                     ╭──────────────┐
+                                                                                     │ Rails - Run  │
+╭────────────────────────────────────────────────────────────────────────────────────┴──────────────╯
+
+          _i_: irb console              _rr_: rake
+                                                                                     ╭──────────────┐
+                                                                                     │ Rails - Logs │
+╭────────────────────────────────────────────────────────────────────────────────────┴──────────────╯
+
+         _ld_: development               _lp_: production          _lt_: test
+
+  "
+    ("a" cnb/projectile-rails-find-authorizer         nil)
+    ("A" cnb/projectile-rails-find-current-authorizer nil)
+    ("c" projectile-rails-find-controller             nil)
+    ("C" projectile-rails-find-current-controller     nil)
+    ("d" cnb/projectile-rails-find-decorator          nil)
+    ("D" cnb/projectile-rails-find-current-decorator  nil)
+    ("m" projectile-rails-find-model                  nil)
+    ("M" projectile-rails-find-current-model          nil)
+    ("v" projectile-rails-find-view                   nil)
+    ("V" projectile-rails-find-current-view           nil)
+
+    ("ld" rails-log-show-development nil)
+    ("lp" rails-log-show-production  nil)
+    ("lt" rails-log-show-test        nil)
+
+    ("rs" projectile-rails-server         nil)
+    ("i" projectile-rails-console         nil)
+    ("rr" projectile-rails-find-rake-task nil :color red)
+
+    ("q" nil "quit" :color blue)))
+
 (use-package foreman-mode
   :defer t
   :ensure t)
 
-(use-package rspec-mode
-  :defer t
-  :ensure rspec-mode)
+(defhydra cnb-hydra-foreman (:color blue)
+  "
+        Root: %(if (projectile-project-p) (projectile-project-root))
+                                                                                ╭─────────┐
+                                                                                │ Foreman │
+      ╭─────────────────────────────────────────────────────────────────────────┴─────────╯
+        _v_: view             _b_: foreman-view-buffer
+        _s_: foreman-start    _r_: foreman-restart        _k_: foreman-stop
+
+      "
+  ("v" foreman             nil)
+  ("b" foreman-view-buffer nil)
+  ("s" foreman-start       nil)
+  ("r" foreman-restart     nil)
+  ("k" foreman-stop        nil)
+
+  ("q" nil "quit"))
+
+(define-key projectile-rails-mode-map (kbd "<f5> f") 'cnb-hydra-foreman/body)
 
 (use-package haskell-mode
   :ensure t
@@ -1572,6 +1993,14 @@
 (dolist (mode lisp-modes)
   (add-hook (intern (format "%s-hook" mode)) #'cnb/imenu-lisp-sections))
 
+(use-package feature-mode
+  :ensure feature-mode
+  :mode (("\.feature$" . feature-mode)))
+
+(use-package rspec-mode
+  :defer t
+  :ensure rspec-mode)
+
 (use-package yaml-mode
   :mode (("\\.yml$" . yaml-mode) ("\\.ya?ml$" . yaml-mode))
   :ensure t
@@ -1595,6 +2024,13 @@
 
 (use-package gh-md
   :ensure t)
+
+(require 'markdown-mode)
+
+(define-key markdown-mode-map (kbd "<f5> m")
+  (defhydra cnb-md-hydra (:color blue)
+    "markdown"
+    ("b" gh-md-render-buffer "render buffer via github")))
 
 (use-package haml-mode
   :ensure haml-mode
@@ -1685,9 +2121,6 @@
     (add-hook 'LaTeX-mode-hook #'flyspell-mode)
     (add-hook 'LaTeX-mode-hook #'turn-on-reftex)))
     ;;(add-hook 'LaTeX-mode-hook #'nlinum-mode t)))
-
-(use-package org
-  :pin "gnu")
 
 (use-package org
   :ensure t
@@ -1915,91 +2348,6 @@
 (defalias 'qrr 'query-replace-regexp)
 (defalias 'dtw 'delete-trailing-whitespace)
 
-(use-package hydra
-  :ensure t
-
-  :config
-  (progn
-    (require 'hydra-examples)
-    (hydra-add-font-lock)))
-
-(global-set-key
- (kbd "C-c h")
-
- (defhydra hydra-apropos(:color blue :hint nil)
-   "
-Apropos
-----------------------------
-_a_propos        desc_b_indings
-_c_ommand        _d_ocumentation
-helm-_i_nfo      _l_ibrary
-_v_ariable       _u_ser-option
-_m_an            valu_e_
-_h_elm-apropos
-
-Help
-----------------------------
-major mode _b_indings
-_q_uit"
-   ("a" apropos)
-   ("d" apropos-documentation)
-   ("v" apropos-variable)
-   ("c" apropos-command)
-   ("h" helm-apropos)
-   ("i" helm-info-at-point)
-   ("l" apropos-library)
-   ("m" helm-man-woman)
-   ("u" apropos-user-option)
-   ("e" apropos-value)
-   ("b" helm-descbinds)
-   ("q" nil)))
-
-(global-set-key
-   (kbd "<f5> b")
-   (defhydra cnb-bookmarks (:color teal)
-     "
-                                                                                    ╭────────────┐
-     Bookmarks                  Visual Bookmarks                                    │ Bookmarks  │
-╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
-
-    _l_: list                    _s_: Show in current Buffer
-    _b_: goto                    _S_: Show in all buffers
-    _d_: delete                  _n_: Next
-    ^ ^                          _p_: Previous
-    ^ ^                          _t_: Toggle
-    ^ ^                          _x_: Set for a Regexp
-    ^ ^                          _A_: Cycle in all buffers: %`bm-cycle-all-buffers
-    ^ ^                          _T_: Temporary bookmarks:  %`temporary-bookmark-p
-    ^ ^                          _r_: Remove all from current buffer
-    ^ ^                          _R_: Remove all from ALL buffers
-"
-     ("l" bookmark-bmenu-list nil)
-     ("b" bookmark-jump       nil)
-     ("d" bookmark-delete     nil)
-
-     ("s" bm-show             nil)
-     ("S" bm-show-all         nil)
-     ("n" bm-next             nil :color red)
-     ("p" bm-previous         nil :color red)
-     ("t" bm-toggle           nil :color red)
-     ("A" (lambda ()
-            (interactive)
-            (if bm-cycle-all-buffers
-                (setq bm-cycle-all-buffers nil)
-              (setq bm-cycle-all-buffers t)))
-      nil :color red)
-     ("x" bm-bookmark-regexp  nil :color red)
-     ("T" (lambda ()
-            (interactive)
-            (if temporary-bookmark-p
-                (setq temporary-bookmark-p nil)
-              (setq temporary-bookmark-p t)))
-      nil :color red)
-     ("r" bm-remove-all-current-buffer nil :color red)
-     ("R" bm-remove-all-all-buffers    nil :color red)
-
-     ("q" nil                 "quit")))
-
 (defhydra hydra-rectangle (:body-pre (rectangle-mark-mode 1)
                                      :color pink
                                      :post (deactivate-mark))
@@ -2052,14 +2400,6 @@ _q_uit"
     ("q" nil                       "cancel")))
 
 (global-set-key
- (kbd "<f5> c")
- (defhydra cnb-hydra-occur-functions ()
-   "error/occur functions"
-   ("g" first-error "first")
-   ("j" next-error "next")
-   ("k" previous-error "prev")))
-
-(global-set-key
  (kbd "<f5> t")
  (defhydra cnb-hydra-toggle (:color pink)
    "
@@ -2094,47 +2434,6 @@ _q_uit"
             (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
     nil)
    ("q" nil "cancel")))
-
-(global-set-key
-   (kbd "<f5> w")
-   (defhydra cnb-hydra-win-functions (:color amaranth)
-     "
-                                                                                    ╭────────────┐
-   Move Splitter    Split Window   Ace                                              │  Windows   │
-╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
-
-   _h_: Left          _x_: Horiz       _s_: Swap
-   _l_: Right         _y_: Vert        _d_: Delete
-   _j_: Down          _b_: Balance     _m_: Maximize
-   _k_: Up
-──────────────────────────────────────────────────────────────────────────────────────────────────
-  "
-     ("h" hydra-move-splitter-left nil)
-     ("j" hydra-move-splitter-down nil)
-     ("k" hydra-move-splitter-up nil)
-     ("l" hydra-move-splitter-right nil)
-     ("b" balance-windows nil)
-
-     ("u" winner-undo nil)
-     ("r" winner-redo nil)
-
-     ("x" (lambda ()
-            (interactive)
-            (split-window-below)
-            (windmove-down))
-      nil)
-     ("y" (lambda ()
-            (interactive)
-            (split-window-right)
-            (windmove-right))
-      nil)
-
-     ("a" ace-window nil)
-     ("s" (lambda () (interactive) (ace-window 4)) nil)
-     ("d" (lambda () (interactive) (ace-window 16)) nil)
-     ("m" ace-maximize-window nil)
-
-     ("q" nil "quit")))
 
 (defhydra hydra-outline (:hint nil)
   "
@@ -2172,19 +2471,6 @@ _d_: subtree       ^^               _g_: org goto
 
 (global-set-key (kbd "<f5> o") 'hydra-outline/body)
 
-(defhydra hydra-goto (:exit t)
-  "goto"
-  ("c" avy-goto-char "char")
-  ("C" avy-goto-char-2 "char-2")
-  ("w" avy-goto-word-1 "word")
-  ("e" avy-goto-word-0 "word0")
-  ("s" avy-goto-subword-1 "subword")
-  ("l" goto-line "line")
-  ("L" avy-goto-line "avy-line")
-  ("i" helm-swoop "helm-swoop"))
-
-(global-set-key (kbd "<f5> g") #'hydra-goto/body)
-
 (defhydra hydra-zoom ()
   "zoom"
   ("+" text-scale-increase "+")
@@ -2194,264 +2480,6 @@ _d_: subtree       ^^               _g_: org goto
   ("q" nil "quit" :exit t))
 
 (global-set-key (kbd "<f5> z") #'hydra-zoom/body)
-
-(defhydra cnb-hydra-foreman (:color blue)
-  "
-      Root: %(if (projectile-project-p) (projectile-project-root))
-                                                                              ╭─────────┐
-                                                                              │ Foreman │
-    ╭─────────────────────────────────────────────────────────────────────────┴─────────╯
-      _v_: view             _b_: foreman-view-buffer
-      _s_: foreman-start    _r_: foreman-restart        _k_: foreman-stop
-
-    "
-  ("v" foreman             nil)
-  ("b" foreman-view-buffer nil)
-  ("s" foreman-start       nil)
-  ("r" foreman-restart     nil)
-  ("k" foreman-stop        nil)
-
-  ("q" nil "quit"))
-
-(define-key projectile-rails-mode-map (kbd "<f5> f") 'cnb-hydra-foreman/body)
-
-(require 'markdown-mode)
-
-(define-key markdown-mode-map (kbd "<f5> m")
-  (defhydra cnb-md-hydra (:color blue)
-    "markdown"
-    ("b" gh-md-render-buffer "render buffer via github")))
-
-(defhydra hydra-dired-sort (:exit t :foreign-keys warn)
-  "
-                                                                                  ╭────────────┐
-                                                                                  │ Dired Sort │
-              ╭───────────────────────────────────────────────────────────────────┴────────────╯
-                _n_: name                           _N_: name rev
-                _e_: ext                            _E_: ext rev
-                _s_: size                           _S_: size rev
-                _t_: last modified                  _T_: last modified rev
-              ───────────────────────────────────────────────────────────────────────────────────
-               "
-  ("s" (lambda ()
-         (interactive)
-         (dired-sort-other (concat dired-listing-switches " -S")))
-   nil)
-  ("S" (lambda ()
-         (interactive)
-         (dired-sort-other (concat dired-listing-switches " -rS")))
-   nil)
-
-  ("e" (lambda ()
-         (interactive)
-         (dired-sort-other (concat dired-listing-switches " -X")))
-   nil)
-  ("E" (lambda ()
-         (interactive)
-         (dired-sort-other (concat dired-listing-switches " -rX")))
-   nil)
-
-  ("t" (lambda ()
-         (interactive)
-         (dired-sort-other (concat dired-listing-switches " -t")))
-   nil)
-  ("T" (lambda ()
-         (interactive)
-         (dired-sort-other (concat dired-listing-switches " -rt")))
-   nil)
-
-  ("n" (lambda ()
-         (interactive)
-         (dired-sort-other dired-listing-switches))
-   nil)
-  ("N" (lambda ()
-         (interactive)
-         (dired-sort-other (concat dired-listing-switches " -r")))
-   nil)
-
-  ("q" nil                       "cancel"))
-
-(define-key dired-mode-map (kbd "s") 'hydra-dired-sort/body)
-
-(define-key
-    projectile-mode-map
-    (kbd "<f5> p")
-    (defhydra cnb-hydra-projectile (:color teal)
-      "
-     Root: %(if (projectile-project-p) (projectile-project-root))
-                                                                                                    ╭────────────┐
-     Files                           Buffers                   Search               Projects        │ Projectile │
-╭───────────────────────────────────────────────────────────────────────────────────────────────────┴────────────╯
-
-     _f_: find                         _i_: ibuffer                _s_: search (ag)       _p_: Switch
-     _F_: find in other window         _b_: switch to  buffer      _o_: multi-occur       _x_: cleanup
-     _d_: find in directory            _k_: kill all buffers       _u_: query-replace     _I_: info
-     _r_: recent files                 ^    ^                      _T_: regenerate tags
-     _h_: project home                 ^    ^                      _t_: search tags
-──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-     "
-      ("f" projectile-find-file                        nil)
-      ("F" projectile-find-file-other-window           nil)
-      ("d" projectile-find-file-in-directory           nil)
-      ("r" projectile-recentf                          nil)
-      ("h" projectile-dired                            nil)
-
-      ("i" projectile-ibuffer                          nil)
-      ("b" projectile-switch-to-buffer                 nil)
-      ("k" projectile-kill-buffers                     nil :color blue)
-
-      ("s" projectile-ag                               nil)
-      ("o" projectile-multi-occur                      nil)
-      ("u" projectile-replace                          nil)
-      ("t" projectile-find-tag                         nil)
-      ("T" projectile-regenerate-tags                  nil :color red)
-
-      ("p" projectile-switch-project                   nil)
-      ("x" projectile-cleanup-known-projects           nil :color red)
-      ("I" projectile-project-info                     nil)
-
-      ("q"   nil                                       "quit" :color blue)))
-
-(define-key
-  projectile-rails-mode-map
-  (kbd "<f5> r")
-  (defhydra cnb-hydra-projectile-rails (:color teal)
-    "
-    Root: %(if (projectile-project-p) (projectile-project-root))
-                                                                                     ╭──────────────┐
-                                                                                     │ Rails - Find │
-╭────────────────────────────────────────────────────────────────────────────────────┴──────────────╯
-
-         _a_: authorizer                 _m_: model                _c_: controller
-         _A_: current authorizer         _M_: current model        _C_: current controller
-         _d_: decorator                  _v_: view
-         _D_: current decorator          _V_: current view
-                                                                                     ╭──────────────┐
-                                                                                     │ Rails - Run  │
-╭────────────────────────────────────────────────────────────────────────────────────┴──────────────╯
-
-          _i_: irb console              _rr_: rake
-                                                                                     ╭──────────────┐
-                                                                                     │ Rails - Logs │
-╭────────────────────────────────────────────────────────────────────────────────────┴──────────────╯
-
-         _ld_: development               _lp_: production          _lt_: test
-
-  "
-    ("a" cnb/projectile-rails-find-authorizer         nil)
-    ("A" cnb/projectile-rails-find-current-authorizer nil)
-    ("c" projectile-rails-find-controller             nil)
-    ("C" projectile-rails-find-current-controller     nil)
-    ("d" cnb/projectile-rails-find-decorator          nil)
-    ("D" cnb/projectile-rails-find-current-decorator  nil)
-    ("m" projectile-rails-find-model                  nil)
-    ("M" projectile-rails-find-current-model          nil)
-    ("v" projectile-rails-find-view                   nil)
-    ("V" projectile-rails-find-current-view           nil)
-
-    ("ld" rails-log-show-development nil)
-    ("lp" rails-log-show-production  nil)
-    ("lt" rails-log-show-test        nil)
-
-    ("rs" projectile-rails-server         nil)
-    ("i" projectile-rails-console         nil)
-    ("rr" projectile-rails-find-rake-task nil :color red)
-
-    ("q" nil "quit" :color blue)))
-
-(define-key smartparens-mode-map (kbd "<f5> s")
-    (defhydra hydra-learn-sp (:hint nil)
-      "
-                                                                                    ╭─────────────┐
-                                                                                    │ Smartparens │
-╭───────────────────────────────────────────────────────────────────────────────────┴─────────────╯
-    _B_ backward-sexp            ─────
-    _F_ forward-sexp               _s_ splice-sexp
-    _L_ backward-down-sexp         _df_ splice-sexp-killing-forward
-    _H_ backward-up-sexp           _db_ splice-sexp-killing-backward
-  ^^──────                         _da_ splice-sexp-killing-around
-    _k_ down-sexp                ─────
-    _j_ up-sexp                    _C-s_ select-next-thing-exchange
-  ─^^─────                         _C-p_ select-previous-thing
-    _n_ next-sexp                  _C-n_ select-next-thing
-    _p_ previous-sexp            ─────
-    _a_ beginning-of-sexp          _C-f_ forward-symbol
-    _z_ end-of-sexp                _C-b_ backward-symbol
-  ──^^─                          ─────
-    _t_ transpose-sexp             _c_ convolute-sexp
-  ─^^──                            _g_ absorb-sexp
-    _x_ delete-char                _q_ emit-sexp
-    _dw_ kill-word               ─────
-    _dd_ kill-sexp                 _,b_ extract-before-sexp
-  ─^^──                            _,a_ extract-after-sexp
-    _S_ unwrap-sexp              ─────
-  ─^^──                            _AP_ add-to-previous-sexp
-    _C-h_ forward-slurp-sexp       _AN_ add-to-next-sexp
-    _C-l_ forward-barf-sexp      ─────
-    _C-S-h_ backward-slurp-sexp    _ join-sexp
-    _C-S-l_ backward-barf-sexp     _|_ split-sexp
-  "
-      ;; TODO: Use () and [] - + * | <space>
-      ("B" sp-backward-sexp );; similiar to VIM b
-      ("F" sp-forward-sexp );; similar to VIM f
-      ;;
-      ("L" sp-backward-down-sexp )
-      ("H" sp-backward-up-sexp )
-      ;;
-      ("k" sp-down-sexp ) ; root - towards the root
-      ("j" sp-up-sexp )
-      ;;
-      ("n" sp-next-sexp )
-      ("p" sp-previous-sexp )
-      ;; a..z
-      ("a" sp-beginning-of-sexp )
-      ("z" sp-end-of-sexp )
-      ;;
-      ("t" sp-transpose-sexp )
-      ;;
-      ("x" sp-delete-char )
-      ("dw" sp-kill-word )
-      ;;("ds" sp-kill-symbol ) ;; Prefer kill-sexp
-      ("dd" sp-kill-sexp )
-      ;;("yy" sp-copy-sexp ) ;; Don't like it. Pref visual selection
-      ;;
-      ("S" sp-unwrap-sexp ) ;; Strip!
-      ;;("wh" sp-backward-unwrap-sexp ) ;; Too similar to above
-      ;;
-      ("C-h" sp-forward-slurp-sexp )
-      ("C-l" sp-forward-barf-sexp )
-      ("C-S-h" sp-backward-slurp-sexp )
-      ("C-S-l" sp-backward-barf-sexp )
-      ;;
-      ;;("C-[" (bind (sp-wrap-with-pair "[")) ) ;;FIXME
-      ;;("C-(" (bind (sp-wrap-with-pair "(")) )
-      ;;
-      ("s" sp-splice-sexp )
-      ("df" sp-splice-sexp-killing-forward )
-      ("db" sp-splice-sexp-killing-backward )
-      ("da" sp-splice-sexp-killing-around )
-      ;;
-      ("C-s" sp-select-next-thing-exchange )
-      ("C-p" sp-select-previous-thing )
-      ("C-n" sp-select-next-thing )
-      ;;
-      ("C-f" sp-forward-symbol )
-      ("C-b" sp-backward-symbol )
-      ;;
-      ;;("C-t" sp-prefix-tag-object)
-      ;;("H-p" sp-prefix-pair-object)
-      ("c" sp-convolute-sexp )
-      ("g" sp-absorb-sexp )
-      ("q" sp-emit-sexp )
-      ;;
-      (",b" sp-extract-before-sexp )
-      (",a" sp-extract-after-sexp )
-      ;;
-      ("AP" sp-add-to-previous-sexp );; Difference to slurp?
-      ("AN" sp-add-to-next-sexp )
-      ;;
-      ("_" sp-join-sexp ) ;;Good
-      ("|" sp-split-sexp )))
 
 (use-package ws-butler
   :ensure t
@@ -2548,7 +2576,6 @@ narrowed."
 
 ;;(setq redisplay-dont-pause t) obsolete in 24.5
 
-(setq apropos-do-all t)
 (auto-image-file-mode)
 
 (set-default 'imenu-auto-rescan t)
