@@ -229,6 +229,11 @@
 
 (setq apropos-do-all t)
 
+(use-package discover-my-major
+  :ensure discover-my-major
+  :bind (("C-h C-m" . discover-my-major))
+)
+
 (defhydra hydra-apropos(:color blue :hint nil)
   "
   Apropos
@@ -1082,7 +1087,7 @@
     (setq browse-kill-ring-quit-action 'save-and-restore)))
 
 (use-package undo-tree
-  :ensure undo-tree
+  :ensure t
   :diminish undo-tree-mode
 
   :config
@@ -1098,9 +1103,7 @@
             (set-mark m)
             (set-marker p nil)
             (set-marker m nil))
-        ad-do-it))
-    )
-  )
+        ad-do-it))))
 
 (use-package easy-kill
   :ensure t
@@ -1212,11 +1215,6 @@
     (setq company-idle-delay 0.5))
 
   :bind ("C-c i" . company-complete))
-
-(use-package discover-my-major
-  :ensure discover-my-major
-  :bind (("C-h C-m" . discover-my-major))
-)
 
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
@@ -2547,11 +2545,11 @@ _d_: subtree       ^^               _g_: org goto
 ;; From http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
 (defun cnb/narrow-or-widen-dwim (p)
   "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
-Intelligently means: region, subtree, or defun, whichever applies
-first.
+  Intelligently means: region, subtree, or defun, whichever applies
+  first.
 
-With prefix P, don't widen, just narrow even if buffer is already
-narrowed."
+  With prefix P, don't widen, just narrow even if buffer is already
+  narrowed."
   (interactive "P")
   (declare (interactive-only))
   (cond ((and (buffer-narrowed-p) (not p)) (widen))

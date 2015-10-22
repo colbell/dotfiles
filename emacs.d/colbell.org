@@ -499,9 +499,23 @@ Don't let the cursor go into the minibuffer prompt
 #+end_src
 
 * Help
+
 #+begin_src emacs-lisp
 (setq apropos-do-all t)
+#+end_src
 
+Discover key bindings and their meaning for the current Emacs major mode.
+
+#+begin_src emacs-lisp
+  (use-package discover-my-major
+    :ensure discover-my-major
+    :bind (("C-h C-m" . discover-my-major))
+  )
+#+end_src
+
+Hydra for Help
+
+#+begin_src emacs-lisp
 (defhydra hydra-apropos(:color blue :hint nil)
   "
   Apropos
@@ -1137,7 +1151,6 @@ Drag mode. Allows dragging by alt left up etc.
   (progn
     (setq drag-stuff-except-modes '(org-mode))
     (drag-stuff-global-mode)))
-
 #+end_src
 
 ** Avy
@@ -1318,10 +1331,10 @@ IBuffer is an advanced replacement for BufferMenu.
 Close buffers that haven't been used in =clean-buffer-list-delay-general= days.
 
 #+begin_src emacs-lisp
-  (use-package midnight
-    :init
-    (progn
-      (setq clean-buffer-list-delay-general 2)))
+(use-package midnight
+  :init
+  (progn
+    (setq clean-buffer-list-delay-general 2)))
 #+end_src
 
 ** Saving
@@ -1337,20 +1350,20 @@ Flag script files as executable on save.
 Automatically save buffers when losing focus.
 
 #+begin_src emacs-lisp
-  (defun cnb/save-buffers ()
-    "When you shift focus to a non-Emacs window save all buffers."
-    (interactive)
-    (save-some-buffers t))
+(defun cnb/save-buffers ()
+  "When you shift focus to a non-Emacs window save all buffers."
+  (interactive)
+  (save-some-buffers t))
 
-  (add-hook 'focus-out-hook #'cnb/save-buffers)
+(add-hook 'focus-out-hook #'cnb/save-buffers)
 #+end_src
 
 ** ANSI Colors
 #+BEGIN_SRC emacs-lisp
-  (defun cnb/ansi-color-apply-buffer ()
-    "interactive function that renders buffer using ANSI colors"
-    (interactive)
-    (ansi-color-apply-on-region (point-min) (point-max)))
+(defun cnb/ansi-color-apply-buffer ()
+  "interactive function that renders buffer using ANSI colors"
+  (interactive)
+  (ansi-color-apply-on-region (point-min) (point-max)))
 #+END_SRC
 * Windows
 ** Winner Mode
@@ -1406,13 +1419,13 @@ C-c left/right to undo/redo window configuration changes.
    Function to Close side window at the bottom.
 
 #+BEGIN_SRC emacs-lisp
-  (defun cnb/quit-bottom-side-windows ()
-    "Quit side windows at bottom of frame and bury its buffer"
-    (interactive)
-    (dolist (win (window-at-side-list))
-      (quit-window nil win)))
+(defun cnb/quit-bottom-side-windows ()
+  "Quit side windows at bottom of frame and bury its buffer"
+  (interactive)
+  (dolist (win (window-at-side-list))
+    (quit-window nil win)))
 
-  (global-set-key (kbd "C-c q") #'cnb/quit-bottom-side-windows)
+(global-set-key (kbd "C-c q") #'cnb/quit-bottom-side-windows)
 #+END_SRC
 
    Position some windows in side window at bottom of frame.
@@ -1555,25 +1568,25 @@ Smart selection.
 ** Browse kill ring
 
 #+begin_src emacs-lisp
-  (use-package browse-kill-ring
-    :ensure browse-kill-ring
-    :defer t
+(use-package browse-kill-ring
+  :ensure browse-kill-ring
+  :defer t
 
-    :config
-    (progn
-      ;;(browse-kill-ring-default-keybindings)
-      (setq browse-kill-ring-highlight-current-entry t)
-      (setq browse-kill-ring-no-duplicates t)
-      (setq browse-kill-ring-display-duplicates nil)
-      (setq browse-kill-ring-highlight-inserted-item nil)
-      (setq browse-kill-ring-show-preview nil)
-      (setq browse-kill-ring-quit-action 'save-and-restore)))
+  :config
+  (progn
+    ;;(browse-kill-ring-default-keybindings)
+    (setq browse-kill-ring-highlight-current-entry t)
+    (setq browse-kill-ring-no-duplicates t)
+    (setq browse-kill-ring-display-duplicates nil)
+    (setq browse-kill-ring-highlight-inserted-item nil)
+    (setq browse-kill-ring-show-preview nil)
+    (setq browse-kill-ring-quit-action 'save-and-restore)))
 #+end_src
 
 ** Undo Tree
 #+begin_src emacs-lisp
   (use-package undo-tree
-    :ensure undo-tree
+    :ensure t
     :diminish undo-tree-mode
 
     :config
@@ -1589,18 +1602,16 @@ Smart selection.
               (set-mark m)
               (set-marker p nil)
               (set-marker m nil))
-          ad-do-it))
-      )
-    )
+          ad-do-it))))
 
 #+end_src
 
 ** Operate on Current Line
 
 #+begin_src emacs-lisp
-  (use-package easy-kill
-    :ensure t
-    :bind (([remap kill-ring-save] . easy-kill)))
+(use-package easy-kill
+  :ensure t
+  :bind (([remap kill-ring-save] . easy-kill)))
 #+end_src
 
 If no current selection then let C-W and M-W operate on the current
@@ -1653,12 +1664,12 @@ apt-get install silversearcher-ag
 #+end_src
 
 #+begin_src emacs-lisp
-  (use-package ag
-    :ensure t
+(use-package ag
+  :ensure t
 
-    :config
-    (progn
-      (setq ag-highlight-search t)))
+  :config
+  (progn
+    (setq ag-highlight-search t)))
 #+end_src
 ** Anzu
 
@@ -1751,18 +1762,6 @@ This is a quick way to find lines.
 
   :bind ("C-c i" . company-complete))
 #+end_src
-* Discover My Major
-
-Discover key bindings and their meaning for the current Emacs major mode.
-
-#+HEADER: :results silent
-#+begin_src emacs-lisp
-  (use-package discover-my-major
-    :ensure discover-my-major
-    :bind (("C-h C-m" . discover-my-major))
-  )
-#+end_src
-
 * Programming Utilities
 ** Ediff
 
@@ -2493,36 +2492,36 @@ Clojure documentation.
 * Ruby
 ** Ruby Mode
 #+begin_src emacs-lisp
-  (use-package ruby-mode
-    :ensure ruby-mode
-    :mode (("Capfile$"     . ruby-mode)
-           ("Gemfile$"     . ruby-mode)
-           ("Rakefile$"    . ruby-mode)
-           ("Vagrantfile$" . ruby-mode)
-           ("\\.gemspec$"  . ruby-mode)
-           ("\\.prawn$"    . ruby-mode)
-           ("\\.rake$"     . ruby-mode)
-           ("\\.rjs$"      . ruby-mode)
-           ("\\.ru$"       . ruby-mode)
-           ("\\.rb$"       . ruby-mode))
+(use-package ruby-mode
+  :ensure ruby-mode
+  :mode (("Capfile$"     . ruby-mode)
+         ("Gemfile$"     . ruby-mode)
+         ("Rakefile$"    . ruby-mode)
+         ("Vagrantfile$" . ruby-mode)
+         ("\\.gemspec$"  . ruby-mode)
+         ("\\.prawn$"    . ruby-mode)
+         ("\\.rake$"     . ruby-mode)
+         ("\\.rjs$"      . ruby-mode)
+         ("\\.ru$"       . ruby-mode)
+         ("\\.rb$"       . ruby-mode))
 
-    :init
-    (progn
-      (defun cnb/ruby-setup ()
-        (robe-mode)
-        (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
-        (setq imenu-generic-expression '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1)))
-        (yard-mode)
-        (ruby-block-mode t)
-        (ignore-errors (ruby-refactor-mode-launch))))
+  :init
+  (progn
+    (defun cnb/ruby-setup ()
+      (robe-mode)
+      (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
+      (setq imenu-generic-expression '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1)))
+      (yard-mode)
+      (ruby-block-mode t)
+      (ignore-errors (ruby-refactor-mode-launch))))
 
-    :config
-    (progn
-      ;; I use C-x t for toggling globally
-      ;; (define-key ruby-mode-map "\C-xt" nil)
+  :config
+  (progn
+    ;; I use C-x t for toggling globally
+    ;; (define-key ruby-mode-map "\C-xt" nil)
 
-      (add-hook 'ruby-mode-hook #'cnb/ruby-setup)
-      (define-key ruby-mode-map (kbd "RET") #'newline-and-indent)))
+    (add-hook 'ruby-mode-hook #'cnb/ruby-setup)
+    (define-key ruby-mode-map (kbd "RET") #'newline-and-indent)))
 #+end_src
 
 ** Ruby Refactoring
@@ -2547,11 +2546,11 @@ Clojure documentation.
 
 ** Ruby Hash Syntax
 #+BEGIN_SRC emacs-lisp
-    (use-package ruby-hash-syntax
-      :ensure t
-      :config
-      (progn
-        (bind-key "C-c }" 'ruby-toggle-hash-syntax ruby-mode-map)))
+(use-package ruby-hash-syntax
+  :ensure t
+  :config
+  (progn
+    (bind-key "C-c }" 'ruby-toggle-hash-syntax ruby-mode-map)))
 #+END_SRC
 ** helm-rb
 #+BEGIN_SRC emacs-lisp
@@ -2667,8 +2666,6 @@ Font lock for Ruby Yard comments.
 
       ("q" nil "quit" :color blue)))
 #+end_src
-
-
 * Foreman
 #+begin_src emacs-lisp
   (use-package foreman-mode
@@ -3471,23 +3468,22 @@ error when exporting from org to HTML, PDF etc.
   (org-reload)
 #+end_src
 * Put somewhere
-
 #+begin_src emacs-lisp
-  ;; From http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
-  (defun cnb/narrow-or-widen-dwim (p)
-    "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
+;; From http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
+(defun cnb/narrow-or-widen-dwim (p)
+  "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
   Intelligently means: region, subtree, or defun, whichever applies
   first.
 
   With prefix P, don't widen, just narrow even if buffer is already
   narrowed."
-    (interactive "P")
-    (declare (interactive-only))
-    (cond ((and (buffer-narrowed-p) (not p)) (widen))
-          ((region-active-p)
-           (narrow-to-region (region-beginning) (region-end)))
-          ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
-          (t (narrow-to-defun))))
+  (interactive "P")
+  (declare (interactive-only))
+  (cond ((and (buffer-narrowed-p) (not p)) (widen))
+        ((region-active-p)
+         (narrow-to-region (region-beginning) (region-end)))
+        ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
+        (t (narrow-to-defun))))
 #+end_src
 
 #+begin_src emacs-lisp

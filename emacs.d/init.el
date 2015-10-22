@@ -7,16 +7,7 @@
 
 ;;; Code:
 
-;; Use org-babel-load-file to compile colbell.org into colbell.el and
-;; then load colbell.el. Only do this if colbell.el doesn't exist or
-;; if colbell.org is newer than colbell.el.
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
 ;;(package-initialize)
-
 
 ;; Remove Unnecessary Clutter early to avoid momentary display. I also turn off
 ;; the menu-bar in .Xresources in order to stop the momentary flicker.
@@ -37,7 +28,9 @@
   (setq package-enable-at-startup nil)
   (require 'package)
 
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") 'APPEND)
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.org/packages/")
+               'APPEND)
   (package-initialize)
 
   ;; I use 'use-package' to tidy up my Emacs configuration.
@@ -58,8 +51,9 @@
   (use-package bind-key :ensure t)
   (require 'bind-key)
 
-  ;; Generate and load or just load the configuration file.
-
+  ;; Use org-babel-load-file to compile colbell.org into colbell.el and
+  ;; then load colbell.el. Only do this if colbell.el doesn't exist or
+  ;; if colbell.org is newer than colbell.el.
   (let ((my-el-f (expand-file-name "colbell.el" user-emacs-directory))
         (my-org-f (expand-file-name "colbell.org" user-emacs-directory)))
     (if (or (not (file-exists-p my-el-f))
