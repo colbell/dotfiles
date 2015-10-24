@@ -1,3 +1,4 @@
 aws-uat,green,black
+aws-play,yellow,black
 aws-sandbox,white,black
 aws-prod,red,black
