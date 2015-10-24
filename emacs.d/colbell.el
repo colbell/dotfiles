@@ -790,18 +790,22 @@
 (defhydra hydra-goto (:exit t :foreign-keys warn)
   "
                                                                                       ╭────────────┐
-     Goto                         Errors                                              │   Goto     │
+     Goto                       Org                                                   │   Goto     │
   ╭───────────────────────────────────────────────────────────────────────────────────┴────────────╯
 
-     _c_: Char                      _f_: First
-     _C_: Char-2                    _j_: Next
-     _g_: Char at word start        _k_: Previous
+     _c_: Char                    _h_: Headline
+     _C_: Char-2                  _o_: Org Buffers
+     _g_: Char at word start      _O_: Search in Org Buffers
      _G_: Word start
-     _u_: Subword
-     _l_: Line
-     _L_: avy-line
-     _w_: Window
-     _i_: helm-swoop                _._: Repeat
+     _u_: Subword                 Errors
+     _l_: Line                    ──────
+     _L_: avy-line                _f_: First
+     _w_: Window                  _j_: Next
+     _r_: Recent Files            _k_: Previous
+     _i_: helm-swoop
+
+     _._: Mark current position
+     _/_: Jump to mark
   ──────────────────────────────────────────────────────────────────────────────────────────────────
 "
   ("c" avy-goto-char      nil)
@@ -812,14 +816,21 @@
   ("l" goto-line          nil)
   ("L" avy-goto-line      nil)
 
-  ("w" ace-window         nil)
-  ("i" helm-swoop         nil)
+  ("w" ace-window   nil)
+  ("r" helm-recentf nil)
+  ("i" helm-swoop   nil)
 
-  ("f" first-error        nil :exit nil)
-  ("j" next-error         nil  :exit nil)
-  ("k" previous-error     nil  :exit nil)
+  ("h" helm-org-in-buffer-headings   nil)
+  ("o" org-switchb                   nil)
+  ("O" helm-multi-swoop-org          nil)
+  ("a" helm-org-agenda-files-headings nil)
 
-  ("." hydra-repeat       nil  :exit nil)
+  ("f" first-error    nil :exit nil)
+  ("j" next-error     nil :exit nil)
+  ("k" previous-error nil :exit nil)
+
+  ("." org-mark-ring-push nil :exit nil)
+  ("/" org-mark-ring-goto nil)
 
   ("q" nil "quit"))
 
