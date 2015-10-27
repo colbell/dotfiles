@@ -124,8 +124,6 @@
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 
-(mouse-avoidance-mode 'exile)
-
 (setq blink-cursor-blinks 0)
 (setq-default cursor-type 'bar)
 (blink-cursor-mode)
@@ -352,7 +350,7 @@
     (setq helm-buffer-details-flag nil)
     (setq helm-ff-transformer-show-only-basename t)
 
-    (global-set-key (kbd "C-x c o") 'helm-occur)
+    ;;(global-set-key (kbd "C-x c o") 'helm-occur)
 
     (when (executable-find "curl")
       (setq helm-google-suggest-use-curl-p t))
@@ -746,6 +744,15 @@
 
 (define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
 
+(mouse-avoidance-mode 'exile)
+
+(use-package beacon
+  :init
+  :ensure t
+
+  :init
+  (beacon-mode))
+
 (use-package drag-stuff
   :ensure drag-stuff
   :diminish drag-stuff-mode
@@ -760,10 +767,15 @@
 
   :init
   (progn
-    ;; (setq avy-keys (nconc (loop for i from ?0 to ?9 collect i)
-    ;;                       (loop for i from ?a to ?z collect i)
-    ;;                       (loop for i from ?A to ?Z collect i)))
-    (setq avy-all-windows nil)
+    ;; Use 0-9, a-z and A-Z for jumping.
+    (setq avy-keys (nconc (cl-loop for i from ?0 to ?9 collect i)
+                          (cl-loop for i from ?a to ?z collect i)
+                          (cl-loop for i from ?A to ?Z collect i)))
+
+    ;; Default to searching all windows in current frame.
+    (setq avy-all-windows t)
+
+    ;; Setup default short-cuts. C-' within isearch
     (avy-setup-default)))
 
 (use-package ace-window
@@ -804,6 +816,8 @@
      _r_: Recent Files            _k_: Previous
      _i_: helm-swoop
 
+     _A_: avy-all-windows  %`avy-all-windows
+
      _._: Mark current position
      _/_: Jump to mark
   ──────────────────────────────────────────────────────────────────────────────────────────────────
@@ -828,6 +842,17 @@
   ("f" first-error    nil :exit nil)
   ("j" next-error     nil :exit nil)
   ("k" previous-error nil :exit nil)
+
+  ("A" (lambda ()
+         (interactive)
+         (cond
+          ((equal avy-all-windows nil)
+           (setq avy-all-windows t))
+          ((equal avy-all-windows t)
+           (setq avy-all-windows 'all-frames))
+          (t
+           (setq avy-all-windows nil))))
+   nil :exit nil)
 
   ("." org-mark-ring-push nil :exit nil)
   ("/" org-mark-ring-goto nil)
@@ -1376,7 +1401,7 @@
 (define-key
   projectile-mode-map
   (kbd "<f5> p")
-  (defhydra cnb-hydra-projectile (:color teal)
+  (defhydra cnb-hydra-projectile (:foreign-keys warn :exit t)
     "
        Root: %(if (projectile-project-p) (projectile-project-root))
                                                                                                       ╭────────────┐
@@ -1390,27 +1415,27 @@
        _h_: project home                 ^    ^                      _t_: search tags
   ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
        "
-    ("f" projectile-find-file                        nil)
-    ("F" projectile-find-file-other-window           nil)
-    ("d" projectile-find-file-in-directory           nil)
-    ("r" projectile-recentf                          nil)
-    ("h" projectile-dired                            nil)
+    ("f" projectile-find-file               nil)
+    ("F" projectile-find-file-other-window  nil)
+    ("d" projectile-find-file-in-directory  nil)
+    ("r" projectile-recentf                 nil)
+    ("h" projectile-dired                   nil)
 
-    ("i" projectile-ibuffer                          nil)
-    ("b" projectile-switch-to-buffer                 nil)
-    ("k" projectile-kill-buffers                     nil :color blue)
+    ("i" projectile-ibuffer                 nil)
+    ("b" projectile-switch-to-buffer        nil)
+    ("k" projectile-kill-buffers            nil)
 
-    ("s" projectile-ag                               nil)
-    ("o" projectile-multi-occur                      nil)
-    ("u" projectile-replace                          nil)
-    ("t" projectile-find-tag                         nil)
-    ("T" projectile-regenerate-tags                  nil :color red)
+    ("s" projectile-ag                      nil)
+    ("o" projectile-multi-occur             nil)
+    ("u" projectile-replace       g          nil)
+    ("t" projectile-find-tag                nil)
+    ("T" projectile-regenerate-tags         nil :exit nil)
 
-    ("p" projectile-switch-project                   nil)
-    ("x" projectile-cleanup-known-projects           nil :color red)
-    ("I" projectile-project-info                     nil)
+    ("p" projectile-switch-project          nil)
+    ("x" projectile-cleanup-known-projects  nil :exit nil)
+    ("I" projectile-project-info            nil)
 
-    ("q"   nil                                       "quit" :color blue)))
+    ("q"   nil                              "quit")))
 
 (use-package smartparens-config
   :ensure smartparens
@@ -1630,7 +1655,7 @@
 
   :config
   (progn
-    (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+    (setq flycheck-display-errors-function #'flycheck-display-error-messages)))
 
 (defvar cnb/coding-hook nil
   "Hook that gets run on activation of any programming mode.")
