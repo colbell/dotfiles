@@ -736,8 +736,6 @@ Start Emacs server on first Emacs instance.
     :init
     (progn
       (unless (server-running-p) (server-start))))
-      ;;(setenv "EDITOR" "emacsclient")))
-
 #+end_src
 * Edit Text Areas in Chrome
 
@@ -1149,6 +1147,7 @@ Never lose the cursor again.
   :init
   (beacon-mode))
 #+end_src
+
 ** Dragging
 
 Drag mode. Allows dragging by alt left up etc.
@@ -1163,7 +1162,6 @@ Drag mode. Allows dragging by alt left up etc.
     (setq drag-stuff-except-modes '(org-mode))
     (drag-stuff-global-mode)))
 #+end_src
-
 ** Avy
 
 Jump to various locations in windows.
@@ -1969,41 +1967,41 @@ Projectile is a Project Interaction Library.
 #+end_src
 
 #+begin_src emacs-lisp
-  (use-package helm-projectile
-    :ensure helm-projectile
-    :defer t
+(use-package helm-projectile
+  :ensure helm-projectile
+  :defer t
 
-    :init
-    (progn
-      (helm-projectile-on)
+  :init
+  (progn
+    (helm-projectile-on)
 
-      (add-to-list 'projectile-rails-resource-name-re-list "/app/authorizers/\\(?:.+/\\)?\\(.+\\)\\.rb\\'")
-      (defun cnb/projectile-rails-find-authorizer ()
-        (interactive)
-        (projectile-rails-find-resource
-         "authorizer: "
-         '(("app/authorizers/" "/authorizers/\\(.+\\)_authorizer\\.rb$"))
-         "app/authorizers/${filename}_authorizer.rb"))
+    (add-to-list 'projectile-rails-resource-name-re-list "/app/authorizers/\\(?:.+/\\)?\\(.+\\)\\.rb\\'")
+    (defun cnb/projectile-rails-find-authorizer ()
+      (interactive)
+      (projectile-rails-find-resource
+       "authorizer: "
+       '(("app/authorizers/" "/authorizers/\\(.+\\)_authorizer\\.rb$"))
+       "app/authorizers/${filename}_authorizer.rb"))
 
-      (defun cnb/projectile-rails-find-current-authorizer ()
-        (interactive)
-        (projectile-rails-find-current-resource "app/authorizers/"
-                                                "/${singular}\\.rb$"
-                                                'cnb/projectile-rails-find-authorizer))
+    (defun cnb/projectile-rails-find-current-authorizer ()
+      (interactive)
+      (projectile-rails-find-current-resource "app/authorizers/"
+                                              "/${singular}\\.rb$"
+                                              'cnb/projectile-rails-find-authorizer))
 
-      (add-to-list 'projectile-rails-resource-name-re-list "/app/decorators/\\(?:.+/\\)?\\(.+\\)\\.rb\\'")
-      (defun cnb/projectile-rails-find-decorator ()
-        (interactive)
-        (projectile-rails-find-resource
-         "decorator: "
-         '(("app/decorators/" "/decorators/\\(.+\\)_decorator\\.rb$"))
-         "app/decorators/${filename}_decorator.rb"))
+    (add-to-list 'projectile-rails-resource-name-re-list "/app/decorators/\\(?:.+/\\)?\\(.+\\)\\.rb\\'")
+    (defun cnb/projectile-rails-find-decorator ()
+      (interactive)
+      (projectile-rails-find-resource
+       "decorator: "
+       '(("app/decorators/" "/decorators/\\(.+\\)_decorator\\.rb$"))
+       "app/decorators/${filename}_decorator.rb"))
 
-      (defun cnb/projectile-rails-find-current-decorator ()
-        (interactive)
-        (projectile-rails-find-current-resource "app/decorators/"
-                                                "/${singular}\\.rb$"
-                                                'cnb/projectile-rails-find-decorator))))
+    (defun cnb/projectile-rails-find-current-decorator ()
+      (interactive)
+      (projectile-rails-find-current-resource "app/decorators/"
+                                              "/${singular}\\.rb$"
+                                              'cnb/projectile-rails-find-decorator))))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -2036,7 +2034,7 @@ Projectile is a Project Interaction Library.
 
     ("s" projectile-ag                      nil)
     ("o" projectile-multi-occur             nil)
-    ("u" projectile-replace       g          nil)
+    ("u" projectile-replace                 nil)
     ("t" projectile-find-tag                nil)
     ("T" projectile-regenerate-tags         nil :exit nil)
 

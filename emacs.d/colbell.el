@@ -412,7 +412,6 @@
   :init
   (progn
     (unless (server-running-p) (server-start))))
-    ;;(setenv "EDITOR" "emacsclient")))
 
 ;; (use-package edit-server
 ;;   :ensure t
@@ -1427,7 +1426,7 @@
 
     ("s" projectile-ag                      nil)
     ("o" projectile-multi-occur             nil)
-    ("u" projectile-replace       g          nil)
+    ("u" projectile-replace                 nil)
     ("t" projectile-find-tag                nil)
     ("T" projectile-regenerate-tags         nil :exit nil)
 
