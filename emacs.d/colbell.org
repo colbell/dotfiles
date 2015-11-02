@@ -570,20 +570,23 @@ Formatting of white space.
                                     undo-tree-visualizer-mode-hook
                                     comint-mode-hook))
       (add-hook hook (lambda () (set-variable 'show-trailing-whitespace nil))))))
+#+end_src
 
+#+begin_src emacs-lisp
 (use-package shrink-whitespace
   :ensure t
   :bind (("M-SPC" . shrink-whitespace)))
 #+end_src
 
-* Find in Repository
-
-Search the current source code repository for a file.
+Auto clean trailing whitesapce on save
 
 #+begin_src emacs-lisp
-(use-package find-file-in-repository
-  :ensure find-file-in-repository
-  :bind (("C-x f" . find-file-in-repository)))
+(use-package ws-butler
+  :ensure t
+  :config
+  (progn
+    (add-hook 'css-mode-hook 'ws-butler-mode)
+    (add-hook 'ruby-mode-hook 'ws-butler-mode)))
 #+end_src
 
 * Recent Files
@@ -647,7 +650,7 @@ Helm is an interactive completion tool.
     (setq helm-ff-skip-boring-files t)
     (setq enable-recursive-minibuffers t)
     (setq helm-buffers-fuzzy-matching t)
-    ;;(setq helm-split-window-in-side-p t)
+    (setq helm-split-window-in-side-p t)
     (setq helm-ff-file-name-history-use-recentf t)
     (setq helm-buffer-details-flag nil)
     (setq helm-ff-transformer-show-only-basename t)
@@ -920,7 +923,7 @@ Directory view/editing.
    #+end_src
 
 
-Dired hydra
+** Dired hydra
 
 #+begin_src emacs-lisp
 (defhydra hydra-dired-sort (:exit t :foreign-keys warn)
@@ -976,6 +979,13 @@ Dired hydra
 
 #+end_src
 
+** Sunrise Commmader
+#+begin_src emacs-lisp
+(use-package sunrise-commander
+  :ensure t
+  :ensure sunrise-x-buttons
+  :ensure sunrise-x-modeline)
+#+end_src
 * Bookmarks
 #+begin_src emacs-lisp
 (use-package bookmark
@@ -1407,6 +1417,53 @@ Automatically save buffers when losing focus.
   (ansi-color-apply-on-region (point-min) (point-max)))
 #+END_SRC
 * Windows
+** e2wm Window Manager
+
+#+begin_src emacs-lisp
+(use-package e2wm
+  :ensure t
+  :init
+  (progn
+    (add-hook 'after-init-hook #'e2wm:start-management)
+    ;; FIXME: This perspective is missing
+    (autoload 'e2wm:dp-edbi "e2wm-edbi" nil t))
+
+  :bind (("M-+" . e2wm:start-management)))
+#+end_src
+
+#+begin_src emacs-lisp
+(global-set-key
+ (kbd "<f5> e")
+ (defhydra cnb-hydra-e2wm-functions (:exit t :foreign-keys warn)
+   "
+                                                                                  ╭─────────┐
+     Control                          Perspectives                                │  e2wm   │
+  ╭───────────────────────────────────────────────────────────────────────────────┴─────────╯
+
+     _s_: Start                        _2_: 2 col
+     _t_: Stop                         _c_: Coding
+     ^^                                _d_: Document
+     ^^                                _a_: Array
+     ^^                                _h_: Dashboard
+
+     ^^                                _r_: Refresh windows
+
+  ──────────────────────────────────────────────────────────────────────────────────────────────────
+    "
+   ("s" e2wm:start-management nil)
+   ("t" e2wm:stop-management nil)
+
+   ("2" e2wm:dp-two nil)
+   ("a" e2wm:dp-array nil)
+   ("c" e2wm:dp-code nil)
+   ("d" e2wm:dp-doc nil)
+   ("h" e2wm:dp-dashboard nil)
+
+   ("r" e2wm:pst-update-windows-command)
+
+   ("q" nil "quit")))
+#+end_src
+
 ** Winner Mode
 
 C-c left/right to undo/redo window configuration changes.
@@ -2265,21 +2322,6 @@ Uniquely highlight each source code identifier based on its name.
 
 #+end_src
 
-** Eldoc
-
-Show min ibuffer hints for Emacs Lisp.
-#+begin_src emacs-lisp
-  (use-package "eldoc"
-    :diminish eldoc-mode
-    :commands eldoc-mode
-
-    :init
-    (progn
-    (add-hook #'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-    (add-hook #'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-    (add-hook #'ielm-mode-hook 'turn-on-eldoc-mode)))
-#+end_src
-
 ** Bug Reference
 
 Turn references to bug IDs into clickable links.
@@ -2372,6 +2414,16 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
   (add-hook 'yaml-mode-hook        #'cnb/run-coding-hook)
   (add-hook 'lisp-interaction-mode #'cnb/run-coding-hook)
 
+#+end_src
+
+** Find in Repository
+
+Search the current source code repository for a file.
+
+#+begin_src emacs-lisp
+(use-package find-file-in-repository
+  :ensure find-file-in-repository
+  :bind (("C-x f" . find-file-in-repository)))
 #+end_src
 
 * Clojure
@@ -2757,7 +2809,7 @@ Font lock for Ruby Yard comments.
     :ensure t)
 #+end_src
 
-* SQL mode.
+* SQL.
 
 #+BEGIN_SRC emacs-lisp
 (setq sql-input-ring-file-name "~/.emacs.d/sql_history")
@@ -2765,6 +2817,16 @@ Font lock for Ruby Yard comments.
           (lambda ()
             (setq indent-tabs-mode t)))
 #+END_SRC
+
+Install Perl packages for edbi
+#+begin_src sh
+$ cpan RPC::EPC::Service DBI DBD::SQLite DBD::Pg DBD::mysql
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package edbi
+  :ensure t)
+#+end_src
 * Emacs Lisp
 
 Put each occurrence of "use-package" into an Imenu section called "Packages".
@@ -2779,6 +2841,19 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
   ;;  'emacs-lisp-mode-hook
   ;;  (lambda ()
   ;;    (push '("defun" . 402) prettify-symbols-alist)))
+#+end_src
+
+Show min ibuffer hints for Emacs Lisp.
+#+begin_src emacs-lisp
+  (use-package "eldoc"
+    :diminish eldoc-mode
+    :commands eldoc-mode
+
+    :init
+    (progn
+    (add-hook #'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+    (add-hook #'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+    (add-hook #'ielm-mode-hook 'turn-on-eldoc-mode)))
 #+end_src
 
 * Lisp Like Modes
@@ -2798,7 +2873,6 @@ Put each occurrence of "use-package" into an Imenu section called "Packages".
   (dolist (mode lisp-modes)
     (add-hook (intern (format "%s-hook" mode)) #'cnb/imenu-lisp-sections))
 #+end_src
-
 * Testing
 ** Cucumber
 #+begin_src emacs-lisp
@@ -3303,7 +3377,7 @@ w3m
     _d_: ediff buffers                  _t_: top
     _f_: find-dired                     _T_: helm-top
     _i_: helm-find                      _e_: proced
-    ^ ^                                 _l_: list-processes
+    _s_: sunrise commander              _l_: list-processes
   ───────────────────────────────────────────────────────────────────────────────────
    "
       ("a" ansi-term                 nil)
@@ -3317,6 +3391,7 @@ w3m
       ("T" helm-top                  nil)
       ("e" proced                    nil)
       ("l" list-processes            nil)
+      ("s" sunrise-cd                nil)
       ("q" nil                       "cancel")))
 #+end_src
 
@@ -3413,16 +3488,6 @@ w3m
 
 (global-set-key (kbd "<f5> z") #'hydra-zoom/body)
 #+end_src
-
-* ws-butler
-#+begin_src emacs-lisp
-  (use-package ws-butler
-    :ensure t
-    :config
-    (progn
-      (add-hook 'css-mode-hook 'ws-butler-mode)
-      (add-hook 'ruby-mode-hook 'ws-butler-mode)))
- #+end_src
 
 * Session
 
@@ -3549,6 +3614,7 @@ error when exporting from org to HTML, PDF etc.
 (auto-image-file-mode)
 
 (set-default 'imenu-auto-rescan t)
+(setq imenu-max-item-length 30)
 
 (setenv "PAGER" "cat")
 

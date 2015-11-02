@@ -291,9 +291,12 @@
   :ensure t
   :bind (("M-SPC" . shrink-whitespace)))
 
-(use-package find-file-in-repository
-  :ensure find-file-in-repository
-  :bind (("C-x f" . find-file-in-repository)))
+(use-package ws-butler
+  :ensure t
+  :config
+  (progn
+    (add-hook 'css-mode-hook 'ws-butler-mode)
+    (add-hook 'ruby-mode-hook 'ws-butler-mode)))
 
 (use-package recentf
   :ensure t
@@ -345,7 +348,7 @@
     (setq helm-ff-skip-boring-files t)
     (setq enable-recursive-minibuffers t)
     (setq helm-buffers-fuzzy-matching t)
-    ;;(setq helm-split-window-in-side-p t)
+    (setq helm-split-window-in-side-p t)
     (setq helm-ff-file-name-history-use-recentf t)
     (setq helm-buffer-details-flag nil)
     (setq helm-ff-transformer-show-only-basename t)
@@ -617,6 +620,11 @@
   ("q" nil                       "cancel"))
 
 (define-key dired-mode-map (kbd "s") 'hydra-dired-sort/body)
+
+(use-package sunrise-commander
+  :ensure t
+  :ensure sunrise-x-buttons
+  :ensure sunrise-x-modeline)
 
 (use-package bookmark
   :defer t
@@ -951,6 +959,47 @@
   "interactive function that renders buffer using ANSI colors"
   (interactive)
   (ansi-color-apply-on-region (point-min) (point-max)))
+
+(use-package e2wm
+  :ensure t
+  :init
+  (progn
+    (add-hook 'after-init-hook #'e2wm:start-management)
+    ;; FIXME: This perspective is missing
+    (autoload 'e2wm:dp-edbi "e2wm-edbi" nil t))
+
+  :bind (("M-+" . e2wm:start-management)))
+
+(global-set-key
+ (kbd "<f5> e")
+ (defhydra cnb-hydra-e2wm-functions (:exit t :foreign-keys warn)
+   "
+                                                                                  ╭─────────┐
+     Control                          Perspectives                                │  e2wm   │
+  ╭───────────────────────────────────────────────────────────────────────────────┴─────────╯
+
+     _s_: Start                        _2_: 2 col
+     _t_: Stop                         _c_: Coding
+     ^^                                _d_: Document
+     ^^                                _a_: Array
+     ^^                                _h_: Dashboard
+
+     ^^                                _r_: Refresh windows
+
+  ──────────────────────────────────────────────────────────────────────────────────────────────────
+    "
+   ("s" e2wm:start-management nil)
+   ("t" e2wm:stop-management nil)
+
+   ("2" e2wm:dp-two nil)
+   ("a" e2wm:dp-array nil)
+   ("c" e2wm:dp-code nil)
+   ("d" e2wm:dp-doc nil)
+   ("h" e2wm:dp-dashboard nil)
+
+   ("r" e2wm:pst-update-windows-command)
+
+   ("q" nil "quit")))
 
 (use-package winner
   :init
@@ -1622,16 +1671,6 @@
                    (nil font-lock-function-name-face))))
     (add-hook 'after-init-hook #'global-color-identifiers-mode)))
 
-(use-package "eldoc"
-  :diminish eldoc-mode
-  :commands eldoc-mode
-
-  :init
-  (progn
-  (add-hook #'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-  (add-hook #'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-  (add-hook #'ielm-mode-hook 'turn-on-eldoc-mode)))
-
 (use-package bug-reference
   :demand
 
@@ -1700,6 +1739,10 @@
 (add-hook 'rhtml-mode-hook       #'cnb/run-coding-hook)
 (add-hook 'yaml-mode-hook        #'cnb/run-coding-hook)
 (add-hook 'lisp-interaction-mode #'cnb/run-coding-hook)
+
+(use-package find-file-in-repository
+  :ensure find-file-in-repository
+  :bind (("C-x f" . find-file-in-repository)))
 
 (use-package clojure-mode
   :ensure clojure-mode
@@ -2001,6 +2044,9 @@
           (lambda ()
             (setq indent-tabs-mode t)))
 
+(use-package edbi
+  :ensure t)
+
 (defun cnb/elisp-packages ()
   (add-to-list 'imenu-generic-expression '("Packages" "(use-package \\([^)\n]*\\).*$" 1) t))
 
@@ -2010,6 +2056,16 @@
 ;;  'emacs-lisp-mode-hook
 ;;  (lambda ()
 ;;    (push '("defun" . 402) prettify-symbols-alist)))
+
+(use-package "eldoc"
+  :diminish eldoc-mode
+  :commands eldoc-mode
+
+  :init
+  (progn
+  (add-hook #'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+  (add-hook #'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+  (add-hook #'ielm-mode-hook 'turn-on-eldoc-mode)))
 
 (defun cnb/imenu-lisp-sections ()
   (setq imenu-prev-index-position-function nil)   ;; FIXME: DO I need this?
@@ -2416,7 +2472,7 @@
   _d_: ediff buffers                  _t_: top
   _f_: find-dired                     _T_: helm-top
   _i_: helm-find                      _e_: proced
-  ^ ^                                 _l_: list-processes
+  _s_: sunrise commander              _l_: list-processes
 ───────────────────────────────────────────────────────────────────────────────────
  "
     ("a" ansi-term                 nil)
@@ -2430,6 +2486,7 @@
     ("T" helm-top                  nil)
     ("e" proced                    nil)
     ("l" list-processes            nil)
+    ("s" sunrise-cd                nil)
     ("q" nil                       "cancel")))
 
 (global-set-key
@@ -2513,13 +2570,6 @@ _d_: subtree       ^^               _g_: org goto
   ("q" nil "quit" :exit t))
 
 (global-set-key (kbd "<f5> z") #'hydra-zoom/body)
-
-(use-package ws-butler
-  :ensure t
-  :config
-  (progn
-    (add-hook 'css-mode-hook 'ws-butler-mode)
-    (add-hook 'ruby-mode-hook 'ws-butler-mode)))
 
 (use-package saveplace
   ;;:demand
@@ -2612,6 +2662,7 @@ _d_: subtree       ^^               _g_: org goto
 (auto-image-file-mode)
 
 (set-default 'imenu-auto-rescan t)
+(setq imenu-max-item-length 30)
 
 (setenv "PAGER" "cat")
 
