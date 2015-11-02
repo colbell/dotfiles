@@ -31,6 +31,9 @@
   (add-to-list 'package-archives
                '("melpa" . "http://melpa.org/packages/")
                'APPEND)
+  (add-to-list 'package-archives
+               '("SC" . "http://joseito.republika.pl/sunrise-commander/")
+               'APPEND)
   (package-initialize)
 
   ;; I use 'use-package' to tidy up my Emacs configuration.
