@@ -348,7 +348,7 @@
     (setq helm-ff-skip-boring-files t)
     (setq enable-recursive-minibuffers t)
     (setq helm-buffers-fuzzy-matching t)
-    (setq helm-split-window-in-side-p t)
+    (setq helm-split-window-in-side-p nil)
     (setq helm-ff-file-name-history-use-recentf t)
     (setq helm-buffer-details-flag nil)
     (setq helm-ff-transformer-show-only-basename t)
@@ -964,7 +964,7 @@
   :ensure t
   :init
   (progn
-    (add-hook 'after-init-hook #'e2wm:start-management)
+    ;; (add-hook 'after-init-hook #'e2wm:start-management)
     ;; FIXME: This perspective is missing
     (autoload 'e2wm:dp-edbi "e2wm-edbi" nil t))
 
@@ -982,19 +982,17 @@
      _t_: Stop                         _c_: Coding
      ^^                                _d_: Document
      ^^                                _a_: Array
-     ^^                                _h_: Dashboard
-
-     ^^                                _r_: Refresh windows
+     _r_: Refresh Windows              _h_: Dashboard
 
   ──────────────────────────────────────────────────────────────────────────────────────────────────
     "
    ("s" e2wm:start-management nil)
    ("t" e2wm:stop-management nil)
 
-   ("2" e2wm:dp-two nil)
-   ("a" e2wm:dp-array nil)
-   ("c" e2wm:dp-code nil)
-   ("d" e2wm:dp-doc nil)
+   ("2" e2wm:dp-two       nil)
+   ("a" e2wm:dp-array     nil)
+   ("c" e2wm:dp-code      nil)
+   ("d" e2wm:dp-doc       nil)
    ("h" e2wm:dp-dashboard nil)
 
    ("r" e2wm:pst-update-windows-command)
@@ -2229,6 +2227,7 @@
           (list (concat org-directory "personal.org")
                 (concat org-directory "kwela.org")))
 
+    (setq org-ellipsis "…")
     ;;(add-hook 'org-mode-hook #'turn-off-auto-fill)
     ;;(add-hook 'org-mode-hook #'nlinum-mode t)
 
@@ -2662,7 +2661,8 @@ _d_: subtree       ^^               _g_: org goto
 (auto-image-file-mode)
 
 (set-default 'imenu-auto-rescan t)
-(setq imenu-max-item-length 30)
+(setq imenu-max-item-length 60)
+(setq imenu-sort-function #'imenu--sort-by-name)
 
 (setenv "PAGER" "cat")
 
