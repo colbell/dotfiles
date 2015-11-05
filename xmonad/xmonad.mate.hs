@@ -14,7 +14,7 @@ import XMonad.Actions.Warp
 import XMonad.Actions.WindowMenu
 
 import XMonad.Config.Desktop (desktopLayoutModifiers)
-import XMonad.Config.Mate
+import XMonad.Config.Mate -- In ~/.xmonad/lib/XMonad/Config
 
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
@@ -39,11 +39,15 @@ myWorkspaces = ["1-emacs", "2-shell", "3-web", "4-fm", "5", "6", "7-ssh",
 -- Mate/gnome terminals don't work for ssh/man prompts etc.
 myPromptTerminal :: String
 myPromptTerminal = "xterm"
+
 myTerminal :: String
 myTerminal = "mate-terminal"
 
+manageScratchPad :: ManageHook
+manageScratchPad = scratchpadManageHook (W.RationalRect 0.05 0.15 0.9 0.6)
+
 myManageHook :: ManageHook
-myManageHook = scratchpadManageHookDefault <+>composeAll (
+myManageHook = manageScratchPad <+>composeAll (
     [ manageHook mateConfig
     , className =? "Tilda"             --> doFloat
     , className =? "Guake.py"          --> doFloat
@@ -159,7 +163,8 @@ main = do
                , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
                , ((myModMask, xK_p), runOrRaisePrompt myXPConfig)
 
-               , ((myModMask, xK_F2), spawn "~/bin/xmenud.py")
+               , ((myModMask, xK_F12), scratchpadSpawnActionTerminal myPromptTerminal)
+               , ((myModMask, xK_F2),  spawn "~/bin/xmenud.py")
                ]
               ++
               [((m .|. myModMask, k), windows $ f i) -- Don't use Greedy view
