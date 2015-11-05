@@ -107,6 +107,7 @@ def create_menu(menus, use_icons=True, launch=launcher_execute):
               themenu.append(item)
               item.set_tooltip_text(entry.DesktopEntry.getComment())
               item.show()
+
     themenu.show()
     return themenu
 
@@ -167,21 +168,14 @@ def main():
         elif o in ('-n', '--no-icons'):
             use_icons = False
 
-    try:
-        #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/xfce-applications.menu")
-        #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applications.menu")
-        #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde-information.menu")
-        #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/gnome-applications.menu")
-        desktopmenu = xdg.Menu.parse("/etc/xdg/menus/mate-applications.menu")
-        settingsmenu = xdg.Menu.parse("/etc/xdg/menus/mate-settings.menu")
-    except xdg.Exceptions.ParsingError:
-        try:
-            desktopmenu = xdg.Menu.parse()
-        except xdg.Exceptions.ParsingError:
-            error('Error parsing the menu files.')
-            sys.exit(-1)
+    #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/xfce-applications.menu")
+    #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applications.menu")
+    #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde-information.menu")
+    #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/gnome-applications.menu")
+    m1 = xdg.Menu.parse("/etc/xdg/menus/mate-applications.menu")
+    m2 = xdg.Menu.parse("/etc/xdg/menus/mate-settings.menu")
 
-    mainmenu=create_menu([desktopmenu, settingsmenu], use_icons, launch)
+    mainmenu = create_menu([m1, m2], use_icons, launch)
     if run_tray:
         popupmenu=create_popup()
         trayicon=tray()
