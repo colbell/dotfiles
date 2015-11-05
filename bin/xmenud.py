@@ -56,7 +56,7 @@ def launcher_execute(string):
 def launcher_print(string):
     print string
 
-def create_menu(menu, use_icons=True, launch=launcher_execute):
+def create_menu(menus, use_icons=True, launch=launcher_execute):
     def launch_callback(widget, string):
         launch(string)
 
@@ -92,20 +92,21 @@ def create_menu(menu, use_icons=True, launch=launcher_execute):
 
 
     themenu = gtk.Menu()
-    for entry in menu.getEntries():
-        if isinstance(entry, xdg.Menu.Menu):
-            item = new_item(entry.getName(), entry.getIcon(), use_icons)
-            submenu = create_menu(entry, use_icons, launch)
-            item.set_submenu(submenu)
-            themenu.append(item)
-            item.set_tooltip_text(entry.getComment())
-            item.show()
-        elif isinstance(entry, xdg.Menu.MenuEntry):
-            item = new_item(entry.DesktopEntry.getName(), entry.DesktopEntry.getIcon(), use_icons)
-            item.connect("activate", launch_callback, get_exec(entry.DesktopEntry.getExec(), entry.DesktopEntry.getTerminal()))
-            themenu.append(item)
-            item.set_tooltip_text(entry.DesktopEntry.getComment())
-            item.show()
+    for menu in menus:
+      for entry in menu.getEntries():
+          if isinstance(entry, xdg.Menu.Menu):
+              item = new_item(entry.getName(), entry.getIcon(), use_icons)
+              submenu = create_menu([entry], use_icons, launch)
+              item.set_submenu(submenu)
+              themenu.append(item)
+              item.set_tooltip_text(entry.getComment())
+              item.show()
+          elif isinstance(entry, xdg.Menu.MenuEntry):
+              item = new_item(entry.DesktopEntry.getName(), entry.DesktopEntry.getIcon(), use_icons)
+              item.connect("activate", launch_callback, get_exec(entry.DesktopEntry.getExec(), entry.DesktopEntry.getTerminal()))
+              themenu.append(item)
+              item.set_tooltip_text(entry.DesktopEntry.getComment())
+              item.show()
     themenu.show()
     return themenu
 
@@ -168,9 +169,11 @@ def main():
 
     try:
         #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/xfce-applications.menu")
-        desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applications.menu")
+        #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applications.menu")
         #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde-information.menu")
         #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/gnome-applications.menu")
+        desktopmenu = xdg.Menu.parse("/etc/xdg/menus/mate-applications.menu")
+        settingsmenu = xdg.Menu.parse("/etc/xdg/menus/mate-settings.menu")
     except xdg.Exceptions.ParsingError:
         try:
             desktopmenu = xdg.Menu.parse()
@@ -178,7 +181,7 @@ def main():
             error('Error parsing the menu files.')
             sys.exit(-1)
 
-    mainmenu=create_menu(desktopmenu, use_icons, launch)
+    mainmenu=create_menu([desktopmenu, settingsmenu], use_icons, launch)
     if run_tray:
         popupmenu=create_popup()
         trayicon=tray()
