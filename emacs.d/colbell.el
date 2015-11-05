@@ -334,8 +334,14 @@
 
 (use-package helm
   :ensure t
+  :ensure helm-ls-git
+  :ensure helm-ls-hg
+  :ensure helm-ls-svn
+
   :defer t
   :diminish helm-mode
+
+  :bind (("C-x f" . helm-browse-project))
 
   :config
   (progn
@@ -349,6 +355,7 @@
     (setq enable-recursive-minibuffers t)
     (setq helm-buffers-fuzzy-matching t)
     (setq helm-split-window-in-side-p nil)
+    (setq helm-split-window-default-side 'same)
     (setq helm-ff-file-name-history-use-recentf t)
     (setq helm-buffer-details-flag nil)
     (setq helm-ff-transformer-show-only-basename t)
@@ -1060,13 +1067,13 @@
    (side            . bottom)
    (window-height   . 0.4)))
 
-(add-to-list
- 'display-buffer-alist
- `(,(rx bos "*ruby*" eos)
-   (display-buffer-reuse-window display-buffer-in-side-window)
-   (reusable-frames . t)
-   (side            . bottom)
-   (window-height   . 0.4)))
+;; (add-to-list
+;;  'display-buffer-alist
+;;  `(,(rx bos "*ruby*" eos)
+;;    (display-buffer-reuse-window display-buffer-in-side-window)
+;;    (reusable-frames . t)
+;;    (side            . bottom)
+;;    (window-height   . 0.4)))
 
 (add-to-list
  'display-buffer-alist
@@ -1406,17 +1413,9 @@
 
   :init
   (progn
-    (add-hook 'projectile-mode-hook #'projectile-rails-on)))
+    (add-hook 'projectile-mode-hook #'projectile-rails-on)
 
-(use-package helm-projectile
-  :ensure helm-projectile
-  :defer t
-
-  :init
-  (progn
-    (helm-projectile-on)
-
-    (add-to-list 'projectile-rails-resource-name-re-list "/app/authorizers/\\(?:.+/\\)?\\(.+\\)\\.rb\\'")
+    ;;(add-to-list 'projectile-rails-resource-name-re-list "/app/authorizers/\\(?:.+/\\)?\\(.+\\)\\.rb\\'")
     (defun cnb/projectile-rails-find-authorizer ()
       (interactive)
       (projectile-rails-find-resource
@@ -1427,10 +1426,11 @@
     (defun cnb/projectile-rails-find-current-authorizer ()
       (interactive)
       (projectile-rails-find-current-resource "app/authorizers/"
+                                              "app/authorizers/\\(.*${singular}\\)_authorizer\\.rb$"
                                               "/${singular}\\.rb$"
                                               'cnb/projectile-rails-find-authorizer))
 
-    (add-to-list 'projectile-rails-resource-name-re-list "/app/decorators/\\(?:.+/\\)?\\(.+\\)\\.rb\\'")
+    ;;(add-to-list 'projectile-rails-resource-name-re-list "/app/decorators/\\(?:.+/\\)?\\(.+\\)\\.rb\\'")
     (defun cnb/projectile-rails-find-decorator ()
       (interactive)
       (projectile-rails-find-resource
@@ -1442,7 +1442,18 @@
       (interactive)
       (projectile-rails-find-current-resource "app/decorators/"
                                               "/${singular}\\.rb$"
-                                              'cnb/projectile-rails-find-decorator))))
+                                              'cnb/projectile-rails-find-decorator))
+
+    ))
+
+(use-package helm-projectile
+  :ensure helm-projectile
+  :defer t
+
+  :init
+  (progn
+    (helm-projectile-on)
+))
 
 (define-key
   projectile-mode-map
@@ -1737,10 +1748,6 @@
 (add-hook 'rhtml-mode-hook       #'cnb/run-coding-hook)
 (add-hook 'yaml-mode-hook        #'cnb/run-coding-hook)
 (add-hook 'lisp-interaction-mode #'cnb/run-coding-hook)
-
-(use-package find-file-in-repository
-  :ensure find-file-in-repository
-  :bind (("C-x f" . find-file-in-repository)))
 
 (use-package clojure-mode
   :ensure clojure-mode
