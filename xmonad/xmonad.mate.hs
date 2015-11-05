@@ -44,7 +44,12 @@ myTerminal :: String
 myTerminal = "mate-terminal"
 
 manageScratchPad :: ManageHook
-manageScratchPad = scratchpadManageHook (W.RationalRect 0.05 0.15 0.9 0.6)
+manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
+    where
+      h = 0.6          -- terminal height
+      w = 0.9          -- terminal width
+      t = (1 - h) / 2  -- distance from top edge
+      l = (1 - w) / 2  -- distance from left edge
 
 myManageHook :: ManageHook
 myManageHook = manageScratchPad <+>composeAll (
