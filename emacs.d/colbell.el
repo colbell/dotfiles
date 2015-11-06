@@ -134,8 +134,8 @@
 
 (setq recenter-positions '(top middle bottom))
 
-(set-frame-font "Source Code Pro-10" nil t)
-;;(set-frame-font "DejaVu Sans Mono-11" nil t)
+;;(set-frame-font "Source Code Pro-11" nil t)
+(set-frame-font "DejaVu Sans Mono-11" nil t)
 
 (random t)
 
@@ -229,8 +229,7 @@
 
 (use-package discover-my-major
   :ensure discover-my-major
-  :bind (("C-h C-m" . discover-my-major))
-)
+  :bind (("C-h C-m" . discover-my-major)))
 
 (defhydra hydra-apropos(:color blue :hint nil)
   "
@@ -356,6 +355,7 @@
     (setq helm-buffers-fuzzy-matching t)
     (setq helm-split-window-in-side-p nil)
     (setq helm-split-window-default-side 'same)
+    (setq helm-split-window-default-side 'below)
     (setq helm-ff-file-name-history-use-recentf t)
     (setq helm-buffer-details-flag nil)
     (setq helm-ff-transformer-show-only-basename t)
@@ -1301,7 +1301,7 @@
   (progn
     ;;(push 'company-robe company-backends)
     (global-company-mode 1)
-    (setq company-idle-delay 0.5))
+    (setq company-idle-delay nil))
 
   :bind ("C-c i" . company-complete))
 
@@ -1452,8 +1452,7 @@
 
   :init
   (progn
-    (helm-projectile-on)
-))
+    (helm-projectile-on)))
 
 (define-key
   projectile-mode-map
@@ -1626,14 +1625,13 @@
     ("|" sp-split-sexp )))
 
 (use-package yasnippet
-  :ensure yasnippet
+  :ensure t
   :diminish yas-minor-mode
   :defer t
 
   :config
   (progn
     (yas-global-mode 1)))
-
 
 (use-package helm-c-yasnippet
   :ensure helm-c-yasnippet
@@ -2068,9 +2066,14 @@
 
   :init
   (progn
-  (add-hook #'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-  (add-hook #'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-  (add-hook #'ielm-mode-hook 'turn-on-eldoc-mode)))
+    (add-hook #'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+    (add-hook #'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+    (add-hook #'ielm-mode-hook 'turn-on-eldoc-mode)))
+
+(use-package macrostep
+  :ensure t
+  :defer t
+  :bind ("C-c e m" . macrostep-expand))
 
 (defun cnb/imenu-lisp-sections ()
   (setq imenu-prev-index-position-function nil)   ;; FIXME: DO I need this?
