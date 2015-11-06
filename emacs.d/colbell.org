@@ -293,8 +293,8 @@ When re-centering screen (<ctrl l), first put it to top of screen.
 A decent font.
 
 #+begin_src emacs-lisp
-(set-frame-font "Source Code Pro-10" nil t)
-;;(set-frame-font "DejaVu Sans Mono-11" nil t)
+;;(set-frame-font "Source Code Pro-11" nil t)
+(set-frame-font "DejaVu Sans Mono-11" nil t)
 #+end_src
 
   Initialize random number generator.
@@ -483,13 +483,13 @@ Don't let the cursor go into the minibuffer prompt
 | pink     | :foreign-keys run          |
 
 #+begin_src emacs-lisp
-  (use-package hydra
-    :ensure t
+(use-package hydra
+  :ensure t
 
-    :config
-    (progn
-      (require 'hydra-examples)
-      (hydra-add-font-lock)))
+  :config
+  (progn
+    (require 'hydra-examples)
+    (hydra-add-font-lock)))
 #+end_src
 
 * Help
@@ -501,10 +501,9 @@ Don't let the cursor go into the minibuffer prompt
 Discover key bindings and their meaning for the current Emacs major mode.
 
 #+begin_src emacs-lisp
-  (use-package discover-my-major
-    :ensure discover-my-major
-    :bind (("C-h C-m" . discover-my-major))
-  )
+(use-package discover-my-major
+  :ensure discover-my-major
+  :bind (("C-h C-m" . discover-my-major)))
 #+end_src
 
 Hydra for Help
@@ -658,6 +657,7 @@ Helm is an interactive completion tool.
     (setq helm-buffers-fuzzy-matching t)
     (setq helm-split-window-in-side-p nil)
     (setq helm-split-window-default-side 'same)
+    (setq helm-split-window-default-side 'below)
     (setq helm-ff-file-name-history-use-recentf t)
     (setq helm-buffer-details-flag nil)
     (setq helm-ff-transformer-show-only-basename t)
@@ -740,12 +740,12 @@ Don't clutter the disk with Emacs save files. Store them in
 Start Emacs server on first Emacs instance.
 
 #+begin_src emacs-lisp
-  (use-package server
-    :commands (server-running-p server-start)
+(use-package server
+  :commands (server-running-p server-start)
 
-    :init
-    (progn
-      (unless (server-running-p) (server-start))))
+  :init
+  (progn
+    (unless (server-running-p) (server-start))))
 #+end_src
 * Edit Text Areas in Chrome
 
@@ -829,9 +829,9 @@ Open files in external application.
 Minor mode to enable previewing in a dired buffer.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package peep-dired
-    :defer t
-    :ensure t)
+(use-package peep-dired
+  :defer t
+  :ensure t)
 #+END_SRC
 
 Directory view/editing.
@@ -927,7 +927,7 @@ Directory view/editing.
   (progn
     (setq wdired-allow-to-change-permissions t)
     (setq wdired-confirm-overwrite t)))
-   #+end_src
+#+end_src
 
 
 ** Dired hydra
@@ -1862,7 +1862,7 @@ This is a quick way to find lines.
   (progn
     ;;(push 'company-robe company-backends)
     (global-company-mode 1)
-    (setq company-idle-delay 0.5))
+    (setq company-idle-delay nil))
 
   :bind ("C-c i" . company-complete))
 #+end_src
@@ -2067,8 +2067,7 @@ Projectile is a Project Interaction Library.
 
   :init
   (progn
-    (helm-projectile-on)
-))
+    (helm-projectile-on)))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -2255,20 +2254,19 @@ Smartparens hydras
 
 ** Snippets
 #+begin_src emacs-lisp
-  (use-package yasnippet
-    :ensure yasnippet
-    :diminish yas-minor-mode
-    :defer t
+(use-package yasnippet
+  :ensure t
+  :diminish yas-minor-mode
+  :defer t
 
-    :config
-    (progn
-      (yas-global-mode 1)))
+  :config
+  (progn
+    (yas-global-mode 1)))
 
-
-  (use-package helm-c-yasnippet
-    :ensure helm-c-yasnippet
-    :defer t
-    :bind (("C-c y" . helm-yas-complete)))
+(use-package helm-c-yasnippet
+  :ensure helm-c-yasnippet
+  :defer t
+  :bind (("C-c y" . helm-yas-complete)))
 #+end_src
 
 ** Rainbow Delimiters
@@ -2832,28 +2830,39 @@ $ cpan RPC::EPC::Service DBI DBD::SQLite DBD::Pg DBD::mysql
 Put each occurrence of "use-package" into an Imenu section called "Packages".
 
 #+begin_src emacs-lisp
-  (defun cnb/elisp-packages ()
-    (add-to-list 'imenu-generic-expression '("Packages" "(use-package \\([^)\n]*\\).*$" 1) t))
+(defun cnb/elisp-packages ()
+  (add-to-list 'imenu-generic-expression '("Packages" "(use-package \\([^)\n]*\\).*$" 1) t))
 
-  (add-hook 'emacs-lisp-mode-hook 'cnb/elisp-packages)
+(add-hook 'emacs-lisp-mode-hook 'cnb/elisp-packages)
 
-  ;; (add-hook
-  ;;  'emacs-lisp-mode-hook
-  ;;  (lambda ()
-  ;;    (push '("defun" . 402) prettify-symbols-alist)))
+;; (add-hook
+;;  'emacs-lisp-mode-hook
+;;  (lambda ()
+;;    (push '("defun" . 402) prettify-symbols-alist)))
 #+end_src
 
 Show min ibuffer hints for Emacs Lisp.
 #+begin_src emacs-lisp
-  (use-package "eldoc"
-    :diminish eldoc-mode
-    :commands eldoc-mode
+(use-package "eldoc"
+  :diminish eldoc-mode
+  :commands eldoc-mode
 
-    :init
-    (progn
+  :init
+  (progn
     (add-hook #'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
     (add-hook #'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
     (add-hook #'ielm-mode-hook 'turn-on-eldoc-mode)))
+#+end_src
+
+** Macrostep
+
+Expand macros
+
+#+begin_src emacs-lisp
+(use-package macrostep
+  :ensure t
+  :defer t
+  :bind ("C-c e m" . macrostep-expand))
 #+end_src
 
 * Lisp Like Modes
