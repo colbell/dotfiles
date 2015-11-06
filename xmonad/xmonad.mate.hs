@@ -96,6 +96,9 @@ myHighlightedFgColor  = "#FFA000"
 myActiveBorderColor   = myHighlightedFgColor
 myInactiveBorderColor = "#89CFF0"
 
+myBarFont :: String
+myBarFont = "xft: inconsolata-14"
+
 myTabConfig :: Theme
 myTabConfig = defaultTheme {
                 activeBorderColor   = myBgColor
@@ -121,6 +124,7 @@ myXPConfig = defaultXPConfig
                 , fgHLight              = myHighlightedFgColor
                 , position              = Top
                 , promptBorderWidth     = 0
+                , font                  = myBarFont
                 }
 
 
@@ -165,7 +169,7 @@ main = do
                , ((myModMask .|. mod1Mask, xK_e), warpToScreen 1 (0.5) (0.5))
                , ((myModMask .|. mod1Mask, xK_r), warpToScreen 2 (0.5) (0.5))
 
-               , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
+               , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500' -fn '-xos4-terminus-medium-r-*-*-14-*'")
                , ((myModMask, xK_p), runOrRaisePrompt myXPConfig)
 
                , ((myModMask, xK_F12), scratchpadSpawnActionTerminal myPromptTerminal)
