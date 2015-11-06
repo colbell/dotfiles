@@ -75,7 +75,9 @@ Emacs.pane.menubar.font: xft:Inconsolata-9
 ! urxvt*color15:     #ffffff
 
 
-XTerm*faceName:  Inconsolata-11
+! XTerm*faceName: Inconsolata
+XTerm*faceName: Source Code Pro
+XTerm*faceSize: 12
 XTerm*eightBitInput: false
 XTerm*metaSendsEscape: true
 XTerm*loginShell: true
@@ -91,23 +93,24 @@ XTerm*cursorBlink: true
 ! XTerm*color5: magenta
 ! XTerm*color6: cyan
 ! XTerm*color7: white
-! Xterm*colorMode: false
+
 ! Zenburn
-xterm*background:  #3f3f3f
-xterm*foreground:  #dcdccc
-xterm*color0:      #1E2320
-xterm*color1:      #705050
-xterm*color2:      #60b48a
-xterm*color3:      #dfaf8f
-xterm*color4:      #506070
-xterm*color5:      #dc8cc3
-xterm*color6:      #8cd0d3
-xterm*color7:      #dcdccc
-xterm*color8:      #709080
-xterm*color9:      #dca3a3
-xterm*color10:     #c3bf9f
-xterm*color11:     #f0dfaf
-xterm*color12:     #94bff3
-xterm*color13:     #ec93d3
-xterm*color14:     #93e0e3
-xterm*color15:     #ffffff
+! XTerm*background:  #3f3f3f
+! XTerm*foreground:  #dcdccc
+! XTerm*color0:      #1E2320
+! XTerm*color1:      #705050
+! XTerm*color2:      #60b48a
+! XTerm*color3:      #dfaf8f
+! XTerm*color4:      #506070
+! XTerm*color5:      #dc8cc3
+! XTerm*color6:      #8cd0d3
+! XTerm*color7:      #dcdccc
+! XTerm*color8:      #709080
+! XTerm*color9:      #dca3a3
+! XTerm*color10:     #c3bf9f
+! XTerm*color11:     #f0dfaf
+! XTerm*color12:     #94bff3
+! XTerm*color13:     #ec93d3
+! XTerm*color14:     #93e0e3
+! XTerm*color15:     #ffffff
+! 
