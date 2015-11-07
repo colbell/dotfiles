@@ -5,13 +5,13 @@
 host=`hostname`
 #xsetroot -cursor_name left_ptr
 
-if [ -x $HOME/.config/openbox/autostart ] ; then
-  (nohup $HOME/.config/openbox/autostart &)
-fi
+# if [ -x $HOME/.config/openbox/autostart ] ; then
+#   (nohup $HOME/.config/openbox/autostart &)
+# fi
 
-if [ -x /usr/lib/openbox/openbox-xdg-autostart ] ; then
-  (nohup /usr/lib/openbox/openbox-xdg-autostart  &)
-fi
+# if [ -x /usr/lib/openbox/openbox-xdg-autostart ] ; then
+#   (nohup /usr/lib/openbox/openbox-xdg-autostart  &)
+# fi
 
 xsetroot -solid rgb:3f/3f/3f
 
@@ -24,25 +24,25 @@ xsetroot -solid rgb:3f/3f/3f
 # wicd-client &
 #fi
 
-#if [ -x ~/.bin/xmenud.py ] ; then
-#  (nohup ~/.bin/xmenud.py --tray &)
-#fi
+if [ -x ~/.bin/xmenud.py ] ; then
+  (nohup ~/.bin/xmenud.py --tray &)
+fi
 
 #if [ -x /usr/bin/xscreensaver ] ; then
 #  (nohup /usr/bin/xscreensaver -no-splash &)
 #fi
 
-#if [ -x /usr/bin/nm-applet ] ; then
-# (nohup /usr/bin/nm-applet &)
-#fi
+if [ -x /usr/bin/nm-applet ] ; then
+ (nohup /usr/bin/nm-applet &)
+fi
 
 # if [ -x /usr/bin/xfce4-power-manager ] ; then
 #   (nohup /usr/bin/xfce4-power-manager &)
 # fi
 
-# if [ -x /usr/bin/trayer ] ; then
-#   trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --height 16 --margin 0 --tint 0x696969 --transparent true &
-# fi
+if [ -x /usr/bin/trayer ] ; then
+  trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --height 16 --margin 0 --tint 0x696969 --transparent true &
+fi
 
 # if [ -x /usr/bin/ubuntuone-launch ] ; then
 #   ubuntuone-launch &
@@ -182,9 +182,9 @@ xsetroot -solid rgb:3f/3f/3f
 #   (nohup $HOME/apps/dropbox/dropboxd start &)
 # fi
 
-# if [ -x /usr/bin/ssh-agent ] ; then
-#   eval `ssh-agent`
-# fi
+if [ -x /usr/bin/ssh-agent ] ; then
+  eval `ssh-agent`
+fi
 
 # if [ -x /usr/bin/conky ] ; then
 #    (sleep 2 && /usr/bin/conky -d)&
