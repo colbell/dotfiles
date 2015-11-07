@@ -1,72 +1,85 @@
-
 -- -*- mode: haskell; -*-
+import Data.List
 import System.IO
+import System.Posix.Env (putEnv)
 
-import XMonad hiding ( (|||) )
+import XMonad
 
 import qualified XMonad.StackSet as W
 
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
 import XMonad.Actions.GridSelect
-import XMonad.Actions.UpdatePointer
 import XMonad.Actions.Warp
 import XMonad.Actions.WindowMenu
 
+import XMonad.Config.Desktop (desktopLayoutModifiers)
+-- import XMonad.Config.Mate -- In ~/.xmonad/lib/XMonad/Config
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 
-import XMonad.Layout.LayoutCombinators
-import XMonad.Layout.Named
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
 import XMonad.Layout.Tabbed
 
-import XMonad.Prompt
-import XMonad.Prompt.AppLauncher as AL
+import XMonad.Prompt (XPConfig(..), XPPosition(..), defaultXPConfig)
 import XMonad.Prompt.Man
 import XMonad.Prompt.RunOrRaise
-import XMonad.Prompt.Shell
 import XMonad.Prompt.Ssh
 import XMonad.Prompt.Window
 
 import XMonad.Util.EZConfig(additionalKeys)
-import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.Scratchpad
 import XMonad.Util.WorkspaceCompare
 
-myWorkspaces = ["1-emacs","2-shell","3-web","4-fm","5","6","7","8-ssh","9-mail"]
+myModMask :: KeyMask
+myModMask = mod4Mask
 
-myManageHook = scratchpadManageHookDefault <+> (composeAll . concat $ [[
-         resource  =? "Do"                --> doIgnore
-       , resource  =? "gnome-do"          --> doIgnore
-       , className =? "Gimp"              --> doFloat
-       , className =? "Gsimplecal"        --> doIgnore
-       , className =? "Guake"             --> doFloat
-       , className =? "MPlayer"           --> doFloat
-       , className =? "Vncviewer"         --> doFloat
-       , className =? "stalonetray"       --> doIgnore
-       , className =? "trayer"            --> doIgnore
-       , className =? "Tilda"             --> doFloat
-       , className =? "Guake.py"          --> doFloat
-       , className =? "Guake"             --> doFloat
-       , className =? "Yakuake"           --> doFloat
-       , className =? "Unity-2d-panel"    --> doIgnore
-       , className =? "Unity-2d-shell"    --> doIgnore
-       , className =? "Unity-2d-launcher" --> doIgnore
-       , resource  =? "desktop_window"    --> doIgnore
-       , resource  =? "kdesktop"          --> doIgnore
-       , className =? "tint2"             --> doIgnore
-       , className =? "Plasma"            --> doFloat
-       , className =? "Plasma-desktop"    --> doFloat
-       , className =? "Knotes"            --> doFloat
-       , className =? "XCalc"             --> doFloat
-       , className =? "Dolphin"           --> doShift "4-fm"
-       , className =? "chromium-browser"  --> doShift "3-web"
-       ]])
+myWorkspaces :: [WorkspaceId]
+myWorkspaces = ["1-emacs", "2-shell", "3-web", "4-fm", "5", "6", "7-ssh",
+                "8-im", "9-mail"]
+
+-- Mate/gnome terminals don't work for ssh/man prompts etc.
+myPromptTerminal :: String
+myPromptTerminal = "xterm"
+
+myTerminal :: String
+myTerminal = "mate-terminal"
+
+manageScratchPad :: ManageHook
+manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
+    where
+      h = 0.6          -- terminal height
+      w = 0.9          -- terminal width
+      t = (1 - h) / 2  -- distance from top edge
+      l = (1 - w) / 2  -- distance from left edge
+
+myManageHook :: ManageHook
+myManageHook = manageScratchPad <+>composeAll (
+    [ className =? "Tilda"             --> doFloat
+    , className =? "Guake.py"          --> doFloat
+    , className =? "guake"             --> doFloat
+    , className =? "Yakuake"           --> doFloat
+    , className =? "Unity-2d-panel"    --> doIgnore
+    , className =? "Unity-2d-shell"    --> doIgnore
+    , className =? "Unity-2d-launcher" --> doIgnore
+    , resource  =? "desktop_window"    --> doIgnore
+    , resource  =? "kdesktop"          --> doIgnore
+    , className =? "MPlayer"           --> doFloat
+    , className =? "Plasma"            --> doFloat
+    , className =? "plasmashell"       --> doIgnore
+    , className =? "Plasma-desktop"    --> doFloat
+    , className =? "Knotes"            --> doFloat
+    , className =? "Klipper"           --> doFloat
+    , className =? "stjerm"            --> doFloat
+    , className =? "XCalc"             --> doFloat
+    , className =? "Kcalc"             --> doFloat
+    , className =? "ksmserver"         --> doIgnore
+    , className =? "emulator-arm"      --> doFloat
+    ])
 
 myLogHook h = do
   dynamicLogWithPP $ oxyPP h
@@ -86,27 +99,27 @@ oxyPP h = defaultPP {
           }
 
 
-myXPConfig :: XPConfig
-myXPConfig = defaultXPConfig
-                { bgColor               = myBgColor
-                , fgColor               = myFgColor
-                , bgHLight              = myHighlightedBgColor
-                , fgHLight              = myHighlightedFgColor
-                , position              = Top
-                , promptBorderWidth     = 0
-                }
+myLayout = smartBorders $ avoidStruts $ showWName' mySWNConfig $
+           (Full ||| tiled ||| mirrorTiled ||| tabbed shrinkText myTabConfig)
+    where
+      tiled       = Tall nmaster delta ratio
+      nmaster     = 1
+      ratio       = 1/2
+      delta       = 3/100
+      mirrorTiled = Mirror tiled
 
---myStartupHook = setWMName "LG3D"   -- Workaround for Java grey screen issues.
+myInactiveBorderColor, myActiveBorderColor, myHighlightedFgColor :: String
+myHighlightedBgColor, myFgColor, myBgColor :: String
 
-myModMask = mod4Mask               -- Use Windoze key.
-
-myBgColor = "#000000"
-myFgColor = "#CC5500"
-myHighlightedBgColor = myBgColor
-myHighlightedFgColor = "#FFA000"
-myCurrentWsBgColor    = myHighlightedBgColor
+myBgColor             = "#000000"
+myFgColor             = "#CC5500"
+myHighlightedBgColor  = myBgColor
+myHighlightedFgColor  = "#FFA000"
 myActiveBorderColor   = myHighlightedFgColor
-myInactiveBorderColor = "#d3d3d3"
+myInactiveBorderColor = "#89CFF0"
+
+-- ARE THESE used?
+myCurrentWsBgColor    = myHighlightedBgColor
 
 -- Are these used?
 myCurrentWsFgColor = myHighlightedFgColor
@@ -118,91 +131,94 @@ myHiddenEmptyWsFgColor = "#8F8F8F"
 myUrgentWsBgColor = "#DCA3A3"
 myTitleFgColor = myFgColor
 myUrgencyHintFgColor = "red"
-myUrgencyHintBgColor = "blue"
 
-myLayout = smartBorders $ avoidStruts $ showWName' mySWNConfig $ named "tile" tiled ||| named "mTile" mirrorTiled ||| tabbed shrinkText myTabConfig ||| noBorders Full
-  where
-     tiled       = Tall nmaster delta ratio
-     nmaster     = 1
-     ratio       = 1/2
-     delta       = 3/100
-     mirrorTiled = Mirror tiled
 
+                        
+myBarFont :: String
+myBarFont = "xft: inconsolata-14"
+
+myTabConfig :: Theme
 myTabConfig = defaultTheme {
-    activeBorderColor        = myBgColor, --myHighlightedFgColor,
-    activeTextColor          = myFgColor, --myHighlightedFgColor,
-    activeColor              = myBgColor,
-    inactiveBorderColor      = myBgColor,
-    inactiveTextColor        = "#000000",
-    inactiveColor            = myInactiveBorderColor,
-    decoHeight               = 14
+                activeBorderColor   = myBgColor
+              , activeTextColor     = myHighlightedFgColor
+              , activeColor         = myBgColor
+              , inactiveBorderColor = myBgColor
+              , inactiveTextColor   = "#EEEEEE"
+              , inactiveColor       = myBgColor
+              , decoHeight          = 14
 }
 
--- Configure showWName
+mySWNConfig :: SWNConfig
 mySWNConfig = defaultSWNConfig {
                 swn_color   = myActiveBorderColor
               , swn_fade    = 2.0
-              , swn_bgcolor = myInactiveBorderColor}
+              , swn_bgcolor = myBgColor}
+
+myXPConfig :: XPConfig
+myXPConfig = defaultXPConfig
+                { bgColor               = myBgColor
+                , fgColor               = myFgColor
+                , bgHLight              = myHighlightedBgColor
+                , fgHLight              = myHighlightedFgColor
+                , position              = Top
+                , promptBorderWidth     = 0
+                , font                  = myBarFont
+                }
 
 
+-- Finder for window prompts. By default they only match
+-- the start of the window title. This also matches the
+-- middle of the title.
+myFinder :: String -> String -> Bool
+myFinder = isInfixOf
+
+main :: IO ()
 main = do
+  putEnv "_JAVA_AWT_WM_NONREPARENTING=1"
   xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar"
   xmonad $ defaultConfig {
-               manageHook         = manageDocks <+> myManageHook <+> manageHook defaultConfig
-             , layoutHook         = showWName' mySWNConfig $ myLayout
-             , workspaces         = myWorkspaces
-             , terminal           = "xterm"
-             , logHook            = myLogHook xmproc
-             --                       >> updatePointer (Relative 0.5 0.5)
-             -- , startupHook        = myStartupHook
-             , borderWidth        = 2
+               workspaces         = myWorkspaces
+             , manageHook         = manageDocks <+> myManageHook <+> manageHook defaultConfig
+             , borderWidth        = 1
              , modMask            = myModMask
+             , layoutHook         = myLayout
+             , logHook            = myLogHook xmproc
              , normalBorderColor  = myInactiveBorderColor
              , focusedBorderColor = "#ff4500"
+             , focusFollowsMouse  = True
+             , terminal           = myPromptTerminal
+             -- , clickJustFocuses   = False
              } `additionalKeys` keys'
-       where
-         keys' =  [ ((myModMask , xK_Return),               dwmpromote)
-                  , ((myModMask .|. shiftMask, xK_Return),  spawn "x-terminal-emulator")
-                  --, ((myModMask .|. shiftMask, xK_z),       spawn "xscreensaver-command --lock")
+    where
+      keys' =  [ ((myModMask , xK_Return),               dwmpromote)
+               , ((myModMask .|. shiftMask, xK_Return),  spawn myTerminal)
+               , ((mod1Mask, xK_F4),                     kill)
 
-                  -- Print Screen - Interactively select window or rectangle
-                  , ((myModMask, xK_Print),                 spawn "sleep 0.2;scrot -d2 -s 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
+               , ((myModMask, xK_b),                 sendMessage ToggleStruts)
 
-                  -- Print Screen - Current screen
-                  , ((myModMask .|. shiftMask, xK_Print),   spawn "sleep 0.2;scrot -d2 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
+               , ((myModMask, xK_F1),                manPrompt myXPConfig)
 
-                  -- Print Screen - All screens
-                  , ((myModMask .|. controlMask, xK_Print), spawn "sleep 0.2;scrot -d2 -m 'Zshot-%Y%m%d-%H.%M.%S.png' -e 'display $f'")
+               , ((myModMask, xK_g),                 windowPromptGoto myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder, alwaysHighlight = True })
+               , ((myModMask .|. shiftMask, xK_g),   windowPromptBring myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder, alwaysHighlight = True })
+               , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
+               , ((myModMask, xK_o ),                windowMenu)
+               , ((myModMask .|. controlMask, xK_h), sshPrompt myXPConfig)
+               , ((myModMask .|. controlMask, xK_w), swapPrevScreen)
+               , ((myModMask .|. controlMask, xK_e), swapNextScreen)
 
-                  , ((myModMask, xK_F1),                manPrompt defaultXPConfig)
+               , ((myModMask, xK_z             ), warpToWindow (0.5) (0.5))
+               , ((myModMask .|. mod1Mask, xK_w), warpToScreen 0 (0.5) (0.5))
+               , ((myModMask .|. mod1Mask, xK_e), warpToScreen 1 (0.5) (0.5))
+               , ((myModMask .|. mod1Mask, xK_r), warpToScreen 2 (0.5) (0.5))
 
-                  , ((myModMask, xK_z             ),    warpToWindow (0.5) (0.5))
-                  , ((myModMask .|. mod1Mask, xK_w),    warpToScreen 0 (0.5) (0.5))
-                  , ((myModMask .|. mod1Mask, xK_e),    warpToScreen 1 (0.5) (0.5))
-                  , ((myModMask .|. mod1Mask, xK_r),    warpToScreen 2 (0.5) (0.5))
+               , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500' -fn '-xos4-terminus-medium-r-*-*-14-*'")
+               , ((myModMask, xK_p), runOrRaisePrompt myXPConfig)
 
-                  , ((myModMask, xK_u),                 sendMessage $ ToggleStrut U)
-                  , ((myModMask, xK_b),                 sendMessage $ ToggleStrut D)
 
-                  , ((myModMask, xK_g),                 windowPromptGoto defaultXPConfig { autoComplete = Just 500000 } )
-                  , ((myModMask .|. shiftMask, xK_g),   windowPromptBring defaultXPConfig { autoComplete = Just 500000 } )
-                  , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
-                  , ((myModMask, xK_o ),                windowMenu)
-
-                  , ((myModMask .|. controlMask, xK_w), swapPrevScreen)
-                  , ((myModMask .|. controlMask, xK_e), swapNextScreen)
-
-                  -- , ((myModMask, xK_p),                 spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
-                  -- , ((myModMask, xK_r), runOrRaisePrompt myXPConfig)
-                  , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500'")
-                  , ((myModMask, xK_p), runOrRaisePrompt myXPConfig)
-
-                  , ((mod1Mask,  xK_F2), spawn "~/bin/xmenud.py")
-
-                  , ((myModMask, xK_b),                 sendMessage ToggleStruts)
-                  -- , ((mod1Mask, xK_F4),                 kill)
-
-                  , ((myModMask, xK_Left),              prevWS)
-                  , ((myModMask, xK_Right),             nextWS)
-
-           ]
+               , ((myModMask, xK_F12), scratchpadSpawnActionTerminal myPromptTerminal)
+               , ((myModMask, xK_F2),  spawn "~/bin/xmenud.py")
+               ]
+              ++
+              [((m .|. myModMask, k), windows $ f i) -- Don't use Greedy view
+              | (i, k) <- zip myWorkspaces [xK_1 .. xK_9]
+              , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
