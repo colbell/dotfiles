@@ -630,6 +630,7 @@
 
 (use-package sunrise-commander
   :ensure t
+  ;defer t
   :ensure sunrise-x-buttons
   :ensure sunrise-x-modeline)
 
@@ -683,7 +684,7 @@
       _l_: list                    _s_: Show in current Buffer
       _j_: goto                    _S_: Show in all buffers
       _d_: delete                  _n_: Next
-      _f_: find file               _p_: Previous
+      ^ ^                          _p_: Previous
       ^ ^                          _t_: Toggle
       ^ ^                          _x_: Set for a Regexp
       ^ ^                          _A_: Cycle in all buffers: %`bm-cycle-all-buffers
@@ -2689,7 +2690,7 @@ _d_: subtree       ^^               _g_: org goto
 ;; (use-package ack-and-a-half
 ;;   :ensure ack-and-a-half)
 
-(setq completion-cycle-threshold 5)
+(setq completion-cycle-threshold nil) ;;5)
 ;; How often do I key a comma without a trailing space?
 ;; Commented out as I just can't stop pressing the space-bar
 ;; (global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))

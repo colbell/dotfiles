@@ -929,7 +929,6 @@ Directory view/editing.
     (setq wdired-confirm-overwrite t)))
 #+end_src
 
-
 ** Dired hydra
 
 #+begin_src emacs-lisp
@@ -990,6 +989,7 @@ Directory view/editing.
 #+begin_src emacs-lisp
 (use-package sunrise-commander
   :ensure t
+  ;defer t
   :ensure sunrise-x-buttons
   :ensure sunrise-x-modeline)
 #+end_src
@@ -1053,7 +1053,7 @@ Bookmarks Hydra
         _l_: list                    _s_: Show in current Buffer
         _j_: goto                    _S_: Show in all buffers
         _d_: delete                  _n_: Next
-        _f_: find file               _p_: Previous
+        ^ ^                          _p_: Previous
         ^ ^                          _t_: Toggle
         ^ ^                          _x_: Set for a Regexp
         ^ ^                          _A_: Cycle in all buffers: %`bm-cycle-all-buffers
@@ -3652,7 +3652,7 @@ error when exporting from org to HTML, PDF etc.
 * Do I need these?
 
 #+begin_src emacs-lisp
-(setq completion-cycle-threshold 5)
+(setq completion-cycle-threshold nil) ;;5)
 ;; How often do I key a comma without a trailing space?
 ;; Commented out as I just can't stop pressing the space-bar
 ;; (global-set-key (kbd ",") (lambda() (interactive) (insert ", ")))
