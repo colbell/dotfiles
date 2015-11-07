@@ -3,7 +3,7 @@
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 
 host=`hostname`
-#xsetroot -cursor_name left_ptr
+xsetroot -cursor_name left_ptr
 
 # if [ -x $HOME/.config/openbox/autostart ] ; then
 #   (nohup $HOME/.config/openbox/autostart &)
@@ -24,37 +24,47 @@ xsetroot -solid rgb:3f/3f/3f
 # wicd-client &
 #fi
 
-if [ -x ~/.bin/xmenud.py ] ; then
-  (nohup ~/.bin/xmenud.py --tray &)
-fi
-
-#if [ -x /usr/bin/xscreensaver ] ; then
-#  (nohup /usr/bin/xscreensaver -no-splash &)
-#fi
-
-if [ -x /usr/bin/nm-applet ] ; then
- (nohup /usr/bin/nm-applet &)
-fi
-
-# if [ -x /usr/bin/xfce4-power-manager ] ; then
-#   (nohup /usr/bin/xfce4-power-manager &)
-# fi
-
 if [ -x /usr/bin/trayer ] ; then
   trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --height 16 --margin 0 --tint 0x696969 --transparent true &
 fi
 
-# if [ -x /usr/bin/ubuntuone-launch ] ; then
-#   ubuntuone-launch &
-# fi
+if [ -x /usr/bin/mate-settings-daemon ] ; then
+  (nohup /usr/bin/mate-settings-daemon &)
+fi
 
-# if [ -x /usr/bin/yakuake ] ; then
-#   yakuake &
-# fi
+if [ -x /usr/bin/mate-screensaver ] ; then
+  (nohup /usr/bin/mate-screensaver -no-splash &)
+fi
 
-#if [ -x /usr/bin/conky ] ; then
-#  (nohup /usr/bin/conky &)
-#fi
+if [ -x /usr/bin/nm-applet ] ; then
+  (nohup /usr/bin/nm-applet &)
+fi
+
+if [ -x /usr/bin/mate-power-manager ] ; then
+  (nohup /usr/bin/mate-power-manager &)
+fi
+
+if [ -x /usr/bin/update-notifier ] ; then
+  (nohup update-notifier --startup-delay=60 &)
+fi
+
+if [ -x /usr/bin/dropbox ] ; then
+  (nohup dropbox start -i &)
+fi
+
+if [ -x /usr/bin/variery ] ; then
+  variety &
+fi
+
+if [ -x /usr/bin/conky ] ; then
+  /usr/bin/conky &
+fi
+
+if [ -x ~/.bin/xmenud.py ] ; then
+  (nohup ~/.bin/xmenud.py --tray &)
+fi
+
+~/.bin/video on &
 
 # if [ $host = sandman ] ; then
 #   xrandr --newmode "1680x1050_60.00"  146.25  1680 1784 1960 2240  1050 1053 1059 1089 -hsync +vsync
@@ -92,14 +102,8 @@ fi
 #   xrandr --auto --output VBOX0 --mode 1680x1050
 # fi
 
-#if [ -x /usr/bin/gnome-power-manager ] ; then
-#   gnome-power-manager &
-#fi
 # if [ -x /usr/bin/seahorse-daemon ] ; then
 #   seahorse-daemon &
-# fi
-# if [ -x /usr/bin/update-notifier ] ; then
-#  update-notifier --startup-delay=60 &
 # fi
 
 # if [ -x /usr/bin/wicd-client ] ; then
