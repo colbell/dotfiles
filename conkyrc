@@ -12,13 +12,13 @@ draw_graph_borders yes
 draw_outline no
 draw_shades no
 use_xft yes
-xftfont Inconsolata Medium:size=8
+xftfont Inconsolata Medium:size=10
 net_avg_samples 2
 no_buffers yes
 out_to_console no
 out_to_stderr no
 extra_newline no
-own_window yes
+own_window no
 own_window_class Conky
 own_window_type desktop
 stippled_borders 0
