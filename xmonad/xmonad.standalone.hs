@@ -13,12 +13,12 @@ import XMonad.Actions.GridSelect
 import XMonad.Actions.Warp
 import XMonad.Actions.WindowMenu
 
-import XMonad.Config.Desktop (desktopLayoutModifiers)
--- import XMonad.Config.Mate -- In ~/.xmonad/lib/XMonad/Config
+-- import XMonad.Config.Desktop (desktopLayoutModifiers)
+
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.EwmhDesktops
+-- import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.SetWMName
+-- import XMonad.Hooks.SetWMName
 
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
@@ -35,20 +35,23 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.Scratchpad
 import XMonad.Util.WorkspaceCompare
 
+-- Use the Windoze key.
 myModMask :: KeyMask
 myModMask = mod4Mask
 
 myWorkspaces :: [WorkspaceId]
 myWorkspaces = ["1-emacs", "2-shell", "3-web", "4-fm", "5", "6", "7-ssh",
-                "8-im", "9-mail"]
+                "8-vms", "9-mail"]
 
 -- Mate/gnome terminals don't work for ssh/man prompts etc.
 myPromptTerminal :: String
 myPromptTerminal = "xterm"
 
+-- Terminal to use for <CTRL><ENTER>.
 myTerminal :: String
 myTerminal = "mate-terminal"
 
+-- Popup terminal
 manageScratchPad :: ManageHook
 manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
     where
@@ -57,6 +60,7 @@ manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
       t = (1 - h) / 2  -- distance from top edge
       l = (1 - w) / 2  -- distance from left edge
 
+-- Windows requiring special handling.
 myManageHook :: ManageHook
 myManageHook = manageScratchPad <+>composeAll (
     [ className =? "Tilda"             --> doFloat
@@ -81,6 +85,7 @@ myManageHook = manageScratchPad <+>composeAll (
     , className =? "emulator-arm"      --> doFloat
     ])
 
+-- Log hook for xmobar
 myLogHook h = do
   dynamicLogWithPP $ oxyPP h
 
@@ -95,18 +100,9 @@ oxyPP h = defaultPP {
           , ppUrgent = xmobarColor "" myUrgentWsBgColor
           , ppSort = getSortByTag --getSortByXineramaRule
           --             , ppSort = getSortByXineramaPhysicalRule
-          , ppTitle = xmobarColor myTitleFgColor myBgColor . shorten 120
+          , ppTitle = xmobarColor myTitleFgColor myBgColor . shorten 50
           }
 
-
-myLayout = smartBorders $ avoidStruts $ showWName' mySWNConfig $
-           (Full ||| tiled ||| mirrorTiled ||| tabbed shrinkText myTabConfig)
-    where
-      tiled       = Tall nmaster delta ratio
-      nmaster     = 1
-      ratio       = 1/2
-      delta       = 3/100
-      mirrorTiled = Mirror tiled
 
 myInactiveBorderColor, myActiveBorderColor, myHighlightedFgColor :: String
 myHighlightedBgColor, myFgColor, myBgColor :: String
@@ -133,7 +129,6 @@ myTitleFgColor = myFgColor
 myUrgencyHintFgColor = "red"
 
 
-                        
 myBarFont :: String
 myBarFont = "xft: inconsolata-14"
 
@@ -147,6 +142,15 @@ myTabConfig = defaultTheme {
               , inactiveColor       = myBgColor
               , decoHeight          = 14
 }
+
+myLayout = smartBorders $ avoidStruts $ showWName' mySWNConfig $
+           (Full ||| tiled ||| mirrorTiled ||| tabbed shrinkText myTabConfig)
+    where
+      tiled       = Tall nmaster delta ratio
+      nmaster     = 1
+      ratio       = 1/2
+      delta       = 3/100
+      mirrorTiled = Mirror tiled
 
 mySWNConfig :: SWNConfig
 mySWNConfig = defaultSWNConfig {
@@ -165,7 +169,6 @@ myXPConfig = defaultXPConfig
                 , font                  = myBarFont
                 }
 
-
 -- Finder for window prompts. By default they only match
 -- the start of the window title. This also matches the
 -- middle of the title.
@@ -178,7 +181,7 @@ main = do
   xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar"
   xmonad $ defaultConfig {
                workspaces         = myWorkspaces
-             , manageHook         = manageDocks <+> myManageHook <+> manageHook defaultConfig
+             , manageHook         = manageDocks <+> myManageHook  <+> manageHook defaultConfig
              , borderWidth        = 1
              , modMask            = myModMask
              , layoutHook         = myLayout
@@ -198,7 +201,7 @@ main = do
 
                , ((myModMask, xK_F1),                manPrompt myXPConfig)
 
-               , ((myModMask, xK_g),                 windowPromptGoto myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder, alwaysHighlight = True })
+               , ((myModMask, xK_g),                 windowPromptGoto myXPConfig  { autoComplete = Just 500000, searchPredicate = myFinder, alwaysHighlight = True })
                , ((myModMask .|. shiftMask, xK_g),   windowPromptBring myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder, alwaysHighlight = True })
                , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
                , ((myModMask, xK_o ),                windowMenu)
