@@ -1,9 +1,12 @@
 -- -*- mode: haskell; -*-
+import Control.Monad
 import Data.List
+import System.Exit
 import System.IO
 import System.Posix.Env (putEnv)
 
 import XMonad
+import XMonad.Util.Dmenu
 
 import qualified XMonad.StackSet as W
 
@@ -13,12 +16,8 @@ import XMonad.Actions.GridSelect
 import XMonad.Actions.Warp
 import XMonad.Actions.WindowMenu
 
--- import XMonad.Config.Desktop (desktopLayoutModifiers)
-
 import XMonad.Hooks.DynamicLog
--- import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
--- import XMonad.Hooks.SetWMName
 
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
@@ -88,7 +87,6 @@ myManageHook = manageScratchPad <+>composeAll (
 -- Log hook for xmobar
 myLogHook h = do
   dynamicLogWithPP $ oxyPP h
-
 oxyPP :: Handle -> PP
 oxyPP h = defaultPP {
             ppOutput = hPutStrLn h
@@ -110,7 +108,7 @@ myHighlightedBgColor, myFgColor, myBgColor :: String
 myBgColor             = "#000000"
 myFgColor             = "#CC5500"
 myHighlightedBgColor  = myBgColor
-myHighlightedFgColor  = "#FFA000"
+myHighlightedFgColor  = "#FF4500"
 myActiveBorderColor   = myHighlightedFgColor
 myInactiveBorderColor = "#89CFF0"
 
@@ -130,7 +128,8 @@ myUrgencyHintFgColor = "red"
 
 
 myBarFont :: String
-myBarFont = "xft: inconsolata-14"
+myBarFont = "xft:inconsolata"
+-- myBarFont = "xft:Source Code Pro-16"
 
 myTabConfig :: Theme
 myTabConfig = defaultTheme {
@@ -175,6 +174,12 @@ myXPConfig = defaultXPConfig
 myFinder :: String -> String -> Bool
 myFinder = isInfixOf
 
+logoutWithWarning :: X ()
+logoutWithWarning = do
+    let logoutMenu = ["Logout", "Cancel"]
+    str <- dmenu(logoutMenu)
+    when (logoutMenu!!0 == str) (io exitSuccess)
+
 main :: IO ()
 main = do
   putEnv "_JAVA_AWT_WM_NONREPARENTING=1"
@@ -187,7 +192,7 @@ main = do
              , layoutHook         = myLayout
              , logHook            = myLogHook xmproc
              , normalBorderColor  = myInactiveBorderColor
-             , focusedBorderColor = "#ff4500"
+             , focusedBorderColor = myHighlightedFgColor
              , focusFollowsMouse  = True
              , terminal           = myPromptTerminal
              -- , clickJustFocuses   = False
@@ -200,12 +205,12 @@ main = do
                , ((myModMask, xK_b),                 sendMessage ToggleStruts)
 
                , ((myModMask, xK_F1),                manPrompt myXPConfig)
-
+               , ((myModMask, xK_F8),                sshPrompt myXPConfig)
                , ((myModMask, xK_g),                 windowPromptGoto myXPConfig  { autoComplete = Just 500000, searchPredicate = myFinder, alwaysHighlight = True })
                , ((myModMask .|. shiftMask, xK_g),   windowPromptBring myXPConfig { autoComplete = Just 500000, searchPredicate = myFinder, alwaysHighlight = True })
                , ((myModMask, xK_s),                 goToSelected defaultGSConfig)
                , ((myModMask, xK_o ),                windowMenu)
-               , ((myModMask .|. controlMask, xK_h), sshPrompt myXPConfig)
+
                , ((myModMask .|. controlMask, xK_w), swapPrevScreen)
                , ((myModMask .|. controlMask, xK_e), swapNextScreen)
 
@@ -214,12 +219,14 @@ main = do
                , ((myModMask .|. mod1Mask, xK_e), warpToScreen 1 (0.5) (0.5))
                , ((myModMask .|. mod1Mask, xK_r), warpToScreen 2 (0.5) (0.5))
 
-               , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500' -fn '-xos4-terminus-medium-r-*-*-14-*'")
-               , ((myModMask, xK_p), runOrRaisePrompt myXPConfig)
+               , ((myModMask, xK_p),               runOrRaisePrompt myXPConfig)
+               , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#FFFFFF' -sb '#000000' -sf '#FF4500' -fn '-xos4-terminus-medium-r-*-*-14-*'")
 
 
                , ((myModMask, xK_F12), scratchpadSpawnActionTerminal myPromptTerminal)
                , ((myModMask, xK_F2),  spawn "~/bin/xmenud.py")
+
+               , ((myModMask .|. shiftMask, xK_q), logoutWithWarning)
                ]
               ++
               [((m .|. myModMask, k), windows $ f i) -- Don't use Greedy view
