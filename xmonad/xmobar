@@ -1,28 +1,31 @@
 Config { font = "xft:Inconsolata-12"
-       , bgColor = "#3f3f3f"
+       , bgColor = "#3F3F3F"
        , fgColor = "#DCDCCC"
-       , position = Top
+       , position = TopW L 90
        , lowerOnStart = True
-       , commands = [ Run Weather "YSSY" ["-t","<station>: <tempC>C - rh <rh>%","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
-                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
-                    , Run Memory ["-t","Mem: <usedratio>%"] 10
-                    , Run Swap [] 10
-                    , Run Com "sh" ["~/.bin/xmobar-battery"] "batt" 300
-                    , Run Date "%_d %b %H:%M" "date" 300
-                    , Run Com "sh" ["~/.bin/xmobar-utc"] "utcdate" 300
-                    , Run BatteryP ["BAT0"]
-                                   ["-t", "<acstatus><watts> (<left>%)",
-                                    "-L", "10", "-H", "80", "-p", "3",
-                                    "--", "-O", "<fc=green>On</fc>",
-                                    "-L", "-15", "-H", "-5",
-                                    "-l", "red", "-m", "blue", "-h", "green"]
-                                    600
-                    , Run CoreTemp ["-t", "Temp:<core0>C",
-                                    "-L", "40", "-H", "60",
-                                    "-l", "lightblue", "-n", "gray90", "-h", "red"] 50
-                    , Run ThermalZone 0 ["-t","<id>: <temp>C"] 30
+       , pickBroadest = False
+       , commands =
+           [ Run MultiCpu  [ "--template" , "Cpu: <total0>%|<total1>%"
+                            , "--Low"      , "50"         -- units: %
+                            , "--High"     , "85"         -- units: %
+                            , "--low"      , "green"
+                            , "--normal"   , "orange"
+                            , "--high"     , "red"
+                            ] 10
+            , Run Memory ["-t","Mem: <usedratio>%"] 10
+            , Run Swap [] 10
+            , Run Date "%_d %b %H:%M" "date" 300
+            , Run Com "date" ["-u", "+%_d %b %H:%M UTC"] "utcdate" 300
+
+  , Run CoreTemp       [ "--template" , "Temp: <core0>°C|<core1>°C"
+                             , "--Low"      , "70"        -- units: °C
+                             , "--High"     , "80"        -- units: °C
+                             , "--low"      , "lightgreen"
+                             , "--normal"   , "darkorange"
+                             , "--high"     , "darkred"
+                             ] 50
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% | %cpu% | %battery% | %memory% * %swap% }{ %YSSY% | %date%  | %utcdate%"
+       , template = "%StdinReader% | %multicpu% | %coretemp% | %memory% * %swap% }{ %date%  | %utcdate%"
