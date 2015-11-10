@@ -5,18 +5,15 @@
 host=`hostname`
 
 xsetroot -cursor_name left_ptr
-xsetroot -solid rgb:3f/3f/3f
+#xsetroot -solid rgb:3f/3f/3f
+xsetroot -solid black
 
 if [ -x /usr/bin/trayer ] ; then
-  trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --height 18 --margin 0 --tint 0x696969 --transparent true &
+  trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --height 18 --margin 0 --tint 0x000000 --transparent true &
 fi
 
 if [ -x /usr/bin/mate-settings-daemon ] ; then
   (nohup /usr/bin/mate-settings-daemon &)
-fi
-
-if [ -x /usr/bin/mate-screensaver ] ; then
-  (nohup /usr/bin/mate-screensaver &)
 fi
 
 if [ -x /usr/bin/nm-applet ] ; then
@@ -37,6 +34,10 @@ fi
 
 if [ -x ~/.bin/xmenud.py ] ; then
   (nohup ~/.bin/xmenud.py --tray &)
+fi
+
+if [ -x /usr/bin/mate-screensaver ] ; then
+  (nohup /usr/bin/mate-screensaver &)
 fi
 
 ~/.bin/video on
@@ -73,4 +74,5 @@ fi
 # Java/awesome fix
 #_JAVA_AWT_WM_NONREPARENTING=1; export _JAVA_AWT_WM_NONREPARENTING
 
-xmonad
+#exec ck-launch-session dbus-launch --sh-syntax --exit-with-session xmonad
+dbus-launch --exit-with-session xmonad

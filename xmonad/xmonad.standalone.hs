@@ -85,63 +85,38 @@ myManageHook = manageScratchPad <+>composeAll (
     ])
 
 -- Log hook for xmobar
+myLogHook :: Handle -> X ()
 myLogHook h = do
   dynamicLogWithPP $ oxyPP h
 oxyPP :: Handle -> PP
 oxyPP h = defaultPP {
-            ppOutput = hPutStrLn h
-          , ppWsSep = " "
-          , ppCurrent = xmobarColor myCurrentWsFgColor myCurrentWsBgColor
-          , ppVisible = xmobarColor myVisibleWsFgColor myVisibleWsBgColor
-          , ppHidden = xmobarColor myHiddenWsFgColor ""
-          , ppHiddenNoWindows = xmobarColor myHiddenEmptyWsFgColor ""
-          , ppUrgent = xmobarColor "" myUrgentWsBgColor
-          , ppSort = getSortByTag --getSortByXineramaRule
-          --             , ppSort = getSortByXineramaPhysicalRule
-          , ppTitle = xmobarColor myTitleFgColor myBgColor . shorten 50
+            ppOutput          = hPutStrLn h
+          , ppWsSep           = " "
+          , ppCurrent         = xmobarColor myFgCurrent      myBgColor
+          , ppVisible         = xmobarColor myFgVisible      myBgColor
+          , ppHidden          = xmobarColor myFgHidden       myBgColor
+          , ppHiddenNoWindows = xmobarColor myFgHiddenEmpty  myBgColor
+          , ppUrgent          = xmobarColor ""               myUrgentWsBg
+          , ppSort            = getSortByTag
+          , ppTitle           = xmobarColor myFgHiddenEmpty myBgColor . shorten 50
           }
 
 
-myInactiveBorderColor, myActiveBorderColor, myHighlightedFgColor :: String
-myHighlightedBgColor, myFgColor, myBgColor :: String
+myBgColor, myFgColor, myFgCurrent, myFgVisible, myFgHidden :: String
+myFgHiddenEmpty, myUrgentWsBg :: String
 
-myBgColor             = "#000000"
-myFgColor             = "#CC5500"
-myHighlightedBgColor  = myBgColor
-myHighlightedFgColor  = "#FF4500"
-myActiveBorderColor   = myHighlightedFgColor
-myInactiveBorderColor = "#89CFF0"
-
--- ARE THESE used?
-myCurrentWsBgColor    = myHighlightedBgColor
-
--- Are these used?
-myCurrentWsFgColor = myHighlightedFgColor
---myCurrentWsBgColor = myHighlightedBgColor
-myVisibleWsFgColor = myFgColor
-myVisibleWsBgColor = "#506070"
-myHiddenWsFgColor = myHighlightedFgColor
-myHiddenEmptyWsFgColor = "#8F8F8F"
-myUrgentWsBgColor = "#DCA3A3"
-myTitleFgColor = myFgColor
-myUrgencyHintFgColor = "red"
-
+myFgCurrent      = "green"
+myFgVisible      = "#808000"
+myFgHidden       = "orange"
+myFgHiddenEmpty  = "gray"
+myBgColor        = "#000000"
+myFgColor        = myFgHidden
+myUrgentWsBg     = "#DCA3A3"
 
 myBarFont :: String
 myBarFont = "xft:inconsolata"
--- myBarFont = "xft:Source Code Pro-16"
 
-myTabConfig :: Theme
-myTabConfig = defaultTheme {
-                activeBorderColor   = myBgColor
-              , activeTextColor     = myHighlightedFgColor
-              , activeColor         = myBgColor
-              , inactiveBorderColor = myBgColor
-              , inactiveTextColor   = "#EEEEEE"
-              , inactiveColor       = myBgColor
-              , decoHeight          = 14
-}
-
+-- Layouts to use.
 myLayout = smartBorders $ avoidStruts $ showWName' mySWNConfig $
            (Full ||| tiled ||| mirrorTiled ||| tabbed shrinkText myTabConfig)
     where
@@ -151,22 +126,37 @@ myLayout = smartBorders $ avoidStruts $ showWName' mySWNConfig $
       delta       = 3/100
       mirrorTiled = Mirror tiled
 
+-- Theme for showing workspace name when switching workspaces.
 mySWNConfig :: SWNConfig
 mySWNConfig = defaultSWNConfig {
-                swn_color   = myActiveBorderColor
-              , swn_fade    = 2.0
-              , swn_bgcolor = myBgColor}
+                swn_color   = myFgCurrent
+              , swn_fade    = 2.0         -- Nbr seconds workspace name visible
+              , swn_bgcolor = myBgColor
+              }
 
+-- Theme for various prompts.
 myXPConfig :: XPConfig
-myXPConfig = defaultXPConfig
-                { bgColor               = myBgColor
+myXPConfig = defaultXPConfig {
+                  bgColor               = myBgColor
                 , fgColor               = myFgColor
-                , bgHLight              = myHighlightedBgColor
-                , fgHLight              = myHighlightedFgColor
+                , bgHLight              = myBgColor
+                , fgHLight              = myFgCurrent
                 , position              = Top
                 , promptBorderWidth     = 0
                 , font                  = myBarFont
                 }
+
+-- Theme for tabbed layout.
+myTabConfig :: Theme
+myTabConfig = defaultTheme {
+                activeBorderColor   = myBgColor
+              , activeTextColor     = myFgCurrent
+              , activeColor         = myBgColor
+              , inactiveBorderColor = myBgColor
+              , inactiveTextColor   = myFgHidden
+              , inactiveColor       = myBgColor
+              , decoHeight          = 14
+}
 
 -- Finder for window prompts. By default they only match
 -- the start of the window title. This also matches the
@@ -191,8 +181,8 @@ main = do
              , modMask            = myModMask
              , layoutHook         = myLayout
              , logHook            = myLogHook xmproc
-             , normalBorderColor  = myInactiveBorderColor
-             , focusedBorderColor = myHighlightedFgColor
+             , normalBorderColor  = myFgVisible
+             , focusedBorderColor = myFgCurrent
              , focusFollowsMouse  = True
              , terminal           = myPromptTerminal
              -- , clickJustFocuses   = False
