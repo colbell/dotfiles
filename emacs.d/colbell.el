@@ -2582,36 +2582,32 @@ _d_: subtree       ^^               _g_: org goto
 (global-set-key (kbd "<f5> z") #'hydra-zoom/body)
 
 (use-package saveplace
-  ;;:demand
-
   :init
   (progn
     (save-place-mode)
     (setq save-place-forget-unreadable-files nil)  ;; performance
     (setq save-place-file (expand-file-name "places" user-emacs-directory))))
 
-;; Problems with projectile mode. Refuses to load desktop.
-;; (use-package desktop
-;;   :demand t
+(use-package desktop
+  :init
+  (progn
+    (desktop-save-mode)
+    ;;(setq desktop-restore-frames nil) ;; Probs with emacsclient
+    (setq desktop-load-locked-desktop nil)
+    (setq desktop-restore-eager 10)   ;; Open first X immed then in bckgrnd
 
-;;   :init
-;;   (progn
-;;     (desktop-save-mode)
-;;     ;;(setq desktop-restore-frames nil) ;; Probs with emacsclient
-;;     (setq desktop-load-locked-desktop nil)
-;;     (setq desktop-restore-eager 10)   ;; Open first X immed then rest in background
+    (setq desktop-globals-to-save (delete 'tags-file-name desktop-globals-to-save))
+    (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save)))
 
-;;     (setq desktop-globals-to-save (delete 'tags-file-name desktop-globals-to-save))
-;;     (setq desktop-globals-to-save (delete 'tags-table-list desktop-globals-to-save)))
-
-;;   :config
-;;   (progn
-;;     (add-to-list 'desktop-modes-not-to-save 'dired-mode)))
+  :config
+  (progn
+    (add-to-list 'desktop-modes-not-to-save 'dired-mode)))
 
 (use-package savehist
   :init
   (progn
     (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
+    (setq savehist-additional-variables '(kill-ring))
     (savehist-mode)
     (setq history-delete-duplicates t)
     (setq savehist-save-minibuffer-history t)))
