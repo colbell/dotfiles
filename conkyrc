@@ -30,7 +30,7 @@ show_graph_scale no
 show_graph_range no
 
 default_color C5C5C5
-color0 D0781A
+color0 FF4500
 color1 C5C5C5
 color2 8BB381
 color3 D01C19
@@ -45,18 +45,20 @@ mail_spool $MAIL
 TEXT
 ${font Inconsolata bold:size=16}${color0}${execi 3600 lsb_release -sd}${font}${color2}
 ${scroll 64 4 Conky $conky_version - $nodename - $sysname $kernel on $machine with uptime $uptime}
-${font Inconsolata Medium:bold:size=10}${color0}System${font}${color1}${GOTO 100}${execi 3600 ~/.bin/mydebupdates.sh}
-${GOTO 50}Mail:${GOTO 100}${new_mails}/${mails}
+${font Inconsolata Medium:bold:size=10}${color0}System${font}${color1}
+${GOTO 50}Updates:${GOTO 150}${execi 3600 ~/.bin/mydebupdates.sh}
+${GOTO 50}System Mail:${GOTO 150}${new_mails /var/mail/colbell}/${mails /var/mail/colbell}
+${GOTO 50}Personal Mail:${GOTO 150}${new_mails $HOME/Maildir/home/INBOX}/${mails $HOME/Maildir/home/INBOX}
 
-${GOTO 50}CPU:${GOTO 100}${cpugraph cpu0 10,75 D0781A D01C19} $cpu%
+${GOTO 50}CPU:${GOTO 150}${cpugraph cpu0 10,75 D0781A D01C19} $cpu%
 
-${GOTO 50}RAM:${GOTO 100}$mem / $memmax
-${GOTO 100}${membar 10,75}
+${GOTO 50}RAM:${GOTO 150}$mem / $memmax
+${GOTO 150}${membar 10,75}
 
-${GOTO 50}SWAP:${GOTO 100}$swap / $swapmax
-${GOTO 100}${swapbar 10,75}
+${GOTO 50}SWAP:${GOTO 150}$swap / $swapmax
+${GOTO 150}${swapbar 10,75}
 
-${GOTO 50}Battery:${GOTO 100}${battery_bar 10,75}   ${battery_percent}%    ${battery_time}
+${GOTO 50}Battery:${GOTO 150}${battery_bar 10,75}   ${battery_percent}%    ${battery_time}
 
 ${font Inconsolata Medium:bold:size=10}${color0}Top Processes${font}${color1}
 ${GOTO 200}CPU%${GOTO 250}MEM%
