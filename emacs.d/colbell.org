@@ -3508,7 +3508,7 @@ Remember current position in file.
   :init
   (progn
     (save-place-mode)
-    (setq save-place-forget-unreadable-files nil)  ;; performance
+    (setq save-place-forget-unreadable-files t)
     (setq save-place-file (expand-file-name "places" user-emacs-directory))))
 #+end_src
 
