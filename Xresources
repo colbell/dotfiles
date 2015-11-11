@@ -83,16 +83,16 @@ XTerm*metaSendsEscape: true
 XTerm*loginShell: true
 XTerm*cursorBlink: true
 
-! XTerm*background:  #000000
-! XTerm*foreground:  #ffffff
-! XTerm*color0: black
-! XTerm*color1: red
-! XTerm*color2: green
-! XTerm*color3: yellow
-! XTerm*color4: blue
-! XTerm*color5: magenta
-! XTerm*color6: cyan
-! XTerm*color7: white
+XTerm*background:  #000000
+XTerm*foreground:  #ffffff
+XTerm*color0: black
+XTerm*color1: red
+XTerm*color2: green
+XTerm*color3: yellow
+XTerm*color4: blue
+XTerm*color5: magenta
+XTerm*color6: cyan
+XTerm*color7: white
 
 ! Zenburn
 ! XTerm*background:  #3f3f3f
