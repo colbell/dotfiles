@@ -5,7 +5,6 @@
 host=`hostname`
 
 xsetroot -cursor_name left_ptr
-#xsetroot -solid rgb:3f/3f/3f
 xsetroot -solid darkgray
 
 if [ -x /usr/bin/trayer ] ; then
@@ -16,7 +15,7 @@ if [ -x /usr/bin/mate-settings-daemon ] ; then
   (nohup /usr/bin/mate-settings-daemon &)
 fi
 
-# Wait for mate-settings-daemon
+# Wait for mate-settings-daemon.
 sleep 1
 
 if [ -x /usr/bin/nm-applet ] ; then
