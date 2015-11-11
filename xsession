@@ -6,15 +6,18 @@ host=`hostname`
 
 xsetroot -cursor_name left_ptr
 #xsetroot -solid rgb:3f/3f/3f
-xsetroot -solid black
+xsetroot -solid darkgray
 
 if [ -x /usr/bin/trayer ] ; then
-  trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --height 18 --margin 0 --tint 0x000000 --transparent true &
+  trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --height 21 --margin 0 --tint 0x000000 --transparent true &
 fi
 
 if [ -x /usr/bin/mate-settings-daemon ] ; then
   (nohup /usr/bin/mate-settings-daemon &)
 fi
+
+# Wait for mate-settings-daemon
+sleep 1
 
 if [ -x /usr/bin/nm-applet ] ; then
   (nohup /usr/bin/nm-applet &)
@@ -36,11 +39,19 @@ if [ -x ~/.bin/xmenud.py ] ; then
   (nohup ~/.bin/xmenud.py --tray &)
 fi
 
-if [ -x /usr/bin/mate-screensaver ] ; then
-  (nohup /usr/bin/mate-screensaver &)
+if [ -x /usr/bin/xscreensaver ] ; then
+  (nohup /usr/bin/xscreensaver -no-splash &)
 fi
 
-~/.bin/video on
+if [ -x /usr/bin/xfce4-clipman ] ; then
+  (nohup /usr/bin/xfce4-clipman &)
+fi
+
+if [ -x /usr/bin/system-config-printer-applet ] ; then
+  (nohup /usr/bin/system-config-printer-applet &)
+fi
+
+#~/.bin/video on
 
 # if [ -x /usr/bin/variety ] ; then
 #   /usr/bin/variety &
