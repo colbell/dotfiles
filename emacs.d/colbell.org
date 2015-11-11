@@ -181,7 +181,7 @@ This is needed prior to setting the theme.
 
 #+begin_src emacs-lisp
 (cnb/disable-theme)
-(load-theme 'monokai t)
+(load-theme 'solarized-dark t)
 #+end_src
 
 * Sensible defaults
@@ -293,8 +293,8 @@ When re-centering screen (<ctrl l), first put it to top of screen.
 A decent font.
 
 #+begin_src emacs-lisp
-;;(set-frame-font "Source Code Pro-11" nil t)
-(set-frame-font "DejaVu Sans Mono-11" nil t)
+(set-frame-font "Source Code Pro-10" nil t)
+;;(set-frame-font "DejaVu Sans Mono-10" nil t)
 #+end_src
 
   Initialize random number generator.
@@ -608,7 +608,7 @@ Recent Files is a mode that keeps track of files that have been opened.
                             "/sudo:" "/\\.git/.*\\'"
                             "/home/colbell/.jabber-avatars/*"
                             "COMMIT_MSG" "COMMIT_EDITMSG" "github.*txt$"
-                            ".*png$"))
+                            ".*png$" "TAGS"))
 
     ;; We don't want to remember the recentf database file itself.
     (add-to-list 'recentf-exclude recentf-save-file)
@@ -652,6 +652,7 @@ Helm is an interactive completion tool.
     (setq helm-input-idle-delay 0.01) ; this actually updates things relatively quickly.
     (setq helm-quick-update t)
     (setq helm-M-x-requires-pattern 0)
+    (setq helm-M-x-fuzzy-match t)
     (setq helm-ff-skip-boring-files t)
     (setq enable-recursive-minibuffers t)
     (setq helm-buffers-fuzzy-matching t)

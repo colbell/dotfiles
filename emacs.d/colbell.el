@@ -84,7 +84,7 @@
 (bind-key "S-<f6>" #'cnb/disable-theme)
 
 (cnb/disable-theme)
-(load-theme 'monokai t)
+(load-theme 'solarized-dark t)
 
 (column-number-mode)
 (size-indication-mode)
@@ -134,8 +134,8 @@
 
 (setq recenter-positions '(top middle bottom))
 
-;;(set-frame-font "Source Code Pro-11" nil t)
-(set-frame-font "DejaVu Sans Mono-11" nil t)
+(set-frame-font "Source Code Pro-10" nil t)
+;;(set-frame-font "DejaVu Sans Mono-10" nil t)
 
 (random t)
 
@@ -312,7 +312,7 @@
                             "/sudo:" "/\\.git/.*\\'"
                             "/home/colbell/.jabber-avatars/*"
                             "COMMIT_MSG" "COMMIT_EDITMSG" "github.*txt$"
-                            ".*png$"))
+                            ".*png$" "TAGS"))
 
     ;; We don't want to remember the recentf database file itself.
     (add-to-list 'recentf-exclude recentf-save-file)
@@ -350,6 +350,7 @@
     (setq helm-input-idle-delay 0.01) ; this actually updates things relatively quickly.
     (setq helm-quick-update t)
     (setq helm-M-x-requires-pattern 0)
+    (setq helm-M-x-fuzzy-match t)
     (setq helm-ff-skip-boring-files t)
     (setq enable-recursive-minibuffers t)
     (setq helm-buffers-fuzzy-matching t)
@@ -2585,7 +2586,7 @@ _d_: subtree       ^^               _g_: org goto
   :init
   (progn
     (save-place-mode)
-    (setq save-place-forget-unreadable-files nil)  ;; performance
+    (setq save-place-forget-unreadable-files t)
     (setq save-place-file (expand-file-name "places" user-emacs-directory))))
 
 (use-package desktop
