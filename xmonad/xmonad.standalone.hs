@@ -30,6 +30,7 @@ import XMonad.Prompt.Ssh
 import XMonad.Prompt.Window
 
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.Scratchpad
 import XMonad.Util.WorkspaceCompare
@@ -54,7 +55,7 @@ myTerminal = "mate-terminal"
 manageScratchPad :: ManageHook
 manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
     where
-      h = 0.6          -- terminal height
+      h = 0.8          -- terminal height
       w = 0.9          -- terminal width
       t = (1 - h) / 2  -- distance from top edge
       l = (1 - w) / 2  -- distance from left edge
@@ -97,7 +98,7 @@ oxyPP h = defaultPP {
           , ppHidden          = xmobarColor myFgHidden       myBgColor
           , ppHiddenNoWindows = xmobarColor myFgHiddenEmpty  myBgColor
           , ppUrgent          = xmobarColor ""               myUrgentWsBg
-          , ppSort            = getSortByTag
+          , ppSort            = fmap (namedScratchpadFilterOutWorkspace.) (getSortByTag)
           , ppTitle           = xmobarColor myFgHiddenEmpty myBgColor . shorten 50
           }
 
@@ -191,8 +192,7 @@ main = do
       keys' =  [ ((myModMask , xK_Return),               dwmpromote)
                , ((myModMask .|. shiftMask, xK_Return),  spawn myTerminal)
                , ((mod1Mask, xK_F4),                     kill)
-
-               , ((myModMask, xK_b),                 sendMessage ToggleStruts)
+               , ((myModMask, xK_b),                     sendMessage ToggleStruts)
 
                , ((myModMask, xK_F1),                manPrompt myXPConfig)
                , ((myModMask, xK_F8),                sshPrompt myXPConfig)
