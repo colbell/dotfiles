@@ -28,12 +28,16 @@
   (setq package-enable-at-startup nil)
   (require 'package)
 
-  (add-to-list 'package-archives
-               '("melpa" . "http://melpa.org/packages/")
-               'APPEND)
-  (add-to-list 'package-archives
-               '("SC" . "http://joseito.republika.pl/sunrise-commander/")
-               'APPEND)
+  (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                           ("melpa" . "https://melpa.org/packages/")
+                           ("SC" . "http://joseito.republika.pl/sunrise-commander/")))
+
+  ;; (add-to-list 'package-archives
+  ;;              '("melpa" . "https://melpa.org/packages/")
+  ;;              'APPEND)
+  ;; (add-to-list 'package-archives
+  ;;              '("SC" . "http://joseito.republika.pl/sunrise-commander/")
+  ;;              'APPEND)
   (package-initialize)
 
   ;; I use 'use-package' to tidy up my Emacs configuration.
