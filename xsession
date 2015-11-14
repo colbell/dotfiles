@@ -8,7 +8,7 @@ xsetroot -cursor_name left_ptr
 xsetroot -solid darkgray
 
 if [ -x /usr/bin/trayer ] ; then
-  trayer --edge top  --align right --SetDockType true --SetPartialStrut true  --expand true --width 10 --height 21 --margin 0 --tint 0x000000 --transparent true &
+  trayer --edge top  --align right --SetDockType true --expand false --SetPartialStrut true --width 10 --height 19 --margin 0 --transparent true --alpha 0 --tint 0x000000 &
 fi
 
 if [ -x /usr/bin/mate-settings-daemon ] ; then
@@ -38,7 +38,14 @@ if [ -x ~/.bin/xmenud.py ] ; then
   (nohup ~/.bin/xmenud.py --tray &)
 fi
 
+# Started by mate-settings.
+# if [ -x /usr/bin/pulseaudio ] ; then
+#   (nohup /usr/bin/pulseaudio --start &)
+# fi
+
 if [ -x /usr/bin/xscreensaver ] ; then
+  killall gnome-screensaver &
+  killall mate-screensaver &
   (nohup /usr/bin/xscreensaver -no-splash &)
 fi
 
@@ -61,8 +68,12 @@ fi
 #   sh ~/.fehbg &
 # fi
 
-if [ -x /usr/bin/ssh-agent ] ; then
-  eval `/usr/bin/ssh-agent`
+# if [ -x /usr/bin/ssh-agent ] ; then
+#   eval `/usr/bin/ssh-agent`
+# fi
+
+if [ -x /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1 ] ; then
+  (nohup /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1 &)
 fi
 
 if [ -x /usr/bin/conky ] ; then
@@ -84,5 +95,5 @@ fi
 # Java/awesome fix
 #_JAVA_AWT_WM_NONREPARENTING=1; export _JAVA_AWT_WM_NONREPARENTING
 
-#exec ck-launch-session dbus-launch --sh-syntax --exit-with-session xmonad
-dbus-launch --exit-with-session xmonad
+exec ck-launch-session dbus-launch --sh-syntax --exit-with-session xmonad
+#dbus-launch --exit-with-session xmonad
