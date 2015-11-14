@@ -144,7 +144,7 @@
   :ensure t)
 
 ;; I use keys that start with C-o for personal mappings.
-(global-unset-key "\C-o")
+;;(global-unset-key "\C-o")
 
 (global-set-key (kbd "<f8> <f1>") 'repeat-complex-command)
 
@@ -1495,6 +1495,9 @@
 
     ("q"   nil                              "quit")))
 
+(define-key projectile-rails-mode-map (kbd "<f5> R")
+  'hydra-projectile-rails/body)
+
 (use-package smartparens-config
   :ensure smartparens
   ;;:diminish smartparens
@@ -1761,11 +1764,12 @@
     (add-hook 'clojure-mode-hook
               (lambda ()
                 (clj-refactor-mode 1)
-                (cljr-add-keybindings-with-prefix "C-o C-r")))
+                ;;(cljr-add-keybindings-with-prefix "C-o C-r")
+                (cljr-add-keybindings-with-prefix "C-c C-m")))
 
-    (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
-    (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
-    (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)
+    ;; (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
+    ;; (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
+    ;; (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)
 
     (define-clojure-indent
       (defroutes 'defun)
@@ -2239,7 +2243,7 @@
           (list (concat org-directory "personal.org")
                 (concat org-directory "kwela.org")))
 
-    (setq org-ellipsis "…")
+    (setq org-ellipsis nil)
     ;;(add-hook 'org-mode-hook #'turn-off-auto-fill)
     ;;(add-hook 'org-mode-hook #'nlinum-mode t)
 

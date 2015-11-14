@@ -318,7 +318,7 @@ out. This occurs only when installing, not when loading.
 
 #+begin_src emacs-lisp
 ;; I use keys that start with C-o for personal mappings.
-(global-unset-key "\C-o")
+;;(global-unset-key "\C-o")
 
 (global-set-key (kbd "<f8> <f1>") 'repeat-complex-command)
 
@@ -2112,6 +2112,11 @@ Projectile is a Project Interaction Library.
     ("q"   nil                              "quit")))
 #+end_src
 
+#+begin_src emacs-lisp
+(define-key projectile-rails-mode-map (kbd "<f5> R")
+  'hydra-projectile-rails/body)
+#+end_src
+
 ** Smart Parens
 
 Deal with parens in a smart way.
@@ -2429,38 +2434,39 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
 ** Clojure Mode.
 
 #+begin_src emacs-lisp
-  (use-package clojure-mode
-    :ensure clojure-mode
-    :ensure flycheck-clojure
-    :defer t
+(use-package clojure-mode
+  :ensure clojure-mode
+  :ensure flycheck-clojure
+  :defer t
 
-    :config
-    (progn
-      (eval-after-load 'flycheck '(flycheck-clojure-setup))
-      (add-hook 'clojure-mode-hook #'cider-mode)
-      (add-hook 'clojure-mode-hook
-                (lambda ()
-                  (clj-refactor-mode 1)
-                  (cljr-add-keybindings-with-prefix "C-o C-r")))
+  :config
+  (progn
+    (eval-after-load 'flycheck '(flycheck-clojure-setup))
+    (add-hook 'clojure-mode-hook #'cider-mode)
+    (add-hook 'clojure-mode-hook
+              (lambda ()
+                (clj-refactor-mode 1)
+                ;;(cljr-add-keybindings-with-prefix "C-o C-r")
+                (cljr-add-keybindings-with-prefix "C-c C-m")))
 
-      (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
-      (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
-      (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)
+    ;; (define-key clojure-mode-map (kbd "C-o j") 'cider-jack-in)
+    ;; (define-key clojure-mode-map (kbd "C-o J") 'cider-restart)
+    ;; (define-key clojure-mode-map (kbd "C-o a") 'align-cljlet)
 
-      (define-clojure-indent
-        (defroutes 'defun)
-        (GET 2)
-        (POST 2)
-        (PUT 2)
-        (DELETE 2)
-        (HEAD 2)
-        (ANY 2)
-        (context 2)
-        (for-all 1)
-        (such-that 1)
-        (let-routes 1)
-        (run-db 2)
-        (defspec 'defun))))
+    (define-clojure-indent
+      (defroutes 'defun)
+      (GET 2)
+      (POST 2)
+      (PUT 2)
+      (DELETE 2)
+      (HEAD 2)
+      (ANY 2)
+      (context 2)
+      (for-all 1)
+      (such-that 1)
+      (let-routes 1)
+      (run-db 2)
+      (defspec 'defun))))
 #+end_src
 
 Extra font locking for Clojure mode.
@@ -3087,7 +3093,7 @@ two 'use-package' statements doesn't work here.
           (list (concat org-directory "personal.org")
                 (concat org-directory "kwela.org")))
 
-    (setq org-ellipsis "…")
+    (setq org-ellipsis nil)
     ;;(add-hook 'org-mode-hook #'turn-off-auto-fill)
     ;;(add-hook 'org-mode-hook #'nlinum-mode t)
 
