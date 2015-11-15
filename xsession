@@ -72,6 +72,14 @@ fi
 #   eval `/usr/bin/ssh-agent`
 # fi
 
+if [ -x /usr/bin/blueman-applet ] ; then
+  (nohup /usr/bin/blueman-applet &)
+fi
+
+if [ -x /usr/bin/mate-volume-control-applet ] ; then
+  (nohup /usr/bin/mate-volume-control-applet &)
+fi
+
 if [ -x /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1 ] ; then
   (nohup /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1 &)
 fi
