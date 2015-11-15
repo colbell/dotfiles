@@ -103,5 +103,5 @@ fi
 # Java/awesome fix
 #_JAVA_AWT_WM_NONREPARENTING=1; export _JAVA_AWT_WM_NONREPARENTING
 
-exec ck-launch-session dbus-launch --sh-syntax --exit-with-session xmonad
-#dbus-launch --exit-with-session xmonad
+#exec ck-launch-session dbus-launch --sh-syntax --exit-with-session xmonad
+dbus-launch --exit-with-session xmonad
