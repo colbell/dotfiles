@@ -18,6 +18,10 @@ fi
 # Wait for mate-settings-daemon.
 sleep 1
 
+if [ -x ~/.bin/xmenud.py ] ; then
+  (nohup ~/.bin/xmenud.py --tray &)
+fi
+
 if [ -x /usr/bin/nm-applet ] ; then
   (nohup /usr/bin/nm-applet &)
 fi
@@ -32,10 +36,6 @@ fi
 
 if [ -x /usr/bin/dropbox ] ; then
   (nohup dropbox start -i &)
-fi
-
-if [ -x ~/.bin/xmenud.py ] ; then
-  (nohup ~/.bin/xmenud.py --tray &)
 fi
 
 # Started by mate-settings.

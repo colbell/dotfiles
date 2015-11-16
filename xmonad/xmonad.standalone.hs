@@ -18,6 +18,7 @@ import XMonad.Actions.WindowMenu
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.UrgencyHook
 
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
@@ -97,7 +98,7 @@ oxyPP h = defaultPP {
           , ppVisible         = xmobarColor myFgVisible      myBgColor
           , ppHidden          = xmobarColor myFgHidden       myBgColor
           , ppHiddenNoWindows = xmobarColor myFgHiddenEmpty  myBgColor
-          , ppUrgent          = xmobarColor ""               myUrgentWsBg
+          , ppUrgent          = xmobarColor "#FF0000"               myUrgentWsBg . pad . dzenStrip
           , ppSort            = fmap (namedScratchpadFilterOutWorkspace.) (getSortByTag)
           , ppTitle           = xmobarColor myFgHiddenEmpty myBgColor . shorten 50
           }
@@ -114,8 +115,9 @@ myBgColor        = "#000000"
 myFgColor        = myFgHidden
 myUrgentWsBg     = "#DCA3A3"
 
-myBarFont :: String
-myBarFont = "xft:inconsolata"
+myFont, myLargeFont :: String
+myFont      = "xft:inconsolata:size=12"
+myLargeFont = "xft:inconsolata:size=16"
 
 -- Layouts to use.
 myLayout = smartBorders $ avoidStruts $ showWName' mySWNConfig $
@@ -133,6 +135,7 @@ mySWNConfig = defaultSWNConfig {
                 swn_color   = myFgCurrent
               , swn_fade    = 2.0         -- Nbr seconds workspace name visible
               , swn_bgcolor = myBgColor
+              , swn_font    = myLargeFont
               }
 
 -- Theme for various prompts.
@@ -144,7 +147,7 @@ myXPConfig = defaultXPConfig {
                 , fgHLight              = myFgCurrent
                 , position              = Top
                 , promptBorderWidth     = 0
-                , font                  = myBarFont
+                , font                  = myFont
                 }
 
 -- Theme for tabbed layout.
@@ -156,7 +159,8 @@ myTabConfig = defaultTheme {
               , inactiveBorderColor = myBgColor
               , inactiveTextColor   = myFgHidden
               , inactiveColor       = myBgColor
-              , decoHeight          = 14
+              , decoHeight          = 22
+              , fontName            = myFont
 }
 
 -- Finder for window prompts. By default they only match
@@ -175,7 +179,8 @@ main :: IO ()
 main = do
   putEnv "_JAVA_AWT_WM_NONREPARENTING=1"
   xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar"
-  xmonad $ defaultConfig {
+  xmonad $ withUrgencyHook StdoutUrgencyHook
+         $ defaultConfig {
                workspaces         = myWorkspaces
              , manageHook         = manageDocks <+> myManageHook  <+> manageHook defaultConfig
              , borderWidth        = 1
@@ -186,6 +191,7 @@ main = do
              , focusedBorderColor = myFgCurrent
              , focusFollowsMouse  = True
              , terminal           = myPromptTerminal
+             -- | Whether a mouse click selects the focus or is just passed to the window
              -- , clickJustFocuses   = False
              } `additionalKeys` keys'
     where
@@ -210,8 +216,11 @@ main = do
                , ((myModMask .|. mod1Mask, xK_r), warpToScreen 2 (0.5) (0.5))
 
                , ((myModMask, xK_p),               runOrRaisePrompt myXPConfig)
-               , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#FFFFFF' -sb '#000000' -sf '#FF4500' -fn '-xos4-terminus-medium-r-*-*-14-*'")
 
+               -- dmenu doesn't handle xft fonts
+               , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#FFFFFF' -sb '#000000' -sf '#FF4500' -fn '-xos4-terminus-medium-r-*-*-12-*'")
+
+               , ((myModMask, xK_x), focusUrgent)
 
                , ((myModMask, xK_F12), scratchpadSpawnActionTerminal myPromptTerminal)
                , ((myModMask, xK_F2),  spawn "~/bin/xmenud.py")
