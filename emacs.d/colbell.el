@@ -2654,6 +2654,8 @@ _d_: subtree       ^^               _g_: org goto
         ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
         (t (narrow-to-defun))))
 
+(global-set-key (kbd "C-z n") #'cnb/narrow-or-widen-dwim)
+
 (use-package command-log-mode
   :defer t
   :ensure t)
@@ -2686,7 +2688,7 @@ _d_: subtree       ^^               _g_: org goto
       require-final-newline t)
 
 (use-package visible-mode
-  :bind ("H-v" . visible-mode))
+  :bind ("C-z v" . visible-mode))
 
 ;; (use-package ack-and-a-half
 ;;   :ensure ack-and-a-half)

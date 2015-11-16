@@ -337,8 +337,8 @@ inserting it into the current buffer.
 I press these too often
 
 #+begin_src emacs-lisp
-  (global-unset-key (kbd "C-z"))
-  (global-unset-key (kbd "C-x C-z"))
+(global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-x C-z"))
 #+end_src
 * General
 
@@ -3603,6 +3603,8 @@ error when exporting from org to HTML, PDF etc.
          (narrow-to-region (region-beginning) (region-end)))
         ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
         (t (narrow-to-defun))))
+
+(global-set-key (kbd "C-z n") #'cnb/narrow-or-widen-dwim)
 #+end_src
 
 #+begin_src emacs-lisp
@@ -3643,7 +3645,7 @@ error when exporting from org to HTML, PDF etc.
 
 #+begin_src emacs-lisp
 (use-package visible-mode
-  :bind ("H-v" . visible-mode))
+  :bind ("C-z v" . visible-mode))
 #+end_src
 
 #+begin_src emacs-lisp
