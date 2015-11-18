@@ -1,4 +1,4 @@
-Config { font = "xft:Inconsolata:size=10"
+Config { font = "xft:Inconsolata:size=9"
        , bgColor = "#000000"
        , fgColor = "#DCDCCC"
        , position = TopW L 90
@@ -12,6 +12,7 @@ Config { font = "xft:Inconsolata:size=10"
                             , "--normal"   , "orange"
                             , "--high"     , "red"
                             ] 10
+            , Run Com "rhythmbox-client" ["--no-present", "--print-playing"] "music" 3
             , Run Memory ["-t","Mem: <usedratio>%"] 10
             , Run Swap [] 10
             , Run Date "%_d %b %H:%M" "date" 300
@@ -28,4 +29,4 @@ Config { font = "xft:Inconsolata:size=10"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% | %multicpu% | %coretemp% | %memory% * %swap% }{ %date%  | %utcdate%"
+       , template = "%StdinReader% | %multicpu% | %coretemp% | %memory% * %swap% }{ %music%  | %date%"
