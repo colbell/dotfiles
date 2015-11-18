@@ -16,6 +16,8 @@ import XMonad.Actions.GridSelect
 import XMonad.Actions.Warp
 import XMonad.Actions.WindowMenu
 
+import XMonad.Config.Desktop
+
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.UrgencyHook
@@ -100,7 +102,7 @@ oxyPP h = defaultPP {
           , ppHiddenNoWindows = xmobarColor myFgHiddenEmpty  myBgColor
           , ppUrgent          = xmobarColor "#FF0000"               myUrgentWsBg . pad . dzenStrip
           , ppSort            = fmap (namedScratchpadFilterOutWorkspace.) (getSortByTag)
-          , ppTitle           = xmobarColor myFgHiddenEmpty myBgColor . shorten 50
+          , ppTitle           = xmobarColor myFgHiddenEmpty myBgColor . shorten 30
           }
 
 
@@ -116,7 +118,7 @@ myFgColor        = myFgHidden
 myUrgentWsBg     = "#DCA3A3"
 
 myFont, myLargeFont :: String
-myFont      = "xft:inconsolata:size=12"
+myFont      = "xft:inconsolata:size=10"
 myLargeFont = "xft:inconsolata:size=16"
 
 -- Layouts to use.
@@ -180,9 +182,9 @@ main = do
   putEnv "_JAVA_AWT_WM_NONREPARENTING=1"
   xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar"
   xmonad $ withUrgencyHook StdoutUrgencyHook
-         $ defaultConfig {
+         $ desktopConfig {
                workspaces         = myWorkspaces
-             , manageHook         = manageDocks <+> myManageHook  <+> manageHook defaultConfig
+             , manageHook         = manageDocks <+> myManageHook  <+> manageHook desktopConfig
              , borderWidth        = 1
              , modMask            = myModMask
              , layoutHook         = myLayout
@@ -191,8 +193,6 @@ main = do
              , focusedBorderColor = myFgCurrent
              , focusFollowsMouse  = True
              , terminal           = myPromptTerminal
-             -- | Whether a mouse click selects the focus or is just passed to the window
-             -- , clickJustFocuses   = False
              } `additionalKeys` keys'
     where
       keys' =  [ ((myModMask , xK_Return),               dwmpromote)
