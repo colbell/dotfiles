@@ -63,6 +63,10 @@
   :ensure t
   :defer t)
 
+(use-package naquadah-theme
+  :ensure t
+  :defer t)
+
 (defun cnb/disable-theme ()
   "Disable current theme."
   (interactive)
@@ -84,15 +88,12 @@
 (bind-key "S-<f6>" #'cnb/disable-theme)
 
 (cnb/disable-theme)
-(load-theme 'solarized-dark t)
+(load-theme 'naquadah t)
 
 (column-number-mode)
 (size-indication-mode)
 (display-time-mode)
 
-(put 'narrow-to-region 'disabled nil)            ;; ("C-x n n")
-(put 'narrow-to-defun 'disabled nil)             ;; ("C-x n d")
-(put 'narrow-to-page 'disabled nil)              ;; ("C-x n p")
 (put 'downcase-region 'disabled nil)             ;; ("C-x C-l")
 (put 'upcase-region 'disabled nil)               ;; ("C-x C-u")
 (put 'dired-find-alternate-file 'disabled nil)   ;; 'a' in dired mode
@@ -765,6 +766,7 @@
 (use-package beacon
   :init
   :ensure t
+  :diminish beacon-mode
 
   :init
   (beacon-mode))
@@ -1146,6 +1148,28 @@
 (use-package expand-region
   :ensure expand-region
   :bind (("C-=" . er/expand-region)))
+
+(put 'narrow-to-region 'disabled nil)            ;; ("C-x n n")
+(put 'narrow-to-defun 'disabled nil)             ;; ("C-x n d")
+(put 'narrow-to-page 'disabled nil)              ;; ("C-x n p")
+
+;; From http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
+(defun cnb/narrow-or-widen-dwim (p)
+  "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
+  Intelligently means: region, subtree, or defun, whichever applies
+  first.
+
+  With prefix P, don't widen, just narrow even if buffer is already
+  narrowed."
+  (interactive "P")
+  (declare (interactive-only))
+  (cond ((and (buffer-narrowed-p) (not p)) (widen))
+        ((region-active-p)
+         (narrow-to-region (region-beginning) (region-end)))
+        ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
+        (t (narrow-to-defun))))
+
+(global-set-key (kbd "C-z n") #'cnb/narrow-or-widen-dwim)
 
 (use-package multiple-cursors
   :ensure t
@@ -1955,7 +1979,13 @@
   :diminish yard-mode)
 
 (use-package inf-ruby
-  :ensure inf-ruby)
+  :ensure inf-ruby
+  :init
+  (progn
+    (add-hook
+     'inf-ruby-mode-hook
+     (lambda ()
+       (setq comint-input-ring-file-name "~/.emacs.d/inf-ruby-history")))))
 
 (use-package ruby-tools
      :ensure t)
@@ -2611,8 +2641,8 @@ _d_: subtree       ^^               _g_: org goto
 (use-package savehist
   :init
   (progn
-    (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
-    (setq savehist-additional-variables '(kill-ring))
+    (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring comint-input-ring))
+    ;;(setq savehist-additional-variables '(kill-ring))
     (savehist-mode)
     (setq history-delete-duplicates t)
     (setq savehist-save-minibuffer-history t)))
@@ -2625,7 +2655,7 @@ _d_: subtree       ^^               _g_: org goto
   (progn
     (setq paradox-github-token t)  ;; Don't ask for Github integration.
     (setq paradox-display-download-count t)
-    (setq paradox-spinner-type 'box-in-circle)
+    (setq paradox-spinner-type 'moon)
     (setq paradox-execute-asynchronously t)))
 
 (use-package 2048-game
@@ -2637,24 +2667,6 @@ _d_: subtree       ^^               _g_: org goto
   :ensure t)
 
 (org-reload)
-
-;; From http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
-(defun cnb/narrow-or-widen-dwim (p)
-  "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
-  Intelligently means: region, subtree, or defun, whichever applies
-  first.
-
-  With prefix P, don't widen, just narrow even if buffer is already
-  narrowed."
-  (interactive "P")
-  (declare (interactive-only))
-  (cond ((and (buffer-narrowed-p) (not p)) (widen))
-        ((region-active-p)
-         (narrow-to-region (region-beginning) (region-end)))
-        ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
-        (t (narrow-to-defun))))
-
-(global-set-key (kbd "C-z n") #'cnb/narrow-or-widen-dwim)
 
 (use-package command-log-mode
   :defer t
