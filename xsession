@@ -8,7 +8,7 @@ xsetroot -cursor_name left_ptr
 xsetroot -solid darkgray
 
 if [ -x /usr/bin/trayer ] ; then
-  trayer --edge top  --align right --SetDockType true --expand false --SetPartialStrut true --width 10 --height 19 --margin 0 --transparent true --alpha 0 --tint 0x000000 &
+  trayer --edge top  --align right --SetDockType true --expand false --SetPartialStrut true --width 10 --height 18 --margin 0 --transparent true --alpha 0 --tint 0x000000 &
 fi
 
 if [ -x /usr/bin/mate-settings-daemon ] ; then
