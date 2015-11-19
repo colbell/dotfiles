@@ -2518,6 +2518,7 @@
   _f_: find-dired                     _T_: helm-top
   _i_: helm-find                      _e_: proced
   _s_: sunrise commander              _l_: list-processes
+  _m_: music player
 ───────────────────────────────────────────────────────────────────────────────────
  "
     ("a" ansi-term                 nil)
@@ -2532,6 +2533,7 @@
     ("e" proced                    nil)
     ("l" list-processes            nil)
     ("s" sunrise-cd                nil)
+    ("m" mingus                    nil)
     ("q" nil                       "cancel")))
 
 (global-set-key
@@ -2665,6 +2667,12 @@ _d_: subtree       ^^               _g_: org goto
 (use-package pacmacs
   :defer t
   :ensure t)
+
+(use-package mingus
+  :defer t
+  :ensure t
+  :commands mingus
+)
 
 (org-reload)
 
