@@ -8,7 +8,7 @@ xsetroot -cursor_name left_ptr
 xsetroot -solid darkgray
 
 if [ -x /usr/bin/trayer ] ; then
-  trayer --edge top  --align right --SetDockType true --expand false --SetPartialStrut true --width 10 --height 18 --margin 0 --transparent true --alpha 0 --tint 0x000000 &
+  trayer --edge top  --align right --SetDockType true --expand false --SetPartialStrut true --width 10 --height 19 --margin 0 --transparent true --alpha 0 --tint 0x000000 &
 fi
 
 if [ -x /usr/bin/mate-settings-daemon ] ; then
@@ -56,6 +56,12 @@ fi
 if [ -x /usr/bin/system-config-printer-applet ] ; then
   (nohup /usr/bin/system-config-printer-applet &)
 fi
+
+# MPD daemon start (if no other user instance exists)
+if [ -x /usr/bin/mpd ] ; then
+  [ ! -s ~/.mpd/pid ] && (nohup mpd &)
+fi
+
 
 #~/.bin/video on
 
