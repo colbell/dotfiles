@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# Modified version of http://github.com/jelly/dotfiles/raw/master/bin/mpd.sh
+#
+# mpd script for showing mpd song + artist in xmobar
+# add this to xmobarrc
+#  , Run Com "sh" ["/path/to/xmobar-mpd"] "mpd" 10
+# special thanks to fumbles for the tip
+
+MPD="$(mpc | grep -)"
+MPP="$(mpc | grep -o '([0-9]*%)')"
+if [ -z "$MPD" ]; then
+  echo ""
+else
+  echo $MPP $MPD
+fi
