@@ -86,6 +86,7 @@ myManageHook = manageScratchPad <+>composeAll (
     , className =? "Kcalc"             --> doFloat
     , className =? "ksmserver"         --> doIgnore
     , className =? "emulator-arm"      --> doFloat
+    , className =? "Rhythmbox"         --> doShift "9-mail"
     ])
 
 -- Log hook for xmobar
@@ -184,7 +185,7 @@ main = do
   xmonad $ withUrgencyHook StdoutUrgencyHook
          $ desktopConfig {
                workspaces         = myWorkspaces
-             , manageHook         = manageDocks <+> myManageHook  <+> manageHook desktopConfig
+             , manageHook         = manageDocks <+> myManageHook <+> manageHook desktopConfig
              , borderWidth        = 1
              , modMask            = myModMask
              , layoutHook         = myLayout

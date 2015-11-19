@@ -1,6 +1,6 @@
-Config { font = "xft:Inconsolata:size=9"
-       , bgColor = "#000000"
-       , fgColor = "#DCDCCC"
+Config { font = "xft:Inconsolata:size=10"
+       , bgColor = "black"
+       , fgColor = "grey"
        , position = TopW L 90
        , lowerOnStart = True
        , pickBroadest = False
@@ -12,11 +12,11 @@ Config { font = "xft:Inconsolata:size=9"
                             , "--normal"   , "orange"
                             , "--high"     , "red"
                             ] 10
-            , Run Com "rhythmbox-client" ["--no-present", "--print-playing"] "music" 3
             , Run Memory ["-t","Mem: <usedratio>%"] 10
             , Run Swap [] 10
             , Run Date "%_d %b %H:%M" "date" 300
             , Run Com "date" ["-u", "+%_d %b %H:%M UTC"] "utcdate" 300
+            , Run Com "xmobar-mpd" [] "mpd" 10
 
   , Run CoreTemp       [ "--template" , "Temp: <core0>°C|<core1>°C"
                              , "--Low"      , "70"        -- units: °C
@@ -29,4 +29,4 @@ Config { font = "xft:Inconsolata:size=9"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% | %multicpu% | %coretemp% | %memory% * %swap% }{ %music%  | %date%"
+       , template = "%StdinReader% | %multicpu% | %coretemp% | %memory% * %swap% }{ <fc=orange>%mpd%</fc> | %date%"
