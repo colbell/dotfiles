@@ -62,7 +62,6 @@ if [ -x /usr/bin/mpd ] ; then
   [ ! -s ~/.mpd/pid ] && (nohup mpd &)
 fi
 
-
 #~/.bin/video on
 
 # if [ -x /usr/bin/variety ] ; then
