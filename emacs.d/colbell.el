@@ -25,12 +25,6 @@
 (add-to-list 'load-path (expand-file-name "vendor" user-emacs-directory ))
 (add-subdirs-to-load-path (expand-file-name "vendor" user-emacs-directory))
 
-(use-package smart-mode-line
-  :ensure t
-  :init
-  (progn
-    (sml/setup)))
-
 (use-package solarized-theme
   :ensure t
   :defer t
@@ -70,25 +64,41 @@
 (defun cnb/disable-theme ()
   "Disable current theme."
   (interactive)
-  (let ((my-enabled-themes custom-enabled-themes))
-    (dolist (theme my-enabled-themes) (disable-theme theme))))
+  ;; We need to filter out the smart-modeline themes so that we don't disable it.
+  (let ((my-enabled-themes
+         (remove-if (lambda (sym) (string-prefix-p "smart-mode-line" (symbol-name sym))) custom-enabled-themes)))
+    (dolist (theme my-enabled-themes)
+      (disable-theme theme))))
 
 (defun cnb/load-theme (theme)
   "Switch to a new theme."
-  ;; Some code stolen from Emacs standard 'load-theme'.
+  ;; Some code stolen from Emacs standard "load-theme" .
+  ;; We need to filter out the smart-modeline themes.
   (interactive
    (list
-    (intern (completing-read "Load custom theme: "
-                             (mapcar 'symbol-name
-                                     (custom-available-themes))))))
+    (intern
+     (completing-read
+      "Load custom theme: "
+      (mapcar 'symbol-name
+              (remove-if (lambda (sym) (string-prefix-p "smart-mode-line" (symbol-name sym))) (custom-available-themes)))))))
   (cnb/disable-theme)
-  (load-theme theme t))
+  (load-theme theme t)
+  (sml/setup))
 
 (bind-key "<f6>"   #'cnb/load-theme)
 (bind-key "S-<f6>" #'cnb/disable-theme)
 
-(cnb/disable-theme)
+;;(cnb/disable-theme)
 (load-theme 'naquadah t)
+
+(use-package smart-mode-line
+  :ensure t
+  :ensure smart-mode-line-powerline-theme
+
+  :init
+  (progn
+    ;;(setq sml/theme 'smart-mode-line-powerline)
+    (sml/setup)))
 
 (column-number-mode)
 (size-indication-mode)
@@ -2672,7 +2682,10 @@ _d_: subtree       ^^               _g_: org goto
   :defer t
   :ensure t
   :commands mingus
-)
+
+  :config
+  (progn
+    (setq mingus-use-mouse-p nil)))
 
 (org-reload)
 
