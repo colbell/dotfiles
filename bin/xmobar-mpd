@@ -8,9 +8,11 @@
 # special thanks to fumbles for the tip
 
 MPD="$(mpc | grep -)"
-MPP="$(mpc | grep -o '([0-9]*%)')"
+
 if [ -z "$MPD" ]; then
   echo ""
 else
-  echo $MPP $MPD
+  PCNT="$(mpc | grep -o '([0-9]*%)')"
+  PAUSED="$(mpc | grep -o '\[paused\]')"
+  echo $PAUSED $PCNT $MPD
 fi
