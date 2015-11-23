@@ -16,7 +16,7 @@
 
   :aliases {"slamhound" ["run" "-m" "slam.hound"]}}
 
- :repl {:plugins [[cider/cider-nrepl "0.9.1"]]}
+ :repl {:plugins [[cider/cider-nrepl "0.10.0-SNAPSHOT"]]}
 
  ;; :repl-options
  ;; { :init
