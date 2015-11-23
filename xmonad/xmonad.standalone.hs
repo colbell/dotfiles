@@ -44,7 +44,7 @@ myModMask = mod4Mask
 
 myWorkspaces :: [WorkspaceId]
 myWorkspaces = ["1-emacs", "2-shell", "3-web", "4-fm", "5", "6", "7-ssh",
-                "8-vms", "9-mail"]
+                "8-vms", "9-office"]
 
 -- Mate/gnome terminals don't work for ssh/man prompts etc.
 myPromptTerminal :: String
@@ -101,11 +101,10 @@ oxyPP h = defaultPP {
           , ppVisible         = xmobarColor myFgVisible      myBgColor
           , ppHidden          = xmobarColor myFgHidden       myBgColor
           , ppHiddenNoWindows = xmobarColor myFgHiddenEmpty  myBgColor
-          , ppUrgent          = xmobarColor "#FF0000"               myUrgentWsBg . pad . dzenStrip
+          , ppUrgent          = xmobarColor "#FF0000"        myUrgentWsBg . pad . dzenStrip
           , ppSort            = fmap (namedScratchpadFilterOutWorkspace.) (getSortByTag)
           , ppTitle           = xmobarColor myFgHiddenEmpty myBgColor . shorten 30
           }
-
 
 myBgColor, myFgColor, myFgCurrent, myFgVisible, myFgHidden :: String
 myFgHiddenEmpty, myUrgentWsBg :: String
