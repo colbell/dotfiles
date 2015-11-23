@@ -1,5 +1,11 @@
 #! /bin/sh
 
+## This file is loaded by  /usr/share/xsessions/custom.desktop
+
+# [Desktop Entry]
+# Name=Xsession
+# Exec=/etc/X11/Xsession
+
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 
 host=`hostname`
@@ -13,10 +19,8 @@ fi
 
 if [ -x /usr/bin/mate-settings-daemon ] ; then
   (nohup /usr/bin/mate-settings-daemon &)
+  sleep 1
 fi
-
-# Wait for mate-settings-daemon.
-sleep 1
 
 if [ -x ~/.bin/xmenud.py ] ; then
   (nohup ~/.bin/xmenud.py --tray &)
