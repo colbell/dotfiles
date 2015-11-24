@@ -357,9 +357,10 @@
   (progn
     (require 'helm-config)
     (setq helm-candidate-number-limit 250)
-    (setq helm-idle-delay 0.0)        ; update fast sources immediately (doesn't).
-    (setq helm-input-idle-delay 0.01) ; this actually updates things relatively quickly.
+    (setq helm-idle-delay 0.1)
+    (setq helm-input-idle-delay 0.1)
     (setq helm-quick-update t)
+    (setq helm-buffer-max-length 50)
     (setq helm-M-x-requires-pattern 0)
     (setq helm-M-x-fuzzy-match t)
     (setq helm-ff-skip-boring-files t)
@@ -369,7 +370,7 @@
     (setq helm-split-window-default-side 'same)
     (setq helm-split-window-default-side 'below)
     (setq helm-ff-file-name-history-use-recentf t)
-    (setq helm-buffer-details-flag nil)
+    (setq helm-buffer-details-flag t)
     (setq helm-ff-transformer-show-only-basename t)
 
     ;;(global-set-key (kbd "C-x c o") 'helm-occur)
@@ -2618,10 +2619,9 @@ _d_: subtree       ^^               _g_: org goto
 
 (global-set-key (kbd "<f5> o") 'hydra-outline/body)
 
-(defhydra hydra-zoom ()
+(defhydra hydra-zoom (:foreign-keys run)
   "zoom"
   ("+" text-scale-increase "+")
-  ("=" text-scale-increase "+") ;; cuz its easier
   ("-" text-scale-decrease "-")
   ("0" (text-scale-adjust 0) "reset")
   ("q" nil "quit" :exit t))
