@@ -103,7 +103,7 @@ oxyPP h = defaultPP {
           , ppHiddenNoWindows = xmobarColor myFgHiddenEmpty  myBgColor
           , ppUrgent          = xmobarColor "#FF0000"        myUrgentWsBg . pad . dzenStrip
           , ppSort            = fmap (namedScratchpadFilterOutWorkspace.) (getSortByTag)
-          , ppTitle           = xmobarColor myFgHiddenEmpty myBgColor . shorten 30
+          , ppTitle           = xmobarColor myFgHiddenEmpty myBgColor . shorten 0
           }
 
 myBgColor, myFgColor, myFgCurrent, myFgVisible, myFgHidden :: String
