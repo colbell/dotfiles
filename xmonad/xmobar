@@ -1,7 +1,7 @@
-Config { font = "xft:Inconsolata:size=10"
+Config { font = "xft:Inconsolata:size=11"
        , bgColor = "black"
        , fgColor = "grey"
-       , position = TopW L 90
+       , position = TopSize L 90 24
        , lowerOnStart = True
        , pickBroadest = False
        , commands =
@@ -18,7 +18,7 @@ Config { font = "xft:Inconsolata:size=10"
             , Run Com "date" ["-u", "+%_d %b %H:%M UTC"] "utcdate" 300
             , Run Com "xmobar-mpd" [] "mpd" 10
 
-  , Run CoreTemp       [ "--template" , "Temp: <core0>°C|<core1>°C"
+            , Run CoreTemp       [ "--template" , "Temp: <core0>°C|<core1>°C"
                              , "--Low"      , "70"        -- units: °C
                              , "--High"     , "80"        -- units: °C
                              , "--low"      , "lightgreen"

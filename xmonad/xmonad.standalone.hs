@@ -216,8 +216,6 @@ main = do
                , ((myModMask .|. mod1Mask, xK_r), warpToScreen 2 (0.5) (0.5))
 
                , ((myModMask, xK_p),               runOrRaisePrompt myXPConfig)
-
-               -- dmenu doesn't handle xft fonts
                , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#FFFFFF' -sb '#000000' -sf '#FF4500' -fn '-xos4-terminus-medium-r-*-*-12-*'")
 
                , ((myModMask, xK_x), focusUrgent)
