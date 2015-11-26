@@ -283,6 +283,12 @@ Cursor configuration
 (blink-cursor-mode)
 #+end_src
 
+Highlight current line.
+
+#+begin_src emacs-lisp
+(global-hl-line-mode)
+#+end_src
+
 Move by logical lines
 
 #+begin_src emacs-lisp
@@ -517,6 +523,11 @@ Discover key bindings and their meaning for the current Emacs major mode.
   :bind (("C-h C-m" . discover-my-major)))
 #+end_src
 
+#+begin_src emacs-lisp
+(use-package helm-dash
+  :ensure t)
+#+end_src
+
 Hydra for Help
 
 #+begin_src emacs-lisp
@@ -529,7 +540,7 @@ Hydra for Help
   helm-_i_nfo      _l_ibrary
   _v_ariable       _u_ser-option
   _m_an            valu_e_
-  _h_elm-apropos
+  _h_elm-apropos   helm-da_s_h
 
   Help
   ----------------------------
@@ -546,6 +557,7 @@ Hydra for Help
   ("u" apropos-user-option)
   ("e" apropos-value)
   ("b" helm-descbinds)
+  ("s" helm-dash)
   ("q" nil))
 
 (global-set-key (kbd "C-c h") #'hydra-apropos/body)
@@ -2475,7 +2487,7 @@ Based on Emacs Starter Kit. Some standard functionality for coding buffers.
 
 #+begin_src emacs-lisp
 (use-package clojure-mode
-  :ensure clojure-mode
+  :ensure t
   :ensure flycheck-clojure
   :defer t
 
@@ -2539,62 +2551,62 @@ Clojure documentation.
 #+end_src
 ** Refactoring
 #+begin_src emacs-lisp
-  (use-package clj-refactor
-    :ensure t
-    :defer t
-    :diminish clj-refactor-mode)
+(use-package clj-refactor
+  :ensure t
+  :defer t
+  :diminish clj-refactor-mode)
 
-  ;; Helm interface to clj-refactor
-  (use-package cljr-helm
-    :ensure t
-    :defer t
+;; Helm interface to clj-refactor
+(use-package cljr-helm
+  :ensure t
+  :defer t
 
-    :config
-    (progn
-      (bind-key "C-c r" 'cljr-helm clojure-mode-map)))
+  :config
+  (progn
+    (bind-key "C-c r" 'cljr-helm clojure-mode-map)))
 #+end_src
 
 ** Cider Clojure IDE and REPL
 
 #+begin_src emacs-lisp
-  (use-package cider
-    :ensure cider
-    :defer t
+(use-package cider
+  :ensure cider
+  :defer t
 
-    :init
-    (progn
-      (defalias 'cveb 'cider-visit-error-buffer)
-      (setq nrepl-log-messages t)
-      (require 'cider-eldoc)
-      (add-hook 'cider-mode-hook #'cider-turn-on-eldoc-mode)
-      (add-hook 'cider-repl-mode-hook #'subword-mode)
-      (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
-      (setq cider-repl-use-clojure-font-lock t)
-      (setq nrepl-hide-special-buffers t)
-      (setq cider-show-error-buffer nil)
-      (setq cider-auto-select-error-buffer nil)
-      (setq cider-repl-pop-to-buffer-on-connect t)
-      (setq cider-repl-history-file "~/.emacs.d/cider-repl-history")
-      (setq cider-lein-command "~/bin/lein") ;FIXME: Should be found in path.
-      (setq cider-repl-history-size 1000)))
+  :init
+  (progn
+    (defalias 'cveb 'cider-visit-error-buffer)
+    (setq nrepl-log-messages t)
+    (require 'cider-eldoc)
+    (add-hook 'cider-mode-hook #'cider-turn-on-eldoc-mode)
+    (add-hook 'cider-repl-mode-hook #'subword-mode)
+    (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+    (setq cider-repl-use-clojure-font-lock t)
+    (setq nrepl-hide-special-buffers t)
+    (setq cider-show-error-buffer nil)
+    (setq cider-auto-select-error-buffer nil)
+    (setq cider-repl-pop-to-buffer-on-connect t)
+    (setq cider-repl-history-file "~/.emacs.d/cider-repl-history")
+    (setq cider-lein-command "~/bin/lein") ;FIXME: Should be found in path.
+    (setq cider-repl-history-size 1000)))
 
-  (use-package cider-decompile
-    :defer t
-    :ensure cider-decompile)
+(use-package cider-decompile
+  :defer t
+  :ensure cider-decompile)
 #+end_src
 
 ** Slamhound
 #+begin_src emacs-lisp
-  (use-package slamhound
-    :ensure t
-    :defer t
-    :commands slamhound)
+(use-package slamhound
+  :ensure t
+  :defer t
+  :commands slamhound)
 #+end_src
 
 ** Snippets
 #+begin_src emacs-lisp
-  (use-package clojure-snippets
-    :ensure clojure-snippets)
+(use-package clojure-snippets
+  :ensure clojure-snippets)
 #+end_src
 * Javascript
 #+begin_src emacs-lisp
@@ -3245,6 +3257,7 @@ two 'use-package' statements doesn't work here.
     (setq org-src-preserve-indentation t)  ;; Lets fontification work properly
     (setq org-list-description-max-indent 5)
 
+    (setq org-use-speed-commands t)
     (setq org-adapt-indentation nil)
 
     (org-babel-do-load-languages
