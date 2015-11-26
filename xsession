@@ -11,10 +11,10 @@
 host=`hostname`
 
 xsetroot -cursor_name left_ptr
-xsetroot -solid darkgray
+xsetroot -solid black
 
 if [ -x /usr/bin/trayer ] ; then
-  trayer --edge top  --align right --SetDockType true --expand false --SetPartialStrut true --width 10 --height 19 --margin 0 --transparent true --alpha 0 --tint 0x000000 &
+  trayer --edge top  --align right --SetDockType true --expand false --SetPartialStrut true  --width 10 --height 24 --margin 0 --transparent true --alpha 0 --tint 0x000000 &
 fi
 
 if [ -x /usr/bin/mate-settings-daemon ] ; then
@@ -103,14 +103,6 @@ fi
 #   xrandr --output LVDS --primary --mode 1280x800
 #   xrandr --auto --output VGA-0 --mode 1680x1050_60.00 --right-of LVDS
 # fi
-
-
-# FG='#a8a3f7'
-# BG='#3f3c6d'
-# while true ; do date ; sleep 60 ; done | dzen2 -e '' -x 400 -w $off -ta r -fg $FG -bg $BG -p &
-
-# Java/awesome fix
-#_JAVA_AWT_WM_NONREPARENTING=1; export _JAVA_AWT_WM_NONREPARENTING
 
 #exec ck-launch-session dbus-launch --sh-syntax --exit-with-session xmonad
 dbus-launch --exit-with-session xmonad
