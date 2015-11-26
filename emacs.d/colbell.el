@@ -139,6 +139,8 @@
 (setq-default cursor-type 'bar)
 (blink-cursor-mode)
 
+(global-hl-line-mode)
+
 (setq line-move-visual nil)
 
 (setq visible-bell t)
@@ -242,6 +244,9 @@
   :ensure discover-my-major
   :bind (("C-h C-m" . discover-my-major)))
 
+(use-package helm-dash
+  :ensure t)
+
 (defhydra hydra-apropos(:color blue :hint nil)
   "
   Apropos
@@ -251,7 +256,7 @@
   helm-_i_nfo      _l_ibrary
   _v_ariable       _u_ser-option
   _m_an            valu_e_
-  _h_elm-apropos
+  _h_elm-apropos   helm-da_s_h
 
   Help
   ----------------------------
@@ -268,6 +273,7 @@
   ("u" apropos-user-option)
   ("e" apropos-value)
   ("b" helm-descbinds)
+  ("s" helm-dash)
   ("q" nil))
 
 (global-set-key (kbd "C-c h") #'hydra-apropos/body)
@@ -1788,7 +1794,7 @@
 (add-hook 'lisp-interaction-mode #'cnb/run-coding-hook)
 
 (use-package clojure-mode
-  :ensure clojure-mode
+  :ensure t
   :ensure flycheck-clojure
   :defer t
 
@@ -2390,6 +2396,7 @@
     (setq org-src-preserve-indentation t)  ;; Lets fontification work properly
     (setq org-list-description-max-indent 5)
 
+    (setq org-use-speed-commands t)
     (setq org-adapt-indentation nil)
 
     (org-babel-do-load-languages
