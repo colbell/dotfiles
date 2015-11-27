@@ -26,26 +26,52 @@ Emacs.toolBar: -1
 !Emacs.pane.menubar.font: Courier-8
 Emacs.pane.menubar.font: xft:Inconsolata-9
 
-! URxvt.urgentOnBell:     true
-! URxvt.font:             xft:Inconsolata-11
-! URxvt.transparent:      false
-! URxvt.internalBorder:   0
-! URxvt.externalBorder:   0
-! URxvt.borderLess:       false
-! URxvt.jumpScroll:       true
-! URxvt.cursorBlink:      true
-! URxvt.loginShell:       false
-! URxvt.perl-ext-common:  default,matcher,searchable-scrollback
-! URxvt.pointerBlank:     true
-! URxvt.saveLines:        4000
-! URxvt.secondaryScroll:  true
-! URxvt.scrollBar:        false
-! URxvt.scrollBar_right:  false
-! URxvt.scrollTtyKeypress: true
-! URxvt.scrollWithBuffer: true
-! URxvt*urlLauncher:      /usr/bin/chromium
+URxvt.urgentOnBell:     true
+URxvt.font:              xft:SourceCodePro-12
+!URxvt.font:             xft:Inconsolata-11
 
-! ! urxvt Zenburn color-scheme
+URxvt.transparent:      false
+URxvt.internalBorder:   0
+URxvt.externalBorder:   0
+URxvt.borderLess:       false
+URxvt.jumpScroll:       true
+URxvt.cursorBlink:      true
+URxvt.loginShell:       false
+URxvt.perl-ext-common:  default,matcher,searchable-scrollback
+URxvt.pointerBlank:     true
+URxvt.saveLines:        4000
+URxvt.secondaryScroll:  true
+URxvt.scrollBar:        false
+URxvt.scrollBar_right:  false
+URxvt.scrollTtyKeypress: true
+URxvt.scrollWithBuffer: true
+URxvt*urlLauncher:      /usr/bin/chromium
+
+! Background color
+URxvt*background: black
+
+! Font color
+URxvt*foreground: white
+
+! Other colors
+URxvt*color0: black
+URxvt*color1: red3
+URxvt*color2: green3
+URxvt*color3: yellow3
+URxvt*color4: blue2
+URxvt*color5: magenta3
+URxvt*color6: cyan3
+URxvt*color7: gray90
+URxvt*color8: grey50
+URxvt*color9: red
+URxvt*color10: green
+URxvt*color11: yellow
+URxvt*color12: blue
+URxvt*color13: magenta
+URxvt*color14: cyan
+URxvt*color15: white
+
+! urxvt Zenburn color-scheme
 ! urxvt*background:  #3f3f3f
 ! urxvt*foreground:  #dcdccc
 ! ! black + red
