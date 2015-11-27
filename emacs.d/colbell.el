@@ -2720,7 +2720,7 @@ _d_: subtree       ^^               _g_: org goto
 
 (setenv "PAGER" "cat")
 
-(setq echo-keystrokes 1.0)
+(setq echo-keystrokes 0.1)
 
 (setq shift-select-mode t
       mouse-yank-at-point t
