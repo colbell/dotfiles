@@ -176,7 +176,7 @@ for_window [class="XTerm" instance="scratchpad"] border 1pixel; move scratchpad
 bar {
   position bottom
   mode hide
-  status_command i3-status
+  status_command i3-status-cnb
   #status_command i3blocks
   font pango:DejaVu Sans Mono 10
 }
