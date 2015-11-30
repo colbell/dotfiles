@@ -31,9 +31,9 @@ fi
 export MANWIDTH=96
 
 # export TERM=linux
-export TERM=xterm-256color
-[ -n "$DISPLAY" ] && export TERM=xterm-256color
-[ -n "$TMUX" ] && export TERM=screen-256color
+# export TERM=xterm-256color
+# [ -n "$DISPLAY" ] && export TERM=xterm-256color
+# [ -n "$TMUX" ] && export TERM=screen-256color
 [ -n "$INSIDE_EMACS" ] && export TERM=eterm-color
 
 autoload -U colors
