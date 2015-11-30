@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# i23status script that includes mpd info
+#
+
+i3status | while :
+  do
+    read line
+    MPD="$(mpc | grep -)"
+    if [ -z "$MPD" ]; then
+      echo ""
+    else
+      PCNT="$(mpc | grep -o '([0-9]*%)')"
+      PAUSED="$(mpc | grep -o '\[paused\]')"
+      INFO=`echo "$PAUSED $PCNT $MPD"} | cut -c1-45`
+      read line
+      echo "$INFO | $line"
+    fi
+done
