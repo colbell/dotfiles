@@ -3616,16 +3616,16 @@ Remember command and search history.
 Paradox is a powerful UI for the package manager.
 
 #+begin_src emacs-lisp
-(use-package paradox
-  :ensure t
-  :defer t
+;; (use-package paradox
+;;   :ensure t
+;;   :defer t
 
-  :config
-  (progn
-    (setq paradox-github-token t)  ;; Don't ask for Github integration.
-    (setq paradox-display-download-count t)
-    (setq paradox-spinner-type 'moon)
-    (setq paradox-execute-asynchronously t)))
+;;   :config
+;;   (progn
+;;     (setq paradox-github-token t)  ;; Don't ask for Github integration.
+;;     (setq paradox-display-download-count t)
+;;     (setq paradox-spinner-type 'moon)
+;;     (setq paradox-execute-asynchronously t)))
 #+end_src
 
 * Fun
