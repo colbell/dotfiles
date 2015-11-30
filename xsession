@@ -13,9 +13,9 @@ host=`hostname`
 xsetroot -cursor_name left_ptr
 xsetroot -solid black
 
-if [ -x /usr/bin/trayer ] ; then
-  trayer --edge top  --align right --SetDockType true --expand false --SetPartialStrut true  --width 10 --height 24 --margin 0 --transparent true --alpha 0 --tint 0x000000 &
-fi
+#if [ -x /usr/bin/trayer ] ; then
+  #trayer --edge top  --align right --SetDockType true --expand false --SetPartialStrut true  --width 10 --height 24 --margin 0 --transparent true --alpha 0 --tint 0x000000 &
+#fi
 
 if [ -x /usr/bin/mate-settings-daemon ] ; then
   (nohup /usr/bin/mate-settings-daemon &)
@@ -93,9 +93,16 @@ if [ -x /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1
   (nohup /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1 &)
 fi
 
-if [ -x /usr/bin/conky ] ; then
-  (sleep 2 && /usr/bin/conky -d)&
+# i3 has some issues with tearing, this seems to fix them.
+if [ -x /usr/bin/compton ] ; then
+  (nohup /usr/bin/compton &)
 fi
+
+# Doesn't play well with compton
+# if [ -x /usr/bin/conky ] ; then
+#   (sleep 2 && /usr/bin/conky -d)&
+# fi
+
 
 # if [ $host = sandman ] ; then
 #   xrandr --newmode "1680x1050_60.00"  146.25  1680 1784 1960 2240  1050 1053 1059 1089 -hsync +vsync
@@ -105,4 +112,5 @@ fi
 # fi
 
 #exec ck-launch-session dbus-launch --sh-syntax --exit-with-session xmonad
-dbus-launch --exit-with-session xmonad
+#dbus-launch --exit-with-session xmonad
+dbus-launch --exit-with-session i3
