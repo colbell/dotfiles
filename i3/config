@@ -9,7 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-# Use WIndoze key.
+# Use Windoze key.
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -27,14 +27,14 @@ font pango:DejaVu Sans Mono 8
 
 #new_window 1pixel
 
-workspace_auto_back_and_forth yes
+#workspace_auto_back_and_forth yes
 bindsym $mod+z workspace back_and_forth
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec "mate-terminal"
+bindsym $mod+Return exec mate-terminal
 bindsym $mod+Shift+Return exec xterm
 
 # kill focused window
@@ -156,11 +156,13 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Lock screen
-bindsym $mod+mod1+l exec "xscreensaver-command -lock"
+bindsym $mod+mod1+l exec xscreensaver-command -lock
+bindsym $mod+mod1+u exec xscreensaver-command -lock && systemctl suspend
 
 # Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)
-bindsym $mod+x move workspace to output right
+bindsym $mod+x move workspace to output left
+bindsym $mod+y move workspace to output right
 
 # Make the currently focused window to scratchpad
 bindsym $mod+Shift+F12 move scratchpad
