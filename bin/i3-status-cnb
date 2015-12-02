@@ -10,10 +10,11 @@ i3status | while :
     if [ -z "$MPD" ]; then
       echo "$line"
     else
-      PCNT="$(mpc | grep -o '([0-9]*%)')"
-      PAUSED="$(mpc | grep -o '\[paused\]')"
-      INFO=`echo "$PAUSED $PCNT $MPD" | cut -c1-75`
+      #PCNT="$(mpc | grep -o '([0-9]*%)')"
+      #PAUSED="$(mpc | grep -o '\[paused\]')"
+      #INFO=`echo "$PAUSED $PCNT $MPD" | cut -c1-75`
       read line
-      echo "$INFO | $line"
+      #echo "$INFO | $line"
+      echo "$MPD | $line"
     fi
 done
