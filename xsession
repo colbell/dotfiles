@@ -53,8 +53,12 @@ if [ -x /usr/bin/xscreensaver ] ; then
   (nohup /usr/bin/xscreensaver -no-splash &)
 fi
 
-if [ -x /usr/bin/xfce4-clipman ] ; then
-  (nohup /usr/bin/xfce4-clipman &)
+# if [ -x /usr/bin/xfce4-clipman ] ; then
+#   (nohup /usr/bin/xfce4-clipman &)
+# fi
+
+if [ -x /usr/bin/parcellite ] ; then
+  (nohup /usr/bin/parcellite  &)
 fi
 
 if [ -x /usr/bin/system-config-printer-applet ] ; then
@@ -112,5 +116,5 @@ fi
 # fi
 
 #exec ck-launch-session dbus-launch --sh-syntax --exit-with-session xmonad
-#dbus-launch --exit-with-session xmonad
-dbus-launch --exit-with-session i3
+dbus-launch --exit-with-session xmonad
+#dbus-launch --exit-with-session i3
