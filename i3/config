@@ -12,10 +12,7 @@
 # Use Windoze key.
 set $mod Mod4
 
-# Font for window titles. Will also be used by the bar unless a different font
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
+# Font for window titles.
 font pango:DejaVu Sans Mono 8
 
 # Colors
@@ -36,6 +33,12 @@ client.focused              $bg        $bg         $hi
 client.unfocused            $bg        $bg         $ia
 client.focused_inactive     $bg        $bg         $ac
 client.urgent               $rd        $rd         $tx
+
+# Don't use borders on new windows.
+new_window none
+
+# Hide window borders at scrfeen edge.
+hide_edge_borders both
 
 workspace_layout stacking
 
@@ -75,6 +78,9 @@ bindsym $mod+Shift+h move left
 # split in horizontal/vertical orientations
 bindsym $mod+semicolon split h
 bindsym $mod+v split v
+
+# Toggle borders on current client
+bindsym $mod+b border toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -208,5 +214,5 @@ exec --no-startup-id mpd
 exec --no-startup-id /usr/bin/blueman-applet
 exec --no-startup-id /usr/bin/mate-volume-control-applet
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1
-exec --no-startup-id /usr/bin/compton --config ~/.i3/compton.config
+exec --no-startup-id /usr/bin/compton -b --config ~/.i3/compton.config
 exec --no-startup-id /usr/bin/variety
