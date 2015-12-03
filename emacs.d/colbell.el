@@ -293,7 +293,7 @@
     ;; for some columns.
     ;;(add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
 
-    ;;(setq whitespace-global-modes '(not org-mode paradox-menu-mode term-mode))
+    (setq whitespace-global-modes '(not org-mode paradox-menu-mode term-mode))
 
     ;; Don't highlight trailing WS in some modes.
     (dolist (hook '(shell-mode-hook compilation-mode-hook diff-mode-hook
@@ -2666,16 +2666,16 @@ _d_: subtree       ^^               _g_: org goto
     (setq history-delete-duplicates t)
     (setq savehist-save-minibuffer-history t)))
 
-;; (use-package paradox
-;;   :ensure t
-;;   :defer t
+(use-package paradox
+  :ensure t
+  :defer t
 
-;;   :config
-;;   (progn
-;;     (setq paradox-github-token t)  ;; Don't ask for Github integration.
-;;     (setq paradox-display-download-count t)
-;;     (setq paradox-spinner-type 'moon)
-;;     (setq paradox-execute-asynchronously t)))
+  :config
+  (progn
+    (setq paradox-github-token t)  ;; Don't ask for Github integration.
+    (setq paradox-display-download-count t)
+    (setq paradox-spinner-type 'moon)
+    (setq paradox-execute-asynchronously t)))
 
 (use-package 2048-game
   :defer t
