@@ -40,7 +40,7 @@ new_window none
 # Hide window borders at scrfeen edge.
 hide_edge_borders both
 
-workspace_layout stacking
+workspace_layout tabbed
 
 #workspace_auto_back_and_forth yes
 bindsym $mod+z workspace back_and_forth
@@ -126,14 +126,16 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-# reload the configuration file
+# Reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
+
+# Log out.
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# resize window (you can also use the mouse for that)
+# Move window.
 mode "moveit" {
   bindsym h move left 20px
   bindsym j move down 20px
@@ -146,7 +148,7 @@ mode "moveit" {
 }
 bindsym $mod+m mode "moveit"
 
-# resize window (you can also use the mouse for that)
+# Resize window
 mode "resize" {
   # These bindings trigger as soon as you enter the resize mode
 
