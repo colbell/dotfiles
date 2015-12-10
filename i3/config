@@ -37,9 +37,10 @@ client.urgent               $rd        $rd         $tx
 # Don't use borders on new windows.
 new_window none
 
-# Hide window borders at scrfeen edge.
+# Hide window borders at screen edge.
 hide_edge_borders both
 
+# Default layout
 workspace_layout tabbed
 
 #workspace_auto_back_and_forth yes
@@ -221,12 +222,12 @@ exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/mate-power-manager
 exec --no-startup-id update-notifier --startup-delay=60
 exec --no-startup-id dropbox start -i
-exec --no-startup-id killall mate-screensaver
-exec --no-startup-id /usr/bin/xscreensaver -no-splash
-exec --no-startup-id /usr/bin/parcellite
 exec --no-startup-id mpd
 exec --no-startup-id /usr/bin/blueman-applet
 exec --no-startup-id /usr/bin/mate-volume-control-applet
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1
 exec --no-startup-id /usr/bin/compton -b --config ~/.i3/compton.config
 exec --no-startup-id /usr/bin/variety
+exec --no-startup-id /usr/bin/parcellite
+exec --no-startup-id killall -w mate-screensaver
+exec --no-startup-id /usr/bin/xscreensaver -no-splash
