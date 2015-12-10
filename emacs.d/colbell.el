@@ -61,6 +61,10 @@
   :ensure t
   :defer t)
 
+(use-package borland-blue-theme
+  :ensure t
+  :defer t)
+
 (defun cnb/disable-theme ()
   "Disable current theme."
   (interactive)
@@ -139,7 +143,7 @@
 (setq-default cursor-type 'bar)
 (blink-cursor-mode)
 
-(global-hl-line-mode)
+;;(global-hl-line-mode)
 
 (setq line-move-visual nil)
 
@@ -2675,16 +2679,16 @@ _d_: subtree       ^^               _g_: org goto
     (setq history-delete-duplicates t)
     (setq savehist-save-minibuffer-history t)))
 
-;; (use-package paradox                    ;
-;;   :ensure t
-;;   :defer t
+(use-package paradox
+  :ensure t
+  :defer t
 
-;;   :config
-;;   (progn
-;;     (setq paradox-github-token t)  ;; Don't ask for Github integration.
-;;     (setq paradox-display-download-count t)
-;;     (setq paradox-spinner-type 'moon)
-;;     (setq paradox-execute-asynchronously t)))
+  :config
+  (progn
+    (setq paradox-github-token t)  ;; Don't ask for Github integration.
+    (setq paradox-display-download-count t)
+    (setq paradox-spinner-type 'moon)
+    (setq paradox-execute-asynchronously t)))
 
 (use-package 2048-game
   :defer t
