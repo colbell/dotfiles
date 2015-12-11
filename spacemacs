@@ -210,6 +210,17 @@ user code."
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+   (global-linum-mode)
+   (with-eval-after-load 'linum
+           (linum-relative-toggle))
+
+    ;; Always start a new tags list.
+    (setq tags-add-tables nil)
+
+    ;; I've got some TAGS files that are nearly 20MB in size.
+    (setq large-file-warning-threshold 20000000)
+
+    (setq recenter-positions '(top middle bottom))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
