@@ -18,17 +18,13 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
      auto-completion
      better-defaults
      emacs-lisp
      git
      html
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
+     games
      javascript
      markdown
      org
@@ -36,8 +32,10 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      (ruby :variables ruby-test-runner 'rspec
+           ;;ruby-enable-enh-ruby-mode t
            ruby-version-manager 'rvm)
      ruby-on-rails
+     semantic
      spell-checking
      syntax-checking
      version-control
@@ -78,19 +76,20 @@ values."
 
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
+
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text
    ;; banner, `random' chooses a random text banner in `core/banners'
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-
    dotspacemacs-startup-banner 'official
+
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'.
    ;; (default '(recents projects))
+   dotspacemacs-startup-lists '(recents bookmarks projects)
 
-   dotspacemacs-startup-lists '(recents projects)
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -146,9 +145,11 @@ values."
    ;; define the position to display `helm', options are `bottom', `top',
    ;; `left', or `right'. (default 'bottom)
    dotspacemacs-helm-position 'right
+
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
    dotspacemacs-enable-paste-micro-state nil
+
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
    dotspacemacs-which-key-delay 0.4
@@ -209,16 +210,23 @@ values."
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
    dotspacemacs-default-package-repository nil
-   ))
+
+   ;; If non nil line numbers are turned on in all ‘prog-mode’ and ‘text-mode’
+   ;; derivatives. If set to ‘relative’, also turns on relative line numbers.
+   dotspacemacs-line-numbers 'relative
+
+   ;; Delete whitespace while saving buffer.
+   dotspacemacs-whitespace-cleanup 'changed))
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
-  (setq-default ruby-version-manager 'rvm)
-  (setq sentence-end-double-space t)
-  (setq-default js2-basic-offset 2)
-  (setq-default js-indent-level 2)
+  (setq-default
+   ruby-version-manager 'rvm
+   sentence-end-double-space t
+   js2-basic-offset 2
+   js-indent-level 2)
 
   ;; Files within home that we don't want kept in recent files.
   ;; Because .emacs.d is a symlink to dotfiles/.emacs.d a file can have two
@@ -237,9 +245,9 @@ user code."
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (global-linum-mode)
-  (with-eval-after-load 'linum
-    (linum-relative-toggle))
+  ;; (global-linum-mode)
+  ;; (with-eval-after-load 'linum
+  ;;   (linum-relative-toggle))
 
   (with-eval-after-load 'recentf
     ;; Files to ignore in recent files.
@@ -301,7 +309,7 @@ layers configuration. You are free to put any user code."
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (ws-butler spaceline rubocop rspec-mode restart-emacs rbenv persp-mode lorem-ipsum hl-todo help-fns+ helm-flx helm-company git-gutter-fringe+ git-gutter-fringe git-gutter+ git-gutter evil-mc evil-magit evil-lisp-state evil-indent-plus chruby auto-compile ace-jump-helm-line bind-map zenburn-theme monokai-theme web-beautify json-mode js2-refactor js2-mode js-doc company-tern coffee-mode rvm yaml-mode sql-indent fish-mode ibuffer-projectile helm-c-yasnippet company-web company-statistics company-quickhelp company auto-yasnippet ac-ispell web-mode tagedit slim-mode scss-mode sass-mode ruby-tools ruby-test-mode robe projectile-rails less-css-mode jade-mode helm-css-scss haml-mode feature-mode enh-ruby-mode emmet-mode bundler toc-org smeargle org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets mmm-mode markdown-toc markdown-mode magit-gitflow magit htmlize helm-gitignore helm-flyspell gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit gh-md flycheck-pos-tip flycheck evil-org diff-hl window-numbering which-key volatile-highlights vi-tilde-fringe use-package spray spacemacs-theme smooth-scrolling smartparens s rainbow-delimiters quelpa powerline popwin popup pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-leader evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link)))
+    (pacmacs 2048-game stickyfunc-enhance srefactor ws-butler spaceline rubocop rspec-mode restart-emacs rbenv persp-mode lorem-ipsum hl-todo help-fns+ helm-flx helm-company git-gutter-fringe+ git-gutter-fringe git-gutter+ git-gutter evil-mc evil-magit evil-lisp-state evil-indent-plus chruby auto-compile ace-jump-helm-line bind-map zenburn-theme monokai-theme web-beautify json-mode js2-refactor js2-mode js-doc company-tern coffee-mode rvm yaml-mode sql-indent fish-mode ibuffer-projectile helm-c-yasnippet company-web company-statistics company-quickhelp company auto-yasnippet ac-ispell web-mode tagedit slim-mode scss-mode sass-mode ruby-tools ruby-test-mode robe projectile-rails less-css-mode jade-mode helm-css-scss haml-mode feature-mode enh-ruby-mode emmet-mode bundler toc-org smeargle org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets mmm-mode markdown-toc markdown-mode magit-gitflow magit htmlize helm-gitignore helm-flyspell gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit gh-md flycheck-pos-tip flycheck evil-org diff-hl window-numbering which-key volatile-highlights vi-tilde-fringe use-package spray spacemacs-theme smooth-scrolling smartparens s rainbow-delimiters quelpa powerline popwin popup pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-leader evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link)))
  '(pos-tip-background-color "#A6E22E")
  '(pos-tip-foreground-color "#272822")
  '(safe-local-variable-values
