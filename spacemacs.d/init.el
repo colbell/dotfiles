@@ -1,6 +1,4 @@
 ;; -*- mode: emacs-lisp -*-
-;; This file is loaded by Spacemacs at startup.
-;; It must be stored in your home directory.
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
@@ -11,9 +9,12 @@ values."
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
+
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
+
    dotspacemacs-configuration-layer-path '()
+
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
@@ -281,7 +282,12 @@ layers configuration. You are free to put any user code."
    ;; I've got some TAGS files that are nearly 20MB in size.
    large-file-warning-threshold 20000000
 
-   recenter-positions '(top middle bottom)))
+   powerline-default-separator 'arrow
+
+   recenter-positions '(top middle bottom))
+
+  ;; Indicate fill column.
+  (add-hook 'prog-mode-hook 'fci-mode))
 
   ;; Do not write anything past this comment. This is where Emacs will
   ;; auto-generate custom variable definitions.
