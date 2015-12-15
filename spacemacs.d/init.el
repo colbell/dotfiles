@@ -6,12 +6,12 @@ You should not put any user code in this function besides modifying the variable
 values."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
-   ;; `+distribution'. For now available distributions are `spacemacs-base'
-   ;; or `spacemacs'. (default 'spacemacs)
+   ;; `+distribution'. For now available distributions are 'spacemacs-base'
+   ;; or 'spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
 
    ;; List of additional paths where to look for configuration layers.
-   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
+   ;; Paths must have a trailing slash (i.e. '~/.mycontribs/')
 
    dotspacemacs-configuration-layer-path '()
 
@@ -50,7 +50,7 @@ values."
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
-   ;; configuration in `dotspacemacs/config'.
+   ;; configuration in 'dotspacemacs/config'.
    dotspacemacs-additional-packages '(beacon crosshairs)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -96,8 +96,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(spacemacs-light
+                         spacemacs-dark)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -275,6 +275,13 @@ layers configuration. You are free to put any user code."
     (add-to-list 'recentf-exclude "/\\.git/.*\\'")
     (add-to-list 'recentf-exclude recentf-save-file))
 
+  (defun cnb/ruby-setup ()
+    (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
+    ;;(("Examples" "^\\( *\\(its?\\|specify\\|example\\|describe\\|context\\|feature\\|scenario\\) +.+\\)" 1))
+    (setq imenu-generic-expression '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1))))
+
+  (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
+
   (setq-default
    ;; Always start a new tags list.
    tags-add-tables nil
@@ -310,8 +317,8 @@ layers configuration. You are free to put any user code."
   ;; Indicate fill column.
   (add-hook 'prog-mode-hook 'fci-mode))
 
-  ;; Do not write anything past this comment. This is where Emacs will
-  ;; auto-generate custom variable definitions.
+;; Do not write anything past this comment. This is where Emacs will
+;; auto-generate custom variable definitions.
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -353,7 +360,7 @@ layers configuration. You are free to put any user code."
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (beacon crosshairs auto-complete helm helm-core yasnippet package-build shell-pop multi-term eshell-prompt-extras esh-help pacmacs 2048-game stickyfunc-enhance srefactor ws-butler spaceline rubocop rspec-mode restart-emacs rbenv persp-mode lorem-ipsum hl-todo help-fns+ helm-flx helm-company git-gutter-fringe+ git-gutter-fringe git-gutter+ git-gutter evil-mc evil-magit evil-lisp-state evil-indent-plus chruby auto-compile ace-jump-helm-line bind-map zenburn-theme monokai-theme web-beautify json-mode js2-refactor js2-mode js-doc company-tern coffee-mode rvm yaml-mode sql-indent fish-mode ibuffer-projectile helm-c-yasnippet company-web company-statistics company-quickhelp company auto-yasnippet ac-ispell web-mode tagedit slim-mode scss-mode sass-mode ruby-tools ruby-test-mode robe projectile-rails less-css-mode jade-mode helm-css-scss haml-mode feature-mode enh-ruby-mode emmet-mode bundler toc-org smeargle org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets mmm-mode markdown-toc markdown-mode magit-gitflow magit htmlize helm-gitignore helm-flyspell gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit gh-md flycheck-pos-tip flycheck evil-org diff-hl window-numbering which-key volatile-highlights vi-tilde-fringe use-package spray spacemacs-theme smooth-scrolling smartparens s rainbow-delimiters quelpa powerline popwin popup pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-leader evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link)))
+    (with-editor magit-popup hydra beacon crosshairs auto-complete helm helm-core yasnippet package-build shell-pop multi-term eshell-prompt-extras esh-help pacmacs 2048-game stickyfunc-enhance srefactor ws-butler spaceline rubocop rspec-mode restart-emacs rbenv persp-mode lorem-ipsum hl-todo help-fns+ helm-flx helm-company git-gutter-fringe+ git-gutter-fringe git-gutter+ git-gutter evil-mc evil-magit evil-lisp-state evil-indent-plus chruby auto-compile ace-jump-helm-line bind-map zenburn-theme monokai-theme web-beautify json-mode js2-refactor js2-mode js-doc company-tern coffee-mode rvm yaml-mode sql-indent fish-mode ibuffer-projectile helm-c-yasnippet company-web company-statistics company-quickhelp company auto-yasnippet ac-ispell web-mode tagedit slim-mode scss-mode sass-mode ruby-tools ruby-test-mode robe projectile-rails less-css-mode jade-mode helm-css-scss haml-mode feature-mode enh-ruby-mode emmet-mode bundler toc-org smeargle org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets mmm-mode markdown-toc markdown-mode magit-gitflow magit htmlize helm-gitignore helm-flyspell gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit gh-md flycheck-pos-tip flycheck evil-org diff-hl window-numbering which-key volatile-highlights vi-tilde-fringe use-package spray spacemacs-theme smooth-scrolling smartparens s rainbow-delimiters quelpa powerline popwin popup pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-leader evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link)))
  '(pos-tip-background-color "#A6E22E")
  '(pos-tip-foreground-color "#272822")
  '(safe-local-variable-values
