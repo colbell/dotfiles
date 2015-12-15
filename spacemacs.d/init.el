@@ -326,6 +326,7 @@ layers configuration. You are free to put any user code."
                                   bm-repository-save bm-buffer-save-all
                                   bm-cycle-all-buffers)
     :bind (("C-<f2>" . bm-toggle)
+           ("M-<f2>" . bm-show-all)
            ("<f2>"   . bm-next)
            ("S-<f2>" . bm-previous))
     :init
@@ -335,7 +336,9 @@ layers configuration. You are free to put any user code."
       (setq bm-repository-size 1024)
       (setq bm-cycle-all-buffers nil)
       (setq-default bm-buffer-persistence t)
-      (setq bm-highlight-style 'bm-highlight-only-line)
+      ;; (setq bm-highlight-style 'bm-highlight-only-line)
+      (setq bm-highlight-style 'bm-highlight-only-fringe)
+      ;; (setq bm-highlight-style 'bm-highlight-line-and-fringe)
       (add-hook 'after-init-hook #'bm-repository-load)
       (add-hook 'find-file-hooks #'bm-buffer-restore)
       (add-hook 'kill-buffer-hook #'bm-buffer-save)
