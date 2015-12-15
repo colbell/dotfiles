@@ -153,7 +153,7 @@ values."
 
    ;; define the position to display `helm', options are `bottom', `top',
    ;; `left', or `right'. (default 'bottom)
-   dotspacemacs-helm-position 'right
+   dotspacemacs-helm-position 'bottom
 
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
@@ -161,7 +161,7 @@ values."
 
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.4
+   dotspacemacs-which-key-delay 0.6
 
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
@@ -276,6 +276,7 @@ layers configuration. You are free to put any user code."
     (add-to-list 'recentf-exclude recentf-save-file))
 
   (defun cnb/ruby-setup ()
+    (rvm-activate-corresponding-ruby)
     (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
     ;;(("Examples" "^\\( *\\(its?\\|specify\\|example\\|describe\\|context\\|feature\\|scenario\\) +.+\\)" 1))
     (setq imenu-generic-expression '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1))))
@@ -310,7 +311,6 @@ layers configuration. You are free to put any user code."
   (use-package beacon
     :init
     :diminish beacon-mode
-
     :init
     (beacon-mode))
 
