@@ -19,8 +19,12 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
-     auto-completion
+     (auto-completion
+      :variables
+      auto-completion-private-snippets-directory
+      "~/.spacemacs.d/snippets/" )
      better-defaults
+     clojure
      emacs-lisp
      git
      html
@@ -51,7 +55,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in 'dotspacemacs/config'.
-   dotspacemacs-additional-packages '(bm beacon crosshairs)
+   dotspacemacs-additional-packages '(bm beacon crosshairs shrink-whitespace)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -98,8 +102,9 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                       spacemacs-dark)
-   dotspacemacs-themes '(solarized-light
-                         solarized-dark)
+   dotspacemacs-themes '(zenburn
+                         solarized-dark
+                         solarized-light)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -163,7 +168,7 @@ values."
 
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.6
+   dotspacemacs-which-key-delay 1.0
 
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
@@ -238,35 +243,17 @@ values."
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
-It is called immediately after `dotspacemacs/init'.  You are free to put any
-user code."
-  (setq-default
-   ruby-version-manager 'rvm
-   sentence-end-double-space t
-   js2-basic-offset 2
-   js-indent-level 2)
-
-  ;; Files within home that we don't want kept in recent files.
-  ;; Because .emacs.d is a symlink to dotfiles/.emacs.d a file can have two
-  ;; names so we need to ignore each file twice. The function (file-truename)
-  ;; will expand symlinks.
-  ;; (let ((exclude-files '("places" ".ido.last" "elpa/**/.*" "emacs.bmk"
-  ;;                        "url/cookies" "bookmarks")))
-  ;;   (while exclude-files
-  ;;     (let ((f (expand-file-name (car exclude-files) user-emacs-directory)))
-  ;;       (add-to-list 'recentf-exclude f)
-  ;;       (add-to-list 'recentf-exclude (file-truename f))
-  ;;       (setq exclude-files (cdr exclude-files))))))
-  )
+It is called immediately after `dotspacemacs/init'."
+  ;; These have to be set prior to the theme been loaded.
+  (setq solarized-distinct-fringe-background nil)
+  (setq solarized-scale-org-headlines nil)
+  (setq solarized-use-variable-pitch nil)
+  (setq solarized-high-contrast-mode-line nil))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  ;; (global-linum-mode)
-  ;; (with-eval-after-load 'linum
-  ;;   (linum-relative-toggle))
-
   (with-eval-after-load 'recentf
     ;; Files to ignore in recent files.
     (add-to-list 'recentf-exclude "~$")
@@ -275,7 +262,28 @@ layers configuration. You are free to put any user code."
     (add-to-list 'recentf-exclude "/sudo:")
     (add-to-list 'recentf-exclude "TAGS")
     (add-to-list 'recentf-exclude "/\\.git/.*\\'")
-    (add-to-list 'recentf-exclude recentf-save-file))
+
+    ;; Because .emacs.d is a symlink to dotfiles/emacs.d a file can have two
+    ;; names so we also need to ignore the one in dotfiles.
+    (add-to-list 'recentf-exclude (file-truename "~/dotfiles/emacs.d/elpa"))
+    (add-to-list 'recentf-exclude
+                 (file-truename "~/dotfiles/emacs.d/.cache/")))
+
+  ;; From http://www.emacswiki.org/emacs-en/ToggleWindowSplit
+  (defun cnb/toggle-frame-split ()
+    "If the frame is split vertically, split it horizontally or vice versa.
+  Assumes that the frame is only split into two. "
+    (interactive)
+    (unless (= (length (window-list)) 2)
+      (error "Can only toggle a frame split in two"))
+    (let ((split-vertically-p (window-combined-p)))
+      (delete-window) ; closes current window
+      (if split-vertically-p
+          (split-window-horizontally)
+        (split-window-vertically)) ; gives us a split with the other win twice
+      (switch-to-buffer nil))) ; restore the orig  win in this part of the frame
+
+  (define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
 
   (defun cnb/ruby-setup ()
     (rvm-activate-corresponding-ruby)
@@ -286,6 +294,11 @@ layers configuration. You are free to put any user code."
   (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
 
   (setq-default
+   ruby-version-manager 'rvm
+   sentence-end-double-space t
+   js2-basic-offset 2
+   js-indent-level 2
+
    ;; Always start a new tags list.
    tags-add-tables nil
 
@@ -303,6 +316,12 @@ layers configuration. You are free to put any user code."
    ;; C-l first position to top.
    recenter-positions '(top middle bottom))
 
+  (add-to-list
+   'display-buffer-alist
+   `(,(rx bos "*rspec-compilation*" eos)
+     (display-buffer-reuse-window)
+     (reusable-frames . t)))
+
   (mouse-avoidance-mode 'exile)
 
   (use-package crosshairs
@@ -315,6 +334,9 @@ layers configuration. You are free to put any user code."
     :diminish beacon-mode
     :init
     (beacon-mode))
+
+  (use-package shrink-whitespace
+    :bind (("M-SPC" . shrink-whitespace)))
 
   (defun cnb/bm-hook
       (bm-buffer-save-all)
@@ -332,7 +354,8 @@ layers configuration. You are free to put any user code."
     :init
     (progn
       (setq bm-restore-repository-on-load t)
-      (setq bm-repository-file (expand-file-name "bm-repository" user-emacs-directory))
+      (setq bm-repository-file (expand-file-name "bm-repository"
+                                                 spacemacs-cache-directory))
       (setq bm-repository-size 1024)
       (setq bm-cycle-all-buffers nil)
       (setq-default bm-buffer-persistence t)
@@ -392,7 +415,8 @@ layers configuration. You are free to put any user code."
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (bm solarized-theme with-editor magit-popup hydra beacon crosshairs auto-complete helm helm-core yasnippet package-build shell-pop multi-term eshell-prompt-extras esh-help pacmacs 2048-game stickyfunc-enhance srefactor ws-butler spaceline rubocop rspec-mode restart-emacs rbenv persp-mode lorem-ipsum hl-todo help-fns+ helm-flx helm-company git-gutter-fringe+ git-gutter-fringe git-gutter+ git-gutter evil-mc evil-magit evil-lisp-state evil-indent-plus chruby auto-compile ace-jump-helm-line bind-map zenburn-theme monokai-theme web-beautify json-mode js2-refactor js2-mode js-doc company-tern coffee-mode rvm yaml-mode sql-indent fish-mode ibuffer-projectile helm-c-yasnippet company-web company-statistics company-quickhelp company auto-yasnippet ac-ispell web-mode tagedit slim-mode scss-mode sass-mode ruby-tools ruby-test-mode robe projectile-rails less-css-mode jade-mode helm-css-scss haml-mode feature-mode enh-ruby-mode emmet-mode bundler toc-org smeargle org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets mmm-mode markdown-toc markdown-mode magit-gitflow magit htmlize helm-gitignore helm-flyspell gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit gh-md flycheck-pos-tip flycheck evil-org diff-hl window-numbering which-key volatile-highlights vi-tilde-fringe use-package spray spacemacs-theme smooth-scrolling smartparens s rainbow-delimiters quelpa powerline popwin popup pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-leader evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link)))
+    (shrink-whitespace diminish clj-refactor cider-eval-sexp-fu cider align-cljlet bm solarized-theme with-editor magit-popup hydra beacon crosshairs auto-complete helm helm-core yasnippet package-build shell-pop multi-term eshell-prompt-extras esh-help pacmacs 2048-game stickyfunc-enhance srefactor ws-butler spaceline rubocop rspec-mode restart-emacs rbenv persp-mode lorem-ipsum hl-todo help-fns+ helm-flx helm-company git-gutter-fringe+ git-gutter-fringe git-gutter+ git-gutter evil-mc evil-magit evil-lisp-state evil-indent-plus chruby auto-compile ace-jump-helm-line bind-map zenburn-theme monokai-theme web-beautify json-mode js2-refactor js2-mode js-doc company-tern coffee-mode rvm yaml-mode sql-indent fish-mode ibuffer-projectile helm-c-yasnippet company-web company-statistics company-quickhelp company auto-yasnippet ac-ispell web-mode tagedit slim-mode scss-mode sass-mode ruby-tools ruby-test-mode robe projectile-rails less-css-mode jade-mode helm-css-scss haml-mode feature-mode enh-ruby-mode emmet-mode bundler toc-org smeargle org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets mmm-mode markdown-toc markdown-mode magit-gitflow magit htmlize helm-gitignore helm-flyspell gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit gh-md flycheck-pos-tip flycheck evil-org diff-hl window-numbering which-key volatile-highlights vi-tilde-fringe use-package spray spacemacs-theme smooth-scrolling smartparens s rainbow-delimiters quelpa powerline popwin popup pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-leader evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link)))
+ '(paradox-github-token t)
  '(pos-tip-background-color "#A6E22E")
  '(pos-tip-foreground-color "#272822")
  '(safe-local-variable-values
@@ -431,5 +455,6 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:foreground "#DCDCCC" :background "#3F3F3F"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
