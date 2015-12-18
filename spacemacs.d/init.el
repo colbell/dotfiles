@@ -18,11 +18,9 @@ values."
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
-   '(
-     (auto-completion
-      :variables
-      auto-completion-private-snippets-directory
-      "~/.spacemacs.d/snippets/" )
+   '((auto-completion :variables
+                      auto-completion-private-snippets-directory
+                      "~/.spacemacs.d/snippets/" )
      better-defaults
      clojure
      emacs-lisp
@@ -48,8 +46,7 @@ values."
      sql
      (syntax-checking :variables syntax-checking-enable-tooltips nil)
      version-control
-     yaml
-     )
+     yaml)
 
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -164,7 +161,7 @@ values."
 
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
-   dotspacemacs-enable-paste-micro-state nil
+   dotspacemacs-enable-paste-micro-state t
 
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
