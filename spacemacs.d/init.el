@@ -312,11 +312,18 @@ layers configuration. You are free to put any user code."
 
   (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
 
+  (add-hook
+   'after-save-hook
+   #'executable-make-buffer-file-executable-if-script-p)
+
   (setq-default
    ruby-version-manager 'rvm
    sentence-end-double-space t
    js2-basic-offset 2
    js-indent-level 2
+
+   ;; Use a visible bell instead of a beep.
+   visible-bell t
 
    ;; Always start a new tags list.
    tags-add-tables nil
