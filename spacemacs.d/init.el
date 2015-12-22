@@ -23,6 +23,7 @@ values."
                       "~/.spacemacs.d/snippets/" )
      better-defaults
      clojure
+     elfeed
      emacs-lisp
      git
      html
@@ -31,6 +32,7 @@ values."
      javascript
      markdown
      org
+     pandoc
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -55,7 +57,7 @@ values."
    dotspacemacs-additional-packages '(bm beacon crosshairs shrink-whitespace)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(org-bullets)
 
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -99,11 +101,11 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(zenburn
+                         spacemacs-dark
                          spacemacs-light
                          solarized-light
-                         solarized-dark
-                         zenburn)
+                         solarized-dark)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -268,6 +270,24 @@ layers configuration. You are free to put any user code."
     (add-to-list 'recentf-exclude
                  (file-truename "~/dotfiles/emacs.d/.cache/")))
 
+  (setq dired-listing-switches "-alhG --group-directories-first")
+
+
+  (with-eval-after-load 'elfeed
+    (defface urgent-elfeed-entry
+      '((t :foreground "#f77"))
+      "Marks an important Elfeed entry.")
+    (push '(urgent urgent-elfeed-entry)
+          elfeed-search-face-alist)
+
+    (setq elfeed-goodies/entry-pane-position 'right
+          elfeed-goodies/entry-pane-size 0.5
+          elfeed-search-filter "@6-months-ago +unread "))
+
+  (setq rmh-elfeed-org-files (list (expand-file-name "elfeed.org"
+                                                     dotspacemacs-directory)
+                                   (file-truename "~/Dropbox/home-config/feeds/feeds.org")))
+
   ;; From http://www.emacswiki.org/emacs-en/ToggleWindowSplit
   (defun cnb/toggle-frame-split ()
     "If the frame is split vertically, split it horizontally or vice versa.
@@ -311,6 +331,10 @@ layers configuration. You are free to put any user code."
    powerline-default-separator 'arrow
 
    imenu-auto-rescan t
+
+   ;;browse-url-browser-function 'browse-url-firefox
+   browse-url-browser-function 'browse-url-generic
+   browse-url-generic-program "chromium-browser"
 
    ;; C-l first position to top.
    recenter-positions '(top middle bottom))
@@ -415,9 +439,12 @@ layers configuration. You are free to put any user code."
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (helm markdown-mode zenburn-theme solarized-theme yaml-mode ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quelpa projectile-rails popwin persp-mode pcre2el paradox page-break-lines pacmacs org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bm beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile align-cljlet aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+    (avy cider flycheck company magit projectile bind-key pandoc-mode ox-pandoc elfeed-web elfeed-org elfeed-goodies elfeed orgit helm markdown-mode zenburn-theme solarized-theme yaml-mode ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quelpa projectile-rails popwin persp-mode pcre2el paradox page-break-lines pacmacs org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bm beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile align-cljlet aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
+ '(safe-local-variable-values
+   (quote
+    ((bug-reference-bug-regexp . "\\(?2:TWEB-[0-9]+\\)"))))
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
  '(term-default-bg-color "#002b36")
  '(term-default-fg-color "#839496")
@@ -455,5 +482,6 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:foreground "#DCDCCC" :background "#3F3F3F"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
