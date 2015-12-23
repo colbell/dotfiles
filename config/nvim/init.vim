@@ -56,8 +56,8 @@ endfunc
 " Toggle between normal and relative numbering.
 nnoremap <leader>r :call NumberToggle()<cr>
 
-set background=dark
-colorscheme solarized
+" set background=dark
+" colorscheme solarized
 
 " Open file menu
 nnoremap <Leader>o :CtrlP<CR>
