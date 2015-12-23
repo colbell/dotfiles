@@ -1,0 +1,687 @@
+* Blogs                                                              :elfeed:
+** Status                                                           :urgent:
+*** http://status.mailgun.com/history.atom
+mailgun Status - Incident History
+** Comics                                                           :comics:
+*** http://thedevilspanties.com/feed
+The Devil's Panties
+*** http://www.dumbingofage.com/feed/rss/
+Dumbing of Age
+** Emacs                                                             :emacs:
+*** http://planet.emacsen.org/atom.xml
+Planet Emacsen
+*** http://pragmaticemacs.com/feed/
+Pragmatic Emacs
+*** http://www.reddit.com/r/emacs/.rss
+EMACS - Reddit
+*** http://emacs.wordpress.com/feed/
+Minor emacs wizardry
+*** http://trey-jackson.blogspot.com/feeds/posts/default
+Life Is Too Short For Bad Code
+*** http://en.wordpress.com/tag/emacs/feed/
+Emacs Wordpress.com TAG
+*** http://emacsworld.blogspot.com/feeds/posts/default
+Got EMACS?
+*** http://feeds.feedburner.com/XahsEmacsBlog
+XahsEmacsBlog
+*** http://whattheemacsd.com/atom.xml
+What the .emacs.d!?
+*** http://zhangda.wordpress.com/feed/
+Da's recipes on Emacs, IT, and more
+*** http://feeds2.feedburner.com/sachac
+sacha chua :: living an awesome life
+*** http://emacsredux.com/atom.xml
+Emacs Redux
+*** http://www.emacswiki.org/emacs?action=rss
+Emacs Wiki
+*** http://oremacs.com/atom.xml
+(or emacs
+*** http://emacs-fu.blogspot.com/feeds/posts/default
+Emacs-fu
+*** http://www.emacsblog.org/feed/
+M-x all-things-emacs
+** Clojure                                                         :clojure:
+*** http://planet.clojure.in/atom.xml
+Planet Clojure
+*** http://yogthos.net/feed.xml
+(iterate think thoughts)
+*** http://matthiasnehlsen.com/atom.xml
+ Matthias Nehlsen
+** Business                                                       :business:
+*** http://tod-blog.tickitsystems.com.au/feeds/posts/default
+Tickit
+** Funny                                                             :funny:
+*** http://thebloggess.com/?feed=rss2
+The Bloggess
+*** http://notalwaysright.com/feed
+Funny & Stupid Customer Stories - Not Always Right
+*** http://feeds.feedburner.com/boingboing/iBag
+BoingBoing
+*** http://what-if.xkcd.com/feed.atom
+What If?
+*** http://syndication.thedailywtf.com/TheDailyWtf
+Daily WTF
+*** http://feeds.feedburner.com/Hyperbole-and-a-half
+Hyperbole and a Half
+*** http://rulesformyunbornson.tumblr.com/rss
+1001 rules for my unborn son
+** Tech                                                               :tech:
+*** http://rss.slashdot.org/Slashdot/slashdot
+Slashdot
+*** http://programming.reddit.com/.rss
+Reddit - Programming
+*** http://www.infoq.com/rss/rss.action?token=Xnp6bHwyoyh3UL8PHOrB8UNbDkUgkyXf
+InfoQ
+** Cars                                                               :cars:
+*** http://www.hybridcars.com/feed/
+Hybrid Cars
+*** http://www.caradvice.com.au/feed/
+Car Advice
+** legal                                                             :legal:
+*** http://www.groklaw.net/backend/GrokLaw.rdf
+Groklaw
+*** http://feeds.feedburner.com/LoweringTheBar
+Lowering the Bar
+*** http://feeds.feedburner.com/Popehat
+Popehat
+
+** Uncategorized
+*** http://feeds.feedburner.com/oreilly/ebookdealoftheday          :urgent:
+O'Reilly Deal of the Day
+*** http://sourceforge.net/api/file/index/project-id/28383/mtime/desc/limit/20/rss
+SQuirreL SQL Client
+*** http://sheamoore.blogspot.com/feeds/posts/default
+Mutterings at Chez Moore
+*** http://www.informit.com/deals/deal_rss.aspx                    :urgent:
+eBook Deal of the Day :: InformIT
+*** http://feeds.feedburner.com/dervala/OnBN
+dervala.net
+* comics
+
+** Oglaf! -- Comics. Often dirty.
+
+** The Escapist : Critical Miss
+
+** Freefall
+
+** Johnny Wander
+
+** Brian Shearer's William The Last
+
+** Between Failures
+
+** Saturday Morning Breakfast Cereal (updated daily)
+
+** Buni
+
+** comicbookGRRRL
+
+** Living With Insanity
+
+** Diesel Sweeties webcomic by rstevens
+
+** Ctrl+Alt+Del
+
+** Not Invented Here
+
+** 1977 the Comic
+
+** The Joy of Tech (rss feed)
+
+** Comic Crits
+
+** Multiplex RSS Feed
+
+** Explosm.net
+
+** Texts From Superheroes
+
+** Sandra and Woo
+
+** The Abominable Charles Christopher
+
+** Bear Nuts by Alison Acton
+
+** The System
+
+** Johnny Wander Combined Feed
+
+** Head Trip
+
+** Red's Planet
+
+** That Deaf Guy
+
+** The Watering Hole
+
+** xkcd.com
+
+** Bucko - A Comical Murder-Mystery
+
+** Digger by Ursula Vernon
+
+** malandchad.com
+
+** robotchao
+
+** Jesus & Mo
+
+** We are become pals!
+
+** Alice Grove
+
+** Shortpacked! by David Willis
+
+** Yellow Peril
+
+** Girls With Slingshots
+
+** Texts from Star Trek: The Next Generation
+
+** Too Much Information
+
+** Dilbert Daily Strip
+
+** PHD Comics
+
+** Bunny
+
+** Menage a 3
+
+** Geebas on Parade
+
+** Bo's Cafe Life
+
+** Imy the Comic
+
+** Monica Gallagher's comics, illustration, and freelance design
+website.
+
+** Wavelength Comic by Ben Klingberg
+
+** jephjacques.com
+
+** Terminal Lance
+
+** Cosmical
+
+** Married To The Sea
+
+** Jeffrey Rowland Internet Comics
+
+** C'est La Vie - A daily webcomic by Jennifer Babcock
+
+** With Fetus by D. Murphy and Emily Ansara Baines
+
+** Unshelved
+
+** QC RSS
+
+** All New Issues
+
+** Programmer's Life
+
+** DAR: A Super Girly Top Secret Comic Diary
+
+** Camp Weedonwantcha
+
+** Something Positive by R.K. Milholland
+
+** Hamlet's Danish Archives
+
+** Kevin & Kell
+
+** Bedlam Court
+
+** occasionalcomics.com
+
+** ButterNutSquash
+
+** Cartoon-Books
+
+** The Trenches
+
+** User Friendly RSS Feed
+
+** Gunnerkrigg Court
+
+** Top 100 Best Graphic Novels and Comics of all Time (and loads of
+other stuff too)
+
+** Battlepug - A Web Comic by Mike Norton
+
+** Nimona archive
+
+** Dangerously Chloe
+
+** STRIPTEASE
+
+* sf
+
+** Galaxy Bookshop
+
+** Eruditorum Press
+
+** The Way the Future Blogs
+
+** Escape Pod
+
+** The World SF News Blog
+
+** about\_sf
+
+** Interviews
+
+** SF Novelists
+
+** Weirdmage's Reviews
+
+** Spiral Galaxy Musings
+
+** SF Signal
+
+** Cheryl's Mewsings
+
+** From the Heart of Europe
+
+** SF and Nonsense
+
+** Tor.com Frontpage Partial - Blog and Story Content
+
+** Science Fiction and Fantasy Writers of America
+
+** Notes from Coode Street
+
+** Worlds of Imagination on the Web | Xenite.Org
+
+** Science fiction | The Guardian
+
+** The Hugo Awards
+
+** RevolutionSF
+
+** http://www.subterraneanpress.com/feed
+
+** http://www.sflare.com/feed/
+
+** Science Fiction Awards Watch
+
+** Howard Andrew Jones
+
+** Andrew Liptak
+
+** Pornokitsch
+
+** Stardance : : The Official Movie Blog
+
+** Boomtron.com
+
+** http://markwatches.net/reviews/feed/
+
+** BigAl's Books and Pals
+
+** http://markreads.net/reviews/feed/
+
+** Black Gate
+
+** Sad Puppies
+
+** SF Mistressworks
+
+* skydiving
+
+** Skydiving News
+
+** 50 years of South Australian skydiving
+
+* books
+
+** Books blog | The Guardian
+
+** Book View Cafe Blog
+
+** Bookride
+
+** The Paris Review
+
+** Alison Flood | The Guardian
+
+* music
+
+** Amanda Palmer Blog
+
+** Sci-Fi Songs
+
+* china
+
+** ChinaHush
+
+** Beijing Wide Open
+
+** Islam in China
+
+* android
+
+** Official Android Blog
+
+** Android Developers Blog
+
+** Ausdroid
+
+* jobs
+
+** Ruby and Rails jobs: jobs.rubynow.com
+
+** Lispjobs
+
+* fr
+
+** CeeCee's Muse
+
+** What I'm up to
+
+** brad garland
+
+** Jason Langenauer
+
+** Oliver's Blog
+
+** http://simon-ordinarylife.blogspot.com/atom.xml
+
+** Hajj 2013
+
+** Oliver Burn
+
+** Bits n Bobs
+
+* coding
+
+** Coding Horror
+
+** Zed A. Shaw
+
+** CodeBetter.Com Posts
+
+** SourceForge Community Blog
+
+** Gray Soft
+
+** Git Ready
+
+** Github
+
+** ones zeros majors and minors
+
+** Ember Blog
+
+** Tuts+ Code
+
+** The Lone C++ Coder's Blog
+
+** developer | Scoop.it
+
+* politics
+
+** The Voice of Today's Apathetic Youth
+
+** Emma Tom
+
+** Emma Tom
+
+** Geek Feminism Blog
+
+** Bad Hostess
+
+* ruby
+
+** Keith Pitty
+
+** MetaSkills.net
+
+** Dr Nic
+
+** Rails Quick Tips
+
+** Ruby Inside
+
+** Darwinweb
+
+** QuarkRuby - Home
+
+** Working With Rails Weblog
+
+** Practicing Ruby
+
+** Ruby-coloured glasses
+
+** Ruby Fleebie
+
+** O'Reilly Media: Ruby and Rails
+
+** Ruby Quicktips
+
+** Zach Holman
+
+** Raible Designs
+
+** A Fresh Cup
+
+** Giant Robots Smashing Into Other Giant Robots
+
+** Ruby5
+
+** Heroku
+
+** Obie Fernandez
+
+** Ruby News
+
+** English | AkitaOnRails.com
+
+** RubyLearning Blog
+
+** The Life of a Radar
+
+** Planet Argon Blog
+
+** Loud Thinking by David Heinemeier Hansson
+
+** Tomash Corner
+
+** Jim Neath - Ruby and Rails and Facebook Developer
+
+* space
+
+** SPACE.com
+
+** New Scientist - Space
+
+** SPACE AGE ARCHAEOLOGY
+
+* tech-news
+
+** UltrabookNews, Reviews and the Ultrabook Database
+
+** Lenovo Blog Articles in English
+
+** Git Book Blog
+
+** Bruce On Games
+
+** Community Blogs
+
+** AWS Official Blog
+
+** Monday Note
+
+** OSNews
+
+** The Official Google Blog
+
+** Eclipse In The News
+
+* tech
+
+** ScottK might have something to say ...
+
+** Jonathan Riddell's Diary
+
+** Composite Code
+
+** xmonad
+
+** Use The Index, Luke! blogs
+
+** The Database Programmer
+
+** Stevey's Blog Rants
+
+** jwz
+
+** Real World Tech
+
+** Geek Diva
+
+** Newsbeuter Development Blog
+
+** GarrettDimon.com
+
+** We'll see | Matt Zimmerman
+
+** Founder's blog
+
+** Snook.ca
+
+** Jacques Mattheij
+
+** xmonad : the tiling window manager
+
+** Computing Thoughts
+
+** Artima Developer Spotlight
+
+** Zed A. Shaw
+
+** Happy Coder's Daily Digest
+
+** copyrighteous
+
+** The Fishbowl
+
+** Mock Objects
+
+** Artima Weblogs
+
+** APC
+
+** Tech Rants
+
+** ongoing by Tim Bray
+
+** The GitHub Blog
+
+** OStatic blogs
+
+** Xcentric
+
+** AnandTech
+
+** MySQL Performance Blog
+
+** dzone.com: latest front page
+
+** SitePoint
+
+* writers
+
+** Whatever
+
+** Mike Resnick
+
+** Writer Beware®: The Blog
+
+** The intern
+
+** Leah PetersenLeah Petersen
+
+** incipit vita nova
+
+** Christopher Priest
+
+** The Graveyard Shift
+
+** Harry Harrison News Blog
+
+** Norman Spinrad At Large
+
+** CarrollBlog
+
+** Montana For Real
+
+** No Moods, Ads or Cutesy Fucking Icons (Re-reloaded)
+
+** Neil Gaiman's Journal
+
+** Chaos Manor Reviews
+
+** Justine Larbalestier
+
+** nalohop's blog
+
+** Nancy's Blog
+
+** Sting in the Tail
+
+** Lawrence Block
+
+** Making Light
+
+** MoonScape
+
+** Kathryn Cramer
+
+** Flogging Babel
+
+** Stephen Dedman
+
+** The Cafe in the Woods
+
+** Iain [M] Banks
+
+** Kristine Kathryn Rusch
+
+** Zoe Winters, Paranormal Romance Author
+
+** Not A Blog
+
+** Patrick Rothfuss - Blog
+
+** Charlie's Diary
+
+** Zoe Whitten's Blog
+
+** Nicola Griffith
+
+* linux
+
+** The Linux Mint Blog
+
+** Linux.com :: Features
+
+** Web Upd8 - Ubuntu / Linux blog
+
+** Ubuntu Geek
+
+** The Geek Stuff
+
+** Planet Debian
+
+** Planet Arch Linux
+
+** Arch Linux User Blogs
+
+** Planet Ubuntu-AU
+
+** The Blog of Helios
+
+** Arch Linux: Recent news updates
