@@ -12,8 +12,10 @@ values."
 
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. '~/.mycontribs/')
-
    dotspacemacs-configuration-layer-path '()
+   ;; dotspacemacs-configuration-layer-path
+   ;; (list (expand-file-name "layers"
+   ;;                         dotspacemacs-directory))
 
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
@@ -25,10 +27,11 @@ values."
      clojure
      elfeed
      emacs-lisp
+     evil-cleverparens
+     games
      git
      html
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
-     games
      javascript
      markdown
      org
@@ -37,10 +40,9 @@ values."
             shell-default-height 30
             shell-default-position 'bottom)
      (ruby :variables ruby-test-runner 'rspec
-           ;;ruby-enable-enh-ruby-mode t
            ruby-version-manager 'rvm)
      ruby-on-rails
-     spell-checking
+     (spell-checking :variables spell-checking-enable-auto-dictionary t)
      syntax-checking
      version-control
      shell-scripts
@@ -48,13 +50,18 @@ values."
      sql
      (syntax-checking :variables syntax-checking-enable-tooltips nil)
      version-control
-     yaml)
+     vim-powerline
+     yaml
+
+     ;; Private layers
+     cnbbm
+     cnb-shrink-whitespace)
 
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in 'dotspacemacs/config'.
-   dotspacemacs-additional-packages '(bm beacon crosshairs shrink-whitespace)
+   dotspacemacs-additional-packages '(beacon crosshairs)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(org-bullets)
@@ -272,6 +279,7 @@ layers configuration. You are free to put any user code."
 
   (setq dired-listing-switches "-alhG --group-directories-first")
 
+  (setq ibuffer-show-empty-filter-groups nil)
 
   (with-eval-after-load 'elfeed
     (defface urgent-elfeed-entry
@@ -304,11 +312,18 @@ layers configuration. You are free to put any user code."
 
   (define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
 
+  (spacemacs/toggle-evil-cleverparens-on)
+
   (defun cnb/ruby-setup ()
     (rvm-activate-corresponding-ruby)
+    (superword-mode)
     (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
     ;;(("Examples" "^\\( *\\(its?\\|specify\\|example\\|describe\\|context\\|feature\\|scenario\\) +.+\\)" 1))
-    (setq imenu-generic-expression '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1))))
+    ;; (setq imenu-generic-expression '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1)))
+    (setq
+     imenu-generic-expression
+     '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1)
+       ("Examples" "^\\( *\\(its?\\|specify\\|example\\|describe\\|context\\|feature\\|scenario\\) +.+\\)" 1))))
 
   (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
 
@@ -335,7 +350,7 @@ layers configuration. You are free to put any user code."
    large-file-warning-threshold 20000000
 
    ;; Powerline config
-   powerline-default-separator 'arrow
+   ;;powerline-default-separator 'arrow
 
    imenu-auto-rescan t
 
@@ -365,130 +380,11 @@ layers configuration. You are free to put any user code."
     :init
     (beacon-mode))
 
-  (use-package shrink-whitespace
-    :bind (("M-SPC" . shrink-whitespace)))
-
-  (defun cnb/bm-hook
-      (bm-buffer-save-all)
-    (bm-repository-save))
-
-  (use-package bm
-    :defer t
-    :commands (bm-repository-load bm-buffer-restore bm-buffer-save
-                                  bm-repository-save bm-buffer-save-all
-                                  bm-cycle-all-buffers)
-    :bind (("C-<f2>" . bm-toggle)
-           ("M-<f2>" . bm-show-all)
-           ("<f2>"   . bm-next)
-           ("S-<f2>" . bm-previous))
-    :init
-    (progn
-      (setq bm-restore-repository-on-load t)
-      (setq bm-repository-file (expand-file-name "bm-repository"
-                                                 spacemacs-cache-directory))
-      (setq bm-repository-size 1024)
-      (setq bm-cycle-all-buffers nil)
-      (setq-default bm-buffer-persistence t)
-      ;; (setq bm-highlight-style 'bm-highlight-only-line)
-      (setq bm-highlight-style 'bm-highlight-only-fringe)
-      ;; (setq bm-highlight-style 'bm-highlight-line-and-fringe)
-      (add-hook 'after-init-hook #'bm-repository-load)
-      (add-hook 'find-file-hooks #'bm-buffer-restore)
-      (add-hook 'kill-buffer-hook #'bm-buffer-save)
-      (add-hook 'kill-emacs-hook (lambda nil
-                                   (bm-buffer-save-all)
-                                   (bm-repository-save)))))
+  ;; (use-package shrink-whitespace
+  ;;   :bind (("M-SPC" . shrink-whitespace)))
 
   ;; Indicate fill column.
   (add-hook 'prog-mode-hook 'fci-mode))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#657b83"])
- '(compilation-message-face (quote default))
- '(cua-global-mark-cursor-color "#2aa198")
- '(cua-normal-cursor-color "#839496")
- '(cua-overwrite-cursor-color "#b58900")
- '(cua-read-only-cursor-color "#859900")
- '(fci-rule-color "#073642" t)
- '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
- '(highlight-symbol-colors
-   (--map
-    (solarized-color-blend it "#002b36" 0.25)
-    (quote
-     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
- '(highlight-symbol-foreground-color "#93a1a1")
- '(highlight-tail-colors
-   (quote
-    (("#073642" . 0)
-     ("#546E00" . 20)
-     ("#00736F" . 30)
-     ("#00629D" . 50)
-     ("#7B6000" . 60)
-     ("#8B2C02" . 70)
-     ("#93115C" . 85)
-     ("#073642" . 100))))
- '(hl-bg-colors
-   (quote
-    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00")))
- '(hl-fg-colors
-   (quote
-    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
- '(magit-diff-use-overlays nil)
- '(nrepl-message-colors
-   (quote
-    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
- '(package-selected-packages
-   (quote
-    (avy cider flycheck company magit projectile bind-key pandoc-mode ox-pandoc elfeed-web elfeed-org elfeed-goodies elfeed orgit helm markdown-mode zenburn-theme solarized-theme yaml-mode ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quelpa projectile-rails popwin persp-mode pcre2el paradox page-break-lines pacmacs org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bm beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile align-cljlet aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
- '(pos-tip-background-color "#073642")
- '(pos-tip-foreground-color "#93a1a1")
- '(safe-local-variable-values
-   (quote
-    ((bug-reference-bug-regexp . "\\(?2:TWEB-[0-9]+\\)"))))
- '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
- '(term-default-bg-color "#002b36")
- '(term-default-fg-color "#839496")
- '(vc-annotate-background nil)
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#dc322f")
-     (40 . "#c85d17")
-     (60 . "#be730b")
-     (80 . "#b58900")
-     (100 . "#a58e00")
-     (120 . "#9d9100")
-     (140 . "#959300")
-     (160 . "#8d9600")
-     (180 . "#859900")
-     (200 . "#669b32")
-     (220 . "#579d4c")
-     (240 . "#489e65")
-     (260 . "#399f7e")
-     (280 . "#2aa198")
-     (300 . "#2898af")
-     (320 . "#2793ba")
-     (340 . "#268fc6")
-     (360 . "#268bd2"))))
- '(vc-annotate-very-old-color nil)
- '(weechat-color-list
-   (quote
-    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
- '(xterm-color-names
-   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
- '(xterm-color-names-bright
-   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:foreground "#DCDCCC" :background "#3F3F3F"))))
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
