@@ -290,9 +290,11 @@ layers configuration. You are free to put any user code."
           elfeed-goodies/entry-pane-size 0.5
           elfeed-search-filter "@6-months-ago +unread "))
 
-  (setq rmh-elfeed-org-files (list (expand-file-name "elfeed.org"
-                                                     dotspacemacs-directory)
-                                   (file-truename "~/Dropbox/home-config/feeds/feeds.org")))
+  (setq rmh-elfeed-org-files
+        (list
+         (expand-file-name "elfeed.org"
+                           dotspacemacs-directory)
+         (file-truename "~/Dropbox/home-config/feeds/feeds.org")))
 
   ;; From http://www.emacswiki.org/emacs-en/ToggleWindowSplit
   (defun cnb/toggle-frame-split ()
@@ -358,6 +360,9 @@ layers configuration. You are free to put any user code."
 
    ;; C-l first position to top.
    recenter-positions '(top middle bottom))
+
+  (setq-default git-magit-status-fullscreen t)
+  (global-git-commit-mode t)
 
   (add-to-list
    'display-buffer-alist
