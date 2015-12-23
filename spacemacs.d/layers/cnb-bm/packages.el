@@ -1,4 +1,4 @@
-;;; packages.el --- cnbbm (Visual Bookmarks) Layer packages File for Spacemacs
+;;; packages.el --- cnb-bm (Visual Bookmarks) Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2015 Colin Bell
 ;;
@@ -8,12 +8,12 @@
 ;;
 ;;; License: GPLv3
 
-(defvar cnbbm-packages '(bm))
+(defvar cnb-bm-packages '(bm))
 
 ;; List of packages to exclude.
-(setq cnbbm-excluded-packages '())
+(setq cnb-bm-excluded-packages '())
 
-(defun cnbbm/init-bm ()
+(defun cnb-bm/init-bm ()
   (use-package bm
     :commands (bm-repository-load bm-buffer-restore bm-buffer-save
                                   bm-repository-save bm-buffer-save-all
