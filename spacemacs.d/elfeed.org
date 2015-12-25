@@ -96,6 +96,26 @@ Mutterings at Chez Moore
 eBook Deal of the Day :: InformIT
 *** http://feeds.feedburner.com/dervala/OnBN
 dervala.net
+** skydiving
+*** http://www.topix.net/rss/outdoors/skydiving.xml
+Skydiving News
+*** http://skydivinghistory.blogspot.com/feeds/posts/default
+50 years of South Australian skydiving
+** books
+*** http://feeds.guardian.co.uk/theguardian/books/booksblog/rssBooks blog | The Guardian
+
+*** http://blog.bookviewcafe.com/feed/
+Book View Cafe Blog
+
+*** http://www.bookride.com/feeds/posts/default
+Bookride
+
+*** http://feeds.feedburner.com/TheParisReviewBlog?format=xml
+The Paris Review
+
+*** http://www.guardian.co.uk/profile/alisonflood/rss
+Alison Flood | The Guardian
+
 * comics
 
 ** Oglaf! -- Comics. Often dirty.
@@ -255,7 +275,6 @@ other stuff too)
 ** Dangerously Chloe
 
 ** STRIPTEASE
-
 * sf
 
 ** Galaxy Bookshop
@@ -327,24 +346,6 @@ other stuff too)
 ** Sad Puppies
 
 ** SF Mistressworks
-
-* skydiving
-
-** Skydiving News
-
-** 50 years of South Australian skydiving
-
-* books
-
-** Books blog | The Guardian
-
-** Book View Cafe Blog
-
-** Bookride
-
-** The Paris Review
-
-** Alison Flood | The Guardian
 
 * music
 
@@ -663,7 +664,6 @@ other stuff too)
 ** Nicola Griffith
 
 * linux
-
 ** The Linux Mint Blog
 
 ** Linux.com :: Features
