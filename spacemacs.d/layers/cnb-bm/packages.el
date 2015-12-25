@@ -1,4 +1,4 @@
-;;; packages.el --- cnb-bm (Visual Bookmarks) Layer packages File for Spacemacs
+;;; packages.el --- Visual Bookmarks Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2015 Colin Bell
 ;;
