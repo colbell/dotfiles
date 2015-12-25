@@ -26,6 +26,7 @@ values."
      better-defaults
      clojure
      cnb-bm
+     cnb-personal
      cnb-shrink-whitespace
      elfeed
      emacs-lisp
@@ -48,11 +49,12 @@ values."
      syntax-checking
      version-control
      shell-scripts
+     smex
      spell-checking
      sql
      (syntax-checking :variables syntax-checking-enable-tooltips nil)
      version-control
-     vim-powerline
+     ;;vim-powerline
      yaml)
 
    ;; List of additional packages that will be installed without being
@@ -260,41 +262,10 @@ It is called immediately after `dotspacemacs/init'."
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (with-eval-after-load 'recentf
-    ;; Files to ignore in recent files.
-    (add-to-list 'recentf-exclude "~$")
-    (add-to-list 'recentf-exclude "tmp")
-    (add-to-list 'recentf-exclude "/ssh:")
-    (add-to-list 'recentf-exclude "/sudo:")
-    (add-to-list 'recentf-exclude "TAGS")
-    (add-to-list 'recentf-exclude "/\\.git/.*\\'")
-
-    ;; Because .emacs.d is a symlink to dotfiles/emacs.d a file can have two
-    ;; names so we also need to ignore the one in dotfiles.
-    (add-to-list 'recentf-exclude (file-truename "~/dotfiles/emacs.d/elpa"))
-    (add-to-list 'recentf-exclude
-                 (file-truename "~/dotfiles/emacs.d/.cache/")))
 
   (setq dired-listing-switches "-alhG --group-directories-first")
 
   (setq ibuffer-show-empty-filter-groups nil)
-
-  (with-eval-after-load 'elfeed
-    (defface urgent-elfeed-entry
-      '((t :foreground "#f77"))
-      "Marks an important Elfeed entry.")
-    (push '(urgent urgent-elfeed-entry)
-          elfeed-search-face-alist)
-
-    (setq elfeed-goodies/entry-pane-position 'right
-          elfeed-goodies/entry-pane-size 0.5
-          elfeed-search-filter "@6-months-ago +unread "))
-
-  (setq rmh-elfeed-org-files
-        (list
-         (expand-file-name "elfeed.org"
-                           dotspacemacs-directory)
-         (file-truename "~/Dropbox/home-config/feeds/feeds.org")))
 
   ;; From http://www.emacswiki.org/emacs-en/ToggleWindowSplit
   (defun cnb/toggle-frame-split ()
@@ -313,26 +284,11 @@ layers configuration. You are free to put any user code."
   (define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
 
   (spacemacs/toggle-evil-cleverparens-on)
-
-  (defun cnb/ruby-setup ()
-    (rvm-activate-corresponding-ruby)
-    (superword-mode)
-    (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
-    ;;(("Examples" "^\\( *\\(its?\\|specify\\|example\\|describe\\|context\\|feature\\|scenario\\) +.+\\)" 1))
-    ;; (setq imenu-generic-expression '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1)))
-    (setq
-     imenu-generic-expression
-     '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1)
-       ("Examples" "^\\( *\\(its?\\|specify\\|example\\|describe\\|context\\|feature\\|scenario\\) +.+\\)" 1))))
-
-  (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
-
   (add-hook
    'after-save-hook
    #'executable-make-buffer-file-executable-if-script-p)
 
   (setq-default
-   ruby-version-manager 'rvm
    sentence-end-double-space t
    js2-basic-offset 2
    js-indent-level 2
@@ -397,11 +353,12 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-mode js2-mode haml-mode gitignore-mode git-gutter+ git-gutter flycheck elfeed bm zenburn-theme yaml-mode ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quelpa projectile-rails persp-mode pcre2el paradox pandoc-mode page-break-lines pacmacs ox-pandoc orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile align-cljlet aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game))))
+    (smex markdown-mode js2-mode haml-mode gitignore-mode git-gutter+ git-gutter flycheck elfeed bm zenburn-theme yaml-mode ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quelpa projectile-rails persp-mode pcre2el paradox pandoc-mode page-break-lines pacmacs ox-pandoc orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile align-cljlet aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:foreground "#DCDCCC" :background "#3F3F3F"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
