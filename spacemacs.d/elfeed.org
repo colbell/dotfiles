@@ -68,7 +68,7 @@ Hyperbole and a Half
 ** Tech                                                               :tech:
 *** http://rss.slashdot.org/Slashdot/slashdot
 Slashdot
-*** http://programming.reddit.com/.rss
+*** http://programming.reddit.com/.rss                          :redditpgm:
 Reddit - Programming
 *** http://www.infoq.com/rss/rss.action?token=Xnp6bHwyoyh3UL8PHOrB8UNbDkUgkyXf
 InfoQ
@@ -96,12 +96,12 @@ Mutterings at Chez Moore
 eBook Deal of the Day :: InformIT
 *** http://feeds.feedburner.com/dervala/OnBN
 dervala.net
-** skydiving
+** skydiving                                                     :skydiving:
 *** http://www.topix.net/rss/outdoors/skydiving.xml
 Skydiving News
 *** http://skydivinghistory.blogspot.com/feeds/posts/default
 50 years of South Australian skydiving
-** books
+** books                                                             :books:
 *** http://feeds.guardian.co.uk/theguardian/books/booksblog/rssBooks blog | The Guardian
 
 *** http://blog.bookviewcafe.com/feed/
@@ -116,6 +116,28 @@ The Paris Review
 *** http://www.guardian.co.uk/profile/alisonflood/rss
 Alison Flood | The Guardian
 
+** music                                                             :music:
+*** http://blog.amandapalmer.net/rss
+Amanda Palmer Blog
+*** http://scifisongs.blogspot.com/feeds/posts/default
+Sci-Fi Songs
+** jobs                                                               :jobs:
+*** http://feeds.feedburner.com/jobsrubynow
+Ruby and Rails jobs: jobs.rubynow.com
+*** http://lispjobs.wordpress.com/feed/
+Lispjobs
+** china                                                             :china:
+*** http://feeds.feedburner.com/ChinaHush
+ChinaHush
+*** http://islaminchina.wordpress.com/feed/
+Islam in China
+** android                                                         :android:
+*** http://officialandroid.blogspot.com.au/atom.xml
+Official Android Blog
+*** http://feeds.feedburner.com/blogspot/hsDu
+Android Developers Blog
+*** http://ausdroid.net/feed/
+Ausdroid
 * comics
 
 ** Oglaf! -- Comics. Often dirty.
@@ -347,36 +369,7 @@ other stuff too)
 
 ** SF Mistressworks
 
-* music
-
-** Amanda Palmer Blog
-
-** Sci-Fi Songs
-
-* china
-
-** ChinaHush
-
-** Beijing Wide Open
-
-** Islam in China
-
-* android
-
-** Official Android Blog
-
-** Android Developers Blog
-
-** Ausdroid
-
-* jobs
-
-** Ruby and Rails jobs: jobs.rubynow.com
-
-** Lispjobs
-
 * fr
-
 ** CeeCee's Muse
 
 ** What I'm up to
@@ -492,7 +485,6 @@ other stuff too)
 ** Jim Neath - Ruby and Rails and Facebook Developer
 
 * space
-
 ** SPACE.com
 
 ** New Scientist - Space
@@ -522,7 +514,6 @@ other stuff too)
 ** Eclipse In The News
 
 * tech
-
 ** ScottK might have something to say ...
 
 ** Jonathan Riddell's Diary
