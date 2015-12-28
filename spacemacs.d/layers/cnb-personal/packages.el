@@ -33,7 +33,7 @@
 ;;==============================================
 ;; prog-mode config configuration
 ;;==============================================
-(add-hook 'prog-mode-hook 'fci-mode)) ;; Indicate fill column.
+(add-hook 'prog-mode-hook 'fci-mode) ;; Indicate fill column.
 
 ;;==============================================
 ;; source control configuration
