@@ -132,3 +132,4 @@
 emacs.d/.mc-lists.el
 /config/user-share/passwd
 /config/nvim/.netrwhist
+/config/gmpc/
