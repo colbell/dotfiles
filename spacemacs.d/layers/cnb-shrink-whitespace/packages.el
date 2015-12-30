@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (c) 2015 Colin Bell
 ;;
-;; Author: Colin Bell <col@baiebll.org>
+;; Author: Colin Bell <col@baibell.org>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
