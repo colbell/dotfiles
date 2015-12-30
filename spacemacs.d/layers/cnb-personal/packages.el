@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (c) 2015 Colin Bell
 ;;
-;; Author: Colin Bell <col@baiebll.org>
+;; Author: Colin Bell <col@baibell.org>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -31,7 +31,15 @@
         elfeed-search-filter "@6-months-ago +unread "))
 
 ;;==============================================
-;; prog-mode config configuration
+;; Rainbow mode
+;;==============================================
+(setq rainbow-html-colors t)
+(setq rainbow-x-colors t)
+
+(add-hook 'prog-mode-hook 'rainbow-mode)
+
+;;==============================================
+;; prog-mode configuration
 ;;==============================================
 (add-hook 'prog-mode-hook 'fci-mode) ;; Indicate fill column.
 
@@ -76,3 +84,5 @@
           ("Examples" "^\\( *\\(its?\\|specify\\|example\\|describe\\|context\\|feature\\|scenario\\) +.+\\)" 1))))
 
 (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
+
+(eval-after-load "rubocop" '(diminish 'rubocop-mode))
