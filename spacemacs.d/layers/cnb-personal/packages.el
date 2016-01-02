@@ -36,12 +36,11 @@
 (setq rainbow-html-colors t)
 (setq rainbow-x-colors t)
 
-(add-hook 'prog-mode-hook 'rainbow-mode)
-
 ;;==============================================
 ;; prog-mode configuration
 ;;==============================================
-(add-hook 'prog-mode-hook 'fci-mode) ;; Indicate fill column.
+(add-hook 'prog-mode-hook #'fci-mode)      ;; Indicate fill column.
+(add-hook 'prog-mode-hook #'rainbow-mode)
 
 ;;==============================================
 ;; source control configuration
