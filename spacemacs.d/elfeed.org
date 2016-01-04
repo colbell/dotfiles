@@ -48,7 +48,7 @@ Planet Clojure
 *** http://matthiasnehlsen.com/atom.xml
  Matthias Nehlsen
 ** Business                                                       :business:
-*** http://tod-blog.tickitsystems.com.au/feeds/posts/default
+*** http://www.tickitondemand.com.au/feed/
 Tickit
 ** Funny                                                             :funny:
 *** http://thebloggess.com/?feed=rss2
@@ -84,7 +84,8 @@ Groklaw
 Lowering the Bar
 *** http://feeds.feedburner.com/Popehat
 Popehat
-
+*** http://status451.com/feed/
+Status 451
 ** Uncategorized
 *** http://feeds.feedburner.com/oreilly/ebookdealoftheday          :urgent:
 O'Reilly Deal of the Day
@@ -102,8 +103,8 @@ Skydiving News
 *** http://skydivinghistory.blogspot.com/feeds/posts/default
 50 years of South Australian skydiving
 ** books                                                             :books:
-*** http://feeds.guardian.co.uk/theguardian/books/booksblog/rssBooks blog | The Guardian
-
+*** http://feeds.theguardian.com/theguardian/books/booksblog/rssBooks%20blog%20%7C%20The%20Guardian
+The Guardian
 *** http://blog.bookviewcafe.com/feed/
 Book View Cafe Blog
 
