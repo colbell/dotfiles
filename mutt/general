@@ -50,7 +50,7 @@ unset reply_self                  # If replying to a msg sent by me then send to
 # Foreign language versions of re: Needed for correct threading
 set reply_regexp="^((RE|Re|re|re|r?f|aw|antw.?|[Aa]ntwort|Sv|sv|SV):[ \t]*)*"
 
-alternates colbell@users.sourceforge.net|col@squirrelsql.org|col@baibell.org|colin.bell@jobfutures.com.au|cbell@tickitsystems.com.au|colin@kwelasolutions.com|colin@kwelasolutions.com
+alternates colbell@users.sourceforge.net|col@squirrelsql.org|col@baibell.org|colin.bell@jobfutures.com.au|cbell@tickitsystems.com.au|colin@kwelasolutions.com
 
 # For bad Microsoft mailers lookup mime.types for all
 # extensions dentifed as application/octet-stream.
