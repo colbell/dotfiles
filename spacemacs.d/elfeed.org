@@ -7,6 +7,8 @@ mailgun Status - Incident History
 The Devil's Panties
 *** http://www.dumbingofage.com/feed/rss/
 Dumbing of Age
+*** http://www.questionablecontent.net/QCRSS.xml
+QC
 ** Emacs                                                             :emacs:
 *** http://planet.emacsen.org/atom.xml
 Planet Emacsen
