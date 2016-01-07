@@ -7,8 +7,12 @@ mailgun Status - Incident History
 The Devil's Panties
 *** http://www.dumbingofage.com/feed/rss/
 Dumbing of Age
+*** http://oglaf.com/feeds/rss/
+Oglaf! -- Comics. Often dirty.
 *** http://www.questionablecontent.net/QCRSS.xml
 QC
+*** http://rss.escapistmagazine.com/articles/comicsandcosplay/comics/critical-miss.xml
+The Escapist : Critical Miss
 ** Emacs                                                             :emacs:
 *** http://planet.emacsen.org/atom.xml
 Planet Emacsen
@@ -48,7 +52,9 @@ Planet Clojure
 *** http://yogthos.net/feed.xml
 (iterate think thoughts)
 *** http://matthiasnehlsen.com/atom.xml
- Matthias Nehlsen
+Matthias Nehlsen
+*** http://www.lispcast.com/feed
+Lispcast
 ** Business                                                       :business:
 *** http://www.tickitondemand.com.au/feed/
 Tickit
@@ -142,13 +148,6 @@ Android Developers Blog
 *** http://ausdroid.net/feed/
 Ausdroid
 * comics
-
-** Oglaf! -- Comics. Often dirty.
-
-** The Escapist : Critical Miss
-
-** Freefall
-
 ** Johnny Wander
 
 ** Brian Shearer's William The Last

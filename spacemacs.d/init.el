@@ -26,6 +26,7 @@ values."
      better-defaults
      clojure
      cnb-bm
+     cnb-bug-reference
      cnb-muttrc
      cnb-personal
      cnb-shrink-whitespace
