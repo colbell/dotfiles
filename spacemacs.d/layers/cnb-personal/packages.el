@@ -85,3 +85,10 @@
 (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
 
 (eval-after-load "rubocop" '(diminish 'rubocop-mode))
+
+
+;;==============================================
+;; clojure configuration
+;;==============================================
+
+(setq cider-auto-select-error-buffer nil)
