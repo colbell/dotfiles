@@ -36,14 +36,18 @@ macro pager ,s <save-message>=[Gmail].Spam<enter>
 # but also display that message which the default keybinding doesn't do.
 # macro pager \cr <read-thread><display-message>
 
+ macro index <F8> "<shell-escape>mu find --clearlinks -o links --linksdir=~/.mu/results " "mu-find"
+ macro index <F9> "<change-folder-readonly>~/.mu/results\n" "display mu find results"
+# macro index <F8> "<shell-escape>rm -rf ~/.mu/results; mu find -o l -l ~/.mu/results " "mu-find"
+
 
 # Searching mail via notmuch
-macro index <F8> \
-      "<enter-command>unset wait_key<enter><shell-escape>notmuch-mutt --prompt search<enter><change-folder-readonly>`echo ${XDG_CACHE_HOME:-$HOME/.cache}/notmuch/mutt/results`<enter>" \
-      "notmuch: search mail"
-macro index <F9> \
-      "<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt thread<enter><change-folder-readonly>`echo ${XDG_CACHE_HOME:-$HOME/.cache}/notmuch/mutt/results`<enter><enter-command>set wait_key<enter>" \
-      "notmuch: reconstruct thread"
-macro index <F6> \
-      "<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt tag -inbox<enter>" \
-      "notmuch: remove message from inbox"
+# macro index <F8> \
+#       "<enter-command>unset wait_key<enter><shell-escape>notmuch-mutt --prompt search<enter><change-folder-readonly>`echo ${XDG_CACHE_HOME:-$HOME/.cache}/notmuch/mutt/results`<enter>" \
+#       "notmuch: search mail"
+# macro index <F9> \
+#       "<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt thread<enter><change-folder-readonly>`echo ${XDG_CACHE_HOME:-$HOME/.cache}/notmuch/mutt/results`<enter><enter-command>set wait_key<enter>" \
+#       "notmuch: reconstruct thread"
+# macro index <F6> \
+#       "<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt tag -inbox<enter>" \
+#       "notmuch: remove message from inbox"
