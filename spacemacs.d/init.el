@@ -43,6 +43,8 @@ values."
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      javascript
      markdown
+     (mu4e :variables
+           mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e")
      org
      (shell :variables
             shell-default-height 30
@@ -64,7 +66,10 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in 'dotspacemacs/config'.
-   dotspacemacs-additional-packages '(beacon crosshairs)
+   dotspacemacs-additional-packages '(beacon
+                                      crosshairs
+                                      ;;mu4e-maildirs-extension
+                                      w3m)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(org-bullets)
@@ -111,9 +116,12 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(zenburn
-                         spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(solarized-light
+                         solarized-dark
+                         ;; spacemacs-dark
+                         ;; spacemacs-light
+                         zenburn)
+
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -332,6 +340,81 @@ layers configuration. You are free to put any user code."
   (setq sunshine-units 'metric)
   (setq sunshine-show-icons t)
 
+  ;; (with-eval-after-load 'gnus
+  ;;   (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+  ;;   (add-to-list 'mm-attachment-override-types '"image/.*")
+  ;;   (setq gnus-visible-headers
+  ;;         "^From:\\|^Reply-To\\|^Organization:\\|^To:\\|^Cc:\\|^Newsgroups:\\|^Subject:\\|^Date:\\|^Gnus\\|^List-ID:\\|^X-Editor\\|^X-Mailer:\\|^User-Agent:\\|^X-Country:"))
+
+  ;; (setq  gnus-treat-hide-citation t
+  ;;        gnus-cited-lines-visible '(3 . 6))
+  ;; (setq gnus-thread-hide-subtree t)
+
+  ;; (setq gnus-read-newsrc-file nil) ;; Doesn't work with folders [GMail]
+
+  ;; (setq message-kill-buffer-on-exit t
+  ;;       mm-inline-large-images 'resize)
+
+  ;; (setq mm-text-html-renderer 'w3m)
+  ;; (setq gnus-inhibit-images nil)
+
+  ;; (setq-default w3m-display-inline-images t)
+  ;; (setq w3m-default-display-inline-images t)
+  ;; (setq mm-inline-text-html-with-images t)
+
+  ;; (setq gnus-buttonized-mime-types
+  ;;       '("multipart/alternative" "multipart/signed"))
+  ;; (setq gnus-secondary-select-methods
+  ;;       '((nnimap "Mail"
+  ;;                 (nnimap-address "localhost")
+  ;;                 (nnimap-stream network)
+  ;;                 (nnimap-authenticator login))))
+
+  ;; (setq user-full-name "Colin Noel Bell"
+  ;;       user-mail-address "col@baibell.org")
+
+  (with-eval-after-load 'mu4e
+    (require 'mu4e-contrib)
+    ;;(setq mu4e-html2text-command 'mu4e-shr2text)
+    ;;(setq mu4e-html2text-command "w3m -T text/html")
+    (setq mu4e-html2text-command "html2text -utf8 -width 72")
+    ;; (add-hook 'mu4e-view-mode-hook
+    ;;           (lambda()
+    ;;             ;; try to emulate some of the eww key-bindings
+    ;;             (local-set-key (kbd "<tab>") 'shr-next-link)
+    ;;             (local-set-key (kbd "<backtab>") 'shr-previous-link)))
+    )
+  ;;(mu4e-maildirs-extension)
+  (setq mu4e-attachment-dir  "~/Downloads")
+  (setq mu4e-view-show-addresses t)
+  (setq mu4e-view-prefer-html t)
+  ;; enable inline images
+  (setq mu4e-view-show-images t)
+  ;; use imagemagick, if available
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
+
+  (setq user-full-name "Colin Noel Bell"
+        user-mail-address "col@baibell.org")
+  (setq message-kill-buffer-on-exit t)
+
+  (setq mu4e-maildir "~/Maildir/home")
+
+  (setq mu4e-drafts-folder "/[Gmail].Drafts")
+  (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+  (setq mu4e-trash-folder  "/[Gmail].Trash")
+
+  ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+  (setq mu4e-sent-messages-behavior 'delete)
+  (setq mu4e-headers-skip-duplicates t)
+  (setq mu4e-maildir-shortcuts
+        '( ("/INBOX"               . ?i)
+           ("/[Gmail].Sent Mail"   . ?s)
+           ("/[Gmail].Trash"       . ?t)
+           ("/[Gmail].All Mail"    . ?a)))
+
+  ;;(mu4e-maildirs-extension)
+
   (use-package crosshairs
     :commands flash-crosshairs
     :bind (("<f11>" . flash-crosshairs)))
@@ -344,7 +427,7 @@ layers configuration. You are free to put any user code."
 
   ;; (use-package shrink-whitespace
   ;;   :bind (("M-SPC" . shrink-whitespace)))
-)
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -355,7 +438,8 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (avy anzu evil eyebrowse bind-map spray evil-org evil-indent-textobject enh-ruby-mode evil-leader muttrc-mode xterm-color request theme-changer sunshine osx-location highlight rainbow-mode rainbow-identifiers tern yasnippet async magit auto-complete cider smartparens with-editor company helm helm-core magit-popup projectile package-build smex markdown-mode js2-mode haml-mode gitignore-mode git-gutter+ git-gutter flycheck elfeed bm zenburn-theme yaml-mode ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quelpa projectile-rails persp-mode pcre2el paradox pandoc-mode page-break-lines pacmacs ox-pandoc orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile align-cljlet aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+    (helm-rhythmbox git-commit clojure-mode s mu4e-maildirs-extension w3m bind-key ranger avy anzu evil eyebrowse bind-map spray evil-org evil-indent-textobject enh-ruby-mode evil-leader muttrc-mode xterm-color request theme-changer sunshine osx-location highlight rainbow-mode rainbow-identifiers tern yasnippet async magit auto-complete cider smartparens with-editor company helm helm-core magit-popup projectile package-build smex markdown-mode js2-mode haml-mode gitignore-mode git-gutter+ git-gutter flycheck elfeed bm zenburn-theme yaml-mode ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quelpa projectile-rails persp-mode pcre2el paradox pandoc-mode page-break-lines pacmacs ox-pandoc orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile align-cljlet aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+ '(paradox-github-token t)
  '(safe-local-variable-values
    (quote
     ((bug-reference-bug-regexp . "\\(?2:TWEB-[0-9]+\\)")))))
