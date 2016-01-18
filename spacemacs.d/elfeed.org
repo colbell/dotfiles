@@ -55,6 +55,8 @@ Planet Clojure
 Matthias Nehlsen
 *** http://www.lispcast.com/feed
 Lispcast
+*** https://www.booleanknot.com/blog/feed.xml
+Booleanknot
 ** Business                                                       :business:
 *** http://www.tickitondemand.com.au/feed/
 Tickit

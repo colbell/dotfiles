@@ -31,6 +31,13 @@
         elfeed-search-filter "@6-months-ago +unread "))
 
 ;;==============================================
+;; Remove Unnecessary Clutter
+;;==============================================
+
+(setq use-file-dialog nil)
+(setq use-dialog-box nil)
+
+;;==============================================
 ;; Rainbow mode
 ;;==============================================
 (setq rainbow-html-colors t)
