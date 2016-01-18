@@ -163,6 +163,7 @@
 /w3m/cookie
 /w3m/history
 /w3m/w3mcache*
+/w3m/w3mel*
 /w3m/w3msrc*
 /w3m/w3mtmp*
 /xmonad/history
@@ -178,4 +179,3 @@ emacs.d/.mc-lists.el
 /config/user-share/passwd
 /config/nvim/.netrwhist
 /config/gmpc/
-/w3m/w3mel23696LND
