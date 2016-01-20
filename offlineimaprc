@@ -9,7 +9,7 @@ ui = ttyui
 #########################################################################
 [Account home]
 
-autorefresh = 20
+autorefresh = 10
 
 localrepository = home-local
 remoterepository = home-remote
