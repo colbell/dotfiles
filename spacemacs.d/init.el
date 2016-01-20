@@ -227,7 +227,7 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling t
+   dotspacemacs-smooth-scrolling nil
 
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
@@ -377,7 +377,11 @@ layers configuration. You are free to put any user code."
     (require 'mu4e-contrib)
     ;;(setq mu4e-html2text-command 'mu4e-shr2text)
     ;;(setq mu4e-html2text-command "w3m -T text/html")
+    (setq mu4e-headers-skip-duplicates t)
     (setq mu4e-html2text-command "html2text -utf8 -width 72")
+
+    (add-to-list 'mu4e-bookmarks '("flag:flagged" "Flagged messages" ?f) t)
+    (add-to-list 'mu4e-bookmarks '("size:500K..500M" "Big messages" ?b) t)
     ;; (add-hook 'mu4e-view-mode-hook
     ;;           (lambda()
     ;;             ;; try to emulate some of the eww key-bindings
@@ -385,12 +389,25 @@ layers configuration. You are free to put any user code."
     ;;             (local-set-key (kbd "<backtab>") 'shr-previous-link)))
     )
   ;;(mu4e-maildirs-extension)
+
+  ;;(setq mu4e-headers-date-format "%Y-%m-%d %H:%M:%S")
+  (setq mu4e-headers-date-format "%x")
+  (setq mu4e-headers-fields '((:human-date . 12)
+                              (:flags . 10)
+                              (:mailing-list . 10)
+                              (:from-or-to . 25)
+                              (:subject . nil)))
+
+  (setq mu4e-use-fancy-chars t)
   (setq mu4e-attachment-dir  "~/Downloads")
   (setq mu4e-view-show-addresses t)
   (setq mu4e-view-prefer-html t)
-  ;; enable inline images
-  (setq mu4e-view-show-images t)
-  ;; use imagemagick, if available
+
+  (add-hook 'mu4e-view-mode-hook 'smiley-buffer)
+
+  ;; Attempt to show images in messages.
+  (setq mu4e-view-show-images t
+        mu4e-view-image-max-width 800)  ;; use imagemagick, if available
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types))
 
@@ -406,12 +423,23 @@ layers configuration. You are free to put any user code."
 
   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
   (setq mu4e-sent-messages-behavior 'delete)
-  (setq mu4e-headers-skip-duplicates t)
   (setq mu4e-maildir-shortcuts
         '( ("/INBOX"               . ?i)
            ("/[Gmail].Sent Mail"   . ?s)
            ("/[Gmail].Trash"       . ?t)
-           ("/[Gmail].All Mail"    . ?a)))
+           ("/[Gmail].All Mail"    . ?a)
+           ("/[Gmail].Spam"        . ?p)
+           ))
+
+  (setq mail-user-agent 'mu4e-user-agent)
+
+  ;; Make sure that the Debian package 'gnutls-bin' is installed.
+  (require 'smtpmail)
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-stream-type 'starttls
+        smtpmail-default-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587)
 
   ;;(mu4e-maildirs-extension)
 
@@ -438,7 +466,7 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (helm-rhythmbox git-commit clojure-mode s mu4e-maildirs-extension w3m bind-key ranger avy anzu evil eyebrowse bind-map spray evil-org evil-indent-textobject enh-ruby-mode evil-leader muttrc-mode xterm-color request theme-changer sunshine osx-location highlight rainbow-mode rainbow-identifiers tern yasnippet async magit auto-complete cider smartparens with-editor company helm helm-core magit-popup projectile package-build smex markdown-mode js2-mode haml-mode gitignore-mode git-gutter+ git-gutter flycheck elfeed bm zenburn-theme yaml-mode ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quelpa projectile-rails persp-mode pcre2el paradox pandoc-mode page-break-lines pacmacs ox-pandoc orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile align-cljlet aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+    (bracketed-paste helm-rhythmbox git-commit clojure-mode s mu4e-maildirs-extension w3m bind-key ranger avy anzu evil eyebrowse bind-map spray evil-org evil-indent-textobject enh-ruby-mode evil-leader muttrc-mode xterm-color request theme-changer sunshine osx-location highlight rainbow-mode rainbow-identifiers tern yasnippet async magit auto-complete cider smartparens with-editor company helm helm-core magit-popup projectile package-build smex markdown-mode js2-mode haml-mode gitignore-mode git-gutter+ git-gutter flycheck elfeed bm zenburn-theme yaml-mode ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quelpa projectile-rails persp-mode pcre2el paradox pandoc-mode page-break-lines pacmacs ox-pandoc orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile align-cljlet aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
  '(paradox-github-token t)
  '(safe-local-variable-values
    (quote
