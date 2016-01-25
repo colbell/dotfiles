@@ -116,8 +116,8 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(solarized-light
-                         solarized-dark
+   dotspacemacs-themes '(solarized-dark
+                         solarized-light
                          ;; spacemacs-dark
                          ;; spacemacs-light
                          zenburn)
@@ -372,6 +372,21 @@ layers configuration. You are free to put any user code."
 
   ;; (setq user-full-name "Colin Noel Bell"
   ;;       user-mail-address "col@baibell.org")
+  (defun my-mu4e-action-view-with-xwidget (msg)
+    "View the body of the message inside xwidget-webkit."
+    (unless (fboundp 'xwidget-webkit-browse-url)
+      (mu4e-error "No xwidget support available"))
+    (let* ((html (mu4e-message-field msg :body-html))
+           (txt (mu4e-message-field msg :body-txt))
+           (tmpfile (format "%s%x.html" temporary-file-directory (random t))))
+      (unless (or html txt)
+        (mu4e-error "No body part for this message"))
+      (with-temp-buffer
+        ;; simplistic -- but note that it's only an example...
+        (insert (or html (concat "<pre>" txt "</pre>")))
+        (write-file tmpfile)
+        (xwidget-webkit-browse-url (concat "file://" tmpfile) t))))
+
 
   (with-eval-after-load 'mu4e
     (require 'mu4e-contrib)
@@ -380,8 +395,17 @@ layers configuration. You are free to put any user code."
     (setq mu4e-headers-skip-duplicates t)
     (setq mu4e-html2text-command "html2text -utf8 -width 72")
 
+    (add-to-list 'mu4e-view-actions
+                 '("xViewXWidget" . my-mu4e-action-view-with-xwidget) t)
+
     (add-to-list 'mu4e-bookmarks '("flag:flagged" "Flagged messages" ?f) t)
     (add-to-list 'mu4e-bookmarks '("size:500K..500M" "Big messages" ?b) t)
+    (add-to-list 'mu4e-bookmarks '("date:2d..now AND NOT flag:trashed"  "Last 2 days" ?2) t)
+
+    (setq message-signature-file "~/.signature") ;; NOT used by mu4e
+    (setq mu4e-compose-signature (with-temp-buffer
+                                   (insert-file-contents "~/.signature")
+                                   (buffer-string)))
     ;; (add-hook 'mu4e-view-mode-hook
     ;;           (lambda()
     ;;             ;; try to emulate some of the eww key-bindings
@@ -390,6 +414,15 @@ layers configuration. You are free to put any user code."
     )
   ;;(mu4e-maildirs-extension)
 
+
+  (add-hook
+   'mu4e-compose-mode-hook
+   (lambda()
+     (message-add-header
+      (concat "X-Editor: GNU Emacs " emacs-version "\n"))
+     (message-add-header
+      (concat "X-Mailer: MU4e " mu4e-mu-version "\n"))))
+
   ;;(setq mu4e-headers-date-format "%Y-%m-%d %H:%M:%S")
   (setq mu4e-headers-date-format "%x")
   (setq mu4e-headers-fields '((:human-date . 12)
@@ -397,6 +430,9 @@ layers configuration. You are free to put any user code."
                               (:mailing-list . 10)
                               (:from-or-to . 25)
                               (:subject . nil)))
+  ;; (setq mu4e-view-fields '(:from :to  :cc :subject :flags :date :maildir
+  ;;                                :mailing-list :tags :attachments :signature
+  ;;                                :decryption :X-Editor :X-Mailer :User-Agent) )
 
   (setq mu4e-use-fancy-chars t)
   (setq mu4e-attachment-dir  "~/Downloads")
