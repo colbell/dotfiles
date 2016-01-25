@@ -9,7 +9,7 @@ ui = ttyui
 #########################################################################
 [Account home]
 
-autorefresh = 10
+autorefresh = 5
 
 localrepository = home-local
 remoterepository = home-remote
@@ -27,6 +27,7 @@ remoteuser = col@baibell.org
 remotepassfile = ~/.password.home
 ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+realdelete = no
 
 maxconnections = 1
 
