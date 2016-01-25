@@ -19,6 +19,7 @@
 
 
 (with-eval-after-load 'elfeed
+  (setq org-planning-line-re "") ;; elfeed crashes without this.
   (defface urgent-elfeed-entry
     '((t :foreground "#f77"))
     "Marks an urgent Elfeed entry.")
