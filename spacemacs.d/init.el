@@ -23,7 +23,7 @@ values."
    '((auto-completion :variables
                       auto-completion-private-snippets-directory
                       "~/.spacemacs.d/snippets/")
-     better-defaults
+     ;;better-defaults
      clojure
      cnb-bm
      cnb-bug-reference
@@ -394,6 +394,7 @@ layers configuration. You are free to put any user code."
     ;;(setq mu4e-html2text-command "w3m -T text/html")
     (setq mu4e-headers-skip-duplicates t)
     (setq mu4e-html2text-command "html2text -utf8 -width 72")
+    ;;(setq mu4e-html2text-command "html2markdown --body-width=0")
 
     (add-to-list 'mu4e-view-actions
                  '("xViewXWidget" . my-mu4e-action-view-with-xwidget) t)
@@ -450,6 +451,9 @@ layers configuration. You are free to put any user code."
   (setq user-full-name "Colin Noel Bell"
         user-mail-address "col@baibell.org")
   (setq message-kill-buffer-on-exit t)
+
+  (require 'org-mu4e)
+  (setq org-mu4e-link-query-in-headers-mode nil)
 
   (setq mu4e-maildir "~/Maildir/home")
 
