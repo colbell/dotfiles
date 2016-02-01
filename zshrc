@@ -3,12 +3,18 @@
 export ZSH=$HOME/.oh-my-zsh
 
 if [ -n "$INSIDE_EMACS" ]; then
-    export ZSH_THEME="robbyrussell"
+  export ZSH_THEME="robbyrussell"
 else
-    #export ZSH_THEME="gnzh"
-    #export ZSH_THEME="alanpeabody"
-    #export ZSH_THEME="robbyrussell"
-    export ZSH_THEME="suvash"
+  # export ZSH_THEME="gnzh"
+  # export ZSH_THEME="alanpeabody"
+  # export ZSH_THEME="robbyrussell"
+  # export ZSH_THEME="suvash"
+  # export ZSH_THEME="pure"
+  # export ZSH_THEME="arrow"
+  # export ZSH_THEME="fino"
+  # export ZSH_THEME="sorin"
+  export ZSH_THEME="agnoster"
+  export DEFAULT_USER="colbell" # For agnoster theme
 fi
 
 export LANG='en_AU.utf8'
