@@ -58,8 +58,9 @@
             (setq-default git-magit-status-fullscreen t)
             (global-git-commit-mode t)))
 
+
 ;;==============================================
-;; recentf configuration
+;; RECENTF configuration
 ;;==============================================
 (with-eval-after-load 'recentf
   ;; Files to ignore in recent files.
@@ -69,6 +70,7 @@
   (add-to-list 'recentf-exclude "/sudo:")
   (add-to-list 'recentf-exclude "TAGS")
   (add-to-list 'recentf-exclude "/\\.git/.*\\'")
+  (add-to-list 'recentf-exclude recentf-save-file)
 
   ;; Because .emacs.d is a symlink to dotfiles/emacs.d a file can have two
   ;; names so we also need to ignore the one in dotfiles.
@@ -76,8 +78,9 @@
   (add-to-list 'recentf-exclude
                (file-truename "~/dotfiles/emacs.d/.cache/")))
 
+
 ;;==============================================
-;; ruby configuration
+;; RUBY configuration
 ;;==============================================
 
 (setq ruby-version-manager 'rvm)
@@ -96,7 +99,35 @@
 
 
 ;;==============================================
-;; clojure configuration
+;; CLOJURE configuration
 ;;==============================================
 
 (setq cider-auto-select-error-buffer nil)
+
+
+;;==============================================
+;; ORG configuration
+;;==============================================
+
+(with-eval-after-load 'org
+  (require 'ob-tangle)
+  (setq org-directory "~/Dropbox/org/")
+  (setq org-agenda-files
+        (list (concat org-directory "personal.org")
+              (concat org-directory "kwela.org")
+              (concat org-directory "notes.org")))
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
+                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
+
+  ;; Allow refiling to any agenda file.
+  (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                   (org-agenda-files :maxlevel . 9))))
+
+  (setq org-capture-templates
+        '(("t" "todo" entry (file+headline (concat org-directory "personal.org") "Tasks")
+           "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
+
+  ;; Allow refile to create parent tasks with confirmation
+  ;;(setq org-refile-allow-creating-parent-nodes (quote confirm))
+  )
