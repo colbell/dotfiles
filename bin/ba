@@ -1,5 +1,9 @@
 #!/bin/sh
 #
-# Create/Attach byobu-tmux session with the same name as the curent directory.
+# Create/Attach byobu session with the same name as the current directory.
 
-byobu new-session -As `basename $PWD`
+if grep -q 'BYOBU_BACKEND=screen' ~/.byobu/backend; then
+  byobu -dRS `basename $PWD`
+else
+   byobu new-session -As `basename $PWD`
+fi
