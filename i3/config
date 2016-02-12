@@ -16,17 +16,19 @@ set $mod Mod4
 font pango:DejaVu Sans Mono 8
 
 # Colors
-set $bg     #2c2c2e
-set $fg     #9f9f9f
+set $fg     #2c2c2e
+set $bg     #9f9f9f
 #set $ac     #a0afa0
 set $ac     #ffffff
 set $tx     #040404
-set $ia     #8f8f8f
+#set $ia     #8f8f8f
+set $ia     #00FF00
 set $be     #8faf9f
 set $yw     #ccdc90
 set $gn     #88b090
 set $rd     #e89393
-set $hi     #FFA500
+set $hi     #FF0000
+#set $hi     #FFA500
 
 #                           border     background  text
 client.focused              $bg        $bg         $hi
@@ -82,6 +84,8 @@ bindsym $mod+v split v
 
 # Toggle borders on current client
 bindsym $mod+b border toggle
+
+bindsym $mod+i bar mode toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
