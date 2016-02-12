@@ -96,6 +96,8 @@ Lowering the Bar
 Popehat
 *** http://status451.com/feed/
 Status 451
+*** https://www.washingtonpost.com/pb/people/radley-balko?resType=rss
+Radley Balko
 ** Uncategorized
 *** http://feeds.feedburner.com/oreilly/ebookdealoftheday          :urgent:
 O'Reilly Deal of the Day
