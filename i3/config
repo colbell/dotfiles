@@ -22,7 +22,8 @@ set $bg     #9f9f9f
 set $ac     #ffffff
 set $tx     #040404
 #set $ia     #8f8f8f
-set $ia     #00FF00
+#$set $ia     #00FF00
+set $ia     #006633
 set $be     #8faf9f
 set $yw     #ccdc90
 set $gn     #88b090
