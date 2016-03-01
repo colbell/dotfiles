@@ -24,9 +24,13 @@ values."
                       auto-completion-private-snippets-directory
                       "~/.spacemacs.d/snippets/")
      ;;better-defaults
+     beacon-mode
      clojure
      cnb-bm
      cnb-bug-reference
+     (mu4e :variables
+            mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e")
+     cnb-mu4e
      cnb-muttrc
      cnb-personal
      cnb-shrink-whitespace
@@ -34,7 +38,7 @@ values."
      elfeed
      emacs-lisp
      evil-cleverparens
-     eyebrowse
+     ;; eyebrowse
      games
      (geolocation :variables
                   geolocation-enable-weather-forecast t)
@@ -43,8 +47,8 @@ values."
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      javascript
      markdown
-     (mu4e :variables
-           mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e")
+     ;; (mu4e :variables
+     ;;       mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e")
      org
      (shell :variables
             shell-default-height 30
@@ -96,7 +100,7 @@ values."
    dotspacemacs-editing-style 'vim
 
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
-   dotspacemacs-verbose-loading nil
+   dotspacemacs-verbose-loading t
 
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text
@@ -118,8 +122,8 @@ values."
    ;;                        spacemacs-dark)
    dotspacemacs-themes '(solarized-dark
                          solarized-light
-                         ;; spacemacs-dark
-                         ;; spacemacs-light
+                         spacemacs-dark
+                         spacemacs-light
                          zenburn)
 
 
@@ -185,7 +189,7 @@ values."
 
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 1.0
+   dotspacemacs-which-key-delay 0.9
 
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
@@ -196,7 +200,7 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
 
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
@@ -246,6 +250,7 @@ values."
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
    dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
+
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
@@ -256,7 +261,9 @@ values."
    dotspacemacs-line-numbers 'relative
 
    ;; Delete whitespace while saving buffer.
-   dotspacemacs-whitespace-cleanup 'changed))
+   dotspacemacs-whitespace-cleanup 'changed
+
+   dotspacemacs-auto-resume-layouts nil))
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
@@ -272,73 +279,7 @@ It is called immediately after `dotspacemacs/init'."
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
 
-  (setq dired-listing-switches "-alhG --group-directories-first")
 
-  (setq ibuffer-show-empty-filter-groups nil)
-
-  ;; From http://www.emacswiki.org/emacs-en/ToggleWindowSplit
-  (defun cnb/toggle-frame-split ()
-    "If the frame is split vertically, split it horizontally or vice versa.
-  Assumes that the frame is only split into two. "
-    (interactive)
-    (unless (= (length (window-list)) 2)
-      (error "Can only toggle a frame split in two"))
-    (let ((split-vertically-p (window-combined-p)))
-      (delete-window) ; closes current window
-      (if split-vertically-p
-          (split-window-horizontally)
-        (split-window-vertically)) ; gives us a split with the other win twice
-      (switch-to-buffer nil))) ; restore the orig  win in this part of the frame
-
-  (define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
-
-  (spacemacs/toggle-evil-cleverparens-on)
-  (add-hook
-   'after-save-hook
-   #'executable-make-buffer-file-executable-if-script-p)
-
-  (setq-default
-   sentence-end-double-space t
-   js2-basic-offset 2
-   js-indent-level 2
-
-   ;; Use a visible bell instead of a beep.
-   visible-bell t
-
-   ;; Always start a new tags list.
-   tags-add-tables nil
-
-   ;; When opening files follow all symbolic links.
-   find-file-visit-truename t
-
-   ;; I've got some TAGS files that are nearly 20MB in size.
-   large-file-warning-threshold 20000000
-
-   ;; Powerline config
-   ;;powerline-default-separator 'arrow
-
-   imenu-auto-rescan t
-
-   ;;browse-url-browser-function 'browse-url-firefox
-   browse-url-browser-function 'browse-url-generic
-   browse-url-generic-program "chromium-browser"
-
-   ;; C-l first position to top.
-   recenter-positions '(top middle bottom))
-
-  (add-to-list
-   'display-buffer-alist
-   `(,(rx bos "*rspec-compilation*" eos)
-     (display-buffer-reuse-window)
-     (reusable-frames . t)))
-
-  (mouse-avoidance-mode 'exile)
-
-  (setq calendar-location-name "Barcelona, Spain"
-        calendar-latitude 41.23
-        calendar-longitude 1.80)
-  (setq sunshine-units 'metric)
-  (setq sunshine-show-icons t)
 
   ;; (with-eval-after-load 'gnus
   ;;   (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
@@ -372,126 +313,117 @@ layers configuration. You are free to put any user code."
 
   ;; (setq user-full-name "Colin Noel Bell"
   ;;       user-mail-address "col@baibell.org")
-  (defun my-mu4e-action-view-with-xwidget (msg)
-    "View the body of the message inside xwidget-webkit."
-    (unless (fboundp 'xwidget-webkit-browse-url)
-      (mu4e-error "No xwidget support available"))
-    (let* ((html (mu4e-message-field msg :body-html))
-           (txt (mu4e-message-field msg :body-txt))
-           (tmpfile (format "%s%x.html" temporary-file-directory (random t))))
-      (unless (or html txt)
-        (mu4e-error "No body part for this message"))
-      (with-temp-buffer
-        ;; simplistic -- but note that it's only an example...
-        (insert (or html (concat "<pre>" txt "</pre>")))
-        (write-file tmpfile)
-        (xwidget-webkit-browse-url (concat "file://" tmpfile) t))))
+  ;; (defun my-mu4e-action-view-with-xwidget (msg)
+  ;;   "View the body of the message inside xwidget-webkit."
+  ;;   (unless (fboundp 'xwidget-webkit-browse-url)
+  ;;     (mu4e-error "No xwidget support available"))
+  ;;   (let* ((html (mu4e-message-field msg :body-html))
+  ;;          (txt (mu4e-message-field msg :body-txt))
+  ;;          (tmpfile (format "%s%x.html" temporary-file-directory (random t))))
+  ;;     (unless (or html txt)
+  ;;       (mu4e-error "No body part for this message"))
+  ;;     (with-temp-buffer
+  ;;       ;; simplistic -- but note that it's only an example...
+  ;;       (insert (or html (concat "<pre>" txt "</pre>")))
+  ;;       (write-file tmpfile)
+  ;;       (xwidget-webkit-browse-url (concat "file://" tmpfile) t))))
 
 
-  (with-eval-after-load 'mu4e
-    (require 'mu4e-contrib)
-    ;;(setq mu4e-html2text-command 'mu4e-shr2text)
-    ;;(setq mu4e-html2text-command "w3m -T text/html")
-    (setq mu4e-headers-skip-duplicates t)
-    (setq mu4e-html2text-command "html2text -utf8 -width 72")
-    ;;(setq mu4e-html2text-command "html2markdown --body-width=0")
+  ;; (with-eval-after-load 'mu4e
+  ;;   (require 'mu4e-contrib)
+  ;;   ;;(setq mu4e-html2text-command 'mu4e-shr2text)
+  ;;   ;;(setq mu4e-html2text-command "w3m -T text/html")
+  ;;   (setq mu4e-headers-skip-duplicates t)
+  ;;   (setq mu4e-html2text-command "html2text -utf8 -width 72")
+  ;;   ;;(setq mu4e-html2text-command "html2markdown --body-width=0")
 
-    (add-to-list 'mu4e-view-actions
-                 '("xViewXWidget" . my-mu4e-action-view-with-xwidget) t)
+  ;;   (add-to-list 'mu4e-view-actions
+  ;;                '("xViewXWidget" . my-mu4e-action-view-with-xwidget) t)
 
-    (add-to-list 'mu4e-bookmarks '("flag:flagged" "Flagged messages" ?f) t)
-    (add-to-list 'mu4e-bookmarks '("size:500K..500M" "Big messages" ?b) t)
-    (add-to-list 'mu4e-bookmarks '("date:2d..now AND NOT flag:trashed"  "Last 2 days" ?2) t)
+  ;;   (add-to-list 'mu4e-bookmarks '("flag:flagged" "Flagged messages" ?f) t)
+  ;;   (add-to-list 'mu4e-bookmarks '("size:500K..500M" "Big messages" ?b) t)
+  ;;   (add-to-list 'mu4e-bookmarks '("date:2d..now AND NOT flag:trashed"  "Last 2 days" ?2) t)
 
-    (setq message-signature-file "~/.signature") ;; NOT used by mu4e
-    (setq mu4e-compose-signature (with-temp-buffer
-                                   (insert-file-contents "~/.signature")
-                                   (buffer-string)))
-    ;; (add-hook 'mu4e-view-mode-hook
-    ;;           (lambda()
-    ;;             ;; try to emulate some of the eww key-bindings
-    ;;             (local-set-key (kbd "<tab>") 'shr-next-link)
-    ;;             (local-set-key (kbd "<backtab>") 'shr-previous-link)))
-    )
+  ;;   (setq message-signature-file "~/.signature") ;; NOT used by mu4e
+  ;;   (setq mu4e-compose-signature (with-temp-buffer
+  ;;                                  (insert-file-contents "~/.signature")
+  ;;                                  (buffer-string)))
+  ;;   ;; (add-hook 'mu4e-view-mode-hook
+  ;;   ;;           (lambda()
+  ;;   ;;             ;; try to emulate some of the eww key-bindings
+  ;;   ;;             (local-set-key (kbd "<tab>") 'shr-next-link)
+  ;;   ;;             (local-set-key (kbd "<backtab>") 'shr-previous-link)))
+  ;;   )
+  ;; ;;(mu4e-maildirs-extension)
+
+
+  ;; (add-hook
+  ;;  'mu4e-compose-mode-hook
+  ;;  (lambda()
+  ;;    (message-add-header
+  ;;     (concat "X-Editor: GNU Emacs " emacs-version "\n"))
+  ;;    (message-add-header
+  ;;     (concat "X-Mailer: MU4e " mu4e-mu-version "\n"))))
+
+  ;; ;;(setq mu4e-headers-date-format "%Y-%m-%d %H:%M:%S")
+  ;; (setq mu4e-headers-date-format "%x")
+  ;; (setq mu4e-headers-fields '((:human-date . 12)
+  ;;                             (:flags . 10)
+  ;;                             (:mailing-list . 10)
+  ;;                             (:from-or-to . 25)
+  ;;                             (:subject . nil)))
+  ;; ;; (setq mu4e-view-fields '(:from :to  :cc :subject :flags :date :maildir
+  ;; ;;                                :mailing-list :tags :attachments :signature
+  ;; ;;                                :decryption :X-Editor :X-Mailer :User-Agent) )
+
+  ;; (setq mu4e-use-fancy-chars t)
+  ;; (setq mu4e-attachment-dir  "~/Downloads")
+  ;; (setq mu4e-view-show-addresses t)
+  ;; (setq mu4e-view-prefer-html t)
+
+  ;; (add-hook 'mu4e-view-mode-hook 'smiley-buffer)
+
+  ;; ;; Attempt to show images in messages.
+  ;; (setq mu4e-view-show-images t
+  ;;       mu4e-view-image-max-width 800)  ;; use imagemagick, if available
+  ;; (when (fboundp 'imagemagick-register-types)
+  ;;   (imagemagick-register-types))
+
+  ;; (setq user-full-name "Colin Noel Bell"
+  ;;       user-mail-address "col@baibell.org")
+  ;; (setq message-kill-buffer-on-exit t)
+
+  ;; (require 'org-mu4e)
+  ;; (setq org-mu4e-link-query-in-headers-mode nil)
+
+  ;; (setq mu4e-maildir "~/Maildir/home")
+
+  ;; (setq mu4e-drafts-folder "/[Gmail].Drafts")
+  ;; (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+  ;; (setq mu4e-trash-folder  "/[Gmail].Trash")
+
+  ;; ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+  ;; (setq mu4e-sent-messages-behavior 'delete)
+  ;; (setq mu4e-maildir-shortcuts
+  ;;       '( ("/INBOX"               . ?i)
+  ;;          ("/[Gmail].Sent Mail"   . ?s)
+  ;;          ("/[Gmail].Trash"       . ?t)
+  ;;          ("/[Gmail].All Mail"    . ?a)
+  ;;          ("/[Gmail].Spam"        . ?p)
+  ;;          ))
+
+  ;; (setq mail-user-agent 'mu4e-user-agent)
+
+  ;; ;; Make sure that the Debian package 'gnutls-bin' is installed.
+  ;; (require 'smtpmail)
+  ;; (setq message-send-mail-function 'smtpmail-send-it
+  ;;       smtpmail-stream-type 'starttls
+  ;;       smtpmail-default-smtp-server "smtp.gmail.com"
+  ;;       smtpmail-smtp-server "smtp.gmail.com"
+  ;;       smtpmail-smtp-service 587)
+
   ;;(mu4e-maildirs-extension)
 
-
-  (add-hook
-   'mu4e-compose-mode-hook
-   (lambda()
-     (message-add-header
-      (concat "X-Editor: GNU Emacs " emacs-version "\n"))
-     (message-add-header
-      (concat "X-Mailer: MU4e " mu4e-mu-version "\n"))))
-
-  ;;(setq mu4e-headers-date-format "%Y-%m-%d %H:%M:%S")
-  (setq mu4e-headers-date-format "%x")
-  (setq mu4e-headers-fields '((:human-date . 12)
-                              (:flags . 10)
-                              (:mailing-list . 10)
-                              (:from-or-to . 25)
-                              (:subject . nil)))
-  ;; (setq mu4e-view-fields '(:from :to  :cc :subject :flags :date :maildir
-  ;;                                :mailing-list :tags :attachments :signature
-  ;;                                :decryption :X-Editor :X-Mailer :User-Agent) )
-
-  (setq mu4e-use-fancy-chars t)
-  (setq mu4e-attachment-dir  "~/Downloads")
-  (setq mu4e-view-show-addresses t)
-  (setq mu4e-view-prefer-html t)
-
-  (add-hook 'mu4e-view-mode-hook 'smiley-buffer)
-
-  ;; Attempt to show images in messages.
-  (setq mu4e-view-show-images t
-        mu4e-view-image-max-width 800)  ;; use imagemagick, if available
-  (when (fboundp 'imagemagick-register-types)
-    (imagemagick-register-types))
-
-  (setq user-full-name "Colin Noel Bell"
-        user-mail-address "col@baibell.org")
-  (setq message-kill-buffer-on-exit t)
-
-  (require 'org-mu4e)
-  (setq org-mu4e-link-query-in-headers-mode nil)
-
-  (setq mu4e-maildir "~/Maildir/home")
-
-  (setq mu4e-drafts-folder "/[Gmail].Drafts")
-  (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-  (setq mu4e-trash-folder  "/[Gmail].Trash")
-
-  ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-  (setq mu4e-sent-messages-behavior 'delete)
-  (setq mu4e-maildir-shortcuts
-        '( ("/INBOX"               . ?i)
-           ("/[Gmail].Sent Mail"   . ?s)
-           ("/[Gmail].Trash"       . ?t)
-           ("/[Gmail].All Mail"    . ?a)
-           ("/[Gmail].Spam"        . ?p)
-           ))
-
-  (setq mail-user-agent 'mu4e-user-agent)
-
-  ;; Make sure that the Debian package 'gnutls-bin' is installed.
-  (require 'smtpmail)
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-stream-type 'starttls
-        smtpmail-default-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 587)
-
-  ;;(mu4e-maildirs-extension)
-
-  (use-package crosshairs
-    :commands flash-crosshairs
-    :bind (("<f11>" . flash-crosshairs)))
-
-  ;; Never lose the cursor again.
-  (use-package beacon
-    :diminish beacon-mode
-    :init
-    (beacon-mode))
 
   ;; (use-package shrink-whitespace
   ;;   :bind (("M-SPC" . shrink-whitespace)))
@@ -506,7 +438,7 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (packed spinner hydra bracketed-paste helm-rhythmbox git-commit clojure-mode s mu4e-maildirs-extension w3m bind-key ranger avy anzu evil eyebrowse bind-map spray evil-org evil-indent-textobject enh-ruby-mode evil-leader muttrc-mode xterm-color request theme-changer sunshine osx-location highlight rainbow-mode rainbow-identifiers tern yasnippet async magit auto-complete cider smartparens with-editor company helm helm-core magit-popup projectile package-build smex markdown-mode js2-mode haml-mode gitignore-mode git-gutter+ git-gutter flycheck elfeed bm zenburn-theme yaml-mode ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quelpa projectile-rails persp-mode pcre2el paradox pandoc-mode page-break-lines pacmacs ox-pandoc orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile align-cljlet aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+    (avy cider flycheck company gitignore-mode helm helm-core multiple-cursors zenburn-theme yaml-mode xterm-color ws-butler window-numbering which-key web-mode web-beautify w3m volatile-highlights vi-tilde-fringe use-package toc-org theme-changer tagedit sunshine sql-indent spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-mode rainbow-identifiers rainbow-delimiters quelpa projectile-rails persp-mode pcre2el paradox page-break-lines pacmacs osx-location orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree muttrc-mode multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bracketed-paste bm beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
  '(paradox-github-token t)
  '(safe-local-variable-values
    (quote
