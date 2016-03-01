@@ -13,7 +13,7 @@
 ;;==============================================
 (setq rmh-elfeed-org-files
       (list
-       (expand-file-name "elfeed.org"
+       (expand-file-name "elfis:issue is:open eed.org"
                          dotspacemacs-directory)
        (file-truename "~/Dropbox/home-config/feeds/feeds.org")))
 
@@ -80,6 +80,16 @@
 
 
 ;;==============================================
+;; DIRED configuration
+;;==============================================
+(setq dired-listing-switches "-alhG --group-directories-first")
+
+;;==============================================
+;; IBUFFER configuration
+;;==============================================
+(setq ibuffer-show-empty-filter-groups nil)
+
+;;==============================================
 ;; RUBY configuration
 ;;==============================================
 
@@ -96,6 +106,7 @@
 (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
 
 (eval-after-load "rubocop" '(diminish 'rubocop-mode))
+
 
 
 ;;==============================================
@@ -131,3 +142,78 @@
   ;; Allow refile to create parent tasks with confirmation
   ;;(setq org-refile-allow-creating-parent-nodes (quote confirm))
   )
+
+
+
+(add-hook
+ 'after-save-hook
+ #'executable-make-buffer-file-executable-if-script-p)
+
+;; From http://www.emacswiki.org/emacs-en/ToggleWindowSplit
+(defun cnb/toggle-frame-split ()
+  "If the frame is split vertically, split it horizontally or vice versa.
+  Assumes that the frame is only split into two. "
+  (interactive)
+  (unless (= (length (window-list)) 2)
+    (error "Can only toggle a frame split in two"))
+  (let ((split-vertically-p (window-combined-p)))
+    (delete-window) ; closes current window
+    (if split-vertically-p
+        (split-window-horizontally)
+      (split-window-vertically)) ; gives us a split with the other win twice
+    (switch-to-buffer nil))) ; restore the orig  win in this part of the frame
+
+;; Never lose the cursor again.
+(use-package beacon
+  :diminish beacon-mode
+  :commands beacon-mode)
+ 
+(define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
+(add-hook
+ 'after-init-hook (lambda ()
+                    (progn
+                      (spacemacs/toggle-evil-cleverparens-on)
+                      (setq beacon-blink-duration 1.0)
+                      (beacon-mode))))
+
+(use-package crosshairs
+  :commands flash-crosshairs
+  :bind (("<f11>" . flash-crosshairs)))
+
+
+(setq-default
+ sentence-end-double-space t
+ js2-basic-offset 2
+ js-indent-level 2
+
+ ;; Use a visible bell instead of a beep.
+ visible-bell t
+
+ ;; Always start a new tags list.
+ tags-add-tables nil
+
+ ;; When opening files follow all symbolic links.
+ find-file-visit-truename t
+
+ ;; I've got some TAGS files that are nearly 20MB in size.
+ large-file-warning-threshold 20000000
+
+ ;; Powerline config
+ ;;powerline-default-separator 'arrow
+
+ imenu-auto-rescan t
+
+ ;;browse-url-browser-function 'browse-url-firefox
+ browse-url-browser-function 'browse-url-generic
+ browse-url-generic-program "chromium-browser"
+
+ ;; C-l first position to top.
+ recenter-positions '(top middle bottom))
+
+(add-to-list
+ 'display-buffer-alist
+ `(,(rx bos "*rspec-compilation*" eos)
+   (display-buffer-reuse-window)
+   (reusable-frames . t)))
+
+(mouse-avoidance-mode 'exile)
