@@ -8,6 +8,8 @@ Xft.hinting: 1
 Xft.hintstyle: hintfull
 Xft.rgba: rgb
 
+rofi.terminal: xterm
+
 !Emacs.background: white
 !Emacs.foreground: black
 !Emacs.background: black
