@@ -13,7 +13,7 @@
 ;;==============================================
 (setq rmh-elfeed-org-files
       (list
-       (expand-file-name "elfis:issue is:open eed.org"
+       (expand-file-name "elfeed.org"
                          dotspacemacs-directory)
        (file-truename "~/Dropbox/home-config/feeds/feeds.org")))
 

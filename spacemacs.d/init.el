@@ -30,6 +30,7 @@ values."
      cnb-bug-reference
      (mu4e :variables
             mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e")
+     ;;cnb-dired-narrow
      cnb-mu4e
      cnb-muttrc
      cnb-personal
@@ -120,7 +121,8 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(solarized-dark
+   dotspacemacs-themes '(leuven
+                         solarized-dark
                          solarized-light
                          spacemacs-dark
                          spacemacs-light
@@ -231,7 +233,7 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling nil
+   dotspacemacs-smooth-scrolling t
 
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
@@ -278,155 +280,6 @@ It is called immediately after `dotspacemacs/init'."
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-
-
-
-  ;; (with-eval-after-load 'gnus
-  ;;   (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
-  ;;   (add-to-list 'mm-attachment-override-types '"image/.*")
-  ;;   (setq gnus-visible-headers
-  ;;         "^From:\\|^Reply-To\\|^Organization:\\|^To:\\|^Cc:\\|^Newsgroups:\\|^Subject:\\|^Date:\\|^Gnus\\|^List-ID:\\|^X-Editor\\|^X-Mailer:\\|^User-Agent:\\|^X-Country:"))
-
-  ;; (setq  gnus-treat-hide-citation t
-  ;;        gnus-cited-lines-visible '(3 . 6))
-  ;; (setq gnus-thread-hide-subtree t)
-
-  ;; (setq gnus-read-newsrc-file nil) ;; Doesn't work with folders [GMail]
-
-  ;; (setq message-kill-buffer-on-exit t
-  ;;       mm-inline-large-images 'resize)
-
-  ;; (setq mm-text-html-renderer 'w3m)
-  ;; (setq gnus-inhibit-images nil)
-
-  ;; (setq-default w3m-display-inline-images t)
-  ;; (setq w3m-default-display-inline-images t)
-  ;; (setq mm-inline-text-html-with-images t)
-
-  ;; (setq gnus-buttonized-mime-types
-  ;;       '("multipart/alternative" "multipart/signed"))
-  ;; (setq gnus-secondary-select-methods
-  ;;       '((nnimap "Mail"
-  ;;                 (nnimap-address "localhost")
-  ;;                 (nnimap-stream network)
-  ;;                 (nnimap-authenticator login))))
-
-  ;; (setq user-full-name "Colin Noel Bell"
-  ;;       user-mail-address "col@baibell.org")
-  ;; (defun my-mu4e-action-view-with-xwidget (msg)
-  ;;   "View the body of the message inside xwidget-webkit."
-  ;;   (unless (fboundp 'xwidget-webkit-browse-url)
-  ;;     (mu4e-error "No xwidget support available"))
-  ;;   (let* ((html (mu4e-message-field msg :body-html))
-  ;;          (txt (mu4e-message-field msg :body-txt))
-  ;;          (tmpfile (format "%s%x.html" temporary-file-directory (random t))))
-  ;;     (unless (or html txt)
-  ;;       (mu4e-error "No body part for this message"))
-  ;;     (with-temp-buffer
-  ;;       ;; simplistic -- but note that it's only an example...
-  ;;       (insert (or html (concat "<pre>" txt "</pre>")))
-  ;;       (write-file tmpfile)
-  ;;       (xwidget-webkit-browse-url (concat "file://" tmpfile) t))))
-
-
-  ;; (with-eval-after-load 'mu4e
-  ;;   (require 'mu4e-contrib)
-  ;;   ;;(setq mu4e-html2text-command 'mu4e-shr2text)
-  ;;   ;;(setq mu4e-html2text-command "w3m -T text/html")
-  ;;   (setq mu4e-headers-skip-duplicates t)
-  ;;   (setq mu4e-html2text-command "html2text -utf8 -width 72")
-  ;;   ;;(setq mu4e-html2text-command "html2markdown --body-width=0")
-
-  ;;   (add-to-list 'mu4e-view-actions
-  ;;                '("xViewXWidget" . my-mu4e-action-view-with-xwidget) t)
-
-  ;;   (add-to-list 'mu4e-bookmarks '("flag:flagged" "Flagged messages" ?f) t)
-  ;;   (add-to-list 'mu4e-bookmarks '("size:500K..500M" "Big messages" ?b) t)
-  ;;   (add-to-list 'mu4e-bookmarks '("date:2d..now AND NOT flag:trashed"  "Last 2 days" ?2) t)
-
-  ;;   (setq message-signature-file "~/.signature") ;; NOT used by mu4e
-  ;;   (setq mu4e-compose-signature (with-temp-buffer
-  ;;                                  (insert-file-contents "~/.signature")
-  ;;                                  (buffer-string)))
-  ;;   ;; (add-hook 'mu4e-view-mode-hook
-  ;;   ;;           (lambda()
-  ;;   ;;             ;; try to emulate some of the eww key-bindings
-  ;;   ;;             (local-set-key (kbd "<tab>") 'shr-next-link)
-  ;;   ;;             (local-set-key (kbd "<backtab>") 'shr-previous-link)))
-  ;;   )
-  ;; ;;(mu4e-maildirs-extension)
-
-
-  ;; (add-hook
-  ;;  'mu4e-compose-mode-hook
-  ;;  (lambda()
-  ;;    (message-add-header
-  ;;     (concat "X-Editor: GNU Emacs " emacs-version "\n"))
-  ;;    (message-add-header
-  ;;     (concat "X-Mailer: MU4e " mu4e-mu-version "\n"))))
-
-  ;; ;;(setq mu4e-headers-date-format "%Y-%m-%d %H:%M:%S")
-  ;; (setq mu4e-headers-date-format "%x")
-  ;; (setq mu4e-headers-fields '((:human-date . 12)
-  ;;                             (:flags . 10)
-  ;;                             (:mailing-list . 10)
-  ;;                             (:from-or-to . 25)
-  ;;                             (:subject . nil)))
-  ;; ;; (setq mu4e-view-fields '(:from :to  :cc :subject :flags :date :maildir
-  ;; ;;                                :mailing-list :tags :attachments :signature
-  ;; ;;                                :decryption :X-Editor :X-Mailer :User-Agent) )
-
-  ;; (setq mu4e-use-fancy-chars t)
-  ;; (setq mu4e-attachment-dir  "~/Downloads")
-  ;; (setq mu4e-view-show-addresses t)
-  ;; (setq mu4e-view-prefer-html t)
-
-  ;; (add-hook 'mu4e-view-mode-hook 'smiley-buffer)
-
-  ;; ;; Attempt to show images in messages.
-  ;; (setq mu4e-view-show-images t
-  ;;       mu4e-view-image-max-width 800)  ;; use imagemagick, if available
-  ;; (when (fboundp 'imagemagick-register-types)
-  ;;   (imagemagick-register-types))
-
-  ;; (setq user-full-name "Colin Noel Bell"
-  ;;       user-mail-address "col@baibell.org")
-  ;; (setq message-kill-buffer-on-exit t)
-
-  ;; (require 'org-mu4e)
-  ;; (setq org-mu4e-link-query-in-headers-mode nil)
-
-  ;; (setq mu4e-maildir "~/Maildir/home")
-
-  ;; (setq mu4e-drafts-folder "/[Gmail].Drafts")
-  ;; (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-  ;; (setq mu4e-trash-folder  "/[Gmail].Trash")
-
-  ;; ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-  ;; (setq mu4e-sent-messages-behavior 'delete)
-  ;; (setq mu4e-maildir-shortcuts
-  ;;       '( ("/INBOX"               . ?i)
-  ;;          ("/[Gmail].Sent Mail"   . ?s)
-  ;;          ("/[Gmail].Trash"       . ?t)
-  ;;          ("/[Gmail].All Mail"    . ?a)
-  ;;          ("/[Gmail].Spam"        . ?p)
-  ;;          ))
-
-  ;; (setq mail-user-agent 'mu4e-user-agent)
-
-  ;; ;; Make sure that the Debian package 'gnutls-bin' is installed.
-  ;; (require 'smtpmail)
-  ;; (setq message-send-mail-function 'smtpmail-send-it
-  ;;       smtpmail-stream-type 'starttls
-  ;;       smtpmail-default-smtp-server "smtp.gmail.com"
-  ;;       smtpmail-smtp-server "smtp.gmail.com"
-  ;;       smtpmail-smtp-service 587)
-
-  ;;(mu4e-maildirs-extension)
-
-
-  ;; (use-package shrink-whitespace
-  ;;   :bind (("M-SPC" . shrink-whitespace)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -438,7 +291,7 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (avy cider flycheck company gitignore-mode helm helm-core multiple-cursors zenburn-theme yaml-mode xterm-color ws-butler window-numbering which-key web-mode web-beautify w3m volatile-highlights vi-tilde-fringe use-package toc-org theme-changer tagedit sunshine sql-indent spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-mode rainbow-identifiers rainbow-delimiters quelpa projectile-rails persp-mode pcre2el paradox page-break-lines pacmacs osx-location orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree muttrc-mode multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bracketed-paste bm beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+    (dired-narrow markdown-mode js2-mode haml-mode git-gutter+ git-gutter elfeed clojure-mode package-build bind-key bind-map evil auto-complete inf-ruby avy cider flycheck company gitignore-mode helm helm-core multiple-cursors zenburn-theme yaml-mode xterm-color ws-butler window-numbering which-key web-mode web-beautify w3m volatile-highlights vi-tilde-fringe use-package toc-org theme-changer tagedit sunshine sql-indent spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-mode rainbow-identifiers rainbow-delimiters quelpa projectile-rails persp-mode pcre2el paradox page-break-lines pacmacs osx-location orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree muttrc-mode multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bracketed-paste bm beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
  '(paradox-github-token t)
  '(safe-local-variable-values
    (quote
