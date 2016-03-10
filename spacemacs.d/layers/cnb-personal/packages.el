@@ -84,6 +84,23 @@
 ;;==============================================
 (setq dired-listing-switches "-alhG --group-directories-first")
 
+;; Preview files in dired.
+(use-package peep-dired
+  :defer t)
+
+(with-eval-after-load 'dired
+  (evil-define-key 'normal dired-mode-map
+    (kbd "P") 'peep-dired)
+
+  (evil-define-key 'normal peep-dired-mode-map
+    (kbd "<SPC>") 'peep-dired-scroll-page-down
+    (kbd "C-<SPC>") 'peep-dired-scroll-page-up
+    (kbd "<backspace>") 'peep-dired-scroll-page-up
+    (kbd "j") 'peep-dired-next-file
+    (kbd "k") 'peep-dired-prev-file)
+
+  (add-hook 'peep-dired-hook #'evil-normalize-keymaps))
+
 ;;==============================================
 ;; IBUFFER configuration
 ;;==============================================
@@ -93,19 +110,35 @@
 ;; RUBY configuration
 ;;==============================================
 
+(use-package rubocop
+  :ensure t
+  :commands rubocop-mode
+  :diminish rubocop-mode)
+
 (setq ruby-version-manager 'rvm)
+
+(with-eval-after-load 'hideshow
+  (add-to-list 'hs-special-modes-alist
+               `(ruby-mode
+                 ,(rx (or "def" "class" "module" "{" "[")) ; Block start
+                 ,(rx (or "}" "]" "end"))                  ; Block end
+                 ,(rx (or "#" "=begin"))                   ; Comment start
+                 ruby-forward-sexp nil)))
 
 (defun cnb/ruby-setup ()
   (rvm-activate-corresponding-ruby)
   (superword-mode)
-  (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
+  (hs-minor-mode)
+
+
+  ;;(setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
   (setq imenu-generic-expression
         '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1)
           ("Examples" "^\\( *\\(its?\\|specify\\|example\\|describe\\|context\\|feature\\|scenario\\) +.+\\)" 1))))
 
 (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
 
-(eval-after-load "rubocop" '(diminish 'rubocop-mode))
+;;(eval-after-load "rubocop" '(diminish 'rubocop-mode))
 
 
 
