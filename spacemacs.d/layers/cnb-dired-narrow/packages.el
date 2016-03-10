@@ -19,5 +19,11 @@
  
 (defun cnb-dired-narrow/init-dired-narrow ()
   (use-package dired-narrow
-    :ensure t))
- 
+    :ensure t
+    :commands (dired-narrow)
+    :bind (:map dired-mode-map
+                ("/" . dired-narrow))
+    :init
+    (progn
+      (with-eval-after-load 'dired
+        (evil-define-key 'normal dired-mode-map "/" 'dired-narrow)))))
