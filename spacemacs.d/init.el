@@ -24,7 +24,6 @@ values."
                       auto-completion-private-snippets-directory
                       "~/.spacemacs.d/snippets/")
      ;;better-defaults
-     beacon-mode
      clojure
      cnb-bm
      cnb-bug-reference
@@ -45,8 +44,6 @@ values."
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      javascript
      markdown
-     ;; (mu4e :variables
-     ;;       mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e")
      org
      (shell :variables
             shell-default-height 30
@@ -72,7 +69,8 @@ values."
                                       crosshairs
                                       rubocop
                                       peep-dired
-                                      ;;mu4e-maildirs-extension
+                                      mu4e-maildirs-extension
+                                      evil-mu4e
                                       w3m)
 
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -290,7 +288,7 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (rake peep-dired alert log4e gntp json-snatcher json-reformat parent-mode request fringe-helper flx magit-popup git-commit with-editor iedit smartparens anzu simple-httpd ace-jump-mode noflet powerline popwin dired-narrow dired-hacks-utils col-highlight hl-line+ vline web-completion-data dash-functional tern pos-tip inflections edn paredit s peg eval-sexp-fu highlight spinner queue pkg-info epl yasnippet packed async popup dash hydra projectile magit f markdown-mode js2-mode haml-mode git-gutter+ git-gutter elfeed clojure-mode package-build bind-key bind-map evil auto-complete inf-ruby avy cider flycheck company gitignore-mode helm helm-core multiple-cursors zenburn-theme yaml-mode xterm-color ws-butler window-numbering which-key web-mode web-beautify w3m volatile-highlights vi-tilde-fringe use-package toc-org theme-changer tagedit sunshine sql-indent spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-mode rainbow-identifiers rainbow-delimiters quelpa projectile-rails persp-mode pcre2el paradox page-break-lines pacmacs osx-location orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree muttrc-mode multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bracketed-paste bm beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+    (evil-mu4e mu4e-maildirs-extension rake peep-dired alert log4e gntp json-snatcher json-reformat parent-mode request fringe-helper flx magit-popup git-commit with-editor iedit smartparens anzu simple-httpd ace-jump-mode noflet powerline popwin dired-narrow dired-hacks-utils col-highlight hl-line+ vline web-completion-data dash-functional tern pos-tip inflections edn paredit s peg eval-sexp-fu highlight spinner queue pkg-info epl yasnippet packed async popup dash hydra projectile magit f markdown-mode js2-mode haml-mode git-gutter+ git-gutter elfeed clojure-mode package-build bind-key bind-map evil auto-complete inf-ruby avy cider flycheck company gitignore-mode helm helm-core multiple-cursors zenburn-theme yaml-mode xterm-color ws-butler window-numbering which-key web-mode web-beautify w3m volatile-highlights vi-tilde-fringe use-package toc-org theme-changer tagedit sunshine sql-indent spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-mode rainbow-identifiers rainbow-delimiters quelpa projectile-rails persp-mode pcre2el paradox page-break-lines pacmacs osx-location orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree muttrc-mode multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bracketed-paste bm beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
  '(paradox-github-token t)
  '(safe-local-variable-values
    (quote
