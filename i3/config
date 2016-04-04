@@ -37,7 +37,7 @@ client.unfocused            $bg        $bg         $ia
 client.focused_inactive     $bg        $bg         $ac
 client.urgent               $rd        $rd         $tx
 
-# Don't use borders on new windows.
+# Use borders on new windows.
 new_window pixel
 
 # Hide window borders at screen edge.
