@@ -9,10 +9,13 @@
              [codox "0.9.4"]                      ; Generate API doc
              [lein-midje "3.2"]                   ; Testing framework
              [lein-pprint "1.1.2"]                ; Pretty pint
-             [com.aphyr/prism "0.1.3"]]           ; Autorun tests
+             [com.aphyr/prism "0.1.3"]]            ; Autorun tests
 
   :dependencies [[slamhound "1.5.5"]              ; ns cleanup
-                 [com.aphyr/prism "0.1.3"]]       ; Autorun tests
+                 [com.aphyr/prism "0.1.3"]        ; Autorun tests
+                 [pjstadig/humane-test-output "0.7.1"]]
+  :injections [(require 'pjstadig.humane-test-output)
+               (pjstadig.humane-test-output/activate!)]
 
   :aliases {"slamhound" ["run" "-m" "slam.hound"]}}
 
