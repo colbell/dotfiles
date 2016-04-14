@@ -243,6 +243,8 @@
  ;; C-l first position to top.
  recenter-positions '(top middle bottom))
 
+(global-hl-line-mode 0)
+
 (add-to-list
  'display-buffer-alist
  `(,(rx bos "*rspec-compilation*" eos)
