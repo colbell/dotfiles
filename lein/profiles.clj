@@ -9,7 +9,8 @@
              [codox "0.9.4"]                      ; Generate API doc
              [lein-midje "3.2"]                   ; Testing framework
              [lein-pprint "1.1.2"]                ; Pretty pint
-             [com.aphyr/prism "0.1.3"]]            ; Autorun tests
+             [com.aphyr/prism "0.1.3"]            ; Autorun tests
+             [luminus/lein-template "2.9.10.26"]]   ; get rid of after complete book
 
   :dependencies [[slamhound "1.5.5"]              ; ns cleanup
                  [com.aphyr/prism "0.1.3"]        ; Autorun tests
