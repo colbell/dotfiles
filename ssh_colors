@@ -2,6 +2,6 @@ aws-uat,green,black
 aws-play,yellow,black
 aws-auth,yellow,black
 aws-risk,black,yellow
-aws-sandbox,white,black
+aws-sandbox,black,white
 aws-prod,red,black
 aws-backups,black,gray
