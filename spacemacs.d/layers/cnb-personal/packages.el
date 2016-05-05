@@ -84,6 +84,9 @@
 ;;==============================================
 (setq dired-listing-switches "-alhG --group-directories-first")
 
+(add-hook 'dired-mode-hook
+          (lambda () (hl-line-mode)))
+
 ;; Preview files in dired.
 (use-package peep-dired
   :defer t)
@@ -147,6 +150,10 @@
 ;;==============================================
 
 (setq cider-auto-select-error-buffer nil)
+
+(use-package clojure-mode-extra-font-locking
+  :config
+  (require 'clojure-mode-extra-font-locking))
 
 
 ;;==============================================
@@ -213,6 +220,8 @@
   :commands flash-crosshairs
   :bind (("<f11>" . flash-crosshairs)))
 
+(add-hook 'spacemacs-buffer-mode-hook
+          (lambda () (hl-line-mode)))
 
 (setq-default
  sentence-end-double-space t
