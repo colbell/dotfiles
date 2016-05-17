@@ -120,12 +120,12 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(leuven
+   dotspacemacs-themes '(zenburn
+                         leuven
                          solarized-dark
                          solarized-light
                          spacemacs-dark
-                         spacemacs-light
-                         zenburn)
+                         spacemacs-light)
 
 
    ;; If non nil the cursor color matches the state color.
