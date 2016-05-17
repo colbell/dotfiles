@@ -18,18 +18,14 @@ font pango:DejaVu Sans Mono 8
 # Colors
 set $fg     #2c2c2e
 set $bg     #9f9f9f
-#set $ac     #a0afa0
 set $ac     #ffffff
 set $tx     #040404
-#set $ia     #8f8f8f
-#$set $ia     #00FF00
 set $ia     #006633
 set $be     #8faf9f
 set $yw     #ccdc90
 set $gn     #88b090
 set $rd     #e89393
 set $hi     #FF0000
-#set $hi     #FFA500
 
 #                           border     background  text
 client.focused              $bg        $bg         $hi
@@ -53,8 +49,8 @@ bindsym $mod+z workspace back_and_forth
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec mate-terminal
-bindsym $mod+Shift+Return exec xterm
+bindsym $mod+Return        exec mate-terminal
+bindsym $mod+Shift+Return  exec xterm
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -239,7 +235,7 @@ exec --no-startup-id mpd
 exec --no-startup-id /usr/bin/blueman-applet
 exec --no-startup-id /usr/bin/mate-volume-control-applet
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1
-# exec --no-startup-id /usr/bin/compton -b --config ~/.i3/compton.config
+exec --no-startup-id /usr/bin/compton -b --config ~/.i3/compton.config
 exec --no-startup-id /usr/bin/variety
 exec --no-startup-id /usr/bin/parcellite
 exec --no-startup-id killall -w mate-screensaver
