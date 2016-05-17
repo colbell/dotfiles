@@ -45,6 +45,11 @@
 (setq rainbow-x-colors t)
 
 ;;==============================================
+;; conf-mode configuration
+;;==============================================
+(add-hook 'conf-mode-hook #'linum-mode)
+
+;;==============================================
 ;; prog-mode configuration
 ;;==============================================
 (add-hook 'prog-mode-hook #'fci-mode)      ;; Indicate fill column.
