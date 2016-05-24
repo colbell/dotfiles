@@ -8,28 +8,6 @@
 ;;
 ;;; License: GPLv3
 
-;;==============================================
-;; elfeed configuration
-;;==============================================
-(setq rmh-elfeed-org-files
-      (list
-       (expand-file-name "elfeed.org"
-                         dotspacemacs-directory)
-       (file-truename "~/Dropbox/home-config/feeds/feeds.org")))
-
-
-(with-eval-after-load 'elfeed
-  (setq org-planning-line-re "") ;; elfeed crashes without this.
-  (defface urgent-elfeed-entry
-    '((t :foreground "#f77"))
-    "Marks an urgent Elfeed entry.")
-  (push '(urgent urgent-elfeed-entry)
-        elfeed-search-face-alist)
-
-  (setq elfeed-goodies/entry-pane-position 'right
-        elfeed-goodies/entry-pane-size 0.5
-        url-queue-parallel-processes 3
-        elfeed-search-filter "@6-months-ago +unread "))
 
 ;;==============================================
 ;; Remove Unnecessary Clutter
@@ -227,6 +205,11 @@
 
 (add-hook 'spacemacs-buffer-mode-hook
           (lambda () (hl-line-mode)))
+
+(use-package avy
+  :init
+  (progn
+    (evil-leader/set-key "o <SPC>" 'avy-goto-char-2)))
 
 (setq-default
  sentence-end-double-space t

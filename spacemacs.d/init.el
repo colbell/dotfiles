@@ -35,7 +35,6 @@ values."
      cnb-personal
      cnb-shrink-whitespace
      colors
-     elfeed
      emacs-lisp
      evil-cleverparens
      games
