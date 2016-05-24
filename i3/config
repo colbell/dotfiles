@@ -17,15 +17,18 @@ font pango:DejaVu Sans Mono 8
 
 # Colors
 set $fg     #2c2c2e
-set $bg     #9f9f9f
-set $ac     #ffffff
+# set $bg     #9f9f9f
+#set $bg     #ffffff
+set $bg     #000000
+set $ia     #9f9f9f
+#set $ac     #ffffff
 set $tx     #040404
-set $ia     #006633
+set $ac     #006633
 set $be     #8faf9f
 set $yw     #ccdc90
 set $gn     #88b090
-set $rd     #e89393
-set $hi     #FF0000
+set $rd     #FF0000
+set $hi     #FF8300
 
 #                           border     background  text
 client.focused              $bg        $bg         $hi
@@ -205,10 +208,10 @@ bar {
   position bottom
   mode hide
   status_command i3status
-  tray_output LVDS1
+  # tray_output LVDS1
   #status_command i3-status-cnb
   #status_command i3blocks
-  font pango:DejaVu Sans Mono 10
+  font pango:DejaVu Sans Mono 12
   colors {
     background $bg
     separator  $ac
@@ -231,7 +234,7 @@ exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/mate-power-manager
 exec --no-startup-id update-notifier --startup-delay=60
 exec --no-startup-id dropbox start -i
-exec --no-startup-id mpd
+# exec --no-startup-id mpd
 exec --no-startup-id /usr/bin/blueman-applet
 exec --no-startup-id /usr/bin/mate-volume-control-applet
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1
