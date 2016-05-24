@@ -231,7 +231,7 @@ exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/mate-power-manager
 exec --no-startup-id update-notifier --startup-delay=60
 exec --no-startup-id dropbox start -i
-# exec --no-startup-id mpd
+exec --no-startup-id mpd
 exec --no-startup-id /usr/bin/blueman-applet
 exec --no-startup-id /usr/bin/mate-volume-control-applet
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1
