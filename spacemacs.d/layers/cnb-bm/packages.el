@@ -21,6 +21,10 @@
                                   bm-show-all bm-next bm-previous)
     :defer t
 
+    :bind (("C-<f2>" . bm-toggle)
+           ("<f2>"   . bm-next)
+           ("S-<f2>" . bm-previous))
+
     :init
     (progn
       (setq bm-restore-repository-on-load t)
@@ -38,9 +42,9 @@
       (evil-leader/set-key "obp" 'bm-previous)
       (evil-leader/set-key "obt" 'bm-toggle)
 
-      (add-hook 'after-init-hook #'bm-repository-load)
-      (add-hook 'find-file-hooks #'bm-buffer-restore)
+      (add-hook 'after-init-hook  #'bm-repository-load)
+      (add-hook 'find-file-hooks  #'bm-buffer-restore)
       (add-hook 'kill-buffer-hook #'bm-buffer-save)
-      (add-hook 'kill-emacs-hook (lambda nil
-                                   (bm-buffer-save-all)
-                                   (bm-repository-save))))))
+      (add-hook 'kill-emacs-hook  (lambda nil
+                                    (bm-buffer-save-all)
+                                    (bm-repository-save))))))
