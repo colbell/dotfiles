@@ -9,6 +9,20 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+#############################################################
+#
+# FOR running under MATE
+#
+# Use dconf-editor to change
+#
+# org.mate.session.required-components.windowmanager to i3
+#
+# And remove filemanager from
+#
+# org.mate.session.required-components-list
+#
+#############################################################
+
 # Use Windoze key.
 set $mod Mod4
 
@@ -145,36 +159,36 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Move window.
-mode "moveit" {
-  bindsym h move left 20px
-  bindsym j move down 20px
-  bindsym k move up 20px
-  bindsym l move right 20px
+# mode "moveit" {
+#   bindsym h move left 20px
+#   bindsym j move down 20px
+#   bindsym k move up 20px
+#   bindsym l move right 20px
 
-  # back to normal: Enter or Escape
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
-}
-bindsym $mod+m mode "moveit"
+#   # back to normal: Enter or Escape
+#   bindsym Return mode "default"
+#   bindsym Escape mode "default"
+# }
+# bindsym $mod+m mode "moveit"
 
 # Resize window
-mode "resizeit" {
-  # These bindings trigger as soon as you enter the resize mode
+# mode "resizeit" {
+#   # These bindings trigger as soon as you enter the resize mode
 
-  # Pressing left will shrink the window’s width.
-  # Pressing right will grow the window’s width.
-  # Pressing up will shrink the window’s height.
-  # Pressing down will grow the window’s height.
-  bindsym h resize shrink width 10 px or 10 ppt
-  bindsym j resize grow height 10 px or 10 ppt
-  bindsym k resize shrink height 10 px or 10 ppt
-  bindsym l resize grow width 10 px or 10 ppt
+#   # Pressing left will shrink the window’s width.
+#   # Pressing right will grow the window’s width.
+#   # Pressing up will shrink the window’s height.
+#   # Pressing down will grow the window’s height.
+#   bindsym h resize shrink width 10 px or 10 ppt
+#   bindsym j resize grow height 10 px or 10 ppt
+#   bindsym k resize shrink height 10 px or 10 ppt
+#   bindsym l resize grow width 10 px or 10 ppt
 
-  # back to normal: Enter or Escape
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resizeit"
+#   # back to normal: Enter or Escape
+#   bindsym Return mode "default"
+#   bindsym Escape mode "default"
+# }
+# bindsym $mod+r mode "resizeit"
 
 # Lock screen
 bindsym $mod+mod1+l exec xscreensaver-command -lock
@@ -205,9 +219,11 @@ bar {
   position bottom
   mode hide
   status_command i3status
-  # tray_output LVDS1
   #status_command i3-status-cnb
   #status_command i3blocks
+  tray_output none
+  # tray_output LVDS1
+  # tray_output primary
   font pango:DejaVu Sans Mono 10
   colors {
     background $bg
@@ -222,21 +238,21 @@ bar {
 }
 
 # Autostart
-exec --no-startup-id /usr/bin/mate-settings-daemon
+# exec --no-startup-id /usr/bin/mate-settings-daemon
 exec --no-startup-id mate-terminal --window --role=cnbscratchpad
-exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=pkcs11
-exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
-exec --no-startup-id ~/.bin/xmenud.py --tray
-exec --no-startup-id /usr/bin/nm-applet
-exec --no-startup-id /usr/bin/mate-power-manager
-exec --no-startup-id update-notifier --startup-delay=60
-exec --no-startup-id dropbox start -i
-exec --no-startup-id mpd
-exec --no-startup-id /usr/bin/blueman-applet
-exec --no-startup-id /usr/bin/mate-volume-control-applet
-exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1
+# exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=pkcs11
+# exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
+# exec --no-startup-id ~/.bin/xmenud.py --tray
+# exec --no-startup-id /usr/bin/nm-applet
+# exec --no-startup-id /usr/bin/mate-power-manager
+# exec --no-startup-id update-notifier --startup-delay=60
+# exec --no-startup-id dropbox start -i
+# exec --no-startup-id mpd
+# exec --no-startup-id /usr/bin/blueman-applet
+# exec --no-startup-id /usr/bin/mate-volume-control-applet
+# exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1
 exec --no-startup-id /usr/bin/compton -b --config ~/.i3/compton.config
-exec --no-startup-id /usr/bin/variety
-exec --no-startup-id /usr/bin/parcellite
-exec --no-startup-id killall -w mate-screensaver
-exec --no-startup-id /usr/bin/xscreensaver -no-splash
+# exec --no-startup-id /usr/bin/variety
+# exec --no-startup-id /usr/bin/parcellite
+# exec --no-startup-id killall -w mate-screensaver
+# exec --no-startup-id /usr/bin/xscreensaver -no-splash
