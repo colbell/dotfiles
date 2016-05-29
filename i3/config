@@ -78,6 +78,10 @@ bindsym $mod+p exec rofi -show run
 # installed.
 bindsym $mod+Shift+p exec --no-startup-id i3-dmenu-desktop
 
+#
+# albert has been bound to $mod ' so don't use that
+#
+
 # Go to a window by title
 bindsym $mod+g exec rofi -show window
 
