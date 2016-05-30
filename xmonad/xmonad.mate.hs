@@ -97,7 +97,7 @@ myActiveBorderColor   = myHighlightedFgColor
 myInactiveBorderColor = "#89CFF0"
 
 myBarFont :: String
-myBarFont = "xft: inconsolata-14"
+myBarFont = "xft: inconsolata-12"
 
 myTabConfig :: Theme
 myTabConfig = defaultTheme {
@@ -134,6 +134,10 @@ myXPConfig = defaultXPConfig
 myFinder :: String -> String -> Bool
 myFinder = isInfixOf
 
+myStartup :: X ()
+myStartup = do
+          spawn "albert"
+
 main :: IO ()
 main = do
   putEnv "_JAVA_AWT_WM_NONREPARENTING=1"
@@ -146,6 +150,7 @@ main = do
              , normalBorderColor  = myInactiveBorderColor
              , focusedBorderColor = "#ff4500"
              , focusFollowsMouse  = True
+             , startupHook        = myStartup
              , terminal           = myPromptTerminal
              -- , clickJustFocuses   = False
              } `additionalKeys` keys'
@@ -169,7 +174,7 @@ main = do
                , ((myModMask .|. mod1Mask, xK_e), warpToScreen 1 (0.5) (0.5))
                , ((myModMask .|. mod1Mask, xK_r), warpToScreen 2 (0.5) (0.5))
 
-               , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#CC5500' -fn '-xos4-terminus-medium-r-*-*-14-*'")
+               , ((myModMask .|. shiftMask, xK_p), spawn "dmenu_run -nb '#000000' -nf '#DCDCCC' -sb '#000000' -sf '#FF4500' -fn '-xos4-terminus-medium-r-*-*-12-*'")
                , ((myModMask, xK_p), runOrRaisePrompt myXPConfig)
 
                , ((myModMask, xK_F12), scratchpadSpawnActionTerminal myPromptTerminal)
