@@ -32,6 +32,7 @@
 ;;==============================================
 (add-hook 'prog-mode-hook #'fci-mode)      ;; Indicate fill column.
 (add-hook 'prog-mode-hook #'rainbow-mode)
+;;(add-hook 'prog-mode-hook #'highlight-indentation-mode)
 
 ;;==============================================
 ;; source control configuration
