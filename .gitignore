@@ -10,6 +10,7 @@
 /centerim/pid
 /config/Code
 /config/Empathy/*
+/config/GitKraken/*
 /config/LightTable/*
 /config/QtProject.conf
 /config/Thunar/*
@@ -21,7 +22,8 @@
 /config/baloofilerc
 /config/breezerc
 /config/cairo-compmgr/*
-/config/caja/desktop-metadata
+/config/caja-actions/caja-actions.conf
+/config/caja/*
 /config/calibre/*
 /config/chromium/*
 /config/compiz-1/compizconfig/config
@@ -35,6 +37,7 @@
 /config/enchant/*
 /config/f-spot/*
 /config/folder-color/hide_donation
+/config/gmpc/
 /config/google-chrome/*
 /config/gtk-2.0/*
 /config/gtk-3.0/*
@@ -63,8 +66,10 @@
 /config/nitrogen/*
 /config/node-webkit
 /config/notificationhelper
+/config/nvim/.netrwhist
 /config/openbox/*
 /config/oxygen-gtk/argb-apps.conf
+/config/parcellite/parcelliterc
 /config/pcmanfm/*
 /config/plank
 /config/powerdevilrc
@@ -78,6 +83,7 @@
 /config/spotify
 /config/sqlgraph
 /config/sublime-text-2/*
+/config/synapse/config.json
 /config/synaptiks/management.json
 /config/synaptiks/touchpad-config.json
 /config/synaptiks/touchpad-defaults.json
@@ -90,12 +96,12 @@
 /config/update-notifier
 /config/user-dirs.dirs
 /config/user-dirs.locale
+/config/user-share/passwd
 /config/variety
 /config/vlc/vlc-qt-interface.conf
 /config/vlc/vlcrc
 /config/volumeicon/*
 /config/xfce4/*
-/emacs.d/
 /emacs.d.orig.orig/#*
 /emacs.d.orig/#.newsrc-dribble#
 /emacs.d.orig/.DS_Store
@@ -141,6 +147,7 @@
 /emacs.d.orig/sql_history
 /emacs.d.orig/tramp
 /emacs.d.orig/url/
+/emacs.d/
 /fonts/fonts.dir
 /lein/indices/
 /lein/repl-history
@@ -176,7 +183,3 @@
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
 emacs.d/.mc-lists.el
-/config/user-share/passwd
-/config/nvim/.netrwhist
-/config/gmpc/
-/config/synapse/config.json
