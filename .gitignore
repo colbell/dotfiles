@@ -83,7 +83,6 @@
 /config/spotify
 /config/sqlgraph
 /config/sublime-text-2/*
-/config/synapse/config.json
 /config/synaptiks/management.json
 /config/synaptiks/touchpad-config.json
 /config/synaptiks/touchpad-defaults.json
