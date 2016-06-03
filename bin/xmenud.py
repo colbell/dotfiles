@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# From http://mad.unserver.de/2010/xmonad/xmenud/
+# From https://github.com/themad/xmenud
 # xmenud - a small desktop menu
+#
+
+#
+# Modified - Colin Bell - display Mate menus.
 #
 
 # for launching the app
