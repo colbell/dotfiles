@@ -14,7 +14,7 @@ import XMonad.Actions.Warp
 import XMonad.Actions.WindowMenu
 
 import XMonad.Config.Desktop (desktopLayoutModifiers)
-import XMonad.Config.Mate -- In ~/.xmonad/lib/XMonad/Config
+import XMonad.Config.Mate
 
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ShowWName
@@ -46,7 +46,7 @@ myTerminal = "mate-terminal"
 manageScratchPad :: ManageHook
 manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
     where
-      h = 0.6          -- terminal height
+      h = 0.8          -- terminal height
       w = 0.9          -- terminal width
       t = (1 - h) / 2  -- distance from top edge
       l = (1 - w) / 2  -- distance from left edge
@@ -54,6 +54,8 @@ manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
 myManageHook :: ManageHook
 myManageHook = manageScratchPad <+>composeAll (
     [ manageHook mateConfig
+    , className =? "albert"            --> doFloat
+    , className =? "Do"                --> doFloat
     , className =? "Tilda"             --> doFloat
     , className =? "Guake.py"          --> doFloat
     , className =? "guake"             --> doFloat
@@ -70,6 +72,7 @@ myManageHook = manageScratchPad <+>composeAll (
     , className =? "Knotes"            --> doFloat
     , className =? "Klipper"           --> doFloat
     , className =? "stjerm"            --> doFloat
+    , className =? "synapse"           --> doFloat
     , className =? "XCalc"             --> doFloat
     , className =? "Kcalc"             --> doFloat
     , className =? "ksmserver"         --> doIgnore
@@ -134,9 +137,11 @@ myXPConfig = defaultXPConfig
 myFinder :: String -> String -> Bool
 myFinder = isInfixOf
 
+-- Autostarted programs. NOTE: Reloading xmonad will cause this to be
+-- executed.
 myStartup :: X ()
 myStartup = do
-          spawn "albert"
+          spawn "compton"
 
 main :: IO ()
 main = do
@@ -144,7 +149,7 @@ main = do
   xmonad $ mateConfig {
                workspaces         = myWorkspaces
              , manageHook         = myManageHook
-             , borderWidth        = 1
+             , borderWidth        = 2
              , modMask            = myModMask
              , layoutHook         = myLayout
              , normalBorderColor  = myInactiveBorderColor
@@ -179,6 +184,8 @@ main = do
 
                , ((myModMask, xK_F12), scratchpadSpawnActionTerminal myPromptTerminal)
                , ((myModMask, xK_F2),  spawn "~/bin/xmenud.py")
+
+               , ((myModMask .|. mod1Mask, xK_l), spawn "mate-screensaver-command --lock")
                ]
               ++
               [((m .|. myModMask, k), windows $ f i) -- Don't use Greedy view
