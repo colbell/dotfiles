@@ -1,0 +1,43 @@
+#!/bin/sh
+
+# . /opt/elasticbeanstalk/containerfiles/envvars
+
+now=$(date +"%Y-%m-%d_%H-%M-%S")
+
+s3syncdata=~/s3-folio-prod/
+dbfile="bup_$now.sql.tar"
+attsfile="bup_$now.attachments.tgz"
+
+s3attach_bucket=s3://folio-prod
+s3backups_bucket="s3://backups-folio"
+
+export AWS_SECRET_ACCESS_KEY=b0zGAcKkzYZvkP3C4CjlcGRSeezQ4IE2YyUNND0d
+export AWS_SECRET_KEY=b0zGAcKkzYZvkP3C4CjlcGRSeezQ4IE2YyUNND0d
+export AWS_ACCESS_KEY_ID=AKIAIMA7Z5M5UZLD3OFQ
+
+export RDS_HOSTNAME=aa1bonmdpq6lido.cenrpq16gj51.ap-southeast-2.rds.amazonaws.com
+export RDS_DB_NAME=ebdb
+export RDS_PASSWORD=gy45dfh832hjy
+export RDS_USERNAME=folio
+
+# Backup the database.
+export PGPASSWORD=$RDS_PASSWORD
+pg_dump -f "/tmp/$dbfile" -Ft -v -d $RDS_DB_NAME -h $RDS_HOSTNAME -U $RDS_USERNAME
+
+# Create sync dir if it doesn't exist.
+if [ ! -d $s3syncdata ]; then
+  mkdir $s3syncdata
+fi
+
+# Sync document attachments etc. from S3 bucket and create
+# A compressed tar file from it.
+aws s3 sync $s3attach_bucket $s3syncdata
+tar -czf "/tmp/$attsfile" -C $s3syncdata $s3syncdata
+
+# Copy the db and attachments backups to the backup s3 area.
+aws s3 cp "/tmp/$dbfile" "$s3backups_bucket/folio-prod/$dbfile"
+aws s3 cp "/tmp/$attsfile" "$s3backups_bucket/folio-prod/$attsfile"
+
+# Remove work files.
+rm "/tmp/$dbfile"
+rm "/tmp/$attsfile"

@@ -4,4 +4,5 @@ aws-auth,yellow,black
 aws-risk,black,yellow
 aws-sandbox,black,white
 aws-prod,red,black
+aws-prod1,red,black
 aws-backups,black,gray
