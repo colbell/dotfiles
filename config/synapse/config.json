@@ -1,5 +1,8 @@
 {
   "ui" : {
+    "global" : {
+      "ui-type" : "side-doish"
+    },
     "shortcuts" : {
       "activate" : "<Super>apostrophe",
       "execute" : "Return",
@@ -21,9 +24,6 @@
       "paste" : "<Control>v",
       "alt-paste" : "<Shift>Insert",
       "exit" : "<Control>q"
-    },
-    "global" : {
-      "ui-type" : "side-doish"
     }
   }
 }
