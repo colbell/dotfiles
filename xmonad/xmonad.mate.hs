@@ -1,4 +1,19 @@
 -- -*- mode: haskell; -*-
+
+-- #############################################################
+-- #
+-- # FOR running under MATE
+-- #
+-- # Use dconf-editor to change
+-- #
+-- # org.mate.desktop.session.required-components.windowmanager to xmonad
+-- #
+-- # And remove filemanager from
+-- #
+-- # org.mate.desktop.required-components-list
+-- #
+-- #############################################################
+
 import Data.List
 
 import System.Posix.Env (putEnv)
