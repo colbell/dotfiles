@@ -7,7 +7,7 @@ fi
 if grep -q 'ID_LIKE=debian' /etc/os-release; then
   alias apttiude='aptitude'
   alias apttidue='aptitude'
-  alias pkg-update='sudo aptitude update && sudo aptitude dist-upgrade'
+  alias pkg-update='sudo apt update && sudo apt dist-upgrade'
 fi
 
 alias sduo=sudo

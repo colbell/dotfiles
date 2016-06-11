@@ -126,7 +126,7 @@ URxvt*color15: white
 XTerm*faceName: Source Code Pro
 XTerm*faceSize: 12
 !XTerm*eightBitInput: false
-!XTerm*metaSendsEscape: true
+XTerm*metaSendsEscape: true
 XTerm*loginShell: true
 XTerm*cursorBlink: true
 

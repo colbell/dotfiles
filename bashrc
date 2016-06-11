@@ -8,7 +8,7 @@ if [ -f /usr/local/share/config/term_colors ]; then
   source /usr/local/share/config/term_colors
 fi
 
-export PAGER='most'
+#export PAGER='most'
 
 export HISTFILESIZE=1000
 export HISTSIZE=1000
