@@ -200,7 +200,8 @@ main = do
                , ((myModMask, xK_F12), scratchpadSpawnActionTerminal myPromptTerminal)
                , ((myModMask, xK_F2),  spawn "~/bin/xmenud.py")
 
-               , ((myModMask .|. mod1Mask, xK_l), spawn "mate-screensaver-command --lock")
+               , ((myModMask , xK_l),             spawn "mate-screensaver-command --lock")
+               , ((myModMask .|. mod1Mask, xK_l), spawn "systemctl suspend")
                ]
               ++
               [((m .|. myModMask, k), windows $ f i) -- Don't use Greedy view

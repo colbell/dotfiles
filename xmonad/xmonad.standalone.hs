@@ -223,7 +223,8 @@ main = do
                , ((myModMask, xK_F12), scratchpadSpawnActionTerminal myPromptTerminal)
                , ((myModMask, xK_F2),  spawn "~/bin/xmenud.py")
 
-               , ((myModMask .|. mod1Mask, xK_l), spawn "xscreensaver-command -lock")
+               , ((myModMask, xK_l),              spawn "xscreensaver-command -lock")
+               , ((myModMask .|. mod1Mask, xK_l), spawn "systemctl suspend")
 
                , ((myModMask .|. shiftMask, xK_q), logoutWithWarning)
                ]
