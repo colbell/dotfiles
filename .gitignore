@@ -184,3 +184,5 @@
 emacs.d/.mc-lists.el
 /config/atril/
 /config/mc/
+/config/pulse/
+/config/wireshark/
