@@ -50,7 +50,7 @@ myWorkspaces = ["1-emacs", "2-shell", "3-web", "4-fm", "5", "6", "7-ssh",
 myPromptTerminal :: String
 myPromptTerminal = "xterm"
 
--- Terminal to use for <CTRL><ENTER>.
+-- Terminal to use for <WIN><ENTER>.
 myTerminal :: String
 myTerminal = "mate-terminal"
 
