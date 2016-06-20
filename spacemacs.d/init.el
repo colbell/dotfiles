@@ -139,6 +139,12 @@ values."
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
+   ;; dotspacemacs-default-font '("Input"
+   ;;                             :size 13
+   ;;                             :weight normal
+   ;;                             :width normal
+   ;;                             :powerline-scale 1.1)
+
    ;; The leader key
    dotspacemacs-leader-key "SPC"
 

@@ -117,6 +117,7 @@
   (superword-mode)
   (hs-minor-mode)
 
+  (spacemacs/helm-gtags-define-keys-for-mode 'ruby-mode)
 
   ;;(setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
   (setq imenu-generic-expression
