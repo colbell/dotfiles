@@ -49,7 +49,7 @@ myModMask = mod4Mask
 
 myWorkspaces :: [WorkspaceId]
 myWorkspaces = ["1-emacs", "2-shell", "3-web", "4-fm", "5", "6", "7-ssh",
-                "8-im", "9-mail"]
+                "8-vm", "9-mail"]
 
 -- Mate/gnome terminals don't work for ssh/man prompts etc.
 myPromptTerminal :: String
