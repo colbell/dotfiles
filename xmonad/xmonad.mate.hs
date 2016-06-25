@@ -96,7 +96,7 @@ myManageHook = manageScratchPad <+>composeAll (
 
 myLayout = smartBorders $ showWName' mySWNConfig $
            desktopLayoutModifiers
-           (Full ||| tiled ||| mirrorTiled ||| tabbed shrinkText myTabConfig)
+           (mirrorTiled ||| tiled ||| Full ||| tabbed shrinkText myTabConfig)
     where
       tiled       = Tall nmaster delta ratio
       nmaster     = 1
