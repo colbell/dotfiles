@@ -121,12 +121,12 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(zenburn
+   dotspacemacs-themes '(spacemacs-dark
+                         spacemacs-light
+                         zenburn
                          leuven
                          solarized-dark
-                         solarized-light
-                         spacemacs-dark
-                         spacemacs-light)
+                         solarized-light)
 
 
    ;; If non nil the cursor color matches the state color.
@@ -181,7 +181,7 @@ values."
    dotspacemacs-use-ido nil
 
    ;; If non nil, `helm' will try to miminimize the space it uses. (default nil)
-   dotspacemacs-helm-resize nil
+   dotspacemacs-helm-resize t
 
    ;; if non nil, the helm header is hidden when there is only one source.
    ;; (default nil)
@@ -212,7 +212,7 @@ values."
 
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
 
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
