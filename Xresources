@@ -1,5 +1,4 @@
 !!! .Xresources file !!!
-! Comments start with !, C style #define statements can be used only if
 ! this file is processed with xrdb -merge $HOME/.Xresources
 
 Xft.antialias: 1
@@ -124,24 +123,24 @@ URxvt*color15: white
 
 ! XTerm*faceName: Inconsolata
 XTerm*faceName: Source Code Pro
-XTerm*faceSize: 12
-!XTerm*eightBitInput: false
+XTerm*faceSize: 13
+! !XTerm*eightBitInput: false
 XTerm*metaSendsEscape: true
-XTerm*loginShell: true
+! XTerm*loginShell: true
 XTerm*cursorBlink: true
 
-xterm*termName: xterm-256color
+! xterm*termName: xterm-256color
 
-XTerm*background:  #000000
-XTerm*foreground:  #ffffff
-XTerm*color0: black
-XTerm*color1: red
-XTerm*color2: green
-XTerm*color3: yellow
-XTerm*color4: blue
-XTerm*color5: magenta
-XTerm*color6: cyan
-XTerm*color7: white
+! XTerm*background:  #000000
+! XTerm*foreground:  #ffffff
+! XTerm*color0: black
+! XTerm*color1: red
+! XTerm*color2: green
+! XTerm*color3: yellow
+! XTerm*color4: blue
+! XTerm*color5: magenta
+! XTerm*color6: cyan
+! XTerm*color7: white
 
 ! Zenburn
 ! XTerm*background:  #3f3f3f
