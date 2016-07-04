@@ -41,7 +41,7 @@
     ;; :lang/latex
     ;; :lang/elixir
     ;;:lang/markdown
-    ;;:lang/ruby
+    :lang/ruby
     ;; :lang/rust
     :lang/javascript
 
