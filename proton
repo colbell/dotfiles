@@ -33,9 +33,9 @@
     ;; -----------------------------------
     ;;:lang/clojure
     ;; :lang/csharp
-    ;;:lang/css
-    ;;:lang/haml
-    ;;:lang/html
+    :lang/css
+    :lang/haml
+    :lang/html
     ;;:lang/python
     ;; :lang/julia
     ;; :lang/latex
