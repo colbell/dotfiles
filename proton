@@ -19,7 +19,7 @@
     ;; Get more at github.com/dvcrn/proton/tree/master/src/proton/layers/tools
     ;; -----------------------------------
     :tools/git
-    ;; :tools/linter
+    :tools/linter
     :tools/bookmarks
     ;; :tools/build
     :tools/terminal
