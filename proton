@@ -1,4 +1,5 @@
 {
+
   ;; This is your main proton configuration file
   ;; While using proton, all atom related configuration has to go inside here
   ;; Everything that is not set up through this file will get wiped on start
@@ -23,7 +24,7 @@
     :tools/bookmarks
     ;; :tools/build
     :tools/terminal
-    ;; :tools/todo
+    :tools/todo
     ;; :tools/minimap
 
 
@@ -31,19 +32,22 @@
     ;; Languages
     ;; Get more at github.com/dvcrn/proton/tree/master/src/proton/layers/lang
     ;; -----------------------------------
-    ;;:lang/clojure
+    :lang/clojure
     ;; :lang/csharp
     :lang/css
     :lang/haml
+    :lang/haskell
     :lang/html
-    ;;:lang/python
+    :lang/javascript
+    :lang/json
     ;; :lang/julia
     ;; :lang/latex
     ;; :lang/elixir
-    ;;:lang/markdown
+    :lang/markdown
+    :lang/python
     :lang/ruby
+    :lang/sass
     ;; :lang/rust
-    :lang/javascript
 
     ;; -----------------------------------
     ;; Frameworks
@@ -84,10 +88,12 @@
   :configuration
   [
     ;; appearance
-    ["editor.fontFamily" "Source Code Pro"]
-
+    ["editor.fontFamily" "inconsolata"]
+    ["editor.fontSize" 14]
+    ["editor.showIndentGuide" true]
     ;; the current default theme
-    ["core.themes" ["nucleus-dark-ui" "atom-dark-fusion-syntax"]]
+    ["core.themes" ["nucleus-dark-ui" "zenburn"]]
+    ;; ["core.themes" ["nucleus-dark-ui" "atom-dark-fusion-syntax"]]
     ;; here are some more popular theme ideas for you to pick from:
     ;; ["core.themes" ["atom-material-ui" "atom-material-syntax"]]
     ;; ["core.themes" ["one-dark-ui" "one-dark-syntax"]]
@@ -98,10 +104,18 @@
 
     ;; prefer classic vim mode over vim-mode-plus? Change this to :vim-mode
     ["proton.core.vim-provider" :vim-mode-plus]
+
+    ;; Recent files fuzzy finder config.
+    ["recent-files-fuzzy-finder.restoreSession" true]
+    ["recent-files-fuzzy-finder.maxFilesToRemember" 512]
+
+    ;; Project PLus configuration
+    ["project-plus.autoDiscover" false]
   ]
 
   ;; Don't like a keybinding or want to add something yourself? Do it here
-  :keybindings {}
+  :keybindings {
+  }
 
   ;; Want some custom behavior inside a certain window?
   ;; Add your own nifty things here!
@@ -110,5 +124,6 @@
             ;; If you are good with esc, just remove the following line.
             {:selector "atom-text-editor.vim-mode-plus:not(.normal-mode)" :keymap [["f d" "vim-mode-plus:activate-normal-mode"]]}
             ;; {:selector "atom-text-editor.vim-mode:not(.normal-mode)" :keymap [["f d" "vim-mode:activate-normal-mode"]]}
+            {:selector "atom-text-editor.vim-mode-plus:not(.insert-mode)" :keymap [["shift-Y" "vim-mode-plus:yank-to-last-character-of-line"]]}
   ]
 }
