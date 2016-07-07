@@ -1,16 +1,13 @@
 # -*- shell-script -*-
 
-
-if [[ `uname`=='FreeBSD' ]]; then
+if [[ "$OSTYPE" =~ ^"FreeBSD" ]] then
   alias pkg-update='sudo pkg update'
-
 elif [[ -f /etc/os-release ]]; then
-  echo 'ww'
-  if [[`grep -q 'ID=arch' /etc/os-release`]]; then
+  if grep -q 'ID=arch' /etc/os-release; then
     alias pkg-update='sudo etckeeper pre-install && sudo pacman -Syu && sudo etckeeper post-install'
   fi
 
-  if [[`grep -q 'ID_LIKE=debian' /etc/os-release`]]; then
+  if grep -q 'ID_LIKE=debian' /etc/os-release; then
     alias apttiude='aptitude'
     alias apttidue='aptitude'
     alias pkg-update='sudo apt update && sudo apt full-upgrade'
