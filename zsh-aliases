@@ -1,6 +1,5 @@
-# -*- shell-script -*-
 
-if [[ "$OSTYPE" =~ ^"FreeBSD" ]] then
+if [[ "$OSTYPE" =~ ^freebsd ]]; then
   alias pkg-update='sudo pkg update'
 elif [[ -f /etc/os-release ]]; then
   if grep -q 'ID=arch' /etc/os-release; then
