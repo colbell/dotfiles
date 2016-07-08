@@ -175,3 +175,5 @@ fi
 if [ -f /usr/local/share/config/dhammapada ]; then
   source /usr/local/share/config/dhammapada
 fi
+
+# export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
