@@ -203,7 +203,7 @@
 
 (use-package crosshairs
   :commands flash-crosshairs
-  :bind (("<f11>" . flash-crosshairs)))
+  :bind (("<f9>" . flash-crosshairs)))
 
 (add-hook 'spacemacs-buffer-mode-hook
           (lambda () (hl-line-mode)))
