@@ -121,13 +121,13 @@ URxvt*color15: white
 ! urxvt*color15:     #ffffff
 
 
-! XTerm*faceName: Inconsolata
-XTerm*faceName: Source Code Pro
-XTerm*faceSize: 13
+UXTerm*faceName: Inconsolata
+! UXTerm*faceName: Source Code Pro
+UXTerm*faceSize: 13
 ! !XTerm*eightBitInput: false
-XTerm*metaSendsEscape: true
+UXTerm*metaSendsEscape: true
 ! XTerm*loginShell: true
-XTerm*cursorBlink: true
+UXTerm*cursorBlink: true
 
 ! xterm*termName: xterm-256color
 
