@@ -33,6 +33,8 @@ export GTK_IM_MODULE=ibus
 export QT_IM_MODULE=ibus
 export CLUTTER_IM_MODULE=ibus
 
+export GTK_OVERLAY_SCROLLING=0
+
 # Fix for running swing app under awesome
 #export AWT_TOOLKIT=MToolkit
 

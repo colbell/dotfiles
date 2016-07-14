@@ -196,3 +196,5 @@
 /xmonad/xmonad.o
 emacs.d/.mc-lists.el
 /config/yelp/yelp.cfg
+/config/Atom
+/config/eog/accels
