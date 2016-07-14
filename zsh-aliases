@@ -15,7 +15,8 @@ fi
 
 alias sduo=sudo
 
-alias h='history 1'
+# alias h='history 1'
+alias h='history'
 
 alias openports='netstat --all --numeric --programs --inet'
 
