@@ -10,8 +10,8 @@ Xft.rgba: rgb
 ! ------------------------------------------------------------------------------
 ! ROFI
 ! ------------------------------------------------------------------------------
-rofi.terminal: xterm
-! Dev version of rofi allows color schemes fs
+rofi.terminal: gnome-terminal
+! Dev version of rofi allows color schemes
 rofi.color-enabled:                  true
 ! Color scheme for normal row
 rofi.color-normal:                   argb:00000000,  #D8DEE9 , argb:00000000,  #FAC863 ,  #1B2B34
@@ -25,8 +25,9 @@ rofi.color-window:                   argb:ee222222,  #FAC863 ,  #FAC863
 rofi.separator-style:                solid
 ! ssh command - start screen
 ! rofi.ssh-command:                    xterm ssh {host} 'screen -r'
-rofi.ssh-command:                    {terminal} -e {ssh-client} {host}
+! rofi.ssh-command:                    {terminal} -e {ssh-client} {host}
 ! rofi.ssh-command:                    {terminal} -e "{ssh-client} {host} screen -dR"
+rofi.ssh-command:                      {terminal} -e "{ssh-client} {host}"
 
 !Emacs.background: white
 !Emacs.foreground: black
