@@ -10,8 +10,8 @@ Xft.rgba: rgb
 ! ------------------------------------------------------------------------------
 ! ROFI
 ! ------------------------------------------------------------------------------
-rofi.terminal: gnome-terminal
-! Dev version of rofi allows color schemes
+rofi.terminal:                       gnome-terminal
+rofi.sidebar-mode:                   true
 rofi.color-enabled:                  true
 ! Color scheme for normal row
 rofi.color-normal:                   argb:00000000,  #D8DEE9 , argb:00000000,  #FAC863 ,  #1B2B34
