@@ -28,13 +28,14 @@ values."
      cnb-bm
      cnb-bug-reference
      (mu4e :variables
-            mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e")
+           mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e")
      cnb-dired-narrow
      cnb-mu4e
      cnb-muttrc
-     cnb-personal
+     ;;cnb-personal
      cnb-shrink-whitespace
      colors
+     csv
      emacs-lisp
      evil-cleverparens
      games
@@ -122,7 +123,8 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(solarized-dark
+   dotspacemacs-themes '(spolsky
+                         solarized-dark
                          solarized-light
                          zenburn
                          spacemacs-dark
@@ -273,7 +275,7 @@ values."
    ;; Delete whitespace while saving buffer.
    dotspacemacs-whitespace-cleanup 'changed))
 
-   ;; dotspacemacs-auto-resume-layouts nil))
+;; dotspacemacs-auto-resume-layouts nil))
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
@@ -290,6 +292,245 @@ It is called immediately after `dotspacemacs/init'."
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+
+  ;; Remove Unnecessary Clutter
+  (setq use-file-dialog nil)
+  (setq use-dialog-box nil)
+
+  ;;==============================================
+  ;; Rainbow mode
+  ;;==============================================
+  (setq rainbow-html-colors t)
+  (setq rainbow-x-colors t)
+
+  ;;==============================================
+  ;; conf-mode configuration
+  ;;==============================================
+  (add-hook 'conf-mode-hook #'linum-mode)
+
+  ;;==============================================
+  ;; prog-mode configuration
+  ;;==============================================
+  (add-hook 'prog-mode-hook #'fci-mode)      ;; Indicate fill column.
+  (add-hook 'prog-mode-hook #'rainbow-mode)
+  ;;(add-hook 'prog-mode-hook #'highlight-indentation-mode)
+
+  ;;==============================================
+  ;; source control configuration
+  ;;==============================================
+  (add-hook 'after-init-hook
+            (lambda ()
+              (setq-default git-magit-status-fullscreen t)
+              (global-git-commit-mode t)))
+
+  ;;==============================================
+  ;; RECENTF configuration
+  ;;==============================================
+  (with-eval-after-load 'recentf
+    ;; Files to ignore in recent files.
+    (add-to-list 'recentf-exclude "~$")
+    (add-to-list 'recentf-exclude "tmp")
+    (add-to-list 'recentf-exclude "/ssh:")
+    (add-to-list 'recentf-exclude "/sudo:")
+    (add-to-list 'recentf-exclude "TAGS")
+    (add-to-list 'recentf-exclude "/\\.git/.*\\'")
+    (add-to-list 'recentf-exclude recentf-save-file)
+
+    ;; Because .emacs.d is a symlink to dotfiles/emacs.d a file can have two
+    ;; names so we also need to ignore the one in dotfiles.
+    (add-to-list 'recentf-exclude (file-truename "~/dotfiles/emacs.d/elpa"))
+    (add-to-list 'recentf-exclude
+                 (file-truename "~/dotfiles/emacs.d/.cache/")))
+
+  ;;==============================================
+  ;; DIRED configuration
+  ;;==============================================
+  (setq dired-listing-switches "-alhG --group-directories-first")
+
+  (add-hook 'dired-mode-hook
+            (lambda () (hl-line-mode)))
+
+  ;; Preview files in dired.
+  (use-package peep-dired
+    :defer t)
+
+  (with-eval-after-load 'dired
+    (evil-define-key 'normal dired-mode-map
+      (kbd "P") 'peep-dired)
+
+    (evil-define-key 'normal peep-dired-mode-map
+      (kbd "<SPC>") 'peep-dired-scroll-page-down
+      (kbd "C-<SPC>") 'peep-dired-scroll-page-up
+      (kbd "<backspace>") 'peep-dired-scroll-page-up
+      (kbd "j") 'peep-dired-next-file
+      (kbd "k") 'peep-dired-prev-file)
+
+    (add-hook 'peep-dired-hook #'evil-normalize-keymaps))
+
+  ;;==============================================
+  ;; IBUFFER configuration
+  ;;==============================================
+  (setq ibuffer-show-empty-filter-groups nil)
+
+
+  ;;==============================================
+  ;; RUBY configuration
+  ;;==============================================
+
+  (use-package rubocop
+    :ensure t
+    :commands rubocop-mode
+    :diminish rubocop-mode)
+
+  (setq ruby-version-manager 'rvm)
+
+  (with-eval-after-load 'hideshow
+    (add-to-list 'hs-special-modes-alist
+                 `(ruby-mode
+                   ,(rx (or "def" "class" "module" "{" "[")) ; Block start
+                   ,(rx (or "}" "]" "end"))                  ; Block end
+                   ,(rx (or "#" "=begin"))                   ; Comment start
+                   ruby-forward-sexp nil)))
+
+  (defun cnb/ruby-setup ()
+    (rvm-activate-corresponding-ruby)
+    (superword-mode)
+    (hs-minor-mode)
+
+    (spacemacs/helm-gtags-define-keys-for-mode 'ruby-mode)
+
+    ;;(setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
+    (setq imenu-generic-expression
+          '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1)
+            ("Examples" "^\\( *\\(its?\\|specify\\|example\\|describe\\|context\\|feature\\|scenario\\) +.+\\)" 1))))
+
+  (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
+
+  ;;==============================================
+  ;; CLOJURE configuration
+  ;;==============================================
+
+  (setq cider-auto-select-error-buffer nil)
+
+  (use-package clojure-mode-extra-font-locking
+    :config
+    (require 'clojure-mode-extra-font-locking))
+
+  ;;==============================================
+  ;; ORG configuration
+  ;;==============================================
+
+  (with-eval-after-load 'org
+    (require 'ob-tangle)
+    (setq org-directory "~/Dropbox/org/")
+    (setq org-agenda-files
+          (list (concat org-directory "personal.org")
+                (concat org-directory "kwela.org")
+                (concat org-directory "notes.org")))
+    (setq org-todo-keywords
+          (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
+                  (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
+
+    ;; Allow refiling to any agenda file.
+    (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                     (org-agenda-files :maxlevel . 9))))
+
+    (setq org-capture-templates
+          '(("t" "todo" entry (file+headline (concat org-directory "personal.org") "Tasks")
+             "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
+
+    ;; Allow refile to create parent tasks with confirmation
+    ;;(setq org-refile-allow-creating-parent-nodes (quote confirm))
+    )
+
+  (add-hook
+   'after-save-hook
+   #'executable-make-buffer-file-executable-if-script-p)
+
+  ;; From http://www.emacswiki.org/emacs-en/ToggleWindowSplit
+  (defun cnb/toggle-frame-split ()
+    "If the frame is split vertically, split it horizontally or vice versa.
+  Assumes that the frame is only split into two. "
+    (interactive)
+    (unless (= (length (window-list)) 2)
+      (error "Can only toggle a frame split in two"))
+    (let ((split-vertically-p (window-combined-p)))
+      (delete-window) ; closes current window
+      (if split-vertically-p
+          (split-window-horizontally)
+        (split-window-vertically)) ; gives us a split with the other win twice
+      (switch-to-buffer nil))) ; restore the orig  win in this part of the frame
+
+  (define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
+
+  ;; Never lose the cursor again.
+  (use-package beacon
+    :diminish beacon-mode
+    :commands beacon-mode)
+
+  (add-hook
+   'after-init-hook (lambda ()
+                      (progn
+                        (spacemacs/toggle-evil-cleverparens-on)
+                        (setq beacon-blink-duration 1.0)
+                        (beacon-mode))))
+
+
+  (use-package crosshairs
+    :commands flash-crosshairs
+    :bind (("<f9>" . flash-crosshairs)))
+
+  (add-hook 'spacemacs-buffer-mode-hook
+            (lambda () (hl-line-mode)))
+
+  (use-package avy
+    :init
+    (progn
+      (evil-leader/set-key "o <SPC>" 'avy-goto-char-2)))
+
+  (setq imenu-list-auto-resize nil)
+
+
+  (setq-default
+   sentence-end-double-space t
+   js2-basic-offset 2
+   js-indent-level 2
+
+   ;; Use a visible bell instead of a beep.
+   visible-bell t
+
+   ;; Always start a new tags list.
+   tags-add-tables nil
+
+   ;; When opening files follow all symbolic links.
+   find-file-visit-truename t
+
+   ;; I've got some TAGS files that are nearly 20MB in size.
+   large-file-warning-threshold 20000000
+
+   ;; Powerline config
+   ;;powerline-default-separator 'arrow
+
+   imenu-auto-rescan t
+
+   ;;browse-url-browser-function 'browse-url-firefox
+   browse-url-browser-function 'browse-url-generic
+   browse-url-generic-program "chromium-browser"
+
+   ;; C-l first position to top.
+   recenter-positions '(top middle bottom))
+
+  (global-hl-line-mode 0)
+
+  (add-to-list
+   'display-buffer-alist
+   `(,(rx bos "*rspec-compilation*" eos)
+     (display-buffer-reuse-window)
+     (reusable-frames . t)))
+
+  (mouse-avoidance-mode 'exile)
+
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -337,7 +578,7 @@ layers configuration. You are free to put any user code."
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (zonokai-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stekene-theme spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme pastels-on-dark-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme firebelly-theme farmhouse-theme espresso-theme dracula-theme django-theme darktooth-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme colorsarenice-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme helm-gtags ggtags haskell-mode zenburn-theme dash clojure-mode-extra-font-locking solarized-theme rake alert log4e gntp markdown-mode json-snatcher json-reformat js2-mode parent-mode request haml-mode gitignore-mode fringe-helper git-gutter+ git-gutter flx with-editor iedit anzu simple-httpd ace-jump-mode noflet powerline popwin elfeed dired-hacks-utils col-highlight hl-line+ vline web-completion-data dash-functional tern pos-tip inflections edn multiple-cursors paredit s peg eval-sexp-fu highlight spinner pkg-info epl async popup package-build bind-key bind-map kibit-helper f projectile auto-complete evil avy company magit-popup helm inf-ruby magit git-commit packed smartparens flycheck hydra org-plus-contrib cider helm-core yasnippet which-key yaml-mode xterm-color ws-butler window-numbering web-mode web-beautify w3m volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-mode rainbow-identifiers rainbow-delimiters queue quelpa projectile-rails persp-mode peep-dired pcre2el paradox page-break-lines pacmacs orgit org-repo-todo org-present org-pomodoro open-junk-file neotree muttrc-mode multi-term mu4e-maildirs-extension move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mu4e evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies dired-narrow diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clojure-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bracketed-paste bm beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+    (imenu-list csv-mode uuidgen typit mmt org-projectile org-download mu4e-alert ht livid-mode skewer-mode link-hint git-link flyspell-correct-helm flyspell-correct eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff eshell-z darkokai-theme company-shell column-enforce-mode color-identifiers-mode clojure-snippets zonokai-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stekene-theme spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme pastels-on-dark-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme firebelly-theme farmhouse-theme espresso-theme dracula-theme django-theme darktooth-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme colorsarenice-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme helm-gtags ggtags haskell-mode zenburn-theme dash clojure-mode-extra-font-locking solarized-theme rake alert log4e gntp markdown-mode json-snatcher json-reformat js2-mode parent-mode request haml-mode gitignore-mode fringe-helper git-gutter+ git-gutter flx with-editor iedit anzu simple-httpd ace-jump-mode noflet powerline popwin elfeed dired-hacks-utils col-highlight hl-line+ vline web-completion-data dash-functional tern pos-tip inflections edn multiple-cursors paredit s peg eval-sexp-fu highlight spinner pkg-info epl async popup package-build bind-key bind-map kibit-helper f projectile auto-complete evil avy company magit-popup helm inf-ruby magit git-commit packed smartparens flycheck hydra org-plus-contrib cider helm-core yasnippet which-key yaml-mode xterm-color ws-butler window-numbering web-mode web-beautify w3m volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-mode rainbow-identifiers rainbow-delimiters queue quelpa projectile-rails persp-mode peep-dired pcre2el paradox page-break-lines pacmacs orgit org-repo-todo org-present org-pomodoro open-junk-file neotree muttrc-mode multi-term mu4e-maildirs-extension move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mu4e evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies dired-narrow diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clojure-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bracketed-paste bm beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
  '(paradox-github-token t)
  '(pos-tip-background-color "#eee8d5")
  '(pos-tip-foreground-color "#586e75")
