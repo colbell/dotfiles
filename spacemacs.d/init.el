@@ -27,10 +27,7 @@ values."
      clojure
      cnb-bm
      cnb-bug-reference
-     (mu4e :variables
-           mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e")
      cnb-dired-narrow
-     cnb-mu4e
      cnb-muttrc
      ;;cnb-personal
      cnb-shrink-whitespace
@@ -43,8 +40,10 @@ values."
      gtags
      html
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
+     ivy
      javascript
      markdown
+     nlinum
      org
      (shell :variables
             shell-default-height 30
@@ -67,14 +66,11 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in 'dotspacemacs/config'.
-   dotspacemacs-additional-packages '(beacon
-                                      clojure-mode-extra-font-locking
+   dotspacemacs-additional-packages '(clojure-mode-extra-font-locking
                                       crosshairs
                                       haskell-mode
                                       rubocop
                                       peep-dired
-                                      mu4e-maildirs-extension
-                                      evil-mu4e
                                       kibit-helper;; Clojure static code analyzer
                                       w3m)
 
@@ -116,7 +112,7 @@ values."
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'.
    ;; (default '(recents projects))
-   dotspacemacs-startup-lists '(recents bookmarks projects)
+   dotspacemacs-startup-lists '(bookmarks projects recents)
 
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
@@ -306,7 +302,7 @@ layers configuration. You are free to put any user code."
   ;;==============================================
   ;; conf-mode configuration
   ;;==============================================
-  (add-hook 'conf-mode-hook #'linum-mode)
+  ;;(add-hook 'conf-mode-hook #'linum-mode)
 
   ;;==============================================
   ;; prog-mode configuration
@@ -397,7 +393,7 @@ layers configuration. You are free to put any user code."
     (superword-mode)
     (hs-minor-mode)
 
-    (spacemacs/helm-gtags-define-keys-for-mode 'ruby-mode)
+    ;;(spacemacs/helm-gtags-define-keys-for-mode 'ruby-mode)
 
     ;;(setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
     (setq imenu-generic-expression
@@ -463,17 +459,10 @@ layers configuration. You are free to put any user code."
 
   (define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
 
-  ;; Never lose the cursor again.
-  (use-package beacon
-    :diminish beacon-mode
-    :commands beacon-mode)
-
   (add-hook
    'after-init-hook (lambda ()
                       (progn
-                        (spacemacs/toggle-evil-cleverparens-on)
-                        (setq beacon-blink-duration 1.0)
-                        (beacon-mode))))
+                        (spacemacs/toggle-evil-cleverparens-on))))
 
 
   (use-package crosshairs
@@ -483,10 +472,10 @@ layers configuration. You are free to put any user code."
   (add-hook 'spacemacs-buffer-mode-hook
             (lambda () (hl-line-mode)))
 
-  (use-package avy
-    :init
-    (progn
-      (evil-leader/set-key "o <SPC>" 'avy-goto-char-2)))
+  ;; (use-package avy
+  ;;   :init
+  ;;   (progn
+  ;;     (evil-leader/set-key "o <SPC>" 'avy-goto-char-2)))
 
   (setq imenu-list-auto-resize nil)
 
@@ -522,16 +511,13 @@ layers configuration. You are free to put any user code."
 
   (global-hl-line-mode 0)
 
-  (add-to-list
-   'display-buffer-alist
-   `(,(rx bos "*rspec-compilation*" eos)
-     (display-buffer-reuse-window)
-     (reusable-frames . t)))
+  ;; (add-to-list
+  ;;  'display-buffer-alist
+  ;;  `(,(rx bos "*rspec-compilation*" eos)
+  ;;    (display-buffer-reuse-window)
+  ;;    (reusable-frames . t)))
 
-  (mouse-avoidance-mode 'exile)
-
-
-  )
+  (mouse-avoidance-mode 'exile))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -578,7 +564,7 @@ layers configuration. You are free to put any user code."
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (imenu-list csv-mode uuidgen typit mmt org-projectile org-download mu4e-alert ht livid-mode skewer-mode link-hint git-link flyspell-correct-helm flyspell-correct eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff eshell-z darkokai-theme company-shell column-enforce-mode color-identifiers-mode clojure-snippets zonokai-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stekene-theme spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme pastels-on-dark-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme firebelly-theme farmhouse-theme espresso-theme dracula-theme django-theme darktooth-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme colorsarenice-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme helm-gtags ggtags haskell-mode zenburn-theme dash clojure-mode-extra-font-locking solarized-theme rake alert log4e gntp markdown-mode json-snatcher json-reformat js2-mode parent-mode request haml-mode gitignore-mode fringe-helper git-gutter+ git-gutter flx with-editor iedit anzu simple-httpd ace-jump-mode noflet powerline popwin elfeed dired-hacks-utils col-highlight hl-line+ vline web-completion-data dash-functional tern pos-tip inflections edn multiple-cursors paredit s peg eval-sexp-fu highlight spinner pkg-info epl async popup package-build bind-key bind-map kibit-helper f projectile auto-complete evil avy company magit-popup helm inf-ruby magit git-commit packed smartparens flycheck hydra org-plus-contrib cider helm-core yasnippet which-key yaml-mode xterm-color ws-butler window-numbering web-mode web-beautify w3m volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-mode rainbow-identifiers rainbow-delimiters queue quelpa projectile-rails persp-mode peep-dired pcre2el paradox page-break-lines pacmacs orgit org-repo-todo org-present org-pomodoro open-junk-file neotree muttrc-mode multi-term mu4e-maildirs-extension move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mu4e evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies dired-narrow diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clojure-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bracketed-paste bm beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+    (wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel swiper ivy nlinum-relative nlinum imenu-list csv-mode uuidgen typit mmt org-projectile org-download mu4e-alert ht livid-mode skewer-mode link-hint git-link flyspell-correct-helm flyspell-correct eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff eshell-z darkokai-theme company-shell column-enforce-mode color-identifiers-mode clojure-snippets zonokai-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stekene-theme spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme pastels-on-dark-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme firebelly-theme farmhouse-theme espresso-theme dracula-theme django-theme darktooth-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme colorsarenice-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme helm-gtags ggtags haskell-mode zenburn-theme dash clojure-mode-extra-font-locking solarized-theme rake alert log4e gntp markdown-mode json-snatcher json-reformat js2-mode parent-mode request haml-mode gitignore-mode fringe-helper git-gutter+ git-gutter flx with-editor iedit anzu simple-httpd ace-jump-mode noflet powerline popwin elfeed dired-hacks-utils col-highlight hl-line+ vline web-completion-data dash-functional tern pos-tip inflections edn multiple-cursors paredit s peg eval-sexp-fu highlight spinner pkg-info epl async popup package-build bind-key bind-map kibit-helper f projectile auto-complete evil avy company magit-popup helm inf-ruby magit git-commit packed smartparens flycheck hydra org-plus-contrib cider helm-core yasnippet which-key yaml-mode xterm-color ws-butler window-numbering web-mode web-beautify w3m volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-mode rainbow-identifiers rainbow-delimiters queue quelpa projectile-rails persp-mode peep-dired pcre2el paradox page-break-lines pacmacs orgit org-repo-todo org-present org-pomodoro open-junk-file neotree muttrc-mode multi-term mu4e-maildirs-extension move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mu4e evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies dired-narrow diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clojure-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bracketed-paste bm beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
  '(paradox-github-token t)
  '(pos-tip-background-color "#eee8d5")
  '(pos-tip-foreground-color "#586e75")
