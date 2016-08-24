@@ -53,7 +53,7 @@ myWorkspaces = ["1-emacs", "2-shell", "3-web", "4-fm", "5", "6", "7-ssh",
 
 -- Mate/gnome terminals don't work for ssh/man prompts etc.
 myPromptTerminal :: String
-myPromptTerminal = "xterm"
+myPromptTerminal = "uxterm"
 
 myTerminal :: String
 myTerminal = "mate-terminal"
