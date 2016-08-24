@@ -201,3 +201,4 @@ emacs.d/.mc-lists.el
 /config/monitors.xml~
 /config/evince/accels
 /config/evince/print-settings
+/config/git/gitk
