@@ -239,7 +239,7 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling nil
+   dotspacemacs-smooth-scrolling t
 
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
@@ -510,6 +510,8 @@ layers configuration. You are free to put any user code."
    recenter-positions '(top middle bottom))
 
   (global-hl-line-mode 0)
+
+  (evil-visual-mark-mode)
 
   ;; (add-to-list
   ;;  'display-buffer-alist
