@@ -120,6 +120,7 @@ values."
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
    dotspacemacs-themes '(spolsky
+                         railscasts
                          solarized-dark
                          solarized-light
                          zenburn
@@ -303,6 +304,7 @@ layers configuration. You are free to put any user code."
   ;; conf-mode configuration
   ;;==============================================
   ;;(add-hook 'conf-mode-hook #'linum-mode)
+  (add-hook 'conf-mode-hook 'spacemacs/run-prog-mode-hooks)
 
   ;;==============================================
   ;; prog-mode configuration
@@ -500,7 +502,7 @@ layers configuration. You are free to put any user code."
    large-file-warning-threshold 20000000
 
    ;; Powerline config
-   ;;powerline-default-separator 'arrow
+   ;; powerline-default-separator 'arrow
 
    imenu-auto-rescan t
 
