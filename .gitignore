@@ -8,6 +8,7 @@
 /byobu/.welcome-displayed
 /centerim/j*
 /centerim/pid
+/config/Atom
 /config/Code
 /config/Empathy/*
 /config/GitKraken/*
@@ -40,9 +41,14 @@
 /config/drkonqirc
 /config/emaildefaults
 /config/enchant/*
+/config/eog/accels
+/config/evince/accels
+/config/evince/print-settings
 /config/evolution
 /config/f-spot/*
 /config/folder-color/hide_donation
+/config/geany/
+/config/git/gitk
 /config/gmpc/
 /config/goa-1.0/accounts.conf
 /config/google-chrome/*
@@ -69,6 +75,7 @@
 /config/midori/*
 /config/mimeapps.list
 /config/monitors.xml
+/config/monitors.xml~
 /config/nautilus/accels
 /config/nautilus/desktop-metadata
 /config/nitrogen/*
@@ -114,6 +121,7 @@
 /config/volumeicon/*
 /config/wireshark/
 /config/xfce4/*
+/config/yelp/yelp.cfg
 /emacs.d.orig.orig/#*
 /emacs.d.orig/#.newsrc-dribble#
 /emacs.d.orig/.DS_Store
@@ -195,10 +203,3 @@
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
 emacs.d/.mc-lists.el
-/config/yelp/yelp.cfg
-/config/Atom
-/config/eog/accels
-/config/monitors.xml~
-/config/evince/accels
-/config/evince/print-settings
-/config/git/gitk
