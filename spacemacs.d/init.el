@@ -172,10 +172,10 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(moe-dark
-                         moe-light
-                         railscasts
-                         zenburn)
+   dotspacemacs-themes '(railscasts
+                         zenburn
+                         solarized-dark
+                         solarized-light)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -404,6 +404,12 @@ layers configuration. You are free to put any user code."
   (setq rainbow-x-colors t)
 
   ;;==============================================
+  ;; ivy configuration
+  ;;==============================================
+  ;; (set ivy-count-format "%-4d ")
+  (setq ivy-count-format "") ;; Don't count candidates.
+
+  ;;==============================================
   ;; conf-mode configuration
   ;;==============================================
   ;;(add-hook 'conf-mode-hook #'linum-mode)
@@ -421,7 +427,7 @@ layers configuration. You are free to put any user code."
   ;;==============================================
   (add-hook 'after-init-hook
             (lambda ()
-              (setq-default git-magit-status-fullscreen t)
+              ;;(setq-default git-magit-status-fullscreen t)
               (global-git-commit-mode t)))
 
   ;;==============================================
