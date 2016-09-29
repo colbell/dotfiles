@@ -72,10 +72,9 @@ values."
      sql
      (syntax-checking :variables syntax-checking-enable-tooltips nil)
      themes-megapack
-     version-control
-     '(version-control :variables
-                       version-control-diff-tool 'diff-hl
-                       version-control-global-margin t)
+     (version-control :variables
+                      version-control-diff-tool 'diff-hl
+                      version-control-global-margin t)
      yaml)
 
    ;; List of additional packages that will be installed without being
@@ -606,8 +605,8 @@ layers configuration. You are free to put any user code."
 
   (setq-default
    sentence-end-double-space t
-   js2-basic-offset 2
-   js-indent-level 2
+   ;; js2-basic-offset 2
+   ;; js-indent-level 2
 
    ;; Use a visible bell instead of a beep.
    visible-bell t
