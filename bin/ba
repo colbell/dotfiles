@@ -3,7 +3,7 @@
 # Create/Attach byobu session with the same name as the current directory.
 
 if grep -q 'BYOBU_BACKEND=screen' ~/.byobu/backend; then
-  byobu -dRS '`basename $PWD`'
+  byobu -dRS `basename $PWD`
 else
-  byobu new-session -As '`basename $PWD`'
+  byobu new-session -As `basename $PWD`
 fi
