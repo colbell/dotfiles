@@ -59,11 +59,13 @@ plugins=(git)
 # export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
-setopt HIST_IGNORE_ALL_DUPS
 
 export MAIL=/var/mail/$USER
 
 source $ZSH/oh-my-zsh.sh
+
+setopt HIST_IGNORE_ALL_DUPS
+unsetopt AUTO_CD
 
 # You may need to manually set your language environment
 # export LANG=en_AU.UTF-8
