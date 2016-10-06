@@ -64,7 +64,8 @@ values."
      ruby-on-rails
      (shell :variables
             shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-position 'bottom
+            shell-enable-smart-eshell t)
      (spell-checking :variables spell-checking-enable-auto-dictionary t)
      syntax-checking
      version-control
@@ -275,7 +276,7 @@ values."
 
    ;; define the position to display `helm', options are `bottom', `top',
    ;; `left', or `right'. (default 'bottom)
-   dotspacemacs-helm-position 'bottom
+   dotspacemacs-helm-position 'top
 
    ;; Controls fuzzy matching in helm. If set to `always', force fuzzy matching
    ;; in all non-asynchronous sources. If set to `source', preserve individual
