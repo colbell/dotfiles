@@ -1,0 +1,66 @@
+# -*- mode: conf; -*-
+[core]
+  editor=vim
+  pager=less -x2
+  autocrlf = input
+  safecrlf = true
+
+[user]
+  name = Colin Bell
+  email = col@baibell.org
+
+[color]
+  ui = true
+
+[push]
+  default = tracking
+
+[http]
+  sslVerify = false
+
+[diff]
+  # For Github-style word diffs
+  wordRegex = [^[:space:]]
+
+[apply]
+  whitespace = nowarn
+
+[commit]
+  template = ~/.gitmessage
+
+[alias]
+  br = branch
+  cancel = reset --soft HEAD^
+  ci = commit
+  co = checkout
+
+  lg      = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  lgd     = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cD) %C(bold blue)<%an>%Creset' --abbrev-commit
+  l       = log --pretty=format:"%C(auto)%h%C(auto)%d\\ %Creset%s%Cgreen(%cr)%Cblue[%cn]" --decorate
+  ld      = log --pretty=format:"%C(auto)%h%C(auto)%d\\ %Creset%s%Cgreen(%cD)%Cblue[%cn]" --decorate
+  h       = log --oneline --decorate
+  slog    = shortlog -s -n -e
+
+  # All commits for a file, pass file name as an argument
+  fl = log -u
+
+  st = status -sb
+  unpushed = cherry -v
+  # unpushed = log --branches --not --remotes
+  type = cat-file -t
+  dump = cat-file -p
+	it = !git init && git commit -m “root” --allow-empty
+	staash = stash --include-untracked
+
+[cola]
+  fontdiff = Source Code Pro,10,-1,5,50,0,0,0,0,0
+  tabwidth = 8
+
+[gui]
+  editor = emacsclient
+
+[help]
+	autoCorrect = -1
+
+[transfer]
+	fsckObjects = true
