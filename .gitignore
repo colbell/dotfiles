@@ -78,6 +78,7 @@
 /config/mimeapps.list
 /config/monitors.xml
 /config/monitors.xml~
+/config/nautilus
 /config/nautilus/accels
 /config/nautilus/desktop-metadata
 /config/nitrogen/*
@@ -107,6 +108,7 @@
 /config/synaptiks/management.json
 /config/synaptiks/touchpad-config.json
 /config/synaptiks/touchpad-defaults.json
+/config/tilda
 /config/tint2/*
 /config/totem/*
 /config/transmission/*
