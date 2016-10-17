@@ -50,6 +50,7 @@
 /config/geany/
 /config/git/gitk
 /config/gmpc/
+/config/gnome-control-center/
 /config/gnome-initial-setup-done
 /config/goa-1.0/accounts.conf
 /config/google-chrome/*
@@ -169,6 +170,7 @@
 /emacs.d.orig/tramp
 /emacs.d.orig/url/
 /emacs.d/
+/emacs.d/.mc-lists.el
 /fonts/fonts.dir
 /lein/indices/
 /lein/repl-history
@@ -203,4 +205,3 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
-emacs.d/.mc-lists.el
