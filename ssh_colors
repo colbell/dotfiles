@@ -1,6 +1,7 @@
 aws-uat,green,black
 aws-122,green,black
 aws-rails,green,black
+aws-r4,green,black
 aws-sandbox2,black,white
 aws-prod1,red,black
 aws-backups,yellow,black
