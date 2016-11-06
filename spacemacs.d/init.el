@@ -53,7 +53,7 @@ values."
      gtags
      html
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
-     ;; ivy
+     ivy
      javascript
      markdown
      nlinum
