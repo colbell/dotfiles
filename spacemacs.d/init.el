@@ -643,7 +643,7 @@ layers configuration. You are free to put any user code."
    recenter-positions '(top middle bottom))
 
   (global-hl-line-mode 0)
-
+  (setq kill-ring-max 500)
   (evil-visual-mark-mode)
 
   (setq evil-want-fine-undo t)
