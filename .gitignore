@@ -30,10 +30,13 @@
 /config/caja/*
 /config/calibre/*
 /config/chromium/*
+/config/classicmenu-indicator/config.json
 /config/compiz-1/compizconfig/config
 /config/compiz-1/compizconfig/done_upgrades
+/config/compiz-1/compizconfig/firstrun
 /config/compiz/*
 /config/configstore/*
+/config/connectivity-service/config.ini
 /config/dconf/user
 /config/desktop-couch/*
 /config/dleyna-renderer-service.conf
@@ -50,6 +53,7 @@
 /config/geany/
 /config/git/gitk
 /config/gmpc/
+/config/gnome-boxes/sources
 /config/gnome-control-center/
 /config/gnome-initial-setup-done
 /config/goa-1.0/accounts.conf
@@ -70,6 +74,7 @@
 /config/libfm/*
 /config/libreoffice/*
 /config/libvirt
+/config/lxc/default.conf
 /config/mate
 /config/mate-menu
 /config/mc/
@@ -98,6 +103,7 @@
 /config/pulse/
 /config/pulse/cookie
 /config/sakura/*
+/config/signond
 /config/smplayer/*
 /config/software-center
 /config/softwarecenter
@@ -112,8 +118,10 @@
 /config/tint2/*
 /config/totem/*
 /config/transmission/*
+/config/ubuntu-system-settings/wizard-has-run
 /config/ubuntu-ui-toolkit/*
 /config/ubuntuone/*
+/config/unity/first_run.stamp
 /config/unity3d
 /config/update-notifier
 /config/user-dirs.dirs
