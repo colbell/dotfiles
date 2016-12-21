@@ -31,6 +31,7 @@
 /config/calibre/*
 /config/chromium/*
 /config/classicmenu-indicator/config.json
+/config/com.ubuntu.terminal/com.ubuntu.terminal.conf
 /config/compiz-1/compizconfig/config
 /config/compiz-1/compizconfig/done_upgrades
 /config/compiz-1/compizconfig/firstrun
