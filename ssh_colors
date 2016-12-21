@@ -4,4 +4,5 @@ aws-rails,green,black
 aws-r4,green,black
 aws-sandbox2,black,white
 aws-prod1,red,black
+aws-prod2,red,black
 aws-backups,yellow,black
