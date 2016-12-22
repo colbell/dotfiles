@@ -180,10 +180,10 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(railscasts
+   dotspacemacs-themes '(solarized-light
+                         railscasts
                          zenburn
-                         solarized-dark
-                         solarized-light)
+                         solarized-dark)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
