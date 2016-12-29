@@ -52,6 +52,7 @@
 /config/f-spot/*
 /config/folder-color/hide_donation
 /config/geany/
+/config/git-cola/
 /config/git/gitk
 /config/gmpc/
 /config/gnome-boxes/sources
