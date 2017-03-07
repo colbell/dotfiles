@@ -74,7 +74,7 @@ values."
      shell-scripts
      spell-checking
      sql
-     (syntax-checking :variables syntax-checking-enable-tooltips nil)
+     (syntax-checking :variables syntax-checking-enable-tooltips t)
      themes-megapack
      (version-control :variables
                       version-control-diff-tool 'diff-hl
@@ -180,9 +180,9 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(solarized-light
-                         zenburn
+   dotspacemacs-themes '(zenburn
                          railscasts
+                         solarized-light
                          solarized-dark)
 
    ;; If non nil the cursor color matches the state color.
@@ -316,7 +316,7 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar nil
+   dotspacemacs-loading-progress-bar t
 
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
@@ -667,6 +667,9 @@ layers configuration. You are free to put any user code."
   ;;  `(,(rx bos "*rspec-compilation*" eos)
   ;;    (display-buffer-reuse-window)
   ;;    (reusable-frames . t)))
+
+  ;; Seems to be needed for evil to work with system clipboard
+  (fset 'evil-visual-update-x-selection 'ignore)
 
   (mouse-avoidance-mode 'exile))
 
