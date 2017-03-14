@@ -180,8 +180,8 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(zenburn
-                         railscasts
+   dotspacemacs-themes '(railscasts
+                         zenburn
                          solarized-light
                          solarized-dark)
 
