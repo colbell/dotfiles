@@ -6,4 +6,5 @@ aws-sandbox2,black,white
 aws-prod1,red,black
 aws-prod2,red,black
 aws-backups,yellow,black
+aws-backups2,yellow,black
 complispace-sand1,black,white
