@@ -113,9 +113,35 @@
 /config/spotify
 /config/sqlgraph
 /config/sublime-text-2/*
+/config/sublime-text-3/Cache
+/config/sublime-text-3/Index
+/config/sublime-text-3/Installed Packages/
+/config/sublime-text-3/Local
+/config/sublime-text-3/Packages/.logs/
+/config/sublime-text-3/Packages/ElixirSublime/
+/config/sublime-text-3/Packages/SublimeLinter/
+/config/sublime-text-3/Packages/SublimeREPL/
+/config/sublime-text-3/Packages/SummitEditor/
+/config/sublime-text-3/Packages/User/.SublimeREPLHistory/
+/config/sublime-text-3/Packages/User/.vintageousrc
+/config/sublime-text-3/Packages/User/Default.sublime-commands
+/config/sublime-text-3/Packages/User/GitSavvy/
+/config/sublime-text-3/Packages/User/Package Control.cache/
+/config/sublime-text-3/Packages/User/Package Control.last-run
+/config/sublime-text-3/Packages/User/Package Control.merged-ca-bundle
+/config/sublime-text-3/Packages/User/Package Control.user-ca-bundle
+/config/sublime-text-3/Packages/User/SublimeLinter/
+/config/sublime-text-3/Packages/User/toggle_vintageous.py
+/config/sublime-text-3/Packages/markupsafe/
+/config/sublime-text-3/Packages/mdpopups/
+/config/sublime-text-3/Packages/pygments/
+/config/sublime-text-3/Packages/python-jinja2/
+/config/sublime-text-3/Packages/python-markdown/
+/config/sublime-text-3/Packages/pyyaml/
 /config/synaptiks/management.json
 /config/synaptiks/touchpad-config.json
 /config/synaptiks/touchpad-defaults.json
+/config/terminator/config
 /config/tilda
 /config/tint2/*
 /config/totem/*
@@ -217,4 +243,3 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
-/config/terminator/config
