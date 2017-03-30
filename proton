@@ -20,7 +20,7 @@
     ;; -----------------------------------
     :tools/git
     :tools/linter
-    ;; :tools/bookmarks
+    :tools/bookmarks
     ;; :tools/build
     ;; :tools/minimap
 
