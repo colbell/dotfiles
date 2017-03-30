@@ -542,11 +542,24 @@ layers configuration. You are free to put any user code."
 
   (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
 
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (progn
-                (setq-default web-mode-code-indent-offset 2)
-                (setq-default web-mode-markup-indent-offset 2))))
+  ;;==============================================
+  ;; Web mode configuration
+  ;;==============================================
+  (defun my-web-mode-hook ()
+    "Hooks for Web mode."
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2))
+
+  (add-hook 'web-mode-hook  'my-web-mode-hook t)
+
+  ;;==============================================
+  ;; SCSS Mode
+  ;;==============================================
+  (defun my-scss-mode-hook ()
+    "Hooks for SCSS mode."
+    (setq css-indent-offset 2))
+
+  (add-hook 'scss-mode-hook  'my-scss-mode-hook t)
 
   ;;==============================================
   ;; CLOJURE configuration
