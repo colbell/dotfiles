@@ -71,6 +71,8 @@ unsetopt AUTO_CD
 # You may need to manually set your language environment
 # export LANG=en_AU.UTF-8
 
+export GTAGSLABEL=pygments
+
 export MANWIDTH=96
 
 # export TERM=xterm-256color
@@ -95,6 +97,7 @@ fi
 # if [[ -f "$HOME/.aws_keys" ]]; then
 #     source "$HOME/.aws_keys";
 # fi
+
 
 # export DEFAULT_USER=colbell
 
