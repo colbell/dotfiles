@@ -27,11 +27,11 @@
 
     :init
     (progn
-      (setq bm-restore-repository-on-load t)
+      ;; (setq bm-restore-repository-on-load t)
       (setq bm-repository-file (expand-file-name "bm-repository"
                                                  spacemacs-cache-directory))
       (setq bm-cycle-all-buffers nil)
-      (setq-default bm-buffer-persistence t)
+      (setq-default bm-buffer-persistence nil)
       ;; (setq bm-highlight-style 'bm-highlight-only-line)
       ;; (setq bm-highlight-style 'bm-highlight-line-and-fringe)
       (setq bm-highlight-style 'bm-highlight-only-fringe)
@@ -41,9 +41,11 @@
       (evil-leader/set-key "obp" 'bm-previous)
       (evil-leader/set-key "obt" 'bm-toggle)
 
-      (add-hook 'after-init-hook  'bm-repository-load)
+      ;; (add-hook 'after-init-hook  'bm-repository-load)
       (add-hook 'find-file-hooks  'bm-buffer-restore)
-      (add-hook 'kill-buffer-hook 'bm-buffer-save)
-      (add-hook 'kill-emacs-hook  (lambda nil
-                                    (bm-buffer-save-all)
-                                    (bm-repository-save))))))
+      ;; (add-hook 'kill-buffer-hook 'bm-buffer-save)
+      ;; (add-hook 'kill-emacs-hook  (lambda nil
+      ;;                               (bm-buffer-save-all)
+      ;;                               (bm-repository-save))))
+      )
+    ))
