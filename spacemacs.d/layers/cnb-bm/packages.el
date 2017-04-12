@@ -32,9 +32,9 @@
                                                  spacemacs-cache-directory))
       (setq bm-cycle-all-buffers nil)
       (setq-default bm-buffer-persistence nil)
-      ;; (setq bm-highlight-style 'bm-highlight-only-line)
+      (setq bm-highlight-style 'bm-highlight-only-line)
       ;; (setq bm-highlight-style 'bm-highlight-line-and-fringe)
-      (setq bm-highlight-style 'bm-highlight-only-fringe)
+      ;;(setq bm-highlight-style 'bm-highlight-only-fringe)
 
       (evil-leader/set-key "oba" 'bm-show-all)
       (evil-leader/set-key "obn" 'bm-next)
