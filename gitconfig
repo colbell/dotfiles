@@ -13,14 +13,21 @@
   ui = true
 
 [push]
-  default = tracking
+  default = simple
 
 [http]
   sslVerify = false
 
 [diff]
+  tool = icdiff
   # For Github-style word diffs
-  wordRegex = [^[:space:]]
+  # wordRegex = [^[:space:]]
+
+[difftool]
+  prompt = false
+
+[difftool "icdiff"]
+  cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
 
 [apply]
   whitespace = nowarn
@@ -28,10 +35,15 @@
 [commit]
   template = ~/.gitmessage
 
+[merge]
+  conflictstyle = diff3
+
+[transfer]
+  fsckobjects = true
+
 [alias]
   br = branch
   cancel = reset --soft HEAD^
-  ci = commit
   co = checkout
 
   lg      = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
@@ -44,17 +56,18 @@
   # All commits for a file, pass file name as an argument
   fl = log -u
 
+  # Short status
   st = status -sb
+
   unpushed = cherry -v
-  # unpushed = log --branches --not --remotes
+
   type = cat-file -t
   dump = cat-file -p
-	it = !git init && git commit -m “root” --allow-empty
-	staash = stash --include-untracked
 
-[cola]
-  fontdiff = Source Code Pro,10,-1,5,50,0,0,0,0,0
-  tabwidth = 8
+	stash-all = stash --include-untracked
+
+  # Reset to before last commit.
+  undo = reset --soft HEAD^
 
 [gui]
   editor = emacsclient
