@@ -22,6 +22,8 @@
     :tools/linter
     :tools/bookmarks
     ;; :tools/build
+    :tools/terminal
+    :tools/todo
     ;; :tools/minimap
 
 
@@ -85,6 +87,24 @@
     ;; ["core.themes" ["one-dark-ui" "one-dark-syntax"]]
 
     ;; proton configuration
+    ["proton.core.showTabBar" false]
+    ["proton.core.relativeLineNumbers" true]
+
+    ;; prefer classic vim mode over vim-mode-plus? Change this to :vim-mode
+    ["proton.core.vim-provider" :vim-mode-plus]
+
+    ;; Recent files fuzzy finder config.
+    ["recent-files-fuzzy-finder.restoreSession" true]
+    ["recent-files-fuzzy-finder.maxFilesToRemember" 512]
+
+    ;; Project PLus configuration
+    ["project-plus.autoDiscover" false]
+  ]
+
+  ;; Don't like a keybinding or want to add something yourself? Do it here
+  :keybindings {
+  }
+=======
     ["proton.core.showTabBar" true]
     ["proton.core.relativeLineNumbers" false]
 
@@ -101,13 +121,6 @@
   ;;                   :y {:title "execute hello"
   ;;                       :action "hello"}}}
   :keybindings {}
-
-  ;; Want some custom behavior inside a certain window?
-  ;; Add your own nifty things here!
-  :keymaps [{:selector ".tree-view" :keymap [["escape" "tree-view:toggle"]]}
-            ;; Want to rebind ESC to something else? You can do that here.
-            ;; If you are good with esc, just remove the following line.
-            {:selector "atom-text-editor.vim-mode-plus:not(.normal-mode)" :keymap [["f d" "vim-mode-plus:activate-normal-mode"]]}
-            ;; {:selector "atom-text-editor.vim-mode:not(.normal-mode)" :keymap [["f d" "vim-mode:activate-normal-mode"]]}
+            {:selector "atom-text-editor.vim-mode-plus:not(.insert-mode)" :keymap [["shift-Y" "vim-mode-plus:yank-to-last-character-of-line"]]}
   ]
 }

@@ -98,7 +98,6 @@ fi
 #     source "$HOME/.aws_keys";
 # fi
 
-
 # export DEFAULT_USER=colbell
 
 # Preferred editor for local and remote sessions
