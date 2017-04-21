@@ -172,14 +172,15 @@ def main():
         elif o in ('-n', '--no-icons'):
             use_icons = False
 
-    #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/xfce-applications.menu")
-    #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applications.menu")
-    #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde-information.menu")
-    #desktopmenu = xdg.Menu.parse("/etc/xdg/menus/gnome-applications.menu")
-    m1 = xdg.Menu.parse("/etc/xdg/menus/mate-applications.menu")
-    m2 = xdg.Menu.parse("/etc/xdg/menus/mate-settings.menu")
+    # desktopmenu = xdg.Menu.parse("/etc/xdg/menus/xfce-applications.menu")
+    # desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde4-applications.menu")
+    # desktopmenu = xdg.Menu.parse("/etc/xdg/menus/kde-information.menu")
+    m1 = xdg.Menu.parse("/etc/xdg/menus/gnome-applications.menu")
+    # m1 = xdg.Menu.parse("/etc/xdg/menus/mate-applications.menu")
+    # m2 = xdg.Menu.parse("/etc/xdg/menus/mate-settings.menu")
 
-    mainmenu = create_menu([m1, m2], use_icons, launch)
+    # mainmenu = create_menu([m1, m2], use_icons, launch)
+    mainmenu = create_menu([m1], use_icons, launch)
     if run_tray:
         popupmenu=create_popup()
         trayicon=tray()

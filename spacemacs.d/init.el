@@ -32,11 +32,12 @@ values."
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
-   '((auto-completion :variables
-                      auto-completion-private-snippets-directory
-                      "~/.spacemacs.d/snippets/")
+   '(
      ;; better-defaults
      ;; clojure
+     (auto-completion :variables
+                     auto-completion-private-snippets-directory
+                     "~/.spacemacs.d/snippets/")
      cnb-bm
      cnb-bug-reference
      cnb-dired-narrow
@@ -45,7 +46,6 @@ values."
      colors
      csv
      elixir
-     ;; elm
      emacs-lisp
      evil-cleverparens
      games
@@ -60,6 +60,7 @@ values."
      nlinum
      org
      pdf-tools
+     python
      react
      (ruby :variables ruby-test-runner 'rspec
            ruby-version-manager 'rvm)
@@ -85,12 +86,12 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in 'dotspacemacs/config'.
-   dotspacemacs-additional-packages '(clojure-mode-extra-font-locking
-                                      crosshairs
+   dotspacemacs-additional-packages '(crosshairs
                                       ;; haskell-mode
                                       rubocop
                                       peep-dired
                                       persistent-scratch
+                                      ;;rainbow-mode  ;; Not sure why this is no longer loaded automatically
                                       ;; kibit-helper;; Clojure static code analyzer
                                       w3m)
 
@@ -180,10 +181,13 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(solarized-light
-                         zenburn
+   dotspacemacs-themes '(
                          railscasts
-                         solarized-dark)
+                         zenburn
+                         solarized-light
+                         solarized-dark
+                         spacemacs-light
+                         spacemacs-dark)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -199,16 +203,16 @@ values."
    ;;                             :weight normal
    ;;                             :width normal
    ;;                             :powerline-scale 1.1)
-   dotspacemacs-default-font '("Ubuntu Mono"
+   ;; dotspacemacs-default-font '("Ubuntu Mono"
+   ;;                             :size 15
+   ;;                             :weight normal
+   ;;                             :width normal
+   ;;                             :powerline-scale 1.1)
+   dotspacemacs-default-font '("Source Code Pro Medium"
                                :size 13
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
-   ;; dotspacemacs-default-font '("Source Code Pro Medium"
-   ;;                             :size 13
-   ;;                             :weight normal
-   ;;                             :width normal
-   ;;                             :powerline-scale 1.1)
    ;; dotspacemacs-default-font '("Input"
    ;;                             :size 13
    ;;                             :weight normal
@@ -316,7 +320,7 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar nil
+   dotspacemacs-loading-progress-bar t
 
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
@@ -542,11 +546,24 @@ layers configuration. You are free to put any user code."
 
   (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
 
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (progn
-                (setq-default web-mode-code-indent-offset 2)
-                (setq-default web-mode-markup-indent-offset 2))))
+  ;;==============================================
+  ;; Web mode configuration
+  ;;==============================================
+  (defun my-web-mode-hook ()
+    "Hooks for Web mode."
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2))
+
+  (add-hook 'web-mode-hook  'my-web-mode-hook t)
+
+  ;;==============================================
+  ;; SCSS Mode
+  ;;==============================================
+  (defun my-scss-mode-hook ()
+    "Hooks for SCSS mode."
+    (setq css-indent-offset 2))
+
+  (add-hook 'scss-mode-hook  'my-scss-mode-hook t)
 
   ;;==============================================
   ;; CLOJURE configuration
@@ -589,27 +606,10 @@ layers configuration. You are free to put any user code."
    'after-save-hook
    #'executable-make-buffer-file-executable-if-script-p)
 
-  ;; From http://www.emacswiki.org/emacs-en/ToggleWindowSplit
-  (defun cnb/toggle-frame-split ()
-    "If the frame is split vertically, split it horizontally or vice versa.
-  Assumes that the frame is only split into two. "
-    (interactive)
-    (unless (= (length (window-list)) 2)
-      (error "Can only toggle a frame split in two"))
-    (let ((split-vertically-p (window-combined-p)))
-      (delete-window) ; closes current window
-      (if split-vertically-p
-          (split-window-horizontally)
-        (split-window-vertically)) ; gives us a split with the other win twice
-      (switch-to-buffer nil))) ; restore the orig  win in this part of the frame
-
-  (define-key ctl-x-4-map "t" #'cnb/toggle-frame-split)
-
   (add-hook
    'after-init-hook (lambda ()
                       (progn
                         (spacemacs/toggle-evil-cleverparens-on))))
-
 
   (use-package crosshairs
     :commands flash-crosshairs
@@ -668,101 +668,10 @@ layers configuration. You are free to put any user code."
   ;;    (display-buffer-reuse-window)
   ;;    (reusable-frames . t)))
 
+  ;; Seems to be needed for evil to work with system clipboard
+  (fset 'evil-visual-update-x-selection 'ignore)
+
   (mouse-avoidance-mode 'exile))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#839496"])
- '(compilation-message-face (quote default))
- '(cua-global-mark-cursor-color "#2aa198")
- '(cua-normal-cursor-color "#657b83")
- '(cua-overwrite-cursor-color "#b58900")
- '(cua-read-only-cursor-color "#859900")
- '(evil-want-Y-yank-to-eol t)
- '(fci-rule-color "#eee8d5" t)
- '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
- '(highlight-symbol-colors
-   (--map
-    (solarized-color-blend it "#fdf6e3" 0.25)
-    (quote
-     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
- '(highlight-symbol-foreground-color "#586e75")
- '(highlight-tail-colors
-   (quote
-    (("#eee8d5" . 0)
-     ("#B4C342" . 20)
-     ("#69CABF" . 30)
-     ("#69B7F0" . 50)
-     ("#DEB542" . 60)
-     ("#F2804F" . 70)
-     ("#F771AC" . 85)
-     ("#eee8d5" . 100))))
- '(hl-bg-colors
-   (quote
-    ("#DEB542" "#F2804F" "#FF6E64" "#F771AC" "#9EA0E5" "#69B7F0" "#69CABF" "#B4C342")))
- '(hl-fg-colors
-   (quote
-    ("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3")))
- '(hl-sexp-background-color "#efebe9")
- '(magit-diff-use-overlays nil)
- '(nrepl-message-colors
-   (quote
-    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
- '(package-selected-packages
-   (quote
-    (autothemer lua-mode org-bullets persistent-scratch pcache ob-elixir minitest insert-shebang hide-comnt pug-mode flycheck-elm elm-mode flycheck-mix alchemist elixir-mode org goto-chg diminish undo-tree seq origami pdf-tools tablist dumb-jump wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel swiper ivy nlinum-relative nlinum imenu-list csv-mode uuidgen typit mmt org-projectile org-download mu4e-alert ht livid-mode skewer-mode link-hint git-link flyspell-correct-helm flyspell-correct eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff eshell-z darkokai-theme company-shell column-enforce-mode color-identifiers-mode clojure-snippets zonokai-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stekene-theme spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme pastels-on-dark-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme firebelly-theme farmhouse-theme espresso-theme dracula-theme django-theme darktooth-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme colorsarenice-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme helm-gtags ggtags haskell-mode zenburn-theme dash clojure-mode-extra-font-locking solarized-theme rake alert log4e gntp markdown-mode json-snatcher json-reformat js2-mode parent-mode request haml-mode gitignore-mode fringe-helper git-gutter+ git-gutter flx with-editor iedit anzu simple-httpd ace-jump-mode noflet powerline popwin elfeed dired-hacks-utils col-highlight hl-line+ vline web-completion-data dash-functional tern pos-tip inflections edn multiple-cursors paredit s peg eval-sexp-fu highlight spinner pkg-info epl async popup package-build bind-key bind-map kibit-helper f projectile auto-complete evil avy company magit-popup helm inf-ruby magit git-commit packed smartparens flycheck hydra org-plus-contrib cider helm-core yasnippet which-key yaml-mode xterm-color ws-butler window-numbering web-mode web-beautify w3m volatile-highlights vi-tilde-fringe use-package toc-org tagedit sql-indent spacemacs-theme spaceline smooth-scrolling smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rainbow-mode rainbow-identifiers rainbow-delimiters queue quelpa projectile-rails persp-mode peep-dired pcre2el paradox page-break-lines pacmacs orgit org-repo-todo org-present org-pomodoro open-junk-file neotree muttrc-mode multi-term mu4e-maildirs-extension move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mu4e evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies dired-narrow diff-hl define-word crosshairs company-web company-tern company-statistics company-quickhelp coffee-mode clojure-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bracketed-paste bm beacon auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
- '(paradox-github-token t)
- '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
- '(pos-tip-background-color "#eee8d5")
- '(pos-tip-foreground-color "#586e75")
- '(safe-local-variable-values
-   (quote
-    ((elixir-enable-compilation-checking . t)
-     (bug-reference-bug-regexp . "\\(?2:TWEB-[0-9]+\\)"))))
- '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#eee8d5" 0.2))
- '(term-default-bg-color "#fdf6e3")
- '(term-default-fg-color "#657b83")
- '(vc-annotate-background nil)
- '(vc-annotate-background-mode nil)
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#dc322f")
-     (40 . "#c85d17")
-     (60 . "#be730b")
-     (80 . "#b58900")
-     (100 . "#a58e00")
-     (120 . "#9d9100")
-     (140 . "#959300")
-     (160 . "#8d9600")
-     (180 . "#859900")
-     (200 . "#669b32")
-     (220 . "#579d4c")
-     (240 . "#489e65")
-     (260 . "#399f7e")
-     (280 . "#2aa198")
-     (300 . "#2898af")
-     (320 . "#2793ba")
-     (340 . "#268fc6")
-     (360 . "#268bd2"))))
- '(vc-annotate-very-old-color nil)
- '(weechat-color-list
-   (quote
-    (unspecified "#fdf6e3" "#eee8d5" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#657b83" "#839496")))
- '(xterm-color-names
-   ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#073642"])
- '(xterm-color-names-bright
-   ["#fdf6e3" "#cb4b16" "#93a1a1" "#839496" "#657b83" "#6c71c4" "#586e75" "#002b36"]))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:background nil)))))
