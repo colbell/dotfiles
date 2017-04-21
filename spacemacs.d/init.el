@@ -505,6 +505,12 @@ layers configuration. You are free to put any user code."
     (add-hook 'peep-dired-hook #'evil-normalize-keymaps))
 
   ;;==============================================
+  ;; WINUM configuration
+  ;;==============================================
+  ;; Enable once https://github.com/deb0ch/emacs-winum/issues/5 fixed
+  ;;(setq winum-scope (quote frame-local))
+
+  ;;==============================================
   ;; IBUFFER configuration
   ;;==============================================
   (setq ibuffer-show-empty-filter-groups nil)
