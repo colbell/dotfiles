@@ -19,15 +19,15 @@ set expandtab           " Tabs are expanded to spaces
 set hlsearch            " highlight the search
 set ls=2                " show a status line even if there's only one window
 
-set wildchar=<Tab> wildmenu wildmode=full  " Show menu on TAB in command line
+set number              " Display line numbers
+
+set mousehide           " Hide the mouse when typing text
 
 set autowrite           " Save buffer before switching buffers
 
 filetype plugin on
 filetype indent on
 
-set number
-
-set mousehide           " Hide the mouse when typing text
+set wildchar=<Tab> wildmenu wildmode=full  " Show menu on TAB in command line
 
 " source $VIMRUNTIME/vimrc_example.vim
