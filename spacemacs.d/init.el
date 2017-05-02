@@ -76,7 +76,7 @@ values."
      spell-checking
      sql
      (syntax-checking :variables syntax-checking-enable-tooltips nil)
-     themes-megapack
+     ;; themes-megapack
      (version-control :variables
                       version-control-diff-tool 'diff-hl
                       version-control-global-margin t)
@@ -88,13 +88,13 @@ values."
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in 'dotspacemacs/config'.
    dotspacemacs-additional-packages '(crosshairs
-                                      ;; haskell-mode
                                       rubocop
                                       peep-dired
                                       persistent-scratch
-                                      ;;rainbow-mode  ;; Not sure why this is no longer loaded automatically
-                                      ;; kibit-helper;; Clojure static code analyzer
-                                      w3m)
+                                      railscasts-theme
+                                      solarized-theme
+                                      w3m
+                                      zenburn-theme)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
