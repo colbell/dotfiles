@@ -30,4 +30,6 @@ filetype indent on
 
 set wildchar=<Tab> wildmenu wildmode=full  " Show menu on TAB in command line
 
+autocmd BufEnter * silent! lcd %:p:h  " set curretn dir on buffer entry
+
 " source $VIMRUNTIME/vimrc_example.vim
