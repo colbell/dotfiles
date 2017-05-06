@@ -124,7 +124,7 @@ URxvt*color15: white
 
 UXTerm*faceName: Inconsolata
 ! UXTerm*faceName: Source Code Pro
-UXTerm*faceSize: 13
+UXTerm*faceSize: 15
 ! !XTerm*eightBitInput: false
 UXTerm*metaSendsEscape: true
 ! XTerm*loginShell: true

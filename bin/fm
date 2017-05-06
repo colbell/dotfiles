@@ -1,6 +1,0 @@
-#!/bin/sh
-
-# Run the system file manager
-if [ $XDG_SESSION_DESKTOP='mate' ]; then
-  caja --no-desktop --browser ''
-fi
