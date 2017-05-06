@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Tilda
+GenericName=Tilda
+Comment=Tilda
+Exec=tilda
+Terminal=false
+Type=Application
+StartupNotify=false

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Conky
+GenericName=Conky
+Comment=Conky
+Exec=conky
+Terminal=false
+Type=Application
+StartupNotify=false
