@@ -61,6 +61,7 @@
 /config/google-chrome/*
 /config/gtk-2.0/*
 /config/gtk-3.0/bookmarks
+/config/gtk-3.0/servers
 /config/gtk-3.0/settings.ini
 /config/gtkrc
 /config/gtkrc-2.0
@@ -141,6 +142,7 @@
 /config/synaptiks/touchpad-config.json
 /config/synaptiks/touchpad-defaults.json
 /config/terminator/config
+/config/tilda
 /config/tilda
 /config/tint2/*
 /config/totem/*
@@ -242,4 +244,3 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
-/config/gtk-3.0/servers
