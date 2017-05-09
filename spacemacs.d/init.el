@@ -34,8 +34,8 @@ values."
      ;; better-defaults
      ;; clojure
      (auto-completion :variables
-                     auto-completion-private-snippets-directory
-                     "~/.spacemacs.d/snippets/")
+                      auto-completion-private-snippets-directory
+                      "~/.spacemacs.d/snippets/")
      cnb-beg-end
      cnb-bm
      cnb-bug-reference
@@ -88,6 +88,7 @@ values."
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in 'dotspacemacs/config'.
    dotspacemacs-additional-packages '(crosshairs
+                                      material-theme
                                       mode-icons
                                       peep-dired
                                       persistent-scratch
@@ -173,12 +174,15 @@ values."
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
    dotspacemacs-themes '(
+                         material
+                         material-light
                          spacemacs-light
-                         railscasts
-                         zenburn
-                         solarized-light
-                         solarized-dark
-                         spacemacs-dark)
+                         ;; railscasts
+                         ;; zenburn
+                         ;; solarized-light
+                         ;; solarized-dark
+                         spacemacs-dark
+                         )
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -495,21 +499,32 @@ layers configuration. You are free to put any user code."
   ;;==============================================
   ;; Web mode configuration
   ;;==============================================
-  (defun my-web-mode-hook ()
+  (defun cnb/web-mode-hook ()
     "Hooks for Web mode."
     (setq web-mode-markup-indent-offset 2)
     (setq web-mode-css-indent-offset 2))
 
-  (add-hook 'web-mode-hook  'my-web-mode-hook t)
+  (add-hook 'web-mode-hook 'cnb/web-mode-hook t)
+
+  ;;==============================================
+  ;; js2 mode configuration
+  ;;==============================================
+  (defun cnb/js2-mode-hook ()
+    "Hooks for Web mode."
+    (setq js2-missing-semi-one-line-override t)
+    (setq-default js2-indent-hook 2)
+    (setq-default js2-basic-offset 2))
+
+  (add-hook 'js2-mode-hook 'cnb/js2-mode-hook t)
 
   ;;==============================================
   ;; SCSS Mode
   ;;==============================================
-  (defun my-scss-mode-hook ()
+  (defun cnb/scss-mode-hook ()
     "Hooks for SCSS mode."
     (setq css-indent-offset 2))
 
-  (add-hook 'scss-mode-hook  'my-scss-mode-hook t)
+  (add-hook 'scss-mode-hook 'cnb/scss-mode-hook t)
 
   ;;==============================================
   ;; CLOJURE configuration
