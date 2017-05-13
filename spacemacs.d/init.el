@@ -174,14 +174,14 @@ values."
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
    dotspacemacs-themes '(
-                         material
                          material-light
-                         spacemacs-light
+                         material
+                         ;; spacemacs-light
                          ;; railscasts
                          ;; zenburn
                          ;; solarized-light
                          ;; solarized-dark
-                         spacemacs-dark
+                         ;; spacemacs-dark
                          )
 
    ;; If non nil the cursor color matches the state color.
@@ -429,8 +429,8 @@ layers configuration. You are free to put any user code."
   ;;==============================================
   (setq dired-listing-switches "-alhG --group-directories-first")
 
-  (add-hook 'dired-mode-hook
-            (lambda () (hl-line-mode)))
+  ;; (add-hook 'dired-mode-hook
+  ;;           (lambda () (hl-line-mode)))
 
   ;; Preview files in dired.
   (use-package peep-dired
@@ -502,12 +502,15 @@ layers configuration. You are free to put any user code."
   (defun cnb/web-mode-hook ()
     "Hooks for Web mode."
     (setq web-mode-markup-indent-offset 2)
-    (setq web-mode-css-indent-offset 2))
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2))
 
   (add-hook 'web-mode-hook 'cnb/web-mode-hook t)
 
+  (setq emmet-indentation 2)
+
   ;;==============================================
-  ;; js2 mode configuration
+  ;; Javascript configuration
   ;;==============================================
   (defun cnb/js2-mode-hook ()
     "Hooks for Web mode."
@@ -587,8 +590,8 @@ layers configuration. You are free to put any user code."
     :commands flash-crosshairs
     :bind (("<f9>" . flash-crosshairs)))
 
-  (add-hook 'spacemacs-buffer-mode-hook
-            (lambda () (hl-line-mode)))
+  ;; (add-hook 'spacemacs-buffer-mode-hook
+  ;;           (lambda () (hl-line-mode)))
 
   (setq imenu-list-auto-resize nil)
 
@@ -630,7 +633,7 @@ layers configuration. You are free to put any user code."
 
   (setq neo-theme 'nerd)
 
-  (global-hl-line-mode 0)
+  ;; (global-hl-line-mode 0)
   (setq kill-ring-max 500)
   (evil-visual-mark-mode)
 
