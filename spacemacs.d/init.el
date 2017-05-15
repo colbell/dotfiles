@@ -381,6 +381,8 @@ layers configuration. You are free to put any user code."
   ;; (set ivy-count-format "%-4d ")
   (setq ivy-count-format "") ;; Don't count candidates.
 
+  (setq ivy-use-virtual-buffers t)
+
   ;;==============================================
   ;; conf-mode configuration
   ;;==============================================
