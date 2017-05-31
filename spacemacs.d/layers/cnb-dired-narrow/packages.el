@@ -15,11 +15,13 @@
 
 (defun cnb-dired-narrow/init-dired-hacks-utils ()
   (use-package dired-hacks-utils
+    :defer t
     :ensure t))
  
 (defun cnb-dired-narrow/init-dired-narrow ()
   (use-package dired-narrow
     :ensure t
+    :defer t
     :commands (dired-narrow)
     :bind (:map dired-mode-map
                 ("/" . dired-narrow))

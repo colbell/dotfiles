@@ -173,10 +173,7 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(
-                         material-light
-                         material
-                         )
+   dotspacemacs-themes '(material-light material)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -462,6 +459,7 @@ layers configuration. You are free to put any user code."
 
   (use-package rubocop
     :ensure t
+    :defer t
     :commands rubocop-mode
     :diminish rubocop-mode)
 
@@ -561,6 +559,7 @@ layers configuration. You are free to put any user code."
 
   (use-package mode-icons
     :ensure t
+    :defer t
     :config
     (mode-icons-mode t))
 
@@ -587,6 +586,7 @@ layers configuration. You are free to put any user code."
 
   (use-package crosshairs
     :commands flash-crosshairs
+    :defer t
     :bind (("<f9>" . flash-crosshairs)))
 
   ;; (add-hook 'spacemacs-buffer-mode-hook
