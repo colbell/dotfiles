@@ -12,6 +12,7 @@
 /config/Code
 /config/Empathy/*
 /config/GitKraken/*
+/config/GoogleDocsdocsgooglecom/
 /config/LightTable/*
 /config/Mousepad/accels.scm
 /config/QtProject.conf
@@ -37,6 +38,7 @@
 /config/compiz/*
 /config/configstore/*
 /config/connectivity-service/config.ini
+/config/dconf/
 /config/dconf/user
 /config/desktop-couch/*
 /config/dleyna-renderer-service.conf
