@@ -41,7 +41,6 @@ values."
      cnb-bug-reference
      cnb-dired-narrow
      cnb-muttrc
-     cnb-shrink-whitespace
      colors
      csv
      elixir
