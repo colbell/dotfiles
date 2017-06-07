@@ -1,12 +1,10 @@
-aws-uat,green,black
 aws-uat1,green,black
-aws-122,green,black
-aws-rails,green,black
-aws-r4,green,black
+aws-uat2,green,black
 aws-sandbox2,black,white
 aws-sand3,black,white
-aws-prod1,red,black
 aws-prod2,red,black
-aws-backups,yellow,black
 aws-backups2,yellow,black
-complispace-sand1,black,white
+aws-r4,green,black
+compl-prod1,red,black
+compl-sand1,black,white
+compl-backups,yellow,black
