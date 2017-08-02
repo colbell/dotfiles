@@ -1,5 +1,6 @@
 aws-uat1,green,black
 aws-uat2,green,black
+aws-demo1,green,black
 aws-sandbox2,black,white
 aws-sand3,black,white
 aws-prod2,red,black
