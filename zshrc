@@ -77,6 +77,9 @@ export MANWIDTH=96
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# Enable history in IEX
+export ERL_AFLAGS="-kernel shell_history enabled"
+
 # export TERM=xterm-256color
 # [ -n "$DISPLAY" ] && export TERM=xterm-256color
 # [ -n "$TMUX" ] && export TERM=screen-256color
