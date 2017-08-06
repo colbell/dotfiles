@@ -104,6 +104,7 @@
 
     ;; prefer classic vim mode over vim-mode-plus? Change this to :vim-mode
     ["proton.core.inputProvider" :vim-mode-plus]
+    ["iex.startPhoenixServer" true]
   ]
 
   ;; Don't like a keybinding or want to add something yourself? Do it here
