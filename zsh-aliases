@@ -1,3 +1,4 @@
+# -*- shell-script -*-
 
 if [[ "$OSTYPE" =~ ^freebsd ]]; then
   alias pkg-update='sudo pkg update'
