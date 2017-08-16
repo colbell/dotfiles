@@ -373,6 +373,14 @@ layers configuration. You are free to put any user code."
   (setq rainbow-x-colors t)
 
   ;;==============================================
+  ;; Projectile configuration
+  ;;==============================================
+
+  ;; When switching projects open projects root directory in dired, don't
+  ;; search for a file.
+  (setq projectile-switch-project-action #'projectile-dired)
+
+  ;;==============================================
   ;; ivy/swiper configuration
   ;;==============================================
   ;; (setq ivy-count-format "%d/%d ")
