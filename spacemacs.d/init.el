@@ -61,7 +61,7 @@ values."
      nlinum
      org
      pdf-tools
-     perspectives
+     ;;perspectives
      python
      react
      (ruby :variables ruby-test-runner 'rspec
