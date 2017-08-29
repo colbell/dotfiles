@@ -129,6 +129,11 @@ export GTK_OVERLAY_SCROLLING=0
 # export QT_IM_MODULE=ibus
 # export CLUTTER_IM_MODULE=ibus
 
+# Wayland (as at Ubuntu Gnome 17.04) doesn't load ~/.Xresources at startup.
+if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
+  xrdb -merge $HOME/.Xresources
+fi
+
 # autoload -U colors
 # colors
 
