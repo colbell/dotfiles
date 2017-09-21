@@ -1,6 +1,5 @@
 # -*- mode: conf; -*-
 [core]
-  editor=vim
   pager=less -x2
   autocrlf = input
   safecrlf = true
@@ -65,13 +64,13 @@
   type = cat-file -t
   dump = cat-file -p
 
-	stash-all = stash --include-untracked
+  stash-all = stash --include-untracked
 
   # Reset to before last commit.
   undo = reset --soft HEAD^
 
-[gui]
-  editor = emacsclient
-
 [help]
 	autoCorrect = -1
+
+[magit]
+	hideCampaign = true
