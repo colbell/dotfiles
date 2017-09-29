@@ -1,3 +1,4 @@
+/SpaceVim.d/.netrwhist
 /bin/eclipse
 /bin/hg-prompt/prompt.pyc
 /bin/lein
@@ -8,6 +9,7 @@
 /byobu/.welcome-displayed
 /centerim/j*
 /centerim/pid
+/config/.nautilus-admin-warn-shown
 /config/Atom
 /config/Code
 /config/Empathy/*
@@ -16,6 +18,7 @@
 /config/LightTable/*
 /config/Mousepad/accels.scm
 /config/QtProject.conf
+/config/Slack/
 /config/Thunar/*
 /config/Trolltech.conf
 /config/VirtualBox/
@@ -23,6 +26,7 @@
 /config/akonadi/*
 /config/atril/
 /config/audacious/*
+/config/autostart/slack.desktop
 /config/baloofilerc
 /config/breezerc
 /config/cairo-compmgr/*
@@ -53,12 +57,17 @@
 /config/f-spot/*
 /config/folder-color/hide_donation
 /config/geany/
+/config/gedit/gedit-page-setup
+/config/gedit/gedit-print-settings
 /config/git-cola/
 /config/git/gitk
 /config/gmpc/
 /config/gnome-boxes/sources
+/config/gnome-builder/
 /config/gnome-control-center/
+/config/gnome-games/
 /config/gnome-initial-setup-done
+/config/gnome-layout-manager/
 /config/goa-1.0/accounts.conf
 /config/google-chrome/*
 /config/gtk-2.0/*
@@ -246,6 +255,3 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
-/config/gedit/gedit-page-setup
-/config/gedit/gedit-print-settings
-/SpaceVim.d/.netrwhist

@@ -45,11 +45,11 @@
     :lang/html
     :lang/javascript
     :lang/json
-    ;; :lang/python
+    :lang/python
     ;; :lang/julia
     ;; :lang/latex
     :lang/elixir
-    ;; :lang/markdown
+    :lang/markdown
     :lang/ruby
     ;; :lang/rust
     ;; :lang/javascript
@@ -97,8 +97,8 @@
     ;; the current default theme
     ;; ["core.themes" ["nucleus-dark-ui" "atom-dark-fusion-syntax"]]
     ;; here are some more popular theme ideas for you to pick from:
-    ;; ["core.themes" ["atom-material-ui" "atom-material-syntax-light"]]
-    ["core.themes" ["atom-light-ui" "atom-light-syntax"]]
+    ["core.themes" ["atom-material-ui" "atom-material-syntax-light"]]
+    ;; ["core.themes" ["atom-light-ui" "atom-light-syntax"]]
     ;; ["core.themes" ["one-dark-ui" "one-dark-syntax"]]
 
     ;; proton configuration
