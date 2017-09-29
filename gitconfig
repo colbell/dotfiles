@@ -17,16 +17,16 @@
 [http]
   sslVerify = false
 
-[diff]
-  tool = icdiff
-  # For Github-style word diffs
-  # wordRegex = [^[:space:]]
+# [diff]
+#   tool = icdiff
+#   # For Github-style word diffs
+#   # wordRegex = [^[:space:]]
 
-[difftool]
-  prompt = false
+# [difftool]
+#   prompt = false
 
-[difftool "icdiff"]
-  cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
+# [difftool "icdiff"]
+#   cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
 
 [apply]
   whitespace = nowarn
@@ -34,8 +34,8 @@
 [commit]
   template = ~/.gitmessage
 
-[merge]
-  conflictstyle = diff3
+# [merge]
+#   conflictstyle = diff3
 
 # Causes failure when installing SpaceVim plugins
 #[transfer]
