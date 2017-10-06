@@ -40,7 +40,6 @@ values."
      cnb-bm
      cnb-bug-reference
      cnb-dired-narrow
-     cnb-muttrc
      cnb-shrink-whitespace
      colors
      ;; (colors :variables colors-enable-nyan-cat-progress-bar t)
