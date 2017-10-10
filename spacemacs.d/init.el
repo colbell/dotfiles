@@ -45,6 +45,7 @@ values."
      ;; (colors :variables colors-enable-nyan-cat-progress-bar t)
      csv
      elixir
+     elm
      emacs-lisp
      erlang
      evil-cleverparens
