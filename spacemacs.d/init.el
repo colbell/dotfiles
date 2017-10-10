@@ -482,6 +482,15 @@ layers configuration. You are free to put any user code."
   ;;==============================================
   (setq ibuffer-show-empty-filter-groups nil)
 
+  ;;==============================================
+  ;; ELM configuration
+  ;;==============================================
+  (use-package elm-mode
+    :defer t
+    :config
+    (setq elm-format-on-save t)
+    (setq elm-tags-on-save t)
+    (setq elm-sort-imports-on-save t))
 
   ;;==============================================
   ;; RUBY configuration
