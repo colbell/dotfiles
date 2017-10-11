@@ -44,6 +44,7 @@ values."
      colors
      ;; (colors :variables colors-enable-nyan-cat-progress-bar t)
      csv
+     docker
      elixir
      elm
      emacs-lisp
