@@ -82,6 +82,7 @@ values."
      spell-checking
      sql
      (syntax-checking :variables syntax-checking-enable-tooltips nil)
+     systemd
      (version-control :variables
                       version-control-diff-tool 'diff-hl
                       version-control-global-margin t)
@@ -394,8 +395,8 @@ layers configuration. You are free to put any user code."
   ;;==============================================
   ;; ivy/swiper configuration
   ;;==============================================
-  ;; (setq ivy-count-format "%d/%d ")
-  (setq ivy-count-format "") ;; Don't count candidates.
+  (setq ivy-count-format "%d/%d ")
+  ;; (setq ivy-count-format "") ;; Don't count candidates.
 
   (setq ivy-use-virtual-buffers t)
 
@@ -539,12 +540,18 @@ layers configuration. You are free to put any user code."
   ;; Javascript configuration
   ;;==============================================
   (defun cnb/js2-mode-hook ()
-    "Hooks for Web mode."
+    "Hooks for JS2 mode."
     (setq js2-missing-semi-one-line-override t)
     (setq-default js2-indent-hook 2)
     (setq-default js2-basic-offset 2))
 
   (add-hook 'js2-mode-hook 'cnb/js2-mode-hook t)
+
+  (defun cnb/js-mode-hook ()
+    "Hooks for JS mode."
+    (setq-default js-indent-level 2))
+
+  (add-hook 'js-mode-hook 'cnb/js-mode-hook t)
 
   ;;==============================================
   ;; SCSS Mode
