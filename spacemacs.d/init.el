@@ -395,8 +395,9 @@ layers configuration. You are free to put any user code."
   ;;==============================================
   ;; ivy/swiper configuration
   ;;==============================================
-  (setq ivy-count-format "%d/%d ")
+  ;; (setq ivy-count-format "(%d/%d) ") ;; crashes 'search in project (<spc> s p)
   ;; (setq ivy-count-format "") ;; Don't count candidates.
+  (setq ivy-count-format "%-4d ") ;; Default.
 
   (setq ivy-use-virtual-buffers t)
 
@@ -608,7 +609,7 @@ layers configuration. You are free to put any user code."
     :ensure t
     :defer t
     :config
-    (mode-icons-mode t))
+    (mode-icons-mode))
 
   ;;===============================================
   ;; Visual marks.
