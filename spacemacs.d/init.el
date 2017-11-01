@@ -696,22 +696,4 @@ layers configuration. You are free to put any user code."
 
   (mouse-avoidance-mode 'exile))
 (defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (edit-indirect ssass-mode vue-html-mode mmt treemacs pfuture symon string-inflection powerline ruby-refactor rake inflections pcre2el password-generator spinner org-category-capture alert log4e gntp org-brain nlinum mmm-mode markdown-mode skewer-mode multiple-cursors js2-mode ivy-purpose window-purpose impatient-mode simple-httpd hydra parent-mode helm helm-core haml-mode fringe-helper git-gutter+ git-gutter flyspell-correct pos-tip flycheck-bashate flycheck flx evil-org org-plus-contrib magit git-commit with-editor evil-lion iedit smartparens paredit anzu evil goto-chg undo-tree highlight editorconfig tablist magit-popup json-snatcher json-reformat dired-hacks-utils diminish col-highlight hl-line+ vline projectile counsel swiper ivy web-completion-data dash-functional tern company-lua inf-ruby browse-at-remote bind-map bind-key yasnippet packed async anaconda-mode pythonic f s company dash elixir-mode pkg-info epl ace-window avy auto-complete popup systemd dockerfile-mode docker docker-tramp zenburn-theme yapfify yaml-mode xterm-color ws-butler winum which-key wgrep web-mode web-beautify w3m vue-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package typit treemacs-projectile treemacs-evil toc-org tagedit sudoku sql-indent spaceline solarized-theme smex smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rainbow-mode rainbow-identifiers rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails popwin pip-requirements persp-mode persistent-scratch peep-dired pdf-tools paradox pacmacs orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file ob-elixir nlinum-relative neotree multi-term move-text mode-icons minitest material-theme markdown-toc magit-gitflow macrostep lua-mode lorem-ipsum livid-mode live-py-mode link-hint less-css-mode json-mode js2-refactor js-doc ivy-hydra insert-shebang info+ indent-guide imenu-list ibuffer-projectile hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy flyspell-correct-ivy flycheck-pos-tip flycheck-mix flycheck-elm flycheck-credo flx-ido fish-mode fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav dumb-jump dired-narrow diff-hl define-word dactyl-mode cython-mode csv-mode crosshairs counsel-projectile company-web company-tern company-statistics company-shell company-anaconda column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby bundler bm auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alchemist aggressive-indent adaptive-wrap ace-link ac-ispell 2048-game))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 )
