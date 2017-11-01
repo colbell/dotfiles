@@ -16,8 +16,9 @@ fi
 
 alias sduo=sudo
 
-# alias h='history 1'
 alias h='history'
+
+alias ec='emacsclient'
 
 alias openports='netstat --all --numeric --programs --inet'
 
