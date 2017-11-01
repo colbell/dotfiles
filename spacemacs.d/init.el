@@ -96,6 +96,7 @@ values."
    dotspacemacs-additional-packages '(crosshairs
                                       material-theme
                                       mode-icons
+                                      moe-theme
                                       peep-dired
                                       persistent-scratch
                                       railscasts-theme
@@ -180,8 +181,10 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(zenburn spacemacs-dark spacemacs-light material
-                                 material-light)
+   dotspacemacs-themes '(moe-dark moe-light
+                         zenburn
+                         spacemacs-dark spacemacs-light
+                         material material-light)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -605,11 +608,7 @@ layers configuration. You are free to put any user code."
   ;; Show icons instead of mode names.
   ;;===============================================
 
-  (use-package mode-icons
-    :ensure t
-    :defer t
-    :config
-    (mode-icons-mode))
+  (mode-icons-mode)
 
   ;;===============================================
   ;; Visual marks.
@@ -696,4 +695,22 @@ layers configuration. You are free to put any user code."
 
   (mouse-avoidance-mode 'exile))
 (defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (moe-theme zenburn-theme yapfify yaml-mode xterm-color ws-butler winum which-key wgrep web-mode web-beautify w3m vue-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package typit treemacs-projectile treemacs-evil toc-org tagedit systemd symon sudoku string-inflection sql-indent spaceline solarized-theme smex smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor rubocop rspec-mode robe restart-emacs request rbenv rainbow-mode rainbow-identifiers rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails popwin pip-requirements persp-mode persistent-scratch peep-dired pdf-tools password-generator paradox pacmacs orgit org-projectile org-present org-pomodoro org-download org-bullets org-brain open-junk-file ob-elixir nlinum-relative multi-term move-text mode-icons minitest material-theme markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode link-hint less-css-mode js2-refactor js-doc ivy-purpose ivy-hydra insert-shebang info+ indent-guide impatient-mode ibuffer-projectile hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy flyspell-correct-ivy flycheck-pos-tip flycheck-mix flycheck-elm flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav editorconfig dumb-jump dockerfile-mode docker dired-narrow diff-hl define-word dactyl-mode cython-mode csv-mode crosshairs counsel-projectile company-web company-tern company-statistics company-shell company-lua company-anaconda column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby bundler browse-at-remote bm auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alchemist aggressive-indent adaptive-wrap ace-link ac-ispell 2048-game))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 )

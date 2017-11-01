@@ -1,4 +1,5 @@
 /SpaceVim.d/.netrwhist
+/SpaceVim/
 /bin/eclipse
 /bin/hg-prompt/prompt.pyc
 /bin/lein
@@ -70,6 +71,7 @@
 /config/gnome-layout-manager/
 /config/goa-1.0/accounts.conf
 /config/google-chrome/*
+/config/gthumb/
 /config/gtk-2.0/*
 /config/gtk-3.0/bookmarks
 /config/gtk-3.0/servers
@@ -94,6 +96,7 @@
 /config/menus/*
 /config/midori/*
 /config/mimeapps.list
+/config/monitors-v1-backup.xml
 /config/monitors.xml
 /config/monitors.xml~
 /config/nautilus
@@ -255,4 +258,3 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
-/SpaceVim/

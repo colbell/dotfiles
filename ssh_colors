@@ -4,6 +4,7 @@ aws-demo1,green,black
 aws-sandbox2,black,white
 aws-sandbox2-1,black,white
 aws-sand3,black,white
+aws-prod-1,red,black
 aws-prod2,red,black
 aws-backups2,yellow,black
 aws-r4,green,black
