@@ -684,6 +684,14 @@ layers configuration. You are free to put any user code."
 
   (setq evil-want-fine-undo t)
 
+  ;; My common mistakes.
+  (define-abbrev-table
+    'global-abbrev-table '(("teh" "the" nil 0)
+                           ("tehy" "they" nil 0)
+                           ("yuo" "you" nil 0)
+                           ("yuor" "your" nil 0)))
+  (setq-default abbrev-mode t)
+
   ;; (add-to-list
   ;;  'display-buffer-alist
   ;;  `(,(rx bos "*rspec-compilation*" eos)
