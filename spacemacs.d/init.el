@@ -181,10 +181,10 @@ values."
    ;; with 2 themes variants, one dark and one light)
    ;; dotspacemacs-themes '(spacemacs-light
    ;;                        spacemacs-dark)
-   dotspacemacs-themes '(moe-dark moe-light
+   dotspacemacs-themes '(material material-light
                          zenburn
-                         spacemacs-dark spacemacs-light
-                         material material-light)
+                         moe-dark moe-light
+                         spacemacs-dark spacemacs-light)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -426,7 +426,7 @@ layers configuration. You are free to put any user code."
   ;;==============================================
   ;; source control configuration
   ;;==============================================
-  ;; (global-git-commit-mode nil)
+  (global-git-commit-mode t)
 
   ;;==============================================
   ;; Screensaver.
