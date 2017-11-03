@@ -641,6 +641,9 @@ layers configuration. You are free to put any user code."
 
   (setq imenu-list-auto-resize nil)
 
+  ;; Let me right-click in terminal to show terminal menu.
+  (xterm-mouse-mode -1)
+
   (use-package persistent-scratch
     :config
     (setq persistent-scratch-save-file
