@@ -1,6 +1,6 @@
  #!/bin/sh
 
-xrandr --auto --output LVDS1
-xrandr --auto --output DP1 --right-of LVDS1
-xrandr --output LVDS1 --primary
-
+xrandr --auto --output eDP-1
+xrandr --auto --output HDMI-2 --right-of eDP-1
+xrandr --auto --output DP-1 --right-of HDMI-2
+xrandr --output eDP-1 --primary
