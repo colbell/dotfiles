@@ -146,5 +146,3 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
