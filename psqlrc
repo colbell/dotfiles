@@ -3,14 +3,20 @@
 \set PROMPT1 '%[%033[1m%]%M %n@%/%R%[%033[0m%]%# '
 \set PROMPT2 '[more] %R > '
 
-\pset null '[NULL]'
+\pset null '¤'
 -- \x on
 
 \set VERBOSITY verbose
 \set HISTCONTROL ignoredups
 \set COMP_KEYWORD_CASE upper
+
 \pset linestyle unicode
+\pset unicode_border_linestyle single
+\pset unicode_column_linestyle single
+\pset unicode_header_linestyle double
+
 \setenv LESS -imx4
+\setenv LESS '-iMFXSx4R'
 \timing on
 
 -- greeting
