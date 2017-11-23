@@ -15,44 +15,39 @@
 
 
     ;; -----------------------------------
-    ;; tools
+    ;; apps
     ;; Get more at github.com/dvcrn/proton/tree/master/src/cljs/proton/layers/apps
     ;; -----------------------------------
-    :apps/notes
+    ;;:apps/notes
 
 
     ;; -----------------------------------
     ;; tools
     ;; Get more at github.com/dvcrn/proton/tree/master/src/cljs/proton/layers/tools
     ;; -----------------------------------
+    :tools/bookmarks
+    :tools/build
+    :tools/expose
     :tools/git
     :tools/linter
-    :tools/bookmarks
+    :tools/terminal
     :tools/todo
-    ;; :tools/build
-    ;; :tools/minimap
-    :tools/expose
 
 
     ;; -----------------------------------
     ;; Languages
     ;; Get more at github.com/dvcrn/proton/tree/master/src/cljs/proton/layers/lang
     ;; -----------------------------------
-    ;; :lang/clojure
-    ;; :lang/csharp
+    :lang/clojure
     :lang/css
+    :lang/elixir
     :lang/haml
     :lang/html
     :lang/javascript
     :lang/json
     :lang/python
-    ;; :lang/julia
-    ;; :lang/latex
-    :lang/elixir
-    :lang/markdown
     :lang/ruby
-    ;; :lang/rust
-    ;; :lang/javascript
+    :lang/sass
 
     ;; -----------------------------------
     ;; Frameworks
@@ -73,7 +68,8 @@
   :additional-packages
   [
     ;; :pigments
-    :atom-material-syntax-light
+    :solarized-one-light-ui
+    :atom-solarized-dark-ui
   ]
 
   ;; Packages that you want to disable.
@@ -91,22 +87,27 @@
   :configuration
   [
     ;; appearance
-    ["editor.fontFamily" "Source Code Pro"]
+    ["editor.fontFamily" "Hack"]
+    ;; ["editor.fontFamily" "Source Code Pro"]
     ["editor.fontSize" "13"]
 
     ;; the current default theme
-    ;; ["core.themes" ["nucleus-dark-ui" "atom-dark-fusion-syntax"]]
-    ;; here are some more popular theme ideas for you to pick from:
-    ["core.themes" ["atom-material-ui" "atom-material-syntax-light"]]
-    ;; ["core.themes" ["atom-light-ui" "atom-light-syntax"]]
-    ;; ["core.themes" ["one-dark-ui" "one-dark-syntax"]]
+    ["core.themes" ["nucleus-dark" "atom-dark-fusion"]]
+
+    ["proton.core.whichKeyDelay" 0]
+
+    ["core.projectHome" "/home/colinbell/src"]
 
     ;; proton configuration
-    ["proton.core.showTabBar" true]
-    ["proton.core.relativeLineNumbers" false]
+    ["proton.core.showTabBar" false]
+    ["proton.core.relativeLineNumbers" true]
 
     ;; prefer classic vim mode over vim-mode-plus? Change this to :vim-mode
     ["proton.core.inputProvider" :vim-mode-plus]
+
+    ["vim-mode-plus.keymapYToYankToLastCharacterOfLine" true]
+
+    ;; FIXME: ??
     ["iex.startPhoenixServer" true]
   ]
 
