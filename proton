@@ -45,9 +45,9 @@
     :lang/html
     :lang/javascript
     :lang/json
+    :lang/markdown
     :lang/python
     :lang/ruby
-    :lang/sass
 
     ;; -----------------------------------
     ;; Frameworks
@@ -92,13 +92,12 @@
     ["editor.fontSize" "13"]
 
     ;; the current default theme
-    ["core.themes" ["nucleus-dark" "atom-dark-fusion"]]
+    ["core.themes" ["nucleus-dark-ui" "atom-dark-fusion-syntax"]]
 
     ["proton.core.whichKeyDelay" 0]
 
     ["core.projectHome" "/home/colinbell/src"]
 
-    ;; proton configuration
     ["proton.core.showTabBar" false]
     ["proton.core.relativeLineNumbers" true]
 
@@ -106,6 +105,10 @@
     ["proton.core.inputProvider" :vim-mode-plus]
 
     ["vim-mode-plus.keymapYToYankToLastCharacterOfLine" true]
+
+    ;; Linters
+    ["linter-clojure.javaExecutablePath" "/usr/bin/java"]
+    ["linter-clojure.clojureExecutablePath" "/home/colinbell/.m2/repository/org/clojure/clojure/1.8.0/clojure-1.8.0.jar"]
 
     ;; FIXME: ??
     ["iex.startPhoenixServer" true]
