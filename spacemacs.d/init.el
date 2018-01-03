@@ -102,7 +102,6 @@ values."
 
                                       ;; FIXME: Doesn't ruby layer bring this in?
                                       rubocop
-                                      solarized-theme
                                       vue-mode
                                       w3m)
 
@@ -179,7 +178,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-light spacemacs-dark)
+   dotspacemacs-themes '(gruvbox-dark-hard gruvbox-light-hard)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -395,7 +394,7 @@ layers configuration. You are free to put any user code."
   ;;==============================================
   ;; (setq ivy-count-format "(%d/%d) ") ;; crashes 'search in project (<spc> s p)
   ;; (setq ivy-count-format "") ;; Don't count candidates.
-  (setq ivy-count-format "%-4d ") ;; Default.
+  ;; (setq ivy-count-format "%-4d ") ;; Default.
 
   (setq ivy-use-virtual-buffers t)
 
@@ -601,7 +600,6 @@ layers configuration. You are free to put any user code."
   ;;===============================================
   ;; Show icons instead of mode names.
   ;;===============================================
-
   (mode-icons-mode)
 
   ;;===============================================
@@ -615,6 +613,18 @@ layers configuration. You are free to put any user code."
   (advice-add #'evil-delete-marks :after
               (lambda (&rest _)
                 (evil-visual-mark-render)))
+
+  ;;===============================================
+  ;; Show current function/file in header.
+  ;;===============================================
+
+  ;; Don't show current function in mode line.
+  (spaceline-toggle-which-function-off)
+
+  (which-function-mode)
+  (modify-face 'which-func "light-green")
+  (setq-default header-line-format
+                '((which-func-mode ("" which-func-format " ")) " - %f" ))
 
   (add-hook
    'after-save-hook
@@ -697,8 +707,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (solarized-theme org-brain company counsel helm helm-core yasnippet markdown-mode mmt yapfify yaml-mode xterm-color ws-butler winum which-key wgrep web-mode web-beautify w3m vue-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package typit treemacs-projectile treemacs-evil toc-org tagedit systemd symon swiper sudoku string-inflection sql-indent spaceline smex smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor rubocop rspec-mode robe restart-emacs request rbenv rainbow-mode rainbow-identifiers rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails popwin pip-requirements persp-mode persistent-scratch peep-dired pdf-tools password-generator paradox pacmacs overseer orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file ob-elixir nlinum-relative nameless multi-term move-text moe-theme mode-icons minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode link-hint js2-refactor js-doc ivy-purpose ivy-hydra insert-shebang info+ indent-guide impatient-mode ibuffer-projectile hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make gruvbox-theme google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy flyspell-correct-ivy flycheck-pos-tip flycheck-mix flycheck-elm flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav editorconfig dumb-jump dockerfile-mode docker dired-narrow diminish diff-hl define-word dactyl-mode cython-mode csv-mode counsel-projectile counsel-gtags company-web company-tern company-statistics company-shell company-lua company-anaconda column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby bundler browse-at-remote bm auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alchemist aggressive-indent adaptive-wrap ace-link ac-ispell 2048-game)))
- '(tramp-syntax (quote default) nil (tramp)))
+    (string-inflection evil-surround counsel swiper helm-core ivy org-plus-contrib yapfify yaml-mode xterm-color ws-butler winum which-key wgrep web-mode web-beautify w3m vue-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package typit treemacs-projectile treemacs-evil toc-org tagedit systemd symon sudoku sql-indent spaceline smex smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor rubocop rspec-mode robe restart-emacs request rbenv rainbow-mode rainbow-identifiers rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails popwin pip-requirements persp-mode persistent-scratch peep-dired pdf-tools password-generator paradox pacmacs overseer orgit org-projectile org-present org-pomodoro org-download org-bullets org-brain open-junk-file ob-elixir nlinum-relative nameless multi-term move-text moe-theme mode-icons minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode link-hint js2-refactor js-doc ivy-purpose ivy-hydra insert-shebang info+ indent-guide impatient-mode ibuffer-projectile hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make gruvbox-theme google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy flyspell-correct-ivy flycheck-pos-tip flycheck-mix flycheck-elm flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-search-highlight-persist evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav editorconfig dumb-jump dockerfile-mode docker dired-narrow diminish diff-hl define-word dactyl-mode cython-mode csv-mode counsel-projectile counsel-gtags company-web company-tern company-statistics company-shell company-lua company-anaconda column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby bundler browse-at-remote bm auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alchemist aggressive-indent adaptive-wrap ace-link ac-ispell 2048-game))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
