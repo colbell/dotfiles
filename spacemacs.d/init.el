@@ -31,13 +31,12 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     ;; better-defaults
-     ;; clojure
      (auto-completion :variables
                       auto-completion-private-snippets-directory
                       "~/.spacemacs.d/snippets/")
+     bm
      cnb-beg-end
-     cnb-bm
+     ;; cnb-bm
      cnb-bug-reference
      cnb-dired-narrow
      cnb-shrink-whitespace
@@ -93,18 +92,19 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in 'dotspacemacs/config'.
-   dotspacemacs-additional-packages '(crosshairs
-                                      material-theme
+   dotspacemacs-additional-packages '(gruvbox-theme
                                       mode-icons
                                       moe-theme
+
+                                      ;; FIXME: Do I need this?
                                       peep-dired
                                       persistent-scratch
-                                      railscasts-theme
+
+                                      ;; FIXME: Doesn't ruby layer bring this in?
                                       rubocop
                                       solarized-theme
                                       vue-mode
-                                      w3m
-                                      zenburn-theme)
+                                      w3m)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -179,12 +179,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   ;; dotspacemacs-themes '(spacemacs-light
-   ;;                        spacemacs-dark)
-   dotspacemacs-themes '(material material-light
-                         zenburn
-                         moe-dark moe-light
-                         spacemacs-dark spacemacs-light)
+   dotspacemacs-themes '(spacemacs-light spacemacs-dark)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -320,7 +315,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -603,7 +598,6 @@ layers configuration. You are free to put any user code."
     ;;(setq org-refile-allow-creating-parent-nodes (quote confirm))
     )
 
-
   ;;===============================================
   ;; Show icons instead of mode names.
   ;;===============================================
@@ -631,19 +625,12 @@ layers configuration. You are free to put any user code."
                       (progn
                         (spacemacs/toggle-evil-cleverparens-on))))
 
-  (use-package crosshairs
-    :commands flash-crosshairs
-    :defer t
-    :bind (("<f9>" . flash-crosshairs)))
-
-  ;; (add-hook 'spacemacs-buffer-mode-hook
-  ;;           (lambda () (hl-line-mode)))
-
-  (setq imenu-list-auto-resize nil)
+  ;; (setq imenu-list-auto-resize nil)
 
   ;; Let me right-click in terminal to show terminal menu.
   (xterm-mouse-mode -1)
 
+  ;; Save contents of scratch buffer on exit and restore on startup.
   (use-package persistent-scratch
     :config
     (setq persistent-scratch-save-file
@@ -653,8 +640,6 @@ layers configuration. You are free to put any user code."
 
   (setq-default
    sentence-end-double-space t
-   ;; js2-basic-offset 2
-   ;; js-indent-level 2
 
    ;; Use a visible bell instead of a beep.
    visible-bell t
@@ -694,12 +679,6 @@ layers configuration. You are free to put any user code."
                            ("yuo" "you" nil 0)
                            ("yuor" "your" nil 0)))
   (setq-default abbrev-mode t)
-
-  ;; (add-to-list
-  ;;  'display-buffer-alist
-  ;;  `(,(rx bos "*rspec-compilation*" eos)
-  ;;    (display-buffer-reuse-window)
-  ;;    (reusable-frames . t)))
 
   ;; Seems to be needed for evil to work with system clipboard
   (fset 'evil-visual-update-x-selection 'ignore)
