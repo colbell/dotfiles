@@ -34,7 +34,7 @@ values."
      (auto-completion :variables
                       auto-completion-private-snippets-directory
                       "~/.spacemacs.d/snippets/")
-     ;; bm
+     bm
      cnb-beg-end
      cnb-bug-reference
      cnb-dired-narrow
@@ -71,10 +71,10 @@ values."
             shell-enable-smart-eshell t)
      (spell-checking :variables spell-checking-enable-auto-dictionary t)
      syntax-checking
-     ;; treemacs
+     treemacs
      version-control
      shell-scripts
-     ;; spacemacs-purpose
+     spacemacs-purpose
      spell-checking
      sql
      (syntax-checking :variables syntax-checking-enable-tooltips nil)
@@ -91,7 +91,7 @@ values."
    ;; configuration in 'dotspacemacs/config'.
    dotspacemacs-additional-packages '(gruvbox-theme
                                       mode-icons
-                                      moe-theme
+                                      ;; moe-theme
 
                                       ;; FIXME: Do I need this?
                                       peep-dired
@@ -181,7 +181,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   ;; dotspacemacs-themes '(gruvbox-dark-hard gruvbox-light-hard)
+   dotspacemacs-themes '(gruvbox-dark-hard gruvbox-light-hard)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -714,7 +714,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yapfify yaml-mode xterm-color ws-butler winum which-key wgrep web-mode web-beautify w3m vue-mode edit-indirect ssass-mode vue-html-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package typit mmt treemacs-projectile treemacs-evil treemacs pfuture toc-org tagedit systemd symon sudoku string-inflection sql-indent spaceline powerline smex smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor rubocop rspec-mode robe restart-emacs request rbenv rainbow-mode rainbow-identifiers rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails rake inflections popwin pip-requirements persp-mode persistent-scratch peep-dired pdf-tools pcre2el password-generator paradox spinner pacmacs overseer orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download org-bullets org-brain open-junk-file ob-elixir org-plus-contrib nlinum-relative nlinum nameless multi-term move-text moe-theme mode-icons mmm-mode minitest markdown-toc markdown-mode magit-gitflow macrostep lorem-ipsum livid-mode skewer-mode live-py-mode link-hint js2-refactor multiple-cursors js2-mode js-doc ivy-purpose window-purpose ivy-hydra insert-shebang info+ indent-guide impatient-mode simple-httpd imenu-list ibuffer-projectile hydra hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core haml-mode gruvbox-theme autothemer google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md ggtags fuzzy flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck-mix flycheck-elm flycheck-credo flycheck-bashate flycheck flx-ido flx fish-mode fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit git-commit ghub with-editor evil-lisp-state evil-lion evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav editorconfig dumb-jump dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat dired-narrow dired-hacks-utils diminish diff-hl define-word dactyl-mode cython-mode csv-mode counsel-projectile projectile counsel-gtags counsel swiper ivy company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-lua lua-mode company-anaconda column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby bundler inf-ruby browse-at-remote bm bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed async anaconda-mode pythonic f alchemist s company dash elixir-mode pkg-info epl aggressive-indent adaptive-wrap ace-window ace-link avy ac-ispell auto-complete popup 2048-game)))
+    (treemacs yapfify yaml-mode xterm-color ws-butler winum which-key wgrep web-mode web-beautify w3m vue-mode edit-indirect ssass-mode vue-html-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package typit mmt toc-org tagedit systemd sudoku sql-indent spaceline powerline smex smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rainbow-mode rainbow-identifiers rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails rake inflections popwin pip-requirements persp-mode persistent-scratch peep-dired pdf-tools pcre2el paradox spinner pacmacs orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download org-bullets open-junk-file ob-elixir org-plus-contrib nlinum-relative nlinum neotree multi-term move-text moe-theme mode-icons mmm-mode minitest markdown-toc markdown-mode magit-gitflow macrostep lua-mode lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode link-hint js2-refactor multiple-cursors js2-mode js-doc ivy-hydra insert-shebang info+ indent-guide imenu-list ibuffer-projectile hydra hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core haml-mode gruvbox-theme autothemer google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md ggtags fuzzy flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck-mix flycheck-elm flycheck-credo flycheck flx-ido flx fish-mode fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit git-commit ghub with-editor evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav dumb-jump dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat dired-narrow dired-hacks-utils diminish diff-hl define-word dactyl-mode cython-mode csv-mode counsel-projectile projectile counsel swiper ivy company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-anaconda column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby bundler inf-ruby bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed async anaconda-mode pythonic f alchemist s company dash elixir-mode pkg-info epl aggressive-indent adaptive-wrap ace-window ace-link avy ac-ispell auto-complete popup 2048-game gruvbox-dark-hard-theme)))
  '(tramp-syntax (quote default) nil (tramp)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
