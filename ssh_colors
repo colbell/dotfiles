@@ -1,14 +1,16 @@
 aws-uat1,green,black
 aws-uat2,green,black
 aws-demo1,green,black
-aws-sandbox2,black,white
 aws-sandbox2-1,black,white
+aws-sandbox2-2-rails42,black,white
 aws-sand3,black,white
 aws-prod-1,red,black
 aws-prod2,red,black
 aws-backups2,yellow,black
 aws-r4,green,black
 kwela-dev1,white,black
+compl-dev-wkstn,white,black
 compl-prod1,red,black
 compl-sand1,black,white
 compl-backups,yellow,black
+
