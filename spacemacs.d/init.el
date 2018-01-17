@@ -91,8 +91,7 @@ values."
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in 'dotspacemacs/config'.
    dotspacemacs-additional-packages '(gruvbox-theme
-                                      ;; mode-icons
-                                      ;; moe-theme
+                                      moe-theme
 
                                       ;; FIXME: Do I need this?
                                       peep-dired
@@ -185,30 +184,30 @@ It should only modify the values of Spacemacs settings."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(gruvbox-dark-hard
-                         spacemacs-light)
+                         leuven)
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
    ;; are spaceline themes. `vanilla' is default Emacs mode-line. `custom' is a
    ;; user defined themes, refer to the DOCUMENTATION.org for more info on how
    ;; to create your own spaceline theme.. (default 'spacemacs)
-   dotspacemacs-mode-line-theme 'all-the-icons
+   dotspacemacs-mode-line-theme '(all-the-icons
+                                   ;; :separator 'wave
+                                   :separator-scale 2.0
+                                  )
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; dotspacemacs-default-font '("Ubuntu Mono Regular"
    ;;                             :size 13
    ;;                             :weight normal
-   ;;                             :width normal
-   ;;                             :powerline-scale 1.1)
+   ;;                             :width normal)
    ;; dotspacemacs-default-font '("Source Code Pro"
    ;;                             :size 13
    ;;                             :weight normal
-   ;;                             :width normal
-   ;;                             :powerline-scale 1.1)
+   ;;                             :width normal)
    dotspacemacs-default-font '("Fira Code"
                                :size 14
                                :weight normal
-                               :width normal
-                               :powerline-scale 1.1)
+                               :width normal)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -384,7 +383,7 @@ It should only modify the values of Spacemacs settings."
    ;; %z - mnemonics of buffer, terminal, and keyboard coding systems
    ;; %Z - like %z, but including the end-of-line format
    ;; (default "%I@%S")
-   dotspacemacs-frame-title-format "%I@%S"
+   dotspacemacs-frame-title-format "%I@%S %b"
    ;; Format specification for setting the icon title format
    ;; (default nil - same as frame-title-format)
    dotspacemacs-icon-title-format nil
@@ -654,11 +653,6 @@ layers configuration. You are free to put any user code."
     )
 
   ;;===============================================
-  ;; Show icons instead of mode names.
-  ;;===============================================
-  ;; (mode-icons-mode)
-
-  ;;===============================================
   ;; Visual marks.
   ;;===============================================
   (evil-visual-mark-mode)
@@ -721,9 +715,6 @@ layers configuration. You are free to put any user code."
    ;; I've got some TAGS files that are nearly 20MB in size.
    large-file-warning-threshold 20000000
 
-   ;; Powerline config
-   ;; powerline-default-separator 'arrow
-
    imenu-auto-rescan t
 
    ;;browse-url-browser-function 'browse-url-firefox
@@ -764,7 +755,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (treemacs-projectile treemacs-evil treemacs pfuture symon string-inflection spaceline-all-the-icons all-the-icons memoize font-lock+ ruby-refactor pippel password-generator overseer org-brain nameless ivy-rich ivy-purpose window-purpose importmagic epc ctable concurrent deferred impatient-mode flycheck-bashate evil-org evil-lion editorconfig counsel-gtags counsel-css company-lua browse-at-remote bm yapfify yaml-mode xterm-color ws-butler winum which-key wgrep web-mode web-beautify w3m vue-mode edit-indirect ssass-mode vue-html-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package typit mmt toc-org tagedit systemd sudoku sql-indent spaceline powerline smex smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rainbow-mode rainbow-identifiers rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails rake inflections popwin pip-requirements persp-mode persistent-scratch peep-dired pdf-tools pcre2el paradox spinner pacmacs orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download org-bullets open-junk-file ob-elixir org-plus-contrib nlinum-relative nlinum neotree multi-term move-text moe-theme mode-icons mmm-mode minitest markdown-toc markdown-mode magit-gitflow macrostep lua-mode lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode link-hint js2-refactor multiple-cursors js2-mode js-doc ivy-hydra insert-shebang info+ indent-guide imenu-list ibuffer-projectile hydra hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core haml-mode gruvbox-theme autothemer google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md ggtags fuzzy flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck-mix flycheck-elm flycheck-credo flycheck flx-ido flx fish-mode fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit git-commit ghub with-editor evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav dumb-jump dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat dired-narrow dired-hacks-utils diminish diff-hl define-word dactyl-mode cython-mode csv-mode counsel-projectile projectile counsel swiper ivy company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-anaconda column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby bundler inf-ruby bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed async anaconda-mode pythonic f alchemist s company dash elixir-mode pkg-info epl aggressive-indent adaptive-wrap ace-window ace-link avy ac-ispell auto-complete popup 2048-game gruvbox-dark-hard-theme)))
+    (treemacs-projectile treemacs-evil treemacs pfuture yapfify yaml-mode xterm-color ws-butler winum which-key wgrep web-mode web-beautify w3m vue-mode edit-indirect ssass-mode vue-html-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package typit mmt toc-org tagedit systemd sudoku sql-indent spaceline powerline smex smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rainbow-mode rainbow-identifiers rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails rake inflections popwin pip-requirements persp-mode persistent-scratch peep-dired pdf-tools pcre2el paradox spinner pacmacs orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download org-bullets open-junk-file ob-elixir org-plus-contrib nlinum-relative nlinum neotree multi-term move-text moe-theme mode-icons mmm-mode minitest markdown-toc markdown-mode magit-gitflow macrostep lua-mode lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode link-hint js2-refactor multiple-cursors js2-mode js-doc ivy-hydra insert-shebang info+ indent-guide imenu-list ibuffer-projectile hydra hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core haml-mode gruvbox-theme autothemer google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md ggtags fuzzy flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck-mix flycheck-elm flycheck-credo flycheck flx-ido flx fish-mode fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit git-commit ghub with-editor evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav dumb-jump dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat dired-narrow dired-hacks-utils diminish diff-hl define-word dactyl-mode cython-mode csv-mode counsel-projectile projectile counsel swiper ivy company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-anaconda column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby bundler inf-ruby bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed async anaconda-mode pythonic f alchemist s company dash elixir-mode pkg-info epl aggressive-indent adaptive-wrap ace-window ace-link avy ac-ispell auto-complete popup 2048-game gruvbox-dark-hard-theme)))
  '(tramp-syntax (quote default) nil (tramp)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
