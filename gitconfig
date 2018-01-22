@@ -66,6 +66,10 @@
 
   stash-all = stash --include-untracked
 
+  # Show list of commits different between 2 branches
+  # E.G. br-diff master..origin/master
+  br-diff = log --left-right --graph --cherry-pick --oneline
+
   # Reset to before last commit.
   undo = reset --soft HEAD^
 
