@@ -455,11 +455,11 @@ layers configuration. You are free to put any user code."
 
   (setq ivy-use-virtual-buffers t)
 
-  ;; (defun cnb/swiper-recenter (&rest args)
-  ;;   "recenter display after swiper"
-  ;;   (recenter))
+  (defun cnb/swiper-recenter (&rest args)
+    "recenter display after swiper"
+    (recenter))
 
-  ;; (advice-add 'swiper :after #'cnb/swiper-recenter)
+  (advice-add 'swiper :after #'cnb/swiper-recenter)
 
   ;;==============================================
   ;; conf-mode configuration
@@ -745,3 +745,23 @@ layers configuration. You are free to put any user code."
   (fset 'evil-visual-update-x-selection 'ignore)
 
   (mouse-avoidance-mode 'exile))
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (live-py-mode impatient-mode highlight helm helm-core magit all-the-icons yasnippet font-lock+ evil yasnippet-snippets yapfify yaml-mode xterm-color ws-butler winum which-key wgrep web-mode web-beautify w3m volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-evil toc-org tagedit systemd symon string-inflection sql-indent spaceline-all-the-icons smex smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe restart-emacs request realgud rbenv rainbow-mode rainbow-identifiers rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails popwin pippel pip-requirements persp-mode persistent-scratch peep-dired pdf-tools password-generator paradox overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-elixir nlinum-relative nameless multi-term move-text moe-theme mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode link-hint json-mode js2-refactor js-doc ivy-rtags ivy-rich ivy-purpose ivy-hydra insert-shebang indent-guide importmagic ibuffer-projectile hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make gruvbox-theme goto-chg google-translate google-c-style golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ ghub gh-md ggtags fuzzy flyspell-correct-ivy flycheck-rtags flycheck-pos-tip flycheck-mix flycheck-elm flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav editorconfig dumb-jump disaster dired-narrow diminish diff-hl define-word cython-mode csv-mode counsel-projectile counsel-gtags counsel-css company-web company-tern company-statistics company-shell company-rtags company-quickhelp company-lua company-c-headers company-anaconda column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode clang-format chruby bundler browse-at-remote bm auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alchemist aggressive-indent adaptive-wrap ace-link ac-ispell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
