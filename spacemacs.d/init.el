@@ -75,7 +75,7 @@ values."
      shell-scripts
      (spell-checking :variables spell-checking-enable-auto-dictionary t)
      ;; spacemacs-purpose
-     spell-checking
+     ;; spell-checking
      sql
      (syntax-checking :variables syntax-checking-enable-tooltips nil)
      systemd
