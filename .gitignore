@@ -260,3 +260,9 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
+/config/akonadi*
+/config/kate*
+/config/kmail*
+/config/kactivity*
+/config/kde*
+/config/plasma*
