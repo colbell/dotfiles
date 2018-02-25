@@ -1,8 +1,9 @@
 [Desktop Entry]
-Name=Conky
-GenericName=Conky
 Comment=Conky
 Exec=conky
+GenericName=Conky
+Hidden=true
+Name=Conky
+StartupNotify=false
 Terminal=false
 Type=Application
-StartupNotify=false
