@@ -2,7 +2,6 @@
 Comment=Conky
 Exec=conky
 GenericName=Conky
-Hidden=true
 Name=Conky
 StartupNotify=false
 Terminal=false
