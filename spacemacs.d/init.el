@@ -63,7 +63,7 @@ values."
      org
      pdf-tools
      python
-     react
+     ;; react
      (ruby :variables
            ruby-test-runner 'rspec
            ruby-version-manager 'rvm)

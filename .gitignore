@@ -316,3 +316,14 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
+config/KDE
+/config/calibrerc
+/config/kaccessrc
+/config/kcmshell5rc
+/config/kiorc
+/config/kservicemenurc
+/config/ksplashrc
+/config/okularrc
+/config/print-manager
+/config/yakuake.notifyrc
+/bin/cols
