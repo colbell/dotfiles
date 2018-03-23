@@ -1,9 +1,0 @@
-[Desktop Entry]
-Comment=Variety Wallpaper Changer
-Exec=variety
-Hidden=true
-Icon=variety
-Name=Variety
-Terminal=false
-Type=Application
-X-GNOME-Autostart-Delay=20
