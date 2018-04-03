@@ -7,7 +7,7 @@ IEx.configure(
   alive_prompt:
   "#{IO.ANSI.green}%prefix#{IO.ANSI.reset}" <>
     "(#{IO.ANSI.yellow}%node#{IO.ANSI.reset})" <>
-    "[#{IO.ANSI.cyan}%counter#{IO.ANSI.reset}]>",
+    "[#{IO.ANSI.cyan}%counter#{IO.ANSI.reset}]>"
 )
 
 # Add to a project specific .iex.exs
