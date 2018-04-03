@@ -53,6 +53,9 @@
   h       = log --oneline --decorate
   slog    = shortlog -s -n -e
 
+  # git contains 0fed09265
+  contains  = branch -r --contains
+
   # All commits for a file, pass file name as an argument
   fl = log -u
 
