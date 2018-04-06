@@ -37,9 +37,11 @@
 # [merge]
 #   conflictstyle = diff3
 
-# Causes failure when installing SpaceVim plugins
-#[transfer]
-#  fsckobjects = true
+[transfer]
+	fsckobjects = true
+
+[fetch]
+	fsckobjects = true
 
 [alias]
   br = branch
