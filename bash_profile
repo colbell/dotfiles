@@ -32,3 +32,6 @@ fi
 #export XDG_MENU_PREFIX='lxde-'
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+# added by `npm i local-bin-path`
+export PATH=${PATH}:./node_modules/.bin

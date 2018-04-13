@@ -179,3 +179,6 @@ if [ -f /usr/local/share/config/dhammapada ]; then
 fi
 
 # export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+# added by `npm i local-bin-path`
+# export PATH=${PATH}:./node_modules/.bin

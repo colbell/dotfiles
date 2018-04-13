@@ -152,3 +152,6 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# added by `npm i local-bin-path`
+export PATH=${PATH}:./node_modules/.bin
