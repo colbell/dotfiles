@@ -56,14 +56,14 @@ values."
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      imenu-list
      (ivy :variables ivy-enable-advanced-buffer-information t)
-     javascript
+     (javascript :variables js2-basic-offset 2 js-indent-level 2)
      lua
      markdown
      nlinum
      org
      pdf-tools
      python
-     ;; react
+     react
      (ruby :variables
            ruby-test-runner 'rspec
            ruby-version-manager 'rvm)
@@ -93,6 +93,8 @@ values."
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in 'dotspacemacs/config'.
    dotspacemacs-additional-packages '(diredfl
+                                      editorconfig
+
                                       ;; FIXME: Do I need this?
                                       peep-dired
 
@@ -617,21 +619,28 @@ layers configuration. You are free to put any user code."
   (setq emmet-indentation 2)
 
   ;;==============================================
+  ;; EditorConfig configuration
+  ;;==============================================
+  (use-package editorconfig
+    :defer t
+    :init (add-to-list 'auto-mode-alist '("\\.editorconfig" . conf-unix-mode)))
+
+  ;;==============================================
   ;; Javascript configuration
   ;;==============================================
-  (defun cnb/js2-mode-hook ()
-    "Hooks for JS2 mode."
-    (setq js2-missing-semi-one-line-override t)
-    (setq-default js2-indent-hook 2)
-    (setq-default js2-basic-offset 2))
+  ;; (defun cnb/js2-mode-hook ()
+  ;;   "Hooks for JS2 mode."
+  ;;   (setq js2-missing-semi-one-line-override t)
+  ;;   (setq-default js2-indent-hook 2)
+  ;;   (setq-default js2-basic-offset 2))
 
-  (add-hook 'js2-mode-hook 'cnb/js2-mode-hook t)
+  ;; (add-hook 'js2-mode-hook 'cnb/js2-mode-hook t)
 
-  (defun cnb/js-mode-hook ()
-    "Hooks for JS mode."
-    (setq-default js-indent-level 2))
+  ;; (defun cnb/js-mode-hook ()
+  ;;   "Hooks for JS mode."
+  ;;   (setq-default js-indent-level 2))
 
-  (add-hook 'js-mode-hook 'cnb/js-mode-hook t)
+  ;; (add-hook 'js-mode-hook 'cnb/js-mode-hook t)
 
   ;;==============================================
   ;; SCSS Mode
@@ -782,7 +791,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (web-mode insert-shebang swiper helm helm-core ivy magit git-commit ghub yasnippet-snippets yapfify yaml-mode xterm-color ws-butler with-editor winum which-key wgrep web-beautify w3m volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-evil toc-org tagedit systemd symon string-inflection sql-indent spaceline-all-the-icons solarized-theme smex smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe restart-emacs request rbenv rainbow-mode rainbow-identifiers rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails popwin pippel pipenv pip-requirements persp-mode persistent-scratch peep-dired pdf-tools password-generator paradox overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-elixir nlinum-relative nameless multi-term move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode link-hint json-mode js2-refactor js-doc ivy-xref ivy-rich ivy-purpose ivy-hydra indent-guide importmagic impatient-mode ibuffer-projectile hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make gruvbox-theme google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy font-lock+ flyspell-correct-ivy flycheck-pos-tip flycheck-mix flycheck-elm flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav editorconfig dumb-jump diredfl dired-narrow diminish diff-hl define-word cython-mode csv-mode counsel-projectile counsel-gtags counsel-css company-web company-tern company-statistics company-shell company-quickhelp company-lua company-anaconda column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby centered-cursor-mode bundler browse-at-remote bm auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alchemist aggressive-indent adaptive-wrap ace-link ac-ispell)))
+    (org-brain hy-mode evil-nerd-commenter flycheck helm htmlize git-commit spaceline dash yasnippet-snippets yapfify yaml-mode xterm-color ws-butler winum which-key wgrep web-mode web-beautify w3m volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-evil toc-org tagedit systemd symon string-inflection sql-indent spaceline-all-the-icons solarized-theme smex smeargle slim-mode shrink-whitespace shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe restart-emacs request rbenv rainbow-mode rainbow-identifiers rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails powerline popwin pippel pipenv pip-requirements persp-mode persistent-scratch peep-dired pdf-tools password-generator paradox overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file ob-elixir nlinum-relative nameless multi-term move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode link-hint json-mode js2-refactor js-doc ivy-xref ivy-rich ivy-purpose ivy-hydra insert-shebang indent-guide importmagic impatient-mode ibuffer-projectile hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make helm-core gruvbox-theme google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy font-lock+ flyspell-correct-ivy flycheck-pos-tip flycheck-mix flycheck-elm flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-org evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav editorconfig dumb-jump diredfl dired-narrow diminish diff-hl define-word cython-mode csv-mode counsel-projectile counsel-gtags counsel-css company-web company-tern company-statistics company-shell company-quickhelp company-lua company-anaconda column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby centered-cursor-mode bundler browse-at-remote bm auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alchemist aggressive-indent adaptive-wrap ace-link ac-ispell)))
  '(tramp-syntax (quote default) nil (tramp)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
