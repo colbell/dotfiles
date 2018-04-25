@@ -22,7 +22,7 @@ alias ec='emacsclient'
 
 alias openports='netstat --all --numeric --programs --inet'
 
-alias ,='ls -CFs'
+alias ,='ls -CFsh'
 alias r='ls -ltr'
 
 alias wttr='curl wttr.in'
