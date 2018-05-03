@@ -48,11 +48,10 @@
   cancel = reset --soft HEAD^
   co = checkout
 
-  lg      = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  lgd     = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cD) %C(bold blue)<%an>%Creset' --abbrev-commit
-  l       = log --pretty=format:"%C(auto)%h%C(auto)%d\\ %Creset%s%Cgreen(%cr)%Cblue[%cn]" --decorate
-  ld      = log --pretty=format:"%C(auto)%h%C(auto)%d\\ %Creset%s%Cgreen(%cD)%Cblue[%cn]" --decorate
+  l       = log --graph --decorate --pretty=oneline --abbrev-commit
+  ll      = log --graph --decorate --pretty=oneline --numstat
   h       = log --oneline --decorate
+  hl      = log --oneline --decorate --numstat
   slog    = shortlog -s -n -e
 
   # git contains 0fed09265
@@ -83,3 +82,9 @@
 
 [magit]
 	hideCampaign = true
+
+[rerere]
+	enabled = true
+
+[color "decorate"]
+	tag = magenta
