@@ -24,5 +24,6 @@ alias openports='netstat --all --numeric --programs --inet'
 
 alias ,='ls -CFsh'
 alias r='ls -ltr'
+alias s='ls -lhSr'
 
 alias wttr='curl wttr.in'
