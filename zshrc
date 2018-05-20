@@ -11,7 +11,9 @@ export ZSH=~/.oh-my-zsh
 #ZSH_THEME="gnzh"
 #ZSH_THEME="wedisagree"
 #ZSH_THEME="theunraveler"
-ZSH_THEME="miloshadzic"
+ZSH_THEME="xiong-chiamiov-plus"
+#ZSH_THEME="ys"
+#ZSH_THEME="miloshadzic"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
