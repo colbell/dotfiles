@@ -48,7 +48,7 @@ SPACESHIP_PROMPT_ORDER=(
   exit_code     # Exit code section
   char          # Prompt character
 )
-ZSH_THEME="spaceship"
+ZSH_THEME="spaceship-prompt/spaceship"
 
 # POWERLEVEL9K_MODE='nerdfont-complete'
 # POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context os_icon dir vcs ssh)
