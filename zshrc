@@ -1,6 +1,5 @@
-# Path to your oh-my-zsh installation.
-#export ZSH=/home/colbell/.oh-my-zsh
 export ZSH=~/.oh-my-zsh
+export ZSH_CUSTOM=~/.oh-my-zsh-custom
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -15,17 +14,53 @@ export ZSH=~/.oh-my-zsh
 #ZSH_THEME="ys"
 #ZSH_THEME="miloshadzic"
 
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context os_icon dir vcs ssh)
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_OS_ICON_BACKGROUND="white"
-POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time battery)
-POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
-# POWERLEVEL9K_COLOR_SCHEME='light'
-ZSH_THEME="powerlevel9k/powerlevel9k"
+SPACESHIP_PROMPT_ORDER=(
+  # ttime        # Time stampts section
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  hg            # Mercurial section (hg_branch  + hg_status)
+  # package     # Package version
+  node          # Node.js section
+  ruby          # Ruby section
+  elixir        # Elixir section
+  # xcode       # Xcode section
+  # swift       # Swift section
+  # golang      # Go section
+  # php         # PHP section
+  # rust        # Rust section
+  # haskell     # Haskell Stack section
+  # julia       # Julia section
+  # docker      # Docker section
+  # aws         # Amazon Web Services section
+  venv          # virtualenv section
+  # conda       # conda virtualenv section
+  pyenv         # Pyenv section
+  # dotnet      # .NET section
+  # ember       # Ember.js section
+  # kubecontext # Kubectl context section
+  # exec_time   # Execution time
+  line_sep      # Line break
+  battery       # Battery level and status
+  # vi_mode     # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+ZSH_THEME="spaceship"
+
+# POWERLEVEL9K_MODE='nerdfont-complete'
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context os_icon dir vcs ssh)
+# POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+# POWERLEVEL9K_OS_ICON_BACKGROUND="white"
+# POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time)
+# POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
+# POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
+# POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
+# # POWERLEVEL9K_COLOR_SCHEME='light'
+# ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"

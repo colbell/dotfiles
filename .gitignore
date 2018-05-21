@@ -327,3 +327,4 @@ config/KDE
 /config/print-manager
 /config/yakuake.notifyrc
 /bin/cols
+/oh-my-zsh-custom/themes/spaceship-prompt/
