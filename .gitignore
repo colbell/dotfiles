@@ -1,5 +1,6 @@
 /SpaceVim.d/.netrwhist
 /SpaceVim/
+/bin/cols
 /bin/eclipse
 /bin/hg-prompt/prompt.pyc
 /bin/lein
@@ -18,6 +19,7 @@
 /config/GitKraken/*
 /config/GoogleDocsdocsgooglecom/
 /config/LightTable/*
+/config/Mailspring/
 /config/Mousepad/accels.scm
 /config/QtProject.conf
 /config/Slack/
@@ -39,6 +41,8 @@
 /config/caja-actions/caja-actions.conf
 /config/caja/*
 /config/calibre/*
+/config/calibrerc
+/config/cantata/
 /config/chromium/*
 /config/classicmenu-indicator/config.json
 /config/com.ubuntu.terminal/com.ubuntu.terminal.conf
@@ -51,6 +55,7 @@
 /config/dconf/
 /config/dconf/user
 /config/desktop-couch/*
+/config/desktop-webmail/desktop-webmail.ini
 /config/discoverrc
 /config/dleyna-renderer-service.conf
 /config/dleyna-server-service.conf
@@ -95,11 +100,13 @@
 /config/ibus/
 /config/indicators/*
 /config/inkscape/*
+/config/kaccessrc
 /config/kactivity*
 /config/kate*
 /config/kcmdisplayrc
 /config/kcmfonts
 /config/kcminputrc
+/config/kcmshell5rc
 /config/kconf_updaterc
 /config/kde*
 /config/kde.org/libphonon.conf
@@ -109,6 +116,7 @@
 /config/khelpcenterrc
 /config/khotkeysrc
 /config/kinfocenterrc
+/config/kiorc
 /config/kmail*
 /config/kmenueditrc
 /config/kmixrc
@@ -118,7 +126,9 @@
 /config/korganizerrc
 /config/krunnerrc
 /config/kscreenlockerrc
+/config/kservicemenurc
 /config/ksmserverrc
+/config/ksplashrc
 /config/ksysguardrc
 /config/ktimezonedrc
 /config/ktorrent_infowidgetrc
@@ -143,6 +153,7 @@
 /config/monitors-v1-backup.xml
 /config/monitors.xml
 /config/monitors.xml~
+/config/muonrc
 /config/nautilus
 /config/nautilus/accels
 /config/nautilus/desktop-metadata
@@ -150,6 +161,7 @@
 /config/node-webkit
 /config/notificationhelper
 /config/nvim/.netrwhist
+/config/okularrc
 /config/openbox/*
 /config/oxygen-gtk/argb-apps.conf
 /config/parcellite/parcelliterc
@@ -162,6 +174,7 @@
 /config/pluma/
 /config/powerdevilrc
 /config/powermanagementprofilesrc
+/config/print-manager
 /config/pulse/
 /config/pulse/cookie
 /config/sakura/*
@@ -232,6 +245,7 @@
 /config/webengineurlinterceptoradblockrc
 /config/wireshark/
 /config/xfce4/*
+/config/yakuake.notifyrc
 /config/yakuakerc
 /config/yelp/yelp.cfg
 /emacs.d.orig.orig/#*
@@ -296,6 +310,7 @@
 /newsbeuter/history.cmdline
 /newsbeuter/history.search
 /newsbeuter/urls
+/oh-my-zsh-custom/themes/spaceship-prompt/
 /vscode/extensions
 /w3m/.arrived
 /w3m/.cookie
@@ -317,14 +332,3 @@
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
 config/KDE
-/config/calibrerc
-/config/kaccessrc
-/config/kcmshell5rc
-/config/kiorc
-/config/kservicemenurc
-/config/ksplashrc
-/config/okularrc
-/config/print-manager
-/config/yakuake.notifyrc
-/bin/cols
-/oh-my-zsh-custom/themes/spaceship-prompt/
