@@ -14,62 +14,63 @@ export ZSH_CUSTOM=~/.oh-my-zsh-custom
 #ZSH_THEME="ys"
 #ZSH_THEME="miloshadzic"
 
-# SPACESHIP_PROMPT_ORDER=(
-#   # ttime        # Time stampts section
-#   user          # Username section
-#   dir           # Current directory section
-#   host          # Hostname section
-#   git           # Git section (git_branch + git_status)
-#   hg            # Mercurial section (hg_branch  + hg_status)
-#   # package     # Package version
-#   node          # Node.js section
-#   ruby          # Ruby section
-#   elixir        # Elixir section
-#   # xcode       # Xcode section
-#   # swift       # Swift section
-#   # golang      # Go section
-#   # php         # PHP section
-#   # rust        # Rust section
-#   # haskell     # Haskell Stack section
-#   # julia       # Julia section
-#   # docker      # Docker section
-#   # aws         # Amazon Web Services section
-#   venv          # virtualenv section
-#   # conda       # conda virtualenv section
-#   pyenv         # Pyenv section
-#   # dotnet      # .NET section
-#   # ember       # Ember.js section
-#   # kubecontext # Kubectl context section
-#   # exec_time   # Execution time
-#   line_sep      # Line break
-#   battery       # Battery level and status
-#   # vi_mode     # Vi-mode indicator
-#   jobs          # Background jobs indicator
-#   exit_code     # Exit code section
-#   char          # Prompt character
-# )
-# ZSH_THEME="spaceship-prompt/spaceship"
+SPACESHIP_EXIT_CODE_SHOW=true
+SPACESHIP_PROMPT_ORDER=(
+  # ttime        # Time stampts section
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  hg            # Mercurial section (hg_branch  + hg_status)
+  package     # Package version
+  node          # Node.js section
+  ruby          # Ruby section
+  elixir        # Elixir section
+  # xcode       # Xcode section
+  # swift       # Swift section
+  # golang      # Go section
+  # php         # PHP section
+  # rust        # Rust section
+  # haskell     # Haskell Stack section
+  # julia       # Julia section
+  # docker      # Docker section
+  # aws         # Amazon Web Services section
+  venv          # virtualenv section
+  # conda       # conda virtualenv section
+  pyenv         # Pyenv section
+  # dotnet      # .NET section
+  # ember       # Ember.js section
+  # kubecontext # Kubectl context section
+  # exec_time   # Execution time
+  line_sep      # Line break
+  battery       # Battery level and status
+  # vi_mode     # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+ZSH_THEME="spaceship-prompt/spaceship"
 
-POWERLEVEL9K_MODE='nerdfont-complete'
-# POWERLEVEL9K_MODE='awesome-fontconfig'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs ssh)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs load disk_usage)
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="➤ "
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-POWERLEVEL9K_SHORTEN_DELIMITER=""
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
-POWERLEVEL9K_SHOW_CHANGESET=true
-POWERLEVEL9K_OS_ICON_FOREGROUND="black"
-POWERLEVEL9K_OS_ICON_BACKGROUND="white"
-POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
-POWERLEVEL9K_DIR_SHOW_WRITABLE=true
-POWERLEVEL9K_ALWAYS_SHOW_CONTEXT=false
-# POWERLEVEL9K_COLOR_SCHEME='light'
-ZSH_THEME="powerlevel9k/powerlevel9k"
+# POWERLEVEL9K_MODE='nerdfont-complete'
+# # POWERLEVEL9K_MODE='awesome-fontconfig'
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs ssh)
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs load disk_usage)
+# POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+# POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
+# POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=" ➤ "
+# POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+# POWERLEVEL9K_SHORTEN_DELIMITER=""
+# POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+# POWERLEVEL9K_SHOW_CHANGESET=true
+# POWERLEVEL9K_OS_ICON_FOREGROUND="black"
+# POWERLEVEL9K_OS_ICON_BACKGROUND="white"
+# POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
+# POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
+# POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
+# POWERLEVEL9K_DIR_SHOW_WRITABLE=true
+# POWERLEVEL9K_ALWAYS_SHOW_CONTEXT=false
+# # POWERLEVEL9K_COLOR_SCHEME='light'
+# ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
