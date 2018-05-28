@@ -45,7 +45,6 @@
 
 [alias]
   br = branch
-  cancel = reset --soft HEAD^
   co = checkout
 
   l       = log --graph --decorate --pretty=oneline --abbrev-commit
