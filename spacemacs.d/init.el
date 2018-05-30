@@ -260,18 +260,16 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
 
-   ;; dotspacemacs-default-font '("Ubuntu Mono Regular"
-   ;;                             :size 13
-   ;;                             :weight normal
-   ;;                             :width normal)
-   ;; dotspacemacs-default-font '("Source Code Pro"
-   ;;                             :size 13
-   ;;                             :weight normal
-   ;;                             :width normal)
-   dotspacemacs-default-font '("Fira Code"
+   ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
+   ;; quickly tweak the mode-line size to make separators look not too crappy.
+   dotspacemacs-default-font '("Source Code Pro"
                                :size 14
                                :weight normal
                                :width normal)
+   ;; dotspacemacs-default-font '("Fira Code"
+   ;;                             :size 14
+   ;;                             :weight normal
+   ;;                             :width normal)
    ;; dotspacemacs-default-font '("Inconsolata"
    ;;                             :size 16
    ;;                             :weight normal
@@ -892,9 +890,3 @@ before packages are loaded."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-)
