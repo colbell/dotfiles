@@ -332,3 +332,4 @@
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
 config/KDE
+/spacemacs.d/custom.el
