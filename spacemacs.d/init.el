@@ -238,9 +238,9 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         leuven
-                         gruvbox-light-hard
                          gruvbox-dark-hard
+                         gruvbox-light-hard
+                         leuven
                          solarized-dark
                          solarized-light
                          )
@@ -550,6 +550,9 @@ before packages are loaded."
   (setq use-dialog-box nil)
 
   ;; (spacemacs/toggle-transparency)
+
+  ;; Spacemacs sets it too wide.
+  (setq-default display-line-numbers-width nil)
 
   ;; Fixes problems with code reloading not working in Elixir/Phoenix.
   ;; See http://spacemacs.org/doc/FAQ.html#orgheadline18
