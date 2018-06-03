@@ -212,8 +212,7 @@ It should only modify the values of Spacemacs settings."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   ;; dotspacemacs-startup-banner 'official
-   dotspacemacs-startup-banner 999
+   dotspacemacs-startup-banner 'official
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
@@ -241,6 +240,8 @@ It should only modify the values of Spacemacs settings."
                          gruvbox-dark-hard
                          gruvbox-light-hard
                          leuven
+                         spacemacs-dark
+                         spacemacs-light
                          solarized-dark
                          solarized-light
                          )
@@ -252,8 +253,8 @@ It should only modify the values of Spacemacs settings."
    ;; to create your own spaceline theme. Value can be a symbol or list with\
    ;; additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
-   ;; dotspacemacs-mode-line-theme '(all-the-icons :separator wave :separator-scale 2.5)
+   ;; dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(all-the-icons :separator wave :separator-scale 2.0)
    ;; dotspacemacs-mode-line-theme '(vim-powerline)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
@@ -534,6 +535,9 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
   (load custom-file)
+
+  ;; Workaround for https://github.com/syl20bnr/spacemacs/issues/8131
+  (spacemacs/set-default-font dotspacemacs-default-font)
 
   ;; Allow paste into xterm etc.
   (setq select-enable-primary t))
