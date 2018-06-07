@@ -48,13 +48,16 @@ This function should only modify configuration layer settings."
      colors
      csv
      ;; docker
+     (dash :variables
+           helm-dash-docset-newpath "~/.local/share/Zeal/Zeal/docsets")
      elixir
      elm
      emacs-lisp
+     epub
      erlang
      ;; evil-cleverparens
-     games
      git
+     go
      gtags
      html
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
@@ -64,9 +67,8 @@ This function should only modify configuration layer settings."
      json
      lua
      markdown
-     ;; nlinum
      org
-     pdf-tools
+     pdf
      python
      react
      (ruby :variables
@@ -79,10 +81,8 @@ This function should only modify configuration layer settings."
             shell-enable-smart-eshell t)
      shell-scripts
      (spell-checking :variables spell-checking-enable-auto-dictionary t)
-     ;; spacemacs-purpose
-     ;; spell-checking
      sql
-     (syntax-checking :variables syntax-checking-enable-tooltips nil)
+     (syntax-checking :variables syntax-checking-enable-tooltips t)
      systemd
      tern
      themes-megapack
@@ -92,7 +92,6 @@ This function should only modify configuration layer settings."
      (version-control :variables
                       version-control-diff-tool 'diff-hl
                       version-control-global-margin t)
-     ;; vimscript
      xclipboard
      yaml)
 
@@ -111,7 +110,7 @@ This function should only modify configuration layer settings."
 
                                       persistent-scratch
 
-                                      ;; FIXME: Doesn't ruby layer bring this in?
+                                      ;; FIXME: Doesn't ruby bring this in?
                                       rubocop
                                       w3m)
 
