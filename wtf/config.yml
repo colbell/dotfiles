@@ -1,0 +1,167 @@
+wtf:
+  colors:
+    background: black
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: lightblue
+    term: "xterm-256color"
+  grid:
+    # How _wide_ the columns are, in terminal characters.
+    columns: [37, 37, 37, 37, 37]
+
+    # How _high_ the rows are, in terminal lines.
+    rows: [12, 12, 12, 4]
+  refreshInterval: 1
+  mods:
+    ipinfo:
+      colors:
+        name: red
+        value: white
+      enabled: true
+      position:
+        top: 0
+        left: 3
+        height: 1
+        width: 2
+        refreshInterval: 15
+    clocks:
+      title: " 🕗 World Clocks "
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true
+      locations:
+        # From https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+        Sydney: "Australia/Sydney"
+        Brisbane: "Australia/Brisbane"
+        Adelaide: "Australia/Adelaide"
+        Perth: "Australia/Perth"
+        Belfast: "Europe/Belfast"
+        Shanghai: "Asia/Shanghai"
+        US/Pacific: "US/Pacific"
+        UTC: "Etc/UTC"
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 15
+      # Valid options are: alphabetical, chronological
+      sort: "alphabetical"
+    # gcal:
+    #   colors:
+    #     title: "red"
+    #     description: "lightblue"
+    #     highlights:
+    #     - ['1on1|1\/11', 'green']
+    #     - ['apple|google|aws', 'blue']
+    #     - ['interview|meet\ ', 'lightseagreen']
+    #     - ['lunch', 'yellow']
+    #     past: "gray"
+    #   conflictIcon: "🚨"
+    #   currentIcon: "💥"
+    #   displayResponseStatus: true
+    #   email: "your.email@example.com"
+    #   enabled: true
+    #   eventCount: 12
+    #   position:
+    #     top: 0
+    #     left: 0
+    #     height: 4
+    #     width: 1
+    #   refreshInterval: 300
+    #   secretFile: "~/.wtf/gcal/client_secret.json"
+    #   withLocation: true
+    todo:
+      title: " 📝 Todo "
+      checkedIcon: "X"
+      colors:
+        checked: gray
+        highlight:
+          fore: "black"
+          back: "orange"
+      enabled: true
+      filename: "todo.yml"
+      position:
+        top: 2
+        left: 3
+        height: 2
+        width: 2
+      refreshInterval: 3600
+
+    git:
+      commitCount: 14
+      enabled: true
+      position:
+        top: 0
+        left: 1
+        height: 2
+        width: 2
+      refreshInterval: 8
+      repositories:
+        - "/home/colinbell/folio/src/210/"
+        - "/home/colinbell/folio/src/220/"
+        - "/home/colinbell/folio/deploy/rails4"
+        - "/home/colinbell/.emacs.d/"
+
+    jira:
+      title: " 📂 Jira "
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      domain: "https://kwelasolutions.atlassian.net"
+      email: "colin@kwelasolutions.com"
+      enabled: true
+      jql: "resolution = Unresolved"
+      position:
+        top: 1
+        left: 3
+        height: 1
+        width: 2
+      project: "FOL"
+      refreshInterval: 600
+      username: "colin"
+    security:
+      title: " 🤺 Security "
+      enabled: true
+      position:
+        top: 1
+        left: 0
+        height: 2
+        width: 1
+      refreshInterval: 3600
+    system:
+      enabled: true
+      position:
+        top: 2
+        left: 2
+        height: 1
+        width: 1
+      refreshInterval: 3600
+    weather:
+      enabled: true
+      cityids:
+        - 2147714
+        - 2655984
+        - 1790630
+      colors:
+        current: "lightblue"
+      position:
+        top: 2
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 900
+    cmdrunner:
+      args: [""]
+      cmd: "upuname"
+      enabled: true
+      position:
+        top: 3
+        left: 0
+        height: 1
+        width: 3
+      refreshInterval: 30
