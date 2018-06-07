@@ -5,14 +5,13 @@ export ZSH_CUSTOM=~/.oh-my-zsh-custom
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="dallas"
 #ZSH_THEME="robbyrussell"
 #ZSH_THEME="gnzh"
 #ZSH_THEME="wedisagree"
 #ZSH_THEME="theunraveler"
-ZSH_THEME="xiong-chiamiov-plus"
-#ZSH_THEME="ys"
+#ZSH_THEME="xiong-chiamiov-plus"
 #ZSH_THEME="miloshadzic"
+ZSH_THEME="ys"
 
 # SPACESHIP_EXIT_CODE_SHOW=true
 # SPACESHIP_PROMPT_ORDER=(
