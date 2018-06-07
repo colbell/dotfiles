@@ -10,7 +10,6 @@ export ZSH_CUSTOM=~/.oh-my-zsh-custom
 #ZSH_THEME="wedisagree"
 #ZSH_THEME="theunraveler"
 #ZSH_THEME="xiong-chiamiov-plus"
-#ZSH_THEME="miloshadzic"
 ZSH_THEME="ys"
 
 # SPACESHIP_EXIT_CODE_SHOW=true
