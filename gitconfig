@@ -43,6 +43,9 @@
 [fetch]
 	fsckobjects = true
 
+[fsck]
+  zeroPaddedFilemode = ignore
+
 [alias]
   br = branch
   co = checkout
