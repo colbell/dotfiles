@@ -8,7 +8,7 @@ wtf:
     term: "xterm-256color"
   grid:
     # How _wide_ the columns are, in terminal characters.
-    columns: [37, 37, 37, 37, 37]
+    columns: [36, 38, 38, 38, 40]
 
     # How _high_ the rows are, in terminal lines.
     rows: [12, 12, 12, 4]
