@@ -45,7 +45,9 @@ This function should only modify configuration layer settings."
      cnb-shrink-whitespace
      cnb-vue-mode
      coffeescript
-     colors
+     (colors :variables
+             ;; colors-enable-nyan-cat-progress-bar (display-graphic-p)
+             colors-colorize-identifiers 'variables)
      csv
      ;; docker
      (dash :variables
@@ -76,8 +78,10 @@ This function should only modify configuration layer settings."
            ruby-version-manager 'rvm)
      ruby-on-rails
      (shell :variables
+            shell-default-shell 'ansi-term
             shell-default-height 30
             shell-default-position 'bottom
+            ;; shell-default-term-shell "/bin/zsh"
             shell-enable-smart-eshell t)
      shell-scripts
      (spell-checking :variables spell-checking-enable-auto-dictionary t)
@@ -145,7 +149,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; File path pointing to emacs 27.1 executable compiled with support
    ;; for the portable dumper (this is currently the branch pdumper).
-   ;; (default "emacs")
+   ;; (default "emacs-27.0.50")
    dotspacemacs-emacs-pdumper-executable-file "emacs"
 
    ;; Name of the Spacemacs dump file. This is the file will be created by the
@@ -200,7 +204,12 @@ It should only modify the values of Spacemacs settings."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style '(vim :variables
+                                    vim-style-visual-feedback t
+                                    vim-style-remap-Y-to-y$ t
+                                    vim-style-retain-visual-state-on-shift t
+                                    vim-style-visual-line-move-text nil
+                                    vim-style-ex-substitute-global nil)
 
    ;; If non-nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
@@ -237,7 +246,6 @@ It should only modify the values of Spacemacs settings."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          gruvbox-dark-hard
-                         gruvbox-light-hard
                          leuven
                          spacemacs-dark
                          spacemacs-light
@@ -266,14 +274,6 @@ It should only modify the values of Spacemacs settings."
                                :size 14
                                :weight normal
                                :width normal)
-   ;; dotspacemacs-default-font '("Fira Code"
-   ;;                             :size 14
-   ;;                             :weight normal
-   ;;                             :width normal)
-   ;; dotspacemacs-default-font '("Inconsolata"
-   ;;                             :size 16
-   ;;                             :weight normal
-   ;;                             :width normal)
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
@@ -304,21 +304,6 @@ It should only modify the values of Spacemacs settings."
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
    dotspacemacs-distinguish-gui-tab nil
-
-   ;; If non-nil `Y' is remapped to `y$' in Evil states. (default nil)
-   dotspacemacs-remap-Y-to-y$ t
-
-   ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
-   ;; there. (default t)
-   dotspacemacs-retain-visual-state-on-shift t
-
-   ;; If non-nil, `J' and `K' move lines up and down when in visual mode.
-   ;; (default nil)
-   dotspacemacs-visual-line-move-text t
-
-   ;; If non-nil, inverse the meaning of `g' in `:substitute' Evil ex-command.
-   ;; (default nil)
-   dotspacemacs-ex-substitute-global nil
 
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
@@ -422,8 +407,10 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil show the color guide hint for transient state keys. (default t)
    dotspacemacs-show-transient-state-color-guide t
 
-   ;; If non-nil unicode symbols are displayed in the mode line. (default t)
-   dotspacemacs-mode-line-unicode-symbols t
+   ;; If non-nil unicode symbols are displayed in the mode line.
+   ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
+   ;; the value to quoted `display-graphic-p'. (default t)
+   dotspacemacs-mode-line-unicode-symbols 'display-graphic-p
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
@@ -615,6 +602,14 @@ before packages are loaded."
   ;;==============================================
   ;;(require 'zone)
   ;;(zone-when-idle 120)
+
+
+  ;;==============================================
+  ;; Evil Goggles.
+  ;;==============================================
+  (setq evil-goggles-pulse 'display-graphic-p)
+  (setq evil-goggles-async-duration nil)
+  (setq evil-goggles-blocking-duration nil)
 
   ;;==============================================
   ;; RECENTF configuration
