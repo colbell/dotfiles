@@ -116,7 +116,7 @@ This function should only modify configuration layer settings."
 
                                       ;; FIXME: Doesn't ruby bring this in?
                                       rubocop
-                                      w3m)
+                                      )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -260,8 +260,8 @@ It should only modify the values of Spacemacs settings."
    ;; to create your own spaceline theme. Value can be a symbol or list with\
    ;; additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   ;; dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
-   dotspacemacs-mode-line-theme '(all-the-icons :separator wave :separator-scale 2.0)
+   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   ;; dotspacemacs-mode-line-theme '(all-the-icons :separator wave :separator-scale 2.0)
    ;; dotspacemacs-mode-line-theme '(vim-powerline)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
@@ -334,23 +334,6 @@ It should only modify the values of Spacemacs settings."
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
 
-   ;; If non-nil, `helm' will try to minimize the space it uses. (default nil)
-   dotspacemacs-helm-resize nil
-
-   ;; if non-nil, the helm header is hidden when there is only one source.
-   ;; (default nil)
-   dotspacemacs-helm-no-header nil
-
-   ;; define the position to display `helm', options are `bottom', `top',
-   ;; `left', or `right'. (default 'bottom)
-   dotspacemacs-helm-position 'bottom
-
-   ;; Controls fuzzy matching in helm. If set to `always', force fuzzy matching
-   ;; in all non-asynchronous sources. If set to `source', preserve individual
-   ;; source settings. Else, disable fuzzy matching in all sources.
-   ;; (default 'always)
-   dotspacemacs-helm-use-fuzzy 'always
-
    ;; If non-nil, the paste transient-state is enabled. While enabled, pressing
    ;; `p' several times cycles through the elements in the `kill-ring'.
    ;; (default nil)
@@ -410,7 +393,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil unicode symbols are displayed in the mode line.
    ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
    ;; the value to quoted `display-graphic-p'. (default t)
-   dotspacemacs-mode-line-unicode-symbols 'display-graphic-p
+   dotspacemacs-mode-line-unicode-symbols t
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
@@ -528,6 +511,13 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; Allow paste into xterm etc.
   (setq select-enable-primary t))
 
+(defun dotspacemacs/user-load ()
+  "Library to load while dumping.
+This function is called while dumping Spacemacs configuration. You can
+`require' or `load' the libraries of your choice that will be included
+in the dump."
+  )
+
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
@@ -538,6 +528,8 @@ before packages are loaded."
   ;; Remove Unnecessary Clutter
   (setq use-file-dialog nil)
   (setq use-dialog-box nil)
+  (with-eval-after-load 'spaceline-segments
+     (spaceline-toggle-minor-modes))
 
   ;; (spacemacs/toggle-transparency)
 
@@ -547,6 +539,7 @@ before packages are loaded."
   ;; Fixes problems with code reloading not working in Elixir/Phoenix.
   ;; See http://spacemacs.org/doc/FAQ.html#orgheadline18
   (setq create-lockfiles nil)
+
 
   ;;==============================================
   ;; Rainbow mode
@@ -566,8 +559,6 @@ before packages are loaded."
   ;;==============================================
   ;; ivy/swiper configuration
   ;;==============================================
-  ;; (setq ivy-count-format "(%d/%d) ") ;; crashes 'search in project (<spc> s p)
-  ;; (setq ivy-count-format "") ;; Don't count candidates.
   (setq ivy-count-format "%-4d ") ;; Default.
 
   (setq ivy-use-virtual-buffers t)
@@ -810,18 +801,23 @@ before packages are loaded."
                 (evil-visual-mark-render)))
 
   ;;===============================================
-  ;; Show current function/file in header.
+  ;; Show current function.
   ;;===============================================
-
-  ;; Don't show current function in mode line.
-  ;; (spaceline-toggle-which-function-off)
-
-  ;; (which-function-mode)
+  (which-function-mode)
   ;; (set-face-attribute 'which-func nil
   ;;                     :foreground (face-foreground 'font-lock-function-name-face))
 
   ;; (setq-default header-line-format
   ;;               '((which-func-mode ("" which-func-format " ")) " - %f" ))
+
+  ;;===============================================
+  ;; Work around for https://github.com/syl20bnr/spacemacs/issues/10410
+  ;;===============================================
+  (defun kill-minibuffer ()
+    (interactive)
+    (when (windowp (active-minibuffer-window))
+      (evil-ex-search-exit)))
+  (add-hook 'mouse-leave-buffer-hook #'kill-minibuffer)
 
   (add-hook
    'after-save-hook
