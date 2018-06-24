@@ -1,0 +1,87 @@
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible 
+
+" Load plugin manager
+filetype off
+
+" Set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Define plugins.
+Plugin 'airblade/vim-gitgutter'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'elixir-editors/vim-elixir'
+Plugin 'https://tpope.io/vim/surround.git'
+Plugin 'kien/ctrlp.vim' 
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'sjl/badwolf'
+Plugin 'tomasr/molokai'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" All of your Plugins must be added before the following line
+call vundle#end()
+
+" Use syntax highlighting and detect file types. Must be after loading pathogen.
+syntax on
+filetype plugin indent on
+"
+" Local dirs (centralize everything)
+set backupdir=~/.vim/backups
+set directory=~/.vim/swaps
+
+" Automatically indent when adding a curly bracket, etc.
+set smartindent
+
+" Tabs should be converted to a group of 2 spaces.
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
+set expandtab
+set smarttab
+
+" Use UTF-8.
+set encoding=utf-8
+
+" Show autocomplete menus.
+set wildmenu
+
+" set background=light
+colorscheme molokai
+let g:airline_theme='molokai'
+
+" Show relative line numbers
+" set number
+set relativenumber
+
+" Status line
+set laststatus=2
+
+" Incremental searching
+set incsearch
+
+" Show search matches and highlight current occurence
+set showmatch
+set hlsearch
+
+" Ignore case when searchingi unless case specified.
+set ignorecase
+set smartcase
+
+" Warp lines at pos 79, show line at 85.
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+set colorcolumn=85
+
+" Save buffer on loss of focus.
+au FocusLost * :wa
+

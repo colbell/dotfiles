@@ -1,0 +1,3 @@
+" Don't display the menu or toolbar.
+set guioptions-=m
+set guioptions-=T
