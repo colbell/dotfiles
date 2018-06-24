@@ -49,7 +49,6 @@ This function should only modify configuration layer settings."
              ;; colors-enable-nyan-cat-progress-bar (display-graphic-p)
              colors-colorize-identifiers 'variables)
      csv
-     ;; docker
      (dash :variables
            helm-dash-docset-newpath "~/.local/share/Zeal/Zeal/docsets")
      elixir
@@ -59,7 +58,6 @@ This function should only modify configuration layer settings."
      erlang
      ;; evil-cleverparens
      git
-     go
      gtags
      html
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
@@ -67,8 +65,10 @@ This function should only modify configuration layer settings."
      (ivy :variables ivy-enable-advanced-buffer-information t)
      (javascript :variables js2-basic-offset 2 js-indent-level 2)
      json
-     lua
      markdown
+     (mu4e :variables
+           mu4e-use-maildirs-extension t
+           mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e/")
      org
      pdf
      python
@@ -87,7 +87,6 @@ This function should only modify configuration layer settings."
      (spell-checking :variables spell-checking-enable-auto-dictionary t)
      sql
      (syntax-checking :variables syntax-checking-enable-tooltips t)
-     systemd
      tern
      themes-megapack
      (treemacs :variables
@@ -96,6 +95,7 @@ This function should only modify configuration layer settings."
      (version-control :variables
                       version-control-diff-tool 'diff-hl
                       version-control-global-margin t)
+     vimscript
      xclipboard
      yaml)
 
@@ -108,6 +108,7 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(diredfl
                                       editorconfig
+                                      graphql-mode
 
                                       ;; FIXME: Do I need this?
                                       peep-dired
@@ -245,8 +246,8 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         gruvbox-dark-hard
                          leuven
+                         gruvbox-dark-hard
                          spacemacs-dark
                          spacemacs-light
                          solarized-dark
@@ -726,23 +727,6 @@ before packages are loaded."
     :init (add-to-list 'auto-mode-alist '("\\.editorconfig" . conf-unix-mode)))
 
   ;;==============================================
-  ;; Javascript configuration
-  ;;==============================================
-  ;; (defun cnb/js2-mode-hook ()
-  ;;   "Hooks for JS2 mode."
-  ;;   (setq js2-missing-semi-one-line-override t)
-  ;;   (setq-default js2-indent-hook 2)
-  ;;   (setq-default js2-basic-offset 2))
-
-  ;; (add-hook 'js2-mode-hook 'cnb/js2-mode-hook t)
-
-  ;; (defun cnb/js-mode-hook ()
-  ;;   "Hooks for JS mode."
-  ;;   (setq-default js-indent-level 2))
-
-  ;; (add-hook 'js-mode-hook 'cnb/js-mode-hook t)
-
-  ;;==============================================
   ;; SCSS Mode
   ;;==============================================
   (defun cnb/scss-mode-hook ()
@@ -809,6 +793,71 @@ before packages are loaded."
 
   ;; (setq-default header-line-format
   ;;               '((which-func-mode ("" which-func-format " ")) " - %f" ))
+
+
+
+  (require 'mu4e-contrib)
+  (setq mu4e-html2text-command 'mu4e-shr2text)
+  ;; (setq mu4e-html2text-command "html2text -utf8 -width 72")
+  ;; (setq mu4e-html2text-command "w3m -dump -T text/html")
+
+  (setq user-mail-address "col@baibell.org")
+  (setq user-full-name "Colin Bell")
+  (setq mu4e-user-mail-address-regexp "col@baibell\.org\\|colin@kwelasolutions.com")
+
+  (setq mu4e-maildir "~/mbsync")
+  (setq mu4e-drafts-folder "/[Gmail]/Drafts")
+  (setq mu4e-sent-folder "/[Gmail]/Sent Mail")
+  (setq mu4e-trash-folder  "/[Gmail]/Trash")
+
+  ;; Needed for mbsync
+  (setq mu4e-change-filenames-when-moving t)
+
+  (setq mail-user-agent 'mu4e-user-agent)
+
+  (setq mu4e-use-fancy-chars t)
+  (setq mu4e-headers-new-mark '("u" . "❗"))
+  (setq mu4e-headers-passed-mark '("P" . "⇉"))
+  (setq mu4e-headers-replied-mark '("R" . "↵"))
+  (setq mu4e-headers-seen-mark '("S" . "✉"))
+  (setq mu4e-headers-unread-mark '("u" . "📨"))
+  (setq mu4e-viewprefer-html t)
+  (setq mu4e-view-prefer-html nil)
+  (setq mu4e-headers-skip-duplicates t)
+  (setq mu4e-view-fields '(:from :to :cc :subject :flags :date :maildir :mailing-list :tags :attachments :signature :decryption :user-agent))
+  (setq mu4e-headers-fields
+        '(
+          (:human-date   . 20)
+          (:flags        .  8)
+          (:size         .  8)
+          (:from-or-to   . 22)
+          (:maildir      . 22)
+          (:subject      . nil)))
+
+  (setq mu4e-headers-leave-behavior 'apply)
+  (setq message-kill-buffer-on-exit t)
+
+  (setq mu4e-headers-date-format "%d%b%y %H:%M" )
+
+  ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+  (setq mu4e-sent-messages-behavior 'delete)
+
+  (setq mu4e-msg2pdf "/usr/bin/msg2pdf")
+  (setq mu4e-attachment-dir  "~/Downloads")
+
+  (setq mu4e-view-show-images t)
+  (setq mu4e-view-images t)
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
+
+  (setq mu4e-view-show-addresses t)
+
+  (setq mu4e-get-mail-command "mbsync -a")
+
+  (setq smtpmail-default-smtp-server "smtp.gmail.com")
+  (setq smtpmail-smtp-server "smtp.gmail.com")
+  (setq smtpmail-smtp-service 587)
+
 
   ;;===============================================
   ;; Work around for https://github.com/syl20bnr/spacemacs/issues/10410
