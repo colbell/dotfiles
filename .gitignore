@@ -335,3 +335,4 @@ config/KDE
 /spacemacs.d/custom.el
 /wtf/todo.yml
 /vim/bundle/
+/vim/.netrwhist
