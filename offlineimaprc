@@ -2,9 +2,9 @@
 [general]
 
 metadata = ~/offlineimap
-accounts = home, kwela
+accounts = home
 maxsyncaccounts = 2
-ui = ttyui
+# ui = ttyui
 
 #########################################################################
 [Account home]
@@ -13,7 +13,7 @@ autorefresh = 5
 
 localrepository = home-local
 remoterepository = home-remote
-
+postsynchook = mu index --maildir ~/Maildir
 #postsynchook = pkill -2 -u $USER mu && sleep 1 && mu index --maildir=~/Maildir/home
 
 [Repository home-local]
@@ -21,46 +21,45 @@ type = Maildir
 localfolders = ~/Maildir/home
 
 [Repository home-remote]
-type = IMAP
+# type = IMAP
+type = Gmail
 remotehost = imap.gmail.com
 remoteuser = col@baibell.org
 remotepassfile = ~/.password.home
 ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 realdelete = no
-
-maxconnections = 1
+folderfilter = lambda foldername: foldername not in ['[Gmail]/All Mail', '[Gmail]/Important']
+maxconnections = 2
 
 # Remove leading INBOX from all mailbox names.
-nametrans = lambda foldername: re.sub('^INBOX\.', '', foldername)
-
-#folderfilter = lambda foldername: foldername not in ['[Gmail]/All Mail', '/Trash']
+# nametrans = lambda foldername: re.sub('^INBOX\.', '', foldername)
 
 #########################################################################
 
-[Account kwela]
+# [Account kwela]
 
-autorefresh = 5
+# autorefresh = 5
 
-localrepository = kwela-local
-remoterepository = kwela-remote
+# localrepository = kwela-local
+# remoterepository = kwela-remote
 
-#postsynchook = pkill -2 -u $USER mu && sleep 1 && mu index --maildir=~/Maildir/home
+# #postsynchook = pkill -2 -u $USER mu && sleep 1 && mu index --maildir=~/Maildir/home
 
-[Repository kwela-local]
-type = Maildir
-localfolders = ~/Maildir/kwela
+# [Repository kwela-local]
+# type = Maildir
+# localfolders = ~/Maildir/kwela
 
-[Repository kwela-remote]
-type = IMAP
-remotehost = imap.gmail.com
-remoteuser = colin@kwelasolutions.com
-remotepassfile = ~/.password.kwela
-ssl = yes
-sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-realdelete = no
+# [Repository kwela-remote]
+# type = IMAP
+# remotehost = imap.gmail.com
+# remoteuser = colin@kwelasolutions.com
+# remotepassfile = ~/.password.kwela
+# ssl = yes
+# sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+# realdelete = no
 
-maxconnections = 1
+# maxconnections = 1
 
-# Remove leading INBOX from all mailbox names.
-nametrans = lambda foldername: re.sub('^INBOX\.', '', foldername)
+# # Remove leading INBOX from all mailbox names.
+# nametrans = lambda foldername: re.sub('^INBOX\.', '', foldername)
