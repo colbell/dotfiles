@@ -1,0 +1,29 @@
+# mbsyncrc based on
+# http://pragmaticemacs.com/emacs/migrating-from-offlineimap-to-mbsync-for-mu4e
+
+# ACCOUNT INFORMATION
+IMAPAccount baibell
+# Address to connect to
+Host imap.gmail.com
+User col@baibell.org
+PassCmd "cat ~/.password.home"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+PipelineDepth 2
+
+IMAPStore baibell-remote
+Account baibell
+
+# mkdir -p ~/mbsync/INBOX
+MaildirStore baibell-local
+Subfolders Verbatim
+Path ~/mbsync/
+Inbox ~/mbsync/INBOX
+
+Channel baibell
+Master :baibell-remote:
+Slave :baibell-local:
+Patterns * !"[Gmail]/All Mail"
+Create Both
+Expunge Both
+SyncState *
