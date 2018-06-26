@@ -55,7 +55,7 @@
 /config/dconf/
 /config/dconf/user
 /config/desktop-couch/*
-/config/desktop-webmail/desktop-webmail.ini
+/config/device_automounter_kcmrc
 /config/discoverrc
 /config/dleyna-renderer-service.conf
 /config/dleyna-server-service.conf
@@ -96,13 +96,16 @@
 /config/gtkrc-2.0
 /config/gwenviewrc
 /config/gxine/*
+/config/headerthemeeditorrc
 /config/htop/htoprc
 /config/ibus/
 /config/indicators/*
 /config/inkscape/*
 /config/kaccessrc
 /config/kactivity*
+/config/kalarmrc
 /config/kate*
+/config/kcalcrc
 /config/kcmdisplayrc
 /config/kcmfonts
 /config/kcminputrc
@@ -110,7 +113,9 @@
 /config/kconf_updaterc
 /config/kde*
 /config/kde.org/libphonon.conf
+/config/kdialogrc
 /config/kfontinstuirc
+/config/kfontviewrc
 /config/kgammarc
 /config/kglobalshortcutsrc
 /config/khelpcenterrc
@@ -124,6 +129,8 @@
 /config/konsolerc
 /config/korgacrc
 /config/korganizerrc
+/config/kritadisplayrc
+/config/kritarc
 /config/krunnerrc
 /config/kscreenlockerrc
 /config/kservicemenurc
@@ -161,6 +168,7 @@
 /config/node-webkit
 /config/notificationhelper
 /config/nvim/.netrwhist
+/config/okularpartrc
 /config/okularrc
 /config/openbox/*
 /config/oxygen-gtk/argb-apps.conf
@@ -185,6 +193,8 @@
 /config/softwarecenter
 /config/softwarecenter/*
 /config/specialmailcollectionsrc
+/config/spectacle.notifyrc
+/config/spectaclerc
 /config/spotify
 /config/sqlgraph
 /config/startupconfig
@@ -244,6 +254,7 @@
 /config/volumeicon/*
 /config/webengineurlinterceptoradblockrc
 /config/wireshark/
+/config/wtf/log.txt
 /config/xfce4/*
 /config/yakuake.notifyrc
 /config/yakuakerc
@@ -311,6 +322,10 @@
 /newsbeuter/history.search
 /newsbeuter/urls
 /oh-my-zsh-custom/themes/spaceship-prompt/
+/spacemacs.d/custom.el
+/spacemacs.d/spacemacs.env
+/vim/.netrwhist
+/vim/bundle/
 /vscode/extensions
 /w3m/.arrived
 /w3m/.cookie
@@ -322,6 +337,7 @@
 /w3m/w3mel*
 /w3m/w3msrc*
 /w3m/w3mtmp*
+/wtf/todo.yml
 /xmonad/history
 /xmonad/lib/XMonad/Config/Mate.hi
 /xmonad/lib/XMonad/Config/Mate.o
@@ -332,8 +348,3 @@
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
 config/KDE
-/spacemacs.d/custom.el
-/wtf/todo.yml
-/vim/bundle/
-/vim/.netrwhist
-/config/wtf/log.txt
