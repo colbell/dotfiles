@@ -336,3 +336,4 @@ config/KDE
 /wtf/todo.yml
 /vim/bundle/
 /vim/.netrwhist
+/config/wtf/log.txt

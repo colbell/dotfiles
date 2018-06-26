@@ -5,7 +5,7 @@ wtf:
       focusable: darkslateblue
       focused: orange
       normal: lightblue
-    term: "xterm-256color"
+    # term: "xterm-256color"
   grid:
     # How _wide_ the columns are, in terminal characters.
     columns: [36, 38, 38, 38, 40]
@@ -25,6 +25,7 @@ wtf:
         height: 1
         width: 2
         refreshInterval: 15
+
     clocks:
       title: " 🕗 World Clocks "
       colors:
@@ -49,47 +50,7 @@ wtf:
         width: 1
       refreshInterval: 15
       # Valid options are: alphabetical, chronological
-      sort: "alphabetical"
-    # gcal:
-    #   colors:
-    #     title: "red"
-    #     description: "lightblue"
-    #     highlights:
-    #     - ['1on1|1\/11', 'green']
-    #     - ['apple|google|aws', 'blue']
-    #     - ['interview|meet\ ', 'lightseagreen']
-    #     - ['lunch', 'yellow']
-    #     past: "gray"
-    #   conflictIcon: "🚨"
-    #   currentIcon: "💥"
-    #   displayResponseStatus: true
-    #   email: "your.email@example.com"
-    #   enabled: true
-    #   eventCount: 12
-    #   position:
-    #     top: 0
-    #     left: 0
-    #     height: 4
-    #     width: 1
-    #   refreshInterval: 300
-    #   secretFile: "~/.wtf/gcal/client_secret.json"
-    #   withLocation: true
-    todo:
-      title: " 📝 Todo "
-      checkedIcon: "X"
-      colors:
-        checked: gray
-        highlight:
-          fore: "black"
-          back: "orange"
-      enabled: true
-      filename: "todo.yml"
-      position:
-        top: 2
-        left: 3
-        height: 2
-        width: 2
-      refreshInterval: 3600
+      sort: "chronological"
 
     git:
       commitCount: 14
@@ -141,12 +102,9 @@ wtf:
         height: 1
         width: 1
       refreshInterval: 3600
-    weather:
+    prettyweather:
       enabled: true
-      cityids:
-        - 2147714
-        - 2655984
-        - 1790630
+      city: "sydney"
       colors:
         current: "lightblue"
       position:
