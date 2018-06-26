@@ -249,10 +249,10 @@ It should only modify the values of Spacemacs settings."
                          leuven
                          flatland
                          gruvbox-dark-hard
-                         spacemacs-dark
                          spacemacs-light
-                         solarized-dark
+                         spacemacs-dark
                          solarized-light
+                         solarized-dark
                          )
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
@@ -795,70 +795,80 @@ before packages are loaded."
   ;; (setq-default header-line-format
   ;;               '((which-func-mode ("" which-func-format " ")) " - %f" ))
 
+  ;;===============================================
+  ;; Email client
+  ;;===============================================
+  (with-eval-after-load 'mu4e
+    (require 'mu4e-contrib)
+    (setq mu4e-html2text-command 'mu4e-shr2text)
+    ;; (setq mu4e-html2text-command "html2text -utf8 -width 72")
+    ;; (setq mu4e-html2text-command "w3m -dump -T text/html")
 
+    (setq user-mail-address "col@baibell.org")
+    (setq user-full-name "Colin Bell")
+    (setq mu4e-user-mail-address-regexp "col@baibell\.org\\|colin@kwelasolutions.com")
 
-  (require 'mu4e-contrib)
-  (setq mu4e-html2text-command 'mu4e-shr2text)
-  ;; (setq mu4e-html2text-command "html2text -utf8 -width 72")
-  ;; (setq mu4e-html2text-command "w3m -dump -T text/html")
+    (setq mu4e-maildir "~/mbsync")
+    (setq mu4e-drafts-folder "/[Gmail]/Drafts")
+    (setq mu4e-sent-folder "/[Gmail]/Sent Mail")
+    (setq mu4e-trash-folder  "/[Gmail]/Trash")
 
-  (setq user-mail-address "col@baibell.org")
-  (setq user-full-name "Colin Bell")
-  (setq mu4e-user-mail-address-regexp "col@baibell\.org\\|colin@kwelasolutions.com")
+    ;; Needed for Gmail/mbsync
+    (setq mu4e-change-filenames-when-moving t)
 
-  (setq mu4e-maildir "~/mbsync")
-  (setq mu4e-drafts-folder "/[Gmail]/Drafts")
-  (setq mu4e-sent-folder "/[Gmail]/Sent Mail")
-  (setq mu4e-trash-folder  "/[Gmail]/Trash")
+    (setq mail-user-agent 'mu4e-user-agent)
 
-  ;; Needed for mbsync
-  (setq mu4e-change-filenames-when-moving t)
+    (setq mu4e-use-fancy-chars t)
+    (setq mu4e-headers-new-mark '("u" . "❗"))
+    (setq mu4e-headers-passed-mark '("P" . "⇉"))
+    (setq mu4e-headers-replied-mark '("R" . "↵"))
+    (setq mu4e-headers-seen-mark '("S" . "✉"))
+    (setq mu4e-headers-unread-mark '("u" . "📨"))
+    (setq mu4e-view-prefer-html nil)
+    (setq mu4e-headers-skip-duplicates t)
+    (setq mu4e-view-fields
+          '(:from :to :cc :subject :flags :date :maildir :mailing-list :tags
+                  :attachments :signature :decryption :user-agent))
+    (setq mu4e-headers-fields
+          '(
+            (:human-date   . 20)
+            (:flags        .  8)
+            (:size         .  8)
+            (:from-or-to   . 22)
+            (:maildir      . 22)
+            (:subject      . nil)))
 
-  (setq mail-user-agent 'mu4e-user-agent)
+    ;; Set format=flowed
+    ;; mu4e sets up visual-line-mode and also fill (M-q) to do the right thing
+    ;; each paragraph is a single long line; at sending, emacs will add the
+    ;; special line continuation characters.
+    (setq mu4e-compose-format-flowed t)
 
-  (setq mu4e-use-fancy-chars t)
-  (setq mu4e-headers-new-mark '("u" . "❗"))
-  (setq mu4e-headers-passed-mark '("P" . "⇉"))
-  (setq mu4e-headers-replied-mark '("R" . "↵"))
-  (setq mu4e-headers-seen-mark '("S" . "✉"))
-  (setq mu4e-headers-unread-mark '("u" . "📨"))
-  (setq mu4e-viewprefer-html t)
-  (setq mu4e-view-prefer-html nil)
-  (setq mu4e-headers-skip-duplicates t)
-  (setq mu4e-view-fields '(:from :to :cc :subject :flags :date :maildir :mailing-list :tags :attachments :signature :decryption :user-agent))
-  (setq mu4e-headers-fields
-        '(
-          (:human-date   . 20)
-          (:flags        .  8)
-          (:size         .  8)
-          (:from-or-to   . 22)
-          (:maildir      . 22)
-          (:subject      . nil)))
+    (setq mu4e-headers-leave-behavior 'apply)
+    (setq message-kill-buffer-on-exit t)
 
-  (setq mu4e-headers-leave-behavior 'apply)
-  (setq message-kill-buffer-on-exit t)
+    (setq mu4e-headers-date-format "%d%b%y %H:%M" )
 
-  (setq mu4e-headers-date-format "%d%b%y %H:%M" )
+    ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+    (setq mu4e-sent-messages-behavior 'delete)
 
-  ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-  (setq mu4e-sent-messages-behavior 'delete)
+    (setq mu4e-confirm-quit nil)
 
-  (setq mu4e-msg2pdf "/usr/bin/msg2pdf")
-  (setq mu4e-attachment-dir  "~/Downloads")
+    (setq mu4e-msg2pdf "/usr/bin/msg2pdf")
+    (setq mu4e-attachment-dir  "~/Downloads")
 
-  (setq mu4e-view-show-images t)
-  (setq mu4e-view-images t)
-  (when (fboundp 'imagemagick-register-types)
-    (imagemagick-register-types))
+    (setq mu4e-view-show-images t)
+    (setq mu4e-view-images t)
+    (when (fboundp 'imagemagick-register-types)
+      (imagemagick-register-types))
 
-  (setq mu4e-view-show-addresses t)
+    (setq mu4e-view-show-addresses t)
 
-  (setq mu4e-get-mail-command "mbsync -a")
+    (setq mu4e-get-mail-command "mbsync -a")
 
-  (setq smtpmail-default-smtp-server "smtp.gmail.com")
-  (setq smtpmail-smtp-server "smtp.gmail.com")
-  (setq smtpmail-smtp-service 587)
-
+    (setq smtpmail-default-smtp-server "smtp.gmail.com")
+    (setq smtpmail-smtp-server "smtp.gmail.com")
+    (setq smtpmail-smtp-service 587))
 
   ;;===============================================
   ;; Work around for https://github.com/syl20bnr/spacemacs/issues/10410
