@@ -55,10 +55,10 @@ This function should only modify configuration layer settings."
      elm
      emacs-lisp
      epub
-     erlang
+     ;; erlang
      ;; evil-cleverparens
      git
-     gtags
+     ;; gtags
      html
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      imenu-list
@@ -71,8 +71,8 @@ This function should only modify configuration layer settings."
            mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e/")
      org
      pdf
-     python
-     react
+     ;; python
+     ;; react
      (ruby :variables
            ruby-test-runner 'rspec
            ruby-version-manager 'rvm)
