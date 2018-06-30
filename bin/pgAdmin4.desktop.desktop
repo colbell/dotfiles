@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=pgAdmin 4
-Exec=/home/colbell/bin/pgAdmin4.sh
-Icon=/home/colbell/bin/pgadmin.svg
-Type=Application
-Categories=Database
-Terminal=false
