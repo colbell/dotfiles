@@ -60,7 +60,8 @@ This function should only modify configuration layer settings."
      git
      ;; gtags
      html
-     (ibuffer :variables ibuffer-group-buffers-by 'projects)
+     ;;(ibuffer :variables ibuffer-group-buffers-by 'projects)
+     ibuffer :variables
      imenu-list
      (ivy :variables ivy-enable-advanced-buffer-information t)
      (javascript :variables js2-basic-offset 2 js-indent-level 2)
@@ -819,10 +820,10 @@ before packages are loaded."
     (setq mail-user-agent 'mu4e-user-agent)
 
     (setq mu4e-use-fancy-chars t)
-    (setq mu4e-headers-new-mark '("u" . "❗"))
-    (setq mu4e-headers-passed-mark '("P" . "⇉"))
-    (setq mu4e-headers-replied-mark '("R" . "↵"))
-    (setq mu4e-headers-seen-mark '("S" . "✉"))
+    ;; (setq mu4e-headers-new-mark '("N" . "❗"))
+    ;; (setq mu4e-headers-passed-mark '("P" . "⇉"))
+    ;; (setq mu4e-headers-replied-mark '("R" . "↵"))
+    ;; (setq mu4e-headers-seen-mark '("S" . "✉"))
     (setq mu4e-headers-unread-mark '("u" . "📨"))
     (setq mu4e-view-prefer-html nil)
     (setq mu4e-headers-skip-duplicates t)
