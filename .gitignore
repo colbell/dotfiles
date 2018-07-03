@@ -348,3 +348,4 @@
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
 config/KDE
+/spacemacs.d/.spacemacs.env
