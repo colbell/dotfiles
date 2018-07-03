@@ -61,7 +61,6 @@ This function should only modify configuration layer settings."
      ;; gtags
      html
      ;;(ibuffer :variables ibuffer-group-buffers-by 'projects)
-     ibuffer :variables
      imenu-list
      (ivy :variables ivy-enable-advanced-buffer-information t)
      (javascript :variables js2-basic-offset 2 js-indent-level 2)
@@ -553,11 +552,8 @@ before packages are loaded."
   ;;==============================================
   ;; Projectile configuration
   ;;==============================================
-
-  ;; When switching projects open projects root directory in dired, don't
-  ;; search for a file.
-  (setq projectile-switch-project-action #'projectile-dired)
   (setq projectile-enable-caching t)
+  (spacemacs/set-leader-keys "oi" 'projectile-ibuffer)
 
   ;;==============================================
   ;; ivy/swiper configuration
@@ -590,12 +586,6 @@ before packages are loaded."
   ;;==============================================
   ;; (global-git-commit-mode t)
   ;; (add-hook 'magit-status-sections-hook 'magit-insert-worktrees)
-
-  ;;==============================================
-  ;; Screensaver.
-  ;;==============================================
-  ;;(require 'zone)
-  ;;(zone-when-idle 120)
 
 
   ;;==============================================
