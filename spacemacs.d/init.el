@@ -37,7 +37,8 @@ This function should only modify configuration layer settings."
      (auto-completion :variables
                       auto-completion-private-snippets-directory
                       "~/.spacemacs.d/snippets/"
-                      auto-completion-enable-help-tooltip 'manual)
+                      ;; auto-completion-enable-help-tooltip 'manual
+                      auto-completion-enable-help-tooltip t)
      bm
      cnb-beg-end
      cnb-bug-reference
@@ -55,12 +56,10 @@ This function should only modify configuration layer settings."
      elm
      emacs-lisp
      epub
-     ;; erlang
      ;; evil-cleverparens
      git
-     ;; gtags
      html
-     ;;(ibuffer :variables ibuffer-group-buffers-by 'projects)
+     ibuffer
      imenu-list
      (ivy :variables ivy-enable-advanced-buffer-information t)
      (javascript :variables js2-basic-offset 2 js-indent-level 2)
@@ -73,6 +72,8 @@ This function should only modify configuration layer settings."
      pdf
      ;; python
      ;; react
+     ;; (ranger :variables
+     ;;         ranger-show-preview t)
      (ruby :variables
            ruby-test-runner 'rspec
            ruby-version-manager 'rvm)
@@ -106,12 +107,12 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(diredfl
+   dotspacemacs-additional-packages '(
+                                      ;; Extra font lock rules for dired.
+                                      diredfl
+
                                       editorconfig
                                       graphql-mode
-
-                                      ;; FIXME: Do I need this?
-                                      peep-dired
 
                                       persistent-scratch
 
@@ -532,8 +533,6 @@ before packages are loaded."
   (setq use-dialog-box nil)
   (with-eval-after-load 'spaceline-segments
      (spaceline-toggle-minor-modes))
-
-  ;; (spacemacs/toggle-transparency)
 
   ;; Spacemacs sets it too wide.
   (setq-default display-line-numbers-width nil)
