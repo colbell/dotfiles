@@ -114,6 +114,7 @@ This function should only modify configuration layer settings."
                                       editorconfig
                                       graphql-mode
 
+                                      peep-dired
                                       persistent-scratch
 
                                       ;; FIXME: Doesn't ruby bring this in?
@@ -632,8 +633,8 @@ before packages are loaded."
       (kbd "P") 'peep-dired)
 
     (evil-define-key 'normal peep-dired-mode-map
-      (kbd "<SPC>") 'peep-dired-scroll-page-down
-      (kbd "C-<SPC>") 'peep-dired-scroll-page-up
+      (kbd "C-j") 'peep-dired-scroll-page-down
+      (kbd "C-k") 'peep-dired-scroll-page-up
       (kbd "<backspace>") 'peep-dired-scroll-page-up
       (kbd "j") 'peep-dired-next-file
       (kbd "k") 'peep-dired-prev-file)
