@@ -70,10 +70,7 @@ This function should only modify configuration layer settings."
            mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e/")
      org
      pdf
-     ;; python
-     ;; react
-     ;; (ranger :variables
-     ;;         ranger-show-preview t)
+     python
      (ruby :variables
            ruby-test-runner 'rspec
            ruby-version-manager 'rvm)
@@ -87,7 +84,7 @@ This function should only modify configuration layer settings."
      shell-scripts
      (spell-checking :variables spell-checking-enable-auto-dictionary t)
      sql
-     (syntax-checking :variables syntax-checking-enable-tooltips t)
+     (syntax-checking :variables syntax-checking-enable-tooltips nil)
      tern
      themes-megapack
      (treemacs :variables
@@ -440,6 +437,13 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
    dotspacemacs-enable-server t
+
+   ;; Set the emacs server socket location.
+   ;; If nil, uses whatever the Emacs default is, otherwise a directory path
+   ;; like \"~/.emacs.d/server\". It has no effect if
+   ;; `dotspacemacs-enable-server' is nil.
+   ;; (default nil)
+   dotspacemacs-server-socket-dir nil
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
@@ -814,7 +818,7 @@ before packages are loaded."
     ;; (setq mu4e-headers-passed-mark '("P" . "⇉"))
     ;; (setq mu4e-headers-replied-mark '("R" . "↵"))
     ;; (setq mu4e-headers-seen-mark '("S" . "✉"))
-    (setq mu4e-headers-unread-mark '("u" . "📨"))
+    ;; (setq mu4e-headers-unread-mark '("u" . "📨")
     (setq mu4e-view-prefer-html nil)
     (setq mu4e-headers-skip-duplicates t)
     (setq mu4e-view-fields
@@ -843,13 +847,18 @@ before packages are loaded."
     ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
     (setq mu4e-sent-messages-behavior 'delete)
 
-    (setq mu4e-confirm-quit nil)
+    (setq mu4e-auto-retrieve-keys t)
+
+    ;; Hide annoying messsages.
+    (setq mu4e-hide-index-messages t)
+
+    (setq mu4e-confirm-quit t)
 
     (setq mu4e-msg2pdf "/usr/bin/msg2pdf")
     (setq mu4e-attachment-dir  "~/Downloads")
 
     (setq mu4e-view-show-images t)
-    (setq mu4e-view-images t)
+
     (when (fboundp 'imagemagick-register-types)
       (imagemagick-register-types))
 
@@ -870,27 +879,31 @@ before packages are loaded."
       (evil-ex-search-exit)))
   (add-hook 'mouse-leave-buffer-hook #'kill-minibuffer)
 
-  (add-hook
-   'after-save-hook
-   #'executable-make-buffer-file-executable-if-script-p)
+  ;;===============================================
+  ;; If saving a script file ensure that it is executable
+  ;;===============================================
+  (add-hook 'after-save-hook
+            #'executable-make-buffer-file-executable-if-script-p)
 
   ;; (add-hook
   ;;  'after-init-hook (lambda ()
   ;;                     (progn
   ;;                       (spacemacs/toggle-evil-cleverparens-on))))
 
-  ;; (setq imenu-list-auto-resize nil)
-
-  ;; Let me right-click in terminal to show terminal menu.
-  (xterm-mouse-mode -1)
-
+  ;;===============================================
   ;; Save contents of scratch buffer on exit and restore on startup.
+  ;;===============================================
   (use-package persistent-scratch
     :config
     (setq persistent-scratch-save-file
           (concat(file-name-as-directory spacemacs-cache-directory)
                  "persistent-scratch"))
     (persistent-scratch-setup-default))
+
+  ;; (setq imenu-list-auto-resize nil)
+
+  ;; Let me right-click in terminal to show terminal menu.
+  (xterm-mouse-mode -1)
 
   (setq-default
    sentence-end-double-space t
@@ -921,7 +934,7 @@ before packages are loaded."
   ;; (global-hl-line-mode 0)
   (setq kill-ring-max 500)
 
-  (setq evil-want-fine-undo t)
+  (setq evil-want-fine-undo "No")
 
   ;; My common mistakes.
   (define-abbrev-table
