@@ -61,7 +61,9 @@ This function should only modify configuration layer settings."
      html
      ibuffer
      imenu-list
-     (ivy :variables ivy-enable-advanced-buffer-information t)
+     (ivy :variables
+          ivy-enable-advanced-buffer-information t
+          ivy-use-virtual-buffers t)
      (javascript :variables js2-basic-offset 2 js-indent-level 2)
      json
      markdown
@@ -562,10 +564,6 @@ before packages are loaded."
   ;;==============================================
   ;; ivy/swiper configuration
   ;;==============================================
-  (setq ivy-count-format "%-4d ") ;; Default.
-
-  (setq ivy-use-virtual-buffers t)
-
   (defun cnb/swiper-recenter (&rest args)
     "recenter display after swiper"
     (recenter))
@@ -679,18 +677,7 @@ before packages are loaded."
   (setq ruby-align-chained-calls t)
 
   (defun cnb/ruby-setup ()
-    (rvm-activate-corresponding-ruby)
-    ;; (superword-mode)
-    ;; (hs-minor-mode)
-
-    ;;(spacemacs/helm-gtags-define-keys-for-mode 'ruby-mode)
-
-    ;;(setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)")
-    ;; (setq imenu-generic-expression
-    ;;       '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1)
-    ;;         ("Examples" "^\\( *\\(its?\\|specify\\|example\\|describe\\|context\\|feature\\|scenario\\) +.+\\)" 1)))
-
-    )
+    (rvm-activate-corresponding-ruby))
 
   (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
 
