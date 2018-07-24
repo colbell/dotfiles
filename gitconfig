@@ -47,8 +47,18 @@
   zeroPaddedFilemode = ignore
 
 [alias]
+  # Show all aliases.
+  alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+
   br = branch
   co = checkout
+  st = status -sb
+
+  c  = commit
+  cm = commit -m
+
+  d  = diff
+  dc = diff --cached
 
   l       = log --graph --decorate --pretty=oneline --abbrev-commit
   ll      = log --graph --decorate --pretty=oneline --numstat
@@ -62,8 +72,6 @@
   # All commits for a file, pass file name as an argument
   fl = log -u
 
-  # Short status
-  st = status -sb
 
   unpushed = cherry -v
 
