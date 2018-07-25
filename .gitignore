@@ -30,6 +30,7 @@
 /config/akonadi*
 /config/akonadi/*
 /config/akregatorrc
+/config/arkrc
 /config/atril/
 /config/audacious/*
 /config/autostart/slack.desktop
@@ -109,6 +110,7 @@
 /config/kcmdisplayrc
 /config/kcmfonts
 /config/kcminputrc
+/config/kcmsambarc
 /config/kcmshell5rc
 /config/kconf_updaterc
 /config/kde*
@@ -306,6 +308,7 @@
 /emacs.d.orig/url/
 /emacs.d/
 /emacs.d/.mc-lists.el
+/fonts/.uuid
 /fonts/fonts.dir
 /lein/indices/
 /lein/repl-history
@@ -322,6 +325,7 @@
 /newsbeuter/history.search
 /newsbeuter/urls
 /oh-my-zsh-custom/themes/spaceship-prompt/
+/spacemacs.d/.spacemacs.env
 /spacemacs.d/custom.el
 /spacemacs.d/spacemacs.env
 /vim/.netrwhist
@@ -348,4 +352,3 @@
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
 config/KDE
-/spacemacs.d/.spacemacs.env
