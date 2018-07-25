@@ -72,8 +72,8 @@
   # All commits for a file, pass file name as an argument
   fl = log -u
 
-
   unpushed = cherry -v
+  unpulled = log --oneline ..@{u}
 
   type = cat-file -t
   dump = cat-file -p
