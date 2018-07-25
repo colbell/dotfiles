@@ -72,6 +72,7 @@ This function should only modify configuration layer settings."
            mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e/")
      org
      pdf
+     phoenix
      python
      (ruby :variables
            ruby-test-runner 'rspec
