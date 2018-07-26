@@ -1,43 +1,14 @@
 #
-# sudo aptitude install zsh-syntax-highlighting zsh-theme-powerlevel9k
-# ln -s /usr/share/powerlevel9k/ ~/.oh-my-zsh/themes/powerlevel9k
+# sudo aptitude install zsh-syntax-highlighting
+# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 #
 export ZSH=~/.oh-my-zsh
-export ZSH_CUSTOM=~/.oh-my-zsh-custom
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="robbyrussell"
-#ZSH_THEME="gnzh"
-#ZSH_THEME="wedisagree"
-#ZSH_THEME="theunraveler"
-#ZSH_THEME="xiong-chiamiov-plus"
-#ZSH_THEME="ys"
-#ZSH_THEME="refined"
-
-# POWERLEVEL9K_MODE='nerdfont-complete'
-# POWERLEVEL9K_MODE='awesome-fontconfig'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs ssh)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs load disk_usage)
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-# POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=" ➤ "
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=" ➤ "
-# POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-# POWERLEVEL9K_SHORTEN_DELIMITER=""
-# POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
-# POWERLEVEL9K_SHOW_CHANGESET=true
-# POWERLEVEL9K_OS_ICON_FOREGROUND="black"
-# POWERLEVEL9K_OS_ICON_BACKGROUND="white"
-# POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
-# POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
-# POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
-# POWERLEVEL9K_DIR_SHOW_WRITABLE=true
-# POWERLEVEL9K_ALWAYS_SHOW_CONTEXT=false
-# # POWERLEVEL9K_COLOR_SCHEME='light'
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -76,18 +47,18 @@ DISABLE_AUTO_TITLE="true"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=~/.oh-my-zsh-custom
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(colored-man-pages compleat mix)
+plugins=(colored-man-pages colorize compleat mix zsh-autosuggestions)
 
 # User configuration
 
 # export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
-
 
 export MAIL=/var/mail/$USER
 
@@ -171,6 +142,13 @@ fi
 if [ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+# if [ -f "~/.oh-my-zsh/plugins/history-substring-search/history-substring-search.zsh" ]; then
+#     source ~/.oh-my-zsh/plugins/history-substring-search/history-substring-search.zsh
+#     zmodload zsh/terminfo
+#     bindkey '^[[A' history-substring-search-up
+#     bindkey '^[[B' history-substring-search-down
+# fi
 
 # autoload -U colors
 # colors
