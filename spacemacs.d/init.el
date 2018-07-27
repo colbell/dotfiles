@@ -49,6 +49,7 @@ This function should only modify configuration layer settings."
      (colors :variables
              ;; colors-enable-nyan-cat-progress-bar (display-graphic-p)
              colors-colorize-identifiers 'variables)
+     copy-as-format
      csv
      (dash :variables
            helm-dash-docset-newpath "~/.local/share/Zeal/Zeal/docsets")
