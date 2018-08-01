@@ -75,6 +75,7 @@ This function should only modify configuration layer settings."
      pdf
      phoenix
      python
+     react
      (ruby :variables
            ruby-test-runner 'rspec
            ruby-version-manager 'rvm)
@@ -249,8 +250,8 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         leuven
                          flatland
+                         leuven
                          gruvbox-dark-hard
                          spacemacs-light
                          spacemacs-dark
