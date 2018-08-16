@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mode: emacs-lisp; lexical-binding: t -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -537,6 +537,12 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+
+  ;; FIXME: This is a temporary fix for:
+  ;; https://github.com/syl20bnr/spacemacs/issues/11152
+  ;; https://github.com/syl20bnr/spacemacs/pull/11153
+  ;; Remove when issue fixed.
+  (setq projectile-keymap-prefix (kbd "C-c C-p"))
 
   ;; Remove Unnecessary Clutter
   (setq use-file-dialog nil)
