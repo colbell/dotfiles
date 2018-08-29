@@ -46,9 +46,7 @@ This function should only modify configuration layer settings."
      cnb-shrink-whitespace
      cnb-vue-mode
      coffeescript
-     (colors :variables
-             ;; colors-enable-nyan-cat-progress-bar (display-graphic-p)
-             colors-colorize-identifiers 'variables)
+     colors
      copy-as-format
      csv
      (dash :variables
@@ -59,18 +57,17 @@ This function should only modify configuration layer settings."
      epub
      ;; evil-cleverparens
      git
+     haskell
      html
      ibuffer
      imenu-list
      (ivy :variables
-          ivy-enable-advanced-buffer-information t
+          ;; ivy-enable-advanced-buffer-information t
           ivy-use-virtual-buffers t)
      (javascript :variables js2-basic-offset 2 js-indent-level 2)
      json
+     lsp
      markdown
-     (mu4e :variables
-           mu4e-use-maildirs-extension t
-           mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e/")
      org
      pdf
      phoenix
@@ -136,7 +133,15 @@ This function should only modify configuration layer settings."
    ;; installs only the used packages but won't delete unused ones. `all'
    ;; installs *all* packages supported by Spacemacs and never uninstalls them.
    ;; (default is `used-only')
-   dotspacemacs-install-packages 'used-only))
+   dotspacemacs-install-packages 'used-only)
+
+  ;; Conditionally load certain layers.
+  (when (file-directory-p "/usr/share/emacs/site-lisp/mu4e/")
+    (setq dotspacemacs-configuration-layers
+          (append dotspacemacs-configuration-layers
+                  '((mu4e :variables
+                          mu4e-use-maildirs-extension t
+                          mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e/"))))))
 
 (defun dotspacemacs/init ()
   "Initialization:
