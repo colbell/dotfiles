@@ -13,6 +13,7 @@ wtf:
     # How _high_ the rows are, in terminal lines.
     rows: [12, 12, 12, 4]
   refreshInterval: 1
+  openFileUtil: xdg-open
   mods:
     ipinfo:
       colors:
@@ -21,9 +22,9 @@ wtf:
       enabled: true
       position:
         top: 0
-        left: 3
+        left: 4
         height: 1
-        width: 2
+        width: 1
         refreshInterval: 15
 
     clocks:
@@ -52,20 +53,16 @@ wtf:
       # Valid options are: alphabetical, chronological
       sort: "chronological"
 
-    git:
-      commitCount: 14
+    hackernews:
+      numberOfStories: 20
+      storyType: top
       enabled: true
       position:
         top: 0
         left: 1
         height: 2
-        width: 2
-      refreshInterval: 8
-      repositories:
-        - "/home/colinbell/folio/src/220/"
-        - "/home/colinbell/folio/src/210/"
-        - "/home/colinbell/folio/deploy/rails4"
-        - "/home/colinbell/.emacs.d/"
+        width: 3
+      refreshInterval: 900
 
     jira:
       title: " 📂 Jira "
@@ -79,9 +76,9 @@ wtf:
       jql: "resolution = Unresolved"
       position:
         top: 1
-        left: 3
+        left: 4
         height: 1
-        width: 2
+        width: 1
       project: "FOL"
       refreshInterval: 600
       username: "colin"
@@ -98,7 +95,7 @@ wtf:
       enabled: true
       position:
         top: 2
-        left: 2
+        left: 1
         height: 1
         width: 1
       refreshInterval: 3600
@@ -109,10 +106,26 @@ wtf:
         current: "lightblue"
       position:
         top: 2
-        left: 1
+        left: 2
         height: 1
         width: 1
       refreshInterval: 900
+
+    git:
+      commitCount: 14
+      enabled: true
+      position:
+        top: 2
+        left: 3
+        height: 3
+        width: 2
+      refreshInterval: 8
+      repositories:
+        - "/home/colinbell/folio/src/230/"
+        - "/home/colinbell/folio/src/220/"
+        - "/home/colinbell/folio/deploy/rails4"
+        - "/home/colinbell/.emacs.d/"
+
     cmdrunner:
       args: [""]
       cmd: "upuname"
