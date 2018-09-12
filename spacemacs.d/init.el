@@ -74,8 +74,8 @@ This function should only modify configuration layer settings."
      python
      react
      (ruby :variables
-           ruby-test-runner 'rspec
-           ruby-version-manager 'rvm)
+           ruby-test-runner 'rspec)
+           ;; ruby-version-manager 'rvm)
      ruby-on-rails
      (shell :variables
             shell-default-shell 'ansi-term
@@ -687,10 +687,10 @@ before packages are loaded."
   (setq ruby-version-manager 'rvm)
   (setq ruby-align-chained-calls t)
 
-  (defun cnb/ruby-setup ()
-    (rvm-activate-corresponding-ruby))
+  ;; (defun cnb/ruby-setup ()
+  ;;   (rvm-activate-corresponding-ruby))
 
-  (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
+  ;; (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
 
   ;;==============================================
   ;; Elixir configuration
