@@ -65,11 +65,11 @@ export MAIL=/var/mail/$USER
 
 source $ZSH/oh-my-zsh.sh
 
-# Load asdf version manager. I use it for installing Erlang/Elixir.
-# if [ -d "$HOME/.asdf" ]; then
-#     . $HOME/.asdf/asdf.sh
-#     . $HOME/.asdf/completions/asdf.bash
-# fi
+#Load asdf version manager. I use it for installing Erlang/Elixir.
+if [ -d "$HOME/.asdf" ]; then
+    . $HOME/.asdf/asdf.sh
+    . $HOME/.asdf/completions/asdf.bash
+fi
 
 setopt HIST_IGNORE_ALL_DUPS
 unsetopt AUTO_CD
