@@ -8,8 +8,6 @@ elif [[ -f /etc/os-release ]]; then
   fi
 
   if grep -q 'ID_LIKE=debian' /etc/os-release; then
-    alias apttiude='aptitude'
-    alias apttidue='aptitude'
     alias pkg-update='sudo apt update && sudo apt full-upgrade'
   fi
 fi
