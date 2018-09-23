@@ -946,6 +946,8 @@ before packages are loaded."
   (fset 'evil-visual-update-x-selection 'ignore)
 
   (mouse-avoidance-mode 'exile))
-
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
