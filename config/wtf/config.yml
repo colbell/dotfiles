@@ -117,7 +117,7 @@ wtf:
       position:
         top: 2
         left: 3
-        height: 3
+        height: 2
         width: 2
       refreshInterval: 8
       repositories:
