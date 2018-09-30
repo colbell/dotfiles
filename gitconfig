@@ -73,7 +73,7 @@
   fl = log -u
 
   unpushed = cherry -v
-  unpulled = log --oneline ..@{u}
+  unmerged = log --oneline ..@{u}
 
   type = cat-file -t
   dump = cat-file -p
