@@ -113,6 +113,8 @@ This function should only modify configuration layer settings."
                                       editorconfig
                                       graphql-mode
 
+                                      magit-todos
+
                                       peep-dired
                                       persistent-scratch
 
@@ -518,6 +520,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq exec-path-from-shell-check-startup-files nil)
 
   (setq-default git-magit-status-fullscreen t)
+  (with-eval-after-load 'magit-mode
+    (magit-todos-mode))
 
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
   (load custom-file)
