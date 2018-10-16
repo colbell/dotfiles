@@ -268,11 +268,11 @@ It should only modify the values of Spacemacs settings."
                          )
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
-   ;; `all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
-   ;; are spaceline themes. `vanilla' is default Emacs mode-line. `custom' is a
-   ;; user defined themes, refer to the DOCUMENTATION.org for more info on how
-   ;; to create your own spaceline theme. Value can be a symbol or list with\
-   ;; additional properties.
+   ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
+   ;; first three are spaceline themes. `doom' is the doom-emacs mode-line.
+   ;; `vanilla' is default Emacs mode-line. `custom' is a user defined themes,
+   ;; refer to the DOCUMENTATION.org for more info on how to create your own
+   ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
    dotspacemacs-mode-line-theme '(doom)
 
@@ -346,9 +346,9 @@ It should only modify the values of Spacemacs settings."
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
 
-   ;; If non-nil, the paste transient-state is enabled. While enabled, pressing
-   ;; `p' several times cycles through the elements in the `kill-ring'.
-   ;; (default nil)
+   ;; If non-nil, the paste transient-state is enabled. While enabled, after you
+   ;; paste something, pressing `C-j' and `C-k' several times cycles through the
+   ;; elements in the `kill-ring'. (default nil)
    dotspacemacs-enable-paste-transient-state nil
 
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
@@ -504,6 +504,14 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil)
    dotspacemacs-pretty-docs nil))
 
+(defun dotspacemacs/user-env ()
+  "Environment variables setup.
+This function defines the environment variables for your Emacs session. By
+default it calls `spacemacs/load-spacemacs-env' which loads the environment
+variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
+See the header of this file for more information."
+  (spacemacs/load-spacemacs-env))
+
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
 This function is called immediately after `dotspacemacs/init', before layer
@@ -526,7 +534,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
   (load custom-file)
 
-  ;; Workaround for https://github.com/syl20bnr/spacemacs/issues/8131
+  ;; TODO: Workaround for https://github.com/syl20bnr/spacemacs/issues/8131
   (spacemacs/set-default-font dotspacemacs-default-font)
 
   ;; Allow paste into xterm etc.
@@ -545,12 +553,6 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-
-  ;; FIXME: This is a temporary fix for:
-  ;; https://github.com/syl20bnr/spacemacs/issues/11152
-  ;; https://github.com/syl20bnr/spacemacs/pull/11153
-  ;; Remove when issue fixed.
-  (setq projectile-keymap-prefix (kbd "C-c C-p"))
 
   ;; Remove Unnecessary Clutter
   (setq use-file-dialog nil)
@@ -888,11 +890,6 @@ before packages are loaded."
   ;;===============================================
   (add-hook 'after-save-hook
             #'executable-make-buffer-file-executable-if-script-p)
-
-  ;; (add-hook
-  ;;  'after-init-hook (lambda ()
-  ;;                     (progn
-  ;;                       (spacemacs/toggle-evil-cleverparens-on))))
 
   ;;===============================================
   ;; Save contents of scratch buffer on exit and restore on startup.
