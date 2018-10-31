@@ -283,7 +283,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 14
                                :weight normal
                                :width normal)
 
@@ -608,7 +608,6 @@ before packages are loaded."
   ;; (global-git-commit-mode t)
   ;; (add-hook 'magit-status-sections-hook 'magit-insert-worktrees)
 
-
   ;;==============================================
   ;; Evil Goggles.
   ;;==============================================
@@ -629,6 +628,7 @@ before packages are loaded."
     (add-to-list 'recentf-exclude "/\\.git/.*\\'")
     (add-to-list 'recentf-exclude recentf-save-file)
 
+    ;; TODO: Check if this is still the case
     ;; Because .emacs.d is a symlink to dotfiles/emacs.d a file can have two
     ;; names so we also need to ignore the one in dotfiles.
     (add-to-list 'recentf-exclude (file-truename "~/dotfiles/emacs.d/elpa"))
@@ -922,6 +922,8 @@ before packages are loaded."
    large-file-warning-threshold 20000000
 
    imenu-auto-rescan t
+
+   fill-column 120
 
    ;;browse-url-browser-function 'browse-url-firefox
    browse-url-browser-function 'browse-url-generic
