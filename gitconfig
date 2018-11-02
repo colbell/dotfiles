@@ -1,6 +1,6 @@
 # -*- mode: conf; -*-
 [core]
-  pager=less -x2
+  pager = less -x2
   autocrlf = input
   safecrlf = true
 
@@ -54,20 +54,20 @@
   co = checkout
   st = status -sb
 
-  c  = commit
+  c = commit
   cm = commit -m
 
-  d  = diff
+  d = diff
   dc = diff --cached
 
-  l       = log --graph --decorate --pretty=oneline --abbrev-commit
-  ll      = log --graph --decorate --pretty=oneline --numstat
-  h       = log --oneline --decorate
-  hl      = log --oneline --decorate --numstat
-  slog    = shortlog -s -n -e
+  l = log --graph --decorate --pretty=oneline --abbrev-commit
+  ll = log --graph --decorate --pretty=oneline --numstat
+  h = log --oneline --decorate
+  hl = log --oneline --decorate --numstat
+  slog = shortlog -s -n -e
 
   # git contains 0fed09265
-  contains  = branch -r --contains
+  contains = branch -r --contains
 
   # All commits for a file, pass file name as an argument
   fl = log -u
@@ -98,3 +98,5 @@
 
 [color "decorate"]
 	tag = magenta
+[gc]
+	autoDetach = false
