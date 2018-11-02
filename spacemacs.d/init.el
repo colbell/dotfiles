@@ -44,7 +44,6 @@ This function should only modify configuration layer settings."
      cnb-bug-reference
      cnb-dired-narrow
      cnb-shrink-whitespace
-     cnb-vue-mode
      coffeescript
      colors
      copy-as-format
