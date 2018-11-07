@@ -87,6 +87,9 @@
   # Reset to before last commit.
   undo = reset --soft HEAD^
 
+  # Reset to remote - lose all work
+  ggrh = reset --hard origin/$(current_branch)
+
 [help]
 	autoCorrect = -1
 
@@ -98,5 +101,6 @@
 
 [color "decorate"]
 	tag = magenta
+
 [gc]
 	autoDetach = false

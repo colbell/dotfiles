@@ -71,6 +71,7 @@ This function should only modify configuration layer settings."
      org
      pdf
      phoenix
+     prettier
      python
      react
      (ruby :variables
@@ -85,7 +86,7 @@ This function should only modify configuration layer settings."
             shell-enable-smart-eshell t)
      shell-scripts
      (spell-checking :variables
-                     spell-checking-enable-auto-dictionary t
+                     spell-checking-enable-auto-dictionary nil
                      ispell-dictionary "australian")
      sql
      (syntax-checking :variables syntax-checking-enable-tooltips nil)
@@ -749,7 +750,8 @@ before packages are loaded."
   (require 'lsp-mode)
   (require 'lsp-vue)
   (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
-  (add-hook 'vue-mode-hook #'flycheck-enable)
+  ;; (add-hook 'vue-mode-hook #'flycheck-enable)
+  (add-hook 'vue-mode-hook #'flycheck-mode)
 
   ;;==============================================
   ;; CLOJURE configuration
