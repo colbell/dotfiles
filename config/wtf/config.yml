@@ -121,8 +121,8 @@ wtf:
         width: 2
       refreshInterval: 8
       repositories:
+        - "/home/colinbell/folio/src/240/"
         - "/home/colinbell/folio/src/230/"
-        - "/home/colinbell/folio/src/220/"
         - "/home/colinbell/folio/deploy/rails4"
         - "/home/colinbell/.emacs.d/"
 
