@@ -63,7 +63,8 @@ This function should only modify configuration layer settings."
      (ivy :variables
           ivy-enable-advanced-buffer-information t
           ivy-use-virtual-buffers t)
-     (javascript :variables js2-basic-offset 2 js-indent-level 2)
+     (javascript :variables js2-basic-offset 2 js-indent-level 2 js2-highlight-level 3
+                 js2-strict-missing-semi-warning nil)
      json
      lsp
      markdown
@@ -83,7 +84,9 @@ This function should only modify configuration layer settings."
             ;; shell-default-term-shell "/bin/zsh"
             shell-enable-smart-eshell t)
      shell-scripts
-     (spell-checking :variables spell-checking-enable-auto-dictionary t)
+     (spell-checking :variables
+                     spell-checking-enable-auto-dictionary t
+                     ispell-dictionary "australian")
      sql
      (syntax-checking :variables syntax-checking-enable-tooltips nil)
      tern
@@ -119,6 +122,9 @@ This function should only modify configuration layer settings."
 
                                       ;; FIXME: Doesn't ruby bring this in?
                                       rubocop
+
+                                      vue-mode
+                                      lsp-vue
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -282,7 +288,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 14
+                               :size 15
                                :weight normal
                                :width normal)
 
@@ -735,6 +741,15 @@ before packages are loaded."
     (setq css-indent-offset 2))
 
   (add-hook 'scss-mode-hook 'cnb/scss-mode-hook t)
+
+  ;;==============================================
+  ;; Vue configuration
+  ;;==============================================
+  (require 'vue-mode)
+  (require 'lsp-mode)
+  (require 'lsp-vue)
+  (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
+  (add-hook 'vue-mode-hook #'flycheck-enable)
 
   ;;==============================================
   ;; CLOJURE configuration
