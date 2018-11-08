@@ -756,13 +756,16 @@ before packages are loaded."
 
   (require 'vue-mode)
   (add-to-list 'vue-mode-hook #'smartparens-mode)
+
   (require 'lsp-mode)
+  (require 'lsp-ui)
   (require 'lsp-vue)
   (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
-  (with-eval-after-load 'lsp-mode
-    (require 'lsp-flycheck))
+
   (require 'company-lsp)
   (push 'company-lsp company-backends)
+
+  (add-hook 'vue-mode-hook 'flycheck-mode)
 
   ;;==============================================
   ;; CLOJURE configuration
