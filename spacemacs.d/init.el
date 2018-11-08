@@ -126,6 +126,7 @@ This function should only modify configuration layer settings."
 
                                       vue-mode
                                       lsp-vue
+                                      company-lsp
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -746,12 +747,22 @@ before packages are loaded."
   ;;==============================================
   ;; Vue configuration
   ;;==============================================
+  ;; (require 'vue-mode)
+  ;; (require 'lsp-mode)
+  ;; (require 'lsp-vue)
+  ;; (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
+  ;; ;; (add-hook 'vue-mode-hook #'flycheck-enable)
+  ;; (add-hook 'vue-mode-hook #'flycheck-mode)
+
   (require 'vue-mode)
+  (add-to-list 'vue-mode-hook #'smartparens-mode)
   (require 'lsp-mode)
   (require 'lsp-vue)
   (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
-  ;; (add-hook 'vue-mode-hook #'flycheck-enable)
-  (add-hook 'vue-mode-hook #'flycheck-mode)
+  (with-eval-after-load 'lsp-mode
+    (require 'lsp-flycheck))
+  (require 'company-lsp)
+  (push 'company-lsp company-backends)
 
   ;;==============================================
   ;; CLOJURE configuration
