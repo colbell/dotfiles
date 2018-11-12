@@ -534,10 +534,19 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   (setq exec-path-from-shell-check-startup-files nil)
 
+  ;;==============================================
+  ;; source control configuration
+  ;;==============================================
+  ;; (global-git-commit-mode t)
   (setq-default git-magit-status-fullscreen t)
+  (add-hook 'magit-status-sections-hook 'magit-insert-worktrees)
+
   (with-eval-after-load 'magit-mode
     (magit-todos-mode))
 
+  ;;==============================================
+  ;; Keep Emacs maintained configuration separate
+  ;;==============================================
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
   (load custom-file)
 
@@ -608,12 +617,6 @@ before packages are loaded."
   (add-hook 'prog-mode-hook #'fci-mode)      ;; Indicate fill column.
   (add-hook 'prog-mode-hook #'rainbow-mode)
   ;;(add-hook 'prog-mode-hook #'highlight-indentation-mode)
-
-  ;;==============================================
-  ;; source control configuration
-  ;;==============================================
-  ;; (global-git-commit-mode t)
-  ;; (add-hook 'magit-status-sections-hook 'magit-insert-worktrees)
 
   ;;==============================================
   ;; Evil Goggles.
@@ -766,6 +769,9 @@ before packages are loaded."
   (push 'company-lsp company-backends)
 
   (add-hook 'vue-mode-hook 'flycheck-mode)
+
+  (setq mmm-js-mode-exit-hook (lambda () (setq tern-mode nil)))
+  (setq mmm-js-mode-enter-hook (lambda () (setq tern-mode t)))
 
   ;;==============================================
   ;; CLOJURE configuration
@@ -968,6 +974,12 @@ before packages are loaded."
   (setq kill-ring-max 500)
 
   (setq evil-want-fine-undo "No")
+
+  ;; (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
+
+  ;; Next/Prev bookmark.
+  (global-set-key (kbd "M-n") #'bm-next)
+  (global-set-key (kbd "M-p") #'bm-previous)
 
   ;; My common mistakes.
   (define-abbrev-table
