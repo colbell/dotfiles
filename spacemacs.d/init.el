@@ -121,9 +121,6 @@ This function should only modify configuration layer settings."
                                       peep-dired
                                       persistent-scratch
 
-                                      ;; FIXME: Doesn't ruby bring this in?
-                                      rubocop
-
                                       vue-mode
                                       lsp-vue
                                       company-lsp
@@ -539,7 +536,9 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;;==============================================
   ;; (global-git-commit-mode t)
   (setq-default git-magit-status-fullscreen t)
-  (add-hook 'magit-status-sections-hook 'magit-insert-worktrees)
+  (setq magit-repository-directories
+    '(("~/dotfiles/" . 0)
+      ("~/src/"      . 1)))
 
   (with-eval-after-load 'magit-mode
     (magit-todos-mode))
