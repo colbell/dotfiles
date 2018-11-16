@@ -91,7 +91,7 @@
   ggrh = reset --hard origin/$(current_branch)
 
 [help]
-	autoCorrect = -1
+	autoCorrect = 0
 
 [magit]
 	hideCampaign = true
