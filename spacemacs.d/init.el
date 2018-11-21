@@ -35,11 +35,11 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layers
    '(
      (auto-completion :variables
-                      auto-completion-private-snippets-directory
-                      "~/.spacemacs.d/snippets/"
+                      auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
                       ;; auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-help-tooltip t)
-     bm
+     (bm :variables
+         bm-highlight-style 'bm-highlight-only-fringe)
      cnb-beg-end
      cnb-bug-reference
      cnb-dired-narrow
@@ -89,7 +89,7 @@ This function should only modify configuration layer settings."
                      spell-checking-enable-auto-dictionary nil
                      ispell-dictionary "australian")
      sql
-     (syntax-checking :variables syntax-checking-enable-tooltips nil)
+     (syntax-checking :variables syntax-checking-enable-tooltips t)
      tern
      themes-megapack
      (treemacs :variables
@@ -121,8 +121,8 @@ This function should only modify configuration layer settings."
                                       peep-dired
                                       persistent-scratch
 
-                                      vue-mode
-                                      lsp-vue
+                                      ;; vue-mode
+                                      ;; lsp-vue
                                       company-lsp
                                       )
 
@@ -682,6 +682,13 @@ before packages are loaded."
   (setq ibuffer-show-empty-filter-groups nil)
 
   ;;==============================================
+  ;; Modeline configuration
+  ;;==============================================
+  ;; (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
+  (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+  (setq doom-modeline-icon t)
+
+  ;;==============================================
   ;; ELM configuration
   ;;==============================================
   (use-package elm-mode
@@ -756,21 +763,21 @@ before packages are loaded."
   ;; ;; (add-hook 'vue-mode-hook #'flycheck-enable)
   ;; (add-hook 'vue-mode-hook #'flycheck-mode)
 
-  (require 'vue-mode)
-  (add-to-list 'vue-mode-hook #'smartparens-mode)
+  ;; (require 'vue-mode)
+  ;; (add-to-list 'vue-mode-hook #'smartparens-mode)
 
-  (require 'lsp-mode)
-  (require 'lsp-ui)
-  (require 'lsp-vue)
-  (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
+  ;; (require 'lsp-mode)
+  ;; (require 'lsp-ui)
+  ;; (require 'lsp-vue)
+  ;; (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
 
-  (require 'company-lsp)
-  (push 'company-lsp company-backends)
+  ;; (require 'company-lsp)
+  ;; (push 'company-lsp company-backends)
 
-  (add-hook 'vue-mode-hook 'flycheck-mode)
+  ;; (add-hook 'vue-mode-hook 'flycheck-mode)
 
-  (setq mmm-js-mode-exit-hook (lambda () (setq tern-mode nil)))
-  (setq mmm-js-mode-enter-hook (lambda () (setq tern-mode t)))
+  ;; (setq mmm-js-mode-exit-hook (lambda () (setq tern-mode nil)))
+  ;; (setq mmm-js-mode-enter-hook (lambda () (setq tern-mode t)))
 
   ;;==============================================
   ;; CLOJURE configuration
@@ -829,7 +836,7 @@ before packages are loaded."
   ;;                     :foreground (face-foreground 'font-lock-function-name-face))
 
   ;; (setq-default header-line-format
-  ;;               '((which-func-mode ("" which-func-format " ")) " - %f" ))
+  ;;               '((which-func-mode ("" which-func-format " "))))
 
   ;;===============================================
   ;; Email client
@@ -972,7 +979,7 @@ before packages are loaded."
   ;; (global-hl-line-mode 0)
   (setq kill-ring-max 500)
 
-  (setq evil-want-fine-undo "No")
+  (setq evil-want-fine-undo "Yes")
 
   ;; (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
 
