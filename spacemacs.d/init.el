@@ -63,7 +63,10 @@ This function should only modify configuration layer settings."
      (ivy :variables
           ivy-enable-advanced-buffer-information t
           ivy-use-virtual-buffers t)
-     (javascript :variables js2-basic-offset 2 js-indent-level 2 js2-highlight-level 3
+     (javascript :variables
+                 js2-basic-offset 2
+                 js-indent-level 2
+                 js2-highlight-level 3
                  js2-strict-missing-semi-warning nil)
      json
      lsp
