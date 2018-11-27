@@ -116,7 +116,9 @@ This function should only modify configuration layer settings."
                                       ;; Extra font lock rules for dired.
                                       diredfl
 
-                                      editorconfig
+                                      ;; Loaded by std spacemacs
+                                      ;; editorconfig
+
                                       graphql-mode
 
                                       magit-todos
