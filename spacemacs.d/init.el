@@ -267,14 +267,16 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         doom-one
-                         doom-one-light
-                         tsdh-dark
-                         tsdh-light
-                         flatland
-                         leuven
-                         spacemacs-dark
-                         spacemacs-light
+                         solarized-dark
+                         solarized-light
+                         ;; doom-one
+                         ;; doom-one-light
+                         ;; tsdh-dark
+                         ;; tsdh-light
+                         ;; flatland
+                         ;; leuven
+                         ;; spacemacs-dark
+                         ;; spacemacs-light
                          )
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
@@ -283,6 +285,7 @@ It should only modify the values of Spacemacs settings."
    ;; `vanilla' is default Emacs mode-line. `custom' is a user defined themes,
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
+   ;; (default '(spacemacs :separator wave :separator-scale 1.5))
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
    dotspacemacs-mode-line-theme '(doom)
 
