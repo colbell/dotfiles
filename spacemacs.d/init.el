@@ -99,7 +99,7 @@ This function should only modify configuration layer settings."
                treemacs-use-follow-mode t
                treemacs-use-filewatch-mode t)
      (version-control :variables
-                      version-control-diff-tool 'diff-hl
+                      version-control-diff-tool 'git-gutter
                       version-control-global-margin t)
      vimscript
      xclipboard
@@ -115,9 +115,6 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(
                                       ;; Extra font lock rules for dired.
                                       diredfl
-
-                                      ;; Loaded by std spacemacs
-                                      ;; editorconfig
 
                                       graphql-mode
 
@@ -578,6 +575,10 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  ;; Me, Myself, I.
+  (setq user-mail-address "col@baibell.org")
+  (setq user-full-name "Colin Bell")
+
   ;; Remove Unnecessary Clutter
   (setq use-file-dialog nil)
   (setq use-dialog-box nil)
@@ -616,15 +617,13 @@ before packages are loaded."
   ;;==============================================
   ;; conf-mode configuration
   ;;==============================================
-  ;;(add-hook 'conf-mode-hook #'linum-mode)
-  (add-hook 'conf-mode-hook 'spacemacs/run-prog-mode-hooks)
+  (add-hook 'conf-mode-hook #'linum-mode)
 
   ;;==============================================
   ;; prog-mode configuration
   ;;==============================================
   (add-hook 'prog-mode-hook #'fci-mode)      ;; Indicate fill column.
   (add-hook 'prog-mode-hook #'rainbow-mode)
-  ;;(add-hook 'prog-mode-hook #'highlight-indentation-mode)
 
   ;;==============================================
   ;; Evil Goggles.
@@ -856,8 +855,6 @@ before packages are loaded."
   ;;   ;; (setq mu4e-html2text-command "html2text -utf8 -width 72")
   ;;   ;; (setq mu4e-html2text-command "w3m -dump -T text/html")
 
-  ;;   (setq user-mail-address "col@baibell.org")
-  ;;   (setq user-full-name "Colin Bell")
   ;;   (setq mu4e-user-mail-address-regexp "col@baibell\.org\\|colin@kwelasolutions.com")
 
   ;;   (setq mu4e-maildir "~/mbsync")
@@ -983,9 +980,6 @@ before packages are loaded."
    ;; C-l first position to top.
    recenter-positions '(top middle bottom))
 
-  ;; (setq neo-theme 'nerd)
-
-  ;; (global-hl-line-mode 0)
   (setq kill-ring-max 500)
 
   (setq evil-want-fine-undo "Yes")
