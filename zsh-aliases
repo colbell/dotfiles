@@ -23,3 +23,5 @@ alias r='ls -ltr'
 alias s='ls -lhSr'
 
 alias wttr='curl wttr.in'
+
+alias python=python3
