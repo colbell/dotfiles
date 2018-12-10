@@ -8,8 +8,46 @@ export ZSH=~/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
-ZSH_THEME="avit"
+# ZSH_THEME="agnoster"
+# ZSH_THEME="avit"
+# ZSH_THEME="bureau"
+
+SPACESHIP_PROMPT_ORDER=(
+  # time        # Time stampts section
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  # hg            # Mercurial section (hg_branch  + hg_status)
+  package     # Package version
+  node          # Node.js section
+  ruby          # Ruby section
+  elixir        # Elixir section
+  # xcode       # Xcode section
+  # swift       # Swift section
+  # golang      # Go section
+  # php         # PHP section
+  # rust        # Rust section
+  # haskell     # Haskell Stack section
+  # julia       # Julia section
+  # docker      # Docker section
+  aws           # Amazon Web Services section
+  venv          # virtualenv section
+  # conda       # conda virtualenv section
+  pyenv         # Pyenv section
+  # dotnet      # .NET section
+  # ember       # Ember.js section
+  # kubecontext # Kubectl context section
+  exec_time    # Execution time
+  line_sep      # Line break
+  battery       # Battery level and status
+  # vi_mode     # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+
+ZSH_THEME="spaceship"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -54,7 +92,7 @@ ZSH_CUSTOM=~/.oh-my-zsh-custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(colored-man-pages colorize compleat mix zsh-autosuggestions)
+plugins=(colored-man-pages colorize compleat mix asdf zsh-autosuggestions)
 
 # User configuration
 
