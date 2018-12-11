@@ -656,6 +656,7 @@ before packages are loaded."
   ;; DIRED configuration
   ;;==============================================
   (setq dired-listing-switches "-alhG --group-directories-first")
+  (setq wdired-allow-to-change-permissions t)
 
   ;; (add-hook 'dired-mode-hook
   ;;           (lambda () (hl-line-mode)))
