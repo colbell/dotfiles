@@ -98,6 +98,13 @@ Modeline.
   (setq doom-modeline-icon t)
 #+END_SRC
 
+Fix Problems with scaling powerline in modeline.
+  See https://github.com/syl20bnr/spacemacs/issues/8131.
+
+#+BEGIN_SRC emacs-lisp :tangle user-init.el
+  (spacemacs/set-default-font dotspacemacs-default-font)
+#+END_SRC
+
 * ???
 
 #+BEGIN_SRC emacs-lisp :tangle user-init.el
@@ -108,13 +115,6 @@ Modeline.
 #+BEGIN_SRC emacs-lisp :tangle user-init.el
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
   (load custom-file)
-#+END_SRC
-
-* Fix Problems with scaling powerline.
-  See https://github.com/syl20bnr/spacemacs/issues/8131.
-
-#+BEGIN_SRC emacs-lisp :tangle user-init.el
-  (spacemacs/set-default-font dotspacemacs-default-font)
 #+END_SRC
 
 * Languages
@@ -146,6 +146,28 @@ Alignment rules.
   (setq alchemist-test-display-compilation-output t)
   ;; (setq alchemist-mix-test-default-options "--trace")
   (setq flycheck-elixir-credo-strict t)
+#+END_SRC
+
+** Elm
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (use-package elm-mode
+    :defer t
+    :config
+    (setq elm-format-on-save t)
+    (setq elm-tags-on-save t)
+    (setq elm-sort-imports-on-save t))
+#+END_SRC
+** Web Mode
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (defun cnb/web-mode-hook ()
+    "Hooks for Web mode."
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2))
+
+  (add-hook 'web-mode-hook 'cnb/web-mode-hook t)
+
+  (setq emmet-indentation 2)
 #+END_SRC
 
 ** Config files
@@ -235,6 +257,13 @@ Show projects TODOs in Magit status buffer.
     (magit-todos-mode))
 #+END_SRC
 
+** EditorConfig
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (use-package editorconfig
+    :defer t
+    :init (add-to-list 'auto-mode-alist '("\\.editorconfig" . conf-unix-mode)))
+#+END_SRC
+
 * CLEANUP
 
 
@@ -260,41 +289,10 @@ Show projects TODOs in Magit status buffer.
   ;;==============================================
   (setq ibuffer-show-empty-filter-groups nil)
 
-  ;;==============================================
-  ;; Modeline configuration
-  ;;==============================================
-
-  ;;==============================================
-  ;; ELM configuration
-  ;;==============================================
-  (use-package elm-mode
-    :defer t
-    :config
-    (setq elm-format-on-save t)
-    (setq elm-tags-on-save t)
-    (setq elm-sort-imports-on-save t))
-
-
 
   ;;==============================================
   ;; Web mode configuration
   ;;==============================================
-  (defun cnb/web-mode-hook ()
-    "Hooks for Web mode."
-    (setq web-mode-markup-indent-offset 2)
-    (setq web-mode-css-indent-offset 2)
-    (setq web-mode-code-indent-offset 2))
-
-  (add-hook 'web-mode-hook 'cnb/web-mode-hook t)
-
-  (setq emmet-indentation 2)
-
-  ;;==============================================
-  ;; EditorConfig configuration
-  ;;==============================================
-  (use-package editorconfig
-    :defer t
-    :init (add-to-list 'auto-mode-alist '("\\.editorconfig" . conf-unix-mode)))
 
   ;;==============================================
   ;; SCSS Mode
@@ -305,41 +303,6 @@ Show projects TODOs in Magit status buffer.
 
   (add-hook 'scss-mode-hook 'cnb/scss-mode-hook t)
 
-  ;;==============================================
-  ;; Vue configuration
-  ;;==============================================
-  ;; (require 'vue-mode)
-  ;; (require 'lsp-mode)
-  ;; (require 'lsp-vue)
-  ;; (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
-  ;; ;; (add-hook 'vue-mode-hook #'flycheck-enable)
-  ;; (add-hook 'vue-mode-hook #'flycheck-mode)
-
-  ;; (require 'vue-mode)
-  ;; (add-to-list 'vue-mode-hook #'smartparens-mode)
-
-  ;; (require 'lsp-mode)
-  ;; (require 'lsp-ui)
-  ;; (require 'lsp-vue)
-  ;; (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
-
-  ;; (require 'company-lsp)
-  ;; (push 'company-lsp company-backends)
-
-  ;; (add-hook 'vue-mode-hook 'flycheck-mode)
-
-  ;; (setq mmm-js-mode-exit-hook (lambda () (setq tern-mode nil)))
-  ;; (setq mmm-js-mode-enter-hook (lambda () (setq tern-mode t)))
-
-  ;;==============================================
-  ;; CLOJURE configuration
-  ;;==============================================
-
-  ;;(setq cider-auto-select-error-buffer nil)
-
-  ;; (use-package clojure-mode-extra-font-locking
-  ;;   :config
-  ;;   (require 'clojure-mode-extra-font-locking))
 
   ;;==============================================
   ;; ORG configuration

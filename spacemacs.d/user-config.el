@@ -54,6 +54,27 @@
 (setq flycheck-elixir-credo-strict t)
 ;; Elixir:2 ends here
 
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Elm][Elm:1]]
+(use-package elm-mode
+  :defer t
+  :config
+  (setq elm-format-on-save t)
+  (setq elm-tags-on-save t)
+  (setq elm-sort-imports-on-save t))
+;; Elm:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Web%20Mode][Web Mode:1]]
+(defun cnb/web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2))
+
+(add-hook 'web-mode-hook 'cnb/web-mode-hook t)
+
+(setq emmet-indentation 2)
+;; Web Mode:1 ends here
+
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Config%20files][Config files:1]]
 (add-hook 'conf-mode-hook #'linum-mode)
 ;; Config files:1 ends here
@@ -111,6 +132,12 @@
 (add-hook 'prog-mode-hook #'rainbow-mode)
 ;; Rainbow Mode:1 ends here
 
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*EditorConfig][EditorConfig:1]]
+(use-package editorconfig
+  :defer t
+  :init (add-to-list 'auto-mode-alist '("\\.editorconfig" . conf-unix-mode)))
+;; EditorConfig:1 ends here
+
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*CLEANUP][CLEANUP:1]]
 ;;==============================================
 ;; Evil Goggles.
@@ -131,41 +158,10 @@
 ;;==============================================
 (setq ibuffer-show-empty-filter-groups nil)
 
-;;==============================================
-;; Modeline configuration
-;;==============================================
-
-;;==============================================
-;; ELM configuration
-;;==============================================
-(use-package elm-mode
-  :defer t
-  :config
-  (setq elm-format-on-save t)
-  (setq elm-tags-on-save t)
-  (setq elm-sort-imports-on-save t))
-
-
 
 ;;==============================================
 ;; Web mode configuration
 ;;==============================================
-(defun cnb/web-mode-hook ()
-  "Hooks for Web mode."
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2))
-
-(add-hook 'web-mode-hook 'cnb/web-mode-hook t)
-
-(setq emmet-indentation 2)
-
-;;==============================================
-;; EditorConfig configuration
-;;==============================================
-(use-package editorconfig
-  :defer t
-  :init (add-to-list 'auto-mode-alist '("\\.editorconfig" . conf-unix-mode)))
 
 ;;==============================================
 ;; SCSS Mode
@@ -176,41 +172,6 @@
 
 (add-hook 'scss-mode-hook 'cnb/scss-mode-hook t)
 
-;;==============================================
-;; Vue configuration
-;;==============================================
-;; (require 'vue-mode)
-;; (require 'lsp-mode)
-;; (require 'lsp-vue)
-;; (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
-;; ;; (add-hook 'vue-mode-hook #'flycheck-enable)
-;; (add-hook 'vue-mode-hook #'flycheck-mode)
-
-;; (require 'vue-mode)
-;; (add-to-list 'vue-mode-hook #'smartparens-mode)
-
-;; (require 'lsp-mode)
-;; (require 'lsp-ui)
-;; (require 'lsp-vue)
-;; (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
-
-;; (require 'company-lsp)
-;; (push 'company-lsp company-backends)
-
-;; (add-hook 'vue-mode-hook 'flycheck-mode)
-
-;; (setq mmm-js-mode-exit-hook (lambda () (setq tern-mode nil)))
-;; (setq mmm-js-mode-enter-hook (lambda () (setq tern-mode t)))
-
-;;==============================================
-;; CLOJURE configuration
-;;==============================================
-
-;;(setq cider-auto-select-error-buffer nil)
-
-;; (use-package clojure-mode-extra-font-locking
-;;   :config
-;;   (require 'clojure-mode-extra-font-locking))
 
 ;;==============================================
 ;; ORG configuration

@@ -19,6 +19,10 @@
 (setq select-enable-primary t)
 ;; Basic setup.:1 ends here
 
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Basic%20setup.][Basic setup.:5]]
+(spacemacs/set-default-font dotspacemacs-default-font)
+;; Basic setup.:5 ends here
+
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*???][???:1]]
 (setq exec-path-from-shell-check-startup-files nil)
 ;; ???:1 ends here
@@ -27,10 +31,6 @@
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file)
 ;; Keep Emacs maintained configuration separate:1 ends here
-
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Fix%20Problems%20with%20scaling%20powerline.][Fix Problems with scaling powerline.:1]]
-(spacemacs/set-default-font dotspacemacs-default-font)
-;; Fix Problems with scaling powerline.:1 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Source%20Control][Source Control:1]]
 (setq-default git-magit-status-fullscreen t)
