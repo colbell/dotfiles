@@ -1,3 +1,4 @@
+/GIMP
 /SpaceVim.d/.netrwhist
 /SpaceVim/
 /bin/cols
@@ -18,6 +19,7 @@
 /config/Empathy/*
 /config/GitKraken/*
 /config/GoogleDocsdocsgooglecom/
+/config/KDE
 /config/LightTable/*
 /config/Mailspring/
 /config/Mousepad/accels.scm
@@ -26,7 +28,9 @@
 /config/Thunar/*
 /config/Trolltech.conf
 /config/VirtualBox/
+/config/VirtualBoxrc
 /config/Wuala.cfg
+/config/Zeal
 /config/akonadi*
 /config/akonadi/*
 /config/akregatorrc
@@ -37,6 +41,7 @@
 /config/baloofilerc
 /config/baloorc
 /config/bluedevilglobalrc
+/config/bookworm
 /config/breezerc
 /config/cairo-compmgr/*
 /config/caja-actions/caja-actions.conf
@@ -234,6 +239,7 @@
 /config/systemmonitorrc
 /config/systemsettingsrc
 /config/terminator/config
+/config/terminology/
 /config/tilda
 /config/tilda
 /config/tint2/*
@@ -330,6 +336,7 @@
 /spacemacs.d/spacemacs.env
 /vim/.netrwhist
 /vim/bundle/
+/vim/swaps/.swp
 /vscode/extensions
 /w3m/.arrived
 /w3m/.cookie
@@ -351,5 +358,3 @@
 /xmonad/xmonad.hi
 /xmonad/xmonad.hs
 /xmonad/xmonad.o
-config/KDE
-/vim/swaps/.swp
