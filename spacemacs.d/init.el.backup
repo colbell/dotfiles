@@ -528,18 +528,38 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  ;; Tangle without actually loading org
-  (let ((src (concat dotspacemacs-directory "spacemacs.org"))
-        (ui (concat dotspacemacs-directory "user-init.el"))
-        (uc (concat dotspacemacs-directory "user-config.el")))
-    (when (or (file-newer-than-file-p src ui)
-              (file-newer-than-file-p src uc))
-      (call-process
-       (concat invocation-directory invocation-name)
-       nil nil t
-       "-q" "--batch" "--eval" "(require 'ob-tangle)"
-       "--eval" (format "(org-babel-tangle-file \"%s\")" src)))
-    (load-file ui)))
+
+  ;; These have to be set prior to the theme been loaded.
+  (setq solarized-distinct-fringe-background nil)
+  (setq solarized-scale-org-headlines nil)
+  (setq solarized-use-variable-pitch nil)
+  (setq solarized-high-contrast-mode-line nil)
+
+  (setq exec-path-from-shell-check-startup-files nil)
+
+  ;;==============================================
+  ;; source control configuration
+  ;;==============================================
+  ;; (global-git-commit-mode t)
+  (setq-default git-magit-status-fullscreen t)
+  (setq magit-repository-directories
+    '(("~/dotfiles/" . 0)
+      ("~/src/"      . 1)))
+
+  (with-eval-after-load 'magit-mode
+    (magit-todos-mode))
+
+  ;;==============================================
+  ;; Keep Emacs maintained configuration separate
+  ;;==============================================
+  (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
+  (load custom-file)
+
+  ;; TODO: Workaround for https://github.com/syl20bnr/spacemacs/issues/8131
+  (spacemacs/set-default-font dotspacemacs-default-font)
+
+  ;; Allow paste into xterm etc.
+  (setq select-enable-primary t))
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
@@ -554,9 +574,435 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (let ((uc (concat dotspacemacs-directory "user-config.el")))
-    (load-file uc)))
 
+  ;; Me, Myself, I.
+  (setq user-mail-address "col@baibell.org")
+  (setq user-full-name "Colin Bell")
+
+  ;; Remove Unnecessary Clutter
+  (setq use-file-dialog nil)
+  (setq use-dialog-box nil)
+  (with-eval-after-load 'spaceline-segments
+     (spaceline-toggle-minor-modes))
+
+  ;; Spacemacs sets it too wide.
+  (setq-default display-line-numbers-width nil)
+
+  ;; Fixes problems with code reloading not working in Elixir/Phoenix.
+  ;; See http://spacemacs.org/doc/FAQ.html#orgheadline18
+  (setq create-lockfiles nil)
+
+
+  ;;==============================================
+  ;; Rainbow mode
+  ;;==============================================
+  (setq rainbow-html-colors t)
+  (setq rainbow-x-colors t)
+
+  ;;==============================================
+  ;; Projectile configuration
+  ;;==============================================
+  (setq projectile-enable-caching t)
+  (spacemacs/set-leader-keys "oi" 'projectile-ibuffer)
+
+  ;;==============================================
+  ;; ivy/swiper configuration
+  ;;==============================================
+  (defun cnb/swiper-recenter (&rest args)
+    "recenter display after swiper"
+    (recenter))
+
+  (advice-add 'swiper :after #'cnb/swiper-recenter)
+
+  ;;==============================================
+  ;; conf-mode configuration
+  ;;==============================================
+  (add-hook 'conf-mode-hook #'linum-mode)
+
+  ;;==============================================
+  ;; prog-mode configuration
+  ;;==============================================
+  (add-hook 'prog-mode-hook #'fci-mode)      ;; Indicate fill column.
+  (add-hook 'prog-mode-hook #'rainbow-mode)
+
+  ;;==============================================
+  ;; Evil Goggles.
+  ;;==============================================
+  (setq evil-goggles-pulse 'display-graphic-p)
+  (setq evil-goggles-async-duration nil)
+  (setq evil-goggles-blocking-duration nil)
+
+  ;;==============================================
+  ;; RECENTF configuration
+  ;;==============================================
+  (with-eval-after-load 'recentf
+    ;; Files to ignore in recent files.
+    (add-to-list 'recentf-exclude "~$")
+    (add-to-list 'recentf-exclude "tmp")
+    (add-to-list 'recentf-exclude "/ssh:")
+    (add-to-list 'recentf-exclude "/sudo:")
+    (add-to-list 'recentf-exclude "TAGS")
+    (add-to-list 'recentf-exclude "/\\.git/.*\\'")
+    (add-to-list 'recentf-exclude recentf-save-file)
+
+    ;; TODO: Check if this is still the case
+    ;; Because .emacs.d is a symlink to dotfiles/emacs.d a file can have two
+    ;; names so we also need to ignore the one in dotfiles.
+    (add-to-list 'recentf-exclude (file-truename "~/dotfiles/emacs.d/elpa"))
+    (add-to-list 'recentf-exclude
+                 (file-truename "~/dotfiles/emacs.d/.cache/")))
+
+  ;;==============================================
+  ;; DIRED configuration
+  ;;==============================================
+  (setq dired-listing-switches "-alhG --group-directories-first")
+  (setq wdired-allow-to-change-permissions t)
+
+  ;; (add-hook 'dired-mode-hook
+  ;;           (lambda () (hl-line-mode)))
+
+  ;; Preview files in dired.
+  (use-package peep-dired
+    :defer t)
+
+  (diredfl-global-mode)
+
+  (with-eval-after-load 'dired
+    (evil-define-key 'normal dired-mode-map
+      (kbd "P") 'peep-dired)
+
+    (evil-define-key 'normal peep-dired-mode-map
+      (kbd "C-j") 'peep-dired-scroll-page-down
+      (kbd "C-k") 'peep-dired-scroll-page-up
+      (kbd "<backspace>") 'peep-dired-scroll-page-up
+      (kbd "j") 'peep-dired-next-file
+      (kbd "k") 'peep-dired-prev-file)
+
+    (add-hook 'peep-dired-hook #'evil-normalize-keymaps))
+
+  ;;==============================================
+  ;; WINUM configuration
+  ;;==============================================
+  (setq winum-scope (quote frame-local))
+
+  ;;==============================================
+  ;; IBUFFER configuration
+  ;;==============================================
+  (setq ibuffer-show-empty-filter-groups nil)
+
+  ;;==============================================
+  ;; Modeline configuration
+  ;;==============================================
+  ;; (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
+  (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+  (setq doom-modeline-icon t)
+
+  ;;==============================================
+  ;; ELM configuration
+  ;;==============================================
+  (use-package elm-mode
+    :defer t
+    :config
+    (setq elm-format-on-save t)
+    (setq elm-tags-on-save t)
+    (setq elm-sort-imports-on-save t))
+
+  ;;==============================================
+  ;; RUBY configuration
+  ;;==============================================
+
+  (use-package rubocop
+    :ensure t
+    :defer t
+    :commands rubocop-mode
+    :diminish rubocop-mode)
+
+  (setq ruby-version-manager 'rvm)
+  (setq ruby-align-chained-calls t)
+
+  ;; (defun cnb/ruby-setup ()
+  ;;   (rvm-activate-corresponding-ruby))
+
+  ;; (add-hook 'ruby-mode-hook #'cnb/ruby-setup t)
+
+  ;;==============================================
+  ;; Elixir configuration
+  ;;==============================================
+  (setq alchemist-test-status-modeline t)
+  (setq alchemist-test-display-compilation-output t)
+  ;; (setq alchemist-mix-test-default-options "--trace")
+  (setq flycheck-elixir-credo-strict t)
+
+  ;;==============================================
+  ;; Web mode configuration
+  ;;==============================================
+  (defun cnb/web-mode-hook ()
+    "Hooks for Web mode."
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2))
+
+  (add-hook 'web-mode-hook 'cnb/web-mode-hook t)
+
+  (setq emmet-indentation 2)
+
+  ;;==============================================
+  ;; EditorConfig configuration
+  ;;==============================================
+  (use-package editorconfig
+    :defer t
+    :init (add-to-list 'auto-mode-alist '("\\.editorconfig" . conf-unix-mode)))
+
+  ;;==============================================
+  ;; SCSS Mode
+  ;;==============================================
+  (defun cnb/scss-mode-hook ()
+    "Hooks for SCSS mode."
+    (setq css-indent-offset 2))
+
+  (add-hook 'scss-mode-hook 'cnb/scss-mode-hook t)
+
+  ;;==============================================
+  ;; Vue configuration
+  ;;==============================================
+  ;; (require 'vue-mode)
+  ;; (require 'lsp-mode)
+  ;; (require 'lsp-vue)
+  ;; (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
+  ;; ;; (add-hook 'vue-mode-hook #'flycheck-enable)
+  ;; (add-hook 'vue-mode-hook #'flycheck-mode)
+
+  ;; (require 'vue-mode)
+  ;; (add-to-list 'vue-mode-hook #'smartparens-mode)
+
+  ;; (require 'lsp-mode)
+  ;; (require 'lsp-ui)
+  ;; (require 'lsp-vue)
+  ;; (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
+
+  ;; (require 'company-lsp)
+  ;; (push 'company-lsp company-backends)
+
+  ;; (add-hook 'vue-mode-hook 'flycheck-mode)
+
+  ;; (setq mmm-js-mode-exit-hook (lambda () (setq tern-mode nil)))
+  ;; (setq mmm-js-mode-enter-hook (lambda () (setq tern-mode t)))
+
+  ;;==============================================
+  ;; CLOJURE configuration
+  ;;==============================================
+
+  ;;(setq cider-auto-select-error-buffer nil)
+
+  ;; (use-package clojure-mode-extra-font-locking
+  ;;   :config
+  ;;   (require 'clojure-mode-extra-font-locking))
+
+  ;;==============================================
+  ;; ORG configuration
+  ;;==============================================
+
+  (with-eval-after-load 'org
+    (require 'ob-tangle)
+    (setq org-directory "~/Dropbox/org/")
+    (setq org-agenda-files
+          (list (concat org-directory "personal.org")
+                (concat org-directory "kwela.org")
+                (concat org-directory "notes.org")))
+    (setq org-todo-keywords
+          (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
+                  (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
+
+    ;; Allow refiling to any agenda file.
+    (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                     (org-agenda-files :maxlevel . 9))))
+
+    (setq org-capture-templates
+          '(("t" "todo" entry (file+headline (concat org-directory "personal.org") "Tasks")
+             "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
+
+    ;; Allow refile to create parent tasks with confirmation
+    ;;(setq org-refile-allow-creating-parent-nodes (quote confirm))
+    )
+
+  ;;===============================================
+  ;; Visual marks.
+  ;;===============================================
+  (evil-visual-mark-mode)
+
+  ;; Workaround for https://github.com/roman/evil-visual-mark-mode/issues/7
+  ;; When marks are deleted (:delmarks), evil-visual-mark-mode doesn't clear
+  ;; them unless toggled (disabled/enabled).
+  (advice-add #'evil-delete-marks :after
+              (lambda (&rest _)
+                (evil-visual-mark-render)))
+
+  ;;===============================================
+  ;; Show current function.
+  ;;===============================================
+  (which-function-mode)
+  ;; (set-face-attribute 'which-func nil
+  ;;                     :foreground (face-foreground 'font-lock-function-name-face))
+
+  ;; (setq-default header-line-format
+  ;;               '((which-func-mode ("" which-func-format " "))))
+
+  ;;===============================================
+  ;; Email client
+  ;;===============================================
+  ;; (with-eval-after-load 'mu4e
+  ;;   (require 'mu4e-contrib)
+  ;;   (setq mu4e-html2text-command 'mu4e-shr2text)
+  ;;   ;; (setq mu4e-html2text-command "html2text -utf8 -width 72")
+  ;;   ;; (setq mu4e-html2text-command "w3m -dump -T text/html")
+
+  ;;   (setq mu4e-user-mail-address-regexp "col@baibell\.org\\|colin@kwelasolutions.com")
+
+  ;;   (setq mu4e-maildir "~/mbsync")
+  ;;   (setq mu4e-drafts-folder "/[Gmail]/Drafts")
+  ;;   (setq mu4e-sent-folder "/[Gmail]/Sent Mail")
+  ;;   (setq mu4e-trash-folder  "/[Gmail]/Trash")
+
+  ;;   ;; Needed for Gmail/mbsync
+  ;;   (setq mu4e-change-filenames-when-moving t)
+
+  ;;   (setq mail-user-agent 'mu4e-user-agent)
+
+  ;;   (setq mu4e-use-fancy-chars t)
+  ;;   ;; (setq mu4e-headers-new-mark '("N" . "❗"))
+  ;;   ;; (setq mu4e-headers-passed-mark '("P" . "⇉"))
+  ;;   ;; (setq mu4e-headers-replied-mark '("R" . "↵"))
+  ;;   ;; (setq mu4e-headers-seen-mark '("S" . "✉"))
+  ;;   ;; (setq mu4e-headers-unread-mark '("u" . "📨")
+  ;;   (setq mu4e-view-prefer-html nil)
+  ;;   (setq mu4e-headers-skip-duplicates t)
+  ;;   (setq mu4e-view-fields
+  ;;         '(:from :to :cc :subject :flags :date :maildir :mailing-list :tags
+  ;;                 :attachments :signature :decryption :user-agent))
+  ;;   (setq mu4e-headers-fields
+  ;;         '(
+  ;;           (:human-date   . 20)
+  ;;           (:flags        .  8)
+  ;;           (:size         .  8)
+  ;;           (:from-or-to   . 22)
+  ;;           (:maildir      . 22)
+  ;;           (:subject      . nil)))
+
+  ;;   ;; Set format=flowed
+  ;;   ;; mu4e sets up visual-line-mode and also fill (M-q) to do the right thing
+  ;;   ;; each paragraph is a single long line; at sending, emacs will add the
+  ;;   ;; special line continuation characters.
+  ;;   (setq mu4e-compose-format-flowed t)
+
+  ;;   (setq mu4e-headers-leave-behavior 'apply)
+  ;;   (setq message-kill-buffer-on-exit t)
+
+  ;;   (setq mu4e-headers-date-format "%d%b%y %H:%M" )
+
+  ;;   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+  ;;   (setq mu4e-sent-messages-behavior 'delete)
+
+  ;;   (setq mu4e-auto-retrieve-keys t)
+
+  ;;   ;; Hide annoying messsages.
+  ;;   (setq mu4e-hide-index-messages t)
+
+  ;;   (setq mu4e-confirm-quit t)
+
+  ;;   (setq mu4e-msg2pdf "/usr/bin/msg2pdf")
+  ;;   (setq mu4e-attachment-dir  "~/Downloads")
+
+  ;;   (setq mu4e-view-show-images t)
+
+  ;;   (when (fboundp 'imagemagick-register-types)
+  ;;     (imagemagick-register-types))
+
+  ;;   (setq mu4e-view-show-addresses t)
+
+  ;;   (setq mu4e-get-mail-command "mbsync -a")
+
+  ;;   (setq smtpmail-default-smtp-server "smtp.gmail.com")
+  ;;   (setq smtpmail-smtp-server "smtp.gmail.com")
+  ;;   (setq smtpmail-smtp-service 587))
+
+  ;;===============================================
+  ;; Work around for https://github.com/syl20bnr/spacemacs/issues/10410
+  ;;===============================================
+  (defun kill-minibuffer ()
+    (interactive)
+    (when (windowp (active-minibuffer-window))
+      (evil-ex-search-exit)))
+  (add-hook 'mouse-leave-buffer-hook #'kill-minibuffer)
+
+  ;;===============================================
+  ;; If saving a script file ensure that it is executable
+  ;;===============================================
+  (add-hook 'after-save-hook
+            #'executable-make-buffer-file-executable-if-script-p)
+
+  ;;===============================================
+  ;; Save contents of scratch buffer on exit and restore on startup.
+  ;;===============================================
+  (use-package persistent-scratch
+    :config
+    (setq persistent-scratch-save-file
+          (concat(file-name-as-directory spacemacs-cache-directory)
+                 "persistent-scratch"))
+    (persistent-scratch-setup-default))
+
+  ;; (setq imenu-list-auto-resize nil)
+
+  ;; Let me right-click in terminal to show terminal menu.
+  (xterm-mouse-mode -1)
+
+  (setq-default
+   sentence-end-double-space t
+
+   ;; Use a visible bell instead of a beep.
+   visible-bell t
+
+   ;; Always start a new tags list.
+   tags-add-tables nil
+
+   ;; When opening files follow all symbolic links.
+   find-file-visit-truename t
+
+   ;; I've got some TAGS files that are nearly 20MB in size.
+   large-file-warning-threshold 20000000
+
+   imenu-auto-rescan t
+
+   fill-column 120
+
+   ;;browse-url-browser-function 'browse-url-firefox
+   browse-url-browser-function 'browse-url-generic
+   browse-url-generic-program "chromium-browser"
+
+   ;; C-l first position to top.
+   recenter-positions '(top middle bottom))
+
+  (setq kill-ring-max 500)
+
+  (setq evil-want-fine-undo "Yes")
+
+  ;; (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
+
+  ;; Next/Prev bookmark.
+  (global-set-key (kbd "M-n") #'bm-next)
+  (global-set-key (kbd "M-p") #'bm-previous)
+
+  ;; My common mistakes.
+  (define-abbrev-table
+    'global-abbrev-table '(("teh" "the" nil 0)
+                           ("tehy" "they" nil 0)
+                           ("yuo" "you" nil 0)
+                           ("yuor" "your" nil 0)))
+  (setq-default abbrev-mode t)
+
+  ;; Seems to be needed for evil to work with system clipboard
+  (fset 'evil-visual-update-x-selection 'ignore)
+
+  (mouse-avoidance-mode 'exile))
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
