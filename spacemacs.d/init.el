@@ -120,7 +120,7 @@ This function should only modify configuration layer settings."
 
                                       magit-todos
 
-                                      peep-dired
+                                      ;; peep-dired
                                       persistent-scratch
 
                                       ;; vue-mode
@@ -141,16 +141,7 @@ This function should only modify configuration layer settings."
    ;; installs only the used packages but won't delete unused ones. `all'
    ;; installs *all* packages supported by Spacemacs and never uninstalls them.
    ;; (default is `used-only')
-   dotspacemacs-install-packages 'used-only)
-
-  ;; Conditionally load certain layers.
-  ;; (when (file-directory-p "/usr/share/emacs/site-lisp/mu4e/")
-  ;;   (setq dotspacemacs-configuration-layers
-  ;;         (append dotspacemacs-configuration-layers
-  ;;                 '((mu4e :variables
-  ;;                         mu4e-use-maildirs-extension t
- ;;                         mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e/")))))
-  )
+   dotspacemacs-install-packages 'used-only))
 
 (defun dotspacemacs/init ()
   "Initialization:
@@ -263,18 +254,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(
-                         solarized-dark
-                         solarized-light
-                         ;; doom-one
-                         ;; doom-one-light
-                         ;; tsdh-dark
-                         ;; tsdh-light
-                         ;; flatland
-                         ;; leuven
-                         ;; spacemacs-dark
-                         ;; spacemacs-light
-                         )
+   dotspacemacs-themes '(wombat solarized-dark solarized-light)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -283,8 +263,8 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(doom)
+   ;; dotspacemacs-mode-line-theme '(doom)
+   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -543,9 +523,9 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
-This function is called while dumping Spacemacs configuration. You can
-`require' or `load' the libraries of your choice that will be included
-in the dump."
+This function is called only while dumping Spacemacs configuration. You can
+`require' or `load' the libraries of your choice that will be included in the
+dump."
   )
 
 (defun dotspacemacs/user-config ()

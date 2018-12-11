@@ -8,29 +8,28 @@
 ;;; -----------------------------------------------
 ;; Editing warning:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Themes][Themes:1]]
-(setq solarized-distinct-fringe-background nil)
-(setq solarized-scale-org-headlines nil)
-(setq solarized-use-variable-pitch nil)
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:1]]
+(setq solarized-scale-org-headlines t)
+(setq solarized-use-variable-pitch t)
 (setq solarized-high-contrast-mode-line nil)
-;; Themes:1 ends here
+;; Look and Feel:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Basic%20setup.][Basic setup.:1]]
-(setq select-enable-primary t)
-;; Basic setup.:1 ends here
-
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Basic%20setup.][Basic setup.:5]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Modeline.][Modeline.:2]]
 (spacemacs/set-default-font dotspacemacs-default-font)
-;; Basic setup.:5 ends here
+;; Modeline.:2 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*???][???:1]]
-(setq exec-path-from-shell-check-startup-files nil)
-;; ???:1 ends here
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:1]]
+(setq select-enable-primary t)
+;; General:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Keep%20Emacs%20maintained%20configuration%20separate][Keep Emacs maintained configuration separate:1]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:3]]
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file)
-;; Keep Emacs maintained configuration separate:1 ends here
+;; General:3 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:7]]
+(setq exec-path-from-shell-check-startup-files nil)
+;; General:7 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Source%20Control][Source Control:1]]
 (setq-default git-magit-status-fullscreen t)

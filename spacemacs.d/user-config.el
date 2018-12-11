@@ -13,23 +13,51 @@
 (setq user-full-name "Colin Bell")
 ;; Me, Myself I:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Basic%20setup.][Basic setup.:2]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:2]]
 (setq fill-column 120)
 (add-hook 'prog-mode-hook #'fci-mode)      ;; Indicate fill column.
-;; Basic setup.:2 ends here
+;; Look and Feel:2 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Basic%20setup.][Basic setup.:3]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:3]]
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 (with-eval-after-load 'spaceline-segments
    (spaceline-toggle-minor-modes))
 (setq-default display-line-numbers-width nil)
-;; Basic setup.:3 ends here
+;; Look and Feel:3 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Basic%20setup.][Basic setup.:4]]
-(setq doom-modeline-buffer-file-name-style 'relative-from-project)
-(setq doom-modeline-icon t)
-;; Basic setup.:4 ends here
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:4]]
+(mouse-avoidance-mode 'exile)
+;; Look and Feel:4 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Modeline.][Modeline.:1]]
+;; (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+;; (setq doom-modeline-icon t)
+;; Modeline.:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:2]]
+recenter-positions '(top middle bottom))
+;; General:2 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:4]]
+(setq evil-goggles-pulse 'display-graphic-p)
+(setq evil-goggles-async-duration nil)
+(setq evil-goggles-blocking-duration nil)
+;; General:4 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:5]]
+(add-hook 'after-save-hook
+          #'executable-make-buffer-file-executable-if-script-p)
+;; General:5 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:6]]
+(use-package persistent-scratch
+  :config
+  (setq persistent-scratch-save-file
+        (concat(file-name-as-directory spacemacs-cache-directory)
+               "persistent-scratch"))
+  (persistent-scratch-setup-default))
+;; General:6 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Ruby][Ruby:1]]
 (use-package rubocop
@@ -75,6 +103,14 @@
 (setq emmet-indentation 2)
 ;; Web Mode:1 ends here
 
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*CSS%20Modes][CSS Modes:1]]
+(defun cnb/scss-mode-hook ()
+  "Hooks for SCSS mode."
+  (setq css-indent-offset 2))
+
+(add-hook 'scss-mode-hook 'cnb/scss-mode-hook t)
+;; CSS Modes:1 ends here
+
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Config%20files][Config files:1]]
 (add-hook 'conf-mode-hook #'linum-mode)
 ;; Config files:1 ends here
@@ -90,6 +126,36 @@
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Dired][Dired:3]]
 (setq wdired-allow-to-change-permissions t)
 ;; Dired:3 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Org][Org:1]]
+(with-eval-after-load 'org
+  (require 'ob-tangle)
+  (setq org-directory "~/Dropbox/org/")
+  (setq org-agenda-files
+        (list (concat org-directory "personal.org")
+              (concat org-directory "kwela.org")
+              (concat org-directory "notes.org")))
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
+                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
+
+  ;; Allow refiling to any agenda file.
+  (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                   (org-agenda-files :maxlevel . 9))))
+
+  (setq org-capture-templates
+        '(("t" "todo" entry (file+headline (concat org-directory "personal.org") "Tasks")
+           "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
+
+  ;; Allow refile to create parent tasks with confirmation
+  ;;(setq org-refile-allow-creating-parent-nodes (quote confirm))
+  )
+;; Org:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Visual%20Bookmarks][Visual Bookmarks:1]]
+(global-set-key (kbd "M-n") #'bm-next)
+(global-set-key (kbd "M-p") #'bm-previous)
+;; Visual Bookmarks:1 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Recent%20Files%20Mode][Recent Files Mode:1]]
 (with-eval-after-load 'recentf
@@ -138,158 +204,26 @@
   :init (add-to-list 'auto-mode-alist '("\\.editorconfig" . conf-unix-mode)))
 ;; EditorConfig:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*CLEANUP][CLEANUP:1]]
-;;==============================================
-;; Evil Goggles.
-;;==============================================
-(setq evil-goggles-pulse 'display-graphic-p)
-(setq evil-goggles-async-duration nil)
-(setq evil-goggles-blocking-duration nil)
-
-
-
-;;==============================================
-;; WINUM configuration
-;;==============================================
-(setq winum-scope (quote frame-local))
-
-;;==============================================
-;; IBUFFER configuration
-;;==============================================
-(setq ibuffer-show-empty-filter-groups nil)
-
-
-;;==============================================
-;; Web mode configuration
-;;==============================================
-
-;;==============================================
-;; SCSS Mode
-;;==============================================
-(defun cnb/scss-mode-hook ()
-  "Hooks for SCSS mode."
-  (setq css-indent-offset 2))
-
-(add-hook 'scss-mode-hook 'cnb/scss-mode-hook t)
-
-
-;;==============================================
-;; ORG configuration
-;;==============================================
-
-(with-eval-after-load 'org
-  (require 'ob-tangle)
-  (setq org-directory "~/Dropbox/org/")
-  (setq org-agenda-files
-        (list (concat org-directory "personal.org")
-              (concat org-directory "kwela.org")
-              (concat org-directory "notes.org")))
-  (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "STARTED(n)" "|" "DONE(d!/!)")
-                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
-
-  ;; Allow refiling to any agenda file.
-  (setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                   (org-agenda-files :maxlevel . 9))))
-
-  (setq org-capture-templates
-        '(("t" "todo" entry (file+headline (concat org-directory "personal.org") "Tasks")
-           "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
-
-  ;; Allow refile to create parent tasks with confirmation
-  ;;(setq org-refile-allow-creating-parent-nodes (quote confirm))
-  )
-
-
-
-;;===============================================
-;; Show current function.
-;;===============================================
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Show%20current%20function][Show current function:1]]
 (which-function-mode)
 ;; (set-face-attribute 'which-func nil
 ;;                     :foreground (face-foreground 'font-lock-function-name-face))
-
+;;
 ;; (setq-default header-line-format
 ;;               '((which-func-mode ("" which-func-format " "))))
+;; Show current function:1 ends here
 
-;;===============================================
-;; Email client
-;;===============================================
-;; (with-eval-after-load 'mu4e
-;;   (require 'mu4e-contrib)
-;;   (setq mu4e-html2text-command 'mu4e-shr2text)
-;;   ;; (setq mu4e-html2text-command "html2text -utf8 -width 72")
-;;   ;; (setq mu4e-html2text-command "w3m -dump -T text/html")
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Time][Time:1]]
+(require 'time)
+(setq display-time-world-list '(("Australia/Sydney" "Sydney")
+                                 ("Australia/Perth" "Perth")
+                                 ("America/Los_Angeles" "Los Angeles")
+                                 ("America/New_York" "New York")
+                                 ("Asia/Shanghai" "China")
+                                 ("Europe/Belfast" "Belfast")))
+;; Time:1 ends here
 
-;;   (setq mu4e-user-mail-address-regexp "col@baibell\.org\\|colin@kwelasolutions.com")
-
-;;   (setq mu4e-maildir "~/mbsync")
-;;   (setq mu4e-drafts-folder "/[Gmail]/Drafts")
-;;   (setq mu4e-sent-folder "/[Gmail]/Sent Mail")
-;;   (setq mu4e-trash-folder  "/[Gmail]/Trash")
-
-;;   ;; Needed for Gmail/mbsync
-;;   (setq mu4e-change-filenames-when-moving t)
-
-;;   (setq mail-user-agent 'mu4e-user-agent)
-
-;;   (setq mu4e-use-fancy-chars t)
-;;   ;; (setq mu4e-headers-new-mark '("N" . "❗"))
-;;   ;; (setq mu4e-headers-passed-mark '("P" . "⇉"))
-;;   ;; (setq mu4e-headers-replied-mark '("R" . "↵"))
-;;   ;; (setq mu4e-headers-seen-mark '("S" . "✉"))
-;;   ;; (setq mu4e-headers-unread-mark '("u" . "📨")
-;;   (setq mu4e-view-prefer-html nil)
-;;   (setq mu4e-headers-skip-duplicates t)
-;;   (setq mu4e-view-fields
-;;         '(:from :to :cc :subject :flags :date :maildir :mailing-list :tags
-;;                 :attachments :signature :decryption :user-agent))
-;;   (setq mu4e-headers-fields
-;;         '(
-;;           (:human-date   . 20)
-;;           (:flags        .  8)
-;;           (:size         .  8)
-;;           (:from-or-to   . 22)
-;;           (:maildir      . 22)
-;;           (:subject      . nil)))
-
-;;   ;; Set format=flowed
-;;   ;; mu4e sets up visual-line-mode and also fill (M-q) to do the right thing
-;;   ;; each paragraph is a single long line; at sending, emacs will add the
-;;   ;; special line continuation characters.
-;;   (setq mu4e-compose-format-flowed t)
-
-;;   (setq mu4e-headers-leave-behavior 'apply)
-;;   (setq message-kill-buffer-on-exit t)
-
-;;   (setq mu4e-headers-date-format "%d%b%y %H:%M" )
-
-;;   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-;;   (setq mu4e-sent-messages-behavior 'delete)
-
-;;   (setq mu4e-auto-retrieve-keys t)
-
-;;   ;; Hide annoying messsages.
-;;   (setq mu4e-hide-index-messages t)
-
-;;   (setq mu4e-confirm-quit t)
-
-;;   (setq mu4e-msg2pdf "/usr/bin/msg2pdf")
-;;   (setq mu4e-attachment-dir  "~/Downloads")
-
-;;   (setq mu4e-view-show-images t)
-
-;;   (when (fboundp 'imagemagick-register-types)
-;;     (imagemagick-register-types))
-
-;;   (setq mu4e-view-show-addresses t)
-
-;;   (setq mu4e-get-mail-command "mbsync -a")
-
-;;   (setq smtpmail-default-smtp-server "smtp.gmail.com")
-;;   (setq smtpmail-smtp-server "smtp.gmail.com")
-;;   (setq smtpmail-smtp-service 587))
-
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*CLEANUP][CLEANUP:1]]
 ;;===============================================
 ;; Work around for https://github.com/syl20bnr/spacemacs/issues/10410
 ;;===============================================
@@ -298,22 +232,6 @@
   (when (windowp (active-minibuffer-window))
     (evil-ex-search-exit)))
 (add-hook 'mouse-leave-buffer-hook #'kill-minibuffer)
-
-;;===============================================
-;; If saving a script file ensure that it is executable
-;;===============================================
-(add-hook 'after-save-hook
-          #'executable-make-buffer-file-executable-if-script-p)
-
-;;===============================================
-;; Save contents of scratch buffer on exit and restore on startup.
-;;===============================================
-(use-package persistent-scratch
-  :config
-  (setq persistent-scratch-save-file
-        (concat(file-name-as-directory spacemacs-cache-directory)
-               "persistent-scratch"))
-  (persistent-scratch-setup-default))
 
 ;; (setq imenu-list-auto-resize nil)
 
@@ -342,18 +260,12 @@
  browse-url-browser-function 'browse-url-generic
  browse-url-generic-program "chromium-browser"
 
- ;; C-l first position to top.
- recenter-positions '(top middle bottom))
 
 (setq kill-ring-max 500)
 
 (setq evil-want-fine-undo "Yes")
 
 ;; (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
-
-;; Next/Prev bookmark.
-(global-set-key (kbd "M-n") #'bm-next)
-(global-set-key (kbd "M-p") #'bm-previous)
 
 ;; My common mistakes.
 (define-abbrev-table
@@ -365,6 +277,4 @@
 
 ;; Seems to be needed for evil to work with system clipboard
 (fset 'evil-visual-update-x-selection 'ignore)
-
-(mouse-avoidance-mode 'exile)
 ;; CLEANUP:1 ends here
