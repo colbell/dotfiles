@@ -13,22 +13,64 @@
 (setq user-full-name "Colin Bell")
 ;; Me, Myself I:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:2]]
-(setq fill-column 120)
-(add-hook 'prog-mode-hook #'fci-mode)      ;; Indicate fill column.
-;; Look and Feel:2 ends here
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:1]]
+(defun my-correct-symbol-bounds (pretty-alist)
+  "Prepend a TAB character to each symbol in this alist,
+this way compose-region called by prettify-symbols-mode
+will use the correct width of the symbols
+instead of the width measured by char-width."
+  (mapcar (lambda (el)
+            (setcdr el (string ?\t (cdr el)))
+            el)
+          pretty-alist))
+
+(defun my-ligature-list (ligatures codepoint-start)
+  "Create an alist of strings to replace with
+codepoints starting from codepoint-start."
+  (let ((codepoints (-iterate '1+ codepoint-start (length ligatures))))
+    (-zip-pair ligatures codepoints)))
+
+(setq my-fira-code-ligatures
+      (let* ((ligs '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
+                     "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
+                     "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
+                     "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
+                     ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
+                     "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
+                     "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
+                     "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
+                     ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
+                     "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
+                     "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
+                     "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>" "%%"
+                     "x" ":" "+" "+" "*")))
+        (my-correct-symbol-bounds (my-ligature-list ligs #Xe100))))
+
+(defun my-set-prog-ligatures ()
+  "Add ligatures for programming modes"
+  (setq prettify-symbols-alist
+        (append my-fira-code-ligatures prettify-symbols-alist))
+  (prettify-symbols-mode))
+
+(add-hook 'prog-mode-hook #'my-set-prog-ligatures)
+;; Look and Feel:1 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:3]]
+(setq fill-column 120)
+(add-hook 'prog-mode-hook #'fci-mode)
+;; Look and Feel:3 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:4]]
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 (with-eval-after-load 'spaceline-segments
    (spaceline-toggle-minor-modes))
 (setq-default display-line-numbers-width nil)
-;; Look and Feel:3 ends here
-
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:4]]
-(mouse-avoidance-mode 'exile)
 ;; Look and Feel:4 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:5]]
+(mouse-avoidance-mode 'exile)
+;; Look and Feel:5 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Modeline.][Modeline.:1]]
 ;; (setq doom-modeline-buffer-file-name-style 'relative-from-project)
@@ -36,7 +78,7 @@
 ;; Modeline.:1 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:2]]
-recenter-positions '(top middle bottom))
+(setq recenter-positions '(top middle bottom))
 ;; General:2 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:4]]
@@ -259,6 +301,7 @@ recenter-positions '(top middle bottom))
  ;;browse-url-browser-function 'browse-url-firefox
  browse-url-browser-function 'browse-url-generic
  browse-url-generic-program "chromium-browser"
+ )
 
 
 (setq kill-ring-max 500)

@@ -8,11 +8,11 @@
 ;;; -----------------------------------------------
 ;; Editing warning:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:1]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:2]]
 (setq solarized-scale-org-headlines t)
 (setq solarized-use-variable-pitch t)
 (setq solarized-high-contrast-mode-line nil)
-;; Look and Feel:1 ends here
+;; Look and Feel:2 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Modeline.][Modeline.:2]]
 (spacemacs/set-default-font dotspacemacs-default-font)
