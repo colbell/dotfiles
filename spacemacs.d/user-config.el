@@ -281,7 +281,7 @@ codepoints starting from codepoint-start."
 (xterm-mouse-mode -1)
 
 (setq-default
- sentence-end-double-space t
+ sentence-end-double-space nil
 
  ;; Use a visible bell instead of a beep.
  visible-bell t
