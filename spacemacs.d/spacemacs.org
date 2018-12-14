@@ -218,6 +218,11 @@ Don't save duplicates in command history, search history etc.
 #+END_SRC
 
 * Major Modes
+** Enacs Lisp
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (remove-hook 'emacs-lisp-mode-hook 'auto-compile-mode)
+#+END_SRC
+
 ** Ruby
 
 Configure Linting.
