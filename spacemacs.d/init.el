@@ -116,6 +116,8 @@ This function should only modify configuration layer settings."
                                       ;; Extra font lock rules for dired.
                                       diredfl
 
+                                      foreman-mode
+
                                       graphql-mode
 
                                       magit-todos

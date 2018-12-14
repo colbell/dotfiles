@@ -101,6 +101,10 @@ codepoints starting from codepoint-start."
   (persistent-scratch-setup-default))
 ;; General:6 ends here
 
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:7]]
+(setq history-delete-duplicates t)
+;; General:7 ends here
+
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Ruby][Ruby:1]]
 (use-package rubocop
   :ensure t
@@ -194,6 +198,34 @@ codepoints starting from codepoint-start."
   )
 ;; Org:1 ends here
 
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Text][Text:1]]
+(add-hook 'text-mode-hook #'turn-on-auto-fill)
+;; Text:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Text][Text:2]]
+(defun cnb/setup-term-mode ()
+  (evil-local-set-key 'insert (kbd "C-a") 'cnb/send-C-a)
+  (evil-local-set-key 'insert (kbd "C-r") 'cnb/send-C-r))
+
+(defun cnb/send-C-a ()
+  (interactive)
+  (term-send-raw-string "\C-a"))
+
+(defun cnb/send-C-r ()
+  (interactive)
+  (term-send-raw-string "\C-r"))
+
+(add-hook 'term-mode-hook #'cnb/setup-term-mode)
+;; Text:2 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Foreman][Foreman:1]]
+(evil-set-initial-state 'foreman-mode 'emacs)
+;; Foreman:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Foreman][Foreman:2]]
+(spacemacs/set-leader-keys "of" 'foreman)
+;; Foreman:2 ends here
+
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Visual%20Bookmarks][Visual Bookmarks:1]]
 (global-set-key (kbd "M-n") #'bm-next)
 (global-set-key (kbd "M-p") #'bm-previous)
@@ -239,6 +271,10 @@ codepoints starting from codepoint-start."
 (setq rainbow-x-colors t)
 (add-hook 'prog-mode-hook #'rainbow-mode)
 ;; Rainbow Mode:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Source%20Control][Source Control:2]]
+(evil-set-initial-state 'magit-status-mode 'emacs)
+;; Source Control:2 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*EditorConfig][EditorConfig:1]]
 (use-package editorconfig

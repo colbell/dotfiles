@@ -27,7 +27,6 @@ Place the following code in your =~/.spacemacs.d/init.el= file.
 ** init.el
 
 #+BEGIN_SRC emacs-lisp :tangle no
-
   (defun dotspacemacs/user-init ()
     ;; tangle without actually loading org
     (let ((src (concat dotspacemacs-directory "spacemacs.org"))
@@ -43,7 +42,6 @@ Place the following code in your =~/.spacemacs.d/init.el= file.
 
   (defun dotspacemacs/user-config ()
     (load-file (concat dotspacemacs-directory "user-config.el")))
-
 #+END_SRC
 
 * Editing warning
@@ -151,7 +149,6 @@ Auto-move mouse cursor away from text pointer
   (mouse-avoidance-mode 'exile)
 #+END_SRC
 
-
 *** Modeline.
 
 Configure Doom modeline. This has to be set prior to the theme been loaded.
@@ -207,6 +204,11 @@ Save contents of scratch buffer on exit and restore on startup.
                  "persistent-scratch"))
     (persistent-scratch-setup-default))
 
+#+END_SRC
+
+Don't save duplicates in command history, search history etc.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (setq history-delete-duplicates t)
 #+END_SRC
 
 ???
@@ -326,12 +328,52 @@ Allow editing of permissions in wdired.
 
 #+END_SRC
 
+** Terminal
+
+Allow Ctrl-A and CTRL-R to work in terminal.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (defun cnb/setup-term-mode ()
+    (evil-local-set-key 'insert (kbd "C-a") 'cnb/send-C-a)
+    (evil-local-set-key 'insert (kbd "C-r") 'cnb/send-C-r))
+
+  (defun cnb/send-C-a ()
+    (interactive)
+    (term-send-raw-string "\C-a"))
+
+  (defun cnb/send-C-r ()
+    (interactive)
+    (term-send-raw-string "\C-r"))
+
+  (add-hook 'term-mode-hook #'cnb/setup-term-mode)
+#+END_SRC
+** Text
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (add-hook 'text-mode-hook #'turn-on-auto-fill)
+#+END_SRC
+
+** Foreman
+Don't use Evil mode for Foreman, it breaks the menu.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (evil-set-initial-state 'foreman-mode 'emacs)
+#+END_SRC
+
+Set key seq to start Foreman.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (spacemacs/set-leader-keys "of" 'foreman)
+#+END_SRC
+
 * Utilities
 ** Visual Bookmarks
 Next/Previous bookmark shortcuts
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
   (global-set-key (kbd "M-n") #'bm-next)
   (global-set-key (kbd "M-p") #'bm-previous)
+#+END_SRC
+
+** IBuffer
+Hide empty filter groups
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (setq ibuffer-show-empty-filter-groups nil)
 #+END_SRC
 
 ** Recent Files Mode
@@ -387,6 +429,11 @@ Colourize colour names in programming modes.
 Show Magit status in a large window.
 #+BEGIN_SRC emacs-lisp :tangle user-init.el
   (setq-default git-magit-status-fullscreen t)
+#+END_SRC
+
+Disable Evil for Magit status buffer.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (evil-set-initial-state 'magit-status-mode 'emacs)
 #+END_SRC
 
 Show projects TODOs in Magit status buffer.
