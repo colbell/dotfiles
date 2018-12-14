@@ -105,6 +105,10 @@ codepoints starting from codepoint-start."
 (setq history-delete-duplicates t)
 ;; General:7 ends here
 
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Enacs%20Lisp][Enacs Lisp:1]]
+(remove-hook 'emacs-lisp-mode-hook 'auto-compile-mode)
+;; Enacs Lisp:1 ends here
+
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Ruby][Ruby:1]]
 (use-package rubocop
   :ensure t
@@ -198,11 +202,7 @@ codepoints starting from codepoint-start."
   )
 ;; Org:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Text][Text:1]]
-(add-hook 'text-mode-hook #'turn-on-auto-fill)
-;; Text:1 ends here
-
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Text][Text:2]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Terminal][Terminal:1]]
 (defun cnb/setup-term-mode ()
   (evil-local-set-key 'insert (kbd "C-a") 'cnb/send-C-a)
   (evil-local-set-key 'insert (kbd "C-r") 'cnb/send-C-r))
@@ -216,7 +216,11 @@ codepoints starting from codepoint-start."
   (term-send-raw-string "\C-r"))
 
 (add-hook 'term-mode-hook #'cnb/setup-term-mode)
-;; Text:2 ends here
+;; Terminal:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Text][Text:1]]
+(add-hook 'text-mode-hook #'turn-on-auto-fill)
+;; Text:1 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Foreman][Foreman:1]]
 (evil-set-initial-state 'foreman-mode 'emacs)
@@ -230,6 +234,10 @@ codepoints starting from codepoint-start."
 (global-set-key (kbd "M-n") #'bm-next)
 (global-set-key (kbd "M-p") #'bm-previous)
 ;; Visual Bookmarks:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*IBuffer][IBuffer:1]]
+(setq ibuffer-show-empty-filter-groups nil)
+;; IBuffer:1 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Recent%20Files%20Mode][Recent Files Mode:1]]
 (with-eval-after-load 'recentf
