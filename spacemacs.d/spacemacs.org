@@ -131,7 +131,7 @@ Configure Solarized Theme.
 
 Show fill column indicator at pos 120.
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
-  (setq fill-column 120)
+  (setq-default fill-column 120)
   (add-hook 'prog-mode-hook #'fci-mode)
 #+END_SRC
 
@@ -205,6 +205,18 @@ Save contents of scratch buffer on exit and restore on startup.
     (persistent-scratch-setup-default))
 
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+    (setq kill-ring-max 500)
+    (setq evil-want-fine-undo "Yes")
+
+    (setq-default
+     ;; When opening files follow all symbolic links.
+     find-file-visit-truename t
+     sentence-end-double-space nil
+     visible-bell t)
+#+END_SRC
+
 
 Don't save duplicates in command history, search history etc.
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
@@ -478,53 +490,59 @@ Set timezones for helm-world-time.
                                    ("Europe/Belfast" "Belfast")))
 #+END_SRC
 
-* CLEANUP
-
+** Autofix common mistakes
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (define-abbrev-table
+    'global-abbrev-table '(("teh" "the" nil 0)
+                           ("tehy" "they" nil 0)
+                           ("yuo" "you" nil 0)
+                           ("yuor" "your" nil 0)))
+  (setq-default abbrev-mode t)
+#+END_SRC
 
-  ;;===============================================
-  ;; Work around for https://github.com/syl20bnr/spacemacs/issues/10410
-  ;;===============================================
+* Workarounds
+
+  Work around for https://github.com/syl20bnr/spacemacs/issues/10410
+
+  #+BEGIN_SRC emacs-lisp :tangle user-config.el
   (defun kill-minibuffer ()
     (interactive)
     (when (windowp (active-minibuffer-window))
       (evil-ex-search-exit)))
   (add-hook 'mouse-leave-buffer-hook #'kill-minibuffer)
 
+  #+END_SRC
+
+* CLEANUP
+
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+
   ;; (setq imenu-list-auto-resize nil)
 
   ;; Let me right-click in terminal to show terminal menu.
   (xterm-mouse-mode -1)
 
-  (setq-default
-   sentence-end-double-space nil
+  ;; (setq-default
+  ;;  ;; Always start a new tags list.
+  ;;  tags-add-tables nil
 
-   ;; Use a visible bell instead of a beep.
-   visible-bell t
+  ;;  ;; When opening files follow all symbolic links.
+  ;;  find-file-visit-truename t
 
-   ;; Always start a new tags list.
-   tags-add-tables nil
+  ;;  ;; I've got some TAGS files that are nearly 20MB in size.
+  ;;  large-file-warning-threshold 20000000
 
-   ;; When opening files follow all symbolic links.
-   find-file-visit-truename t
-
-   ;; I've got some TAGS files that are nearly 20MB in size.
-   large-file-warning-threshold 20000000
-
-   imenu-auto-rescan t
+  ;;  imenu-auto-rescan t
 
 
-   ;;browse-url-browser-function 'browse-url-firefox
-   browse-url-browser-function 'browse-url-generic
-   browse-url-generic-program "chromium-browser"
-   )
+  ;;  ;;browse-url-browser-function 'browse-url-firefox
+  ;;  ;; browse-url-browser-function 'browse-url-generic
+  ;;  ;; browse-url-generic-program "chromium-browser"
+  ;;  )
 
 
-  (setq kill-ring-max 500)
 
-  (setq evil-want-fine-undo "Yes")
-
-  ;; (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
+  ;; ;; (global-set-key (kbd "TAB") 'company-indent-or-complete-common)
 
   ;; My common mistakes.
   (define-abbrev-table

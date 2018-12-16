@@ -27,9 +27,9 @@
 (load custom-file)
 ;; General:3 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:8]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:9]]
 (setq exec-path-from-shell-check-startup-files nil)
-;; General:8 ends here
+;; General:9 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Source%20Control][Source Control:1]]
 (setq-default git-magit-status-fullscreen t)

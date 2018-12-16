@@ -56,7 +56,7 @@ codepoints starting from codepoint-start."
 ;; Look and Feel:1 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:3]]
-(setq fill-column 120)
+(setq-default fill-column 120)
 (add-hook 'prog-mode-hook #'fci-mode)
 ;; Look and Feel:3 ends here
 
@@ -102,8 +102,19 @@ codepoints starting from codepoint-start."
 ;; General:6 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:7]]
-(setq history-delete-duplicates t)
+(setq kill-ring-max 500)
+(setq evil-want-fine-undo "Yes")
+
+(setq-default
+ ;; When opening files follow all symbolic links.
+ find-file-visit-truename t
+ sentence-end-double-space nil
+ visible-bell t)
 ;; General:7 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:8]]
+(setq history-delete-duplicates t)
+;; General:8 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Enacs%20Lisp][Enacs Lisp:1]]
 (remove-hook 'emacs-lisp-mode-hook 'auto-compile-mode)
@@ -309,50 +320,50 @@ codepoints starting from codepoint-start."
                                  ("Europe/Belfast" "Belfast")))
 ;; Time:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*CLEANUP][CLEANUP:1]]
-;;===============================================
-;; Work around for https://github.com/syl20bnr/spacemacs/issues/10410
-;;===============================================
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Autofix%20common%20mistakes][Autofix common mistakes:1]]
+(define-abbrev-table
+  'global-abbrev-table '(("teh" "the" nil 0)
+                         ("tehy" "they" nil 0)
+                         ("yuo" "you" nil 0)
+                         ("yuor" "your" nil 0)))
+(setq-default abbrev-mode t)
+;; Autofix common mistakes:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Workarounds][Workarounds:1]]
 (defun kill-minibuffer ()
   (interactive)
   (when (windowp (active-minibuffer-window))
     (evil-ex-search-exit)))
 (add-hook 'mouse-leave-buffer-hook #'kill-minibuffer)
+;; Workarounds:1 ends here
 
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*CLEANUP][CLEANUP:1]]
 ;; (setq imenu-list-auto-resize nil)
 
 ;; Let me right-click in terminal to show terminal menu.
 (xterm-mouse-mode -1)
 
-(setq-default
- sentence-end-double-space nil
+;; (setq-default
+;;  ;; Always start a new tags list.
+;;  tags-add-tables nil
 
- ;; Use a visible bell instead of a beep.
- visible-bell t
+;;  ;; When opening files follow all symbolic links.
+;;  find-file-visit-truename t
 
- ;; Always start a new tags list.
- tags-add-tables nil
+;;  ;; I've got some TAGS files that are nearly 20MB in size.
+;;  large-file-warning-threshold 20000000
 
- ;; When opening files follow all symbolic links.
- find-file-visit-truename t
-
- ;; I've got some TAGS files that are nearly 20MB in size.
- large-file-warning-threshold 20000000
-
- imenu-auto-rescan t
+;;  imenu-auto-rescan t
 
 
- ;;browse-url-browser-function 'browse-url-firefox
- browse-url-browser-function 'browse-url-generic
- browse-url-generic-program "chromium-browser"
- )
+;;  ;;browse-url-browser-function 'browse-url-firefox
+;;  ;; browse-url-browser-function 'browse-url-generic
+;;  ;; browse-url-generic-program "chromium-browser"
+;;  )
 
 
-(setq kill-ring-max 500)
 
-(setq evil-want-fine-undo "Yes")
-
-;; (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
+;; ;; (global-set-key (kbd "TAB") 'company-indent-or-complete-common)
 
 ;; My common mistakes.
 (define-abbrev-table
