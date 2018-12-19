@@ -113,6 +113,9 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
+                                      ;; lsp-vue
+                                      company-lsp
+
                                       ;; Extra font lock rules for dired.
                                       diredfl
 
@@ -120,14 +123,14 @@ This function should only modify configuration layer settings."
 
                                       graphql-mode
 
+                                      ;; Show TODOs in Magit Status.
                                       magit-todos
 
-                                      ;; peep-dired
                                       persistent-scratch
 
-                                      ;; vue-mode
-                                      ;; lsp-vue
-                                      company-lsp
+                                      stripe-buffer
+
+                                      writegood-mode
                                       )
 
    ;; A list of packages that cannot be updated.

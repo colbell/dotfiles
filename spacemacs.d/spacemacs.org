@@ -75,8 +75,7 @@ Place a warning in the generated .el files.
   (setq user-full-name "Colin Bell")
 #+END_SRC
 
-** Look and Feel
-
+** Font Ligatures
 Apply ligatures to Fira Code.
 
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
@@ -121,21 +120,14 @@ Apply ligatures to Fira Code.
   (add-hook 'prog-mode-hook #'my-set-prog-ligatures)
 #+END_SRC
 
-
-Configure Solarized Theme.
+** Themes
+Solarized.
 #+BEGIN_SRC emacs-lisp :tangle user-init.el
   (setq solarized-scale-org-headlines t)
   (setq solarized-use-variable-pitch t)
   (setq solarized-high-contrast-mode-line nil)
 #+END_SRC
-
-Show fill column indicator at pos 120.
-#+BEGIN_SRC emacs-lisp :tangle user-config.el
-  (setq-default fill-column 120)
-  (add-hook 'prog-mode-hook #'fci-mode)
-#+END_SRC
-
-Remove unnecessary clutter
+** Remove unnecessary clutter
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
   (setq use-file-dialog nil)
   (setq use-dialog-box nil)
@@ -144,12 +136,24 @@ Remove unnecessary clutter
   (setq-default display-line-numbers-width nil)
 #+END_SRC
 
-Auto-move mouse cursor away from text pointer
+** Keep mouse cursor away from text pointer
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
   (mouse-avoidance-mode 'exile)
 #+END_SRC
+** Flash frame instead of beeping
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (setq visible-bell t)
+#+END_SRC
 
-*** Modeline.
+** Evil
+Visually indicate Evil operations.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (setq evil-goggles-pulse 'display-graphic-p)
+  (setq evil-goggles-async-duration nil)
+  (setq evil-goggles-blocking-duration nil)
+#+END_SRC
+
+** Modeline.
 
 Configure Doom modeline. This has to be set prior to the theme been loaded.
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
@@ -164,35 +168,30 @@ Fix Problems with scaling powerline in modeline.
   (spacemacs/set-default-font dotspacemacs-default-font)
 #+END_SRC
 
-** General
-
-  Allow paste into xterm etc.
-#+BEGIN_SRC emacs-lisp :tangle user-init.el
-  (setq select-enable-primary t)
-#+END_SRC
-
-C-l first position to top.
-#+BEGIN_SRC emacs-lisp :tangle user-config.el
-  (setq recenter-positions '(top middle bottom))
-#+END_SRC
-
-Keep Emacs maintained configuration separate
+** Customize
+Keep Emacs maintained configuration separate.
 #+BEGIN_SRC emacs-lisp :tangle user-init.el
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
   (load custom-file)
 #+END_SRC
 
-Visually indicate Evil operations.
+** Typography
+Documents default to 80 characters wide.
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
-  (setq evil-goggles-pulse 'display-graphic-p)
-  (setq evil-goggles-async-duration nil)
-  (setq evil-goggles-blocking-duration nil)
+  (setq-default fill-column 80)
 #+END_SRC
 
-If saving a script file ensure that it is executable
+Single spacing, this isn't a type-writer.
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
-  (add-hook 'after-save-hook
-            #'executable-make-buffer-file-executable-if-script-p)
+  (setq colon-double-space nil)
+  (setq sentence-end-double-space nil)
+#+END_SRC
+
+** Scratch Buffer
+Don't allow scratch buffer to be killed.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+(with-current-buffer "*scratch*"
+  (emacs-lock-mode 'kill))
 #+END_SRC
 
 Save contents of scratch buffer on exit and restore on startup.
@@ -203,33 +202,88 @@ Save contents of scratch buffer on exit and restore on startup.
           (concat(file-name-as-directory spacemacs-cache-directory)
                  "persistent-scratch"))
     (persistent-scratch-setup-default))
+#+END_SRC
 
+** Files
+If saving a script file ensure that it is executable
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
+#+END_SRC
+
+When opening files follow all symbolic links.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (setq-default find-file-visit-truename t )
+#+END_SRC
+** Mark, Kill, Paste And Undo
+  Allow paste into xterm etc.
+#+BEGIN_SRC emacs-lisp :tangle user-init.el
+  (setq select-enable-primary t)
+#+END_SRC
+
+Large kill ring.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (setq kill-ring-max 500)
+#+END_SRC
+
+Undo bit by bit.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (setq evil-want-fine-undo "Yes")
+#+END_SRC
+
+Seems to be needed for evil to work with system clipboard
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (fset 'evil-visual-update-x-selection 'ignore)
+#+END_SRC
+
+Automatically save data copied from the system clipboard into the kill ring before killing Emacs data.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (setq save-interprogram-paste-before-kill t)
+#+END_SRC
+
+** Search/Replace
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (use-package anzu
+    :ensure t
+    :config
+    (global-anzu-mode)
+    (setq anzu-replace-to-string-separator " ⇒ "))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
-    (setq kill-ring-max 500)
-    (setq evil-want-fine-undo "Yes")
-
-    (setq-default
-     ;; When opening files follow all symbolic links.
-     find-file-visit-truename t
-     sentence-end-double-space nil
-     visible-bell t)
+  (global-set-key (kbd "M-%") #'anzu-query-replace)
+  (global-set-key (kbd "C-M-%") #'anzu-query-replace-regexp)
 #+END_SRC
 
-
+** Moving Around
+  C-l first position to top.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (setq recenter-positions '(top middle bottom))
+#+END_SRC
+** Gen
 Don't save duplicates in command history, search history etc.
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
   (setq history-delete-duplicates t)
 #+END_SRC
 
 ???
-
 #+BEGIN_SRC emacs-lisp :tangle user-init.el
   (setq exec-path-from-shell-check-startup-files nil)
 #+END_SRC
 
+** Terminal Emacs
+Let me right-click in terminal to show terminal menu.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (xterm-mouse-mode -1)
+#+END_SRC
+
 * Major Modes
+** Programming Mode
+
+Show fill column indicator.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (add-hook 'prog-mode-hook #'fci-mode)
+#+END_SRC
+
 ** Enacs Lisp
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
   (remove-hook 'emacs-lisp-mode-hook 'auto-compile-mode)
@@ -388,9 +442,16 @@ Next/Previous bookmark shortcuts
 #+END_SRC
 
 ** IBuffer
-Hide empty filter groups
+Initialise IBuffer
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
-  (setq ibuffer-show-empty-filter-groups nil)
+  (defun cnb/ibuffer-hook-fn ()
+    "HELP customizations."
+    (interactive)
+    (setq ibuffer-show-empty-filter-groups nil)
+    (ibuffer-auto-mode t)
+    (stripe-buffer-mode))
+
+  (add-hook 'ibuffer-mode-hooks #'cnb/ibuffer-hook-fn)
 #+END_SRC
 
 ** Recent Files Mode
@@ -423,6 +484,14 @@ Hide empty filter groups
   (advice-add 'swiper :after #'cnb/swiper-recenter)
   #+END_SRC
 
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (defun cnb/occur-mode-hook-fn ()
+    "Occur mode customizations."
+    (interactive)
+    (turn-on-stripe-buffer-mode))
+
+  (add-hook 'ivy-occur-grep-mode-hook #'cnb/occur-mode-hook-fn)
+#+END_SRC
 ** Projectile
    Cache project files for performance.
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
@@ -512,47 +581,3 @@ Set timezones for helm-world-time.
   (add-hook 'mouse-leave-buffer-hook #'kill-minibuffer)
 
   #+END_SRC
-
-* CLEANUP
-
-#+BEGIN_SRC emacs-lisp :tangle user-config.el
-
-  ;; (setq imenu-list-auto-resize nil)
-
-  ;; Let me right-click in terminal to show terminal menu.
-  (xterm-mouse-mode -1)
-
-  ;; (setq-default
-  ;;  ;; Always start a new tags list.
-  ;;  tags-add-tables nil
-
-  ;;  ;; When opening files follow all symbolic links.
-  ;;  find-file-visit-truename t
-
-  ;;  ;; I've got some TAGS files that are nearly 20MB in size.
-  ;;  large-file-warning-threshold 20000000
-
-  ;;  imenu-auto-rescan t
-
-
-  ;;  ;;browse-url-browser-function 'browse-url-firefox
-  ;;  ;; browse-url-browser-function 'browse-url-generic
-  ;;  ;; browse-url-generic-program "chromium-browser"
-  ;;  )
-
-
-
-  ;; ;; (global-set-key (kbd "TAB") 'company-indent-or-complete-common)
-
-  ;; My common mistakes.
-  (define-abbrev-table
-    'global-abbrev-table '(("teh" "the" nil 0)
-                           ("tehy" "they" nil 0)
-                           ("yuo" "you" nil 0)
-                           ("yuor" "your" nil 0)))
-  (setq-default abbrev-mode t)
-
-  ;; Seems to be needed for evil to work with system clipboard
-  (fset 'evil-visual-update-x-selection 'ignore)
-
-#+END_SRC

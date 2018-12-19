@@ -13,7 +13,7 @@
 (setq user-full-name "Colin Bell")
 ;; Me, Myself I:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:1]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Font%20Ligatures][Font Ligatures:1]]
 (defun my-correct-symbol-bounds (pretty-alist)
   "Prepend a TAB character to each symbol in this alist,
 this way compose-region called by prettify-symbols-mode
@@ -53,68 +53,110 @@ codepoints starting from codepoint-start."
   (prettify-symbols-mode))
 
 (add-hook 'prog-mode-hook #'my-set-prog-ligatures)
-;; Look and Feel:1 ends here
+;; Font Ligatures:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:3]]
-(setq-default fill-column 120)
-(add-hook 'prog-mode-hook #'fci-mode)
-;; Look and Feel:3 ends here
-
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:4]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Remove%20unnecessary%20clutter][Remove unnecessary clutter:1]]
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 (with-eval-after-load 'spaceline-segments
    (spaceline-toggle-minor-modes))
 (setq-default display-line-numbers-width nil)
-;; Look and Feel:4 ends here
+;; Remove unnecessary clutter:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:5]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Keep%20mouse%20cursor%20away%20from%20text%20pointer][Keep mouse cursor away from text pointer:1]]
 (mouse-avoidance-mode 'exile)
-;; Look and Feel:5 ends here
+;; Keep mouse cursor away from text pointer:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Flash%20frame%20instead%20of%20beeping][Flash frame instead of beeping:1]]
+(setq visible-bell t)
+;; Flash frame instead of beeping:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Evil][Evil:1]]
+(setq evil-goggles-pulse 'display-graphic-p)
+(setq evil-goggles-async-duration nil)
+(setq evil-goggles-blocking-duration nil)
+;; Evil:1 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Modeline.][Modeline.:1]]
 ;; (setq doom-modeline-buffer-file-name-style 'relative-from-project)
 ;; (setq doom-modeline-icon t)
 ;; Modeline.:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:2]]
-(setq recenter-positions '(top middle bottom))
-;; General:2 ends here
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Typography][Typography:1]]
+(setq-default fill-column 80)
+;; Typography:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:4]]
-(setq evil-goggles-pulse 'display-graphic-p)
-(setq evil-goggles-async-duration nil)
-(setq evil-goggles-blocking-duration nil)
-;; General:4 ends here
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Typography][Typography:2]]
+(setq colon-double-space nil)
+(setq sentence-end-double-space nil)
+;; Typography:2 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:5]]
-(add-hook 'after-save-hook
-          #'executable-make-buffer-file-executable-if-script-p)
-;; General:5 ends here
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Scratch%20Buffer][Scratch Buffer:1]]
+(with-current-buffer "*scratch*"
+  (emacs-lock-mode 'kill))
+;; Scratch Buffer:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:6]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Scratch%20Buffer][Scratch Buffer:2]]
 (use-package persistent-scratch
   :config
   (setq persistent-scratch-save-file
         (concat(file-name-as-directory spacemacs-cache-directory)
                "persistent-scratch"))
   (persistent-scratch-setup-default))
-;; General:6 ends here
+;; Scratch Buffer:2 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:7]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Files][Files:1]]
+(add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
+;; Files:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Files][Files:2]]
+(setq-default find-file-visit-truename t )
+;; Files:2 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Mark,%20Kill,%20Paste%20And%20Undo][Mark, Kill, Paste And Undo:2]]
 (setq kill-ring-max 500)
+;; Mark, Kill, Paste And Undo:2 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Mark,%20Kill,%20Paste%20And%20Undo][Mark, Kill, Paste And Undo:3]]
 (setq evil-want-fine-undo "Yes")
+;; Mark, Kill, Paste And Undo:3 ends here
 
-(setq-default
- ;; When opening files follow all symbolic links.
- find-file-visit-truename t
- sentence-end-double-space nil
- visible-bell t)
-;; General:7 ends here
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Mark,%20Kill,%20Paste%20And%20Undo][Mark, Kill, Paste And Undo:4]]
+(fset 'evil-visual-update-x-selection 'ignore)
+;; Mark, Kill, Paste And Undo:4 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:8]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Mark,%20Kill,%20Paste%20And%20Undo][Mark, Kill, Paste And Undo:5]]
+(setq save-interprogram-paste-before-kill t)
+;; Mark, Kill, Paste And Undo:5 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Search/Replace][Search/Replace:1]]
+(use-package anzu
+  :ensure t
+  :config
+  (global-anzu-mode)
+  (setq anzu-replace-to-string-separator " ⇒ "))
+;; Search/Replace:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Search/Replace][Search/Replace:2]]
+(global-set-key (kbd "M-%") #'anzu-query-replace)
+(global-set-key (kbd "C-M-%") #'anzu-query-replace-regexp)
+;; Search/Replace:2 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Moving%20Around][Moving Around:1]]
+(setq recenter-positions '(top middle bottom))
+;; Moving Around:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Gen][Gen:1]]
 (setq history-delete-duplicates t)
-;; General:8 ends here
+;; Gen:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Terminal%20Emacs][Terminal Emacs:1]]
+(xterm-mouse-mode -1)
+;; Terminal Emacs:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Programming%20Mode][Programming Mode:1]]
+(add-hook 'prog-mode-hook #'fci-mode)
+;; Programming Mode:1 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Enacs%20Lisp][Enacs Lisp:1]]
 (remove-hook 'emacs-lisp-mode-hook 'auto-compile-mode)
@@ -247,7 +289,14 @@ codepoints starting from codepoint-start."
 ;; Visual Bookmarks:1 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*IBuffer][IBuffer:1]]
-(setq ibuffer-show-empty-filter-groups nil)
+(defun cnb/ibuffer-hook-fn ()
+  "HELP customizations."
+  (interactive)
+  (setq ibuffer-show-empty-filter-groups nil)
+  (ibuffer-auto-mode t)
+  (stripe-buffer-mode))
+
+(add-hook 'ibuffer-mode-hooks #'cnb/ibuffer-hook-fn)
 ;; IBuffer:1 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Recent%20Files%20Mode][Recent Files Mode:1]]
@@ -276,6 +325,15 @@ codepoints starting from codepoint-start."
 
 (advice-add 'swiper :after #'cnb/swiper-recenter)
 ;; Ivy/Swiper:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Ivy/Swiper][Ivy/Swiper:2]]
+(defun cnb/occur-mode-hook-fn ()
+  "Occur mode customizations."
+  (interactive)
+  (turn-on-stripe-buffer-mode))
+
+(add-hook 'ivy-occur-grep-mode-hook #'cnb/occur-mode-hook-fn)
+;; Ivy/Swiper:2 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Projectile][Projectile:1]]
 (setq projectile-enable-caching t)
@@ -336,43 +394,3 @@ codepoints starting from codepoint-start."
     (evil-ex-search-exit)))
 (add-hook 'mouse-leave-buffer-hook #'kill-minibuffer)
 ;; Workarounds:1 ends here
-
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*CLEANUP][CLEANUP:1]]
-;; (setq imenu-list-auto-resize nil)
-
-;; Let me right-click in terminal to show terminal menu.
-(xterm-mouse-mode -1)
-
-;; (setq-default
-;;  ;; Always start a new tags list.
-;;  tags-add-tables nil
-
-;;  ;; When opening files follow all symbolic links.
-;;  find-file-visit-truename t
-
-;;  ;; I've got some TAGS files that are nearly 20MB in size.
-;;  large-file-warning-threshold 20000000
-
-;;  imenu-auto-rescan t
-
-
-;;  ;;browse-url-browser-function 'browse-url-firefox
-;;  ;; browse-url-browser-function 'browse-url-generic
-;;  ;; browse-url-generic-program "chromium-browser"
-;;  )
-
-
-
-;; ;; (global-set-key (kbd "TAB") 'company-indent-or-complete-common)
-
-;; My common mistakes.
-(define-abbrev-table
-  'global-abbrev-table '(("teh" "the" nil 0)
-                         ("tehy" "they" nil 0)
-                         ("yuo" "you" nil 0)
-                         ("yuor" "your" nil 0)))
-(setq-default abbrev-mode t)
-
-;; Seems to be needed for evil to work with system clipboard
-(fset 'evil-visual-update-x-selection 'ignore)
-;; CLEANUP:1 ends here

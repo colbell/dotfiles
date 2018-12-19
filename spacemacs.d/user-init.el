@@ -8,28 +8,28 @@
 ;;; -----------------------------------------------
 ;; Editing warning:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Look%20and%20Feel][Look and Feel:2]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Themes][Themes:1]]
 (setq solarized-scale-org-headlines t)
 (setq solarized-use-variable-pitch t)
 (setq solarized-high-contrast-mode-line nil)
-;; Look and Feel:2 ends here
+;; Themes:1 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Modeline.][Modeline.:2]]
 (spacemacs/set-default-font dotspacemacs-default-font)
 ;; Modeline.:2 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:1]]
-(setq select-enable-primary t)
-;; General:1 ends here
-
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:3]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Customize][Customize:1]]
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file)
-;; General:3 ends here
+;; Customize:1 ends here
 
-;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*General][General:9]]
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Mark,%20Kill,%20Paste%20And%20Undo][Mark, Kill, Paste And Undo:1]]
+(setq select-enable-primary t)
+;; Mark, Kill, Paste And Undo:1 ends here
+
+;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Gen][Gen:2]]
 (setq exec-path-from-shell-check-startup-files nil)
-;; General:9 ends here
+;; Gen:2 ends here
 
 ;; [[file:~/dotfiles/spacemacs.d/spacemacs.org::*Source%20Control][Source Control:1]]
 (setq-default git-magit-status-fullscreen t)
