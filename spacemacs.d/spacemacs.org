@@ -78,6 +78,13 @@ Place a warning in the generated .el files.
 ** Font Ligatures
 Apply ligatures to Fira Code.
 
+Set Spacemacs font in init.el
+#+BEGIN_SRC emacs-lisp :tangle no
+  (setq-default
+    dotspacemacs-default-font '(("Fira Code" :size 14) ("Fira Code Symbol" :size 14))
+  )
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
   (defun my-correct-symbol-bounds (pretty-alist)
     "Prepend a TAB character to each symbol in this alist,
